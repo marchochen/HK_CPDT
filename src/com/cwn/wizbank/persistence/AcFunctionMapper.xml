@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.AcFunctionMapper">
+	
+	
+	<sql id="page_where">
+		<where>
+		</where>
+	</sql>
+	
+	<select id="getCount" resultType="java.lang.Integer" parameterType="Map">
+	    <![CDATA[
+	        select count(*) from acFunction t 
+	    ]]>
+	    <include refid="page_where"/>
+	</select>
+
+	
+	<select id="get" resultType="AcFunction" parameterType="int">
+		<![CDATA[
+			select 
+				ftn_id,
+				ftn_ext_id,
+				ftn_level,
+				ftn_type,
+				ftn_creation_timestamp,
+				ftn_tc_related,
+				ftn_status,
+				ftn_assign,
+				ftn_parent_id,
+				ftn_order
+			from acFunction t
+			where
+				 t.ftn_id = #{ftn_id}
+		]]>
+	</select>
+	
+	<select id="getByExtId" resultType="AcFunction" parameterType="java.lang.String">
+		<![CDATA[
+			select 
+				ftn_id,
+				ftn_ext_id,
+				ftn_level,
+				ftn_type,
+				ftn_creation_timestamp,
+				ftn_tc_related,
+				ftn_status,
+				ftn_assign,
+				ftn_parent_id,
+				ftn_order
+			from acFunction 
+			where
+				 ftn_ext_id = #{id}
+		]]>
+	</select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.AcFunction">
+	    <![CDATA[
+	        update acFunction
+	        set 
+				ftn_id = #{ftn_id,jdbcType=INTEGER},
+				ftn_ext_id = #{ftn_ext_id,jdbcType=VARCHAR},
+				ftn_level = #{ftn_level,jdbcType=VARCHAR},
+				ftn_type = #{ftn_type,jdbcType=VARCHAR},
+				ftn_creation_timestamp = #{ftn_creation_timestamp,jdbcType=DATE},
+				ftn_tc_related = #{ftn_tc_related,jdbcType=VARCHAR},
+				ftn_status = #{ftn_status,jdbcType=VARCHAR},
+				ftn_assign = #{ftn_assign,jdbcType=VARCHAR},
+				ftn_order = #{ftn_order,jdbcType=INTEGER},
+				ftn_parent_id = #{ftn_parent_id,jdbcType=INTEGER}
+	         where t.ftn_id = #{ftn_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.AcFunction">
+    	<![CDATA[
+            insert into acFunction(
+            		ftn_ext_id,
+            		ftn_level,
+            		ftn_type,
+            		ftn_creation_timestamp,
+            		ftn_tc_related,
+            		ftn_status,
+            		ftn_assign,
+            		ftn_parent_id,
+            		ftn_order
+            ) values (
+            	#{ftn_ext_id,jdbcType=VARCHAR},
+            	#{ftn_level,jdbcType=VARCHAR},
+            	#{ftn_type,jdbcType=VARCHAR},
+            	#{ftn_creation_timestamp,jdbcType=DATE},
+            	#{ftn_tc_related,jdbcType=VARCHAR},
+            	#{ftn_status,jdbcType=VARCHAR},
+            	#{ftn_assign,jdbcType=VARCHAR},
+                #{ftn_parent_id,jdbcType=INTEGER},
+            	#{ftn_order,jdbcType=INTEGER}
+            	
+            )
+        ]]>
+    </insert>
+    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from acFunction where
+	        ftn_id = #{ftn_id}
+	    ]]>
+    </delete>
+	
+	<select id="getAllFunctions" resultType="AcFunction" parameterType="String">
+	         select 
+				ftn_id,
+				ftn_ext_id,
+				ftn_level,
+				ftn_type,
+				ftn_creation_timestamp,
+				ftn_tc_related,
+				ftn_status,
+				ftn_assign,
+				ftn_parent_id,
+				ftn_order
+			from acFunction
+			<if test="_parameter != null and _parameter != ''">
+			inner join acRoleFunction on ftn_id = rfn_ftn_id
+			inner join acRole on rfn_rol_id = rol_id
+			where rol_ext_id = #{_parameter} and ftn_status = 1
+			</if>
+	</select>
+	
+	<delete id="deleteAll" >
+		delete from acFunction
+	</delete>	
+	
+	<delete id="truncate">
+		TRUNCATE TABLE acFunction
+	</delete>
+	
+</mapper>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html ng-app="Barcode">
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+		<title></title>
+		<script type="text/javascript" src="../lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.load.js"></script>
+		<script type="text/javascript" src="../lib/common.js"></script>
+		<style type="text/css">
+			#bcid {
+				width: 100%;
+				position: absolute;
+				top: 0px;
+				bottom: 44px;
+				text-align: center;
+			}
+			.tip {
+				color: #FFFFFF;
+				font-weight: bold;
+				text-shadow: 0px -1px #103E5C;
+			}
+			footer {
+				width: 100%;
+				height: 44px;
+				position: absolute;
+				bottom: 0px;
+				line-height: 44px;
+				text-align: center;
+				color: #FFF;
+			}
+			.fbt {
+				width: 100%;
+				height: 100%;
+				background-color: #FFCC33;
+				float: left;
+			}
+			.fbt:active {
+			  	-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5);
+				box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5);
+			}
+		</style>
+	</head>
+	<body style="background-color: #000000;margin: 0;" ng-controller="BarcodeController">
+		<div id="bcid">
+			<br/><br/><br/><br/><br/>
+			<p class="tip"  translate="scan_content"></p>
+		</div>
+		<footer>
+			<div class="fbt" ng-click="cancel()" translate="scan_cancel"></div>
+		</footer>
+	</body>
+
+	<script type="text/javascript">
+	
+		$.include([], '../');
+		
+		var ws = null , scan = null;
+		
+		$(function(){
+			
+			var module = angular.module("Barcode",['globalCwn']);
+			module.controller("BarcodeController",['Ajax','dialogService','$filter','$scope',function(Ajax,dialogService,$filter,$scope){
+				
+				var plusReady = function(){
+					ws = plus.webview.currentWebview();
+					// 开始扫描
+					scan=new plus.barcode.Barcode('bcid');
+				    scan.onmarked=function(type,result,file){
+				    	switch(type){
+					    	case plus.barcode.QR:
+					    	type = "QR";
+					    	break;
+					    	case plus.barcode.EAN13:
+					    	type = "EAN13";
+					    	break;
+					    	case plus.barcode.EAN8:
+					    	type = "EAN8";
+					    	break;
+					    	default:
+					    	type = "其它";
+					    	break;
+					    }
+					    var itmId = result.replace(/\n/g, '');
+					    qianDao(itmId);
+				    };
+				    scan.start({conserve:true,filename:"_doc/barcode/"});
+				};
+				
+				if(window.plus){
+					plusReady();
+				}else{
+					document.addEventListener("plusready",plusReady,false);
+				}
+				
+				//签到
+				function qianDao(itmId){
+					var re = /^\d+$/;
+					if(re.test(itmId)){
+						var waiting=plus.nativeUI.showWaiting();
+						Ajax.post('/app/user/qiandao/' + itmId, {isMobile : 1}, function(data){
+							waiting.close();
+							if(window.plus){
+								plus.nativeUI.toast($filter('translate')(data.msg));
+							}else{
+								document.addEventListener("plusready",function(){
+									plus.nativeUI.toast($filter('translate')(data.msg));
+								},false);
+							}
+							if(ws){
+								ws.close();
+							}
+						})
+					} else {
+						plus.nativeUI.toast($filter('translate')('qiandao_invalid_QRcode'));
+					}
+				}
+				
+				$scope.cancel = function(){
+					if(scan){
+						scan.cancel();
+					}
+					back();
+				};
+				
+			}]);
+			
+		});
+	
+	</script>
+
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html ng-app="personal">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/PersonalController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="collectController">
+	<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+
+	<div class="wrap" id="wizwrap">
+		<header class="header mm-background">
+		    <a class="header-back" href="javascript:back();" title="back"><!-- 返回 --></a>
+		    <span class="header-title">{{ 'personal_collect' | translate }}<!--收藏--></span>
+		    <a class="header-sosuo-er" href="{{{url:'../search/search.html'} | appUrl}}" title="search"><!--搜索--><!-- <span class="sou-icon" translate="btn_search"></span> --></a>
+		</header> <!-- header End -->
+		
+		<wzm-docker rp="../../" target="my"></wzm-docker>
+		
+		<section class="content-2">
+
+			<!-- panel-list-box start -->
+            <div class="panel-list-box" style="margin:0;">
+                <!-- panel-tab-1 start -->
+                <div class="panel-tab-1 pub-tab">
+                  <tabs css="2">      
+                            
+	                <!-- panel-tabcont-2 start 公开课-->
+				    <pane title="{{ 'openCourse' | translate}}" style="panel-tabcont-2 pub-tabcont" select="!(showType && showType == 'kn')">
+		                <div class="panel-tabcont-2 pub-tabcont" >
+							<ul class="panel-list-1-3 clearfix" ng-if="openCourseList && openCourseList.items && openCourseList.items.length>0">
+		                        <li ng-repeat=" course in openCourseList.items" ng-show="{{openCourseList.items != null}}">
+		                            <a class="panel-list-cont-1" href="javascript:clicked('../course/openDetail.html?itmId={{course.encItmId}}',true)" title="">
+		                               <div class="list-pic-1">
+							                  <img ng-src="{{serverHost + course.itm_icon}}" alt="" />
+							                  <div class="sub-filter-1"><div class="sub-info-1">{{course.itm_title}}</div></div>
+							             </div>
+		                            </a>
+		                              
+		                            <div class="list-tool-1">
+							               <!-- <span class="list-tool-1-laud">{{course.snsCount && course.snsCount.s_cnt_like_count ? course.snsCount.s_cnt_like_count : '0'}}</span> -->
+							               <!-- <span class="list-tool-1-review">{{course.cnt_comment_count}}</span> -->
+							               <a ng-if="isMeInd" href="javascript:;" class="list-tool-1-close" ng-click="cancelCollect('Course',course.encItmId,$event);"></a>
+							         </div>
+		                        </li>
+		                       </ul>
+							<div loader="openCourseList"></div>
+						</div> <!-- panel-tabcont-2 End -->
+					</pane>
+					
+					<!-- panel-tabcont-2 start 课程 -->
+					<pane title="{{ 'course' | translate}}" style="panel-tabcont-2 pub-tabcont"  select="showType && showType == 'kn'">
+		                <div class="panel-tabcont-2 pub-tabcont">
+		                    <div class="tuwen-list-1" ng-repeat=" course in courseList.items" style="{{$index == 0?'border-top:0;':''}}">
+		                        <div class="tuwen-list-1-box clearfix"  forward="{itmId : course.encItmId, examInd : 'true'} | courseUrl">
+		                            <a class="tuwen-list-1-pic">
+		                                <img ng-src="{{serverHost + course.itm_icon}}" alt=""/>
+		                                <span class="{{cur_lan_en=='en-us'?'list-tool-1-bixiu-e':'list-tool-1-bixiu'}}" ng-if="course.itd && course.itd.itd_compulsory_ind == 1"></span>
+				                        <span class="{{course.cla}}"></span>
+		                            </a>  
+		                            <div class="marginl"> 
+			                            <div class="tuwen-list-1-tit-1" forward="{itmId : course.itm_id, examInd : 'true'} | courseUrl"><i class="wzb-pc-icon"></i><i class="wzb-phone-icon" ng-show="course.itm_mobile_ind && course.itm_mobile_ind == 'yes'"></i>{{course.itm_title}}</div>
+			                            <div class="tuwen-list-tool">
+			                                <!-- <span class="list-tool-1-laud">{{course.snsCount && course.snsCount.s_cnt_like_count ? course.snsCount.s_cnt_like_count : '0'}}</span> -->
+								            <!-- <span class="list-tool-1-review">{{course.cnt_comment_count}}</span> -->
+								            <a ng-if="isMeInd" href="javascript:;" class="list-tool-1-close" ng-click="cancelCollect('Course',course.itm_id,$event);"></a>
+			                            </div>
+			                        </div>
+		                        </div>
+		                    </div>
+		                    <div loader="courseList"></div>
+						</div> <!-- panel-tabcont-2 End -->
+                    </pane>
+                    
+					<!-- panel-tabcont-2 start 资讯-->
+                    <pane title="{{ 'article' | translate }}" style="panel-tabcont-2 pub-tabcont">
+		                <div class="panel-tabcont-2 pub-tabcont" ng-show="articleList.items && articleList.items.length>0">
+					         <div class="tuwen-list-1" ng-repeat="article in articleList.items" forward="article.enc_art_id | articleUrl :'new'" style="{{$index == 0?'border-top:0;':''}}">
+					             <div class="tuwen-list-1-box clearfix">
+					                 <a class="tuwen-list-1-pic">
+					                     <img ng-src="{{serverHost}}{{article.art_icon_file}}"/>
+					                 </a>   
+		                            <div class="marginl"> 
+						                 <div class="tuwen-list-1-tit-1" forward="article.art_id | articleUrl :'new'">{{article.art_title}}</div>
+						                 <p>{{article.art_create_datetime}}</p>
+						                 <div class="tuwen-list-tool">
+						                     <!-- <span class="list-tool-1-laud">{{article.snsCount ? article.snsCount.s_cnt_like_count ? article.snsCount.s_cnt_like_count : 0 : 0}}</span> -->
+						      				 <!-- <span class="list-tool-1-review">{{article.art_comment_count?article.art_comment_count:0}}</span> -->
+						      				 <a ng-if="isMeInd" class="list-tool-1-close" ng-click="cancelCollect('Article',article.art_id,$event);"></a>
+						                 </div>
+						            </div>
+					             </div>
+					         </div>
+						</div> <!-- panel-tabcont-2 End -->
+						<div loader="articleList"></div>
+					</pane>
+					
+					<!-- panel-tabcont-2 start 知识中心-->
+<!-- 					<pane title="{{ 'knowledge' | translate }}" style="panel-tabcont-2 pub-tabcont" select="showType && showType == 'kn'">
+		                <div class="panel-tabcont-2 pub-tabcont">
+		                    <div class="tuwen-list-1" style="{{$index == 0?'border-top:0;':''}}" ng-repeat=" knowledge in knowledgeList.items" >
+		                        <div class="tuwen-list-1-box clearfix"   title="" forward=" knowledge.enc_kbi_id | kbDetailUrl : 'true'">
+		                            <a class="tuwen-list-1-pic" href="javascript:;">
+		                                <img ng-src="{{serverHost}}{{knowledge.imageAttachment.kba_url}}" alt=""/>
+		                                <span class="list-tool-1-doctype {{knowledge.info.cla}}">{{knowledge.info.title}}</span>
+		                            </a>   	
+		                            <div class="marginl">                          
+			                            <div class="tuwen-list-1-tit-1" forward=" knowledge.kbi_id | kbDetailUrl : 'true'">{{knowledge.kbi_title}}</div>
+			                            <p ng-bind="knowledge.kbi_publish_datetime | toDate"></p>
+				                        <a class="list-tool-1-laud" style="margin-left: -1px;">{{knowledge.snsCount.s_cnt_like_count ? knowledge.snsCount.s_cnt_like_count : '0'}}</a>
+						                <a class="list-tool-1-review" style="margin-left: -1px;">{{knowledge.kbi_comment_count}}</a>
+			                            <a ng-if="isMeInd" class="list-tool-1-close" ng-click="cancelCollect('Knowledge',knowledge.kbi_id,$event);"></a>
+			                            <p class="tuwen-list-1-tit-3">{{knowledge.kbi_publish_datetime}}</p>
+			                       	</div>
+		                        </div>
+		                    </div>
+		                    <div loader="knowledgeList"></div>
+		                </div> panel-tabcont-2 End
+					</pane> -->
+				</tabs>
+			</div>
+          </div> <!-- panel-list-box End -->
+		</section> <!-- content End -->
+	</div> <!-- wrap End -->
+
+</body>
+</html>

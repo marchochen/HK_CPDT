@@ -1,0 +1,26 @@
+<tcr_module_lst>
+    <tcr_module_left>
+		<tcr_module tm_code = "APPROVE_DEMAND" tm_title_gb = "所有审批要求" tm_title_ch = "所有審批要求" tm_title_en = "All Request"/>
+		<tcr_module tm_code = "RESEARCH_QUESTIONNAIRE" tm_title_gb = "调查问卷" tm_title_ch = "調查問卷" tm_title_en = "Questionnaire"/>
+		<tcr_module tm_code = "ABILITY_EVALUATE_QUESTIONNAIRE" tm_title_gb = "能力评定问卷" tm_title_ch = "能力評定問卷" tm_title_en = "Appraisal Forms"/>
+		<tcr_module tm_code = "PUBLIC_NOTICE" tm_title_gb = "公告" tm_title_ch = "公告" tm_title_en = "Announcements"/>
+		<tcr_module tm_code = "TRANING_CATALOG" tm_title_gb = "选课中心" tm_title_ch = "選課中心" tm_title_en = "Training Catalog"/>
+		<tcr_module tm_code = "ONELINE_ANSWERS" tm_title_gb = "在线问答" tm_title_ch = "在線問答" tm_title_en = "Answers"/>
+		<tcr_module tm_code = "KNOWLEDGE_CENTER" tm_title_gb = "知识中心" tm_title_ch = "知識中心" tm_title_en = "Knowledge Center"/>
+	</tcr_module_left>
+	<tcr_module_centre>
+		<tcr_module tm_code = "USER_POSTER" tm_title_gb = "宣传栏" tm_title_ch = "宣傳欄" tm_title_en = "Poster Management"/>
+		<tcr_module tm_code = "INTEGRATED_TRANING" tm_title_gb = "集成培训" tm_title_ch = "集成培訓" tm_title_en = "Integrated Traning"/>
+		<tcr_module tm_code = "LEARNING_CENTRE" tm_title_gb = "学习中心" tm_title_ch = "學習中心" tm_title_en = "Learning centre"/>
+		<tcr_module tm_code = "EXAM_CENTRE" tm_title_gb = "测试中心" tm_title_ch = "測試中心" tm_title_en = "Exam centre"/>
+		<tcr_module tm_code = "STUDY_GROUP" tm_title_gb = "学习小组" tm_title_ch = "學習小組" tm_title_en = "Study group"/>
+	</tcr_module_centre>
+	<tcr_module_right>
+	    <tcr_module tm_code = "SYSTEM_INFORS" tm_title_gb = "系统信息" tm_title_ch = "系統信息" tm_title_en = "System Message"/>
+	    <tcr_module tm_code = "PRIVATE_INFORS" tm_title_gb = "个人信息" tm_title_ch = "個人信息" tm_title_en = "Personal Profile"/>
+	    <tcr_module tm_code = "CREDIT_RANKING" tm_title_gb = "积分排行版" tm_title_ch = "積分排行榜" tm_title_en = "Credit Ranking"/>
+	    <tcr_module tm_code = "TRANING_RANKING" tm_title_gb = "培训排行榜" tm_title_ch = "培訓排行榜" tm_title_en = "Traning ranking"/>
+	    <tcr_module tm_code = "FRIEND_LINK" tm_title_gb = "友情链接" tm_title_ch = "友情鏈接" tm_title_en = "Friend link"/>
+	    <tcr_module tm_code = "QQ_CONSULTATION" tm_title_gb = "QQ 咨询" tm_title_ch = "QQ 咨询" tm_title_en = "QQ consultation"/>
+	</tcr_module_right>
+</tcr_module_lst>

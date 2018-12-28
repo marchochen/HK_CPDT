@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.ItemTargetLrnDetailMapper">
+	<select id="getByUserItemId" resultType="ItemTargetLrnDetail" parameterType="Map">
+		<![CDATA[
+			select 
+				itd_itm_id,
+				itd_usr_ent_id,
+				itd_group_ind,
+				itd_grade_ind,
+				itd_position_ind,
+				itd_compulsory_ind
+			from ItemTargetLrnDetail t 
+			where
+				 t.itd_itm_id = #{itmId} and t.itd_usr_ent_id = #{userEntId}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.ItemTargetLrnDetail">
+	    <![CDATA[
+	        update ItemTargetLrnDetail t 
+	        set 
+				itd_itm_id = #{itd_itm_id,jdbcType=INTEGER},
+				itd_usr_ent_id = #{itd_usr_ent_id,jdbcType=INTEGER},
+				itd_group_ind = #{itd_group_ind,jdbcType=INTEGER},
+				itd_grade_ind = #{itd_grade_ind,jdbcType=INTEGER},
+				itd_position_ind = #{itd_position_ind,jdbcType=INTEGER},
+				itd_compulsory_ind = #{itd_compulsory_ind,jdbcType=INTEGER}
+	         where t.itd_itm_id = #{itd_itm_id,jdbcType=INTEGER}
+	    ]]>
+	</update>
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.ItemTargetLrnDetail">
+    	<![CDATA[
+            insert into ItemTargetLrnDetail(
+            		itd_itm_id,
+            		itd_usr_ent_id,
+            		itd_group_ind,
+            		itd_grade_ind,
+            		itd_position_ind,
+            		itd_compulsory_ind
+            ) values (
+                #{itd_itm_id,jdbcType=INTEGER},
+            	#{itd_usr_ent_id,jdbcType=INTEGER},
+            	#{itd_group_ind,jdbcType=INTEGER},
+            	#{itd_grade_ind,jdbcType=INTEGER},
+            	#{itd_position_ind,jdbcType=INTEGER},
+            	#{itd_compulsory_ind,jdbcType=INTEGER}
+            )
+        ]]>
+	</insert>
+	<delete id="delete" parameterType="Map">
+	    <![CDATA[
+	   	delete from ItemTargetLrnDetail where
+	        itd_itm_id = #{itd_itm_id}  and t.itd_usr_ent_id = #{itd_usr_ent_id}
+	    ]]>
+	</delete>
+	<select id="selectAll" resultType="ItemTargetLrnDetail">
+	    <![CDATA[
+	         select 
+				itd_itm_id,
+				itd_usr_ent_id,
+				itd_group_ind,
+				itd_grade_ind,
+				itd_position_ind,
+				itd_compulsory_ind
+			from ItemTargetLrnDetail t 
+	    ]]>
+	</select>
+	<select id="getRecommend" resultType="ItemTargetLrnDetail"
+		parameterType="Page">
+	<!-- 已报名的课程/班级, 如果在同一课程/班级上推荐多次 会有多条记录出现 -->
+	select 
+	    itm_id AS "item.itm_id",
+	    itd_usr_ent_id ,
+	    itd_group_ind ,
+	    itd_grade_ind ,
+	    itd_position_ind ,
+	    itd_compulsory_ind ,
+	    app_nominate_type AS "app.app_nominate_type",
+	    itm_title AS "item.itm_title",
+	    itm_mobile_ind AS "item.itm_mobile_ind",
+	    itm_desc AS "item.itm_desc",
+	    itm_icon AS "item.itm_icon",
+	    itm_type AS "item.itm_type",
+	    itm_exam_ind AS "item.itm_exam_ind",
+	    itm_run_ind AS "item.itm_run_ind", 
+	    itm_create_run_ind AS "item.itm_create_run_ind", 
+	<!--     离线课程值 -->
+	    app_tkh_id AS "app.app_tkh_id",
+	    app_status AS "app.app_status",
+	    cov_commence_datetime AS "cov.cov_commence_datetime",
+	    cov_last_acc_datetime AS "cov.cov_last_acc_datetime",
+	    cov_progress AS "cov.cov_progress",
+	    itm_publish_timestamp AS "item.itm_publish_timestamp"
+	    from
+	(
+	select 
+	    itm_id,
+	    app_ent_id itd_usr_ent_id ,
+	    itd_group_ind ,
+	    itd_grade_ind ,
+	    itd_position_ind ,
+	    itd_compulsory_ind ,
+	    app_nominate_type,
+	    itm_title,
+	    itm_desc,
+	    itm_mobile_ind,
+	    itm_icon,
+	    itm_type,
+	    itm_exam_ind,
+	    itm_run_ind, 
+	    itm_create_run_ind, 
+	    itm_tcr_id,
+	    itm_integrated_ind,
+	    
+	<!--     离线课程值 -->
+	    app_tkh_id,
+	
+	    (case when cov_status is not null then cov_status else app.app_status end) app_status,
+	    cov_commence_datetime,
+	    cov_last_acc_datetime,
+	    cov_progress,
+	    itm_status,
+	    itm_publish_timestamp
+	    from aeItem itm
+	    inner join aeApplication app on (app.app_itm_id = itm.itm_id and app_ent_id = #{params.userEntId})
+	    left join courseevaluation on(app_tkh_id = cov_tkh_id)
+	    left join ItemTargetLrnDetail on(itd_itm_id = itm_id and itd_usr_ent_id = #{params.userEntId})
+	    where (itd_group_ind > 0 or itd_grade_ind > 0 or  itd_grade_ind > 0 or itd_position_ind > 0 or app_nominate_type = 'SUP' or app_nominate_type = 'TADM')
+	        and app_id in(
+	        	select max(app_id ) from aeApplication where 
+	               	app_itm_id = itm_id
+	                and app_ent_id = #{params.userEntId}
+	                group by app_itm_id 
+	         )
+	        and itm_status = 'ON' and app_ent_id = #{params.userEntId}
+	  union all
+	<!--  未报名的课程 -->
+	   select 
+	    itm_id,
+	    itd_usr_ent_id,
+	    itd_group_ind ,
+	    itd_grade_ind ,
+	    itd_position_ind ,
+	    itd_compulsory_ind ,
+	    null app_nominate_type,
+	    itm_title,
+	    itm_desc,
+	    itm_mobile_ind,
+	    itm_icon,
+	    itm_type,
+	    itm_exam_ind,
+	    itm_run_ind,
+	    itm_create_run_ind,
+	    itm_tcr_id,
+	    itm_integrated_ind,
+	    0 app_tkh_id,
+	    null app_status,
+	    null cov_commence_datetime,
+	    null cov_last_acc_datetime,
+	    null cov_progress,
+	    itm_status,
+	    itm_publish_timestamp
+	    from aeItem 
+	    inner join ItemTargetLrnDetail on(itd_itm_id = itm_id  and itd_usr_ent_id = #{params.userEntId})
+	    where ((itm_apply_ind = 1 and itm_create_run_ind = 0 and itm_run_ind = 0) or itm_create_run_ind = 1) 
+	    and itm_status = 'ON'  
+	<!--      排除掉已报名的课程 -->
+	    and not exists (select app_itm_id from aeApplication where app_itm_id = itm_id and app_ent_id = #{params.userEntId})
+	    and (itd_group_ind > 0 or itd_grade_ind > 0 or  itd_grade_ind > 0 or itd_position_ind > 0 )
+      ) t
+      		
+		where
+<!-- 		1=1 -->
+		itd_usr_ent_id = #{params.userEntId}
+		
+		<if test="params.showMobileOnly != null and params.showMobileOnly"><!-- 是不是只获取发布到移动端的课程 -->
+			and itm_mobile_ind = 'yes'
+		</if>
+		
+		<if test="params.selectType != null">
+			<choose>
+				<!-- 用户组推荐 -->
+				<when test="params.selectType == 'group'">
+					and	itd_group_ind = 1
+				</when>
+				<!-- 职级推荐 -->
+				<when test="params.selectType == 'grade'">
+					and	itd_grade_ind = 1
+				</when>
+				<!-- 岗位推荐 -->
+				<when test="params.selectType == 'position'">
+					and	itd_position_ind = 1
+				</when>
+				<when test="params.selectType == 'sup'">
+					and	app_nominate_type = 'SUP'
+				</when>
+				<when test="params.selectType == 'tadm'">
+					and	app_nominate_type = 'TADM'
+				</when>
+			</choose>
+		</if>
+
+		<if test="params.itemType != null">
+			<choose>
+				<!-- 网上课程 -->
+				<when test="params.itemType == 'selfstudy'">
+					and itm_create_run_ind = 0 and itm_run_ind = 0 and itm_integrated_ind = 0 
+				</when>
+				<!-- 面授课程 -->
+				<when test="params.itemType == 'classroom'">
+					and (itm_create_run_ind = 1 or itm_run_ind = 1) and itm_integrated_ind = 0
+				</when>
+				<!-- 项目式课程 -->
+				<when test="params.itemType == 'integrated'">
+					and itm_integrated_ind = 1 
+				</when>
+			</choose>
+		</if>
+		
+		<if test="params.appStatus != null and params.appStatus != ''">
+		    <choose>
+		        <when test="params.appStatus == 'pending'">
+			        and (app_status = 'Pending' or app_status ='Waiting')
+			    </when>
+			    <when test="params.appStatus == 'notapp'">
+			        and (app_status is null or app_status = 'W' or app_status = 'Rejected')
+			    </when>
+			    <when test="params.appStatus == 'completed'">
+			        and app_status = 'C'
+			    </when>
+			    <when test="params.appStatus == 'inprocessed'">
+			        and app_status = 'I'
+			    </when>
+			    <otherwise>
+		            and app_status = #{params.appStatus}
+		        </otherwise>
+		    </choose>
+		</if>
+		
+		<if test="params.isCompulsory != null and params.isCompulsory != '' ">
+			<choose>
+				<when test="params.isCompulsory &lt; 1">
+				    and (itd_compulsory_ind = 0 or itd_compulsory_ind is null)
+				</when>
+				<otherwise>
+				    and itd_compulsory_ind = 1
+				</otherwise>
+			</choose>
+		</if>
+		
+		<!-- 是否为考试 -->
+		<choose>
+		    <when test="params.isExam != null and params.isExam > 0">
+		    	and	itm_exam_ind = #{params.isExam}
+			</when>
+			<otherwise>
+		    	and	itm_exam_ind = 0
+			</otherwise>
+		</choose>
+
+		<!-- 已经发布 -->
+		and itm_status ='ON' 
+		
+		and itm_id in (
+			<include refid="com.cwn.wizbank.persistence.BaseMapper.courseAuthorityNoTcrId"/>
+		)
+		
+		order by "item.itm_publish_timestamp" desc
+
+	</select>
+</mapper>

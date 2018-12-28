@@ -1,0 +1,37 @@
+<template>
+	<field01 name="Code" type="text" size="20" required="yes" paramname="itm_code" addSrhContent="true"/>
+	<field02 name="Title" type="text" size="200" required="yes" paramname="itm_title" addSrhContent="true"/>
+	<field04 name="Language medium" type="text" size="500" required="no" addSrhContent="true"/>
+	<field06 name="Summary" type="textarea" size="2000" required="no" paramname="itm_desc" addSrhContent="true"/>
+	<field07 name="Contents" type="textarea" size="4000" required="no" addSrhContent="true"/>
+	<field09 name="Target audience" type="textarea" size="4000" required="no" addSrhContent="true"/>
+	<field13 name="Reference URLs" required="no" addSrhContent="true">
+		<subfield_list>
+			<subfield id="1" name="URL 1" type="url" size="500" required="no"/>
+			<subfield id="2" name="URL 2" type="url" size="500" required="no"/>
+			<subfield id="3" name="URL 3" type="url" size="500" required="no"/>
+			<subfield id="4" name="URL 4" type="url" size="500" required="no"/>
+			<subfield id="5" name="URL 5" type="url" size="500" required="no"/>
+		</subfield_list>
+	</field13>
+	<field14 name="Remarks" type="textarea" size="4000" required="no" addSrhContent="true"/>
+	<field21 name="Author" type="text" size="500" required="no" addSrhContent="true"/>
+	<field22 name="Serial number" type="text" size="500" required="no" addSrhContent="true"/>
+	<field23 name="ISBN" type="text" size="500" required="no" addSrhContent="true"/>
+	<field24 name="Publisher" type="text" size="500" required="no" addSrhContent="true"/>
+	<field25 name="Year" type="text" size="500" required="no" addSrhContent="true"/>
+	<field26 name="Edition" type="text" size="500" required="no" addSrhContent="true"/>
+	<field27 name="Number of pages" type="text" size="500" required="no" addSrhContent="true"/>
+	<field28 name="Level" type="text" size="500" required="no" addSrhContent="true"/>
+	<field29 name="Snapshots" required="no">
+		<subfield_list>
+			<subfield id="1" name="File 1" type="file" required="no" paramname="file1"/>
+			<subfield id="2" name="File 2" type="file" required="no" paramname="file2"/>
+			<subfield id="3" name="File 3" type="file" required="no" paramname="file3"/>
+			<subfield id="4" name="File 4" type="file" required="no" paramname="file4"/>
+			<subfield id="5" name="File 5" type="file" required="no" paramname="file5"/>
+		</subfield_list>
+	</field29>
+	<field99 name="Icon" type="image" required="no" paramname="itm_icon"/>
+	<field98 name="Plan Code" type="text" required="no" paramname="itm_plan_code"/>
+</template>

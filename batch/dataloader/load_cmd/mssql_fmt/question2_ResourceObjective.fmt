@@ -1,0 +1,4 @@
+8.0
+2
+1	SQLNCHAR	0	0	"\t\0"		1	rob_res_id	""
+2	SQLNCHAR	0	0	"\r\0\n\0"	2	rob_obj_id	""

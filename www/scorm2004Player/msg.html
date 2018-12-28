@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript" charset="utf-8" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/jquery.ztree.core-3.5.js"></script>
+<script language="javascript" type="text/javascript">
+
+
+
+//--SCORM2004 父窗口代码开始-------------   
+	var adapterStr="";
+	var postStr="";
+
+    //读取课件学习记录
+	function readCourseInfo(opStr){
+		var adapterURL = getScormCmiUr2004();
+		
+		if(opStr!=""){
+			adapterStr="";
+			//window.open(adapterURL+"adapterInfo.jsp?"+opStr);
+		   $.ajax({
+				 type: "post",
+				 url: adapterURL,
+				 cache: false,
+				 data: opStr,
+				 success: function(msg){ 
+					 adapterStr=msg;
+				 },
+				 dataType: "text",
+				 error : function() {       
+					 adapterStr="";    
+				 }
+			});
+			//alert("adapterStr="+adapterStr);
+		} 
+	}
+	//写入课件学习记录
+	function writeCourseInfo(){
+		var adapterURL = getScormCmiUr2004();
+		//alert("writeCourseInfo: "+postStr);
+		if(postStr!=""){			
+			//window.open(adapterURL+"adapterInfo.jsp?"+postStr);				
+			$.ajax({
+				 type: "post",
+				 url: adapterURL,
+				 cache: false,
+				 data: postStr,
+				 success: function(msg){
+					 postStr="";
+					 //如果上传成功后，需要刷新页面，请执行reload，否则可以注释
+					 //window.location.reload(); 
+					 afterWriteCourseInfo(msg);
+					 self.close();
+				 },
+				 dataType: "text",
+				 error : function() {   
+				 	alert("error!!")
+					 //   
+				 }
+			});
+		}
+		
+	}
+	
+	function getScormCmiUr2004() {
+		servlet = 'SCO2004CMI';
+		var virtual_path_loc = self.location.pathname.indexOf('/scorm2004Player/');
+		if (virtual_path_loc === -1) {
+			virtual_path_loc = self.location.pathname.indexOf('/servlet/');
+		}
+			
+		if (virtual_path_loc > -1) {
+			var virtual_path = self.location.pathname.substring(0, virtual_path_loc);
+			result = self.location.protocol + "//" + self.location.host + virtual_path + "/servlet/" + servlet ;
+		} else {
+			alert('aicc_url error:' + self.location.pathname);
+		}
+		return result;
+	}
+	
+	 function afterWriteCourseInfo(msg) {
+		if (msg == "write_record_success") {
+			if (openWinId != null && typeof(openWinId) != "undefined"
+					&& openWinId != "") {
+				var contentObj = openWinId.frames["contentIframe"];
+				//contentObj._cmi_session_time = "00:00:00";
+				contentObj.fromOpener();
+			}
+		}
+	}
+	 self.blur();
+	 
+function  document.onkeydown()  {   
+	if (   event.keyCode==116) {   event.keyCode   =   0;   event.cancelBubble   =   true;   return   false;  } //屏蔽F5  
+	if (event.keyCode==122){event.keyCode=0;event.returnValue=false;} //屏蔽F11 
+	if (event.ctrlKey && event.keyCode==78) event.returnValue=false; //屏蔽 Ctrl+n 
+	if (event.shiftKey && event.keyCode==121)event.returnValue=false; //屏蔽 shift+F10 
+	if (window.event.srcElement.tagName == "A" && window.event.shiftKey) window.event.returnValue = false; //屏蔽 shift 加鼠标左键新开一网页 							           
+}   
+  
+//禁止右键弹出菜单   
+function   document.oncontextmenu()   
+{   
+      return   false;   
+}   
+</script>
+</head>
+
+<body>
+Please do Not close this window.
+</body>
+</html>

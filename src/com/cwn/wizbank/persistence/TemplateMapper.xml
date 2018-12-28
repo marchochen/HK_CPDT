@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.TemplateMapper">
+	
+	
+	<sql id="page_where">
+		<where>
+		</where>
+	</sql>
+	
+	<select id="getCount" resultType="java.lang.Integer" parameterType="Map">
+	    <![CDATA[
+	        select count(*) from Template t 
+	    ]]>
+	    <include refid="page_where"/>
+	</select>
+
+	
+	<select id="get" resultType="Template" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				tpl_name,
+				tpl_lan,
+				tpl_desc,
+				tpl_note,
+				tpl_type,
+				tpl_thumbnail_url,
+				tpl_stylesheet
+			from Template 
+			where
+				 tpl_name = #{id}
+		]]>
+	</select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.Template">
+	    <![CDATA[
+	        update Template
+	        set 
+				tpl_name = #{tpl_name,jdbcType=VARCHAR},
+				tpl_lan = #{tpl_lan,jdbcType=VARCHAR},
+				tpl_desc = #{tpl_desc,jdbcType=VARCHAR},
+				tpl_note = #{tpl_note,jdbcType=VARCHAR},
+				tpl_type = #{tpl_type,jdbcType=VARCHAR},
+				tpl_thumbnail_url = #{tpl_thumbnail_url,jdbcType=VARCHAR},
+				tpl_stylesheet = #{tpl_stylesheet,jdbcType=VARCHAR}
+	         where tpl_name = #{tpl_name,jdbcType=VARCHAR}
+	    ]]>
+    </update>
+    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.Template">
+    	<![CDATA[
+            insert into Template(
+            		tpl_desc,
+            		tpl_note,
+            		tpl_type,
+            		tpl_thumbnail_url,
+            		tpl_stylesheet
+            ) values (
+            	#{tpl_desc,jdbcType=VARCHAR},
+            	#{tpl_note,jdbcType=VARCHAR},
+            	#{tpl_type,jdbcType=VARCHAR},
+            	#{tpl_thumbnail_url,jdbcType=VARCHAR},
+            	#{tpl_stylesheet,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>
+    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from Template where
+	        tpl_name = #{tpl_name}
+	    ]]>
+    </delete>
+	
+	<select id="selectAll" resultType="Template">
+	    <![CDATA[
+	         select 
+				tpl_name,
+				tpl_lan,
+				tpl_desc,
+				tpl_note,
+				tpl_type,
+				tpl_thumbnail_url,
+				tpl_stylesheet
+			from Template 
+	    ]]>
+	</select>	
+	
+</mapper>

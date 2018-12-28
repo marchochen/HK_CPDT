@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.APITokenMapper">
+	<select id="get" resultType="APIToken" parameterType="java.lang.String">
+		<![CDATA[
+			select 
+				atk_id,
+				atk_usr_id,
+				atk_usr_ent_id,
+				atk_create_timestamp,
+				atk_expiry_timestamp,
+				atk_developer_id,
+				atk_wechat_open_id				
+			from APIToken t where t.atk_id = #{id}
+		]]>
+	</select>	
+	<update id="update" parameterType="com.cwn.wizbank.entity.APIToken">
+	    <![CDATA[
+	        update APIToken 
+	        set 
+				atk_usr_id = #{atk_usr_id,jdbcType=VARCHAR},
+				atk_usr_ent_id = #{atk_usr_ent_id,jdbcType=INTEGER},
+				atk_create_timestamp = #{atk_create_timestamp,jdbcType=TIMESTAMP},
+				atk_expiry_timestamp = #{atk_expiry_timestamp,jdbcType=TIMESTAMP},
+				atk_developer_id = #{atk_developer_id,jdbcType=VARCHAR},
+				atk_wechat_open_id = #{atk_wechat_open_id,jdbcType=VARCHAR}			
+	         where atk_id = #{atk_id,jdbcType=VARCHAR}
+	    ]]>
+    </update>    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.APIToken">
+    	<![CDATA[
+            insert into APIToken(
+            		atk_id,
+            		atk_usr_id,
+            		atk_usr_ent_id,
+            		atk_create_timestamp,
+            		atk_expiry_timestamp,
+            		atk_developer_id,
+            		atk_wechat_open_id
+            ) values (
+                #{atk_id,jdbcType=VARCHAR},
+            	#{atk_usr_id,jdbcType=VARCHAR},
+            	#{atk_usr_ent_id,jdbcType=INTEGER},
+            	#{atk_create_timestamp,jdbcType=TIMESTAMP},
+            	#{atk_expiry_timestamp,jdbcType=TIMESTAMP},
+            	#{atk_developer_id,jdbcType=VARCHAR},
+            	#{atk_wechat_open_id,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.String">
+	    <![CDATA[
+	        delete from APIToken  where atk_id = #{atk_id}
+	    ]]>
+    </delete>	
+	<select id="selectList" resultType="APIToken" parameterType="Map">
+	         select 
+				atk_id,
+				atk_usr_id,
+				atk_usr_ent_id,
+				atk_create_timestamp,
+				atk_expiry_timestamp,
+				atk_developer_id,
+				atk_wechat_open_id
+			from APIToken 
+			where atk_usr_id = #{userSteEntId} 
+			and atk_developer_id = #{developer}
+			<if test="userOpenId != null and userOpenId != ''">
+			and atk_wechat_open_id = #{userOpenId}
+			</if>
+			order by atk_expiry_timestamp desc
+	</select>
+	<select id="getByWechatOpenId" resultType="APIToken" parameterType="String">
+	         select 
+				atk_id,
+				atk_usr_id,
+				atk_usr_ent_id,
+				atk_create_timestamp,
+				atk_expiry_timestamp,
+				atk_developer_id,
+				atk_wechat_open_id,
+				usr_display_bil AS "user.usr_display_bil"
+			from APIToken 
+			inner join regUser on usr_ent_id = atk_usr_ent_id
+			where 
+			atk_wechat_open_id = #{atk_wechat_open_id} 
+			and atk_developer_id = 'weixin' 
+			order by atk_create_timestamp desc
+	</select>	
+	<select id="getByWechatEntId" resultType="APIToken" parameterType="String">
+	         select 
+				atk_id,
+				atk_usr_id,
+				atk_usr_ent_id,
+				atk_create_timestamp,
+				atk_expiry_timestamp,
+				atk_developer_id,
+				atk_wechat_open_id,
+				usr_display_bil AS "user.usr_display_bil"
+			from APIToken 
+			inner join regUser on usr_ent_id = atk_usr_ent_id
+			where 
+			atk_usr_ent_id = #{usr_ent_id} 
+			and atk_developer_id = 'weixin' 
+			order by atk_create_timestamp desc
+	</select>
+	<select id="deleteByWechatOpenId" parameterType="Map">
+	        delete from APIToken 
+			where 
+				atk_developer_id = 'weixin'
+				and atk_wechat_open_id = #{userOpenId}
+	</select>
+</mapper>

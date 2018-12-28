@@ -1,0 +1,29 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Navigation Center
+suffix								   :navctr
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : navctr.css	
+version								: wizBank 3.1
+=======================================================================*/
+
+.wbNavBg{
+	background-color: #F8F9DD;
+	scrollbar-3dlight-color: #F8F9DD;
+	scrollbar-arrow-color: #000000;
+	scrollbar-base-color: #A9BB31;
+	scrollbar-darkshadow-color: #859334;
+	scrollbar-face-color: #A9BB31;
+	scrollbar-highlight-color: #F8F9DD;
+	scrollbar-shadow-color: #859334;
+	scrollbar-track-color: #A9BB31;
+}
+
+.wbNavHeadText, a.wbNavLink,a.wbNavLink:hover,a.wbNavLink:visited,a.wbNavLink:active {
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbNavTitleText{
+	color: #000000;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}

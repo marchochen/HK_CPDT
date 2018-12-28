@@ -1,0 +1,18 @@
+<template_view>
+	<section id="1">
+		<field01 paramname="itm_title" checked="yes" sortable="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Course title"/>
+				<desc lan="Big5" name="課程名稱"/>
+				<desc lan="GB2312" name="课程名称"/>
+			</title>
+		</field01>
+		<field02 paramname="res_title" checked="no" sortable="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Test title"/>
+				<desc lan="Big5" name="測驗名稱"/>
+				<desc lan="GB2312" name="测验名称"/>
+			</title>
+		</field02>
+	</section>
+</template_view>

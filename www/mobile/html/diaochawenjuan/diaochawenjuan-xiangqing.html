@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title>Document</title>
+<link rel="stylesheet" href="../../css/basic.css" />
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<!--[if lt IE 9]>
+<script src="../../js/lib/html5.js" type="text/jscript"></script>
+<![endif]-->
+</head>
+<body>
+
+<div class="wrap" id="wizwrap">
+<header class="header mm-background">
+    <a class="header-back" href="diaochawenjuan.html" title="返回"></a>
+    <span class="header-title">调查问卷</span>
+    <a class="header-info header-pop" href="###" title="提交">提交</a>
+    
+    <div class="header-tip" style="display:none;">
+         <div class="header-tip-info"><img src="../../images/proper.png" alt=""/>提交成功</div>
+         <div class="header-tip-desc">感谢你的参与</div>
+    </div>
+    
+	<script type="text/javascript">
+    (function($){         
+         $(".header-pop").click(function(){
+              $(".header-tip").slideToggle();
+              $(".header-overlay").toggleClass("show");
+         });
+    })(jQuery);
+	</script>
+</header> <!-- header End -->
+<div class="header-overlay"></div>
+
+<section class="content">
+<div class="list-pic-3">
+<div class="own-box">
+<div class="own-box-area">
+     <div class="own-box-pic">
+          <a class="own-box-user" href="###" title="">
+             <img src="../../images/user01.jpg" alt=""/>
+          </a>
+     </div>
+
+     <div class="own-box-tit-1">陈思杰</div>
+     <div class="own-box-tit-2">平台部 技术工程师</div>
+</div>     
+</div>
+
+<img class="list-pic-3-pic" alt="" src="../../images/banner51.jpg">
+<div class="list-pic-3-bg"></div>
+</div> <!-- list-pic-3 End -->
+
+<div class="cont-info-notop">
+<div class="fixbox">
+<div class="fix_nav">
+     <h1 class="cont-info-tit-03">2015年新员工培训需求调查问卷</h1>
+    
+     <div class="cont-info-tit-02">所属课程：Mobile Course</div>
+    
+     <div class="jifen-info clearfix">
+          <div class="jifen-info-orange jifen-info-line"><span class="jifen-desc">1</span><em class="jifen-desc">已答题</em></div> 
+          <div class="jifen-info-orange"><span class="jifen-desc">15</span><em class="jifen-desc">未答题</em></div>
+     </div>
+</div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+	$(".fixbox").css("height", $(".fix_nav").height() + 50);
+	if($(".fixbox").offset() !== undefined){
+		var v_modTop = $(".fixbox").offset().top;
+		var on_scroll = function(){
+			var top = $(document).scrollTop();
+			if(top == 0){
+				top = document.documentElement.scrollTop;
+			}
+		
+			if(top > v_modTop) {
+				if('undefined' == typeof(document.body.style.maxHeight)) {   //兼容iE6
+					$('.fix_nav').css('top',$(window).scrollTop());
+				} else {
+					$('.fix_nav').addClass('fixed');
+				}
+			} else {
+				$('.fix_nav').removeClass('fixed');
+			}
+		}
+		$(window).scroll(on_scroll);
+		on_scroll();
+	}
+});
+</script>
+
+<div class="cont-info-diaocha">
+    <ul>
+        <li>
+            <div class="diaocha-box clearfix">
+                 <span class="diaocha-num">1</span>
+                 <dl>
+                     <dt>如果我报考了一门课程，通过学习，再到测试，测试没通过，怎么办？</dt>
+                     <dd>
+                          <textarea class="pure-form-txt-6"></textarea>
+                     </dd>
+                 </dl>
+            </div>
+        </li>
+        <li>
+            <div class="diaocha-box clearfix">
+                 <span class="diaocha-num">2</span>
+                 <dl>
+                     <dt><span class="diaocha-type">[单选题]</span>您对《压力管理》的试题设定是否满意？</dt>
+                     <dd>
+                          <p class="diaocha-radio diaocha-select ">非常满意</p>
+                          <p class="diaocha-radio">满意</p>
+                          <p class="diaocha-radio">一般</p>
+                          <p class="diaocha-radio">差</p>
+                          <p class="diaocha-radio">其它</p>
+                    </dd>
+                 </dl>
+            </div>
+        </li>
+        
+        <li>
+            <div class="diaocha-box clearfix">
+                 <span class="diaocha-num">3</span>
+                 <dl>
+                     <dt>您对于课程《新晋经理人技能系列》的课程封面设定是否满意？有何更好建议？如下图：</dt>
+                     <dd>
+                          <p><img alt="" src="../../images/adv92.jpg"></p>
+                          <p class="diaocha-radio diaocha-select ">非常满意</p>
+                          <p class="diaocha-radio">满意</p>
+                          <p class="diaocha-radio">一般</p>
+                          <p class="diaocha-radio">差</p>
+                          <p class="diaocha-radio">其它</p>
+                    </dd>
+                 </dl>
+            </div>
+        </li>
+        
+        <li>
+            <div class="diaocha-box clearfix">
+                 <span class="diaocha-num">4</span>
+                 <dl>
+                     <dt><span class="diaocha-type">[多选题]</span>您对《压力管理》的试题设定是否满意？</dt>
+                     <dd>
+                          <p class="diaocha-radio diaocha-select ">非常满意</p>
+                          <p class="diaocha-radio">满意</p>
+                          <p class="diaocha-radio">一般</p>
+                          <p class="diaocha-radio">差</p>
+                          <p class="diaocha-radio">其它</p>
+                    </dd>
+                 </dl>
+            </div>
+        </li>
+       
+    </ul>
+</div>
+</div>
+
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

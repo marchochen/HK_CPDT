@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.SnsCommentMapper">
+    <select id="getCommentCount" resultType="Long" parameterType="Map">
+        select count(s_cmt_id) from sns_comment 
+        where 
+        s_cmt_module = #{module} 
+        and s_cmt_target_id = #{itmId}
+    </select>
+    <select id="getClassCommentCount" resultType="Long" parameterType="Map">
+        select count(s_cmt_id) from sns_comment 
+        where 
+        s_cmt_module = #{module} 
+        and s_cmt_target_id in (
+        	select 
+        		itm_id 
+        	from 
+        		aeItemRelation 
+        		inner join aeitem on ire_child_itm_id = itm_id
+			where 
+				itm_status = 'ON' and ire_parent_itm_id = #{itmId}
+        )
+    </select>
+	<select id="get" resultType="SnsComment" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				s_cmt_id,
+				s_cmt_uid,
+				s_cmt_content,
+				s_cmt_is_reply,
+				s_cmt_reply_to_id,
+				s_cmt_reply_to_uid,
+				s_cmt_create_datetime,
+				s_cmt_anonymous,
+				s_cmt_module,
+				s_cmt_target_id
+			from sns_comment t where t.s_cmt_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.SnsComment">
+	    <![CDATA[
+	        update sns_comment t 
+	        set 
+				s_cmt_id = #{s_cmt_id,jdbcType=INTEGER},
+				s_cmt_uid = #{s_cmt_uid,jdbcType=INTEGER},
+				s_cmt_content = #{s_cmt_content,jdbcType=VARCHAR},
+				s_cmt_is_reply = #{s_cmt_is_reply,jdbcType=INTEGER},
+				s_cmt_reply_to_id = #{s_cmt_reply_to_id,jdbcType=INTEGER},
+				s_cmt_reply_to_uid = #{s_cmt_reply_to_uid,jdbcType=INTEGER},
+				s_cmt_create_datetime = #{s_cmt_create_datetime,jdbcType=TIMESTAMP},
+				s_cmt_anonymous = #{s_cmt_anonymous,jdbcType=INTEGER},
+				s_cmt_module = #{s_cmt_module,jdbcType=VARCHAR},
+				s_cmt_target_id = #{s_cmt_target_id,jdbcType=INTEGER}
+	         where t.s_cmt_id = #{s_cmt_id,jdbcType=INTEGER}
+	    ]]>
+	</update>
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.SnsComment" keyProperty="s_cmt_id">
+            insert into sns_comment(
+            		s_cmt_uid,
+            		s_cmt_content,
+            		s_cmt_is_reply,
+            		s_cmt_reply_to_id,
+            		s_cmt_reply_to_uid,
+            		s_cmt_create_datetime,
+            		s_cmt_anonymous,
+            		s_cmt_module,
+            		s_cmt_target_id
+            ) values (
+            	#{s_cmt_uid,jdbcType=INTEGER},
+            	#{s_cmt_content,jdbcType=VARCHAR},
+            	#{s_cmt_is_reply,jdbcType=INTEGER},
+            	#{s_cmt_reply_to_id,jdbcType=INTEGER},
+        		#{s_cmt_reply_to_uid,jdbcType=INTEGER},
+            	#{s_cmt_create_datetime,jdbcType=TIMESTAMP},
+            	#{s_cmt_anonymous,jdbcType=INTEGER},
+            	#{s_cmt_module,jdbcType=VARCHAR},
+            	#{s_cmt_target_id,jdbcType=INTEGER}
+            )
+	    	<selectKey keyProperty="s_cmt_id" resultType="Long" order="AFTER">
+				<choose>
+					<when test="_databaseId == 'ORACLE'">
+						select sns_comment_seq.currval from dual
+					</when>
+					<when test="_databaseId == 'SQLSERVER'">
+						select ident_current('sns_comment')
+					</when>
+					<when test="_databaseId == 'MYSQL'">
+						select last_insert_id()
+					</when>
+				</choose>
+			</selectKey>
+	</insert>
+	<delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from sns_comment  where s_cmt_id = #{s_cmt_id}
+	    ]]>
+	</delete>
+	<select id="selectAll" resultType="SnsComment">
+	    <![CDATA[
+	         select 
+				s_cmt_id,
+				s_cmt_uid,
+				s_cmt_content,
+				s_cmt_is_reply,
+				s_cmt_reply_to_id,
+				s_cmt_create_datetime,
+				s_cmt_anonymous,
+				s_cmt_module,
+				s_cmt_target_id
+			from sns_comment t 
+	    ]]>
+	</select>
+ 	<select id="getComments" resultType="SnsComment" parameterType="Map">
+		select s_cmt_id,
+		s_cmt_uid, s_cmt_content,
+		s_cmt_is_reply,
+		s_cmt_reply_to_id,
+		s_cmt_reply_to_uid,
+		s_cmt_create_datetime,
+		s_cmt_anonymous,
+		s_cmt_module,
+		s_cmt_target_id,
+		u.usr_display_bil AS "user.usr_display_bil",
+		u.usr_ent_id AS "user.usr_ent_id",
+		ux2.urx_extra_43 AS "user.usr_photo"
+				,
+		(case when s_cnt_collect_count is null then 0 else s_cnt_collect_count end) AS "snsCount.s_cnt_collect_count",
+		(case when s_cnt_share_count is null then 0 else s_cnt_share_count end) AS "snsCount.s_cnt_share_count",
+		(case when s_cnt_like_count is null then 0 else s_cnt_like_count end) AS "snsCount.s_cnt_like_count"
+		,
+		(case when s_vtl_log_id is null then 0 else 1 end) AS "is_user_like"
+		from sns_comment 
+		inner join RegUser u on s_cmt_uid = u.usr_ent_id
+		left join regUserExtension ux2 on u.usr_ent_id = ux2.urx_usr_ent_id
+		left join sns_count on (s_cnt_target_id = s_cmt_id and s_cnt_module = 'Comment')
+		left join sns_valuation_log on s_vtl_target_id = s_cmt_id and s_vtl_module = #{module}  and s_vtl_is_comment=1 and s_vtl_uid = #{userEntId}
+		where s_cmt_target_id = #{targetId} 
+		and s_cmt_is_reply = 0
+		and s_cmt_reply_to_id = 0
+		and s_cmt_module = #{module}
+		order by s_cmt_create_datetime desc
+	</select>
+ 	<select id="getCommentPage" resultType="SnsComment" parameterType="Page">
+		select s_cmt_id,
+		s_cmt_uid, s_cmt_content,
+		s_cmt_is_reply,
+		s_cmt_reply_to_id,
+		s_cmt_reply_to_uid,
+		s_cmt_create_datetime,
+		s_cmt_anonymous,
+		s_cmt_module,
+		s_cmt_target_id,
+		u.usr_display_bil AS "user.usr_display_bil",
+		u.usr_ent_id AS "user.usr_ent_id",
+		ux2.urx_extra_43 AS "user.usr_photo"
+				,
+		(case when s_cnt_collect_count is null then 0 else s_cnt_collect_count end) AS "snsCount.s_cnt_collect_count",
+		(case when s_cnt_share_count is null then 0 else s_cnt_share_count end) AS "snsCount.s_cnt_share_count",
+		(case when s_cnt_like_count is null then 0 else s_cnt_like_count end) AS "snsCount.s_cnt_like_count"
+		,
+		(case when s_vtl_log_id is null then 0 else 1 end) AS "is_user_like"
+		from sns_comment 
+		inner join RegUser u on s_cmt_uid = u.usr_ent_id
+		left join regUserExtension ux2 on u.usr_ent_id = ux2.urx_usr_ent_id
+		left join sns_count on (s_cnt_target_id = s_cmt_id and s_cnt_is_comment=1 and s_cnt_module = #{params.module})
+		left join sns_valuation_log on s_vtl_target_id = s_cmt_id and s_vtl_is_comment=1 and s_vtl_module = #{params.module}  and s_vtl_uid = #{params.userEntId}
+		where s_cmt_target_id = #{params.targetId} 
+		and s_cmt_is_reply = 0
+		and s_cmt_reply_to_id = 0
+		and s_cmt_module = #{params.module}
+		order by s_cmt_create_datetime desc
+	</select>
+	<select id="getCommentReply" resultType="SnsComment" parameterType="Map">
+		select s_cmt_id,
+		s_cmt_uid, 
+		s_cmt_content,
+		s_cmt_is_reply,
+		s_cmt_reply_to_id,
+		s_cmt_reply_to_uid,
+		s_cmt_create_datetime,
+		s_cmt_anonymous,
+		s_cmt_module,
+		s_cmt_target_id,
+		ux1.urx_extra_43 as "user.usr_photo",
+		ux2.urx_extra_43 as "toUser.usr_photo",
+		u.usr_display_bil AS "user.usr_display_bil",
+		u.usr_ent_id AS "user.usr_ent_id",
+		touser.usr_ent_id AS "toUser.usr_ent_id",
+		touser.usr_display_bil AS "toUser.usr_display_bil"
+		<if test="userEntId != null and userEntId &gt; 0">
+		,
+		(case when s_vtl_log_id is null then 0 else 1 end) AS "is_user_like"
+		</if>
+		from sns_comment 
+		left join RegUser u on s_cmt_uid = u.usr_ent_id
+		left join RegUser touser on touser.usr_ent_id = s_cmt_reply_to_uid
+		left join regUserExtension ux1 on u.usr_ent_id = ux1.urx_usr_ent_id
+		left join regUserExtension ux2 on touser.usr_ent_id = ux2.urx_usr_ent_id
+		<if test="userEntId != null and userEntId &gt; 0">
+			left join sns_valuation_log on s_vtl_target_id = s_cmt_id and s_vtl_is_comment = 1 and s_vtl_module = #{module} and s_vtl_uid = #{userEntId}
+		</if>
+		where 
+		s_cmt_target_id = #{targetId} 
+		and s_cmt_is_reply > 0
+		and s_cmt_module = #{module}
+		order by s_cmt_create_datetime asc
+	</select>
+	<select id="getTargetCommnet" resultType="SnsComment" parameterType="Map">
+		select s_cmt_id,
+		s_cmt_uid, 
+		s_cmt_content,
+		s_cmt_is_reply,
+		s_cmt_reply_to_id,
+		s_cmt_reply_to_uid,
+		s_cmt_create_datetime,
+		s_cmt_anonymous,
+		s_cmt_module,
+		s_cmt_target_id,
+		ux1.urx_extra_43 as "user.usr_photo",
+		ux2.urx_extra_43 as "toUser.usr_photo",
+		u.usr_display_bil AS "user.usr_display_bil",
+		u.usr_ent_id AS "user.usr_ent_id",
+		touser.usr_ent_id AS "toUser.usr_ent_id",
+		touser.usr_display_bil AS "toUser.usr_display_bil"
+		<if test="userEntId != null and userEntId &gt; 0">
+		,
+		(case when s_vtl_log_id is null then 0 else 1 end) AS "is_user_like"
+		</if>
+		from sns_comment 
+		left join RegUser u on s_cmt_uid = u.usr_ent_id
+		left join RegUser touser on touser.usr_ent_id = s_cmt_reply_to_uid
+		left join regUserExtension ux1 on u.usr_ent_id = ux1.urx_usr_ent_id
+		left join regUserExtension ux2 on touser.usr_ent_id = ux2.urx_usr_ent_id
+		<if test="userEntId != null and userEntId &gt; 0">
+			left join sns_valuation_log on s_vtl_target_id = s_cmt_id and s_vtl_is_comment=1 and s_vtl_module = #{module}  and s_vtl_uid = #{userEntId}
+		</if>
+		where 
+		s_cmt_target_id = #{targetId} 
+		and s_cmt_module = #{module}
+		order by s_cmt_create_datetime asc
+	</select>
+	<select id="getByUserId" parameterType="Map" resultType="SnsComment">
+	       select 
+				s_cmt_id,
+				s_cmt_uid,
+				s_cmt_content,
+				s_cmt_is_reply,
+				s_cmt_reply_to_id,
+				s_cmt_create_datetime,
+				s_cmt_anonymous,
+				s_cmt_module,
+				s_cmt_target_id
+			from sns_comment 
+			where s_cmt_uid = #{userEntId}
+			and s_cmt_module= #{module}
+			and s_cmt_target_id = #{targetId}
+	</select>
+	<delete id="deleteList" parameterType="Map">
+	    delete from sns_comment 
+	    where s_cmt_target_id = #{targetId} or s_cmt_reply_to_id = #{targetId}
+	    and s_cmt_module = #{module}
+	</delete>
+	
+	<select id="getCommentByReplyId"  resultType="SnsComment" parameterType="java.lang.Long">
+	    select * from sns_comment where s_cmt_reply_to_id=#{cmt_id}
+	</select>
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.KbItemViewMapper">
+
+	<select id="getDate" resultType="java.sql.Timestamp">
+		select
+		<if test="_databaseId == 'ORACLE'">
+			sysdate from dual
+		</if>
+		<if test="_databaseId == 'SQLSERVER'">
+			getdate()
+		</if>
+		<if test="_databaseId == 'MYSQL'">
+			sysdate()
+		</if>
+	</select>
+
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.KbItemView">
+    	<![CDATA[
+            insert into kb_item_view(
+            		kiv_kbi_id,
+            		kiv_usr_ent_id,
+            		kiv_create_datetime,
+            		kiv_update_datetime
+            ) values (
+            	#{kbItem.kbi_id,jdbcType=VARCHAR},
+            	#{kiv_usr_ent_id,jdbcType=VARCHAR},
+            	#{kiv_create_datetime,jdbcType=TIMESTAMP},
+            	#{kiv_update_datetime,jdbcType=TIMESTAMP}
+            )
+        ]]>
+	</insert>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.KbItemView">
+    	<![CDATA[
+            update kb_item_view
+            	set	kiv_update_datetime=
+            	#{kiv_update_datetime,jdbcType=TIMESTAMP}
+            where kiv_usr_ent_id = #{kiv_usr_ent_id} and kiv_kbi_id = #{kbItem.kbi_id}
+        ]]>
+	</update>
+	
+	<select id="get" parameterType="com.cwn.wizbank.entity.KbItemView" resultType="java.lang.Long">
+		select count(*) from kb_item_view
+		where kiv_usr_ent_id = #{kiv_usr_ent_id} and kiv_kbi_id = #{kbItem.kbi_id}
+	</select>
+	
+	<delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from kb_item_view where
+	        kiv_kbi_id = #{id,jdbcType=VARCHAR}
+	    ]]>
+	</delete>
+</mapper>

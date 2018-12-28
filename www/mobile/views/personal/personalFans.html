@@ -1,0 +1,49 @@
+<!doctype html>
+<html ng-app="personal">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/PersonalController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="fansController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+
+<div class="wrap" id="wizwrap">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back();" title="back"></a>
+    <span class="header-title">{{ 'personal_fans' | translate }}<!--粉丝--></span>
+</header> <!-- header End -->
+
+<section class="content">
+	<div class="pure-form-box-5">
+          <div class="pure-form-box-5-in">
+        <input type="text"  ng-model="searchContent" class="pure-form-txt-8" placeholder="{{'group_tip_search' | translate}}"/>
+        <input type="button" ng-click="search()" value="" class="panel-box-btn-04" />
+     	</div>
+    </div>
+
+<div class="cont-info">
+<div class="cont-info-tuwen">
+<div class="tuwen-list-2 tuwen-list-2-lr clearfix" ng-repeat=" fans in fansList.items">
+     <a class="tuwen-list-2-pic" href="javascript:;" forward="fans.usr_ent_id | personUrl" title=""><img  class="pic-user-w"  ng-src="{{serverHost}}{{fans.usr_photo}}" alt=""/></a>
+     <div class="tuwen-list-2-box"> 
+          <div class="tuwen-list-2-tit-1"><a href="javascript:;" class="tuwen-list-2-user" forward="fans.usr_ent_id | personUrl" title="">{{fans.usr_display_bil}}</a></div>
+          <p class="tuwen-list-2-tit-2">{{fans.usg_display_bil}}  {{fans.ugr_display_bil != 'Unspecified' ? fans.ugr_display_bil : ''}}</p>
+          <span ng-show="loginUserId != fans.usr_ent_id" ng-click="changeAttention($index);" class="{{fans.snsAttention != undefined && fans.snsAttention.s_att_source_uid != undefined && fans.snsAttention.s_att_target_uid != undefined ? 'tuwen-list-2-xianghu' : fans.snsAttention != undefined && fans.snsAttention.s_att_target_uid!= undefined  ? 'tuwen-list-2-yiguanzhu' : 'tuwen-list-2-weiguanzhu'  }}"></span>
+     </div>
+  </div>   
+</div>
+</div>
+<div loader="fansList"></div>
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

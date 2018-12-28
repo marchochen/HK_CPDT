@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.KbItemMapper">
+    
+    <resultMap id="KbItemTemp" type="com.cwn.wizbank.entity.KbItem">
+        <id column="kbi_id" property="kbi_id" />
+        <result column="kbi_type" property="kbi_type"></result>
+        <result column="kbi_content" property="kbi_content"></result>
+    </resultMap>
+    
+	<resultMap id="KbItemWithCatalogAndTag" type="com.cwn.wizbank.entity.KbItem">
+		<id column="kbi_id" property="kbi_id" />
+		<result column="kbi_title" property="kbi_title"></result>
+		<result column="kbi_desc" property="kbi_desc"></result>
+		<result column="kbi_image" property="kbi_image"></result>
+		<result column="kbi_content" property="kbi_content"></result>
+		<result column="kbi_status" property="kbi_status"></result>
+		<result column="kbi_type" property="kbi_type"></result>
+		<result column="kbi_online" property="kbi_online"></result>
+		<result column="kbi_app_status" property="kbi_app_status"></result>
+		<result column="kbi_approve_datetime" property="kbi_approve_datetime"></result>
+		<result column="kbi_approve_user_id" property="kbi_approve_user_id"></result>
+		<result column="kbi_publish_datetime" property="kbi_publish_datetime"></result>
+		<result column="kbi_publish_user_id" property="kbi_publish_user_id"></result>
+		<result column="kbi_create_datetime" property="kbi_create_datetime"></result>
+		<result column="kbi_create_user_id" property="kbi_create_user_id"></result>
+		<result column="kbi_update_datetime" property="kbi_update_datetime"></result>
+		<result column="kbi_update_user_id" property="kbi_update_user_id"></result>
+		<result column="kbi_access_count" property="kbi_access_count"></result>
+		<result column="usr_display_bil" property="usr_display_bil"></result>
+		<result column="kbi_approve_usr_display_bil" property="kbi_approve_usr_display_bil"></result>
+		<result column="s_cnt_like_count" property="s_cnt_like_count"></result>
+		<result column="kbi_download" property="kbi_download"></result>
+		<result column="kbi_download_count" property="kbi_download_count"></result>
+		<result column="kbi_filetype" property="kbi_filetype"></result>
+		<association property="imageAttachment" javaType="KbAttachment">
+			<id property="kba_id" column="kbi_image" />
+			<result property="kba_filename" column="kba_filename" />
+			<result property="kba_file" column="kba_file" />
+			<result property="kba_url" column="kba_url" />
+		</association>
+		<collection property="catalogues" column="kbi_id" ofType="KbCatalog"
+			select="getCatalogList" />
+		<collection property="tags" column="kbi_id" ofType="Tag"
+			select="getTagList" />
+		<collection property="attachments" column="kbi_id" ofType="KbAttachment"
+			select="getAttachmentList" />
+	</resultMap>
+	<select id="getCatalogList" resultType="KbCatalog"
+		parameterType="java.lang.Long">
+		<![CDATA[
+			SELECT kbc.kbc_id, kbc.kbc_title
+			FROM kb_item_cat kic INNER JOIN kb_catalog kbc ON kic.kic_kbc_id = kbc.kbc_id
+			WHERE kbc.kbc_type is null and kic.kic_kbi_id = #{kbi_id}
+		]]>
+	</select>
+	<select id="getTagList" resultType="Tag" parameterType="java.lang.Long">
+		<![CDATA[
+			SELECT t.tag_id, t.tag_title
+			FROM kb_item_tag kit INNER JOIN Tag t ON kit.kit_tag_id = t.tag_id
+			WHERE kit.kit_kbi_id = #{kbi_id}
+		]]>
+	</select>
+	<select id="getAttachmentList" resultType="KbAttachment"
+		parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				kba_id,
+				kba_filename,
+				kba_file,
+				kba_url,
+				kba_remark,
+				kba_create_datetime,
+				kba_create_user_id,
+				kba_update_datetime,
+				kba_update_user_id
+			from kb_attachment kba INNER JOIN  kb_item_attachment kia on kba.kba_id = kia.kia_kba_id
+			where kia.kia_kbi_id = #{kbi_id}
+		]]>
+	</select>
+	<sql id="page_where">
+		<where>
+		</where>
+	</sql>
+
+	<select id="getDate" resultType="java.sql.Timestamp">
+		select
+		<if test="_databaseId == 'ORACLE'">
+			sysdate from dual
+		</if>
+		<if test="_databaseId == 'SQLSERVER'">
+			getdate()
+		</if>
+		<if test="_databaseId == 'MYSQL'">
+			sysdate()
+		</if>
+	</select>
+
+	<select id="getCount" resultType="java.lang.Integer"
+		parameterType="Map">
+	    <![CDATA[
+	        select count(*) from Kb_Item t 
+	    ]]>
+		<include refid="page_where" />
+	</select>
+
+	<select id="get" resultMap="KbItemWithCatalogAndTag"
+		parameterType="java.lang.Long">
+		<![CDATA[
+			SELECT kbi.*, reg.usr_display_bil, approve.usr_display_bil AS kbi_approve_usr_display_bil
+				, kba.kba_filename, kba.kba_file ,kba.kba_url
+			FROM Kb_Item kbi LEFT JOIN reguser reg ON kbi.kbi_create_user_id = reg.usr_id 
+			LEFT JOIN reguser approve ON kbi.kbi_approve_user_id = approve.usr_id
+			left join kb_attachment kba on kbi.kbi_image = kba.kba_id
+			WHERE kbi.kbi_id = #{id}
+		]]>
+	</select>
+	
+	<select id="getTitle" resultType="java.lang.String"
+		parameterType="java.lang.Long">
+		<![CDATA[
+			SELECT kbi_title
+			FROM Kb_Item 
+			WHERE kbi_id = #{kbi_id}
+		]]>
+	</select>
+
+	<update id="update" parameterType="com.cwn.wizbank.entity.KbItem">
+		<![CDATA[
+			update Kb_Item
+				set
+					kbi_title = #{kbi_title,jdbcType=VARCHAR},
+					kbi_desc = #{kbi_desc,jdbcType=VARCHAR},
+					kbi_image = #{kbi_image,jdbcType=VARCHAR},
+					kbi_content = #{kbi_content,jdbcType=VARCHAR},
+					kbi_download = #{kbi_download,jdbcType=VARCHAR},
+					kbi_online = #{kbi_online,jdbcType=VARCHAR},
+					kbi_update_datetime = #{kbi_update_datetime,jdbcType=TIMESTAMP},
+					kbi_update_user_id = #{kbi_update_user_id,jdbcType=VARCHAR},
+					kbi_filetype = #{kbi_filetype,jdbcType=VARCHAR}
+					where kbi_id = #{kbi_id,jdbcType=VARCHAR}
+		]]>
+	</update>
+
+	<update id="updateByShare" parameterType="com.cwn.wizbank.entity.KbItem">
+		<![CDATA[
+			update Kb_Item
+				set
+					kbi_title = #{kbi_title,jdbcType=VARCHAR},
+					kbi_desc = #{kbi_desc,jdbcType=VARCHAR},
+					kbi_image = #{kbi_image,jdbcType=VARCHAR},
+					kbi_content = #{kbi_content,jdbcType=VARCHAR},
+					kbi_status = #{kbi_status,jdbcType=VARCHAR},
+					kbi_app_status = #{kbi_app_status,jdbcType=VARCHAR},
+					kbi_online = #{kbi_online,jdbcType=VARCHAR},
+					kbi_update_datetime = #{kbi_update_datetime,jdbcType=TIMESTAMP},
+					kbi_update_user_id = #{kbi_update_user_id,jdbcType=VARCHAR}
+					where kbi_id = #{kbi_id,jdbcType=VARCHAR}
+		]]>
+	</update>
+
+	<update id="updateAccessCount" parameterType="com.cwn.wizbank.entity.KbItem">
+		<![CDATA[
+			update Kb_Item
+				set
+				kbi_access_count = #{kbi_access_count,jdbcType=VARCHAR}
+				WHERE kbi_id = #{kbi_id,jdbcType=VARCHAR}
+		]]>
+	</update>
+
+	<update id="updateDownloadCount" parameterType="com.cwn.wizbank.entity.KbItem">
+		<![CDATA[
+			update Kb_Item
+				set
+				kbi_download_count = #{kbi_download_count,jdbcType=VARCHAR}
+				WHERE kbi_id = #{kbi_id,jdbcType=VARCHAR}
+		]]>
+	</update>
+
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.KbItem">
+    	<![CDATA[
+            insert into Kb_Item(
+            		kbi_title,
+            		kbi_desc,
+            		kbi_image,
+            		kbi_content,
+            		kbi_status,
+            		kbi_type,
+            		kbi_online,
+            		kbi_app_status,
+            		kbi_approve_datetime,
+            		kbi_approve_user_id,
+            		kbi_publish_datetime,
+            		kbi_publish_user_id,
+            		kbi_create_datetime,
+            		kbi_create_user_id,
+            		kbi_access_count,
+            		kbi_download_count,
+            		kbi_download,
+            		kbi_filetype
+            ) values (
+            	#{kbi_title,jdbcType=VARCHAR},
+            	#{kbi_desc,jdbcType=VARCHAR},
+            	#{kbi_image,jdbcType=VARCHAR},
+            	#{kbi_content,jdbcType=VARCHAR},
+            	#{kbi_status,jdbcType=VARCHAR},
+            	#{kbi_type,jdbcType=VARCHAR},
+            	#{kbi_online,jdbcType=VARCHAR},
+            	#{kbi_app_status,jdbcType=VARCHAR},
+            	#{kbi_approve_datetime,jdbcType=TIMESTAMP},
+            	#{kbi_approve_user_id,jdbcType=VARCHAR},
+            	#{kbi_publish_datetime,jdbcType=TIMESTAMP},
+            	#{kbi_publish_user_id,jdbcType=VARCHAR},
+            	#{kbi_create_datetime,jdbcType=TIMESTAMP},
+            	#{kbi_create_user_id,jdbcType=VARCHAR},
+            	#{kbi_access_count,jdbcType=VARCHAR},
+            	#{kbi_download_count,jdbcType=VARCHAR},
+            	#{kbi_download,jdbcType=VARCHAR},
+            	#{kbi_filetype,jdbcType=VARCHAR}
+            )
+        ]]>
+		<selectKey keyProperty="kbi_id" resultType="Long" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select kb_item_seq.currval as kbi_id from dual
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					select ident_current('Kb_Item') as kbi_id
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					select last_insert_id() as kbi_id
+				</when>
+			</choose>
+		</selectKey>
+	</insert>
+
+	<delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+		   	delete from Kb_Item where
+		        kbi_id = #{kbi_id,jdbcType=VARCHAR}
+	    ]]>
+	</delete>
+
+
+	<select id="selectPage" resultType="com.cwn.wizbank.entity.KbItem"
+		parameterType="Page">
+		<![CDATA[
+			select kbi.*,reg.usr_display_bil,
+				approve.usr_display_bil as kbi_approve_usr_display_bil,
+		]]>
+		<choose>
+			<when test="_databaseId == 'ORACLE'">
+				<![CDATA[
+					nvl(sns.s_cnt_like_count,0) s_cnt_like_count
+				]]>
+			</when>
+			<when test="_databaseId == 'SQLSERVER'">
+				<![CDATA[
+					sns.s_cnt_like_count
+				]]>
+			</when>
+			<when test="_databaseId == 'MYSQL'">
+				<![CDATA[
+					ifNull(sns.s_cnt_like_count,0) s_cnt_like_count
+				]]>
+			</when>
+		</choose>
+		<![CDATA[
+			from Kb_Item kbi left join
+			reguser reg on kbi.kbi_create_user_id = reg.usr_id left join
+			reguser approve on kbi.kbi_approve_user_id = approve.usr_id
+			left join sns_count sns on kbi.kbi_id = sns.s_cnt_target_id and s_cnt_module = 'Knowledge'
+		]]>
+		<if
+			test="params.kbc_id != null and params.kbc_id != '' and params.kbc_id != 0">
+			inner join kb_item_cat kic on kbi.kbi_id = kic.kic_kbi_id
+			and
+			kic.kic_kbc_id = #{params.kbc_id}
+		</if>
+		<![CDATA[
+			where exists (select kic2.kic_kbi_id from kb_item_cat kic2 inner join kb_catalog kbc on kbc.kbc_id = kic2.kic_kbc_id where exists
+			 (select t.tcr_id from tcTrainingCenter t
+		     where exists ( select * from tcTrainingCenter ancestor  
+		 ]]>
+		   <if test="params.current_role != null and params.current_role != '' and params.current_role != 'ADM_1'">
+		     inner join tcTrainingCenterOfficer on (tco_tcr_id = ancestor.tcr_id)  
+		     left join tcRelation on (tcn_ancestor = ancestor.tcr_id) 
+		     inner join tcTrainingCenter child on (child.tcr_id = tcn_child_tcr_id or child.tcr_id = ancestor.tcr_id) 
+		     where tco_usr_ent_id =  #{params.usr_ent_id} 
+		     and child.tcr_id = t.tcr_id 
+		    </if>
+		 <![CDATA[    
+		     ) and t.tcr_status = 'OK' and t.tcr_id = kbc.kbc_tcr_id) and kic2.kic_kbi_id = kbi.kbi_id)
+		]]>
+		<if test="params.kbi_title != null and params.kbi_title !=''">
+			and (kbi.kbi_title like N'%${params.kbi_title}%' or
+			kbi.kbi_desc like N'%${params.kbi_title}%'
+			or (kbi.kbi_content like
+			N'%${params.kbi_title}%' and kbi.kbi_type='ARTICLE'))
+		</if>
+		<if test="params.kbi_status != null and params.kbi_status !=''">
+			and kbi.kbi_status = #{params.kbi_status}
+		</if>
+		<if test="params.kbi_type != null and params.kbi_type !=''">
+			and kbi.kbi_type = #{params.kbi_type}
+		</if>
+		<if test="params.kbi_app_status != null and params.kbi_app_status !=''">
+			and kbi.kbi_app_status = #{params.kbi_app_status}
+		</if>
+		<if test="params.kbi_type != null and params.kbi_type !=''">
+			and kbi.kbi_type = #{params.kbi_type}
+		</if>
+		<if test="params.source=='approval'">
+			<![CDATA[
+				and ((kbi.kbi_app_status='APPROVED' and kbi.kbi_approve_user_id is not null) or kbi.kbi_app_status != 'APPROVED')
+			]]>
+		</if>
+		<if test="params.sortname != null and params.sortname !=''">
+			<![CDATA[
+				order by ${params.sortname} ${params.sortorder}
+			]]>
+		</if>
+	</select>
+
+	<select id="selectKbItemWithView" resultMap="KbItemWithCatalogAndTag"
+		parameterType="Page">
+		<![CDATA[
+			SELECT 
+				kbi.*, 
+				reg.usr_display_bil,
+				approve.usr_display_bil as kbi_approve_usr_display_bil,
+				kba.kba_filename,
+				kba.kba_file,
+				kba.kba_url,
+				sns.s_cnt_like_count
+			FROM Kb_Item kbi
+			LEFT JOIN reguser reg ON
+			kbi.kbi_create_user_id = reg.usr_id
+			LEFT JOIN reguser approve ON
+			kbi.kbi_approve_user_id = approve.usr_id
+			left join sns_count sns on kbi.kbi_id = sns.s_cnt_target_id and s_cnt_module = 'Knowledge'
+			left join kb_attachment kba on kbi.kbi_image = kba.kba_id			
+			WHERE 1 = 1
+		
+			and EXISTS (SELECT kic2.kic_kbi_id
+				FROM kb_item_cat kic2 INNER JOIN kb_catalog kbc2 ON kic2.kic_kbc_id = kbc2.kbc_id
+				WHERE EXISTS (SELECT DISTINCT tcr_id
+						FROM EntityRelation, tcTrainingCenterTargetEntity, tcTrainingCenter
+						WHERE ern_ancestor_ent_id = tce_ent_id
+							and ern_child_ent_id = #{params.usr_ent_id}
+							AND ern_type = 'USR_PARENT_USG'
+		]]>
+					<if test="params.tc_independent == true">
+						and tcr_id = #{params.tcr_id}
+					</if>
+		<![CDATA[
+							AND tce_tcr_id = tcr_id
+							AND tcr_id = kbc2.kbc_tcr_id)
+					AND kbi.kbi_id = kic2.kic_kbi_id)
+		]]>
+
+		<if
+			test="params.type == 'latest' or params.type == 'hottest' or params.type == 'popularity'">
+			<![CDATA[
+				and exists (select kic.kic_kbi_id from kb_item_cat kic inner join
+				kb_catalog kbc on kic.kic_kbc_id=kbc.kbc_id 
+				where kbc.kbc_status='ON' and kbi.kbi_id = kic.kic_kbi_id)
+				and kbi.kbi_status = 'ON'
+			]]>
+			<if test="params.type == 'latest'">
+				<![CDATA[
+					order by kbi.kbi_publish_datetime desc
+				]]>
+			</if>
+			<if test="params.type == 'hottest'">
+				<![CDATA[
+					order by kbi.kbi_access_count desc
+				]]>
+			</if>
+			<if test="params.type == 'popularity'">
+				<choose>
+					<when test="_databaseId == 'ORACLE'">
+						order by nvl(sns.s_cnt_like_count,0) desc
+					</when>
+					<when test="_databaseId == 'SQLSERVER'">
+						order by sns.s_cnt_like_count desc
+					</when>
+					<when test="_databaseId == 'MYSQL'">
+						order by sns.s_cnt_like_count desc
+					</when>
+				</choose>
+			</if>
+		</if>
+		<if test="params.type == 'my_share'">
+			<if test="params.kbi_app_status != null and params.kbi_app_status !=''">
+				<![CDATA[
+					and kbi.kbi_app_status = #{params.kbi_app_status}
+				]]>
+			</if>
+			<![CDATA[
+				and ((kbi.kbi_app_status='APPROVED' and kbi.kbi_approve_user_id is not null) or kbi.kbi_app_status != 'APPROVED')
+				and kbi_create_user_id = #{params.usr_id}
+				order by kbi.kbi_create_datetime desc
+			]]>
+		</if>
+	</select>
+
+	<select id="selectKbItemRecentView" resultType="com.cwn.wizbank.entity.KbItem"
+		parameterType="Page">
+		 <![CDATA[
+			select kbi.*,kiv.kiv_update_datetime from Kb_Item kbi
+			inner join kb_item_view kiv on kbi.kbi_id = kiv.kiv_kbi_id
+			where kiv_usr_ent_id = #{params.usr_ent_id}
+			and exists (select kic.kic_kbi_id from kb_item_cat kic inner join 
+			kb_catalog kbc on kic.kic_kbc_id=kbc.kbc_id 
+			where kbc.kbc_status='ON' and kbi.kbi_id = kic.kic_kbi_id)
+			and kbi.kbi_status = 'ON'
+			and EXISTS (SELECT kic2.kic_kbi_id
+				FROM kb_item_cat kic2 INNER JOIN kb_catalog kbc2 ON kic2.kic_kbc_id = kbc2.kbc_id
+				WHERE EXISTS (SELECT DISTINCT tcr_id
+						FROM EntityRelation, tcTrainingCenterTargetEntity, tcTrainingCenter
+						WHERE ern_ancestor_ent_id = tce_ent_id
+							and ern_child_ent_id = #{params.usr_ent_id}
+							AND ern_type = 'USR_PARENT_USG'
+		]]>
+		<if test="params.tc_independent == true">
+			and tcr_id = #{params.tcr_id}
+		</if>
+		<![CDATA[
+						AND tce_tcr_id = tcr_id
+						AND tcr_id = kbc2.kbc_tcr_id)
+				AND kbi.kbi_id = kic2.kic_kbi_id)
+		]]>
+		 <![CDATA[
+			order by kiv.kiv_update_datetime desc
+		]]>
+	</select>
+
+	<update id="publish" parameterType="com.cwn.wizbank.entity.KbItem">
+		 <![CDATA[
+			update Kb_Item
+			set
+				kbi_status = #{kbi_status,jdbcType=VARCHAR},
+				kbi_publish_datetime = #{kbi_publish_datetime,jdbcType=TIMESTAMP},
+				kbi_publish_user_id = #{kbi_publish_user_id,jdbcType=VARCHAR}
+				where kbi_id = #{kbi_id,jdbcType=VARCHAR}
+		]]>
+	</update>
+
+	<update id="approval" parameterType="com.cwn.wizbank.entity.KbItem">
+		 <![CDATA[
+			update Kb_Item
+			set
+				kbi_app_status = #{kbi_app_status,jdbcType=VARCHAR},
+				kbi_approve_datetime = #{kbi_approve_datetime,jdbcType=TIMESTAMP},
+				kbi_approve_user_id = #{kbi_approve_user_id,jdbcType=VARCHAR}
+			where
+				kbi_id = #{kbi_id,jdbcType=VARCHAR}
+		]]>
+	</update>
+
+
+	<select id="listStudyPage" resultMap="KbItemWithCatalogAndTag"
+		parameterType="Page">
+			select kbi.*,
+				reg.usr_display_bil,
+				approve.usr_display_bil
+				kbi_approve_usr_display_bil,
+				kba.kba_filename,
+				kba.kba_file,
+				kba.kba_url,
+		<choose>
+			<when test="_databaseId == 'ORACLE'">
+					nvl(sns.s_cnt_like_count,0) s_cnt_like_count
+			</when>
+			<when test="_databaseId == 'SQLSERVER'">
+					sns.s_cnt_like_count
+			</when>
+			<when test="_databaseId == 'MYSQL'">
+					ifNull(sns.s_cnt_like_count,0) s_cnt_like_count
+			</when>
+		</choose>
+			from Kb_Item kbi 
+			left join reguser reg on kbi.kbi_create_user_id = reg.usr_id 
+			left join reguser approve on kbi.kbi_approve_user_id = approve.usr_id
+			left join kb_attachment kba on kbi.kbi_image = kba.kba_id
+			left join sns_count sns on kbi.kbi_id = sns.s_cnt_target_id and s_cnt_module = 'Knowledge'
+		<if test="params.kbc_id != null and params.kbc_id !=''">
+			inner join kb_item_cat kic on kbi.kbi_id = kic.kic_kbi_id 
+			and kic.kic_kbc_id = #{params.kbc_id}
+		</if>
+		<if test="params.tag_id != null and params.tag_id !=''">
+			inner join kb_item_tag kit on kbi.kbi_id = kit.kit_kbi_id
+			and kit.kit_tag_id = #{params.tag_id}
+		</if>
+			where exists 
+			(select kic.kic_kbi_id from kb_item_cat kic inner join 
+			kb_catalog kbc on kic.kic_kbc_id=kbc.kbc_id where kbc.kbc_status='ON' 
+			and kbi.kbi_id = kic.kic_kbi_id)
+
+			and EXISTS (SELECT kic2.kic_kbi_id
+				FROM kb_item_cat kic2 INNER JOIN kb_catalog kbc2 ON kic2.kic_kbc_id = kbc2.kbc_id
+				WHERE EXISTS (SELECT DISTINCT tcr_id
+						FROM EntityRelation, tcTrainingCenterTargetEntity, tcTrainingCenter
+						WHERE ern_ancestor_ent_id = tce_ent_id
+							and ern_child_ent_id = #{params.usr_ent_id}
+							AND ern_type = 'USR_PARENT_USG'
+	 	<if test="params.tc_independent == true">
+			and (tcr_id = #{params.tcr_id} or tcr_parent_tcr_id > 0 )
+		</if> 
+			AND tce_tcr_id = tcr_id
+			AND tcr_id = kbc2.kbc_tcr_id)
+			AND kbi.kbi_id = kic2.kic_kbi_id)
+		<if test="params.kbi_type != null and params.kbi_type !=''">
+			and kbi.kbi_type = #{params.kbi_type}
+		</if>
+		<if test="params.kbi_status != null and params.kbi_status !=''">
+			and kbi.kbi_status = #{params.kbi_status}
+		</if>
+		<if test="params.sortname != null and params.sortname !=''">
+			order by ${params.sortname} ${params.sortorder}
+		</if>
+	</select>
+	
+	<select id="hashAuthority" resultType="java.lang.Boolean"
+		parameterType="Map">
+		<![CDATA[
+			select count(*)
+			from Kb_Item kbi where kbi.kbi_id = #{kbi_id}
+		]]>
+		<![CDATA[
+			and exists 
+			(select kic.kic_kbi_id from kb_item_cat kic inner join 
+			kb_catalog kbc on kic.kic_kbc_id=kbc.kbc_id where 
+			kbi.kbi_id = kic.kic_kbi_id)
+
+			and EXISTS (SELECT kic2.kic_kbi_id
+				FROM kb_item_cat kic2 INNER JOIN kb_catalog kbc2 ON kic2.kic_kbc_id = kbc2.kbc_id
+				WHERE EXISTS (SELECT DISTINCT tcr_id
+						FROM EntityRelation, tcTrainingCenterTargetEntity, tcTrainingCenter
+						WHERE ern_ancestor_ent_id = tce_ent_id
+							and ern_child_ent_id = #{usr_ent_id}
+							AND ern_type = 'USR_PARENT_USG'
+		]]>
+		<if test="tc_independent == true">
+			and tcr_parent_tcr_id > 0
+		</if>
+		<![CDATA[
+							AND tce_tcr_id = tcr_id
+							AND tcr_id = kbc2.kbc_tcr_id)
+					AND kbi.kbi_id = kic2.kic_kbi_id)
+		]]>
+	</select>
+	
+	
+	
+	<select id="selectWaitAppCount" resultType="Long" parameterType="java.util.Map"> 
+		 select COUNT(kbi_id)  cnt
+		 from Kb_Item kbi left join reguser reg on kbi.kbi_create_user_id = reg.usr_id 
+		 left join reguser approve on kbi.kbi_approve_user_id = approve.usr_id 
+		 left join sns_count sns on kbi.kbi_id = sns.s_cnt_target_id and s_cnt_module = 'Knowledge' 
+		  where exists 
+		 (select kic2.kic_kbi_id from kb_item_cat kic2 inner join kb_catalog kbc on kbc.kbc_id = kic2.kic_kbc_id where 
+		 exists (select t.tcr_id from tcTrainingCenter t where exists (
+		  select * from tcTrainingCenter ancestor 
+		  <if test="current_role != null and current_role != '' and current_role != 'ADM_1'">
+		  inner join tcTrainingCenterOfficer on
+		   (tco_tcr_id = ancestor.tcr_id) left join tcRelation on (tcn_ancestor = ancestor.tcr_id)
+		    inner join tcTrainingCenter child on (child.tcr_id = tcn_child_tcr_id or child.tcr_id = ancestor.tcr_id)
+		     where tco_usr_ent_id = #{usr_ent_id} and child.tcr_id = t.tcr_id
+		     </if>
+		     ) and t.tcr_status = 'OK' 
+		     and t.tcr_id = kbc.kbc_tcr_id) and kic2.kic_kbi_id = kbi.kbi_id) and kbi.kbi_app_status = 'PENDING' 
+		     and ((kbi.kbi_app_status='APPROVED' and kbi.kbi_approve_user_id is not null) or kbi.kbi_app_status != 'APPROVED')	
+     </select>
+
+	
+	<select id="getKbItemListForUpdateOldData" resultMap="KbItemTemp">
+	    select kbi_id,Kbi_type,kbi_content from kb_item
+	</select>
+	
+	<update id="updateKbi_filetype" parameterType="Map">
+	    update kb_item set kbi_filetype = #{filetype} where kbi_id = #{kbi_id}
+	</update>
+	
+	<select id="getkbItemCountByRootTcrId" parameterType="Map" resultType="Long">
+		select COUNT(*) from kb_item where kbi_id in
+									(
+									   select kic_kbi_id from kb_item_cat where kic_kbc_id in
+																							(
+																								select kbc_id from kb_catalog where kbc_tcr_id = #{tcrId}
+																															  or kbc_tcr_id in(select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{tcrId})
+																							)
+									)
+									<choose><!-- 区别是管理员还是学员分享的：如果需要审批的，就是学员分享的，如果不需要审批的，则是管理员审批的 -->
+										<when test="type == 'admin'">
+											and kbi_app_status = 'APPROVED' and kbi_approve_datetime is null <!-- 不需要审批的 -->
+										</when>
+										<otherwise>
+											and 
+											 (
+												 (kbi_app_status = 'PENDING')
+												 or
+												 (
+													(kbi_app_status = 'REAPPROVAL' or kbi_app_status = 'APPROVED') 
+													 and kbi_approve_datetime is not null
+												 )
+											 )
+											 <!-- 需要审批的 -->
+										</otherwise>
+									</choose>
+	</select>
+	
+</mapper>

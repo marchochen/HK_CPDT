@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.AeItemAccessMapper">
+	<select id="get" resultType="AeItemAccess" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				iac_itm_id,
+				iac_ent_id,
+				iac_access_type,
+				iac_access_id,
+				iac_syn_timestamp
+			from AeItemAccess t 
+			where
+				 t.iac_itm_id = #{id}
+		]]>
+	</select>	
+	<update id="update" parameterType="com.cwn.wizbank.entity.AeItemAccess">
+	    <![CDATA[
+	        update AeItemAccess t 
+	        set 
+				iac_itm_id = #{iac_itm_id,jdbcType=INTEGER},
+				iac_ent_id = #{iac_ent_id,jdbcType=INTEGER},
+				iac_access_type = #{iac_access_type,jdbcType=VARCHAR},
+				iac_access_id = #{iac_access_id,jdbcType=VARCHAR},
+				iac_syn_timestamp = #{iac_syn_timestamp,jdbcType=TIMESTAMP}
+	         where t.iac_itm_id = #{iac_itm_id,jdbcType=INTEGER}
+	    ]]>
+    </update>    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.AeItemAccess">
+    	<![CDATA[
+            insert into AeItemAccess(
+            		iac_access_type,
+            		iac_syn_timestamp
+            ) values (
+            	#{iac_access_type,jdbcType=VARCHAR},
+            	#{iac_syn_timestamp,jdbcType=TIMESTAMP}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from AeItemAccess where
+	        iac_itm_id = #{iac_itm_id}
+	    ]]>
+    </delete>	
+    <delete id="delByEntId" parameterType="java.lang.Long">
+	   	delete from AeItemAccess where
+	        iac_ent_id = #{id}
+    </delete>
+	<select id="selectAll" resultType="AeItemAccess">
+	    <![CDATA[
+	         select 
+				iac_itm_id,
+				iac_ent_id,
+				iac_access_type,
+				iac_access_id,
+				iac_syn_timestamp
+			from AeItemAccess t 
+	    ]]>
+	</select>	
+	<select id="getInstructorsByItmId" resultType="AeItemAccess" parameterType="java.lang.Long">
+	    select 				
+	    iac_itm_id,
+		iac_ent_id,
+		iac_access_type,
+		iac_access_id,
+		iac_syn_timestamp,
+		usr_display_bil AS "user.usr_display_bil",
+		usr_ent_id AS "user.usr_ent_id",
+		urx_extra_43 AS "user.usr_photo"
+		from AeItemAccess 
+		inner join regUser on iac_ent_id = usr_ent_id
+		left join regUserExtension on urx_usr_ent_id = usr_ent_id
+		where iac_itm_id = #{itmId} and iac_access_id = 'INSTR_1'
+		
+		union 	
+		
+		select 				
+	    iac_itm_id,
+		iac_ent_id,
+		iac_access_type,
+		iac_access_id,
+		iac_syn_timestamp,
+		iti_name AS "user.usr_display_bil",
+		iti_ent_id AS "user.usr_ent_id",
+		iti_img AS "user.usr_photo"
+	from AeItemAccess 
+		inner join InstructorInf on iac_ent_id = iti_ent_id
+		where iac_itm_id = #{itmId} and iac_access_id = 'INSTR_1' and iti_type_mark = 'EXT'
+	</select>	
+	
+	<select id="hasInstructorsByItmId" resultType="AeItemAccess" parameterType="java.lang.Long">
+	    select * from AeItemAccess where iac_itm_id = #{itmId}  and iac_access_id = 'INSTR_1'
+	</select>
+	
+	<select id="getSoleAccessItem" parameterType="Map" resultType="AeItemAccess">
+	   select 
+	   a.iac_access_type,
+	   a.iac_access_id,
+	   a.iac_itm_id, 
+	   itm_code AS "item.itm_code", itm_title AS "item.itm_title",
+	    count(*) cnt 
+        from aeItemAccess a, aeItem 
+        where a.iac_itm_id in (select b.iac_itm_id from aeItemAccess b where iac_ent_id = #{usr_ent_id} and b.iac_access_id = #{iac_access_id}) 
+        and itm_id = a.iac_itm_id 
+         and a.iac_access_id = #{iac_access_id} 
+         group by a.iac_itm_id, itm_code, itm_title, a.iac_access_type, a.iac_access_id 
+         having count(*) = 1 
+        order by itm_code 
+	</select>
+	
+	<select id="getUniqueInstructorsByItmId" resultType="java.lang.Long" parameterType="java.lang.Long">
+	select distinct iac_ent_id  from (
+	    select 				
+	    iac_itm_id,
+		iac_ent_id,
+		iac_access_type,
+		iac_access_id,
+		iac_syn_timestamp,
+		usr_display_bil AS "user.usr_display_bil",
+		usr_ent_id AS "user.usr_ent_id",
+		urx_extra_43 AS "user.usr_photo"
+		from AeItemAccess 
+		inner join regUser on iac_ent_id = usr_ent_id
+		left join regUserExtension on urx_usr_ent_id = usr_ent_id
+		where iac_itm_id = #{itmId} and iac_access_id = 'INSTR_1'
+		
+		union 	
+		
+		select 				
+	    iac_itm_id,
+		iac_ent_id,
+		iac_access_type,
+		iac_access_id,
+		iac_syn_timestamp,
+		iti_name AS "user.usr_display_bil",
+		iti_ent_id AS "user.usr_ent_id",
+		iti_img AS "user.usr_photo"
+	from AeItemAccess 
+		inner join InstructorInf on iac_ent_id = iti_ent_id
+		where iac_itm_id = #{itmId} and iac_access_id = 'INSTR_1'
+		) iac
+	</select>
+</mapper>

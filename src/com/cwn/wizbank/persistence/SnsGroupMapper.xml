@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.SnsGroupMapper">
+	<select id="get" resultType="SnsGroup" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				s_grp_id,
+				s_grp_uid,
+				s_grp_title,
+				s_grp_desc,
+				s_grp_private,
+				s_grp_create_uid,
+				s_grp_create_datetime,
+				s_grp_update_uid,
+				s_grp_update_datetime,
+				s_grp_status
+			from sns_group t where t.s_grp_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.SnsGroup">
+        update sns_group
+        set 
+        	<choose>
+        		<when test="s_grp_status != null and s_grp_status == 'DELETED'">
+        			s_grp_status = #{s_grp_status,jdbcType=VARCHAR},
+        		</when>
+        		<when test="s_grp_uid != null and s_grp_uid > 0">
+        			s_grp_uid = #{s_grp_uid,jdbcType=INTEGER},
+        		</when>
+        		<otherwise>
+        			s_grp_title = #{s_grp_title,jdbcType=VARCHAR},
+					s_grp_desc = #{s_grp_desc,jdbcType=VARCHAR},
+					s_grp_private = #{s_grp_private,jdbcType=INTEGER},
+					s_grp_card = #{s_grp_card,jdbcType=VARCHAR},
+        		</otherwise>
+        	</choose>
+        	s_grp_update_uid = #{s_grp_update_uid,jdbcType=INTEGER},
+			s_grp_update_datetime = #{s_grp_update_datetime,jdbcType=TIMESTAMP}
+         where s_grp_id = #{s_grp_id,jdbcType=INTEGER}
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.SnsGroup">
+		insert into sns_group(
+      		s_grp_uid,
+      		s_grp_title,
+      		s_grp_desc,
+      		s_grp_private,
+      		s_grp_create_uid,
+      		s_grp_create_datetime,
+      		s_grp_update_uid,
+      		s_grp_update_datetime,
+      		s_grp_tcr_id,
+      		<if test="s_grp_card != null">
+      			s_grp_card,
+      		</if>
+      		s_grp_status
+         ) values (
+         	#{s_grp_uid,jdbcType=INTEGER},
+         	#{s_grp_title,jdbcType=VARCHAR},
+         	#{s_grp_desc,jdbcType=VARCHAR},
+         	#{s_grp_private,jdbcType=INTEGER},
+         	#{s_grp_create_uid,jdbcType=INTEGER},
+         	#{s_grp_create_datetime,jdbcType=TIMESTAMP},
+         	#{s_grp_update_uid,jdbcType=INTEGER},
+         	#{s_grp_update_datetime,jdbcType=TIMESTAMP},
+         	#{s_grp_tcr_id,jdbcType=INTEGER},
+         	<if test="s_grp_card != null">
+      			#{s_grp_card,jdbcType=VARCHAR},
+      		</if>
+      		#{s_grp_status,jdbcType=VARCHAR}
+		)
+		<selectKey keyProperty="s_grp_id" resultType="Long" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select sns_group_seq.currval as s_grp_id from dual
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					select ident_current('sns_group') as s_grp_id
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					select last_insert_id() as s_grp_id
+				</when>
+			</choose>
+		</selectKey>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from sns_group  where s_grp_id = #{s_grp_id}
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="SnsGroup">
+	    <![CDATA[
+	         select 
+				s_grp_id,
+				s_grp_uid,
+				s_grp_title,
+				s_grp_desc,
+				s_grp_private,
+				s_grp_create_uid,
+				s_grp_create_datetime,
+				s_grp_update_uid,
+				s_grp_update_datetime
+			from sns_group t 
+	    ]]>
+	</select>
+	<select id="selectSnsGroupList" resultType="SnsGroup" parameterType="Page">
+		select 
+			s_grp_id,
+			s_grp_title,
+			s_grp_create_datetime,
+			s_grp_card,
+			s_grp_private,
+			joinDetail.s_gpm_status as "s_gpm.s_gpm_status",
+			usr_display_bil as "user.usr_display_bil",
+			joinDetail.s_gpm_usr_id as "user.usr_ent_id",
+			count(distinct member.s_gpm_usr_id) as "member_total",
+			count(distinct s_doi_id)  as "message_total",
+			count(distinct wait.s_gpm_usr_id) as "member_wait"
+		from sns_group
+		left join sns_group_member member on member.s_gpm_grp_id = s_grp_id and member.s_gpm_status = 1
+		left join sns_doing on s_doi_target_id = s_grp_id and s_doi_module = 'Group' and s_doi_act = 'group'
+		left join sns_group_member manager on manager.s_gpm_grp_id = s_grp_id and manager.s_gpm_type = 1
+		left join regUser on usr_ent_id = manager.s_gpm_usr_id
+		left join sns_group_member joinDetail on joinDetail.s_gpm_grp_id = s_grp_id and joinDetail.s_gpm_usr_id = ${params.usr_ent_id}
+		left join sns_group_member wait on wait.s_gpm_grp_id = s_grp_id and wait.s_gpm_status = '0'  <!-- wait.s_gpm_status = '2' -->
+		where s_grp_status = 'OK'
+		<choose>
+			<when test="params.s_grp_title != null and params.s_grp_title != ''">
+				and s_grp_title =#{params.s_grp_title,jdbcType=VARCHAR}
+			</when>
+			<otherwise>
+				<choose>
+					<when test="params.type != null and params.type == 'find'">
+						and (s_grp_private  = 0 
+						<if test="params.hasSnsGroupManage != null and params.hasSnsGroupManage == true">
+							or s_grp_private  = '1' 
+						</if>
+						<if test="params.isInstructor != null and params.isInstructor == true">
+							or s_grp_private = '3'
+						</if>
+						)
+ 						and member.s_gpm_grp_id not in (select s_gpm_grp_id from sns_group_member where s_gpm_usr_id = ${params.usr_ent_id} and (s_gpm_status = 1 or s_gpm_status = 0))
+						
+					
+					</when>
+					<when test="params.type!=null and params.type=='open'">
+					    and s_grp_private = 2 
+					</when>
+					<otherwise>
+						and member.s_gpm_grp_id in (select s_gpm_grp_id from sns_group_member where s_gpm_usr_id = ${params.usr_ent_id} and (s_gpm_status = 1 or s_gpm_status = 0))
+					</otherwise>
+				</choose>
+				<if test="params.tcr_id != null and params.tcr_id > 0">
+					and s_grp_tcr_id = ${params.tcr_id}
+				</if>
+				<if test="params.searchContent != null and params.searchContent != ''">
+					and lower(s_grp_title) like #{params.searchContent}
+				</if>
+			</otherwise>
+		</choose>
+		group by s_grp_id, s_grp_title, s_grp_create_datetime, s_grp_card,s_grp_private, usr_display_bil, joinDetail.s_gpm_usr_id, joinDetail.s_gpm_status
+		order by s_grp_create_datetime desc
+	</select>
+	<select id="selectAllSnsGroupList" resultType="SnsGroup" parameterType="Page">
+		select 
+			s_grp_id,
+			s_grp_title,
+			s_grp_create_datetime,
+			s_grp_card,
+			usr_display_bil as "user.usr_display_bil",
+			usr_display_bil,  <!-- 用于排序，user是关键字，不能排序 -->
+			count(distinct member.s_gpm_usr_id) as "member_total",
+			count(distinct s_doi_id)  as "message_total",
+			count(distinct wait.s_gpm_usr_id) as "member_wait"
+		from sns_group
+		left join sns_group_member member on member.s_gpm_grp_id = s_grp_id and member.s_gpm_status = 1
+		left join sns_doing on s_doi_target_id = s_grp_id and s_doi_module = 'Group'
+		left join sns_group_member manager on manager.s_gpm_grp_id = s_grp_id and manager.s_gpm_type = 1
+		left join regUser on usr_ent_id = manager.s_gpm_usr_id
+		left join sns_group_member wait on wait.s_gpm_grp_id = s_grp_id and wait.s_gpm_status = '2'
+		where s_grp_status = 'OK'
+		<if test="params.tcr_id != null and params.tcr_id > 0">
+			and s_grp_tcr_id = ${params.tcr_id}
+		</if>
+		<if test="params.searchContent != null and params.searchContent != ''">
+			and lower(s_grp_title) like  #{params.searchContent}
+		</if>
+		<if test="params.isInstructor != null and params.isInstructor != true">
+			and s_grp_status != '3'
+		</if>
+		group by s_grp_id, s_grp_title, s_grp_create_datetime, s_grp_card, usr_display_bil
+		order by s_grp_create_datetime desc
+	</select>
+	<select id="selectSnsGroupDetail" resultType="SnsGroup" parameterType="SnsGroup">
+		select
+			s_grp_id,
+			s_grp_uid,
+			s_grp_title,
+			s_grp_desc,
+			s_grp_card,
+			s_grp_private,
+			s_grp_create_datetime,
+			s_grp_status,
+			mine.s_gpm_status as "s_gpm.s_gpm_status",
+			usr_display_bil as "user.usr_display_bil",
+			count(distinct member.s_gpm_usr_id) as "member_total"			
+		from sns_group
+		left join sns_group_member member on member.s_gpm_grp_id = s_grp_id and member.s_gpm_status = 1
+		left join sns_group_member manager on manager.s_gpm_grp_id = s_grp_id and manager.s_gpm_type = 1
+		left join regUser on usr_ent_id = s_grp_uid
+		left join sns_group_member mine on mine.s_gpm_grp_id = s_grp_id and mine.s_gpm_usr_id = #{s_gpm.s_gpm_usr_id}
+		where s_grp_id = #{s_grp_id}
+		<if test="s_grp_uid != null and s_grp_uid > 0 ">
+			and manager.s_gpm_usr_id = #{s_grp_uid}
+		</if>
+		group by s_grp_id,
+			s_grp_uid,
+			s_grp_title,
+			s_grp_desc,
+			s_grp_card,
+			s_grp_private,
+			s_grp_create_datetime,
+			s_grp_status,
+			mine.s_gpm_status,
+			usr_display_bil
+	</select>
+	
+	<select id="getByName" parameterType="Page" resultType="SnsGroup">
+			select 
+			s_grp_id,
+			s_grp_uid,
+			s_grp_title,
+			s_grp_desc,
+			s_grp_private,
+			s_grp_create_uid,
+			s_grp_create_datetime,
+			s_grp_update_uid,
+			s_grp_update_datetime,
+			s_grp_status
+		from sns_group where s_grp_title = #{params.s_grp_title} and s_grp_status = 'OK'
+	</select>
+	
+	<select id="checkGroupName"  resultType="java.lang.Integer" parameterType="SnsGroup">
+	select count(*) from sns_group where S_GRP_TITLE =#{s_grp_title} and s_grp_status != 'DELETED'
+	</select>
+</mapper>

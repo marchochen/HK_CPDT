@@ -1,0 +1,53 @@
+.TitleText {
+	color: #000000;
+	font: 11pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.Bg{
+	background-color: #FFFFFF;
+}
+
+.mainContent{
+	padding-left: 20px;
+}
+
+td.statInfo{
+	padding-top: 8px;
+}
+
+.Title {
+	font-size: 12pt;
+}
+
+a.Text, a.Text:hover, .smallText {
+	color: #000000;
+	font: 10pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.Text {
+	text-decoration: none;
+	color: #000000;
+	font: 11pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.UnSelectedQue {
+	text-decoration: none;
+	font-size: 11pt;
+	font-family: Arial Black;
+}
+
+.SelectedQue {
+	color: #ff0000;
+	text-decoration: none;
+	font-size: 11pt;
+	font-family: Arial Black;
+}
+
+.ContentDiv {
+	position: absolute;
+	top: 0; 
+	left: 0; 
+	visibility: hidden;
+	background-color: #87dbfa; 
+	padding-top: 30px;
+}

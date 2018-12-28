@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.UserPositionLrnMapMapper">
+	<select id="get" parameterType="Long" resultType="UserPositionLrnMap">
+		select * from
+		UserPositionLrnMap where upm_id = #{upm_id}
+	</select>
+
+	<update id="update" parameterType="com.cwn.wizbank.entity.UserPositionLrnMap">
+		update UserPositionLrnMap set
+		upm_upt_id = #{upm_upt_id}
+		,upm_seq_no = #{upm_seq_no}
+		,upm_img =
+		#{upm_img}
+		,upm_create_usr_id = #{upm_create_usr_id}
+		,upm_update_usr_id
+		= #{upm_update_usr_id}
+		,upm_create_time = #{upm_create_time}
+		,upm_update_time = #{upm_update_time}
+		,upm_tcr_id = #{upm_tcr_id}
+		,upm_status = #{upm_status}
+		where upm_id = #{upm_id}
+	</update>
+
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from UserPositionLrnMap
+		where upm_id = #{id}
+	</delete>
+	<insert id="add" parameterType="com.cwn.wizbank.entity.UserPositionLrnMap"
+		useGeneratedKeys="true" keyProperty="upm_id">
+		insert into
+		UserPositionLrnMap(upm_upt_id,upm_seq_no,upm_img,upm_create_usr_id,upm_tcr_id,upm_update_usr_id,upm_create_time,upm_update_time,upm_status)
+		values(#{upm_upt_id},#{upm_seq_no},#{upm_img},#{upm_create_usr_id},#{upm_tcr_id},#{upm_update_usr_id},#{upm_create_time},#{upm_update_time},#{upm_status})
+	<selectKey resultType="java.lang.Long" keyProperty="upm_id" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select userPositionLrnMap_seq.CURRVAL AS upm_id FROM DUAL
+				</when>
+				<otherwise>
+					select @@IDENTITY as upm_id
+				</otherwise>
+			</choose>
+		</selectKey>
+	</insert>
+
+	<select id="getPositionMapFrontList" parameterType="Map"
+		resultType="UserPositionLrnMap">
+		select * from userpositionlrnmap left join userposition on
+		upm_upt_id=upt_id inner join userpositioncatalog on upt_upc_id=upc_id
+		where 1=1
+		  <if test="params.top_tcr_id != null and params.top_tcr_id !=0  ">		 
+			and (upm_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{params.top_tcr_id} ) or upm_tcr_id = #{params.top_tcr_id})
+		 </if>
+		<if test="params.upm_status != null and params.upm_status !=0  ">
+			and upm_status= #{params.upm_status}
+		</if>
+	</select>
+	<select id="getPositionMapList" parameterType="Map"
+		resultType="UserPositionLrnMap">
+		select * from userpositionlrnmap left join userposition on
+		upm_upt_id=upt_id left join userpositioncatalog on upt_upc_id=upc_id
+		where 1=1
+		<if test="params.upc_id != null and params.upm_id !=0  ">
+			and upm_id= #{params.upm_id}
+		</if>
+		<if test="params.upc_id != null and params.upt_id !=0  ">
+			and upt_id= #{params.upt_id}
+		</if>
+		<if test="params.upc_id != null and params.upc_id !=0  ">
+			and upt_upc_id= #{params.upc_id}
+		</if>
+		<if test="params.upm_status != null and params.upm_status !=0  ">
+			and upm_status= #{params.upm_status}
+		</if>
+		<if test="params.searchText != null and params.searchText !=''">
+			<bind name="searchText" value="'%' + params.searchText + '%'" />
+			and ( lower(upt_title) like N'${searchText}' )
+		</if>
+		 <if test="params.top_tcr_id != null and params.top_tcr_id !=''  ">		 
+			and (upm_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{params.top_tcr_id} ) or upm_tcr_id = #{params.top_tcr_id})
+		 </if>
+	</select>
+	<select id="getCountById" parameterType="Map" resultType="int">
+		select count(1) from userpositionlrnmap
+		where 1=1
+		<if test="upm_status !=null">
+			and upm_status= #{upm_status}
+		</if>
+		<if test="upm_upt_id !=null and upm_upt_id !='' ">
+			and upm_upt_id= #{upm_upt_id}
+		</if>
+		 <if test="top_tcr_id != null and top_tcr_id !=''  ">		 
+			and (upm_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{top_tcr_id} ) or upm_tcr_id = #{top_tcr_id})
+		 </if>
+	</select>
+	
+	
+	<select id="getPostFrontMapList" parameterType="Map" resultType="UserPositionLrnMap">
+		select * from userpositionlrnmap left join userposition on
+		upm_upt_id=upt_id left join userpositioncatalog on upt_upc_id=upc_id
+		where 1=1
+		<if test="upm_status !=null">
+			and upm_status= #{upm_status}
+		</if>
+		<if test="upc_id != null">
+			<choose>
+				<when test="upc_id == 0">
+					and upc_id is null
+				</when>
+				<otherwise>
+					and upc_id= #{upc_id}
+				</otherwise>
+			</choose>
+		</if>
+		  <if test="top_tcr_id != null and top_tcr_id !=0  ">		 
+			and (upm_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{top_tcr_id} ) or upm_tcr_id = #{top_tcr_id})
+		 </if>
+	</select>
+	
+	<select id="getByFieldName" parameterType="Map" resultType="UserPositionLrnMap">
+		select * from userpositionlrnmap left join userposition on
+		upm_upt_id=upt_id left join userpositioncatalog on upt_upc_id=upc_id
+		where 1=1
+		<if test="upt_id !=null  ">
+			and upt_id= #{upt_id}
+		</if>
+		<if test="upm_id !=null  ">
+			and upm_id= #{upm_id}
+		</if>
+	</select>
+	<select id="getPositionMapNotOneList" parameterType="Long" resultType="UserPositionLrnMap">
+		<choose>
+				<when test="_databaseId == 'ORACLE'">
+				<![CDATA[ 
+				SELECT * FROM (SELECT upm_id,upm_upt_id,upm_seq_no,upm_img,upm_create_usr_id, upm_update_usr_id, upm_create_time,upm_update_time,upm_tcr_id,upm_status,upt_id,NVL(upc_id,0) upc_id, upt_code,upt_desc, upt_title, upc_title FROM userpositionlrnmap left join userposition on
+		upm_upt_id=upt_id left join userpositioncatalog on upt_upc_id=upc_id ORDER BY DBMS_RANDOM.RANDOM()) WHERE rownum <= 8 
+		and upm_status=1
+		and upc_id in (select NVL(upc_id,0) from userpositionlrnmap inner join userposition on  upm_upt_id=upt_id left join userpositioncatalog on upt_upc_id=upc_id where upm_id=#{upm_id} )
+		and upm_id not in (#{upm_id})
+            ]]>
+          <if test="top_tcr_id != null and top_tcr_id !=0  ">		 
+			and (upm_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{top_tcr_id} ) or upm_tcr_id = #{top_tcr_id})
+		 </if>
+		
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					select * from userPositionLrnMap left join userPosition on
+					upm_upt_id=upt_id left join userPositionCatalog on upt_upc_id = upc_id
+					where 1=1
+					and upm_status=1
+					and ifnull(upc_id, 0) in (select ifnull(upc_id, 0) from userPositionLrnMap inner join userPosition on  upm_upt_id = upt_id left join userPositionCatalog on upt_upc_id = upc_id where upm_id = #{upm_id})
+					and upm_id not in (#{upm_id})
+					  <if test="top_tcr_id != null and top_tcr_id !=0  ">		 
+						and (upm_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{top_tcr_id} ) or upm_tcr_id = #{top_tcr_id})
+					 </if>
+					order by Rand()
+					limit 0 , 8
+				</when>
+				<otherwise>
+						select top 8 * from userPositionLrnMap left join userPosition on
+		upm_upt_id=upt_id left join userPositionCatalog on upt_upc_id=upc_id
+		where 1=1
+		and upm_status=1
+		and isnull(upc_id, 0) in (select isnull(upc_id, 0) from userPositionLrnMap inner join userPosition on  upm_upt_id=upt_id left join userPositionCatalog on upt_upc_id=upc_id where upm_id=#{upm_id})
+		and upm_id not in (#{upm_id})
+		  <if test="top_tcr_id != null and top_tcr_id !=0  ">		 
+			and (upm_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{top_tcr_id} ) or upm_tcr_id = #{top_tcr_id})
+		 </if>
+		order by newid()
+				</otherwise>
+			</choose>
+		
+	</select>
+	<update id="updateStatus" parameterType="Map">
+		update UserPositionLrnMap set
+	    upm_status = #{upm_status}
+		where upm_id = #{upm_id}
+	</update>
+    <select id="getPositionMapNotOneListSize" parameterType="Map" resultType="int">
+      <choose>
+				<when test="_databaseId == 'ORACLE'">
+				<![CDATA[ 
+				SELECT count(1) FROM (SELECT upm_id,upm_upt_id,upm_seq_no,upm_img,upm_create_usr_id, upm_update_usr_id, upm_create_time,upm_update_time,upm_tcr_id,upm_status,upt_id,NVL(upc_id,0) upc_id, upt_code,upt_desc, upt_title, upc_title FROM userpositionlrnmap left join userposition on
+		upm_upt_id=upt_id left join userpositioncatalog on upt_upc_id=upc_id ORDER BY DBMS_RANDOM.RANDOM()) WHERE  upm_status=1
+		and upc_id in (select NVL(upc_id,0) from userpositionlrnmap inner join userposition on  upm_upt_id=upt_id left join userpositioncatalog on upt_upc_id=upc_id where upm_id=#{upm_id} )
+		and upm_id not in (#{upm_id})
+            ]]>
+          <if test="top_tcr_id != null and top_tcr_id !=0  ">		 
+			and (upm_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{top_tcr_id} ) or upm_tcr_id = #{top_tcr_id})
+		 </if>
+		
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					select count(1) from userPositionLrnMap left join userPosition on
+					upm_upt_id=upt_id left join userPositionCatalog on upt_upc_id = upc_id
+					where 1=1
+					and upm_status=1
+					and ifnull(upc_id, 0) in (select ifnull(upc_id, 0) from userPositionLrnMap inner join userPosition on  upm_upt_id = upt_id left join userPositionCatalog on upt_upc_id = upc_id where upm_id = #{upm_id})
+					and upm_id not in (#{upm_id})
+					  <if test="top_tcr_id != null and top_tcr_id !=0  ">		 
+						and (upm_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{top_tcr_id} ) or upm_tcr_id = #{top_tcr_id})
+					 </if>
+					order by Rand()
+				</when>
+				<otherwise>
+						select count(1) from userPositionLrnMap left join userPosition on
+		upm_upt_id=upt_id left join userPositionCatalog on upt_upc_id=upc_id
+		where 1=1
+		and upm_status=1
+		and isnull(upc_id, 0) in (select isnull(upc_id, 0) from userPositionLrnMap inner join userPosition on  upm_upt_id=upt_id left join userPositionCatalog on upt_upc_id=upc_id where upm_id=#{upm_id})
+		and upm_id not in (#{upm_id})
+		  <if test="top_tcr_id != null and top_tcr_id !=0  ">		 
+			and (upm_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{top_tcr_id} ) or upm_tcr_id = #{top_tcr_id})
+		 </if>
+		order by newid()
+				</otherwise>
+			</choose>
+    </select>
+</mapper>

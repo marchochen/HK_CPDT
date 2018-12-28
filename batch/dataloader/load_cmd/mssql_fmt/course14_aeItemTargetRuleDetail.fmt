@@ -1,0 +1,11 @@
+8.0
+9
+1	SQLNCHAR	0	0	"\t\0"		1	ird_itm_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	ird_itr_id	""
+3	SQLNCHAR	0	0	"\t\0"		3	ird_group_id	""
+4	SQLNCHAR	0	0	"\t\0"		4	ird_grade_id	""
+5	SQLNCHAR	0	0	"\t\0"		5	ird_type	""
+6	SQLNCHAR	0	0	"\t\0"		6	ird_create_usr_id	""
+7	SQLNCHAR	0	0	"\t\0"		7	ird_create_timestamp	""
+8	SQLNCHAR	0	0	"\t\0"		8	ird_update_usr_id	""
+9	SQLNCHAR	0	0	"\r\0\n\0"	9	ird_update_timestamp	""

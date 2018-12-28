@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.CpdRegistrationMapper">
+    <resultMap id="CpdRegistrationMap" type="CpdRegistration">
+        <id column="cr_id" property="cr_id" />
+        <result column="cr_usr_ent_id" property="cr_usr_ent_id"></result>
+        <result column="cr_ct_id" property="cr_ct_id"></result>
+        <result column="cr_create_usr_ent_id" property="cr_create_usr_ent_id"></result>
+        <result column="cr_update_usr_ent_id" property="cr_update_usr_ent_id"></result>
+        <result column="cr_status" property="cr_status"></result>
+        <result column="cr_reg_number" property="cr_reg_number"></result>
+        <result column="cr_reg_datetime" property="cr_reg_datetime" javaType="java.util.Date" jdbcType="DATE"></result>
+        <result column="cr_de_reg_datetime" property="cr_de_reg_datetime"  javaType="java.util.Date" jdbcType="DATE"></result>
+        <association property="user" javaType="RegUser">
+            <id property="usr_ent_id" column="usr_ent_id" />
+            <result property="usr_display_bil" column="usr_display_bil" />
+            <result property="usr_ste_usr_id" column="usr_ste_usr_id" />
+        </association>
+        <association property="cpdType" javaType="cpdType">
+            <id property="ct_id" column="ct_id" />
+            <result property="ct_license_type" column="ct_license_type" />
+            <result property="ct_license_alias" column="ct_license_alias" />
+            <result property="ct_recover_hours_period" column="ct_recover_hours_period" />
+        </association>
+    </resultMap>
+	<select id="searchAll" resultMap="CpdRegistrationMap" parameterType="Page">
+		<![CDATA[
+			select 
+				cr_id,
+                cr_usr_ent_id,
+                cr_ct_id,
+                cr_create_usr_ent_id,
+                cr_update_usr_ent_id,
+                cr_status,
+                cr_reg_number,
+                cr_reg_datetime,
+                cr_de_reg_datetime,
+                usr_ent_id,
+                usr_display_bil,
+                usr_ste_usr_id,
+                ct_id,
+                ct_license_type
+			from CpdRegistration  left join RegUser on usr_ent_id = cr_usr_ent_id  left join cpdType on ct_id=cr_ct_id 
+			where  cr_status = 'OK'
+			]]>
+			and usr_ent_id in (
+	                <choose>
+	                   <when test="params.is_role_tc_ind !=null and params.is_role_tc_ind != true">
+	                    <!-- 角色与培训中心无关 --> 
+	                    select ern_child_ent_id from EntityRelation where ern_ancestor_ent_id in(
+							select tce_ent_id from tcTrainingCenterTargetEntity where tce_tcr_id = #{params.my_top_tc_id} ) and ern_type='USR_PARENT_USG'    
+	                   </when>
+	                   <otherwise>
+	                    select ern_child_ent_id from EntityRelation where ern_ancestor_ent_id in(
+							select tce_ent_id from tcTrainingCenterTargetEntity,tcTrainingCenterOfficer where tce_tcr_id = tco_tcr_id 
+							and  tco_usr_ent_id = #{params.usr_ent_id}
+							and tco_rol_ext_id = #{params.current_role}
+							<!-- 二级培训中心是否独立 -->
+							<if test="params.tc_independent == true">
+								and ( tce_tcr_id in( select tcn_child_tcr_id from tcrelation where tcn_ancestor = #{params.my_top_tc_id} ) 
+							      or tce_tcr_id = #{params.my_top_tc_id})
+							</if>
+							)  and ern_type='USR_PARENT_USG'
+	                   </otherwise>
+	                </choose>
+					)
+			<if test="params.ct_id != null and params.ct_id != 0"> 
+                and  cr_ct_id = #{params.ct_id}
+            </if>
+            <if test="params.searchText != null and params.searchText != '' "> 
+                <![CDATA[
+                and (usr_ste_usr_id like N'%${params.searchText}%' 
+                or usr_display_bil like N'%${params.searchText}%' 
+                or cr_reg_number like N'%${params.searchText}%' )
+                ]]>
+            </if>
+            <choose>
+                <!--当按“用户名/全名”排序时，第二，第三排序要用“牌照类型，注册时间”-->
+                <when test="params.sortname != null and params.sortname != '' and (params.sortname = 'usr_display_bil' or params.sortname = 'usr_ste_usr_id' ) "> 
+                   <![CDATA[
+                    order by
+                    ct_license_type,cr_reg_datetime 
+                     ]]>
+                </when>
+                <!--当按其它列排序时，第二排序要用“用户名，注册时间”-->
+                <when test="params.sortname != null and params.sortname != '' and params.sortname != 'usr_display_bil' and params.sortname != 'usr_ste_usr_id'  "> 
+                   <![CDATA[
+                    order by
+                    usr_ste_usr_id ,cr_reg_datetime 
+                     ]]>
+                </when>
+                <!--当初始化没使用排序时，则默认为：用户名，牌照类型，注册时间”排序-->
+                <otherwise>
+                <![CDATA[
+                order by
+                usr_ste_usr_id,ct_license_type,cr_reg_datetime
+                 ]]>
+                 </otherwise>
+            </choose>
+            
+	</select>
+	
+	
+	
+    <select id="getDetail" resultMap="CpdRegistrationMap" parameterType="java.lang.Long">
+        <![CDATA[
+            select 
+                cr_id,
+                cr_usr_ent_id,
+                cr_ct_id,
+                cr_create_usr_ent_id,
+                cr_update_usr_ent_id,
+                cr_status,
+                cr_reg_number,
+                cr_reg_datetime,
+                cr_de_reg_datetime,
+                usr_ent_id,
+                usr_display_bil,
+                usr_ste_usr_id,
+                ct_license_type,
+                ct_license_alias,
+                ct_recover_hours_period
+            from CpdRegistration  left join RegUser on usr_ent_id = cr_usr_ent_id  left join cpdType on ct_id=cr_ct_id 
+            where   cr_id = #{cr_id}   and  cr_status = 'OK'  
+            ]]>
+    </select>
+    
+    
+       <insert id="insert" parameterType="com.cwn.wizbank.entity.CpdRegistration" keyProperty="cr_id" >
+        <![CDATA[
+            insert into CpdRegistration(
+                cr_usr_ent_id,
+                cr_ct_id,
+                cr_reg_datetime,
+                cr_de_reg_datetime,
+                cr_create_usr_ent_id,
+                cr_create_datetime,
+                cr_update_usr_ent_id,
+                cr_update_datetime,
+                cr_reg_number,
+                cr_status
+            ) values (
+                #{cr_usr_ent_id,jdbcType=INTEGER},
+                #{cr_ct_id,jdbcType=INTEGER},
+                #{cr_reg_datetime,jdbcType=DATE},
+                #{cr_de_reg_datetime,jdbcType=DATE},
+                #{cr_create_usr_ent_id,jdbcType=INTEGER},
+                #{cr_create_datetime,jdbcType=TIMESTAMP},
+                #{cr_update_usr_ent_id,jdbcType=INTEGER},
+                #{cr_update_datetime,jdbcType=TIMESTAMP},
+                #{cr_reg_number,jdbcType=VARCHAR},
+                #{cr_status,jdbcType=VARCHAR}
+            )
+        ]]>
+        <selectKey keyProperty="cr_id" resultType="Long" order="AFTER">
+            <choose>
+                <when test="_databaseId == 'ORACLE'">
+                    select cpdRegistration_seq.currval  as cr_id from dual
+                </when>
+                <when test="_databaseId == 'SQLSERVER'">
+                    select ident_current('CpdRegistration') as cr_id
+                </when>
+                <when test="_databaseId == 'MYSQL'">
+                    select last_insert_id() as cr_id
+                </when>
+            </choose>
+        </selectKey> 
+    </insert>
+    
+      <update id="update" parameterType="com.cwn.wizbank.entity.CpdRegistration">
+        <![CDATA[
+            update CpdRegistration
+            set 
+                cr_reg_number = #{cr_reg_number,jdbcType=INTEGER},
+                cr_reg_datetime = #{cr_reg_datetime,jdbcType=DATE},
+                cr_de_reg_datetime = #{cr_de_reg_datetime,jdbcType=DATE},
+                cr_update_usr_ent_id = #{cr_update_usr_ent_id,jdbcType=INTEGER},
+                cr_update_datetime = #{cr_update_datetime,jdbcType=TIMESTAMP}
+             where cr_id = #{cr_id,jdbcType=INTEGER}
+        ]]>
+    </update>
+    
+    <update id="delCpdGroupRegistration" parameterType="java.util.Map">
+        <![CDATA[
+            update CpdGroupRegistration
+            set 
+                cgr_status = #{cgr_status,jdbcType=VARCHAR},
+                cgr_update_usr_ent_id = #{cgr_update_usr_ent_id,jdbcType=INTEGER},
+                cgr_update_datetime = #{cgr_update_datetime,jdbcType=TIMESTAMP}
+             where 1=1
+             
+        ]]>
+        <if test="cgr_id !=null">
+            <![CDATA[
+                and cgr_id = #{cgr_id}
+            ]]>
+        </if>
+        <if test="cgr_cr_id !=null">
+            <![CDATA[
+                and cgr_cr_id = #{cgr_cr_id}
+                and cgr_status = 'OK'
+            ]]>
+        </if>
+    </update>
+    
+     <update id="updCpdGroupRegistration" parameterType="com.cwn.wizbank.entity.CpdGroupRegistration">
+        <![CDATA[
+            update CpdGroupRegistration
+            set 
+                cgr_initial_date = #{cgr_initial_date,jdbcType=DATE},
+                cgr_expiry_date = #{cgr_expiry_date,jdbcType=DATE},
+                cgr_update_usr_ent_id = #{cgr_update_usr_ent_id,jdbcType=INTEGER},
+                cgr_update_datetime = #{cgr_update_datetime,jdbcType=TIMESTAMP},
+                cgr_actual_date = #{cgr_actual_date,jdbcType=TIMESTAMP}
+             where cgr_id = #{cgr_id,jdbcType=INTEGER}
+        ]]>
+    </update>
+    
+    
+    
+      <update id="delCpdRegistration" parameterType="java.util.Map">
+        <![CDATA[
+            update CpdRegistration
+            set 
+                cr_status = #{cr_status,jdbcType=VARCHAR},
+                cr_update_usr_ent_id = #{cr_update_usr_ent_id,jdbcType=INTEGER},
+                cr_update_datetime = #{cr_update_datetime,jdbcType=TIMESTAMP}
+                where  cr_id = #{cr_id}
+        ]]>
+    </update>
+
+    
+     <select id="isExistForRegistration" resultType="com.cwn.wizbank.entity.CpdRegistration" parameterType="CpdRegistration">
+        <![CDATA[
+            select cr_id
+             from CpdRegistration 
+            where cr_status = 'OK'
+            and cr_usr_ent_id=#{cr_usr_ent_id,jdbcType=INTEGER}
+            and cr_ct_id=#{cr_ct_id,jdbcType=INTEGER}
+            and cr_reg_datetime=#{cr_reg_datetime,jdbcType=DATE}
+        ]]>
+    </select>
+    
+    
+     <select id="isInfoRegistrationBydate" resultType="com.cwn.wizbank.entity.CpdRegistration" parameterType="CpdRegistration">
+        <![CDATA[
+            select cr_id from cpdRegistration where  cr_status = 'OK' and
+             (
+             (cr_reg_datetime >= #{cr_reg_datetime,jdbcType=DATE} AND cr_reg_datetime <= #{cr_de_reg_datetime,jdbcType=DATE}) OR    
+             (cr_reg_datetime <= #{cr_reg_datetime,jdbcType=DATE} AND (cr_de_reg_datetime >= #{cr_de_reg_datetime,jdbcType=DATE} or cr_de_reg_datetime is null)) OR 
+             (cr_de_reg_datetime >= #{cr_reg_datetime,jdbcType=DATE} AND cr_de_reg_datetime <= #{cr_de_reg_datetime,jdbcType=DATE})
+             )
+             and cr_usr_ent_id = #{cr_usr_ent_id,jdbcType=INTEGER} 
+             and cr_ct_id = #{cr_ct_id,jdbcType=INTEGER}
+        ]]>
+    </select>
+    
+    
+        
+     <select id="isInfoRegistrationBydateNul" resultType="com.cwn.wizbank.entity.CpdRegistration" parameterType="CpdRegistration">
+        <![CDATA[
+             select cr_id from cpdRegistration where  cr_status = 'OK'
+             and cr_usr_ent_id = #{cr_usr_ent_id,jdbcType=INTEGER} 
+             and cr_ct_id = #{cr_ct_id,jdbcType=INTEGER}
+            and  ( cr_de_reg_datetime   >= #{cr_reg_datetime,jdbcType=DATE}
+            or cr_de_reg_datetime is  null)
+        ]]>
+    </select>
+    
+   
+    <select id="getCpdType" resultType="com.cwn.wizbank.entity.CpdType" >
+        <![CDATA[
+            select *
+             from cpdType 
+            where ct_status = 'OK' order by ct_display_order
+        ]]>
+    </select>
+    
+    <select id="getCpdTypeByid" resultType="com.cwn.wizbank.entity.CpdType" >
+        <![CDATA[
+            select *
+             from cpdType 
+            where ct_status = 'OK'
+            and ct_id=#{ct_id}
+        ]]>
+    </select>
+    
+    
+      <select id="getCpdGroup" resultType="com.cwn.wizbank.entity.CpdGroup" parameterType="java.lang.Long">
+        <![CDATA[
+            select *
+             from CpdGroup 
+             where cg_ct_id = #{id}  and cg_status = 'OK'
+             oder by cg_alias
+        ]]>
+    </select>
+    
+     <select id="getCpdGroupById" resultType="com.cwn.wizbank.entity.CpdGroup" parameterType="java.lang.Long">
+        <![CDATA[
+            select *
+             from CpdGroup 
+             where cg_id = #{cg_id}  and cg_status = 'OK'
+        ]]>
+    </select>
+    
+    
+     <select id="isRegisterForImport" resultType="com.cwn.wizbank.entity.CpdRegistration" parameterType="CpdRegistration">
+        <![CDATA[
+            select *
+             from CpdRegistration 
+            where cr_status = 'OK'
+            and cr_usr_ent_id=#{cr_usr_ent_id,jdbcType=INTEGER}
+            and cr_ct_id=#{cr_ct_id,jdbcType=INTEGER}
+            and cr_de_reg_datetime is null
+        ]]>
+    </select>
+    
+    
+    <resultMap id="CpdGroupMap" type="com.cwn.wizbank.entity.CpdGroup">
+        <id column="cg_id" property="cg_id" />
+        <result column="cg_code" property="cg_code"></result>
+        <result column="cg_alias" property="cg_alias"></result>
+        <result column="cg_display_order" property="cg_display_order"></result>
+        <result column="cg_contain_non_core_ind" property="cg_contain_non_core_ind"></result>
+        <result column="cg_display_in_report_ind" property="cg_display_in_report_ind"></result>
+        <result column="cg_ct_id" property="cg_ct_id"></result>
+        <result column="cg_create_usr_ent_id" property="cg_create_usr_ent_id"></result>
+        <result column="cg_create_datetime" property="cg_create_datetime"></result>
+        <result column="cg_update_usr_ent_id" property="cg_update_usr_ent_id"></result>
+        <result column="cg_update_datetime" property="cg_update_datetime"></result>
+        <result column="cg_status" property="cg_status"></result>
+        <association property="cpdType" column="cg_ct_id" javaType="com.cwn.wizbank.entity.CpdType">
+            <result column="ct_id" property="ct_id"/>
+            <result column="ct_license_type" property="ct_license_type"></result>
+            <result column="ct_license_alias" property="ct_license_alias"></result>
+            <result column="ct_starting_month" property="ct_starting_month"></result>
+        </association>
+    </resultMap>
+    
+    <select id="get"  resultMap="CpdRegistrationMap"  parameterType="java.lang.Long">
+        <![CDATA[
+            select *
+            from cpdRegistration 
+            where cr_id = #{id}   and  cr_status = 'OK'
+        ]]>
+    </select>
+    
+    
+      <select id="getCpdGroupMap" resultMap="CpdGroupMap" parameterType="java.lang.Long">
+        <![CDATA[
+            select cg_id,
+                   cg_code,
+                   cg_alias,
+                   cg_display_order,
+                   cg_contain_non_core_ind,
+                   cg_display_in_report_ind,
+                   cg_ct_id,
+                   cg_create_usr_ent_id,
+                   cg_create_datetime,
+                   cg_update_usr_ent_id,
+                   cg_update_datetime,
+                   cg_status,
+                   ct_id,
+                   ct_license_type,
+                   ct_license_alias,
+                   ct_starting_month
+             from CpdGroup 
+             inner join cpdType on ct_id = cg_ct_id
+             where cg_ct_id = #{id}  and cg_status = 'OK'
+             order by cg_display_order
+        ]]>
+    </select>
+    
+        <insert id="insertGroupRegi" parameterType="com.cwn.wizbank.entity.CpdGroupRegistration"  keyProperty="cgr_id" >
+        <![CDATA[
+            insert into CpdGroupRegistration(
+                cgr_usr_ent_id,
+                cgr_cr_id,
+                cgr_cg_id,
+                cgr_initial_date,
+                cgr_expiry_date,
+                cgr_first_ind,
+                cgr_actual_date,
+                cgr_create_usr_ent_id,
+                cgr_create_datetime,
+                cgr_update_usr_ent_id,
+                cgr_update_datetime,
+                cgr_status
+            ) values (
+                #{cgr_usr_ent_id,jdbcType=INTEGER},
+                #{cgr_cr_id,jdbcType=INTEGER},
+                #{cgr_cg_id,jdbcType=INTEGER},
+                #{cgr_initial_date,jdbcType=DATE},
+                #{cgr_expiry_date,jdbcType=DATE},
+                #{cgr_first_ind,jdbcType=INTEGER},
+                #{cgr_actual_date,jdbcType=DATE},
+                #{cgr_create_usr_ent_id,jdbcType=INTEGER},
+                #{cgr_create_datetime,jdbcType=TIMESTAMP},
+                #{cgr_update_usr_ent_id,jdbcType=INTEGER},
+                #{cgr_update_datetime,jdbcType=TIMESTAMP},
+                #{cgr_status,jdbcType=VARCHAR}
+            )
+        ]]>
+        <selectKey keyProperty="cgr_id" resultType="Long" order="AFTER">
+            <choose>
+                <when test="_databaseId == 'ORACLE'">
+                    select CpdGroupRegistration_seq.currval  as cgr_id from dual
+                </when>
+                <when test="_databaseId == 'SQLSERVER'">
+                    select ident_current('CpdGroupRegistration') as cgr_id
+                </when>
+                <when test="_databaseId == 'MYSQL'">
+                    select last_insert_id() as cgr_id
+                </when>
+            </choose>
+        </selectKey> 
+        
+    </insert>
+    
+    <select id="getCpdRegistration"  resultMap="CpdRegistrationMap"  parameterType="Map">
+        <![CDATA[
+            select 
+            	  *
+             from 
+             	CpdRegistration 
+             where 
+             	 cr_status = 'OK'
+        ]]>
+        <if test="ct_id != null and ct_id != 0 "> 
+        	and cr_ct_id = #{ct_id}
+        </if>
+        <if test="usr_ent_id != null and usr_ent_id != 0 "> 
+        	and cr_usr_ent_id = #{usr_ent_id}
+        </if>
+       <if test="period != null and period != 0 "> 
+    	      <choose>
+                <when test="_databaseId == 'ORACLE'">
+               	 <![CDATA[
+                  and ( 
+                  	Extract(year from cr_reg_datetime) <= #{period}
+                  	and ( cr_de_reg_datetime is null or Extract(year from cr_de_reg_datetime) >= #{period} )
+                  )
+                  ]]>
+                </when>
+                <when test="_databaseId == 'SQLSERVER'">
+                  <![CDATA[
+                  and ( 
+                  	DateName(year,cr_reg_datetime) <= #{period}
+                  	and ( cr_de_reg_datetime is null or DateName(year,cr_de_reg_datetime) >= #{period} )
+                  )
+                  ]]>
+                </when>
+                <when test="_databaseId == 'MYSQL'">
+                  <![CDATA[
+                  and ( 
+                  	DATE_FORMAT(cr_reg_datetime, '%Y') <= #{period}
+                  	and ( cr_de_reg_datetime is null or DATE_FORMAT(cr_de_reg_datetime, '%Y') >= #{period} )
+                  )
+                  ]]>
+                </when>
+            </choose>
+        </if>
+        <![CDATA[
+        order by cr_reg_datetime desc
+        ]]>
+    </select>
+    
+   <select id="getCpdRegistrationByPeriod"  resultMap="CpdRegistrationMap"  parameterType="Map">
+        <![CDATA[
+            select   CpdRegistration.*  from  CpdRegistration inner join  CpdGroupRegHours on  cgrh_cr_id = cr_id 
+            where   cr_status = 'OK'  
+        ]]>
+        <if test="ct_id != null and ct_id != 0 "> 
+            and cr_ct_id = #{ct_id}
+        </if>
+        <if test="usr_ent_id != null and usr_ent_id != 0 "> 
+            and cr_usr_ent_id = #{usr_ent_id}
+        </if>
+       <if test="period != null and period != 0 "> 
+            and cgrh_cgr_period = #{period}
+        </if>
+        <![CDATA[
+        order by cr_reg_datetime desc
+        ]]>
+    </select>
+
+    
+     <select id="getCountByCtID" resultType="java.lang.Integer" parameterType="java.lang.Long">
+		<![CDATA[
+			select count(*)
+			from cpdRegistration  
+			where  cr_ct_id = #{ct_id}  and cr_status = 'OK'
+			]]>
+	</select>
+	
+	
+	 <resultMap type="com.cwn.wizbank.entity.CpdRegistration" id="cpdLicenseRegistrationReport">
+	    <id column="cr_usr_ent_id" property="cr_usr_ent_id" />
+        <association property="user" javaType="com.cwn.wizbank.entity.RegUser">
+            <id property="usr_ent_id" column="usr_ent_id" />
+            <result property="usr_ste_usr_id" column="usr_ste_usr_id"/>
+            <result property="usr_display_bil" column="usr_display_bil" />
+            <result property="usg_display_bil" column="usg_display_bil" />
+            <result property="upt_title" column="upt_title"/>
+        </association>
+        <collection property="cpdRegistrationList"  column="{usr_ent_id = cr_usr_ent_id}" ofType="CpdRegistration" select="getCpdRegistrationList" />
+	 </resultMap>
+	
+	 <resultMap type="com.cwn.wizbank.entity.CpdRegistration" id="cpdLicenseRegistrationList">
+	    <id column="cr_id" property="cr_id" />
+	    <result column="cr_ct_id" property="cr_ct_id"></result>
+	    <result column="cr_usr_ent_id" property="cr_usr_ent_id"></result>
+        <result column="cr_reg_datetime" property="cr_reg_datetime"></result>
+        <result column="cr_de_reg_datetime" property="cr_de_reg_datetime"></result>
+        <result column="cr_reg_number" property="cr_reg_number"></result>
+        <collection property="cpdGroupRegistrationList"  column="{cgr_cr_id = cr_id,cgr_usr_ent_id = cr_usr_ent_id}" ofType="CpdGroupRegistration" select="getCpdGroupRegistrationList" />
+	 </resultMap>
+	
+	<select id="getCpdRegistrationList" resultMap="cpdLicenseRegistrationList" parameterType="Map">
+	 <![CDATA[
+	    select cr_id,cr_ct_id,cr_reg_datetime,cr_de_reg_datetime,cr_reg_number,cr_usr_ent_id
+         from cpdRegistration
+       ]]>   
+        where  cr_status = 'OK' and  cr_usr_ent_id = #{usr_ent_id}  order by cr_reg_datetime desc
+	</select>
+	
+	<select id="getCpdGroupRegistrationList" resultType="CpdGroupRegistration" parameterType="Map">
+	  <![CDATA[
+	    select  cgr_cg_id,cgr_initial_date,cgr_expiry_date
+		 from cpdGroupRegistration 
+		where cgr_status = 'OK'  and cgr_usr_ent_id = #{cgr_usr_ent_id} and cgr_cr_id = #{cgr_cr_id}
+	   ]]>
+	</select>
+	
+	
+	<select id="getCpdLicenseRegistrationReport" resultMap="cpdLicenseRegistrationReport" parameterType="Map">
+	  <![CDATA[
+		select distinct cr_usr_ent_id,
+		       usr_ste_usr_id,
+		       usr_display_bil,
+		       usr_ent_id,
+		  ]]>     
+	       <choose>
+				<when test="_databaseId == 'SQLSERVER'">
+				  <![CDATA[
+					 ISNULL (usg_display_bil , '--') as usg_display_bil
+				]]>
+				</when>	 
+				<when test="_databaseId == 'ORACLE'">
+				  	<![CDATA[
+					 NVL (usg_display_bil , '--') as usg_display_bil
+					]]>
+				</when>
+				<otherwise>
+				  	<![CDATA[
+					IFNULL(usg_display_bil , '--') as usg_display_bil
+					]]>
+				</otherwise>
+		   </choose>
+		 <![CDATA[
+		   ,upt_title
+	      from cpdRegistration
+		  left join RegUser on cr_usr_ent_id = usr_ent_id
+		  left join EntityRelation on ern_child_ent_id = cr_usr_ent_id and  ern_type = 'USR_PARENT_USG'  and ern_parent_ind = 1
+		  left join UserGroup on ern_ancestor_ent_id = usg_ent_id 
+		  
+		  left join UserPositionRelation on  upr_usr_ent_id = cr_usr_ent_id
+		  left join UserPosition on upt_id =  upr_upt_id   
+		  
+	  where   ]]> 
+	         cr_status = 'OK'
+	         <choose>
+	         	<when test="exportUserIds != null and exportUserIds.size > 0">
+	         		<!--用户id  -->
+		 			and cr_usr_ent_id in 
+		 			<foreach collection="exportUserIds" item="item" index="index" 
+						open="(" separator="," close=")">
+						${item}
+					</foreach>
+	         	</when>
+	         	<when test="exportGroupIds != null and exportGroupIds.size > 0">
+	         		<!--用户组id  -->
+	         		and cr_usr_ent_id in(
+		         		 select ern_child_ent_id from EntityRelation where ern_ancestor_ent_id in
+						    <foreach collection="exportGroupIds" item="item" index="index" 
+								open="(" separator="," close=")">
+								${item}
+							</foreach>
+					       and ern_type='USR_PARENT_USG')
+	         	</when>
+	         	<otherwise>
+	         		and cr_usr_ent_id in (
+	                <choose>
+	                   <when test="is_role_tc_ind !=null and is_role_tc_ind != true">
+	                    <!-- 角色与培训中心无关 --> 
+	                    select ern_child_ent_id from EntityRelation where ern_ancestor_ent_id in(
+							select tce_ent_id from tcTrainingCenterTargetEntity where tce_tcr_id = #{my_top_tc_id} ) and ern_type='USR_PARENT_USG'    
+	                   </when>
+	                   <otherwise>
+	                    select ern_child_ent_id from EntityRelation where ern_ancestor_ent_id in(
+							select tce_ent_id from tcTrainingCenterTargetEntity,tcTrainingCenterOfficer where tce_tcr_id = tco_tcr_id 
+							and  tco_usr_ent_id = #{usr_ent_id}
+							and tco_rol_ext_id = #{current_role}
+							<!-- 二级培训中心是否独立 -->
+							<if test="tc_independent == true">
+								and ( tce_tcr_id in( select tcn_child_tcr_id from tcrelation where tcn_ancestor = #{my_top_tc_id} ) 
+							      or tce_tcr_id = #{my_top_tc_id})
+							</if>
+							)  and ern_type='USR_PARENT_USG'
+	                   </otherwise>
+	                </choose>
+					)
+	         	</otherwise>
+	         </choose>
+	    	order by usr_ste_usr_id asc
+	</select>
+	
+	<select id="getUsrCpdReg" resultType="Long"  parameterType="Map">
+        <![CDATA[
+            select distinct cr_usr_ent_id from cpdRegistration where cr_status = 'OK'
+            and cr_ct_id = #{cr_ct_id}
+            and (cr_de_reg_datetime is null or cr_de_reg_datetime > #{cr_de_reg_datetime} )
+            ]]>
+    </select>
+	
+	<select id="getIMSLog" resultType="com.cw.wizbank.db.DbIMSLog">
+        <![CDATA[
+           select * from IMSLog where ilg_type='CPD' order by ilg_id desc 
+            ]]>
+    </select>
+	
+	<select id="getCpdRegistrationByType" resultType="java.lang.Long"   parameterType="java.lang.String">
+        <![CDATA[
+           select ct_id from cpdtype where ct_license_type = #{license_type}  and ct_status = 'OK'
+            ]]>
+    </select>
+	
+	<select id="getCpdGroupRegistrationByType" resultType="java.lang.Long"   parameterType="Map">
+        <![CDATA[
+           select cg_id from cpdgroup where cg_code=#{group_code}  and cg_status = 'OK'
+           and cg_ct_id = (select ct_id from cpdType where ct_license_type = #{type_code} and ct_status = 'OK')
+            ]]>
+    </select>
+    
+	<select id="getCpdTypeId" resultType="Long" parameterType="Map">
+		select cr_id from cpdRegistration
+		inner join reguser on(cr_usr_ent_id=usr_ent_id)
+		inner join cpdType on(cr_ct_id=ct_id)
+		where usr_ste_usr_id=#{usr_ste_usr_id} and ct_license_type = #{License_type}  and ct_status = 'OK' 
+	</select>	
+	
+</mapper>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_id xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\record_id.xsd">
+	<learning_solution_id>
+		<creation_method>AUTO</creation_method>
+		<id_prefix>WBLS</id_prefix>
+		<class_id_prefix>WBCS</class_id_prefix>
+		<session_id_prefix>WBSN</session_id_prefix>
+	</learning_solution_id>
+	<user_group_id>
+		<creation_method>MANUAL</creation_method>
+		<id_prefix>WBUG</id_prefix>
+	</user_group_id>
+</record_id>

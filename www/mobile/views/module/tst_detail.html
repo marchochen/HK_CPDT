@@ -1,0 +1,178 @@
+<!doctype html>
+<html ng-app="module">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/ModuleController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="tstDetailController" style="background-color: #ffffff;">
+<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+
+<div class="wrap" id="wizwrap">
+	<header class="header mm-background">
+	   	<a class="header-back" href="javascript:back();"></a>
+	    <span class="header-title">{{header[0].title[0].text}}</span>
+	    <a class="header-shiti header-pop" href="javascript:;" onClick="show()"></a>
+	    
+	    <div class="header-datika" style="display:none;padding:0;">
+		    <div class="cont-info-notop">
+				<div class="kaoshi-dati" style="color:#666;">
+                     {{'mod_ans_card' | translate}}
+				     <div class="kaoshi-dati-yizhong">{{'mod_anwser' | translate}}</div>
+				     <div class="kaoshi-dati-weizhong">{{'mod_no_anwser' | translate}}</div>
+				</div>
+				<div class="kaoshi-dati-info" style="max-height:300px;overflow-y:auto;">
+					<a id="que_{{que.id}}" class="kaoshi-dati-no" href="javascript:;" ng-click="open($index+1)" ng-repeat="que in question">
+						{{$index+1}}
+					</a>
+				</div>
+				<div class="panel-list-cont-2"><a class="panel-box-btn-01" href="javascript:;" ng-click="submit()">{{'mod_submit' | translate}}</a></div>
+			</div>
+		</div>
+	</header> <!-- header End -->
+	
+	<div class="header-overlay" onclick="show()" style="z-index:250;"></div>
+	<section class="content-3">
+		<div class="jifen-info clearfix">
+		     <div class="jifen-info-blue jifen-info-line">
+		     	<span class="jifen-desc" id="answer">0</span>
+		     	<em class="jifen-desc">{{'mod_anwser' | translate}}</em>
+		     </div> 
+		     <div class="jifen-info-blue jifen-info-line">
+		     	<span class="jifen-desc" id="noanswer">{{total}}</span>
+		     	<em class="jifen-desc">{{'mod_no_anwser' | translate}}</em>
+		     </div>
+		     <div class="jifen-info-blue">
+					<em class="jifen-desc"  ng-if="duration =='00:-1:00'">
+						<span class="jifen-desc">--</span>
+						<!-- {{'lab_unlimited_time' | translate}} -->
+					</em>
+					<em class="jifen-desc" ng-if="duration !='00:-1:00'">
+						<span class="jifen-desc" id="timeLeft">{{duration}}</span>
+					</em>
+			     <em class="jifen-desc">{{'mod_timeLeft' | translate}}</em>
+			 </div>
+		</div>
+		<div ng-show="isLanding" style="text-align: center;">
+			<img src="../../images/loading.gif">
+		</div>
+		<dl id="{{que.id}}" type="{{que.header[0].type}}" length="{{que.body[0].interaction.length}}" class="diaocha-list" ng-repeat="que in question" style="{{que.order!=1?'display:none':''}}">
+		    <dt>
+		    	<div style="float: left;">
+			    	{{$index+1}}. 
+			    	<span class="diaocha-type">
+			    		[{{que.header[0].type != 'MC'? que.header[0].type : (que.outcome[0].logic == 'SINGLE'? 'eva_que_type_mc_sin' : 'eva_que_type_mc') | translate}}]
+			    	</span>
+		    	</div>
+		    	<span ng-if="que.header[0].type != 'FB'" ng-bind-html="que.body[0].html[0]? que.body[0].html[0].text : que.body[0].text | htmlDecode"></span>
+		    	<span ng-if="que.header[0].type=='FB'">
+			    	<span ng-repeat="h in que.body[0].html">
+			    		<span ng-bind-html="h.text | htmlDecode"></span>
+			    		<span ng-if="!$last" style="font-size: 14px;color: #999;border-bottom: 1px solid #666;padding: 0 4px;" ng-click="analogClick('ans_{{que.id}}_{{$index}}')" data="ans_{{que.id}}_{{$index}}"> {{'FB_label' | translate}}{{$index+1}} </span>
+			    	</span>
+		    	</span>
+		    </dt>
+		    
+		    <dd ng-repeat="ans in que.body[0].interaction[0].option" ng-if="que.header[0].type=='MC' || que.header[0].type=='TF'">
+				<label for="ans_{{que.id}}_{{$index}}">
+			        <p class="diaocha-term" onClick="selected(this)">
+			        	<input type="radio" id="ans_{{que.id}}_{{$index}}" name="ans_{{que.id}}_{{que.order}}" value="{{ans.id}}" style="display:none;" ng-if="que.outcome[0].logic=='SINGLE'"/>
+			        	<input type="checkbox" id="ans_{{que.id}}_{{$index}}" name="ans_{{que.id}}_{{que.order}}" value="{{ans.id}}" style="display:none;" ng-if="que.outcome[0].logic=='AND' || que.outcome[0].logic=='OR'"/>
+			        	<input type="radio" id="ans_{{que.id}}_{{$index}}" name="ans_{{que.id}}_{{que.order}}" value="{{ans.id}}" style="display:none;" ng-if="que.header[0].type=='TF'"/>
+			        	<span class="diaocha-term-select">{{$index | enNo}}</span>
+			        	<div></div>
+						<font style="clear:both;" >
+							<label style="margin-left:10px;" ng-if="que.header[0].type=='MC'" ng-bind-html="ans.html[0]? ans.html[0].text : ans.text | htmlDecode">
+							</label>
+							<label style="margin-left:10px;" ng-if="que.header[0].type=='TF'" ng-bind="ans.html[0]? ans.html[0].text == 'True'?'lab_true':'lab_false' : ans.text == 'True'?'lab_true':'lab_false' | translate"></label>
+						</font>
+			        </p>
+			       
+			    </label>
+		     </dd>
+		     
+		     <!-- Bug1 填空题的label太挤了(2017/11/03)  加了&nbsp;-->
+		     <dd ng-repeat="ans in que.body[0].interaction" ng-if="que.header[0].type == 'FB'" style="margin-bottom: 10px;">
+		      <!-- 填空题 -->	
+		     	{{'FB_label' | translate}}{{$index+1}}&nbsp;{{'answer' | translate}}：		
+				<label for="ans_{{que.id}}_{{$index}}">
+			        <input id="ans_{{que.id}}_{{$index}}" type="text" onclick="toggleCur(this)" onfocus="toggleCur(this)" name="ans_{{que.id}}_{{que.order}}" class="pure-form-txt-5 pure-form-txt-12 ng-pristine ng-untouched ng-valid" placeholder="{{'answer_prompt' | translate}}" style="height:24px;padding:4px 4px 4px 24px;" />
+			    </label>
+		     </dd>
+		     
+		     <dd ng-repeat="ans in que.body[0].interaction" ng-if="que.header[0].type == 'ES'" style="margin-bottom: 10px;"> <!-- 问答题 -->	
+				<label for="ans_{{que.id}}_{{$index}}">
+				     <textarea id="ans_{{que.id}}_{{$index}}" onclick="toggleCur(this)" onfocus="toggleCur(this)"  name="ans_{{que.id}}_{{que.order}}" class="pure-form-txt-5 pure-form-txt-12" placeholder="{{'answer_prompt' | translate}}" style="padding:8px 8px 8px 24px;overflow-y: auto;"></textarea>
+			    </label>
+		     </dd>
+		     
+		     <dd ng-repeat="ans in que.body[0].source[0].item" ng-if="que.header[0].type == 'MT'" style="margin-bottom: 10px;"> <!-- 配对题   来源 -->	
+				<label for="ans_{{que.id}}_{{$index}}">
+			        <p class="diaocha-term">
+			        	<span class="diaocha-term-select">{{$index | enNo}}</span>
+			        	<div></div>
+			        	<p>
+							<label style="margin-left:10px;" ng-bind-html="ans.html[0]? ans.html[0].text : ans.text[0].text | htmlDecode"></label>
+			        	</p>
+						<font style="clear:both;" ng-if="ans.object != null" class="select-tupian">
+							<img ng-src="{{serverHost + '/resource/' + que.id + '/'+ ans.object[0].data}}" alt="">
+						</font>
+			        </p>
+			    </label>
+		     </dd>
+		     <div ng-if="que.header[0].type == 'MT'" style="color:#999;">{{'mt_select_source_prompt' | translate}}：</div>         			
+		     <dd ng-repeat="ans in que.body[0].interaction" ng-if="que.header[0].type == 'MT' && que.body[0].source != null" style="margin-bottom: 10px;"> <!-- 配对题 -->
+		     	<div class="cont-review-show" style="padding:10px 0 0 0px;">
+                    <label>
+                        <p class="diaocha-term-2">
+                            <span class="diaocha-term-select ng-binding">（{{$index + 1}}）</span>
+                        </p>
+                        <p>
+                        	<label style="margin-left:5px;" ng-bind-html="ans.html[0]? ans.html[0].text : ans.text[0].text | htmlDecode"></label>
+                        </p>
+                        <font style="clear:both;" class="select-tupian" ng-if="ans.object != null">
+                            <img ng-src="{{serverHost + '/resource/' + que.id + '/'+ ans.object[0].data}}" alt="">
+                        </font>
+                        <span class="select-on" onclick="toggle_mt(this)">
+                            <span class="select-on-tit">{{'selecting_source' | translate}}</span>
+                            <input type="hidden" id="ans_{{que.id}}_{{$index}}" name="ans_{{que.id}}_{{que.order}}" />
+                        </span>
+                        <span style="display:inline-block;width:100%;" class="xuanxiang_span">
+                            <ul class="xuanxiang">
+                                <li ng-repeat="ans in que.body[0].interaction">
+									<label for="ans_{{que.id}}_{{$index}}">
+								        <p class="diaocha-term">
+								        	<span class="diaocha-term-select" enno="{{$index | enNo}}" data="{{$index + 1}}">{{$index | enNo}}</span>
+								        </p>
+								    </label>
+                                </li>
+                            </ul>
+                        </span>
+                        
+                    </label>
+        		</div>
+		     </dd>
+		     
+		     <dd ng-if="que.header[0].type!='MC' && que.header[0].type != 'FB' && que.header[0].type != 'TF' && que.header[0].type != 'ES' && que.header[0].type != 'MT'">
+		     	<p>{{'mod_type_error' | translate}}</p>
+		     </dd>
+		</dl>
+		
+
+		<div class="diaocha-page size-twenty weight-blog">
+		     <a class="diaocha-page-submit" href="javascript:;" ng-click="submit()" >{{'mod_submit' | translate}}</a>
+		     <a ng-show="showPrev" class="diaocha-page-prev" href="javascript:;" ng-click="prev()">{{'mod_prev' | translate}}</a>
+		     <a ng-show="showNext" class="diaocha-page-next" href="javascript:;" ng-click="next()">{{'mod_next' | translate}}</a>
+		</div>
+	</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

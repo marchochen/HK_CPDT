@@ -1,0 +1,95 @@
+@charset "utf-8";
+body{ font-size:12px;}
+fieldset,img,button,input,select,option{ border:0; vertical-align:middle; font:12px/18px sans,serif,monospace,custom;}
+.header .header-title{ font-size:16px;}
+.memu-box-title{ font-size:14px;}
+
+.panel-title-1{ font-size:16px;}
+.panel-title-2 .panel-title-subject{ font-size:14px;}
+.panel-title-15{ font-size:14px;}
+
+.nav-user-title{ font-size:16px;}
+.nav-box-title{ font-size:16px;}
+#nav ul li.nav-link a:link, #nav ul li.nav-link a:visited{ font-size:14px;}
+.panel-list-title-1{ font-size:14px;}
+.cont-info-title-1{ font-size:16px;}
+
+.panel-tabnav-1 li{ font-size:14px;}
+.panel-tabnav-2 li{ font-size:14px;}
+.panel-tabnav-3 li{ font-size:14px;}
+
+.header-guide-title{ font-size:14px;}
+.header-guide{ font-size:12px;}
+.header-guide-tool{ font-size:16px;}
+
+.sub-bar-2{ font-size:12px;}
+.cont-info-title-2{ font-size:12px;}
+.pl-roll .pl-roll-user:link, .pl-roll .pl-roll-user:visited{ font-size:14px;}
+
+.send-text{ font-size:12px;}
+.send-button{ font-size:12px;}
+.panel-sou{ font-size:12px;}
+
+.own-box-tit-1{ font-size:14px;}
+.own-box-nun-1{ font-size:62px;}
+.own-box-tit-4{ font-size:18px;}
+
+.panel-title-6{ font-size:14px;}
+.panel-title-9{ font-size:16px;}
+
+.box-num-tit{ font-size:14px;}
+
+.panel-list-cont-9{ font-size:14px;}
+
+.jifen-desc-black{ font-size:18px;}
+
+.tuwen-list-4-tit-1{ font-size:14px;}
+.wenda-list-tit-1{ font-size:16px;}
+.wenda-btn-1:link, .wenda-btn-1:visited{ font-size:14px;}
+.panel-title-4 a:link, .panel-title-4 a:visited{ font-size:16px;}
+.sub-info-4{ font-size:14px;}
+.pl-roll-size{ font-size:16px;}
+.percent{ font-size:16px;}
+.panel-title-13 a:link, .panel-title-13 a:visited{ font-size:16px;}
+.panel-list-time{ font-size:12px;}
+
+.panel-num-1{ font-size:12px;}
+.panel-num-3{ font-size:12px;}
+.panel-num-4{ font-size:40px;}
+.panel-num-5{ font-size:18px;}
+.panel-num-8{ font-size:33px;}
+.panel-num-9{ font-size:33px;}
+.panel-num-11{ font-size:24px;}
+.panel-num-12{ font-size:22px;}
+.panel-num-13{ font-size:24px;}
+.panel-num-14{ font-size:14px;}
+.panel-num-16{ font-size:14px;}
+
+.list-tool-3-sign:link, .list-tool-3-sign:visited{ font-size:14px;}
+
+.tuwen-list-2 .tuwen-list-2-user:link, .tuwen-list-2 .tuwen-list-2-user:visited{ font-size:14px;}
+
+.panel-info-tool{ font-size:12px;}
+
+.panel-list-period{ padding:0 0 0 85px; color:#999;}
+.panel-list-periodtxt{ float:left; width:85px; margin-left:-85px;}
+.panel-list-periodbox{ float:left; width:66px;}
+.panel-list-periodleft{ float:left;}
+
+.nav-box-biao{ font-size:14px;}
+.pure-form-txt-5{ font-size:14px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

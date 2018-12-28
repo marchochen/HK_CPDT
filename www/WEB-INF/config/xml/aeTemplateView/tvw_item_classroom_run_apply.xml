@@ -1,0 +1,25 @@
+<template_view>
+	<section id="1">
+		<field51>
+			<title>
+				<desc lan="ISO-8859-1" name="Class code"/>
+				<desc lan="Big5" name="編號"/>
+				<desc lan="GB2312" name="编号"/>
+			</title>
+		</field51>
+		<field52>
+			<title>
+				<desc lan="ISO-8859-1" name="Class title"/>
+				<desc lan="Big5" name="名稱"/>
+				<desc lan="GB2312" name="名称"/>
+			</title>
+		</field52>
+		<field58>
+			<title>
+				<desc lan="ISO-8859-1" name="Enrollment confirmation remarks"/>
+				<desc lan="Big5" name="確認報名備註"/>
+				<desc lan="GB2312" name="确认报名备注"/>
+			</title>
+		</field58>
+	</section>
+</template_view>

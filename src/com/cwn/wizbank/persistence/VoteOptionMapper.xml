@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.VoteOptionMapper">
+
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.VoteOption">
+		insert into voteoption(vto_vtq_id,vto_desc,vto_order)
+		values(#{vto_vtq_id},#{vto_desc},#{vto_order})
+	</insert>
+
+	<delete id="deleteByVtoVtqId" parameterType="java.lang.Long">
+		delete from voteoption where vto_vtq_id = #{vtq_id}
+	</delete>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into voteoption(vto_vtq_id,vto_desc,vto_order)
+		
+		<choose>
+				<when test="_databaseId == 'ORACLE'">
+					<foreach collection="list" item="item" separator="union all">
+						(select #{item.vto_vtq_id},#{item.vto_desc},#{item.vto_order} from dual)
+					</foreach>
+				</when>
+				<otherwise>
+					values
+					<foreach collection="list" item="item" separator=",">
+						(#{item.vto_vtq_id},#{item.vto_desc},#{item.vto_order})
+					</foreach>
+				</otherwise>
+		</choose>
+	</insert>
+
+</mapper>

@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>wizbank网站管理平台</title>
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/layer/skin/layer.css"/>
+<script type="text/javascript" src="../../../static/js/layer/layer.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../static/css/thickbox.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/jquery-table/css/jquery-table-default.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/jquery-table/css/jquery-table-admin.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/admin/css/admin.css"/>
+<!--[if lt IE 9]>
+    <script type="text/javascript" src="bootstrap/js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+<div class="wzb-body">
+<div class="wzb-top clearfix">
+     <a class="wzb-logo" href="###" title="wizbank"><img src="images/wzb-logo.png" alt="wizbank" /></a>
+     <div class="wzb-top-toggle"><i class="fa fa-bars"></i></div>
+     
+     <div class="wzb-tool">
+     <div class="wzb-menu">     
+          <ul class="clearfix">
+              <li><a class="wzb-menu-sup" href="###" title="信息"><i class="fa wzb-envelope-icon fa-envelope-o"></i> <span class="wzb-badge wzb-badge-purple">15</span></a></li>
+              <li>
+                  <a class="wzb-menu-sub" href="###" title="信息"><i class="fa wzb-envelope-icon fa-flag-o"></i> <span class="wzb-badge wzb-badge-pink">8</span></a>
+                  <ul>
+                      <li><a class="wzb-menu-son" href="###" title="报名审批"><i class="fa fa-check-circle-o"></i>报名审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="作业批改"><i class="fa fa-clipboard"></i>作业批改</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="试卷批改"><i class="fa fa-file-text-o"></i>试卷批改</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="知识审批"><i class="fa fa-life-ring"></i>知识审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="IDP审批"><i class="fa fa-level-up"></i>IDP审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="培训计划审批"><i class="fa fa-calendar"></i>培训计划审批</a></li>
+                 </ul>
+             </li>
+             <li>
+                 <a class="wzb-menu-sub" href="###" title="信息"><img class="wzb-user" src="images/wzb-user.jpg" alt="wizbank" />培训管理员<i class="fa wzb-caret-icon fa-caret-down"></i></a>
+                 <ul>
+                     <li><a class="wzb-menu-son" href="###" title="角色"><i class="fa fa-user"></i>角色</a>
+                         <dl>
+                             <dd><a href="###" title="学员">学员</a></dd>
+                             <dd><a href="###" title="培训管理员">培训管理员</a></dd>
+                             <dd><a href="###" title="系统管理员">系统管理员</a></dd>
+                             <dd><a href="###" title="考试监考员">考试监考员</a></dd>
+                         </dl>
+                     </li>
+                     <li><a class="wzb-menu-son" href="###" title="语言"><i class="fa fa-stack-exchange"></i>语言</a>
+                         <dl>
+                             <dd><a href="###" title="简体中文">简体中文</a></dd>
+                             <dd><a href="###" title="繁体中文">繁体中文</a></dd>
+                             <dd><a href="###" title="English">English</a></dd>
+                         </dl>
+                    </li>
+                    <li><a class="wzb-menu-son" href="###" title="我的档案"><i class="fa fa-instagram"></i>我的档案</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="修改密码"><i class="fa fa-key"></i>修改密码</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="我的喜好"><i class="fa fa-smile-o"></i>我的喜好</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="退出"><i class="fa fa-sign-out"></i>退出</a></li>
+                </ul>
+            </li>
+        </ul>
+      </div>  
+    </div>
+</div> <!-- wzb-top End-->
+
+<div class="wzb-sidebar">
+<div class="wzb-menu">
+    <ul>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-home"></i>首页</a></li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-globe"></i>资讯管理</a>
+            <ul>
+                <li><a href="###" title="">公告</a></li>
+                <li><a href="###" title="">资讯</a></li>
+                <li><a href="###" title="">常用工具</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-cubes"></i>需求管理</a>
+            <ul>
+                <li><a href="###" title="">投票</a></li>
+                <li><a href="###" title="">公共调查问卷</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-list-alt"></i>计划管理</a>
+            <ul>
+                <li><a href="###" title="">计划实施</a></li>
+                <li><a href="###" title="">年度计划</a></li>
+                <li><a href="###" title="">编外计划</a></li>
+                <li><a href="###" title="">年度计划审批</a></li>
+                <li><a href="###" title="">编外计审批</a></li>
+                <li><a href="###" title="">年度设置</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-maxcdn"></i>学习地图</a>
+            <ul>
+                <li><a href="###" title="">岗位发展路径</a></li>
+                <li><a href="###" title="">岗位</a></li>
+                <li><a href="###" title="">能力标签</a></li>
+                <li><a href="###" title="">能力测评模板</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-calendar"></i>培训管理</a>
+            <ul>
+                <li><a href="###" title="">网上课程</a></li>
+                <li><a href="###" title="">面授课程</a></li>
+                <li><a href="###" title="">项目式培训</a></li>
+                <li><a href="###" title="">证书</a></li>
+                <li><a href="###" title="">课程目录</a></li>
+                <li><a href="###" title="">公开课</a></li>
+                <li><a href="###" title="">教学资源</a></li>
+                <li><a href="###" title="">课程评估问卷</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-columns"></i>考试管理</a>
+            <ul>
+                <li><a href="###" title="">网上考试</a></li>
+                <li><a href="###" title="">离线考试</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-comments"></i>社区管理</a>
+            <ul>
+                <li><a href="###" title="">问答</a></li>
+                <li><a href="###" title="">群组</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-life-ring"></i>知识管理</a>
+            <ul>
+                <li><a href="###" title="">知识库</a></li>
+                <li><a href="###" title="">知识目录</a></li>
+                <li><a href="###" title="">知识标签</a></li>
+                <li><a href="###" title="">知识审批</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-table"></i>培训报表</a>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-child"></i>用户管理</a>
+            <ul>
+                <li><a href="###" title="">用户信息</a></li>
+                <li><a href="###" title="">职级</a></li>
+                <li><a href="###" title="">注册审批</a></li>
+                <li><a href="###" title="">用户激活</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-suitcase"></i>基础数据管理</a>
+            <ul>
+                <li><a href="###" title="">积分</a></li>
+                <li><a href="###" title="">内部讲题</a></li>
+                <li><a href="###" title="">外部讲题</a></li>
+                <li><a href="###" title="">供应商</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-wrench"></i>系统设置</a>
+            <ul>
+                <li><a href="###" title="">PC样式管理</a></li>
+                <li><a href="###" title="">移动管理</a></li>
+                <li><a href="###" title="">培训中心管理</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>    
+</div>  <!-- wzb-sibebar End-->
+
+<div class="wzb-wrapper">
+<div class="wzb-main">
+<div class="wzb-banner wzb-banner-bg01" style="opacity: 1; background: rgb(153, 102, 153);"><i class="fa wzb-banner-icon fa-maxcdn"></i> 学习地图</div>
+
+<ol class="breadcrumb wzb-breadcrumb">
+  <li><a href="#"><i class="fa wzb-breadcrumb-home fa-home"></i>首页</a></li>
+  <li><a href="xuexiditu-guanjiangangwei.html">关键岗位学习地图</a></li>
+  <li class="active">添加关键岗位</li>
+</ol> <!-- wzb-breadcrumb End-->
+
+<div class="panel wzb-panel">
+<div class="panel-heading">添加关键岗位</div>
+    <!-- 内容添加开始 -->
+    <div class="panel-body">
+        <form class="form-horizontal">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="wzb-form-label">
+                            <span class="wzb-form-star">*</span>岗位标题：
+                        </td>
+                        <td class="wzb-form-control">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td width="20%">
+                                            <input class="wzb-inputText" name=" " type="text" style="width:300px" value="Java程序员">
+                                        </td>
+                                        <td width="80%" align="left">
+                                            <input type="button" name=" " value="选择岗位" class="btn wzb-btn-blue margin-bottom1" id="gangwei">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="wzb-form-label">
+                            <span class="wzb-form-star">*</span>岗位编号：
+                        </td>
+                        <td class="wzb-form-control">
+                            <input class="wzb-inputText" name=" " value="1258" type="text" style="width:300px">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="wzb-form-label">
+                            <span class="wzb-form-star">*</span>岗位类型：
+                        </td>
+                        <td class="wzb-form-control">
+                            <input class="wzb-inputText" name=" " value="管理岗" type="text" style="width:300px">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="wzb-form-label">
+                            <span class="wzb-form-star">*</span>关键指数：
+                        </td>
+                        <td class="wzb-form-control">
+                            <input class="wzb-inputText" name=" " value="99" type="text" style="width:300px">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="wzb-form-label" style="padding:0"></td>
+                        <td class="wzb-form-control" style="padding:0 0 0 10px;">
+                            请指定一个1-100的整数，指数会影响到该岗位在学员页面的显示，指数越高，显示越靠前
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="wzb-form-label" valign="top">
+                            <span class="wzb-form-star">*</span>推荐课程：
+                        </td>
+                        <td class="wzb-form-control">
+                            <div class="wzb-choose-box" style="margin-top:0;">
+                                <div class="wzb-choose-info" value="">
+                                    <span class="wzb-choose-detail">深入浅出Java多线程</span>
+                                    <a class="wzb-choose-area" href="#">
+                                        <i class="fa fa-remove"></i>
+                                    </a>
+                                </div>
+                                <div class="wzb-choose-info" value="">
+                                    <span class="wzb-choose-detail">IOS的那些坑</span>
+                                    <a class="wzb-choose-area" href="#">
+                                        <i class="fa fa-remove"></i>
+                                    </a>
+                                </div>
+                                <div class="wzb-choose-info" value="">
+                                    <span class="wzb-choose-detail">JavaScript入门篇</span>
+                                    <a class="wzb-choose-area" href="#">
+                                        <i class="fa fa-remove"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="wzb-form-label"></td>
+                        <td class="wzb-form-control">
+                            <a data-toggle="modal" data-target="#chooseUser" href="#" class="wzb-box-4-add btn wzb-btn-blue" id="xuanke">选择</a> &nbsp;|&nbsp;<a class="skin-color" href="#">清空所有</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="wzb-form-label" valign="top">图示：</td>
+                        <td class="wzb-form-control">
+                            <table border="0" cellspacing="0" cellpadding="3">
+                                <tbody>
+                                    <tr>
+                                        <td rowspan="3" style="padding:0 3px;" width="40%">
+                                            <div>
+                                                <img height="137" width="226" border="0" name="" src="../images/course2.png">
+                                            </div>
+                                        </td>
+                                        <td style="padding:0 3px;" width="60%">
+                                            <label>
+                                                <input name="image-radio" checked="" type="radio" role="auto"><span class="wbFormRightText">保留媒体文档</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 3px;">
+                                            <label>
+                                                <input value="" name="image-radio" type="radio" role="default">
+                                                <input value="从默认图库中选一张" class="btn wzb-btn-blue" type="button" name="" id="field99__select1" disabled="">
+                                            </label>
+
+                                            <div style="display: none;" id="myOnPageContent">
+                                                <div id="TB_overlay" class="TB_overlayBG"></div>
+                                                <div id="TB_window" style="margin-left: -305px; width: 610px; margin-top: -220px; display: block;">
+                                                    <div id="TB_ajaxContent" style="width:610px;height:440px">
+                                                        <div class="thickbox-big">
+                                                            <div style="text-align:center;" class="thickbox-tit thickbox-tit-1">默认图库</div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="defaultImages" class="thickbox-cont clearfix thickbox-user thickbox-content-2">
+                                                        <a href="#" value="" class="cur">
+                                                          <img src="../images/course2.png"><div class="thickbox-bg"></div>
+                                                        </a>
+                                                        <a href="#" value="">
+                                                          <img src="../images/course2.png"><div class="thickbox-bg"></div>
+                                                        </a>
+                                                        <a href="#" value="">
+                                                          <img src="../images/course2.png"><div class="thickbox-bg"></div>
+                                                        </a>
+                                                        <a href="#" value="">
+                                                          <img src="../images/course2.png"><div class="thickbox-bg"></div>
+                                                        </a>
+                                                        <a href="#" value="">
+                                                          <img src="../images/course2.png"><div class="thickbox-bg"></div>
+                                                        </a>
+                                                        <a href="#" value="">
+                                                          <img src="../images/course2.png"><div class="thickbox-bg"></div>
+                                                        </a>
+                                                        <a href="#" value="">
+                                                          <img src="../images/course2.png"><div class="thickbox-bg"></div>
+                                                        </a>
+                                                        <a href="#" value="">
+                                                          <img src="../images/course2.png"><div class="thickbox-bg"></div>
+                                                        </a>
+                                                        <a href="#" value="">
+                                                          <img src="../images/course2.png"><div class="thickbox-bg"></div>
+                                                        </a>
+                                                        <a href="#" value="">
+                                                          <img src="../images/course2.png"><div class="thickbox-bg"></div>
+                                                        </a>
+                                                        <a href="#" value="">
+                                                          <img src="../images/course2.png"><div class="thickbox-bg"></div>
+                                                        </a>
+                                                        <a href="#" value="">
+                                                          <img src="../images/course2.png"><div class="thickbox-bg"></div>
+                                                        </a>
+                                                        <a href="#" value="">
+                                                          <img src="../images/course2.png"><div class="thickbox-bg"></div>
+                                                        </a>
+                                                        <a href="#" value="">
+                                                          <img src="../images/course2.png"><div class="thickbox-bg"></div>
+                                                        </a>
+                                                        <a href="#" value="">
+                                                          <img src="../images/course2.png"><div class="thickbox-bg"></div>
+                                                        </a>
+                                                        <a href="#" value="">
+                                                          <img src="../images/course2.png"><div class="thickbox-bg"></div>
+                                                        </a>
+                                                        <a href="#" value="">
+                                                          <img src="../images/course2.png"><div class="thickbox-bg"></div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="norm-border thickbox-footer">
+                                                        <input value="确定" name=" " class="btn wzb-btn-blue wzb-btn-big margin-right10" type="button">
+                                                        <input value="取消" name=" " class="TB_closeWindowButton wzb-btn-big  btn wzb-btn-blue " type="button">
+                                                    </div>
+                                              </div>
+                                            </div>
+                                            <script type="text/javascript">
+                                                $(function(){
+                                                  $("#field99__select1").click(function(){
+                                                    $("#myOnPageContent").show();
+                                                  })
+                                                  $(".thickbox-footer input").click(function(){
+                                                    $("#myOnPageContent").hide();
+                                                  })
+                                                })
+                                            </script>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 3px;">
+                                          <label for="field99__select2">
+                                              <input name="image-radio" type="radio" role="custom"><span class="wbFormRightText">更改媒体文档为</span>&nbsp;
+                                              <div style="margin:2px 0 0 0; height:0;" class="file">
+                                                  <input type="file" name=" " class="file_file" disabled="disabled" title="" value=""><input value="没有选择文件" class="file_txt">
+                                                <div class="file_button-blue">浏览</div>
+                                              </div>
+                                              <br>
+                                              <span class="text">&nbsp;&nbsp;图片规格建议：宽389px，高152px<br></span>
+                                          </label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table> 
+        </form>
+        <div class="wzb-bar">
+            <input value="保存" name="" class="btn wzb-btn-blue wzb-btn-big  margin-right10" type="button">
+            <input value="取消" name="" class="TB_closeWindowButton wzb-btn-big  btn wzb-btn-blue " type="button">
+        </div>
+    </div>
+    <!-- 内容添加结束 -->
+
+<script type="text/javascript">
+    $("#gangwei").click(function(){
+        layer.open({
+               type: 1,
+               area: ['600px', '500px'], //宽高
+               title : '选择岗位',
+               content: '<div style="padding:20px;">'+
+                            '<table>'+
+                                '<tbody>'+
+                                    '<tr>'+
+                                        '<td width="30%" align="right">分类：</td>'+
+                                        '<td width="30%">'+
+                                            '<select class="wzb-select">'+
+                                                '<option value="">Java</option>'+
+                                                '<option value="">PHP</option>'+
+                                                '<option value="" selected="true">PS</option>'+
+                                            '</select>'+
+                                        '</td>'+
+                                        '<td width="40%" align="right">'+
+                                            '<form class="form-search">'+
+                                                '<input type="text" class="form-control" name="" placeholder="请输入关键字">'+
+                                                '<input type="button" class="form-submit" value="">'+
+                                            '</form>'+
+                                        '</td>'+
+                                    '</tr>'+
+                                '</tbody>'+
+                            '</table>'+
+                            '<div style="margin-top:28px;">'+
+                                '<table class="table wzb-ui-table">'+
+                                    '<tbody>'+
+                                        '<tr class="wzb-ui-table-head">'+
+                                            '<td width="50%">标题</td>'+
+                                            '<td width="20%" align="center">编号</td>'+
+                                            '<td width="30%" align="right">分类</td>'+
+                                        '</tr>'+
+                                        '<tr class="wzb-ui-table-head">'+
+                                            '<td><input type="radio" name="">Java程序员</td>'+
+                                            '<td align="center">001</td>'+
+                                            '<td align="right">码农</td>'+
+                                        '</tr>'+
+                                        '<tr class="wzb-ui-table-head">'+
+                                            '<td><input type="radio" name="">Java程序员</td>'+
+                                            '<td align="center">001</td>'+
+                                            '<td align="right">码农</td>'+
+                                        '</tr>'+
+                                    '</tbody>'+
+                                '</table>'+
+                            '</div>'+
+                       '</div>'+
+                       '<div class="norm-border  thickbox-footer" style="position:fixed; width:600px; bottom:-50px;">'+
+                           '<input value="确定" name="" class="btn wzb-btn-blue wzb-btn-big  margin-right10" type="button">'+
+                           '<input value="取消" name="" class="TB_closeWindowButton wzb-btn-big  btn wzb-btn-blue " type="button">'+
+                       '</div>'
+           });
+    })
+          
+          $("#xuanke").click(function(){
+
+            layer.open({
+                type: 1,
+                area: ['900px', '542px'], //宽高
+                title : '推荐课程',
+                content: '<div style="padding:20px;">'+
+                            '<div style="width:300px; float:left;">'+
+                                '<img src="../../../static/images/mulufenlei.png" alt=""/>'+
+                            '</div>'+
+                            '<form class="form-search"> '+    
+                                '<input type="text" class="form-control" value="搜索"><input type="button" class="form-submit" value="">'+
+                            '</form>'+
+                            '<div style="margin-left:10px; float:left; width:530px;">'+
+                                '<table class="table wzb-ui-table">'+
+                                    '<tbody>'+
+                                        '<tr class="wzb-ui-table-head">'+
+                                            '<td width="65%">'+
+                                                '<input type="checkbox" name="">课程名称'+
+                                            '</td>'+
+                                            '<td align="center" width="15%">编号'+
+                                            '</td>'+
+                                            '<td align="center" width="20%">课程类型'+
+                                            '</td>'+
+                                        '</tr>'+
+                                        '<tr class="wzb-ui-table-head">'+
+                                            '<td>'+
+                                                '<input type="checkbox" name="">JavaScript入门篇'+
+                                            '</td>'+
+                                            '<td align="center">001'+
+                                            '</td>'+
+                                            '<td align="center">网上课程'+
+                                            '</td>'+
+                                        '</tr>'+
+                                        '<tr class="wzb-ui-table-head">'+
+                                            '<td>'+
+                                                '<input type="checkbox" name="">JavaScript入门篇'+
+                                            '</td>'+
+                                            '<td align="center">001'+
+                                            '</td>'+
+                                            '<td align="center">网上课程'+
+                                            '</td>'+
+                                        '</tr>'+
+                                    '</tbody>'+
+                                '</table>'+
+                            '</div>'+
+                        '</div>'+
+                        '<div class="norm-border  thickbox-footer" style="position:fixed; width:900px; bottom:-50px;">'+
+                            '<input value="确定" name="" class="btn wzb-btn-blue wzb-btn-big  margin-right10" type="button">'+
+                            '<input value="取消" name="" class="TB_closeWindowButton wzb-btn-big  btn wzb-btn-blue " type="button">'+
+                        '</div>' 
+
+            });
+
+          })
+          
+          
+          $("input[name='image-radio']").click(function(){
+        	  
+        	  var role = $(this).attr("role");
+        	  
+        	  if("default" === role){
+        		  $("#field99__select1").attr("disabled",false);
+        	  }else{
+        		  $("#field99__select1").attr("disabled",true);
+        	  }
+        	  
+          });
+          
+</script>
+
+
+
+
+
+
+
+
+</div>  <!-- wzb-panel End-->
+
+</div>  <!-- wzb-main End-->   
+
+</div> <!-- wzb-wrapper End-->
+
+<div class="wzb-footer"><div class="wzb-footer-box">wizbank6.0 @ 汇思 Cyberwisdom 版权所有</div></div>
+</div> <!-- wzb-body End-->
+
+</body>
+</html> 

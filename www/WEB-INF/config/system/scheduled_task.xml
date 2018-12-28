@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scheduled_task enabled="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="scheduled_task.xsd">
+	<!-- 	messaging thread properties	retry_attempt: number of times to re-try sending in case of failure of sending mails (positive integer)	notes_log_file: log file for sending NOTES message (located in log_dir)	-->
+	<task enabled="true">
+		<class_name>com.cw.wizbank.message.MessageScheduler</class_name>
+		<schedule>
+			<repeat every="15" unit="minute"/>
+		</schedule>
+		<param>
+			<name>retry_attempt</name>
+			<value>3</value>
+		</param>
+		<param>
+			<name>notes_log_file</name>
+			<value>notes_log.txt</value>
+		</param>
+	</task>
+	<task enabled="true">
+		<class_name>com.cw.wizbank.message.MessagePushScheduler</class_name>
+		<schedule>
+			<repeat every="3" unit="minute"/>
+		</schedule>
+	</task>
+	<!--
+该线程必需总是保持开启, 否则目标学员功能将会不正常; 另外,这个线程请在用保完用户同步后再启动.
+	   这个线程的作用先把课程的目标学员预计算好,并加载到中间表,供页面上查询用,以提高效率
+	 然后为已设置自动报名的课程,为目标学员自动报名.
+	-->
+	<task enabled="true">
+		<class_name>com.cw.wizbank.course.loadTargetLrnCacheAndCourseEnrollScheduler</class_name>
+		<schedule>
+			<start_time hour="01" minute="02"/>
+		</schedule>
+	</task>
+	<!--	-->
+	<task enabled="true">
+		<class_name>com.cw.wizbank.batch.markEvaluation.MarkCourse</class_name>
+		<schedule>
+			<start_time hour="01" minute="00"/>
+		</schedule>
+		<param>
+			<name>finalize_course</name>
+			<value>true</value>
+		</param>
+	</task>
+	<!-- 	tempfile_time_to_live: how old (in seconds) a file can retain before being cleaned (positive integer)	-->
+	<task enabled="true">
+		<class_name>com.cw.wizbank.qdb.TempDirCleaner</class_name>
+		<schedule>
+			<repeat every="1" unit="hour"/>
+		</schedule>
+		<param>
+			<name>temp_file_time_to_live</name>
+			<value>3600</value>
+		</param>
+	</task>
+	<!--	-->
+	<task enabled="true">
+		<class_name>com.cw.wizbank.qdb.CleanTestMemory</class_name>
+		<schedule>
+			<start_time hour="01" minute="00"/>
+		</schedule>
+	</task>
+	<!--	Complete end date notification email	-->
+	<task enabled="true">
+		<class_name>com.cw.wizbank.course.CourseNotifyScheduler</class_name>
+		<schedule>
+			<start_time hour="1" minute="00"/>
+		</schedule>
+		<param>
+			<name>send_mail_interval</name>
+			<value>1</value>
+			<!-- hour -->
+		</param>
+	</task>
+	<!--		performance warning notification email.		send_mail_interval : only send one mail for warning or blocking inside send_mail_interval	-->
+	<task enabled="true">
+		<class_name>com.cw.wizbank.qdb.CheckActiveUserScheduler</class_name>
+		<schedule>
+			<repeat every="5" unit="minute"/>
+		</schedule>
+		<param>
+			<name>send_mail_interval</name>
+			<value>1</value>
+			<!-- hour -->
+		</param>
+	</task>
+	<!--		IMSAPI schedule.		Please refer to the ims_enerprise_api doucment for parameter settings.	-->
+	<task enabled="false">
+		<class_name>com.cw.wizbank.enterprise.IMSEnterpriseScheduler</class_name>
+		<schedule>
+			<start_time hour="1" minute="00"/>
+		</schedule>
+		<param>
+			<name>init_file</name>
+			<value>..\..\batch\enterprise\config\wizb.ini</value>
+		</param>
+		<param>
+			<name>action</name>
+			<value>IMPORT</value>
+		</param>
+		<param>
+			<name>type</name>
+			<value>USER_GROUP</value>
+		</param>
+		<param>
+			<name>file</name>
+			<value>..\..\batch\enterprise\import\ims_xml.xml</value>
+		</param>
+		<!--
+param>            <name>action_rule</name>            <value>UPDATE</value>        </param
+		-->
+		<!--
+param>            <name>method</name>            <value>EVENTDRIVEN</value>        </param
+		-->
+		<param>
+			<name>log_dir</name>
+			<value>..\..\batch\enterprise\log</value>
+		</param>
+		<!--
+param>            <name>destination_log_dir</name>            <value></value>        </param
+		-->
+		<!-- The start date of the data to be exported. Its format should be YYYY-MM-DD. -->
+		<!--
+param>            <name>start_date</name>            <value>2005-01-01</value>        </param
+		-->
+		<!-- The ending date of the data to be exported. Its format should be YYYY-MM-DD. -->
+		<!--
+param>            <name>end_date</name>            <value>2008-01-01</value>        </param
+		-->
+	</task>
+	<!--		update user credits.	-->
+	<task enabled="true">
+		<class_name>com.cw.wizbank.JsonMod.credit.UserCreditsScheduler</class_name>
+		<schedule>
+			<start_time hour="01" minute="30"/>
+		</schedule>
+	</task>
+	<!--		mark popular question.		available_question_days: the period of vaild vote. 		available_vote_threshold: the threshold of vote count in every period 								  and vote count of popular question in its period must be greater than or equal to the threshold. 		popular_question_count: the number of question that is marked popular.	-->
+	<task enabled="true">
+		<class_name>com.cw.wizbank.JsonMod.know.MarkPopularQueScheduler</class_name>
+		<schedule>
+			<start_time hour="01" minute="40"/>
+		</schedule>
+		<param>
+			<name>available_question_days</name>
+			<value>7</value>
+		</param>
+		<param>
+			<name>available_vote_threshold</name>
+			<value>1</value>
+		</param>
+		<param>
+			<name>popular_question_count</name>
+			<value>100</value>
+		</param>
+	</task>
+	<!-- load Test -->
+	<task enabled="true">
+		<class_name>com.cw.wizbank.qdb.LoadTestScheduler</class_name>
+		<schedule>
+			<start_time hour="02" minute="00"/>
+		</schedule>
+	</task>
+	<!-- clean cache -->
+	<task enabled="true">
+		<class_name>com.cw.wizbank.cache.CleanCache</class_name>
+		<schedule>
+			<start_time hour="1" minute="30"/>
+		</schedule>
+	</task>
+	<!--delete expired user-->
+	<task enabled="true">
+		<class_name>com.cw.wizbank.JsonMod.user.UserManageScheduler</class_name>
+		<schedule>
+			<start_time hour="01" minute="00"/>
+		</schedule>
+	</task>
+	<task enabled="true">
+		<class_name>com.cw.wizbank.report.SynlrnActivityReportScheduler</class_name>
+		<schedule>
+			<start_time hour="02" minute="00"/>
+		</schedule>
+	</task>
+	<!--统计个人学习概况,-->
+	<task enabled="true">
+		<class_name>com.cwn.wizbank.scheduled.LearningSituationScheduled</class_name>
+		<schedule>
+			<start_time hour="03" minute="00"/>
+		</schedule>
+	</task>
+	<!--导入用户线程, 在页面上传文件导入用户时，不是会马上被导入，而是先放到队列，然后线程定时检查队列，进行导入用户的操作-->
+	<task enabled="true">
+		<class_name>com.cwn.wizbank.scheduled.ImportUserFromFile</class_name>
+		<schedule>
+			<start_time hour="22" minute="00"/>
+		</schedule>
+	</task>
+	<!--删除用户线程, 在页面上传文件删除用户时，不是会马上被导入，而是先放到队列，然后线程定时检查队列，进行删除用户的操作-->
+
+	<task enabled="true">
+		<class_name>com.cwn.wizbank.scheduled.DeleteUserScheduler</class_name>
+		<schedule>
+			<repeat every="10" unit="minute"/>
+		</schedule>
+	</task>
+	<!-- 登陆日志定时任务，用于删除1年前的数据库和生成3个报表,每晚1点执行一次 -->
+	<task enabled="true">
+		<class_name>com.cwn.wizbank.systemLog.LoginLogScheduler</class_name>
+		<schedule>
+			<start_time hour="01" minute="00"/>
+		</schedule>
+	</task>
+	<!-- cpd时数历史快照线程,每天2点执行一次 -->
+	<task enabled="true">
+	<class_name>com.cwn.wizbank.scheduled.CpdHistoryScheduler</class_name>
+		<schedule>
+		    <start_time hour="02" minute="00"/>
+		</schedule>
+	</task>
+    <!-- cpd生成CPT/D Outstanding Hours Email Alert 邮件，每天执行一次-->
+    <task enabled="true">
+    <class_name>com.cwn.wizbank.scheduled.CpdOutstandingHoursEmailScheduler</class_name>
+        <schedule>
+            <start_time hour="02" minute="00"/>
+        </schedule>
+    </task>
+</scheduled_task>

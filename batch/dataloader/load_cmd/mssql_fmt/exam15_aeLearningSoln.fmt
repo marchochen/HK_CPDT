@@ -1,0 +1,9 @@
+8.0
+7
+1	SQLNCHAR	0	0	"\t\0"		1	lsn_ent_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	lsn_itm_id	""
+3	SQLNCHAR	0	0	"\t\0"		4	lsn_ent_id_lst	""
+4	SQLNCHAR	0	0	"\t\0"		5	lsn_create_usr_id	""
+5	SQLNCHAR	0	0	"\t\0"		6	lsn_create_timestamp	""
+6	SQLNCHAR	0	0	"\t\0"		9	lsn_type	""
+7	SQLNCHAR	0	0	"\r\0\n\0"	10	lsn_status_ind	""

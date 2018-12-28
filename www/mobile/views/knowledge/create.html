@@ -1,0 +1,212 @@
+<!doctype html>
+<html ng-app="knowledge">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/KnowledgeController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+<script type="text/javascript">
+	var fileIndex = 1;
+	var imageTpl = '<div class="rewiew-tool">'+
+					'<img class="rewiew-tool-photo" id="file{index}" src="../../images/wendang.jpg" alt=""/>'
+					+'<span class="rewiew-tool-delete" onclick="deleteAttachment(this, \'{id}\')">x</span>'
+					+'</div>';
+	var token = null;
+	if(window.localStorage){
+	    token = window.localStorage.getItem("token") || window.sessionStorage.getItem("token");
+	}
+	var attachments = [];
+	function uploadAttachment(){
+		var uploadUrl = serverHost + '/app/kb/attachment/uploadMobile';
+		var uploadType = $('.rewiew-tool-add').attr('data');
+		var value = document.getElementById('file').value;
+		if(!validataFile(value, uploadType)) return; //文件格式验证
+		
+		var option = {
+			file : document.getElementById('file').files[0],
+			url : uploadUrl,
+			success : function(data){
+				if(data){
+   					var image = imageTpl.replace(/\{index\}/g, fileIndex++).replace(/\{id\}/g, data.result.attachment.kba_id);
+           			$('.cont-review-show').prepend(image);
+           			attachments.push(data.result.attachment);
+      				if( uploadType == 'IMAGE'){
+                    	showPhoto('file' + (fileIndex - 1), data.result.attachment.kba_url);
+					}else if(attachments.length > 1){
+						$('#file' + (fileIndex - 2)).next().click();
+					}
+					if( uploadType == 'VEDIO'){
+						var tpl = '<span id="file'+(fileIndex - 1)+'" class="rewiew-tool-bofang"><i class="rewiew-tool-png"></i></span>';
+						//改变图片显示
+						$('#file' + (fileIndex - 1)).parent().prepend(tpl);
+						$('#file' + (fileIndex - 1)).parent().find('img').remove();
+					}
+				}
+			},
+			showProgress : true
+		};
+		uploadFile(option);
+	}
+	function validataFile(file, uploadType){
+		if(!file || file == '' || !uploadType || uploadType == '') return false;
+		var fileType = file.substring(file.lastIndexOf('.') + 1);
+		var checkType = '';
+		switch (uploadType){
+			case 'IMAGE' :
+				checkType = 'jpg-jpeg-gif-png-JPG-JPEG-GIF-PNG';
+				break;
+			case 'DOCUMENT' :
+				checkType = 'doc-docx-xls-xlsx-ppt-pptx-pdt-pdf-DOC-DOCX-XLS-XLSX-PPT-PPTX-PDT-PDF';
+				break;
+			case 'VEDIO' :
+				checkType = 'mp4-MP4-mov-MOV';
+				break
+		}
+		if(checkType.indexOf(fileType) == -1){
+			//报错
+			//提示出错
+			var domElt = $("body")
+			var scope = angular.element(domElt).scope();
+			scope.$apply(function(){
+				alertObj.add('warning', 'knowledge_tip_fileType',2000);
+			});
+			return false;
+		}
+		return true;
+	}
+	function deleteAttachment (obj, id){
+		$.ajax({
+     		url : serverHost + '/app/kb/attachment/delete/'+ id ,
+       		type: "GET",
+      		dataType: 'jsonp',
+       		async : true,
+      		jsonp: 'callback',
+      		data : {
+           		token : token,
+            	developer : 'mobile'
+       		},
+       		beforeSend: function(request) {
+         		request.setRequestHeader("Accept", "application/javascript");
+      		},
+      		success : function(){
+      			for(var i in attachments){
+      				if(attachments[i].kba_id == id){
+      					attachments.splice(i, 1);
+      					break;
+      				}
+      			}
+          		$(obj).parent().remove();
+     		}
+ 		});
+	}
+	$(function(){
+		$('.pure-form-txt-9').focus(function (){ 
+			$(".pure-form-txt-9").addClass("send-focus-er");
+		});
+		$('.pure-form-txt-9').blur(function (){ 
+			$(".pure-form-txt-9").removeClass("send-focus-er"); 
+		});
+	});
+</script>
+</head>
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>
+<body ng-cloak class="ng-cloak" ng-controller="createController">
+	<div class="wrap" ng-show="show == 'create'">
+		<header class="header mm-background">
+			<a class="header-back" href="javascript:back();"></a>
+			<span class="header-title" translate="knowledge_share"><!--分享--></span>
+			<a class="header-info" href="javascript:;" ng-click="create();" translate="btn_publish"><!--发布--></a>
+		</header>
+		<!-- header End -->
+		<section class="content">
+			<div class="cont-review-bar">
+				<span translate="knowledge_title"></span>：
+				<input type="text" ng-model="title"  class="pure-form-txt-9">
+			</div>
+			<div class="cont-review-show clearfix" ng-show="uploadType != 'ARTICLE'">
+				<!-- <div class="rewiew-tool">
+					<img class="rewiew-tool-photo" src="../../images/adv61.jpg" alt=""/>
+					<span class="rewiew-tool-delete">x</span>
+				</div> -->
+				<a class="rewiew-tool-add" data="{{uploadType}}" href="javascript:;" onclick="document.getElementById('file').click();" title="addImage"></a>
+				<input type="file" onchange="uploadAttachment();"  style="visibility:hidden" id="file"/>
+			</div>
+			<div class="cont-review-show" ng-show="uploadType == 'ARTICLE'">
+				<textarea class="pure-form-txt-5"  ng-model="content" placeholder="{{'knowledge_article_tip' | translate}}"></textarea>
+			</div>
+			<div class="panel">
+				<div class="panel-title-19" style="padding:0 12px;">
+					<a href="javascript:;" ng-click="show = 'catalog';" class="clearfix">
+						<span class="panel-num-22" style="width:70%;" ng-bind="showCataLog ? showCataLog:('know_ask_tip_no_select' | translate)"></span>
+						<span translate="knowledge_catalog"></span>
+					</a>
+				</div>
+			</div>
+			<!-- panel End -->
+
+			<div class="panel">
+				<div class="panel-title-19" style="padding:0 12px;">
+					<a  href="javascript:;" ng-click="show = 'tag';" class="clearfix">
+						<span class="panel-num-22" style="width:70%;" ng-bind="showTag?showTag:('know_ask_tip_no_select' | translate)"></span>
+						<span translate="knowledge_tag"></span>
+					</a>
+				</div>
+			</div>
+			<!-- panel End -->
+
+		</section>
+		<!-- content End -->
+	</div>
+	<!-- wrap End -->
+	<div class="wrap" ng-show="show == 'tag'">
+		<header class="header mm-background">
+			<a class="header-back" href="javascript:;" ng-click="show = 'create';" title="back"></a>
+			<span class="header-title" translate="knowledge_tag"><!--标签--></span>
+			<a class="header-info" href="javascript:;" ng-click="saveSelect();" translate="personal_files_save"></a>
+		</header>
+		<!-- header End -->
+		<section class="content">
+			<div class="panel-list-box" style="margin-top:0;" ng-if="tags && tags.length>0">
+				<ul class="panel-list-1-5">
+					<li ng-class="{'cur' : tag.select}" ng-click="tag.select = tag.select ? false : true;" ng-repeat="tag in tags">
+						<a href="javascript:;" ng-bind="tag.tag_title"></a>
+					</li>
+				</ul>
+			</div>
+			<div ng-if="!(tags && tags.length>0)">
+				<div class="panel-list-boxdate">
+					<div class="panel-list-nodate" translate="loader_no_data"></div>
+				</div>
+				<div class="panel-list-foot"></div>
+			</div>
+		</section> <!-- content End -->
+	</div> <!-- wrap End -->
+	<div class="wrap" ng-show="show == 'catalog'">
+		<header class="header mm-background">
+			<a class="header-back" href="javascript:;" ng-click="show = 'create';" title="back"></a>
+			<span class="header-title" translate="knowledge_catalog"><!--分类--></span>
+			<a class="header-info" href="javascript:;" ng-click="saveSelect();" translate="personal_files_save"></a>
+		</header>
+		<!-- header End -->
+		<section class="content">
+			<div class="panel-list-box" style="margin-top:0;" ng-if="catalogs && catalogs.length>0">
+				<ul class="panel-list-1-5">
+					<li ng-class="{'cur' : catalog.select}" ng-click="catalog.select = catalog.select ? false : true;" ng-repeat="catalog in catalogs">
+						<a href="javascript:;" ng-bind="catalog.kbc_title"></a>
+					</li>
+				</ul>
+			</div>
+			<div ng-if="!(catalogs && catalogs.length>0)">
+				<div class="panel-list-boxdate">
+					<div class="panel-list-nodate" translate="loader_no_data"></div>
+				</div>
+				<div class="panel-list-foot"></div>
+			</div>
+		</section><!-- content End -->
+	</div><!-- wrap End -->
+</body>
+</html>

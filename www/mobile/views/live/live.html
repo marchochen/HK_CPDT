@@ -1,0 +1,202 @@
+<!doctype html>
+<html ng-app="live">
+    <head>
+      <meta charset="utf-8">
+      <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+      <title translate="cwn_title"></title>
+      <link type="text/css" rel="stylesheet" href="../../css/jquery.mmenu.css" />
+      <link rel="stylesheet" href="../../css/basic.css" />
+      <script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+      <script type="text/javascript" src="../../js/jquery.load.js"></script>
+      <script type="text/javascript" src="../../js/controllers/LiveController.js"></script>
+      <script type="text/javascript" src="../../lib/common.js"></script>
+      <script type="text/javascript" src="../../lib/countdown.js"></script>
+    </head>
+
+<body ng-cloak class="ng-cloak" ng-controller="indexController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>
+    
+    <div class="wrap">
+        <header class="header mm-background">
+            <a class="header-back" href="javascript:back();"></a>
+	    	<span class="header-title">{{'lab_live_title' | translate}}</span>
+        </header> <!-- header End -->
+        <!-- header-guide start -->
+        
+        <wzm-docker rp="../../"></wzm-docker>
+        
+        <section class="content-2">   
+        	<div class="panel-list-box"  style="margin:0;">
+			<tabs css="2"> 
+				<pane title="{{'lab_live_living' | translate}}" icoclass="xuexi-zhibo-1"> 
+					<div class="panel-tabcont-2 pub-tabcont" style="background:#f2f2f2;"><!-- 正在直播 -->
+                        <ul class="panel-list-1-11" >
+				   			<li ng-repeat="lv in livingList.items" style="border-top:0px;"> 
+								<!-- panel-list-box start -->
+								<div class="panel-list-box" style="{{!$last?'margin-bottom:10px;':''}}">
+									<div class="panel-tab-1 pub-tab">
+										<a forward="{lvId : lv.lv_enc_id } | liveUrl">
+											<div class="zhibo-tu">
+												<img ng-src="{{serverHost + lv.lv_image_path}}" width="100%" height="100%" alt="">
+												
+												<div class="zhibo-conduct">
+													<div style="position: relative">
+														<img src="../../images/wzb-live-living.png" alt="" style="width: 100%; height: 100%" />
+														<div class="zhibo-zhuangtai-living" ng-bind="'lab_live_now_living' | translate"></div>
+														
+														<div class="zhibo-renshu">
+															<span>
+																<em ng-bind="lv.lv_onlineNum"></em>
+																{{'lab_people' | translate}} 
+															</span>
+														</div>
+														
+													</div>
+												</div>
+												
+											</div>
+											<div class="panel-title-9" ng-bind="lv.lv_title"></div>
+										</a>
+										<!-- 直播时间 -->
+										<div class="zhibo-shjian">
+											<span class="color-gray333" ng-bind="'lab_live_time' | translate"></span>：
+											<span class="color-gray999" ng-bind="'time_from' | translate"></span>
+											<span class="color-gray999" ng-bind="lv.lv_start_datetime | toDate : 'yyyy-MM-dd HH:mm'"></span>
+											<span class="color-gray999" ng-bind="'time_to' | translate"></span>
+											<span class="color-gray999" ng-bind="lv.lv_end_datetime | toDate : 'yyyy-MM-dd HH:mm'"></span>
+										</div>
+										<div class="zhibo-line"></div>
+										<!-- 直播简介 -->
+										<div class="zhibo-yaodian" ng-click="OpenOrRetract($event)">
+											<span class="color-gray333" ><span ng-bind="'lab_desc' | translate"></span>：</span> 
+											<span class="zhibo-ynr color-gray999" ng-bind="lv.lv_desc"></span>
+											<p class="zhibo-arrow" ng-show="{{lv.is_desc_sub}}"></p>
+										</div>
+									</div>
+								</div>
+								<!-- panel-list-box End -->
+							</li>
+				    	</ul>
+				    </div>
+					<div loader="livingList"></div>
+			    </pane> 
+			    
+			    <pane title="{{'lab_live_foreshow' | translate}}" icoclass="xuexi-yugao-1"> <!-- 预告 -->
+					<div class="panel-tabcont-2 pub-tabcont" style="background:#f2f2f2;">
+                        <ul class="panel-list-1-11">
+							<li ng-repeat="lv in liveBookingList.items" style="border-top:0px;">
+								<!-- panel-list-box start -->
+								<div class="panel-list-box" style="{{!$last?'margin-bottom:10px;':''}}">
+									<div class="panel-tab-1 pub-tab">
+										<a forward="{lvId : lv.lv_enc_id } | liveUrl">
+											<div class="zhibo-tu">
+												<img ng-src="{{serverHost + lv.lv_image_path}}" width="100%" height="100%" alt="">
+
+												<div class="zhibo-conduct">
+													<div style="position: relative">
+														<div class="zhibo-zhuangtai {{lv.time_id}}">
+															{{'lab_live_countdown' | translate }}
+															<div style="float:right;margin-right:10px">
+																<span style="margin-left:0px;" class="tian"> 0 </span> {{'lab_live_day' | translate }}
+															</div>
+														</div>
+														<img src="../../images/wzb-live-time.png" alt="" style="width: 100%;" />
+														<ul class="zhibo-conduct-shu {{lv.time_id}}">
+															<li class="zhibo-hour" style="border-top:0;"><span class="shi1">0</span> <span class="shi2">0</span></li>
+															<li class="zhibo-minute" style="border-top:0;"><span class="fen1">0</span> <span class="fen2">0</span></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<div class="panel-title-9" ng-bind="lv.lv_title"></div>
+										</a>
+										<!-- 直播时间 -->
+										<div class="zhibo-shjian">
+											<span class="color-gray333" ng-bind="'lab_live_time' | translate"></span>：
+											<span class="color-gray999" ng-bind="'time_from' | translate"></span>
+											<span class="color-gray999" ng-bind="lv.lv_start_datetime | toDate : 'yyyy-MM-dd HH:mm'"></span>
+											<span class="color-gray999" ng-bind="'time_to' | translate"></span>
+											<span class="color-gray999" ng-bind="lv.lv_end_datetime | toDate : 'yyyy-MM-dd HH:mm'"></span>
+										</div>
+										<div class="zhibo-line"></div>
+										<!-- 直播简介 -->
+										<div class="zhibo-yaodian" ng-click="OpenOrRetract($event)">
+											<span class="color-gray333" ><span ng-bind="'lab_desc' | translate"></span>：</span> 
+											<span class="zhibo-ynr color-gray999" ng-bind="lv.lv_desc"></span>
+											<p class="zhibo-arrow" ng-show="{{lv.is_desc_sub}}"></p>
+										</div>
+									</div>
+								</div>
+								<!-- panel-list-box End -->
+					    	</li>
+						</ul>
+					</div>
+					<div loader="liveBookingList"></div>
+				</pane>
+				<pane title="{{'lab_live_lived' | translate}}"  icoclass="zhibo-my-1"> <!-- 往期直播 -->
+					<div class="panel-tabcont-2 pub-tabcont" style="background:#f2f2f2;">
+                        <ul class="panel-list-1-11">
+							<li ng-repeat="lv in LivedList.items" style="border-top:0px;">
+								<!-- panel-list-box start -->
+								<div class="panel-list-box" style="{{!$last?'margin-bottom:10px;':''}}">
+									<div class="panel-tab-1 pub-tab">
+										<a ng-if="lv.lv_mode_type == 'QCLOUD' || (lv.has_record_for_gensee == false && lv.lv_mode_type == 'GENSEE' )"  href="javascript:void(0);">
+											<div class="zhibo-tu">
+												<img ng-src="{{serverHost + lv.lv_image_path}}" width="100%" height="100%" alt="">												
+												<div class="zhibo-conduct">
+													<div style="position: relative">
+														<img src="../../images/wzb-live-lived.png" alt="" style="width: 100%; height: 80%" />
+														<div class="zhibo-zhuangtai-lived"  ng-bind="'lab_live_stop' | translate"></div>
+													</div>
+												</div>
+											</div>
+											<div class="panel-title-9" ng-bind="lv.lv_title"></div>
+										</a>
+										<a ng-if="(lv.lv_mode_type != 'QCLOUD' && lv.lv_mode_type != 'GENSEE' ) || (lv.has_record_for_gensee  == true && lv.lv_mode_type == 'GENSEE' )"  forward="{lvId : lv.lv_enc_id } | liveUrl">
+											<div class="zhibo-tu">
+												<img ng-src="{{serverHost + lv.lv_image_path}}" width="100%" height="100%" alt="">												
+												<div class="zhibo-conduct">
+													<div style="position: relative">
+														<img src="../../images/wzb-live-lived.png" alt="" style="width: 100%; height: 80%" />
+														<div class="zhibo-zhuangtai-lived"  ng-bind="'lab_live_veiwed' | translate"></div>
+													</div>
+												</div>
+											</div>
+											<div class="panel-title-9" ng-bind="lv.lv_title"></div>
+										</a>
+										<!-- 直播时间 -->
+										<div class="zhibo-shjian">
+											<span class="color-gray333" ng-bind="'lab_live_time' | translate"></span>：
+											<span class="color-gray999" ng-bind="'time_from' | translate"></span>
+											<span class="color-gray999" ng-bind="lv.lv_start_datetime | toDate : 'yyyy-MM-dd HH:mm'"></span>
+											<span class="color-gray999" ng-bind="'time_to' | translate"></span>
+											<span class="color-gray999" ng-bind="lv.lv_end_datetime | toDate : 'yyyy-MM-dd HH:mm'"></span>
+										</div>
+										
+										<!-- 参与人数 -->
+										<div class="zhibo-shjian">
+											<span class="color-gray333" ng-bind="'lab_live_countdown' | translate"></span>：
+											<em class="color-gray999" ng-bind="lv.lv_onlineNum"></em>
+										</div>
+										<div class="zhibo-line"></div>
+										<!-- 直播简介 -->
+										<div class="zhibo-yaodian" ng-click="OpenOrRetract($event)">
+											<span class="color-gray333" ><span ng-bind="'lab_desc' | translate"></span>：</span> 
+											<span class="zhibo-ynr color-gray999" ng-bind="lv.lv_desc"></span>
+											<p class="zhibo-arrow" ng-show="{{lv.is_desc_sub}}"></p>
+										</div>
+									</div>
+								</div>
+								<!-- panel-list-box end -->
+				    		</li>
+						</ul>
+					</div>
+					<div loader="LivedList"></div>
+				</pane> 
+			</tabs>
+		</div>
+		</section> <!-- content End -->
+    </div> <!-- wrap End -->
+
+    </body>
+</html>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.UserSpecialTopicMapper">
+	<select id="get" parameterType="Long" resultType="UserSpecialTopic">
+		select * from UserSpecialTopic where ust_id = #{ust_id}
+	</select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.UserSpecialTopic">
+		update UserSpecialTopic  set ust_title = #{ust_title}
+		,ust_img = #{ust_img}
+		,ust_tcr_id = #{ust_tcr_id}
+		,ust_summary = #{ust_summary}
+		,ust_content = #{ust_content}
+		,ust_showindex = #{ust_showindex}
+		,ust_hits = #{ust_hits}
+		,ust_create_time = #{ust_create_time}
+		,ust_create_usr_id = #{ust_create_usr_id}
+		,ust_update_time = #{ust_update_time}
+		,ust_update_usr_id = #{ust_update_usr_id}
+		,ust_status = #{ust_status}
+		where ust_id = #{ust_id}
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from UserSpecialTopic where ust_id = #{id}
+	</delete>
+	<insert id="add" parameterType="com.cwn.wizbank.entity.UserSpecialTopic" useGeneratedKeys="true" keyProperty="ust_id">
+		insert into UserSpecialTopic(ust_title,ust_img,ust_tcr_id,ust_summary,ust_content,ust_showindex,ust_hits,ust_create_time,ust_create_usr_id,ust_update_time,ust_update_usr_id,ust_status)
+		values(#{ust_title},#{ust_img},#{ust_tcr_id},#{ust_summary},#{ust_content},#{ust_showindex},#{ust_hits},#{ust_create_time},#{ust_create_usr_id},#{ust_update_time},#{ust_update_usr_id},#{ust_status})
+		 <selectKey resultType="java.lang.Long" keyProperty="ust_id" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select userSpecialTopic_seq.CURRVAL AS ust_id FROM DUAL
+				</when>
+				<otherwise>
+					select @@IDENTITY as ust_id
+				</otherwise>
+			</choose>
+		</selectKey>
+	</insert>
+	<select id="list" parameterType="Long" resultType="UserSpecialTopic">
+		select * from UserSpecialTopic  where ust_id = #{ust_id}
+	</select>
+		<select id="getSpecialTopicPage" parameterType="Page" resultType="UserSpecialTopic">
+			select * from UserSpecialTopic 
+		where 1=1
+		 <if test="params.searchText != null and params.searchText !=''">
+		    <bind name="searchText" value="'%' + params.searchText + '%'" />
+			and ( lower(ust_title) like N'${searchText}' )
+		  </if>
+		   <if test="params.ust_status != null">
+		 and ust_status = #{params.ust_status}
+		  </if>
+		   <if test="params.ust_showindex != null">
+		 and ust_showindex = #{params.ust_showindex}
+		  </if>
+			  <if test="params.top_tcr_id != null and params.top_tcr_id !=0  ">         
+            and (ust_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{params.top_tcr_id} ) or ust_tcr_id = #{params.top_tcr_id})
+         </if>
+	</select>
+		<select id="getSpecialTopicFrontPage" parameterType="Page" resultType="UserSpecialTopic">
+			select * from UserSpecialTopic 
+		where 1=1
+		   <if test="params.ust_status != null">
+		 and ust_status = #{params.ust_status}
+		  </if>
+		   <if test="params.ust_showindex != null">
+		 and ust_showindex = #{params.ust_showindex}
+		  </if>
+		   <if test="params.top_tcr_id != null and params.top_tcr_id !=0  ">         
+            and (ust_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{params.top_tcr_id} ) or ust_tcr_id = #{params.top_tcr_id})
+         </if>
+	</select>
+	
+	<update id="updateStatus" parameterType="Map">
+		update UserSpecialTopic  set ust_status = #{ust_status}
+		,ust_update_time = #{ust_update_time}
+		where ust_id = #{ust_id}
+	</update>
+		<select id="getCount" parameterType="Map" resultType="int">
+		select count(1) from UserSpecialTopic where 1=1
+		   <if test="ust_status != null">
+		 and ust_status = #{ust_status}
+		  </if>
+		   <if test="ust_showindex != null">
+		 and ust_showindex = #{ust_showindex}
+		  </if>
+		      <if test="top_tcr_id != null and top_tcr_id !=0  ">         
+            and (ust_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{top_tcr_id} ) or ust_tcr_id = #{top_tcr_id})
+         </if>
+	</select>
+	<update id="updateHits" parameterType="Long">
+		update UserSpecialTopic  set ust_hits = ust_hits+1
+		where ust_id = #{ust_id}
+	</update>
+	
+	<select id="getUserSpecialTopicListIndex" resultType="UserSpecialTopic" parameterType="Map">
+		
+		 select * from UserSpecialTopic 
+		 where ust_status = 1
+		   and ust_showindex = 1
+		    <if test="top_tcr_id != null and top_tcr_id !=0  ">         
+	      	   and (
+			   	   ust_tcr_id = #{top_tcr_id}
+				   or ust_tcr_id  in (
+						             select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{top_tcr_id}
+								     )
+		   		   )
+           </if>
+           order by ust_update_time desc
+	</select>
+	
+	<select id="getSpecialListTotalCount" resultType="int" parameterType="Map">
+		
+		 select count(*) from UserSpecialTopic 
+		 where ust_status = 1
+		 <if test="top_tcr_id != null and top_tcr_id !=0  ">         
+            	   and (
+		   	   ust_tcr_id = #{top_tcr_id}
+			   or ust_tcr_id  in (
+					             select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{top_tcr_id}
+							     )
+	   		   )  
+         </if>
+	</select>
+	
+	<select id="getTotalCountByTcrIdAndChild" resultType="Long" parameterType="Long">
+		select COUNT(ust_id) from UserSpecialTopic where
+		      (
+			   ust_tcr_id = #{tcrId}
+			   or ust_tcr_id  in (
+					             select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{tcrId}
+							     )
+	   		  ) 
+	</select>
+	
+	<select id="isExistFormSpec" parameterType="Map" resultType="boolean">
+		select count(ust_id) from UserSpecialTopic
+		where 1=1
+		<if test="ust_title != null and ust_title !=''">
+		 and   ust_title= N'${ust_title}' 
+		<if test="old_value != null and old_value !=''">	 
+		and ust_title != N'${old_value}'
+		 </if>
+		 </if>
+	</select>
+</mapper>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html ng-app="setUp">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/SetUpController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="mainController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+<div class="wrap" id="wizwrap">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back();" title="back"></a>
+    <span class="header-title">{{ 'setting' | translate}}</span>
+</header> <!-- header End -->
+<wzm-docker rp="../../"></wzm-docker>
+<section class="content-2">
+<div class="list-pic-3">
+<div class="own-box">
+<div class="own-box-area">
+	<div class="own-box-pic">
+		<a class="own-box-user" href="javascript:;" title="">
+			<div>
+				<img id="user_photo_{{user.usr_ent_id}}" ng-src="{{serverHost}}{{user.usr_photo}}" alt=""/>
+			</div>
+		</a>
+	</div>
+
+	<div class="own-box-tit-1">{{user.usr_display_bil}}</div>
+	<div class="own-box-tit-5">{{user.usg_display_bil}} {{user.ugr_display_bil != 'Unspecified' ? user.ugr_display_bil : ''}}</div>
+</div>     
+</div>
+
+<img class="list-pic-3-pic" alt="" src="../../images/banner51.jpg">
+<div class="list-pic-3-bg"></div>
+</div> <!-- list-pic-3 End -->
+<div class="panel-list-box" style="margin-top:0;">
+<ul class="panel-list-1-6">
+    <li>
+          <a class="panel-add-01 panel-add-09 wiz-mima" href="{{{url:'setPassword.html'} | appUrl}}" title=""><em class="panel-num-1">&nbsp;</em>{{ 'set_pwd' | translate}}<!--修改密码--></a>
+    </li>
+    <!-- <li>
+          <a class="panel-add-01 panel-add-09 wiz-yinsi" href="{{{url:'setPrivacy.html'} | appUrl}}" title=""><em class="panel-num-1">&nbsp;</em>{{ 'set_privacy' | translate}}隐私设置</a>
+    </li> -->
+    <li>
+          <a class="panel-add-01 panel-add-09 wiz-yuyan" href="{{{url:'setLanguage.html'} | appUrl}}" title=""><em class="panel-num-1">&nbsp;</em>{{ 'set_lan' | translate}}<!--语言--></a>
+    </li>
+    <li>
+          <a class="panel-add-01 panel-add-09 wiz-guanyu" href="javascript:;" ng-click="gotoAbout()" title=""><em class="panel-num-1">&nbsp;</em>{{ 'set_about' | translate}}<!--关于--></a>
+    </li>
+     <li><a class="panel-add-01 panel-add-09 wiz-tuichu" href="javascript:;" ng-click="loginOut()" title="">{{ 'exit' | translate}}</a></li>
+</ul>
+
+</div>
+
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

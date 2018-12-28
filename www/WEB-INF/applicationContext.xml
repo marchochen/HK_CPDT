@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jee="http://www.springframework.org/schema/jee"
+	   xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:p="http://www.springframework.org/schema/p" xmlns:task="http://www.springframework.org/schema/task"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+		<property name="location">
+			<value>/WEB-INF/moduleSystemConfig.properties</value>
+		</property>
+	</bean>
+
+	<context:component-scan base-package="com.cwn.wizbank">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	
+	<!-- DataSource -->
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/jdbc/wizbankds" />
+	</bean>
+
+	<!-- 	mybatis 配置_databaseId -->	
+	<bean id="vendorProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">  
+        <property name="properties">  
+            <props>  
+                <prop key="SQL Server">SQLSERVER</prop>  
+                <prop key="DB2">DB2</prop>  
+                <prop key="Oracle">ORACLE</prop>  
+                <prop key="MySQL">MYSQL</prop>  
+            </props>  
+        </property>  
+    </bean>  
+    
+    <bean id="databaseIdProvider" class="org.apache.ibatis.mapping.VendorDatabaseIdProvider">  
+         <property name="properties" ref="vendorProperties"/>  
+    </bean>  
+    
+    <!-- define the SqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="typeAliasesPackage" value="com.cwn.wizbank.entity,com.cwn.wizbank.cpdt.entity" />
+        <property name="configLocation" value="/WEB-INF/sql-map-config.xml" />
+        <property name="databaseIdProvider" ref="databaseIdProvider"/>  
+    </bean>
+
+    <!-- scan for mappers and let them be autowired -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.cwn.wizbank.persistence,com.cwn.wizbank.cpdt.persistence" />
+    </bean>
+    
+	<!--     用来获取connection -->
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+	
+	<!--     配置applicationContext静态类 ，便于后台或者线程拿spring容器的bean-->
+    <bean id="SpringConfigTool" class="com.cwn.wizbank.web.WzbApplicationContext"></bean>
+	
+	<!--     事物配置 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="logic*" propagation="REQUIRED" />
+			<tx:method name="init*" propagation="REQUIRED" />
+			<tx:method name="adaptor*" propagation="NOT_SUPPORTED"/>
+			<!-- 由于read-only 属性在mssql oracle的JDBC驱动中不支持 故此去掉 -->
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- 	配置事物切入点，排除某些方法 -->
+	<aop:config proxy-target-class="true">
+		<aop:advisor pointcut="execution(* com.cwn.wizbank.services.*.*(..))
+			    " advice-ref="txAdvice"/>
+	</aop:config>
+	
+	
+	<!-- 加入Aspectj配置 -->  
+    <aop:aspectj-autoproxy proxy-target-class="true"/>  
+    <bean id="connectionAspect" class="com.cwn.wizbank.web.aspect.ConnectionAspect" />
+    
+    <!-- app推送引擎配置 -->
+    <bean id="AppPushEngine" class="com.cwn.wizbank.push.AppPushEngineImpl">
+    	<constructor-arg>
+    		<list>
+    			<!-- <bean class="com.cwn.wizbank.entity.AppPushConfig">
+    				<property name="appId" value="KSOsswpsAI84xowFgSXCU5"></property>
+    				<property name="appKey" value="yD2xeZquqR9rvJijKljLr9"></property>
+    				<property name="masterSecret" value="whJNnWLn25AJ8DLJB1sHn9"></property>
+    			</bean> -->
+    		</list>
+    	</constructor-arg>
+    </bean>
+    
+    <!-- WeChat推送引擎配置 -->
+ 	<bean id="wechatService" class="com.cwn.wizbank.wechat.service.WechatService"> 
+		<property name="weChatTemplateId" value="Cj0clV6v0eAs6DaPbmlf4gNXXhcYFuoL0isg7Kan4yE"></property>
+	</bean>
+	
+	<!-- 直播参数 live.properties -->	
+	<bean id="liveProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">  
+        <property name="locations">  
+        	<list>
+                <value>/WEB-INF/config/live.properties</value>
+            </list>
+        </property>  
+    </bean>  
+    
+    <bean id="liveConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="properties" ref="liveProperties" />
+    </bean>
+
+	<!-- 新线程开启开关
+	<task:annotation-driven />-->
+	<bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean"/>
+</beans>

@@ -1,0 +1,21 @@
+<html>
+<head>
+	<title></title>
+
+<script src="../js/gen_utils.js" language="JavaScript"></script>
+<script src="../js/urlparam.js" language="JavaScript"></script>
+
+<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
+<!--
+url = getUrlParam('url')
+web_launch = getUrlParam('web_launch')
+document.title = web_launch
+str='<frameset  cols="0,*" frameborder="0" framespacing="0" border="0">'
+str+='<frame name="blank" src="../htm/reload.htm" marginwidth="0" marginheight="0" scrolling="auto" frameborder="0">'
+str+='<frame name="aicc_left" src="' + url +'" marginwidth="10" marginheight="10" scrolling="auto" frameborder="0">'
+str+='</frameset>'
+document.write(str);
+//-->
+</SCRIPT>
+</head>
+</html>

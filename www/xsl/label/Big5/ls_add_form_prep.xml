@@ -1,0 +1,61 @@
+<label_reference_data_list>
+	<label name="lab_g_create_ls">«Ø¥ß½Òµ{</label>
+	<label name="lab_g_select_ls">½Ð¿ï¾ÜÃþ«¬</label>
+	<label name="lab_g_ls">½Òµ{Ãþ«¬</label>
+	<label name="lab_g_select_enrol_wf">½Ð¿ï¾Ü³ø¦W¬yµ{</label>
+	<label name="lab_g_enrol_wf">³ø¦W¬yµ{</label>
+	<label name="lab_g_none">µL</label>
+	<label name="lab_g_form_btn_next_step">¤U¤@¨B</label>
+	<label name="lab_g_form_btn_cancel">¨ú®ø</label>
+	<label name="lab_g_item_type">
+		<element id="CLASSROOMCTAM">
+			<title>Classroom Training(CTAM)</title>
+			<description></description>
+		</element>	
+		<element id="CLASSROOM">
+			<title>½Ò°ó°ö°V</title>
+			<description></description>
+		</element>
+		<element id="SELFSTUDY">
+			<title>ºô¤W½Òµ{</title>
+			<description></description>
+		</element>
+		<element id="SELFSTUDY_PAYMENT">
+			<title>ºô¤W½Òµ{ (¶·¥I´Ú)</title>
+			<description></description>
+		</element>
+		<element id="MOBILE">
+			<title>ÒÆ„ÓÕn³Ì</title>
+			<description/>
+		</element>
+		<element id="AUDIOVIDEO">
+			<title>¼v­µ</title>
+			<description></description>
+		</element>
+		<element id="BOOK">
+			<title>®Ñ¥»</title>
+			<description></description>
+		</element>
+		<element id="WEBSITE">
+			<title>ºô¯¸</title>
+			<description></description>
+		</element>
+
+	</label>
+	<label name="lab_g_template_workflow">
+		<element id="15">
+			<title id="1">µL»Ý¸g¹L¼f§å</title>
+			<description id="1"></description>
+			<title id="2">»Ý¸g¹L¥H¤U¼f§å:</title>
+			<description id="2"></description>
+			<title id="3">¤W¥q¼f§å</title>
+			<description id="3"></description>
+			<title id="4">¥u»Ýª½ÄÝ¤W¥q¼f§å</title>
+			<description id="4">¦pªG»Ý­nª½ÄÝ¤W¥q°Ñ»P¼f§å¡A¥Ó½ÐªÌ­Ó¤H¸ê®Æ¤¤ªº¡§ª½ÄÝ¤W¥q¡¨ÄÝ©Ê¥²¶·¥ý³Q³]©w¡C</description>
+			<title id="5">¥ý³q¹Lª½ÄÝ¤W¥q¼f§å¡M¦A¥Ñ¥Î¤á²Õ¤W¥q¼f§å</title>
+			<description id="5">¦pªG»Ý­n¥Î¤á²Õ¤W¥q°Ñ»P¼f§å¡A¥Ó½ÐªÌ­Ó¤H¸ê®Æ¤¤ªº¡§³Ì°ª³ø¦W¼f§å¥Î¤á²Õ¡¨ÄÝ©Ê¥²¶·¥ý³Q³]©w¡C</description>
+			<title id="6">°ö°VºÞ²z­û¼f§å</title>
+			<description id="6"></description>
+		</element>
+	</label>
+</label_reference_data_list>

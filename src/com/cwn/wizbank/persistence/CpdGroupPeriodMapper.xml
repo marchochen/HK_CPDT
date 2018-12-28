@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.CpdGroupPeriodMapper">
+	<resultMap id="CpdGroupPeriod" type="CpdGroupPeriod">
+		<id column="cgp_id" property="cgp_id" />
+		<result column="cgp_effective_time" property="cgp_effective_time" javaType="java.util.Date" jdbcType="DATE"></result>
+		<result column="cgp_ct_id" property="cgp_ct_id"></result>
+		<result column="cgp_cg_id" property="cgp_cg_id"></result>
+		<result column="cgp_create_usr_ent_id" property="cgp_create_usr_ent_id"></result>
+		<result column="cgp_create_datetime" property="cgp_create_datetime"></result>
+		<result column="cgp_update_usr_ent_id" property="cgp_update_usr_ent_id"></result>
+		<result column="cgp_update_datetime" property="cgp_update_datetime"></result>
+		<result column="cgp_status" property="cgp_status"></result>
+	</resultMap>
+	
+	
+	<select id="getPeriod" resultMap="CpdGroupPeriod" parameterType="Map">
+		<![CDATA[
+			select 
+				cgp_id ,
+				cgp_effective_time,
+				cgp_ct_id int,
+				cgp_cg_id int ,
+				cgp_create_usr_ent_id,
+				cgp_create_datetime ,
+				cgp_update_usr_ent_id,
+				cgp_update_datetime,
+				cgp_status 
+			from 
+				cpdGroupPeriod 
+			where
+				1 = 1
+		]]>
+		<if test="cg_id !=null ">
+			and cgp_cg_id = #{cg_id}
+		</if>
+		<if test="ct_id !=null ">
+			and cgp_ct_id = #{ct_id}
+		</if>
+		<if test="status !=null ">
+			and cgp_status = #{status}
+		</if>
+		<choose>
+			<when test="_databaseId == 'SQLSERVER'">
+				<if test="initial_date !=null ">
+					<![CDATA[
+						and DATEPART(YEAR, cgp_effective_time) = DATEPART(YEAR, #{initial_date}) 
+					]]>
+				</if>
+			</when>
+			<when test="_databaseId == 'ORACLE'">
+				<if test="initial_date !=null ">
+					<![CDATA[
+						and to_char(cgp_effective_time,'yyyy') = to_char(#{initial_date},'yyyy')
+					]]>
+				</if>
+			</when>
+			<when test="_databaseId == 'MYSQL'">
+				<if test="initial_date !=null ">
+					<![CDATA[
+						and DATE_FORMAT(cgp_effective_time,'%Y') = DATE_FORMAT(#{initial_date},'%Y')
+					]]>
+				</if>
+			</when>
+		</choose>
+		order by cgp_effective_time desc
+	</select>	
+	
+	
+	<select id="searchAll" resultMap="CpdGroupPeriod" parameterType="Page">
+		<![CDATA[
+		  SELECT CpdGroupPeriod.*
+			  FROM cpdGroupPeriod where cgp_status = 'OK' and cgp_cg_id = ${params.cg_id}
+			  order by cgp_effective_time desc
+		]]>
+	</select>
+	
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.CpdGroupPeriod" >
+	    <![CDATA[
+            insert into CpdGroupPeriod(
+            		cgp_effective_time,
+            		cgp_ct_id,
+            		cgp_cg_id,
+            		cgp_create_usr_ent_id,
+            		cgp_create_datetime,
+            		cgp_status
+            ) values (
+            	#{cgp_effective_time,jdbcType=TIMESTAMP},
+            	#{cgp_ct_id,jdbcType=INTEGER},
+            	#{cgp_cg_id,jdbcType=INTEGER},
+            	#{cgp_create_usr_ent_id,jdbcType=INTEGER},
+            	#{cgp_create_datetime,jdbcType=TIMESTAMP},
+            	#{cgp_status,jdbcType=VARCHAR}
+            )
+        ]]>
+	</insert>
+	
+	<insert id="insertReturnID" parameterType="com.cwn.wizbank.entity.CpdGroupPeriod" keyProperty="cgp_id">
+	    <![CDATA[
+            insert into CpdGroupPeriod(
+            		cgp_effective_time,
+            		cgp_ct_id,
+            		cgp_cg_id,
+            		cgp_create_usr_ent_id,
+            		cgp_create_datetime,
+            		cgp_status
+            ) values (
+            	#{cgp_effective_time,jdbcType=TIMESTAMP},
+            	#{cgp_ct_id,jdbcType=INTEGER},
+            	#{cgp_cg_id,jdbcType=INTEGER},
+            	#{cgp_create_usr_ent_id,jdbcType=INTEGER},
+            	#{cgp_create_datetime,jdbcType=TIMESTAMP},
+            	#{cgp_status,jdbcType=VARCHAR}
+            )
+        ]]>
+        <selectKey keyProperty="cgp_id" resultType="Long" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select CpdGroupPeriod_seq.currval from dual
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					select ident_current('CpdGroupPeriod')
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					select last_insert_id()
+				</when>
+			</choose>
+		</selectKey>
+	</insert>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.CpdGroupPeriod">
+	    <![CDATA[
+	        update CpdGroupPeriod 
+	        set
+				cgp_effective_time = #{cgp_effective_time,jdbcType=TIMESTAMP},
+           		cgp_update_usr_ent_id = #{cgp_update_usr_ent_id,jdbcType=INTEGER},
+           		cgp_update_datetime = #{cgp_update_datetime,jdbcType=TIMESTAMP}
+	         where cgp_id = #{cgp_id,jdbcType=INTEGER}
+	    ]]>
+	</update>
+	
+	<update id="delete" parameterType="com.cwn.wizbank.entity.CpdGroupPeriod">
+	    <![CDATA[
+	        update CpdGroupPeriod 
+	        set
+				cgp_status = #{cgp_status,jdbcType=VARCHAR},
+           		cgp_update_usr_ent_id = #{cgp_update_usr_ent_id,jdbcType=INTEGER},
+           		cgp_update_datetime = #{cgp_update_datetime,jdbcType=TIMESTAMP}
+	         where cgp_id = #{cgp_id,jdbcType=INTEGER}
+	    ]]>
+	</update>
+	
+	<select id="isExistForTime" resultType="java.lang.Boolean"
+		parameterType="com.cwn.wizbank.entity.CpdGroupPeriod">
+	    <![CDATA[
+			select count(*)
+	         from CpdGroupPeriod
+	         where cgp_status = 'OK'
+	        ]]> 
+	        <choose>
+				<when test="_databaseId == 'SQLSERVER'">
+					<if test="cgp_effective_time !=null ">
+						<![CDATA[
+							and DATEPART(YEAR, cgp_effective_time) = DATEPART(YEAR, #{cgp_effective_time}) 
+						]]>
+					</if>
+				</when>
+				<when test="_databaseId == 'ORACLE'">
+					<if test="cgp_effective_time !=null ">
+						<![CDATA[
+							and to_char(cgp_effective_time,'yyyy') = to_char(#{cgp_effective_time},'yyyy')
+						]]>
+					</if>
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					<if test="cgp_effective_time !=null ">
+						<![CDATA[
+							and DATE_FORMAT(cgp_effective_time,'%Y') = DATE_FORMAT(#{cgp_effective_time},'%Y')
+						]]>
+					</if>
+				</when>
+			</choose>
+	    <![CDATA[     
+	           and cgp_cg_id = #{cgp_cg_id}
+		]]>
+		<if test="cgp_id !=null and cgp_id !=''">
+			<![CDATA[
+				and cgp_id != #{cgp_id}
+			]]>
+		</if>
+	</select>
+	
+	<select id="get" resultMap="CpdGroupPeriod" parameterType="java.lang.Long">
+	    <![CDATA[
+	        select CpdGroupPeriod.*
+	         from CpdGroupPeriod 
+	         where cgp_id = #{id}  and cgp_status = 'OK'
+	    ]]>
+	</select>
+	
+</mapper>

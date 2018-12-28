@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.CpdReportRemarkHistoryMapper">	
+	
+
+	<select id="getCpdReportRemarkHistory" resultType="com.cwn.wizbank.entity.CpdReportRemarkHistory" parameterType="Map">
+	    <![CDATA[
+			select *
+	         from cpdReportRemarkHistory 
+	         where 1=1
+		]]>
+		<if test="code !=null and code !=''">
+			<![CDATA[
+				and crmh_report_code = #{code}
+			]]>
+		</if>
+		<if test="period !=null and period !=0">
+			<![CDATA[
+				and crpm_his_period = #{period}
+			]]>
+		</if>
+		<if test="month !=null and month !=0">
+			<![CDATA[
+				and crpm_his_save_month = #{month}
+			]]>
+		</if>
+		order by crpm_his_create_datetime desc
+	</select>
+
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.CpdReportRemarkHistory">
+	    <![CDATA[
+            insert into cpdReportRemarkHistory(
+            		crmh_crpm_id,
+            		crmh_report_code,
+            		crmh_report_remark,
+            		crpm_his_create_datetime,
+            		crpm_his_period,
+            		crpm_his_save_month
+            ) values (
+            	#{crmh_crpm_id,jdbcType=INTEGER},
+            	#{crmh_report_code,jdbcType=VARCHAR},
+            	#{crmh_report_remark,jdbcType=VARCHAR},
+            	#{crpm_his_create_datetime,jdbcType=TIMESTAMP},
+            	#{crpm_his_period,jdbcType=INTEGER},
+            	#{crpm_his_save_month,jdbcType=INTEGER}
+            )
+        ]]>
+	</insert>
+
+    <select id="getRemarkHistoryForExcel" resultType="com.cwn.wizbank.entity.CpdReportRemarkHistory" parameterType="Map">
+        <![CDATA[
+           select * from cpdReportRemarkHistory where 
+            crmh_report_code = #{code}
+            and crpm_his_period = #{period}
+            order by crpm_his_save_month desc
+        ]]>
+    </select>
+
+	
+
+</mapper>

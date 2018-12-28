@@ -1,0 +1,30 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :MList View
+suffix								   :mlstview
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : mlstview.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+a.wbMLstViewLink:hover{
+	color: #859334;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbMLstViewBg{
+	background-color: #F8F9DD;
+}
+
+.wbMLstViewHeadBarBg{
+	background-color: #A9BB31;
+}
+
+.wbMLstViewHeadText{
+	color: #FFFFFF;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbMLstViewText, a.wbMLstViewLink,a.wbMLstViewLink:visited,a.wbMLstViewLink:active {
+	color: #000000;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}

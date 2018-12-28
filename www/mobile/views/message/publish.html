@@ -1,0 +1,105 @@
+<!doctype html>
+<html ng-app="message">
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport" />
+		<title translate="cwn_title"></title>
+		<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+		<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.load.js"></script>
+		<script type="text/javascript" src="../../js/controllers/MessageController.js"></script>
+		<script type="text/javascript" src="../../lib/common.js"></script>
+	</head>
+	<body ng-cloak class="ng-cloak" ng-controller="publishController">
+		<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>
+		<div class="wrap" id="wizwrap">
+			<header class="header mm-background">
+				<a class="header-back" href="javascript:void(0);" ng-click="goBack()" title="back"></a> <span
+					class="header-title">{{'message_label' | translate}}</span>
+				<a ng-show="show.main" ng-click="publish()" class="header-info" href="javascript:void(0)">{{'btn_send'| translate}}</a>
+				<a ng-show="show.receiverPage" class="header-qunjian" href="javascript:;" ng-click="showRemove()"></a>
+				<a ng-show="show.receiverPage || show.remove" class="header-qunjia" href="javascript:;" ng-click="selectReceiver()"></a>
+				<a ng-show="show.remove" class="header-info" href="javascript:;" ng-click="saveRemove()" style="right:50px" translate="btn_delete"></a>
+				<a ng-show="show.receiverSelection" class="header-info" href="javascript:;" ng-click="saveReceivers()" translate="btn_save"></a>
+			</header>
+			
+			<!-- 底部导航栏  -->
+			<wzm-docker rp="../../"></wzm-docker>
+			
+			<section class="content-2">
+				<!-- 发送消息主界面 start -->
+				<div ng-show="show.main">
+					<div class="cont-review-bar">
+						<input ng-model="wmsg_subject" type="text" class="pure-form-txt-7" name="" placeholder="{{'message_subject' | translate}}"><!-- 消息标题 -->
+					</div>
+					<div class="cont-review-show">
+						<textarea ng-model="wmsg_content_pc" class="pure-form-txt-5" name="" placeholder="{{'message_content' | translate}}"></textarea><!-- 消息描述 -->
+					</div>
+
+					<div class="panel">
+						<div class="panel-title-7">
+							<a ng-click="showReceivers()" href="javascript:void(0)" title=""><em
+								class="panel-num-1">&nbsp;</em><!-- 发送给谁 -->{{'message_send_who' | translate}}</a>
+						</div>
+					</div>
+				</div>
+				<!-- 发送消息主界面 end -->
+
+				<!-- 已选择的收件人界面 start -->
+				<div class="cont-box" ng-show="show.receiverPage || show.remove">
+					<ul ng-class="{'panel-list-1-10':show.remove}" ng-show="receivers && receivers.length>0">
+					    <li ng-class="{'cur':item.removeFlag}" ng-repeat="item in receivers" ng-click="removeItemClick($index)">
+					        <div class="tuwen-list-2 clearfix">
+					             <a class="tuwen-list-2-pic" href="javascript:void(0)" title=""><img class="pic-user-w" ng-src="{{serverHost}}{{item.usr_photo}}" alt=""/></a>
+					             <div class="tuwen-list-2-box" ng-style="{'border-bottom': ($last ? 'none':'1px solid #eee')}"> 
+					                  <div class="tuwen-list-2-tit-1">
+					                       <a href="javascript:void(0)" class="tuwen-list-2-user" title="" ng-bind="item.usr_display_bil"></a>
+					                  </div>
+					                  <p class="tuwen-list-2-tit-2">{{item.usg_display_bil}} {{item.ugr_display_bil != 'Unspecified' ? item.ugr_display_bil : ''}}</p>
+					             </div>
+					        </div>
+					    </li>
+					</ul>
+					
+					<!-- 没有数据显示时 -->
+					<div class="panel-list-boxdate" ng-hide="receivers && receivers.length>0"><div class="panel-list-nodate" translate="loader_no_data"></div></div>
+					
+				</div>
+				<!-- 已选择的收件人界面 end -->
+
+				<!-- 查询收件人列表 start-->
+				<div ng-show="show.receiverSelection">
+					<div class="pure-form-box-5">
+				          <div class="pure-form-box-5-in">
+					          <input ng-model="searchText" type="text" name="fdf" class="pure-form-txt-8" placeholder="{{'group_tip_search' | translate}}">
+							  <input ng-click="search()" type="button" value="" name="mybtn" class="panel-box-btn-04">
+				          </div>
+				     </div>
+
+					<div class="cont-box">
+						<ul class="panel-list-1-10">
+							<li ng-class="{cur:receiver.selected}" ng-repeat="receiver in receiverList.items" ng-click="clickReceiver(this)">
+								<div class="tuwen-list-2 clearfix">
+									<a class="tuwen-list-2-pic" href="javascript:;" title="">
+		                         		<img id="user_photo_{{receiver.usr_ent_id}}" class="pic-user-w" ng-src="{{serverHost}}{{receiver.usr_photo}}" alt=""/>
+		                    		</a>
+				                    <div class="tuwen-list-2-box">
+				                         <div class="tuwen-list-2-tit-1">
+				                              <a href="javascript:;" class="tuwen-list-2-user" title="" ng-bind="receiver.usr_display_bil"></a>
+				                         </div>
+				                         <p class="tuwen-list-2-tit-2">{{receiver.usg_display_bil}} {{receiver.ugr_display_bil != 'Unspecified' ? receiver.ugr_display_bil : ''}}</p>
+				                    </div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div loader="receiverList"></div>
+				</div>
+				<!-- 查询收件人列表 end-->
+
+			</section>
+
+		</div>
+		<!-- wrap End -->
+	</body>
+</html>

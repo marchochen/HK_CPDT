@@ -1,0 +1,48 @@
+<!doctype html>
+<html ng-app="search">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/SearchController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+<!--[if lt IE 9]>
+<script src="../../js/lib/html5.js" type="text/jscript"></script>
+<![endif]-->
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="searchController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+
+<div class="wrap" id="wizwrap">
+
+<header class="header mm-background">    
+<a class="header-back" href="javascript:back();" title="back"></a>
+<span class="header-title"></span>
+<form class="pure-form">
+	 
+    <fieldset>
+        <div class="pure-form-box-2">
+             <div class="pure-form-sou"></div>
+             <div class="pure-form-bar"><input type="text" ng-model="searchText" class="pure-form-txt-2" name="souso" placeholder="{{'btn_search' | translate}}"></div>
+             <a class="pure-form-delete pure-form-delete-2" ng-show="showDel"  ng-click="delText();" href="javascript:;"></a>
+        </div>
+         <input type="button" class="pure-form-txt-3" name="quxiao" ng-click="doSearch()" value="{{'btn_search' | translate}}">
+   
+        
+    </fieldset>
+</form>
+</header> <!-- header End -->
+<wzm-docker rp="../../"></wzm-docker>
+<section class="content-2">
+	<div ng-view></div>
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

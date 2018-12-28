@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>wizbank网站管理平台</title>
+<script type="text/javascript" src="../../../js/jquery.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/css/thickbox.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/jquery-table/css/jquery-table-default.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/jquery-table/css/jquery-table-admin.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/admin/css/admin.css"/>
+<!--[if lt IE 9]>
+    <script type="text/javascript" src="bootstrap/js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+<style type="text/css">
+.mCSB_container .cur{ position: relative;}
+.mCSB_container .cur ul{ position: absolute; left: 220px; top: 0px; z-index: 99999999999999999999;}
+</style>
+
+<div class="wzb-body">
+<div class="wzb-top clearfix">
+     <a class="wzb-logo" href="###" title="wizbank"><img src="../../../static/images/wzb-logo.gif" alt="wizbank" /></a>
+     <div class="wzb-top-toggle"><i class="fa fa-bars"></i></div>
+     
+     <div class="wzb-tool">
+         <div class="wzb-menu">     
+              <ul class="clearfix">
+                  <li><a class="wzb-menu-sup" href="###" title="信息"><i class="fa wzb-envelope-icon fa-envelope-o"></i> <span class="wzb-badge wzb-badge-purple">15</span></a></li>
+                  <li>
+                      <a class="wzb-menu-sub" href="###" title="信息"><i class="fa wzb-envelope-icon fa-flag-o"></i> <span class="wzb-badge wzb-badge-pink">8</span></a>
+                      <ul>
+                          <li><a class="wzb-menu-son" href="###" title="报名审批"><i class="fa fa-check-circle-o"></i>报名审批</a></li>
+                          <li><a class="wzb-menu-son" href="###" title="作业批改"><i class="fa fa-clipboard"></i>作业批改</a></li>
+                          <li><a class="wzb-menu-son" href="###" title="试卷批改"><i class="fa fa-file-text-o"></i>试卷批改</a></li>
+                          <li><a class="wzb-menu-son" href="###" title="知识审批"><i class="fa fa-life-ring"></i>知识审批</a></li>
+                          <li><a class="wzb-menu-son" href="###" title="IDP审批"><i class="fa fa-level-up"></i>IDP审批</a></li>
+                          <li><a class="wzb-menu-son" href="###" title="培训计划审批"><i class="fa fa-calendar"></i>培训计划审批</a></li>
+                     </ul>
+                 </li>
+                 <li>
+                     <a class="wzb-menu-sub" href="###" title="信息"><img class="wzb-user" src="../../../static/images/teacher02.png" alt="wizbank" />培训管理员<i class="fa wzb-caret-icon fa-caret-down"></i></a>
+                     <ul>
+                         <li><a class="wzb-menu-son" href="###" title="角色"><i class="fa fa-user"></i>角色</a>
+                             <dl>
+                                 <dd><a href="###" title="学员">学员</a></dd>
+                                 <dd><a href="###" title="培训管理员">培训管理员</a></dd>
+                                 <dd><a href="###" title="系统管理员">系统管理员</a></dd>
+                                 <dd><a href="###" title="考试监考员">考试监考员</a></dd>
+                             </dl>
+                         </li>
+                         <li><a class="wzb-menu-son" href="###" title="语言"><i class="fa fa-stack-exchange"></i>语言</a>
+                             <dl>
+                                 <dd><a href="###" title="简体中文">简体中文</a></dd>
+                                 <dd><a href="###" title="繁体中文">繁体中文</a></dd>
+                                 <dd><a href="###" title="English">English</a></dd>
+                             </dl>
+                        </li>
+                        <li><a class="wzb-menu-son" href="###" title="我的档案"><i class="fa fa-instagram"></i>我的档案</a></li>
+                        <li><a class="wzb-menu-son" href="###" title="修改密码"><i class="fa fa-key"></i>修改密码</a></li>
+                        <li><a class="wzb-menu-son" href="###" title="我的喜好"><i class="fa fa-smile-o"></i>我的喜好</a></li>
+                        <li><a class="wzb-menu-son" href="###" title="退出"><i class="fa fa-sign-out"></i>退出</a></li>
+                    </ul>
+                </li>
+            </ul>
+          </div>  
+    </div>
+</div> <!-- wzb-top End-->
+
+<div class="wzb-sidebar">
+<div class="wzb-menu">
+<div class="mCustomScrollBox mCS-light">
+<div class="mCSB_container" style="position:relative; top:0;">
+    <ul>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-home"></i>&nbsp;首页</a></li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-globe"></i><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;资讯管理</a>
+            <ul>
+                <li><a href="###" title="">公告管理</a></li>
+                <li><a href="###" title="">资讯管理</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-cubes"></i><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;需求管理</a>
+            <ul>
+                <li><a href="###" title="">投票</a></li>
+                <li><a href="###" title="">公共调查问卷</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-list-alt"></i><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;计划管理</a>
+            <ul>
+                <li><a href="###" title="">计划实施</a></li>
+                <li><a href="###" title="">年度计划</a></li>
+                <li><a href="###" title="">编外计划</a></li>
+                <li><a href="###" title="">年度计划审批</a></li>
+                <li><a href="###" title="">编外计审批</a></li>
+                <li><a href="###" title="">年度设置</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-calendar"></i><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;培训管理</a>
+            <ul>
+                <li><a href="###" title="">课程目录管理</a></li>
+                <li><a href="###" title="">课程管理</a></li>
+                <li><a href="###" title="">公开课管理</a></li>
+                <li><a href="###" title="">专题培训</a></li>
+                <li><a href="###" title="">资源管理</a></li>
+                <li><a href="###" title="">课程评估问卷管理</a></li>
+                <li><a href="###" title="">证书管理</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-columns"></i>&nbsp;考试管理</a></li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-maxcdn"></i><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;学习地图</a>
+            <ul>
+                <li><a href="###" title="">职级发展学习地图管理</a></li>
+                <li><a href="###" title="">关键岗位学习地图管理</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-comments"></i><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;社区管理</a>
+            <ul>
+                <li><a href="###" title="">问答管理</a></li>
+                <li><a href="###" title="">群组管理</a></li>
+                <li><a href="###" title="">积分管理</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-life-ring"></i><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;知识管理</a>
+            <ul>
+                <li><a href="###" title="">知识库</a></li>
+                <li><a href="###" title="">知识目录</a></li>
+                <li><a href="###" title="">知识标签</a></li>
+                <li><a href="###" title="">知识审批</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-table"></i>&nbsp;培训报表</a></li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-child"></i><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;用户管理</a>
+            <ul>
+                <li><a href="###" title="">用户信息</a></li>
+                <li><a href="###" title="">注册审批</a></li>
+                <li><a href="###" title="">用户激活</a></li>
+                <li><a href="###" title="">岗位管理</a></li>
+                <li><a href="###" title="">职级管理</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-suitcase"></i><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;讲师管理</a>
+            <ul>
+                <li><a href="###" title="">内部讲师管理</a></li>
+                <li><a href="###" title="">外部讲师管理</a></li>
+                <li><a href="###" title="">供应商管理</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-wrench"></i><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;系统设置</a>
+            <ul>
+                <li><a href="###" title="">PC样式管理</a></li>
+                <li><a href="###" title="">移动样式管理</a></li>
+                <li><a href="###" title="">培训中心管理</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+</div>
+</div>    
+</div>  <!-- wzb-sibebar End-->
+
+<div class="wzb-wrapper">
+    <div class="wzb-main">
+        <div class="wzb-banner wzb-banner-bg01" style="opacity:1;background:rgb(25, 178, 237);"><i class="fa wzb-banner-icon fa-wrench"></i>系统设置</div>
+        <ol class="breadcrumb wzb-breadcrumb">
+            <li><a href="#"><i class="fa wzb-breadcrumb-home fa-home"></i>首页</a></li>
+            <li><a href="#">系统参数</a></li>
+            <li class="active">设置</li>
+        </ol> <!-- wzb-breadcrumb End-->
+        <!-- 正文内容 statr -->
+        <div class="panel wzb-panel">
+            <div class="panel-body">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <ul class="nav nav-tabs" id="foldertab">
+                                    <li class="active">
+                                        <a href="javascript:vivd(0)" class="current">登录参数</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:vivd(0)">运行参数</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:vivd(0)">绑定微信</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tab-content">
+                    <div class="margin-top28 tab-pane active">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="wzb-form-label" valign="top">当前在线人数：</td>
+                                    <td class="wzb-form-control">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td><a href="" style="color:green;">0</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="wzb-ui-desc-text">   请注意：由于技术的原因，当前在线人数，只能统计到PC端登录的用户，从移动端登录的用户，没有统计在内。
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label" valign="top">是否允许一个账号多处登录：</td>
+                                    <td class="wzb-form-control">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <span class="wbFormRightText">
+                                                            <label><input name=" " type="radio" value="1">允许</label>
+                                                            <label><input checked="" name=" " type="radio" value="0">不允许</label>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="wzb-ui-desc-text">是否允许同一个账号同一时间内在多个终端登录</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label">用量警告值：</td>
+                                    <td class="wzb-form-control">
+                                        <input value="0" name="warn_value" type="radio" id="rdo_thr_warn_val_0" checked=""><label for="rdo_thr_warn_val_0">未指定</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label"></td>
+                                    <td class="wzb-form-control">
+                                        <input value="1" name="warn_value" type="radio" id="rdo_thr_warn_val_1">
+                                        <input class="wzb-inputText" onfocus="this.form.warn_value[1].checked=true" value="" size="6" maxlength="10" name="thr_warn_value" type="Text">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="wzb-form-control">
+                                        (当用户数达到此值后，提示用量警告)
+                                    </td>
+                                </tr>
+                                <input value="用量警告值" name="lab_threshold_warn" type="hidden"><input name="threshold_warn" type="hidden">
+                                <tr>
+                                    <td colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label">最大用户数：</td>
+                                    <td class="wzb-form-control">
+                                        <input value="0" name="block_value" type="radio" id="rdo_thr_blk_val_0" checked="">
+                                        <label for="rdo_thr_blk_val_0">未指定</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="wzb-form-control">
+                                        <input value="1" name="block_value" type="radio" id="rdo_thr_blk_val_1">
+                                        <input class="wzb-inputText" onfocus="this.form.block_value[1].checked=true" value="" size="6" maxlength="10" name="thr_block_value" type="Text">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="wzb-form-control">
+                                        (当用户数达到此值后，不允许用户登录)
+                                    </td>
+                                </tr>
+                                <input value="最大用户数" name="lab_threshold_block" type="hidden"><input name="threshold_block" type="hidden">
+                                
+                                <tr>
+                                    <td class="wzb-form-label">通知邮件接收者：</td>
+                                    <td class="wzb-form-control">
+                                        <input value="0" name="sup_email" type="radio" id="rdo_sup_email_0" checked="">
+                                        <label for="rdo_sup_email_0">未指定</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="wzb-form-control">
+                                        <input value="1" name="sup_email" type="radio" id="rdo_sup_email_1">
+                                        <input class="wzb-inputText" onfocus="this.form.sup_email[1].checked=true" value="" size="24" maxlength="120" name="sup_email_value" type="Text">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="wzb-form-control">
+                                        (当登录用户数达到用量警告值或者最大用户数时发送通知邮件)
+                                    </td>
+                                </tr>
+                                <input value="通知邮件接收者" name="lab_support_email" type="hidden"><input name="support_email" type="hidden">
+                                <tr>
+                                    <td colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label">
+                                        <a class="NavLink" name="thr_log" href="javascript:threshold.get_thd_syn_log_prep()">用量警告日志</a>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="wzb-bar">
+                            <input type="submit" name=" " value="确定" class="btn wzb-btn-blue wzb-btn-big">
+                        </div>
+                    </div>
+
+                    <div class="margin-top28 tab-pane">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="wzb-form-label"><b>邮件服务器</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label">主机：</td>
+                                    <td class="wzb-form-control">
+                                        <input name="mail_server_host" size="60" maxlength="255" type="text" id="mail_server_host" class="wzb-inputText" value="邮件服务器主机地址">
+                                        <span class="wzb-ui-desc-text" style="margin-left:26px;">邮件服务器主机地址</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label">是否需要验证：</td>
+                                    <td class="wzb-form-control">
+                                        <span>
+                                            <input value="true" name="mail_server_auth_enabled" type="radio" id="wechat_trial_account_enabled_val_0">
+                                            <label class="margin-right4" for="wechat_trial_account_enabled_val_0">启用</label>
+                                        </span>
+                                        <span class="margin-left10">
+                                            <input value="false" name="mail_server_auth_enabled" type="radio" id="wechat_trial_account_enabled_val_1" checked="">
+                                            <label for="wechat_trial_account_enabled_val_1">禁用</label>
+                                        </span>
+                                        <span class="wzb-ui-desc-text" style="margin-left:26px;">是否需求启用验证</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label">用户名：</td>
+                                    <td class="wzb-form-control">
+                                        <input name="mail_server_user" size="60" maxlength="255" type="text" id="mail_server_user" class="wzb-inputText" value="邮件用户名">
+                                        <span class="wzb-ui-desc-text" style="margin-left:26px;">邮件用户名</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label">密码：</td>
+                                    <td class="wzb-form-control">
+                                        <input name="mail_server_password" size="60" maxlength="255" type="password" id="mail_server_password" class="wzb-inputText" value="邮件密码">
+                                        <span class="wzb-ui-desc-text" style="margin-left:26px;">邮件密码</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label">平台域名：</td>
+                                    <td class="wzb-form-control">
+                                        <input name="mail_scheduler_domain" size="60" maxlength="255" type="text" id="mail_scheduler_domain" class="wzb-inputText" value="http://localhost:8081/">
+                                        <span class="wzb-ui-desc-text" style="margin-left:26px;">平台链接地址</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label"><b>LDAP</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label">URL：</td>
+                                    <td class="wzb-form-control">
+                                        <input name="ldap_url" size="60" maxlength="255" type="text" id="ldap_url" class="wzb-inputText" value="ldap://host:port">
+                                        <span class="wzb-ui-desc-text" style="margin-left:26px;">LDAP的url地址</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label">前缀：</td>
+                                    <td class="wzb-form-control">
+                                        <input name="ldap_suffix" size="60" maxlength="255" type="text" id="ldap_suffix" class="wzb-inputText" value="@cwngz.local">
+                                        <span class="wzb-ui-desc-text" style="margin-left:26px;">前缀</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label"><b>I Doc View</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label" valign="top">I Doc View服务器IP地址：</td>
+                                    <td class="wzb-form-control">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input name="i_doc_view_preview_IP" size="60" maxlength="255" type="text" id="i_doc_view_preview_IP" class="wzb-inputText" value="192.168.2.84">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="wzb-ui-desc-text">I Doc View服务器所在电脑的IP地址，格式为：xxx.xxx.xxx.xxx 。 建议一定要正确填上该项，用于访问文档资源时做权限认证验证，即只有这个台电脑访问文档资源时，wizBank平台才能通过认证，否则将无权访问；如不填此项则所有IP地址都可以访问文档资源。</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label" valign="top">I Doc View服务器域名：</td>
+                                    <td class="wzb-form-control">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input name="i_doc_view_host" size="60" maxlength="255" type="text" id="i_doc_view_host" class="wzb-inputText" value="http://idv.cyberwisdom.net.cn/">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="wzb-ui-desc-text">I Doc View服务地址（要确保不管在局域网或公网，通过该地址都可认访问到。如果wizBank平台是不需要在公网访问的，那么这个地址也可以不用开通到公网），格式为：http://host/（请注意，地址最后一定要带"/" ,端口默认是80; ）。你可以找一台客户端机器，打开浏览器，并在址栏输入这里填入的地址，如果能正常看到I Doc View的主页，那说明你设置的值已正确；</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label" valign="top">平台访问地址：</td>
+                                    <td class="wzb-form-control">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input name="i_doc_view_preview_host" size="60" maxlength="255" type="text" id="i_doc_view_preview_host" class="wzb-inputText" value="http://192.168.3.74:8081/">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="wzb-ui-desc-text">I Doc View服务器所在电脑访问文件资源平台的地址（即wizBank平台的访问地址），格式为：http://host:port/（请注意，地址最后一定要带"/"）。你可以在I Doc View服务那台机，打开浏览器，并在址栏输入这里填入的地址，如果能正常看到wizBank的登录页面，那说明你设置的值已正确；否则请联系技术人员确认地址是否正确或两台机器是否互通。</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <input name="i_doc_view_token" size="60" maxlength="255" type="hidden" id="i_doc_view_token" class="wzb-inputText" value="cyberwisdomsupport">
+                                <tr>
+                                    <td class="wzb-form-label" valign="bottom">
+                                        <span class="font"><b>上传文件约束</b></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label" valign="top">
+                                        <span class="font">不允许上传的文件：</span>
+                                    </td>
+                                    <td class="wzb-form-control">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input name="upload_forbidden" size="60" maxlength="255" type="text" id="upload_forbidden" class="wzb-inputText" value="Jsp, asp,exe,bat,bin,php,sys,com, Mach-O,ELF">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="wzb-ui-desc-text">在这里设置不允许系统上传的文件类型，初始化值为：Jsp, asp,exe,bat,bin,php,sys,com, Mach-O,ELF,dll, reg</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label" valign="bottom">
+                                        <span class="font"><b>密码安全设置策略</b></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="wzb-form-control">
+                                        <div style="color:#999;">
+                                            注意：系统已经默认密码规则如下：<br />
+                                            请使用纯英文字母/数字/下划线/横线的组合<br />
+                                            (必须同时包含英文字母和数字)。<br />
+                                            最小长度：3<br />
+                                            最大长度： 20
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="wzb-form-control">
+                                        以下设置的规则是在默认规则的基础上再增加新的规则
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label" valign="top">修改密码提示天数：</td>
+                                    <td class="wzb-form-control">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <span class="wbFormRightText">
+                                                            <label><input class="wzb-inputText" style="margin-right:5px;" value="" size="6" maxlength="10" name="thr_warn_value" type="Text">天</label>
+                                                            <label><input name=" " type="checkbox" value="0">强制一定要修改</label>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="wzb-ui-desc-text">
+                                                        用户在每xxx天必须至少修改一次密码，否则在用户登录后，系统会提示用户去修改密码。<br />
+                                                        如果选中“强制一定要修改”，那么用户就一定要修改，否则不允许做其他操作；<br />
+                                                        0或者空，表示没限制；只能指定0--1000的整数。
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label" valign="top">历史密码对比：</td>
+                                    <td class="wzb-form-control">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input class="wzb-inputText" style="margin-right:5px;" value="" size="6" maxlength="10" name="thr_warn_value" type="Text">次
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="wzb-ui-desc-text">
+                                                        用户修改密码时，输入的新密码不能和以往xx次一样。<br />
+                                                        0或者空，表示没限制；只能指定0--10的整数。
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="wzb-bar">
+                            <input type="submit" name=" " value="保存" class="btn wzb-btn-blue wzb-btn-big">
+                        </div>
+                    </div>
+
+                    <div class="margin-top28 tab-pane">
+                        <table class="Bg" width="984" border="0" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <td class="wzb-form-label" valign="bottom" nowrap="" align="right" width="20%">
+                                        <span class="font">域名：</span>
+                                    </td>
+                                    <td class="wzb-form-control" valign="bottom" align="left" width="80%">
+                                        <input name="wechat_domain" size="60" maxlength="255" type="text" id="wechat_domain" class="wzb-inputText" value="http://a10371be.ngrok.io"><span class="wzb-ui-desc-text">（平台链接地址）</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label" valign="bottom" nowrap="" align="right" width="20%">
+                                        <span class="font">Server ID：</span>
+                                    </td>
+                                    <td class="wzb-form-control" valign="bottom" align="left" width="80%">
+                                        <input name="wechat_server_id" size="60" maxlength="255" type="text" id="wechat_server_id" class="wzb-inputText" readonly="" value="offline"><span class="wzb-ui-desc-text">（服务编号 ）</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label" valign="bottom" nowrap="" align="right" width="20%">
+                                        <span class="font">端口：</span>
+                                    </td>
+                                    <td class="wzb-form-control" valign="bottom" align="left" width="80%">
+                                        <input name="wechat_port" size="60" maxlength="255" type="text" id="wechat_port" class="wzb-inputText" readonly="" value="3"><span class="wzb-ui-desc-text">（平台端口）</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label" valign="bottom" nowrap="" align="right" width="20%">
+                                        <span class="font">最大信息数：</span>
+                                    </td>
+                                    <td class="wzb-form-control" valign="bottom" align="left" width="80%">
+                                        <input name="wechat_max_message" size="60" maxlength="255" type="text" id="wechat_max_message" class="wzb-inputText" value="80"><span class="wzb-ui-desc-text">（最大发送消息条数）</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label" valign="bottom" nowrap="" align="right" width="20%">
+                                        <span class="font">是否启用体验帐号：</span>
+                                    </td>
+                                    <td class="wzb-form-control" valign="bottom" align="left" width="80%">
+                                        <span>
+                                            <input value="true" name="wechat_trial_account_enabled" type="radio" id="wechat_trial_account_enabled_val_0">
+                                            <label for="wechat_trial_account_enabled_val_0">启用</label>
+                                        </span>
+                                        <span class="margin-left10">
+                                            <input value="false" name="wechat_trial_account_enabled" type="radio" id="wechat_trial_account_enabled_val_1" checked="">
+                                            <label for="wechat_trial_account_enabled_val_1">禁用</label>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label" valign="bottom" nowrap="" align="right" width="20%">
+                                        <span class="font">获取微信token的url：</span>
+                                    </td>
+                                    <td class="wzb-form-control" valign="bottom" align="left" width="80%">
+                                        <input name="wechat_token_url" size="110" maxlength="255" type="text" id="wechat_token_url" class="wzb-inputText" value="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=wx13cd071a0cc144df&amp;secret=0cca8cebaed7c88b0759e7ab7d95d7e5">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label" align="right" valign="top">
+                                        <span class="font">获取微信token的url写法说明：</span>
+                                    </td>
+                                    <td class="wzb-form-control">
+                                        1.进入微信公众平台后台设置页面 【开发者中心】<br>
+                                        2.拷贝页面的AppId(应用ID) 和AppSecret(应用密钥)的值<br>
+                                        3.分别替换掉下面链接中的AppId和AppSecret,替换参数值后的URL即为获取微信token的url<br>
+                                        https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=<font color="red">AppId</font>&amp;secret=<font color="red">AppSecret</font>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="wzb-form-label" valign="top" nowrap="" align="right" width="20%">
+                                        <span class="font">微信菜单：</span>
+                                    </td>
+                                    <td class="wzb-form-control" align="left">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <textarea name="wechat_menu" id="wechat_menu" class="wzb-inputTextArea" style="min-height:300px;" cols="60" rows="10">{
+                                        "button":[
+                                            {
+                                                "name":"资讯",
+                                                "sub_button":[
+                                                    {"type":"click","name":"公告","key":"1"},
+                                                    {"type":"click","name":"行业资讯","key":"2"}
+                                                ]           
+                                            },  
+                                            {
+                                                "name":"我的学习",
+                                                "sub_button":[
+                                                    {"type":"click","name":"已报名课程","key":"3"},
+                                                    {"type":"click","name":"已报名考试","key":"4"},
+                                                    {"type":"click","name":"推荐课程","key":"5"},
+                                                    {"type":"click","name":"公开课","key":"6"}
+                                                ]           
+                                            },  
+                                            {
+                                                "name":"更多",
+                                                "sub_button":[
+                                                    {"type":"click","name":"绑定学习平台","key":"11"},
+                                                    {"type":"click","name":"进入到学习平台","key":"7"},
+                                                    {"type":"click","name":"解除绑定","key":"8"},
+                                                    {"type":"click","name":"我的积分","key":"9"},
+                                                    {"type":"click","name":"学习概括","key":"10"}
+                                                ]
+                                            }
+                                        ]
+                                    }</textarea>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span id="updateBtnParent">
+                                                            <input style="" name="frmSubmitBtn" value="更新微信菜单" type="button" class="btn wzb-btn-blue margin-right10 wzb-btn-big" id="update-btn" onclick="javascript:systemSetting.updateWechatMenu(document.frmXml)">
+                                                            <script language="Javascript">
+                                                                var textarea= document.getElementById("wechat_menu"); 
+                                                                textarea.style.height=textarea.scrollHeight;
+                                                                document.getElementById("updateBtnParent").style.verticalAlign = document.getElementById("wechat_menu").scrollHeight/2
+                                                            </script>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>   
+                        <div class="wzb-bar">
+                            <input type="submit" name=" " value="保存" class="btn wzb-btn-blue wzb-btn-big">
+                        </div>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    $(function(){
+                        $(".nav-tabs li").click(function(){
+                            $(this).addClass("active").siblings().removeClass("active");
+                            var index=$(this).index();
+                            $(".tab-content .tab-pane").eq(index).show().siblings().hide();
+                        });
+                    });
+                </script>
+
+
+            </div>
+        </div>  <!-- wzb-panel End-->
+        <!-- 正文内容 end -->
+
+    </div>  <!-- wzb-main End-->   
+</div> <!-- wzb-wrapper End-->
+
+<div class="wzb-footer"><div class="wzb-footer-box">wizbank6.0 @ 汇思 Cyberwisdom 版权所有</div></div>
+</div> <!-- wzb-body End-->
+
+</body>
+</html> 

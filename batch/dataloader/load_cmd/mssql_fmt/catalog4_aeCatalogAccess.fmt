@@ -1,0 +1,7 @@
+8.0
+5
+1	SQLNCHAR	0	0	"\t\0"		1	cac_ent_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	cac_cat_id	""
+3	SQLNCHAR	0	0	"\t\0"		3	cac_create_timestamp	""
+4	SQLNCHAR	0	0	"\t\0"		4	cac_create_usr_id	""
+5	SQLNCHAR	0	0	"\r\0\n\0"	5	cac_id	""

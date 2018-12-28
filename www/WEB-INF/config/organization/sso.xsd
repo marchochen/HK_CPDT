@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="sso_link">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="links" type="links_type"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="links_type">
+		<xsd:sequence>
+			<xsd:element name="root" type="xsd:string"/>
+			<xsd:element name="learner_home" type="path_type"/>
+			<xsd:element name="approval_list" type="path_type"/>
+			<xsd:element name="learner_catalog" type="path_type"/>
+			<xsd:element name="learner_course_home" type="path_type"/>
+			<xsd:element name="learner_module" type="path_type"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="path_type">
+		<xsd:sequence>
+			<xsd:element name="location" type="xsd:string"/>
+		</xsd:sequence>
+			<xsd:attribute name="active" type="xsd:boolean"/>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,121 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Home
+suffix								   :Home
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : home.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+a.wbHomeLeftSText:hover{
+	color: #761113;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+	text-decoration: none;
+}
+
+a.wbHomeLeftText:hover{
+	color: #761113;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+	text-decoration: none;
+}
+
+a.wbHomeLeftTextBold:hover{
+	color: #D2E3ED;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+	text-decoration: none;
+}
+
+a.wbHomeMidText,a.wbHomeMidText:active,a.wbHomeMidText:visited, .wbHomeRightText, a.wbHomeRightText,a.wbHomeRightText:active,a.wbHomeRightText:visited, a.wbHomeRightText:hover {
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+a.wbHomeMidText:hover{
+	color: #006699;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+a.wbHomeRightTextBold,a.wbHomeRightTextBold:active,a.wbHomeRightTextBold:visited, .wbHomeMidTextBold, .wbHomeRightTextBold {
+	color: #000000;
+	font: Bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+a.wbHomeRightTextBold:hover{
+	color: #08335D;
+	font: Bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+td{
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbHomeFootBg{
+	background: #477DA3;
+}
+
+.wbHomeLeftBg{
+}
+
+.wbHomeLeftSText, a.wbHomeLeftSText,a.wbHomeLeftSText:active,a.wbHomeLeftSText:visited {
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+	text-decoration: none;
+}
+
+.wbHomeLeftText, a.wbHomeLeftText,a.wbHomeLeftText:active,a.wbHomeLeftText:visited {
+	color: #000000;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+	text-decoration: none;
+}
+
+.wbHomeLeftTextBold, a.wbHomeLeftTextBold,a.wbHomeLeftTextBold:active,a.wbHomeLeftTextBold:visited {
+	color: #FFFFFF;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+	text-decoration: none;
+}
+
+.wbHomeMidBarBg{
+	background: #217ABC;
+}
+
+.wbHomeMidBg{
+}
+
+.wbHomeMidBoxBg{
+	background: #D2E3ED;
+}
+
+.wbHomeMidHeadBg{
+	background: #BACFE0;
+}
+
+.wbHomeMidHeadSText{
+	color: #154B6F;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbHomeMidHeadText{
+	color: #761113;
+	font: bold 14px  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbHomeMidText{
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbHomeRightBg{
+	background: #C1D3DF;
+}
+
+.wbHomeRightBoxBg, .wbHomeBg, .wbHomeMidHeadBarBg {
+	background: #81A3BC;
+}
+
+.wbHomeRightHeadBg{
+	background: #174B70;
+}
+
+.wbHomeRightHeadText{
+	color: #FFFFFF;
+	font: Bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}

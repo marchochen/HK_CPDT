@@ -1,0 +1,2625 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>学员端模板</title>
+<link rel="stylesheet" type="text/css" href="../static/js/bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="../static/js/font-awesome/css/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="../static/js/jquery-table/css/jquery-table-default.css"/>
+<link rel="stylesheet" type="text/css" href="../static/js/jquery-table/css/jquery-table-learner.css"/>
+<link rel="stylesheet" type="text/css" href="../static/css/thickbox.css"/>
+<link rel="stylesheet" type="text/css" href="../static/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="../static/css/learner.css"/>
+<link rel="stylesheet" type="text/css" href="../static/theme/blue/css/style.css"/>
+<link rel="stylesheet" type="text/css" href="../js/tree/css/ztree.css"/>
+<script type="text/javascript" src="../static/js/jquery.js"></script>
+<script type="text/javascript" src="../static/js/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/tree/js/jquery.ztree.core.js"></script>
+<link rel="stylesheet" href="../static/css/photoSwipe/photoswipe.css"> 
+<link rel="stylesheet" href="../static/css/photoSwipe/default-skin/default-skin.css"> 
+<script src="../static/js/photoSwipe/photoswipe.min.js"></script> 
+<script src="../static/js/photoSwipe/photoswipe-ui-default.min.js"></script> 
+<!--[if lt IE 9]>
+    <script type="text/javascript" src="bootstrap/js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<style type="text/css">
+    *{ font:14px/28px "Microsoft YaHei UI","Microsoft YaHei",DengXian,SimSun,"Segoe UI",Tahoma,Helvetica,sans-serif;padding:0;margin:0;}
+    input[type="button"], input[type="submit"], input[type="reset"] {-webkit-appearance:none;}
+    .demo-box-title{width:100%;height:130px;padding:10px 0;background:url(../static/images/demo/Slider1.jpg) no-repeat 50% 80%;background-size:100%;position:fixed;left:0;top:0;z-index:10001;}
+    .demo-box-yi{width:40%;float:left;padding:20px 0 0 0;}
+    .demo-box-yi-words-1{color:#fff;font-size:20px;text-align:right;}
+    .demo-box-yi-words-2{color:#fff;font-size:12px;text-align:right;line-height:20px;margin:0;}
+    .demo-box-er{margin:10px 0 0 50px;display:table;float:left;}
+    .demo-box-er-span{display:inline-block;width:60px;height:60px;background:#fff;border-radius:50%;}
+    .demo-box-er-span-i-1{display:block;width:40px;height:40px;background:url(../mobile/images/wizper.png) no-repeat 3px -1248px; background-size:38px;margin:8px auto 0;}
+    .demo-box-er-span-i-2{display:block;width:40px;height:40px;background:url(../mobile/images/wzb-pc-icon.png) no-repeat -1px -346px; background-size:43px;margin:8px auto 0;}
+    .demo-box-er-span-i-3{display:block;width:40px;height:40px;background:url(../mobile/images/wzb-phone-icon.png) no-repeat 1px -207px; background-size:40px;margin:10px auto 0;}
+    .demo-box-er-span-i-4{display:block;width:40px;height:40px;background:url(../mobile/images/wiztool.png) no-repeat 4px -590px; background-size:40px;margin:10px auto 0;}
+    .demo-box-er a:hover .demo-box-er-span,.demo-box-er a.cur .demo-box-er-span{ background:#02cf97;}
+    .demo-box-er a:hover .demo-box-er-span-i-1,.demo-box-er a.cur .demo-box-er-span-i-1{ background-position:3px -1937px;}
+    .demo-box-er a:hover .demo-box-er-span-i-2,.demo-box-er a.cur .demo-box-er-span-i-2{ background-position:-1px -302px;}
+    .demo-box-er a:hover .demo-box-er-span-i-3,.demo-box-er a.cur .demo-box-er-span-i-3{ background-position:0 -158px;}
+    .demo-box-er a:hover .demo-box-er-span-i-4,.demo-box-er a.cur .demo-box-er-span-i-4{ background-position:4px -552px;}
+    .demo-sidebar{background:#999;}
+    .demo-sidebar .wzb-list-15 li a.cur:link,.demo-sidebar .wzb-list-15 li a.cur:visited,.demo-sidebar .wzb-list-15 li a.cur:link i,.demo-sidebar .wzb-list-15 li a.cur:visited i{background:#666;}
+    .demo-sidebar .wzb-list-15 li a{color:#fff;}
+    .demo-sidebar .wzb-list-15 li a:hover{color:#fff; background:#666;}
+    .demo-wzb-title{ width:100%; height:44px; line-height:44px; background:#999; color:#fff; padding:0 20px 0 30px; font-size:18px;}
+    .demo-wenhao{float:right; width:100px; height:30px; background:url(../static/images/wehao.png) no-repeat 70px 0; background-size:26px; margin:2px 0 0 0; cursor:pointer; position:relative;}
+    .demo-wzb-content-1{ width:300px; line-height:20px; background:rgba(0, 0, 0, 0.9); color:#fff; position:absolute; right:0; top:26px; font-size:14px; font-weight:normal; padding:10px 15px; z-index:100;}
+    .demo-wzb-content-1 div{line-height:20px;}
+    .wzb-user68{z-index:105}
+    .my-gallery{ width:100%; float:left;}
+    .my-gallery img { width:100%; height:auto;}
+    .my-gallery figure{ display: block; float: left; margin:20px 15px 10px 15px; padding:20px; width: 30%; height:200px; overflow:hidden; border:1px solid #eee;}
+    .my-gallery figcaption{ display: none;}
+    .pswp{ z-index:99991;}
+</style>
+<body>
+    <div class="demo-box-title">
+        <div class="demo-box-yi">
+            <p class="demo-box-yi-words-1">平台部产品设计与开发样式规范及说明</p>        
+            <p class="demo-box-yi-words-2">本规范适用ui、前端、开发的样式,请大家遵循</p>
+            <p class="demo-box-yi-words-2">如有疑问及修改请联系与isa/mabel沟通</p>
+        </div>
+        <div  class="demo-box-er">
+            <a href="learner.html" style="float:left;margin:0 50px 0 0;" class="cur">
+                <span class="demo-box-er-span"><i class="demo-box-er-span-i-1"></i></span>
+                <p style="color:#fff;text-align:center;">学员端</p>
+            </a>
+            <a href="admin.html" style="float:left;margin:0 50px 0 0;">
+                <span class="demo-box-er-span"><i class="demo-box-er-span-i-2"></i></span>
+                <p style="color:#fff;text-align:center;">管理端</p>
+            </a>
+            <a href="../mobile/mobile.html" style="float:left;margin:0 50px 0 0;">
+                <span class="demo-box-er-span"><i class="demo-box-er-span-i-3"></i></span>
+                <p style="color:#fff;text-align:center;">移动端</p>
+            </a>
+            <a href="xiangmu.html" style="float:left;margin:0 50px 0 0;">
+                <span class="demo-box-er-span"><i class="demo-box-er-span-i-4"></i></span>
+                <p style="color:#fff;text-align:center;">项目</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="xyd-header" style="width:100%;background:#fff;position:fixed;left:0;top:130px;z-index:10000;">
+        <div class="xyd-header-box">
+            <div class="xyd-logo">
+                <a href="/app/home" title="" target="" style="cursor:context-menu;"> 
+                    <img src="../static/images/wizbang.png" alt="wizbank">
+                </a>
+            </div>
+
+            <div class="xyd-tool">
+                <div class="xyd-welcome">
+                    <div id="gongao">
+                        <div style="width:420px;height:30px;margin:0 auto;white-space: nowrap;overflow:hidden;" id="scroll_div" class="scroll_div">
+                            <div id="scroll_begin">欢迎来到e-Learning学习平台</div>
+                            <div id="scroll_end"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="xyd-email">
+                    <a href="javascript:void(0)">
+                        <i class="fa xyd-email-icon fa-envelope"></i>
+                        <span id="myWebMessageTotal" style="">85</span>
+                    </a>
+                </div>
+                <div class="xyd-people xyd-flag">
+                    <div class="xyd-menu">
+                        <ul>
+                            <li href="javascript:void(0)" class="">
+                                <a class="thickbox" id="tob" data-toggle="modal" data-target="#taskModal">
+                                    <i class="fa xyd-flag-icon fa-flag-o"></i>
+                                    <span class="xyd-flag-number" style="background:#522ccf;">99</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="modal fade" id="taskModal">
+                        <div class="modal-dialog" style="width:400px;height:560px;margin:-230px 0 0 -200px;">
+                            <div class="modal-content">
+                                <div class="modal-body" style="height:500px;padding:0;">
+                                    <div class="bg-position01">
+                                        <img src="../static/images/renwu_bg02.png" alt="">
+                                     </div>
+                                    <div class="bg-position01 bg-position02">
+                                        <img src="../static/images/renwu_bg03.png" alt="">
+                                     </div>
+                                    <div id="TB_title" class="position03">
+                                        <div id="TB_ajaxWindowTitle"></div>
+                                        <div id="TB_closeAjaxWindow">
+                                            <a aria-label="Close" data-dismiss="modal" href="javascript:void(0)" class="TB_closeWindowButton"></a>
+                                        </div>
+                                    </div>
+                                    <div id="wzb-pop">
+                                        <div class="xyd-pop-top">
+                                            <img src="../static/images/xyd-renwu.png" alt="">
+                                            <p class="xyd-pop-title">您有新任务</p>
+                                        </div>
+                                        <div class="xyd-pop-content">
+                                            <!-- 学员没有下属，不要在任务里显示【报名审批】 -->
+                                            <div class="xyd-pop-info clearfix">
+                                                <a class="wzb-link02" href="javascript:void(0)" title="">
+                                                    <em class="xyd-pop-num"></em>
+                                                    等待提交的调查问卷
+                                                </a>
+                                            </div>
+                                            <div class="xyd-pop-info clearfix">
+                                                    <a class="wzb-link02" href="javascript:void(0)" title="">
+                                                        <em class="xyd-pop-num">1</em>
+                                                        等待提交的投票</a>
+                                            </div>
+                                            <div class="xyd-pop-info clearfix">
+                                                <a class="wzb-link02" href="javascript:void(0)" title="">
+                                                    <em class="xyd-pop-num">13</em>
+                                                    未读公告</a>
+                                            </div>
+                                            <div class="xyd-pop-info clearfix">
+                                                <a class="wzb-link02" href="javascript:void(0)" title="">
+                                                    <em class="xyd-pop-num">85</em>
+                                                    未读站内信</a>
+                                            </div>
+                                        </div>
+                                            <a data-dismiss="modal" class="xyd-pop-bottom skin-bg" href="javascript:;"><i class="fa fa-sanzhong fa-caret-down"></i>√ 我知道了</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 右上角用户头像start -->
+                <div class="xyd-people">
+                   <div class="xyd-menu" style="margin:-4px 0 0 0;">
+                        <ul>
+                            <li href="javascript:void(0)" class="">
+                                <img src="../static/images/teacher02.png" alt="" class="xyd-user-icon" />
+                                 <ul class="nav-top">
+                                    <div class="xyd-tip-box-2"></div>
+                                    <li style="height:150px;background:rgba(255,255,255,0.9);">
+                                        <div class="xyd-user">
+                                            <div class="xyd-user-box clearfix" style="background:none;">
+                                                <div class="wzb-user wzb-user82">
+                                                    <img src="../static/images/teacher02.png" alt="" class="wzb-pic" />
+                                                </div>
+
+                                                <div class="xyd-user-content">
+                                                    <p onclick="goPersonal();" class="wzb-link04" title="" style="line-height:20px;">Administrator</p>
+                                                    <p>All User Groups</p>
+                                                </div>
+                                            </div>
+                                            <!-- usermess End-->
+                                            <p><span class="color-gray666"><!-- 上次登录 -->上次登录：</span>2016-08-18 17:58</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="wDzye" href="/app/personal/0"> <!-- 我的主页 --> 我的主页</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="jSe"><!-- 角色 --> 角色</a>
+                                        <ul style="display: none;" id="role-select-list">
+                                            <li data-value="NLRN_1" id="NLRN_1"><a href="learner.html">学员端</a></li>
+                                            <li data-value="TADM_1" id="TADM_1"><a href="admin.html">管理员端</a></li>
+                                            <li data-value="ADM_1" id="ADM_1"><a href="../mobile/mobile.html">移动端</a></li>
+                                      </ul>
+                                    </li>
+                                    <li>
+                                      <a href="javascript:;" class="yYan"> <!-- 语言 --> 语言</a>
+                                      <ul id="lang-select-list" style="display: none;">
+                                          <li data-value="en-us"><a href="javascript:;">English</a></li>
+                                          <li data-value="zh-cn"><a href="javascript:;">简体中文 </a></li>
+                                          <li data-value="zh-hk"><a href="javascript:;">繁體中文 </a></li>
+                                      </ul>
+                                    </li>
+                                    <li>
+                                      <a class="tChu" href="javascript: doLogout();"> <!-- 退出 -->退出</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(".xyd-people .xyd-menu ul li ul li").not(".xyd-people .xyd-menu ul li ul li:nth-child(2)").hover(
+                        function(){
+                            $(this).children("ul").show();
+                        },
+                        function(){
+                            $(this).children("ul").hide();
+                    });
+
+                    $(".xyd-people").hover(
+                        function(){
+                            $(this).find(".xyd-menu>ul>li>ul").stop();
+                            $(this).find(".xyd-menu>ul>li>ul").show().animate({"height":"400px"},300)
+                        },
+                        function(){
+                            $(this).find(".xyd-menu>ul>li>ul").stop();
+                            $(this).find(".xyd-menu>ul>li>ul").animate({"height":"0px"},300).hide();
+                        });
+
+                    $(".xyd-people .xyd-menu ul li").hover(
+                        function(){
+                            $(this).children("ul").show();
+                            $(this).addClass("cur");
+                        },
+                        function(){
+                            $(this).children("ul").hide();
+                            $(this).removeClass("cur");
+                    });
+                </script>
+                <!-- 右上角用户头像end -->
+            </div>
+        </div>
+    </div>
+
+    <div style="min-width:1300px;">
+        <div class="xyd-sidebar demo-sidebar" style="position:fixed;left:0;top:190px;width:150px;">
+            <ul class="wzb-list-15" id="wzb-title-big">
+                <li class="tyys"><a href="javascript:goToQuestion(0)" class="cur">统一样式</a></li>
+                <li class="lbxs"><a href="javascript:goToQuestion(1)">列表形式</a></li>
+                <li class="btxs"><a href="javascript:goToQuestion(2)">标题形式</a></li>
+                <!-- <li><a href="javascript:goToQuestion(3)">盒模型</a></li> -->
+                <li class="xxk"><a href="javascript:goToQuestion(4)">选项卡</a></li>
+                <li><a href="javascript:goToQuestion(5)">弹层</a></li>
+                <li class="an"><a href="javascript:goToQuestion(6)">按钮</a></li>
+                <li class="wdl"><a href="javascript:goToQuestion(7)">问答类</a></li>
+                <li class="pll"><a href="javascript:goToQuestion(8)">评论类</a></li>
+                <li class="ym"><a href="javascript:goToQuestion(10)">页码</a></li>
+                <li class="gn"><a href="javascript:goToQuestion(9)">功能</a></li>
+            </ul>
+            <script type="text/javascript">
+                $("#wzb-title-big li a").click(function(){
+                    $("#wzb-title-big li a").removeClass("cur");
+                    $(this).addClass("cur");
+                })
+            </script>
+        </div> 
+
+        <div class="xyd-wrapper" style="margin:190px 0 0 0;">
+            <!-- 统一样式 start -->
+            <div class="xyd-main clearfix" style="padding:20px 0 0;" id="0">
+                <div style="background:#fff;">
+                    <div class="demo-wzb-title">统一样式</div>
+                    <div class="panel-body">
+                        <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+                            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                <a href="../static/images/demo/B01.jpg" itemprop="contentUrl" data-size="1440x771">
+                                    <img src="../static/images/demo/B01.jpg" itemprop="thumbnail" alt="Image description" />
+                                </a>    
+                                <figcaption itemprop="caption description">Image caption 1</figcaption>
+                            </figure>   
+                        
+                            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                <a href="../static/images/demo/B02.png" itemprop="contentUrl" data-size="1345x1226">
+                                    <img src="../static/images/demo/B02.png" itemprop="thumbnail" alt="Image description" />
+                                </a>
+                                <figcaption itemprop="caption description">Image caption 2</figcaption>
+                            </figure>
+                            
+                            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                <a href="../static/images/demo/B03.jpg" itemprop="contentUrl" data-size="1345x946">
+                                    <img src="../static/images/demo/B03.jpg" itemprop="thumbnail" alt="Image description" />
+                                </a>
+                                <figcaption itemprop="caption description">Image caption 3</figcaption>
+                            </figure>
+                            
+                            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                <a href="../static/images/demo/B04.jpg" itemprop="contentUrl" data-size="1345x1462">
+                                    <img src="../static/images/demo/B04.jpg" itemprop="thumbnail" alt="Image description" />
+                                </a>
+                                <figcaption itemprop="caption description">Image caption 4</figcaption>
+                            </figure>
+
+                        </div>
+
+                        <!-- Root element of PhotoSwipe. Must have class pswp. -->
+                        <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+                            <!-- Background of PhotoSwipe. 
+                                 It's a separate element, as animating opacity is faster than rgba(). -->
+                            <div class="pswp__bg"></div>
+
+                            <div class="pswp__scroll-wrap">
+                                <div class="pswp__container">
+                                    <div class="pswp__item"></div>
+                                    <div class="pswp__item"></div>
+                                    <div class="pswp__item"></div>
+                                </div>
+                                <div class="pswp__ui pswp__ui--hidden">
+
+                                    <div class="pswp__top-bar">
+
+                                        <div class="pswp__counter"></div>
+
+                                        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                                        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                                        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                                        <div class="pswp__preloader">
+                                            <div class="pswp__preloader__icn">
+                                              <div class="pswp__preloader__cut">
+                                                <div class="pswp__preloader__donut"></div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                                        <div class="pswp__share-tooltip"></div> 
+                                    </div>
+
+                                    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+                                    </button>
+
+                                    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+                                    </button>
+
+                                    <div class="pswp__caption">
+                                        <div class="pswp__caption__center"></div>
+                                    </div>
+
+                                  </div>
+
+                                </div>
+
+                        </div>
+                        <script type="text/javascript">
+                            var initPhotoSwipeFromDOM = function(gallerySelector) {
+
+                            // parse slide data (url, title, size ...) from DOM elements 
+                            // (children of gallerySelector)
+                            var parseThumbnailElements = function(el) {
+                                var thumbElements = el.childNodes,
+                                    numNodes = thumbElements.length,
+                                    items = [],
+                                    figureEl,
+                                    linkEl,
+                                    size,
+                                    item;
+
+                                for(var i = 0; i < numNodes; i++) {
+
+                                    figureEl = thumbElements[i]; // <figure> element
+
+                                    // include only element nodes 
+                                    if(figureEl.nodeType !== 1) {
+                                        continue;
+                                    }
+
+                                    linkEl = figureEl.children[0]; // <a> element
+
+                                    size = linkEl.getAttribute('data-size').split('x');
+
+                                    // create slide object
+                                    item = {
+                                        src: linkEl.getAttribute('href'),
+                                        w: parseInt(size[0], 10),
+                                        h: parseInt(size[1], 10)
+                                    };
+
+
+
+                                    if(figureEl.children.length > 1) {
+                                        // <figcaption> content
+                                        item.title = figureEl.children[1].innerHTML; 
+                                    }
+
+                                    if(linkEl.children.length > 0) {
+                                        // <img> thumbnail element, retrieving thumbnail url
+                                        item.msrc = linkEl.children[0].getAttribute('src');
+                                    } 
+
+                                    item.el = figureEl; // save link to element for getThumbBoundsFn
+                                    items.push(item);
+                                }
+
+                                return items;
+                            };
+
+                            // find nearest parent element
+                            var closest = function closest(el, fn) {
+                                return el && ( fn(el) ? el : closest(el.parentNode, fn) );
+                            };
+
+                            // triggers when user clicks on thumbnail
+                            var onThumbnailsClick = function(e) {
+                                e = e || window.event;
+                                e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+                                var eTarget = e.target || e.srcElement;
+
+                                // find root element of slide
+                                var clickedListItem = closest(eTarget, function(el) {
+                                    return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+                                });
+
+                                if(!clickedListItem) {
+                                    return;
+                                }
+
+                                // find index of clicked item by looping through all child nodes
+                                // alternatively, you may define index via data- attribute
+                                var clickedGallery = clickedListItem.parentNode,
+                                    childNodes = clickedListItem.parentNode.childNodes,
+                                    numChildNodes = childNodes.length,
+                                    nodeIndex = 0,
+                                    index;
+
+                                for (var i = 0; i < numChildNodes; i++) {
+                                    if(childNodes[i].nodeType !== 1) { 
+                                        continue; 
+                                    }
+
+                                    if(childNodes[i] === clickedListItem) {
+                                        index = nodeIndex;
+                                        break;
+                                    }
+                                    nodeIndex++;
+                                }
+
+
+
+                                if(index >= 0) {
+                                    // open PhotoSwipe if valid index found
+                                    openPhotoSwipe( index, clickedGallery );
+                                }
+                                return false;
+                            };
+
+                            // parse picture index and gallery index from URL (#&pid=1&gid=2)
+                            var photoswipeParseHash = function() {
+                                var hash = window.location.hash.substring(1),
+                                params = {};
+
+                                if(hash.length < 5) {
+                                    return params;
+                                }
+
+                                var vars = hash.split('&');
+                                for (var i = 0; i < vars.length; i++) {
+                                    if(!vars[i]) {
+                                        continue;
+                                    }
+                                    var pair = vars[i].split('=');  
+                                    if(pair.length < 2) {
+                                        continue;
+                                    }           
+                                    params[pair[0]] = pair[1];
+                                }
+
+                                if(params.gid) {
+                                    params.gid = parseInt(params.gid, 10);
+                                }
+
+                                return params;
+                            };
+
+                            var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+                                var pswpElement = document.querySelectorAll('.pswp')[0],
+                                    gallery,
+                                    options,
+                                    items;
+
+                                items = parseThumbnailElements(galleryElement);
+
+                                // define options (if needed)
+                                options = {
+
+                                    // define gallery index (for URL)
+                                    galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+
+                                    getThumbBoundsFn: function(index) {
+                                        // See Options -> getThumbBoundsFn section of documentation for more info
+                                        var thumbnail = items[index].el.getElementsByTagName('img')[0], // find thumbnail
+                                            pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                                            rect = thumbnail.getBoundingClientRect(); 
+
+                                        return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
+                                    }
+
+                                };
+
+                                // PhotoSwipe opened from URL
+                                if(fromURL) {
+                                    if(options.galleryPIDs) {
+                                        // parse real index when custom PIDs are used 
+                                        // http://photoswipe.com/documentation/faq.html#custom-pid-in-url
+                                        for(var j = 0; j < items.length; j++) {
+                                            if(items[j].pid == index) {
+                                                options.index = j;
+                                                break;
+                                            }
+                                        }
+                                    } else {
+                                        // in URL indexes start from 1
+                                        options.index = parseInt(index, 10) - 1;
+                                    }
+                                } else {
+                                    options.index = parseInt(index, 10);
+                                }
+
+                                // exit if index not found
+                                if( isNaN(options.index) ) {
+                                    return;
+                                }
+
+                                if(disableAnimation) {
+                                    options.showAnimationDuration = 0;
+                                }
+
+                                // Pass data to PhotoSwipe and initialize it
+                                gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+                                gallery.init();
+                            };
+
+                            // loop through all gallery elements and bind events
+                            var galleryElements = document.querySelectorAll( gallerySelector );
+
+                            for(var i = 0, l = galleryElements.length; i < l; i++) {
+                                galleryElements[i].setAttribute('data-pswp-uid', i+1);
+                                galleryElements[i].onclick = onThumbnailsClick;
+                            }
+
+                            // Parse URL and open gallery if it contains #&pid=3&gid=1
+                            var hashData = photoswipeParseHash();
+                            if(hashData.pid && hashData.gid) {
+                                openPhotoSwipe( hashData.pid ,  galleryElements[ hashData.gid - 1 ], true, true );
+                            }
+                        };
+
+                        // execute above function
+                        initPhotoSwipeFromDOM('.my-gallery');
+
+                        </script>
+                    </div>
+                    <div style="padding:15px 30px 20px 30px;border-top:1px solid #EBEFF2;">
+                        <div>结构的样式：</div>
+                        <div>头部：<\div class="xyd-header" id="header"><\div class="xyd-header-box"><\div><\div></div>
+                        <div>导航：<\div class="xyd-fixbox" id="menu"><\div class="xyd-fixcut xyd-nav skin-bg"><\div class="xyd-sub"><\div><\div><\div></div>
+                        <div>内容：<\div class="xyd-wrapper"><\div></div>
+                        <div>内容宽度984px分左右两侧：<\div class="xyd-main clearfix"><\div class="xyd-sidebar"><\div><\div class="xyd-article"><\div><\div></div>
+                        <div>内容宽度984px：<\div class="xyd-main clearfix"><\div></div>
+                        <div>内容宽度100%：<\div class="xyd-main-3 clearfix"><\div></div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- 统一样式 start -->
+
+            <!-- 列表形式 start -->
+    		<div class="xyd-main clearfix" style="padding:20px 0 0;" id="1">
+                <div style="background:#fff;">
+                    <div class="demo-wzb-title">列表形式</div>
+                    <!-- 列表形式四 start -->
+                    <div style="padding:15px 30px 20px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">列表形式四 
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;width:390px">
+                                    <div>1、标题（如：课程类型）：字号：14px，颜色：#999；</div>
+                                    <div style="margin-top:5px;">2、圆圈（文字图片）：字号：14px，颜色：#999；</div>
+                                    <div>鼠标经过时：颜色：#00aeef；</div>
+                                    <div style="margin-top:5px;">3、内容（如：全部）：字号：14px，颜色：#333；</div>
+                                    <div>鼠标经过时：颜色：#999；</div>
+                                </div>
+                            </i>
+                        </div>
+                        <dl class="wzb-list-4" id="course_type">
+                            <dt>课程类型：</dt>         
+                            <dd><a href="javascript:void(0)"><i class="fa margin-right10 fa-circle skin-color"></i>全部</a></dd>
+                            <dd><a href="javascript:void(0)"><i class="fa margin-right10 fa-circle-thin"></i>网上课程</a></dd>
+                            <dd><a href="javascript:void(0)"><i class="fa margin-right10 fa-circle-thin"></i>面授课程</a></dd>
+                            <dd><a href="javascript:void(0)"><i class="fa margin-right10 fa-circle-thin"></i>项目式培训 </a></dd>
+                        </dl> 
+                        <script type="text/javascript">
+                            $("#course_type a").click(function(){
+                                $("#course_type a").children("i").attr("class","fa margin-right10 fa-circle-thin")
+                                $(this).children("i").attr("class","fa margin-right10 fa-circle skin-color");
+                            })
+                        </script>
+                    </div>
+
+                    <!-- 列表形式五 start -->
+                    <div style="padding:30px 30px 20px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">列表形式五
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;">
+                                    <div>文字：字号：14px，颜色：#333；</div>
+                                </div>
+                            </i>
+                        </div>
+
+                        <div class="catalogContainer" id="treeCatalog" style="margin-left:10px;width:217px;margin-top:10px;">
+                            <dl class="wzb-list-5">
+                                <dd>
+                                    <div id="zTree" class="ztree" style="overflow-x:auto;padding-bottom:15px;min-height:0%;">
+                                        <li id="zTree_1" class="level0" tabindex="0" hidefocus="true" treenode="">
+                                            <span id="zTree_1_switch" title="" class="button level0 switch roots_close" treenode_switch=""></span>
+                                            <a id="zTree_1_a" class="level0" treenode_a="" onclick="" target="_blank" style="" title="“快数据”管理平台">
+                                                <span id="zTree_1_ico" title="" treenode_ico="" class="button ico_close" style="width:0px;height:0px;"></span>
+                                                <span id="zTree_1_span">“快数据”管理平台</span>
+                                            </a>
+                                            <ul id="zTree_1_ul" class="level0 line" style="display:none;">
+                                                <li id="zTree_2" class="level1" tabindex="0" hidefocus="true" treenode="">
+                                                    <span id="zTree_2_switch" title="" class="button level1 switch center_close" treenode_switch=""></span>
+                                                    <a id="zTree_2_a" class="level1" treenode_a="" onclick="" target="_blank" style="" title="多语言课程">
+                                                        <span id="zTree_2_ico" title="" treenode_ico="" class="button ico_open" style="width:0px;height:0px;"></span>
+                                                        <span id="zTree_2_span">多语言课程</span>
+                                                    </a>
+                                                    <ul id="zTree_2_ul" class="level1 line" style="display:none;">
+                                                        <li id="zTree_3" class="level2" tabindex="0" hidefocus="true" treenode="">
+                                                            <span id="zTree_3_switch" title="" class="button level2 switch center_docu" treenode_switch=""></span>
+                                                            <a id="zTree_3_a" class="level2" treenode_a="" onclick="" target="_blank" style="" title="人才招聘">
+                                                                <span id="zTree_3_ico" title="" treenode_ico="" class="button ico_docu" style="width:0px;height:0px;"></span>
+                                                                <span id="zTree_3_span">人才招聘</span>
+                                                            </a>
+                                                        </li>
+                                                        <li id="zTree_4" class="level2" tabindex="0" hidefocus="true" treenode="">
+                                                            <span id="zTree_4_switch" title="" class="button level2 switch center_docu" treenode_switch=""></span>
+                                                            <a id="zTree_4_a" class="level2" treenode_a="" onclick="" target="_blank" style="" title="汇思概况">
+                                                                <span id="zTree_4_ico" title="" treenode_ico="" class="button ico_docu" style="width:0px;height:0px;"></span>
+                                                                <span id="zTree_4_span">汇思概况</span>
+                                                            </a>
+                                                        </li>
+                                                        <li id="zTree_5" class="level2" tabindex="0" hidefocus="true" treenode="">
+                                                            <span id="zTree_5_switch" title="" class="button level2 switch bottom_docu" treenode_switch=""></span>
+                                                            <a id="zTree_5_a" class="level2" treenode_a="" onclick="" target="_blank" style="" title="试用申请">
+                                                                <span id="zTree_5_ico" title="" treenode_ico="" class="button ico_docu" style="width:0px;height:0px;"></span>
+                                                                <span id="zTree_5_span">试用申请</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li id="zTree_6" class="level1" tabindex="0" hidefocus="true" treenode="">
+                                                    <span id="zTree_6_switch" title="" class="button level1 switch center_docu" treenode_switch=""></span>
+                                                    <a id="zTree_6_a" class="level1" treenode_a="" onclick="" target="_blank" style="" title="定制课件">
+                                                        <span id="zTree_6_ico" title="" treenode_ico="" class="button ico_docu" style="width:0px;height:0px;"></span>
+                                                        <span id="zTree_6_span">定制课件</span>
+                                                    </a>
+                                                </li>
+                                                <li id="zTree_7" class="level1" tabindex="0" hidefocus="true" treenode="">
+                                                    <span id="zTree_7_switch" title="" class="button level1 switch center_docu" treenode_switch=""></span>
+                                                    <a id="zTree_7_a" class="level1" treenode_a="" onclick="" target="_blank" style="" title="通用课件">
+                                                        <span id="zTree_7_ico" title="" treenode_ico="" class="button ico_docu" style="width:0px;height:0px;"></span>
+                                                        <span id="zTree_7_span">通用课件</span>
+                                                    </a>
+                                                </li>
+                                                <li id="zTree_8" class="level1" tabindex="0" hidefocus="true" treenode="">
+                                                    <span id="zTree_8_switch" title="" class="button level1 switch center_docu" treenode_switch=""></span>
+                                                    <a id="zTree_8_a" class="level1" treenode_a="" onclick="" target="_blank" style="" title="严肃游戏">
+                                                        <span id="zTree_8_ico" title="" treenode_ico="" class="button ico_docu" style="width:0px;height:0px;"></span>
+                                                        <span id="zTree_8_span">严肃游戏</span>
+                                                    </a>
+                                                </li>
+                                                <li id="zTree_9" class="level1" tabindex="0" hidefocus="true" treenode="">
+                                                    <span id="zTree_9_switch" title="" class="button level1 switch bottom_docu" treenode_switch=""></span>
+                                                    <a id="zTree_9_a" class="level1" treenode_a="" onclick="" target="_blank" style="" title="课件开发工具">
+                                                        <span id="zTree_9_ico" title="" treenode_ico="" class="button ico_docu" style="width:0px;height:0px;"></span>
+                                                        <span id="zTree_9_span">课件开发工具</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li id="zTree_11" class="level0" tabindex="0" hidefocus="true" treenode="">
+                                            <span id="zTree_11_switch" title="" class="button level0 switch center_docu" treenode_switch=""></span>
+                                            <a id="zTree_11_a" class="level0" treenode_a="" onclick="" target="_blank" style="" title="直播平台">
+                                                <span id="zTree_11_ico" title="" treenode_ico="" class="button ico_docu" style="width:0px;height:0px;"></span>
+                                                <span id="zTree_11_span">直播平台</span>
+                                            </a>
+                                        </li>
+                                        <li id="zTree_12" class="level0" tabindex="0" hidefocus="true" treenode="">
+                                            <span id="zTree_12_switch" title="" class="button level0 switch center_docu" treenode_switch=""></span>
+                                            <a id="zTree_12_a" class="level0" treenode_a="" onclick="" target="_blank" style="" title="微信移动学习平台">
+                                                <span id="zTree_12_ico" title="" treenode_ico="" class="button ico_docu" style="width:0px;height:0px;"></span>
+                                                <span id="zTree_12_span">微信移动学习平台</span>
+                                            </a>
+                                        </li>
+                                        <li id="zTree_13" class="level0" tabindex="0" hidefocus="true" treenode="">
+                                            <span id="zTree_13_switch" title="" class="button level0 switch center_docu" treenode_switch=""></span>
+                                            <a id="zTree_13_a" class="level0" treenode_a="" onclick="" target="_blank" style="" title="微学宝微课平台">
+                                                <span id="zTree_13_ico" title="" treenode_ico="" class="button ico_docu" style="width:0px;height:0px;"></span>
+                                                <span id="zTree_13_span">微学宝微课平台</span>
+                                            </a>
+                                        </li>
+                                        <li id="zTree_14" class="level0" tabindex="0" hidefocus="true" treenode="">
+                                            <span id="zTree_14_switch" title="" class="button level0 switch bottom_docu" treenode_switch=""></span>
+                                            <a id="zTree_14_a" class="level0" treenode_a="" onclick="" target="_blank" style="" title="整合式学习">
+                                                <span id="zTree_14_ico" title="" treenode_ico="" class="button ico_docu" style="width:0px;height:0px;"></span>
+                                                <span id="zTree_14_span">整合式学习</span>
+                                            </a>
+                                        </li>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                        <!-- 动态的jsp页面不需要这段js -->
+                        <script type="text/javascript">
+                            $("#zTree_1_switch").click(function(){
+                                $("#zTree_1_ul").toggle();
+                                $(this).toggleClass("roots_open");
+                            });
+                            $("#zTree_2_switch").click(function(){
+                                $("#zTree_2_ul").toggle();
+                                $(this).toggleClass("center_open");
+                            })
+                        </script>
+                    </div>
+                    <!-- 列表形式五 end -->
+            
+                    <!-- 列表形式六 start -->
+                    <div style="padding:30px 30px 20px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">列表形式六 
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;width:360px;height:300px;overflow-y:auto;">
+                                    <div>1、图片：宽度：226px，高度：137px；鼠标经过时：图片放大，有黑色透明层和文字“点击学习”，文字：字号：16px，颜色：#fff。</div>
+                                    <div style="margin-top:5px;">2、标题：字号：16px，颜色：#428bca，鼠标经过时：颜色：#00aeef。</div>
+                                    <div style="margin-top:5px;">3、标题前的图标表示在pc端或移动端可以学习该课程</div>
+                                    <div style="color:pink;">注：开发：两个图标的样式分别为：PC端：（img src="../static/images/pc-icon-p.png" width="26px" height="22px"）<br />移动端：（img src="../static/images/phone-icon-g.png" width="21px" height="22px"）</div>
+                                    <div style="margin-top:5px;">4、左侧副标题（如：课程类型：)：字号：14px，颜色：#999；<br />右侧内容（如：网上课程）：字号：14px，颜色：#333。</div>
+                                    <div style="margin-top:5px;">5、课程简介的长度为 84 个字符，点击展开按钮可以显示所有的简介内容</div>
+                                    <div style="margin-top:5px;">6、“展开”按钮：字号：14px，颜色：#00aeef；鼠标经过：背景色：#00aeef，字颜色：#fff。</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div style="color:#999;">使用说明：这个列表比较多出现在课程列表页面或考试列表页面。</div>
+                        <div style="width:678px;">
+                            <div class="tab-content">
+                                <div class="wbtabcont datatable" style="width:100%;">
+                                    <div class="datatable-body">
+                                        <table cellpadding="0" cellspacing="0" class="datatable-table">
+                                            <tbody class="datatable-table-tbody">
+                                                <tr class="datatable-table-row">
+                                                    <td class="datatable-table-column">
+                                                        <dl class="wzb-list-6">
+                                                            <dd>
+                                                                <a class="fwim" href="javascript:void(0);">
+                                                                    <div class="main_img">
+                                                                        <img class="fwpic" src="../static/images/demo/adv09.png">
+                                                                        <div class="show">
+                                                                            <span class="imgArea">
+                                                                                <em>点击学习</em>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
+                                                            </dd>
+                                                            <dt>
+                                                                <p>
+                                                                    <a class="wzb-link01" href="/app/course/detail/1">
+                                                                        <img src="../static/images/pc-icon-p.png" width="26px" height="22px">
+                                                                        <img src="../static/images/phone-icon-g.png" width="21px" height="22px">"新汇思- 唯一不同，就是一切都不同"
+                                                                    </a>
+                                                                </p>
+                                                                <div class="offheight clearfix">
+                                                                    <div class="offwidth">
+                                                                        <span class="color-gray999">课程类型：</span>网上课程
+                                                                    </div>
+                                                                    <div class="offwidth">
+                                                                        <span class="color-gray999">学习进度：</span>
+                                                                        <div class="progress progress-xs" style="width:60%;">
+                                                                            <div class="progress-bar progress-bar-orange" style="width:10px"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="offheight clearfix">
+                                                                    <span class="color-gray999">发布日期：</span>2016-08-16
+                                                                </div>
+                                                                <p>
+                                                                    <span class="color-gray999">课程简介：</span>
+                                                                    <span data="汇思拥有自主研发的一系列的企业级人才发展学习方案，包括学习管理系统、移动化及社区化学习平台、完整的微信学习系统。作为真正的解决方案厂家，汇思不仅提供平台技术，并且拥有亚太地区最庞大的定制课程设计与开发团队、超过八百门自主版权的现成通用课件、企业大学2.0咨询、游戏化学习(Serious　Game)、学习支持与推广服务等。基于多年来e-Learning领域的成熟经验和影响力，公司的定位是-给予学习无限可能性！">汇思拥有自主研发的一系列的企业级人才发展学习方案，包括学习管理系统、移动化及社区化学</span>
+                                                                    <a class="wzb-show skin-color open_desc" style="">
+                                                                        <span>展开</span>
+                                                                        <i class="fa fa-angle-down"></i>
+                                                                    </a>
+                                                                </p>
+                                                            </dt>
+                                                        </dl>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 列表形式六 end -->
+
+                    <!-- 列表形式七 start -->
+                    <div style="padding:30px 30px 10px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">列表形式七 
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;">
+                                    <div>1、头像图片：宽度：68px，高度：68px。</div>
+                                    <div style="margin-top:5px;">2、“姓名”样式：字号：14px，颜色：#00aeef，鼠标经过时：颜色：#333。</div>
+                                    <div style="margin-top:5px;">3、“内容一”和“内容二”样式：字号：14px，颜色：#333。</div>
+                                    <div style="margin-top:5px;">4、“添加”按钮样式（文字和图标）：字号：14px，颜色：#00aeef；边框：1px，颜色：#ddd。<br />鼠标经过时：“添加”按钮样式（文字和图标）：字号：14px，颜色：#333；边框：1px，颜色：#00aeef。</div>
+                                    <div style="margin-top:5px;">5、取消按钮：“已添加”文字和图标样式：字号：14px，颜色：#00aeef，“取消”按钮：字号：14px，颜色：#999，边框：1px，颜色：#ddd；<br />鼠标经过时：“取消”按钮：字号：14px，颜色：#00aeef，边框：1px，颜色：#00aeef；</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div style="width:678px;">
+                            <div class="wzb-find clearfix datatable">
+                                <div class="datatable-body">
+                                    <table cellpadding="0" cellspacing="0" class="datatable-table">
+                                        <tbody class="datatable-table-tbody">
+                                            <tr>
+                                                <td>
+                                                    <div class="datatable-table-grid-contrainer">
+                                                        <div class="datatable-table-grid-3">
+                                                            <div class="datatable-table-grid-content">
+                                                                <div class="wzb-percent-3 wzb-transfer-sub wzb-display-01">
+                                                                    <dl class="wzb-list-7 clearfix">
+                                                                       <dd>
+                                                                            <div class="wzb-user wzb-user68">
+                                                                                <a href="javascript:void(0)"><img class="wzb-pic" src="../static/images/teacher01.png"/></a>
+                                                                                <p class="companyInfo">了解Ta</p>
+                                                                                <div class="cornerTL">&nbsp;</div>
+                                                                                <div class="cornerTR">&nbsp;</div>
+                                                                                <div class="cornerBL">&nbsp;</div>
+                                                                                <div class="cornerBR">&nbsp;</div>
+                                                                            </div>
+                                                                        </dd>
+                                                                        <dt>
+                                                                            <a class="wzb-link04" href="javascript:void(0)">姓名</a>
+                                                                            <p>内容一</p>
+                                                                            <p>内容二</p>
+                                                                        </dt>
+                                                                    </dl>
+                                                                    <em class="wzb-user-plus" id="member_3931">
+                                                                        <a name="addGroup" class="wzb-link04" href="javascript:void(0)" title="添加" onclick="addGroupMember(3931)">
+                                                                            <i class="fa fa-plus"></i>
+                                                                            添加
+                                                                        </a>
+                                                                    </em>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="datatable-table-grid-3">
+                                                            <div class="datatable-table-grid-content">
+                                                                <div class="wzb-percent-3 wzb-transfer-sub wzb-display-01">
+                                                                    <dl class="wzb-list-7 clearfix">
+                                                                        <dd>
+                                                                            <div class="wzb-user wzb-user68">
+                                                                                <a href="javascript:void(0)"><img class="wzb-pic" src="../static/images/teacher02.png"/></a>
+                                                                                <p class="companyInfo" style="display: none;">了解Ta</p>
+                                                                                <div class="cornerTL" style="width: 60px; height: 60px;">&nbsp;</div>
+                                                                                <div class="cornerTR" style="width: 60px; height: 60px;">&nbsp;</div>
+                                                                                <div class="cornerBL" style="width: 60px; height: 60px;">&nbsp;</div>
+                                                                                <div class="cornerBR" style="width: 60px; height: 60px;">&nbsp;</div>
+                                                                            </div>
+                                                                        </dd>
+                                                                        <dt>
+                                                                            <a class="wzb-link04" href="javascript:void(0)">讲师+监考员</a>
+                                                                            <p>20150930用户组</p>
+                                                                            <p>20150930</p>
+                                                                        </dt>
+                                                                    </dl>
+                                                                    <em class="wzb-user-plus" id="member_4721">
+                                                                        <a name="addGroup" class="wzb-link04" href="javascript:void(0)" title="添加">
+                                                                            <i class="fa fa-plus"></i>
+                                                                            添加
+                                                                        </a>
+                                                                    </em>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="datatable-table-grid-3">
+                                                            <div class="datatable-table-grid-content">
+                                                                <div class="wzb-percent-3 wzb-transfer-sub wzb-display-01">
+                                                                    <dl class="wzb-list-7 clearfix">
+                                                                        <dd>
+                                                                            <div class="wzb-user wzb-user68">
+                                                                                <a href="javascript:void(0)"><img class="wzb-pic" src="../static/images/teacher02.png"></a>
+                                                                                <p class="companyInfo" style="display: none;">了解Ta</p>
+                                                                                <div class="cornerTL" style="width: 60px; height: 60px;">&nbsp;</div>
+                                                                                <div class="cornerTR" style="width: 60px; height: 60px;">&nbsp;</div>
+                                                                                <div class="cornerBL" style="width: 60px; height: 60px;">&nbsp;</div>
+                                                                                <div class="cornerBR" style="width: 60px; height: 60px;">&nbsp;</div>
+                                                                             </div>
+                                                                        </dd>
+                                                                        <dt>
+                                                                            <a class="wzb-link04" href="javascript:void(0)">刘备1</a>
+                                                                            <p>20150930用户组</p>
+                                                                            <p></p>
+                                                                        </dt>
+                                                                    </dl>
+                                                                    <em class="wzb-user-plus" id="member_3931">
+                                                                        <span class="skin-color">
+                                                                            <i class="fa f14 fbold mr5 fa-check"></i>
+                                                                            已添加
+                                                                        </span> |
+                                                                        <a name="clearGroup" id="delete_member_3931" class="grayC666" href="javascript:;" onclick="cancelGroupMember(3931)">取消</a>
+                                                                    </em>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <script type="text/javascript">
+                                                            $(".wzb-user").hover(function() {
+                                                                $(this).children('div').stop(true);
+                                                                $(this).children('div').animate({"width":"200px","height":"200px"});
+                                                                $(this).children('p').fadeIn("fast");
+                                                            }, function() {
+                                                                 $(this).children('div').stop(true);
+                                                                $(this).children('div').animate({"width":"60px","height":"60px"});
+                                                                $(this).children('p').hide();
+                                                            });
+                                                        </script>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 列表形式七 end -->
+
+                    <!-- 列表形式九 start -->
+                    <div style="padding:30px 30px 10px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">列表形式九 
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;width:410px;">
+                                    <div>1、左侧标题：字号：14px，颜色：#999。</div>
+                                    <div style="margin-top:5px;">2、右侧内容：字号：14px，颜色：#999。<br />鼠标经过和当前状态时：背景色：#00aeef，字颜色：#fff。</div>
+                                    <div style="color:pink;">注：开发：右侧内容的点击当前状态在 a 标签添加类名：cur 。</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div style="width:678px;">
+                            <dl class="wzb-list-9 clearfix">
+                                 <dt>资讯类型：</dt>
+                                 <dd>
+                                    <a class="tnd cur" style="margin: 0 15px 15px 0;" data="0" title="全部" href="javascript:;">全部</a>
+                                    <a class="tnd" style="margin: 0 15px 15px 0;" data="84" title="国际" href="javascript:;">国际</a>
+                                    <a class="tnd" style="margin: 0 15px 15px 0;" data="85" title="社会" href="javascript:;">社会</a>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <!-- 列表形式九 end -->
+
+                    <!-- 列表形式十 start -->
+                    <div style="padding:30px 30px 10px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">列表形式十 
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;">
+                                    <div>1、标题：字号：14px，颜色：#666；图标：字号：12px，颜色：#999；日期：字号：14px，颜色：#999。</div>
+                                    <div>鼠标经过时：整条信息栏的背景色：#f2f2f2；标题和图标：颜色：#00aeef（透明度0.7）；</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div style="width:678px;">
+                            <ul class="wzb-list-10" id="know_list">
+                                <li>
+                                    <span class="pull-right margin-right15 color-gray999">2016-08-12</span>
+                                    <a href="javascript:void(0)" class="wzb-link03"><i class="fa fa-square"></i>wizBank最强大的企业级“整合式学习”管理平台吗？</a>
+                                </li>
+                                <li>
+                                    <span class="pull-right margin-right15 color-gray999">2016-08-12</span>
+                                    <a href="javascript:void(0)" class="wzb-link03"><i class="fa fa-square"></i>汇思能帮助企业轻松构建学习生态圈吗？</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- 列表形式十 end -->
+                        
+                    <!-- 列表形式十三 start -->
+                    <div style="padding:30px 30px 20px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">列表形式十三
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;">
+                                    <div>1、信息之间有一条虚线间隔，颜色：#ddd。</div>
+                                    <div style="margin-top:5px;">2、标题：字号：14px，颜色：#333。</div>
+                                    <div style="margin-top:5px;">3、标题前的序列号：宽度：21px，高度：21px；字颜色：#fff；前三名的背景色：#ff8c00；其他的背景色为：#999。</div>
+                                    <div style="color:pink;">注：开发：序列号的背景色：前三名背景色的类名：wzb-list-orange，其他的背景色的类名：wzb-list-gray。</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div style="color:#999;">使用说明：在排行榜会有前面的数字，前三名是的数字底色是橙色，后面是灰色的底色，不需要前面的数字可以单独去掉。</div>
+                        <div style="width:678px;">
+                            <div class="wzb-model-6">
+                                <ul class="wzb-list-13 wzb-list-13-mc" id="rankingKnowledge">
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <em class="wzb-list-orange">1</em>
+                                            <span class="color-gray333">汇思荣登香港著名CEO杂志，帮助中小企解决企业人员培训难题</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <em class="wzb-list-orange">2</em>
+                                            <span class="color-gray333">互联网盛宴：北京“互联网+移动微课制作Coffee Time”圆满结束</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <em class="wzb-list-orange">3</em>
+                                            <span class="color-gray333">融「汇」贯通，集「思」广益——凤凰城企业家俱乐部来访汇思</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <em class="wzb-list-gray">4</em>
+                                            <span class="color-gray333">登广告啦！汇思全力支持国家队奥运会夺金！热爱运动，热爱学习！</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                        <!-- 列表形式十三 end -->
+                        
+                    <!-- 列表形式十五 start -->
+                    <div style="padding:30px 30px 20px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">列表形式十五
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;">
+                                    <div>标题：字号：16px，颜色：#333。</div>
+                                    <div>鼠标经过或当前状态：标题：颜色：#fff；背景色：#00aeef。文字距离色块最左边 20px 。</div>
+                                    <div style="color:pink;">注：开发：切换当前状态在 a 标签添加或删除类名 cur 。</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div style="width:678px;">
+                            <ul class="wzb-list-15" style="width:227px;">
+                                <li><a href="javascript:void(0)" class="cur">我的群组</a></li>
+                                <li><a href="javascript:void(0)">私人群组</a></li>
+                                <li><a href="javascript:void(0)">公开群组</a></li>
+                                <li><a href="javascript:void(0)">新建群组</a></li>
+                            </ul>
+                            <script type="text/javascript">
+                                $(".wzb-list-15 li a").click(function(){
+                                    $(".wzb-list-15 li a").removeClass("cur");
+                                    $(this).addClass("cur");
+                                })
+                            </script>
+                        </div>
+                    </div>
+                    <!-- 列表形式十五 end -->
+                        
+                    <!-- 列表形式十七 start -->
+                    <div style="padding:30px 30px 10px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">列表形式十七
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;">
+                                    <div>标题：字号：16px，颜色：#333。</div>
+                                    <div>鼠标经过或当前状态：标题：颜色：#fff；背景色：#ff8c00。文字距离色块最左边 20px 。</div>
+                                    <div style="color:pink;">注：开发：切换当前状态在 a 标签添加或删除类名 cur 。</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div style="width:678px;">
+                            <ul class="wzb-list-17" style="width:227px;">
+                                <li><a class="cur" href="javascript:void(0);">全部</a></li>
+                                <li><a href="javascript:void(0);">培训部推荐</a></li>
+                                <li><a href="javascript:void(0);">职级推荐</a></li>
+                                <li><a href="javascript:void(0);">部门推荐</a></li>
+                                <li><a href="javascript:void(0);">上司推荐</a></li>
+                                <li><a href="javascript:void(0);">岗位推荐</a></li>
+                            </ul>
+                            <script type="text/javascript">
+                                $(".wzb-list-17 li a").click(function(){
+                                    $(".wzb-list-17 li a").removeClass("cur");
+                                    $(this).addClass("cur");
+                                })
+                            </script>
+                        </div>
+                    </div>
+                        <!-- 列表形式十七 end -->
+                        
+                    <!-- 列表形式十八 start -->
+                    <div style="padding:30px 30px 10px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">列表形式十八
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;">
+                                    <div>1、左侧图片：宽度：120px，高度：120px。</div>
+                                    <div style="margin-top:5px;">2、标题：字号：14px，颜色：#00aeef，鼠标经过时：颜色：#333。</div>
+                                    <div style="margin-top:5px;">3、信息：推荐：字号：14px，颜色：#29E236。</div>
+                                    <div style="margin-top:5px;">4、左侧标题（如：讲师评分：）：字号：14px，颜色：#999。</div>
+                                    <div style="margin-top:5px;">5、右侧文字内容：（如：内部讲师）：字号：14px，颜色：#333。</div>
+                                    <div style="margin-top:5px;">6、“展开”按钮：字号：14px，颜色：#00aeef；鼠标经过：背景色：#00aeef，字颜色：#fff。</div>
+                                    <div style="color:pink;">注：开发：星星图片的名字：实心的：wzb-star-yes.png；空心的：wzb-star-no.png。</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div style="width:678px;">
+                            <span class="datatable" style="width: 100%;">
+                                <div class="datatable-body">
+                                    <table cellpadding="0" cellspacing="0" class="datatable-table">
+                                        <tbody class="datatable-table-tbody">
+                                            <tr class="datatable-table-row">
+                                                <td class="datatable-table-column">
+                                                    <dl class="wzb-list-18">
+                                                        <dd><a href="javascript:void(0)"><img src="../static/images/teacher01.png"></a></dd>
+                                                        <dt>
+                                                            <p><a class="wzb-link04" href="javascript:void(0)" title="">wizBank</a></p>
+                                                            <div class="tuijian-icon" style="float:right;color:#29E236;">推荐</div>
+                                                            <div class="offheight clearfix">
+                                                                <div class="offwidth">
+                                                                    <span class="color-gray999">讲师评分：</span>
+                                                                    <img src="../static/images/wzb-star-yes.png">
+                                                                    <img src="../static/images/wzb-star-yes.png">
+                                                                    <img src="../static/images/wzb-star-yes.png">
+                                                                    <img src="../static/images/wzb-star-no.png">
+                                                                    <img src="../static/images/wzb-star-no.png">
+                                                                </div>
+                                                                 <div class="offwidth"><span class="color-gray999">讲师来源：</span>
+                                                                    内部讲师
+                                                                 </div>
+                                                            </div>
+                                                            <div class="offheight clearfix">
+                                                                <div class="offwidth"><span class="color-gray999">讲师级别：</span>初级讲师</div> 
+                                                                <div class="offwidth"><span class="color-gray999">讲师类型：</span>专职</div></div>
+                                                            <p>
+                                                                <span class="color-gray999">擅长领域：</span>
+                                                                <span data="广州汇思信息科技有限公司在香港、北京、上海、广州和深圳均设有分支机构。作为亚太地区领先与大中华地区规模最大的人才发展整体解决方案的提供商，汇思拥有一支超过300人的专业团队，凭借累积的丰富的e-Learning行业经验，一直致力于为大中华及整个亚太地区的企业、政府和教育机构提供全方位及最领先的学习方案。">广州汇思信息科技有限公司在香港、北京、上海、广州和深圳均设有分支机构。作为亚太地区领先与大中华地区规模最大的人才发展整体解决方案的</span>
+                                                                <a class="wzb-show skin-color open_desc">
+                                                                    <span>展开</span>
+                                                                    <i class="fa fa-angle-down"></i>
+                                                                </a>
+                                                            </p>
+                                                        </dt>
+                                                    </dl>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- 列表形式十八 end -->
+                
+                    <!-- 列表形式十九 start -->
+                    <div style="border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2" style="padding:30px 30px 0 30px;">列表形式十九
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;width:400px;">
+                                    <div>1、左侧图片：宽：226px，高：137px；</div>
+                                    <div style="margin-top:5px;">2、大标题：字号：14px，颜色：#333；</div>
+                                    <div style="margin-top:5px;">3、标题前的图标表示在pc端或移动端可以学习该课程</div>
+                                    <div style="color:pink;">注：开发：两个图标的样式分别为：PC端：（img src="../static/images/pc-icon-p.png" width="26px" height="22px"）</div>
+                                    <div style="color:pink;">移动端：（img src="../static/images/phone-icon-g.png" width="21px" height="22px"）</div>
+                                    <div style="margin-top:5px;">4、左侧标题（如：课程类型：）：字号：14px，颜色：#999；</div>
+                                    <div style="margin-top:5px;">5、右侧内容（如：网上课程）：字号14px，颜色：#333；</div>
+                                    <div style="margin-top:5px;">6、点赞和收藏文字图标：字号：28px，颜色：#00aeef；</div>
+                                    <div style="margin-top:5px;">7、赞和收藏的文字和数量统计：字号：24px，颜色：#666；</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div style="padding:30px 30px 0 30px;color:#999;">使用说明：这种形式在课程或考试的详情页的出现较多。</div>
+                        <dl class="wzb-list-19 clearfix">
+                            <dd>
+                                <img src="../static/images/demo/adv09.png"/>
+                                 <div class="wzb-toolbox clearfix">
+                                    <a class="wzb-link03" href="javascript:void(0);" title="赞" style="text-align:center;">
+                                        <i class="fa skin-color fa-thumbs-o-up" style="margin:0;"></i><p>赞(<span>0</span>)</p>
+                                    </a>
+                                    <a class="margin-left35 wzb-link03" href="javascript:void(0);" title="收藏" style="text-align:center;">
+                                        <i class="fa skin-color fa-star" style="margin:0;"></i><p><!--收藏-->收藏(<span>0</span>)</p>
+                                    </a>
+                                 </div>
+                            </dd>
+                            <dt>
+                                <h3>
+                                    <span style="display: inline-block;">
+                                        <img src="../static/images/pc-icon-p.png" width="26px" height="22px"><img src="../static/images/phone-icon-g.png" width="21px" height="22px">国家英语四级
+                                    </span>
+                                    <a class="wzb-link01" href="javascript:void(0);">  </a>
+                                </h3>
+                                <div class="offheight clearfix">
+                                    <div class="offwidth">
+                                        <span class="color-gray999">课程类型：</span>网上课程
+                                    </div>
+                                    <div class="offwidth">
+                                        <span class="color-gray999">内容期限：</span>
+                                        报名成功当日 至 不限
+                                    </div>
+                                </div>
+                                <div class="offheight clearfix">
+                                    <div class="offwidth">
+                                        <span class="color-gray999" id="course_credit">
+                                                学分：
+                                        </span>
+                                        2.0
+                                    </div>
+                                    <div class="offwidth">
+                                        <span class="color-gray999" id="study_status">
+                                            学习状态：
+                                        </span>
+                                        --
+                                    </div>
+                                </div>
+                                <p>
+                                    <span class="color-gray999">课程简介：</span>
+                                    <span data="学习可程">学习可程</span>
+                                    <a class="wzb-show skin-color open_desc" id="wbshow" style="display:none">
+                                        <span>展开</span>
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                </p>
+                                <div class="bm margin-top15"></div>
+                            </dt>
+                        </dl>
+                    </div>
+                    <!-- 列表形式十九 end -->
+                    
+                    <!-- 列表形式二十 start -->
+                    <div style="padding:30px 30px 20px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">列表形式二十
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;width:304px;">
+                                    <div>1、左侧图片：宽：116px，高：70px；</div>
+                                    <div style="margin-top:5px;">2、信息（如：收藏了网上课程：和管理平台）：字号：14px，颜色：#333；</div>
+                                    <div style="margin-top:5px;">3、标题（如：wizBank企业...）：字号：14px，颜色：#00aeef；</div>
+                                    <div>鼠标经过时：颜色：#333；</div>
+                                    <div style="margin-top:5px;">4、信息（如：目录：和日期）：字号：14px，颜色：#999；</div>
+                                    <div style="margin-top:5px;">5、删除按钮（文字图标）：字号：18px，颜色：#999；</div>
+                                    <div>鼠标经过时：颜色：#00aeef；透明度：0.7。</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div style="width:678px;">
+                            <div class="wbtabcont datatable" style="width: 100%;">
+                                <div class="datatable-body">
+                                    <table cellpadding="0" cellspacing="0" class="datatable-table">
+                                        <tbody class="datatable-table-tbody">
+                                            <tr class="datatable-table-row datatable-table-row-last">
+                                                <td class="datatable-table-column">
+                                                    <dl class="wzb-list-20">
+                                                          <dd>
+                                                            <a title="" href="javascript:void(0)"><img src="../static/images/demo/adv09.png"/></a>
+                                                        </dd>
+                                                        <dt>
+                                                            <div class="wzb-title-9">收藏了网上课程：<a class="wzb-link04" href="javascript:void(0)">wizBank企业级整合式学习管理</a> <i class="fa wzb-close-icon fa-times"></i></div>
+                                                            <div class="offheight clearfix">
+                                                                <div class="offwidth"><span class="color-gray999">目录：</span>管理平台</div> 
+                                                                <div class="offwidth"><span class="color-gray999">2016-08-12 15:20</span></div>
+                                                            </div>
+                                                        </dt>
+                                                    </dl>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 列表形式二十 end -->
+
+                    <!-- 列表形式二十二 start -->
+                    <div style="padding:30px 30px 20px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">列表形式二十二
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;">
+                                    <div>1、标题：字号：14px，颜色：#333；</div>
+                                    <div>鼠标经过时：颜色：#00aeef；</div>
+                                    <div style="margin-top:5px;">2、两条信息之间的分隔线：大小：1px，颜色：#eee。</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div style="width:678px;">
+                            <ul class="wzb-list-22">
+                                <li><a href="javascript:void(0)">wizBank企业级整合式学习管理平台千万级用户，万人同时在线</a></li>
+                                <li><a href="javascript:void(0)">提供全方位及最领先的移动学习方案；APP、手机浏览器、微信、开启学习旅程！</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- 列表形式二十二 end -->
+
+                    <!-- 列表形式二十三 start -->
+                    <div style="padding:30px 30px 40px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">列表形式二十三
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;">
+                                    <div>1、图片：宽：226px，高：137px。</div>
+                                    <div style="margin-top:5px;">2、标题：字号：14px，颜色：#fff；</div>
+                                    <div style="margin-top:5px;">3、简介：字号：14px，颜色：#666；</div>
+                                    <div style="margin-top:5px;">4、点赞和收藏的文字图标：字号：14px，颜色：#00aeef；</div>
+                                    <div style="margin-top:5px;">5、点赞和收藏数量的数字：字号：14px，颜色：#999</div>
+                                    <div>第4点和第5点：鼠标经过时：透明度：0.7；</div>
+                                    <div style="margin-top:5px;">6、信息（如：文档、来自...）：字号：14px，颜色：#999。</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div style="width:678px;">
+                            <div class="tab-content">
+                                <ul class="wzb-list-23 clearfix datatable" id="knowledgeList" style="width:800px;">
+                                    <div class="datatable-body">
+                                        <table cellpadding="0" cellspacing="0" class="datatable-table">
+                                            <tbody class="datatable-table-tbody">
+                                                <tr>
+                                                    <td>
+                                                        <div class="datatable-table-grid-contrainer">
+                                                            <div class="datatable-table-grid-3">
+                                                                <div class="datatable-table-grid-content">
+                                                                    <li>
+                                                                        <div class="norm-fwim">
+                                                                            <a href="javascript:void(0)">
+                                                                                <img class="norm-fwim-pic" src="../static/images/demo/adv09.png">
+                                                                            </a>
+                                                                            <a href="javascript:void(0)" class="norm-fwim-white">标题</a>
+                                                                            <div class="norm-fwim-desc">
+                                                                                <a class="norm-fwim-gray" href="javascript:void(0)">简介</a>
+                                                                                <div class="norm-fwim-area">
+                                                                                    <a class="margin-right15 wzb-link05" href="javascript:void(0)"><i class="fa skin-color fa-thumbs-o-up"></i> <span>0</span></a>
+                                                                                    <a class="margin-right15 wzb-link05" href="javascript:void(0)"><i class="fa skin-color fa-star"></i> <span>1</span></a>
+                                                                                </div>
+                                                                                <div class="norm-fwim-info">
+                                                                                    文档
+                                                                                    <div class="pull-right" style="line-height:35px;">来自：汇思信息科技</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </div>
+                                                            </div>
+                                                            <div class="datatable-table-grid-3">
+                                                                <div class="datatable-table-grid-content">
+                                                                    <li>
+                                                                        <div class="norm-fwim">
+                                                                            <a href="javascript:void(0)">
+                                                                                <img class="norm-fwim-pic" src="../static/images/demo/adv09.png">
+                                                                            </a>
+                                                                            <a href="javascript:void(0)" class="norm-fwim-white">wizBank有你想要做e-Learning及培训管理的一切</a>
+                                                                            <div class="norm-fwim-desc">
+                                                                                <a class="norm-fwim-gray" href="javascript:void(0)">对学习进度、学习成绩以及
+                                                                                资源使用情况进行实时跟踪并提供全面的学习报告。</a>
+                                                                                <div class="norm-fwim-area">
+                                                                                    <a class="margin-right15 wzb-link05" href="javascript:void(0)"><i class="fa skin-color fa-thumbs-o-up"></i> <span>1</span></a>
+                                                                                    <a class="margin-right15 wzb-link05" href="javascript:void(0)"><i class="fa skin-color fa-star"></i> <span>1</span></a>
+                                                                                </div>
+                                                                                <div class="norm-fwim-info">
+                                                                                    文章
+                                                                                    <div class="pull-right" style="line-height:35px;">来自：平台部</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </div>
+                                                            </div>
+                                                            <div class="datatable-table-grid-3">
+                                                                <div class="datatable-table-grid-content">
+                                                                    <li>
+                                                                        <div class="norm-fwim">
+                                                                            <a href="javascript:void(0)">
+                                                                                <img class="norm-fwim-pic" src="../static/images/demo/adv09.png">
+                                                                            </a>
+                                                                            <a href="javascript:void(0)" class="norm-fwim-white">wizBank有你想要做e-Learning及培训管理的一切</a>
+                                                                            <div class="norm-fwim-desc">
+                                                                                <a class="norm-fwim-gray" href="javascript:void(0)">构建企业培训门户、存放、发布、管理及跟踪培训信息，实现企业培训管理信息化。</a>
+                                                                                <div class="norm-fwim-area">
+                                                                                    <a class="margin-right15 wzb-link05" href="javascript:void(0)"><i class="fa skin-color fa-thumbs-o-up"></i> <span>1</span></a>
+                                                                                    <a class="margin-right15 wzb-link05" href="javascript:void(0)"><i class="fa skin-color fa-star"></i> <span>1</span></a>
+                                                                                </div>
+                                                                                <div class="norm-fwim-info">
+                                                                                    文章
+                                                                                    <div class="pull-right" style="line-height:35px;">来自：培训部</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 列表形式二十三 end -->
+
+                    <!-- 列表形式二十五 start -->
+                    <div style="border-bottom:1px solid #EBEFF2;padding:10px 0 30px 0;">
+                        <div class="wzb-title-2" style="padding:20px 30px 0 30px;">列表形式二十五
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;width:250px;">
+                                    <div>1、图片：宽：309px，高：123px；</div>
+                                    <div>鼠标经过时：图片放大；</div>
+                                    <div style="margin-top:5px;">2、标题：字号：20px，颜色：#fff，标题超过 2 行显示“...”</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div class="wzb-list-25">
+                            <ul id="positionContent">
+                               <li class="bgcolor-00afef main_img_2">
+                                    <img src="../static/images/GW_a01.jpg" alt="">
+                                    <i>
+                                        <a href="javascript:void(0)"> 广州汇思信息科技有限公司（Cyberwisdom）的平台部Java工程师</a>
+                                    </i>
+                                </li>
+                                <li class="bgcolor-a760c3 main_img_2">
+                                    <img src="../static/images/GW_a01.jpg" alt="">
+                                    <i>
+                                        <a href="javascript:void(0)"> 平台部Android</a>
+                                    </i>
+                                </li>
+                                <li class="bgcolor-407ce1 main_img_2" style="margin-right:0;">
+                                    <img src="../static/images/GW_a01.jpg" alt="">
+                                    <i>
+                                        <a href="javascript:void(0)"> 平台部UI工程师</a>
+                                    </i>
+                                </li>       
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- 列表形式二十五 end -->
+
+                    <!-- 列表形式二十七 start -->
+                    <div style="padding:20px 0 10px 0;">
+                        <div class="wzb-title-2" style="padding:15px 30px 40px 30px;">列表形式二十七
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;width:310px;">
+                                    <div>1、图片：宽：300px，高：123px；</div>
+                                    <div style="margin-top:5px;">2、标题：字号：16px，颜色：#333；</div>
+                                    <div style="margin-top:5px;">3、简介：字号：14px，颜色：#999；</div>
+                                    <div style="margin-top:5px;">4、点击数量数字：字号：14px，颜色：#999。</div>
+                                </div>
+                            </i>
+                        </div>
+                        <ul class="wzb-list-27 wzb-list-28 clearfix datatable" style="width: 100%;">
+                            <div class="datatable-body">
+                                <table cellpadding="0" cellspacing="0" class="datatable-table">
+                                    <tbody class="datatable-table-tbody">
+                                        <tr>
+                                            <td>
+                                                <div class="datatable-table-grid-contrainer">
+                                                    <div class="datatable-table-grid-3">
+                                                        <div class="datatable-table-grid-content">
+                                                            <li>
+                                                                <div>
+                                                                    <img src="../static/images/GW_a01.jpg"/>
+                                                                    <span class="wzb-list-27-title">标题</span>
+                                                                    <span class="wzb-list-27-tit">简介</span>
+                                                                </div>
+                                                                <p>
+                                                                    <i class="list-tool-dian color-gray999">88</i>
+                                                                    <i class="list-tool-you"></i>
+                                                                </p>
+                                                            </li>
+                                                        </div>
+                                                    </div>
+                                                    <div class="datatable-table-grid-3">
+                                                        <div class="datatable-table-grid-content">
+                                                            <li>
+                                                                <div>
+                                                                    <img src="../static/images/GW_a01.jpg"/>
+                                                                    <span class="wzb-list-27-title">wizMobile给所有管理者及学员一个账号轻松实现“学习管理”的目标 </span>
+                                                                    <span class="wzb-list-27-tit">汇思的移动学习　(wizMobile)　远远不是多了一个学习方式，也不只是多了移动终端，wizMobile是"整体解决方案"的延伸。</span>
+                                                                </div>
+                                                                <p>
+                                                                    <i class="list-tool-dian color-gray999">130</i>
+                                                                    <i class="list-tool-you"></i>
+                                                                </p>
+                                                            </li>
+                                                        </div>
+                                                    </div>
+                                                    <div class="datatable-table-grid-3">
+                                                        <div class="datatable-table-grid-content">
+                                                            <li>
+                                                                <div>
+                                                                    <img src="../static/images/GW_a01.jpg"/>
+                                                                    <span class="wzb-list-27-title">wizMobile给所有管理者及学员一个账号轻松实现“学习管理”的目标 </span>
+                                                                    <span class="wzb-list-27-tit">汇思的移动学习　(wizMobile)　远远不是多了一个学习方式，也不只是多了移动终端，wizMobile是"整体解决方案"的延伸。</span>
+                                                                </div>
+                                                                <p>
+                                                                    <i class="list-tool-dian color-gray999">6</i>
+                                                                    <i class="list-tool-you"></i>
+                                                                </p>
+                                                            </li>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clear"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </ul>
+                    </div>
+                    <!-- 列表形式二十七 end -->
+                </div>
+            </div>
+            <!-- 列表形式 end -->
+
+            <div style="width:100%;height:20px;background:#ebeff2"></div>
+                            
+            <!-- 标题形式 start -->               
+            <div class="xyd-main clearfix" style="background:#fff;padding:0;" id="2">
+                <div style="background:#fff;padding:0;">
+                    <div class="demo-wzb-title">标题形式</div>
+
+                    <!-- 标题形式二 start -->
+                    <div style="padding:15px 30px 30px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">标题形式二
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;">
+                                    <div>字号：16px，颜色：#333；</div>
+                                    <div>第二种是去掉了加粗样式，蓝色的标题是加了 a 标签，类名是 wzb-link01。</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div style="width:678px;margin-top:20px;">
+                            <div class="wzb-title-2">
+                                群组列表
+                            </div>
+                            <div class="wzb-title-2" style="font-weight:normal;">
+                                <a class="wzb-link01" href="javascript:void(0)" title="">群组列表</a> &gt; 汇思广州群组
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 标题形式二 end -->
+
+                    <!-- 标题形式五 start -->
+                    <div style="padding:30px 30px 30px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">标题形式五
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;width:310px;">
+                                    <div>1、“讲师风采”：字号：16px，颜色：#333；</div>
+                                    <div style="margin-top:5px;">2、“更多”：字号：14px，颜色：#666；</div>
+                                    <div>鼠标经过时：颜色：#00aeef；</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div>
+                            <div id="instructorTitle" class="wzb-title-5">讲师风采<a title="更多" href="javascript:void(0)" class="wzb-title-more">更多</a></div>
+                        </div>
+                    </div>
+                    <!-- 标题形式五 end -->
+
+                    <!-- 标题形式七 start -->
+                    <div style="padding:30px 30px 30px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">标题形式七
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;">
+                                    <div>字号：18px，颜色：#333；</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div style="width:678px;">
+                            <h3 class="wzb-title-7">课程类型</h3>
+                        </div>
+                    </div>
+                    <!-- 标题形式七 end -->
+
+                    <!-- 标题形式十二 start -->
+                    <div style="padding:30px 30px 30px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">标题形式十二
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;">
+                                    <div>字号：16px，颜色：#333；</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div style="width:678px;">
+                            <div class="wzb-title-12">积分信息</div>
+                        </div>
+                    </div>
+                    <!-- 标题形式十二 end -->
+
+                    <!-- 标题形式十三 start -->
+                    <div style="padding:30px 30px 30px 30px;">
+                        <div class="wzb-title-2">标题形式十三 / 标题形式三十一
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;width:340px;">
+                                    <div>1、一级标题（如：整合式学习）：字号：16px，颜色：#333；</div>
+                                    <div>鼠标经过时：背景色：#30bd89，文字颜色：#fff；</div>
+                                    <div style="margin-top:5px;">2、二级标题（如：多语言课程）：字号：16px，文字颜色：#30bd89；</div>
+                                    <div style="margin-top:5px;">3、三级标题（如：人才招聘）：字号：14px，文字颜色：#333；</div>
+                                    <div>鼠标经过时：字号：14px，文字颜色：#30bd89；</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div id="hierarchyCatalogContainer" class="catalogContainer" style="width:227px;">
+                            <div id="hierarchyCatalog" class="wzb-list-31-box">
+                                <div class="wzb-list-31">
+                                    <ul>
+                                        <li class="wzb-list-31-li">
+                                            <div class="wzb-list-31-title">
+                                                <span class="wzb-list-hang"></span>
+                                                <a href="javascript:void(0)">整合式学习</a>
+                                            </div>
+                                            
+                                            <div class="wzb-title-13" style="width: 307px;">
+                                                <div class="wzb-title-13-title">
+                                                    <div class="wzb-title-13-box">
+                                                        <h4><a href="javascript:void(0)">多语言课程</a></h4>
+                                                        <span class="wzb-title-13-biao"><a href="javascript:void(0)">人才招聘</a></span>
+                                                        <span class="wzb-title-13-biao"><a href="javascript:void(0)">汇思概况</a></span>
+                                                        <span class="wzb-title-13-biao"><a href="javascript:void(0)">试用申请</a></span>
+                                                    </div>
+                                                    <div class="wzb-title-13-box">
+                                                        <h4><a href="javascript:void(0)">定制课件</a></h4>
+                                                    </div>
+                                                    <div class="wzb-title-13-box">
+                                                        <h4><a href="javascript:void(0)">通用课件</a></h4>
+                                                    </div>
+                                                    <div class="wzb-title-13-box">
+                                                        <h4><a href="javascript:void(0)">严肃游戏</a></h4>
+                                                    </div>
+                                                    <div class="wzb-title-13-box">
+                                                        <h4><a href="javascript:void(0)">课件开发工具</a></h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li class="wzb-list-31-li">
+                                            <div class="wzb-list-31-title">
+                                                <span class="wzb-list-hang"></span>
+                                                <a href="javascript:void(0)">目录1</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li class="wzb-list-31-li">
+                                            <div class="wzb-list-31-title">
+                                                <span class="wzb-list-hang"></span>
+                                                <a href="javascript:void(0)">直播平台</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li class="wzb-list-31-li">
+                                            <div class="wzb-list-31-title">
+                                                <span class="wzb-list-hang"></span>
+                                                <a href="javascript:void(0)">微信移动学习平台</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li class="wzb-list-31-li">
+                                            <div class="wzb-list-31-title">
+                                                <span class="wzb-list-hang"></span>
+                                                <a href="javascript:void(0)">微学宝微课平台</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                    
+                            <div id="hierarchyCatalogMore" style="display: none;">
+                                <div class="wzb-list-31">
+                                    <ul>
+                                        <li class="wzb-list-31-li">
+                                            <div class="wzb-list-31-title">
+                                                <span class="wzb-list-hang"></span>
+                                                <a href="javascript:void(0)">“快数据”管理平台</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="wzb-btn-yuan btn-margin" id="openMore" style="display:block; background: rgb(255, 255, 255);">
+                                <img class="btn-run-down" src="../static/images/jiantou_02.png">
+                            </div>
+                            
+                            <div class="wzb-btn-yuan btn-margin" id="hideMore" style="display: none; background: rgb(255, 255, 255);"> 
+                                <img class="btn-run-down" src="../static/images/jiantou_022.png">
+                            </div>
+                            <script type="text/javascript">
+                                $("#openMore").click(function(){
+                                    $("#hierarchyCatalogMore").css("display","block");
+                                    $(this).css("display","none");
+                                    $("#hideMore").css("display","block");
+                                })
+                                $("#hideMore").click(function(){
+                                    $("#hierarchyCatalogMore").css("display","none");
+                                    $(this).css("display","none");
+                                    $("#openMore").css("display","block");
+                                })
+                            </script>
+                        </div>
+                    </div>
+                    <!-- 标题形式十三 end -->
+                    
+                </div>
+            </div>
+            <!-- 标题形式 end -->  
+
+            <div style="width:100%;height:20px;background:#ebeff2"></div>
+
+            <!-- 选项卡 start --> 
+            <div class="xyd-main clearfix" style="background:#fff;padding:0;" id="4">
+                <div style="background:#fff;padding:0;">
+                    <div class="demo-wzb-title">选项卡</div>
+                    <!-- 选项卡一 start -->
+                    <div style="padding:15px 30px 20px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">选项卡一
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;">
+                                    <div>标题：字号：16px，颜色：#333；</div>
+                                    <div>鼠标经过：背景颜色：#eee；</div>
+                                    <div style="color:pink;">注：开发：当前状态在 li 标签添加类名 active</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div style="width:678px;margin-top:30px;">
+                            <div class="wzb-tab-1 margin-top15">
+                                <ul class="nav nav-tabs" id="tablist">
+                                    <li class="active"><a href="javascript:void(0)">群组详情</a></li>
+                                    <li><a href="javascript:void(0)">群组成员</a></li>
+                                    <li><a href="javascript:void(0)">成员审批</a></li>
+                                    <li><a href="javascript:void(0)">信息设置</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 选项卡一 end -->
+                    <script type="text/javascript">
+                        $("#tablist li").click(function(){
+                            $("#tablist li").removeClass("active")
+                            $(this).addClass("active"); 
+                        })
+                    </script>
+
+                    <!-- 选项卡三 start -->
+                    <div style="padding:30px 30px 30px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">选项卡三
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;">
+                                    <div>标题：字号：16px，颜色：#999；</div>
+                                    <div>鼠标经过时和当前状态：颜色：#333；</div>
+                                    <div style="color:pink;">注：开发：当前状态在 li 标签添加类名 active</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div style="width:678px;margin-top:20px;">
+                            <div class="wzb-tab-3" style="display:inline-block;">
+                                <ul class="nav nav-tabs wblearn" id="tablist-2">
+                                    <li class="active"><a href="javascript:void(0)" style="padding-left:0;">我的课程</a></li>
+                                    <li><a href="javascript:void(0)">我的必修课</a></li>
+                                    <li><a href="javascript:void(0)">为你推荐</a></li>
+                                    <li><a href="javascript:void(0)">最新课程</a></li>
+                                </ul>
+                                <script type="text/javascript">
+                                    $("#tablist-2 li").click(function(){
+                                        $("#tablist-2 li").removeClass("active")
+                                        $(this).addClass("active"); 
+                                    })
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 选项卡五 start -->
+                    <div style="padding:30px 30px 30px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">选项卡五
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;">
+                                    <div>标题：字号：16px，颜色：#333；</div>
+                                    <div>鼠标经过时和当前状态：背景色：#00aeef，文字颜色：#fff；</div>
+                                    <div style="color:pink;">注：开发：当前状态在 li 标签添加类名 active</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div style="width:678px;margin-top:20px;">
+                            <div role="tabpanel" class="wzb-tab-5">
+                                <ul class="nav nav-tabs" id="tablist-3">
+                                     <li class="active"><a href="javascript:void(0)">网上内容</a></li>
+                                     <li><a href="javascript:void(0)">日程表</a></li>
+                                     <li><a href="javascript:void(0)">课程详情</a></li>
+                                     <li><a href="javascript:void(0)">课程公告</a></li>
+                                 </ul>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            $("#tablist-3 li").click(function(){
+                                $("#tablist-3 li").removeClass("active")
+                                $(this).addClass("active"); 
+                            })
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <!-- 选项卡 end --> 
+
+            <div style="width:100%;height:20px;background:#ebeff2"></div>
+
+            <!-- 弹出层 start -->
+            <div class="xyd-main clearfix" style="background:#fff;padding:0;" id="5">
+                <div class="xyd-main clearfix" style="background:#f2f2f2;padding:0;">
+                    <div class="demo-wzb-title">弹出层</div>
+                    <div style="float:left;padding:15px 30px 20px 30px;min-height:0;width:100%;">
+                        <div class="wzb-title-2">这里的弹出层只是一个例子，内容根据页面的需要更换即可。
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;">
+                                    <div>1、标题：字号：16px，颜色：#00aeef；</div>
+                                    <div>2、内容：字号：14px，颜色：#333333；</div>
+                                    <div>3、按钮：是“ wzb-bar ”的组合按钮</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div id="qtip-noticeTip" class="qtip qtip-default wzb-qtip qtip-pos-c qtip-modal qtip-focus" tracking="false" role="alert" aria-live="polite" aria-atomic="false" aria-describedby="qtip-noticeTip-content" aria-hidden="false" data-qtip-id="noticeTip" style="display: block;">
+                            <div class="qtip-tip" style="display: none;"><canvas></canvas></div>
+                            <div class="qtip-titlebar">
+                                <div id="qtip-noticeTip-title" class="qtip-title" aria-atomic="true">提示<i class="pop-up-sanjiao"></i></div>
+                            </div>
+                            <div class="qtip-content" id="qtip-noticeTip-content" aria-atomic="true">
+                                <div style="display: block; visibility: visible;">
+                                    <div class="pop-up-word">内容不能为空！</div>
+                                    <div class="wzb-bar">
+                                        <button id="true" class="btn wzb-btn-blue wzb-btn-big">确定</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="float:left;padding:15px 30px 20px 30px;min-height:0;width:100%;">
+                        <div class="wzb-title-2">这里的弹出层只是一个例子，里面的内容是可以替换的。
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;">
+                                    <div>标题：字号：18px，颜色：#fff；</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div id="msgBox" class="fade in" style="display:block;"><!-- modal -->
+                            <div class="modal-dialog">
+                                <div class="modal-content cont">
+                                    <div class="modal-header">
+                                        <button type="button" class="close">×</button>
+                                        <h4 class="modal-title" id="myModalLabel"><div class="pfindtit">可能认识的人</div></h4>
+                                    </div>
+                                    <div class="wzb-model-3" style="height:559px;overflow-y:auto;">
+                                        <div class="modal-body" style="padding-left:0px;">
+                                            <div class="form-search form-tool">                 
+                                                 <input type="text" name="search_add_member" class="form-control" value="用户名/部门/职级"><input type="button" class="form-submit" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-tool wzb-title-2" style="margin:0 0 20px 0;">筛选结果
+                                            <div class="form-tool-right">
+                                                <input type="button" class="btn wzb-btn-yellow" value="添加全部">
+                                                <input type="button" value="仅显示讲师" class="btn wzb-btn-yellow margin-left15" id="instrOnly">
+                                            </div>
+                                        </div>
+                                        <div class="wzb-find clearfix datatable" id="add_member" style="width: 100%;">
+                                            <div class="datatable-body">
+                                                <table cellpadding="0" cellspacing="0" class="datatable-table">
+                                                    <tbody class="datatable-table-tbody">
+                                                        <tr>
+                                                            <td>
+                                                                <div class="datatable-table-grid-contrainer">
+                                                                    <div class="datatable-table-grid-3">
+                                                                        <div class="datatable-table-grid-content">
+                                                                            <div class="wzb-percent-3 wzb-transfer-sub wzb-display-01">
+                                                                                <dl class="wzb-list-7 clearfix">
+                                                                                    <dd>
+                                                                                        <div class="wzb-user wzb-user68">
+                                                                                            <a href="javascript:(0)"><img class="wzb-pic" src="../static/images/teacher01.png"></a>
+                                                                                            <p class="companyInfo">了解Ta</p>
+                                                                                            <div class="cornerTL">&nbsp;</div>
+                                                                                            <div class="cornerTR">&nbsp;</div>
+                                                                                            <div class="cornerBL">&nbsp;</div>
+                                                                                            <div class="cornerBR">&nbsp;</div>
+                                                                                        </div>
+                                                                                    </dd>
+                                                                                    <dt>
+                                                                                        <a class="wzb-link04" href="javascript:(0)">admin</a>
+                                                                                        <p>培训管理员组</p>
+                                                                                        <p></p>
+                                                                                    </dt>
+                                                                                </dl>
+                                                                                <em class="wzb-user-plus" id="member_9">
+                                                                                    <a name="addGroup" class="wzb-link04" href="javascript:(0)" title="添加">
+                                                                                        <i class="fa fa-plus"></i>
+                                                                                        添加
+                                                                                    </a>
+                                                                                </em>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="datatable-table-grid-3">
+                                                                        <div class="datatable-table-grid-content">
+                                                                            <div class="wzb-percent-3 wzb-transfer-sub wzb-display-01">
+                                                                                <dl class="wzb-list-7 clearfix">
+                                                                                    <dd>
+                                                                                        <div class="wzb-user wzb-user68">
+                                                                                            <a href="javascript:(0)"><img class="wzb-pic" src="../static/images/teacher02.png"></a>
+                                                                                            <p class="companyInfo">了解Ta</p>
+                                                                                            <div class="cornerTL">&nbsp;</div>
+                                                                                            <div class="cornerTR">&nbsp;</div>
+                                                                                            <div class="cornerBL">&nbsp;</div>
+                                                                                            <div class="cornerBR">&nbsp;</div>
+                                                                                        </div>
+                                                                                    </dd>
+                                                                                    <dt>
+                                                                                        <a class="wzb-link04" href="javascript:(0)">Teacher</a>
+                                                                                        <p>讲师管理组</p>
+                                                                                        <p></p>
+                                                                                    </dt>
+                                                                                </dl>
+                                                                                <em class="wzb-user-plus" id="member_10">
+                                                                                    <a name="addGroup" class="wzb-link04" href="javascript:(0)" title="添加">
+                                                                                        <i class="fa fa-plus"></i>
+                                                                                        添加
+                                                                                    </a>
+                                                                                </em>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="datatable-table-grid-3">
+                                                                        <div class="datatable-table-grid-content">
+                                                                            <div class="wzb-percent-3 wzb-transfer-sub wzb-display-01">
+                                                                               <dl class="wzb-list-7 clearfix">
+                                                                                    <dd>
+                                                                                        <div class="wzb-user wzb-user68">
+                                                                                            <a href="javascript:(0)"><img class="wzb-pic" src="../static/images/teacher02.jpg"></a>
+                                                                                            <p class="companyInfo">了解Ta</p>
+                                                                                            <div class="cornerTL">&nbsp;</div>
+                                                                                            <div class="cornerTR">&nbsp;</div>
+                                                                                            <div class="cornerBL">&nbsp;</div>
+                                                                                            <div class="cornerBR">&nbsp;</div>
+                                                                                        </div>
+                                                                                    </dd>
+                                                                                    <dt>
+                                                                                        <a class="wzb-link04" href="javascript:(0)">Setting</a>
+                                                                                        <p>系统管理组</p>
+                                                                                        <p></p>
+                                                                                    </dt>
+                                                                                </dl>
+                                                                                <em class="wzb-user-plus" id="member_12">
+                                                                                    <a name="addGroup" class="wzb-link04" href="javascript:(0)" title="添加">
+                                                                                        <i class="fa fa-plus"></i>
+                                                                                        添加
+                                                                                    </a>
+                                                                                </em>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="clear"></div>
+                                                                    <div class="datatable-table-grid-3">
+                                                                        <div class="datatable-table-grid-content">
+                                                                            <div class="wzb-percent-3 wzb-transfer-sub wzb-display-01">
+                                                                                <dl class="wzb-list-7 clearfix">
+                                                                                    <dd>
+                                                                                        <div class="wzb-user wzb-user68">
+                                                                                            <a href="javascript:(0)"><img class="wzb-pic" src="../static/images/teacher01.png"></a>
+                                                                                            <p class="companyInfo" style="display: none;">了解Ta</p>
+                                                                                            <div class="cornerTL" style="width: 60px; height: 60px;">&nbsp;</div>
+                                                                                            <div class="cornerTR" style="width: 60px; height: 60px;">&nbsp;</div>
+                                                                                            <div class="cornerBL" style="width: 60px; height: 60px;">&nbsp;</div>
+                                                                                            <div class="cornerBR" style="width: 60px; height: 60px;">&nbsp;</div>
+                                                                                        </div>
+                                                                                    </dd>
+                                                                                   <dt>
+                                                                                        <a class="wzb-link04" href="javascript:(0)">Use</a>
+                                                                                        <p>用户组</p>
+                                                                                        <p></p>
+                                                                                   </dt>
+                                                                                </dl>
+                                                                                <em class="wzb-user-plus" id="member_13">
+                                                                                    <a name="addGroup" class="wzb-link04" href="javascript:(0)" title="添加">
+                                                                                        <i class="fa fa-plus"></i>
+                                                                                        添加
+                                                                                    </a>
+                                                                                </em>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="datatable-table-grid-3">
+                                                                        <div class="datatable-table-grid-content">
+                                                                            <div class="wzb-percent-3 wzb-transfer-sub wzb-display-01">
+                                                                                <dl class="wzb-list-7 clearfix">
+                                                                                    <dd>
+                                                                                        <div class="wzb-user wzb-user68">
+                                                                                            <a href="javascript:(0)"><img class="wzb-pic" src="../static/images/teacher02.png"></a>
+                                                                                            <p class="companyInfo" style="display: none;">了解Ta</p>
+                                                                                            <div class="cornerTL" style="width: 60px; height: 60px;">&nbsp;</div>
+                                                                                            <div class="cornerTR" style="width: 60px; height: 60px;">&nbsp;</div>
+                                                                                            <div class="cornerBL" style="width: 60px; height: 60px;">&nbsp;</div>
+                                                                                            <div class="cornerBR" style="width: 60px; height: 60px;">&nbsp;</div>
+                                                                                        </div>
+                                                                                    </dd>
+                                                                                    <dt>
+                                                                                        <a class="wzb-link04" href="javascript:(0)">learner</a>
+                                                                                        <p>学习组</p>
+                                                                                        <p></p>
+                                                                                    </dt>
+                                                                                </dl>
+                                                                                <em class="wzb-user-plus" id="member_17">
+                                                                                    <a name="addGroup" class="wzb-link04" href="javascript:(0)" title="添加">
+                                                                                        <i class="fa fa-plus"></i>
+                                                                                        添加
+                                                                                    </a>
+                                                                                </em>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="datatable-table-grid-3">
+                                                                        <div class="datatable-table-grid-content">
+                                                                            <div class="wzb-percent-3 wzb-transfer-sub wzb-display-01">
+                                                                                <dl class="wzb-list-7 clearfix">
+                                                                                    <dd>
+                                                                                        <div class="wzb-user wzb-user68">
+                                                                                            <a href="javascript:(0)"><img class="wzb-pic" src="../static/images/teacher02.jpg"></a>
+                                                                                            <p class="companyInfo">了解Ta</p>
+                                                                                            <div class="cornerTL">&nbsp;</div>
+                                                                                            <div class="cornerTR">&nbsp;</div>
+                                                                                            <div class="cornerBL">&nbsp;</div>
+                                                                                            <div class="cornerBR">&nbsp;</div>
+                                                                                        </div>
+                                                                                    </dd>
+                                                                                    <dt>
+                                                                                        <a class="wzb-link04" href="javascript:(0)">Exam</a>
+                                                                                        <p>考试组</p>
+                                                                                        <p></p>
+                                                                                    </dt>
+                                                                                </dl>
+                                                                                <em class="wzb-user-plus" id="member_24">
+                                                                                    <a name="addGroup" class="wzb-link04" href="javascript:(0)" title="添加">
+                                                                                        <i class="fa fa-plus"></i>
+                                                                                        添加
+                                                                                    </a>
+                                                                                </em>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="clear"></div>
+                                                                    <div class="datatable-table-grid-3">
+                                                                        <div class="datatable-table-grid-content">
+                                                                            <div class="wzb-percent-3 wzb-transfer-sub wzb-display-01">
+                                                                                <dl class="wzb-list-7 clearfix">
+                                                                                    <dd>
+                                                                                        <div class="wzb-user wzb-user68">
+                                                                                            <a href="javascript:(0)"><img class="wzb-pic" src="../static/images/teacher01.png"></a>
+                                                                                            <p class="companyInfo">了解Ta</p>
+                                                                                            <div class="cornerTL">&nbsp;</div>
+                                                                                            <div class="cornerTR">&nbsp;</div>
+                                                                                            <div class="cornerBL">&nbsp;</div>
+                                                                                            <div class="cornerBR">&nbsp;</div>
+                                                                                        </div>
+                                                                                    </dd>
+                                                                                    <dt>
+                                                                                        <a class="wzb-link04" href="javascript:(0)">Training reports</a>
+                                                                                        <p>报表组</p>
+                                                                                        <p></p>
+                                                                                    </dt>
+                                                                                </dl>
+                                                                                <em class="wzb-user-plus" id="member_33">
+                                                                                    <a name="addGroup" class="wzb-link04" href="javascript:(0)" title="添加">
+                                                                                        <i class="fa fa-plus"></i>
+                                                                                        添加
+                                                                                    </a>
+                                                                                </em>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="datatable-table-grid-3">
+                                                                        <div class="datatable-table-grid-content">
+                                                                            <div class="wzb-percent-3 wzb-transfer-sub wzb-display-01">
+                                                                                <dl class="wzb-list-7 clearfix">
+                                                                                    <dd>
+                                                                                        <div class="wzb-user wzb-user68">
+                                                                                            <a href="javascript:(0)"><img class="wzb-pic" src="../static/images/teacher01.png"></a>
+                                                                                            <p class="companyInfo">了解Ta</p>
+                                                                                            <div class="cornerTL">&nbsp;</div>
+                                                                                            <div class="cornerTR">&nbsp;</div>
+                                                                                            <div class="cornerBL">&nbsp;</div>
+                                                                                            <div class="cornerBR">&nbsp;</div>
+                                                                                        </div>
+                                                                                    </dd>
+                                                                                    <dt>
+                                                                                        <a class="wzb-link04" href="javascript:(0)">Knowledge management</a>
+                                                                                        <p>知识分子组</p>
+                                                                                        <p></p>
+                                                                                    </dt>
+                                                                                </dl>
+                                                                                <em class="wzb-user-plus" id="member_36">
+                                                                                    <a name="addGroup" class="wzb-link04" href="javascript:(0)" title="添加">
+                                                                                        <i class="fa fa-plus"></i>
+                                                                                        添加
+                                                                                    </a>
+                                                                                </em>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="datatable-table-grid-3">
+                                                                        <div class="datatable-table-grid-content">
+                                                                            <div class="wzb-percent-3 wzb-transfer-sub wzb-display-01">
+                                                                                <dl class="wzb-list-7 clearfix">
+                                                                                    <dd>
+                                                                                        <div class="wzb-user wzb-user68">
+                                                                                            <a href="javascript:(0)"><img class="wzb-pic" src="../static/images/teacher02.png"></a>
+                                                                                            <p class="companyInfo">了解Ta</p>
+                                                                                            <div class="cornerTL">&nbsp;</div>
+                                                                                            <div class="cornerTR">&nbsp;</div>
+                                                                                            <div class="cornerBL">&nbsp;</div>
+                                                                                            <div class="cornerBR">&nbsp;</div>
+                                                                                        </div>
+                                                                                    </dd>
+                                                                                    <dt>
+                                                                                        <a class="wzb-link04" href="javascript:(0)">Community</a>
+                                                                                        <p>问答组</p>
+                                                                                        <p></p>
+                                                                                    </dt>
+                                                                                </dl>
+                                                                                <em class="wzb-user-plus" id="member_42">
+                                                                                    <a name="addGroup" class="wzb-link04" href="javascript:(0)" title="添加">
+                                                                                        <i class="fa fa-plus"></i>
+                                                                                        添加
+                                                                                    </a>
+                                                                                </em> 
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="clear"></div>
+                                                                    <div class="datatable-table-grid-3">
+                                                                        <div class="datatable-table-grid-content">
+                                                                            <div class="wzb-percent-3 wzb-transfer-sub wzb-display-01">
+                                                                                <dl class="wzb-list-7 clearfix">
+                                                                                    <dd>
+                                                                                        <div class="wzb-user wzb-user68">
+                                                                                            <a href="javascript:(0)"><img class="wzb-pic" src="../static/images/teacher02.jpg"></a>
+                                                                                            <p class="companyInfo">了解Ta</p>
+                                                                                            <div class="cornerTL">&nbsp;</div>
+                                                                                            <div class="cornerTR">&nbsp;</div>
+                                                                                            <div class="cornerBL">&nbsp;</div>
+                                                                                            <div class="cornerBR">&nbsp;</div>
+                                                                                        </div>
+                                                                                    </dd>
+                                                                                    <dt>
+                                                                                        <a class="wzb-link04" href="javascript:(0)">Learning map</a>
+                                                                                        <p>学习地图组</p>
+                                                                                        <p></p>
+                                                                                    </dt>
+                                                                                </dl>
+                                                                                <em class="wzb-user-plus" id="member_44">
+                                                                                    <a name="addGroup" class="wzb-link04" href="javascript:(0)" title="添加">
+                                                                                        <i class="fa fa-plus"></i>
+                                                                                        添加
+                                                                                    </a>
+                                                                                </em>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="datatable-table-grid-3">
+                                                                        <div class="datatable-table-grid-content">
+                                                                            <div class="wzb-percent-3 wzb-transfer-sub wzb-display-01">
+                                                                                <dl class="wzb-list-7 clearfix">
+                                                                                    <dd>
+                                                                                        <div class="wzb-user wzb-user68">
+                                                                                            <a href="javascript:(0)"><img class="wzb-pic" src="../static/images/teacher01.png"></a>
+                                                                                              <p class="companyInfo" style="display: none;">了解Ta</p>
+                                                                                              <div class="cornerTL" style="width: 60px; height: 60px;">&nbsp;</div>
+                                                                                              <div class="cornerTR" style="width: 60px; height: 60px;">&nbsp;</div>
+                                                                                              <div class="cornerBL" style="width: 60px; height: 60px;">&nbsp;</div>
+                                                                                              <div class="cornerBR" style="width: 60px; height: 60px;">&nbsp;</div>
+                                                                                        </div>
+                                                                                    </dd>
+                                                                                    <dt>
+                                                                                        <a class="wzb-link04" href="javascript:(0)">Poll management</a>
+                                                                                        <p>需求管理组</p>
+                                                                                        <p></p>
+                                                                                    </dt>
+                                                                                </dl>
+                                                                                <em class="wzb-user-plus" id="member_45">
+                                                                                    <a name="addGroup" class="wzb-link04" href="javascript:(0)" title="添加">
+                                                                                        <i class="fa fa-plus"></i>
+                                                                                        添加
+                                                                                    </a>
+                                                                                </em>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="datatable-table-grid-3">
+                                                                        <div class="datatable-table-grid-content">
+                                                                            <div class="wzb-percent-3 wzb-transfer-sub wzb-display-01">
+                                                                                <dl class="wzb-list-7 clearfix">
+                                                                                    <dd>
+                                                                                        <div class="wzb-user wzb-user68">
+                                                                                            <a href="javascript:(0)"><img class="wzb-pic" src="../static/images/teacher02.png"></a>
+                                                                                            <p class="companyInfo">了解Ta</p>
+                                                                                            <div class="cornerTL">&nbsp;</div>
+                                                                                            <div class="cornerTR">&nbsp;</div>
+                                                                                            <div class="cornerBL">&nbsp;</div>
+                                                                                            <div class="cornerBR">&nbsp;</div>
+                                                                                        </div>
+                                                                                    </dd>
+                                                                                    <dt>
+                                                                                        <a class="wzb-link04" href="javascript:(0)">Information management</a>
+                                                                                        <p>资讯管理组</p>
+                                                                                        <p></p>
+                                                                                    </dt>
+                                                                                </dl>
+                                                                                <em class="wzb-user-plus" id="member_46">
+                                                                                    <a name="addGroup" class="wzb-link04" href="javascript:(0)" title="添加">
+                                                                                        <i class="fa fa-plus"></i>
+                                                                                        添加
+                                                                                    </a>
+                                                                                </em>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="clear"></div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="datatable-pager"> 
+                                                <p style="padding: 0 6px;display: inline-block;margin: 0;margin-left: 10px;vertical-align: middle;">共12条记录</p>
+                                            </div>
+                                            <div style="clear:both;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn wzb-btn-blue wzb-btn-big" onclick="refreshMyMember('')">关闭</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 弹出层 end -->
+
+            <div style="width:100%;height:20px;background:#ebeff2"></div>
+
+            <!-- 按钮类 start -->
+            <div class="xyd-main clearfix" style="background:#fff;padding:0;" id="6">
+                <div style="background:#fff;padding:0;">
+                    <div class="demo-wzb-title">按钮</div>
+                    <div style="padding:15px 30px 20px 30px;">
+                        <div class="wzb-title-2">
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;width:560px;height:230px;overflow-y:auto;">
+                                    <div>1、一号、二号、确定、取消按钮统一的样式：字号：14px，字颜色：#fff，背景色分别为：#00aeef，#ff8c00。</div>
+                                    <div>鼠标经过时：透明度：0.7。</div>
+                                    <div style="color:pink;">注：开发：蓝色按钮的类名：wzb-btn-blue，橙色的类名为：wzb-btn-orange；</div>
+                                    <div style="color:pink;">一号按钮的类名为：btn；</div>
+                                    <div style="color:pink;">二号按钮的类名为：btn wzb-btn-big；</div>
+                                    <div style="margin-top:5px;">2、三号按钮：字号：16px，字颜色：#fff，背景色：#f4f4f4</div>
+                                    <div>鼠标经过时：背景色：ff8c00。</div>
+                                    <div style="color:pink;">三号按钮的类名为：wzb-btn-send；</div>
+                                    <div style="margin-top:5px;"></div>
+                                    <div>不能点击按钮：透明度：0.65；</div>
+                                    <div style="color:pink;">不能点击按钮在标签加上：disabled="disabled"；</div>
+                                    <div style="margin-top:5px;">3、“确定、取消”按钮：字号：16px，字颜色：#fff，在学员端的编辑页面的“确定、取消”按钮颜色都是黄色（wzb-btn-orange）</div>
+                                    <div style="color:pink;">注：开发：这种按钮一般在页面的最后作为保存当前页面的内容，两个按钮要在一个div（类名：wzb-bar）里面，“确定”按钮的类名：btn wzb-btn-big margin-right15，“取消”按钮的类名：btn wzb-btn-big。</div>
+                                    <!-- <div style="color:pink;">注：开发：一号按钮的类名为：btn wzb-btn-small；</div> -->
+                                    <!-- <div style="color:pink;">三号按钮的类名为：btn wzb-btn-normal；</div> -->
+                                </div>
+                            </i>
+                        </div>
+                        <div>使用要求：大多数的功能性的按钮都是使用的二号橙色按钮，部分内容内的按钮用的一号蓝色按钮或一号橙色按钮。</div>
+                        <input type="button" value="一号" class="btn wzb-btn-blue">
+                        <input type="button" value="一号" class="btn wzb-btn-orange">
+                        <div style="height:5px;"></div>
+                        <input type="button" value="二号" class="btn wzb-btn-big wzb-btn-blue">
+                        <input type="button" value="二号" class="btn wzb-btn-big wzb-btn-orange">
+                        <div style="height:5px;"></div>
+                        <a href="javascript:void(0)" class="wzb-btn-send" style="width:200px;">三号</a>
+                        <div style="height:5px;"></div>
+                        <input type="button" value="不能点击" class="btn wzb-btn-big wzb-btn-orange" disabled="disabled">
+                        <div style="height:5px;"></div>
+                        <div class="wzb-bar">
+                            <input type="button" class="btn wzb-btn-big margin-right15 wzb-btn-orange" value="确定" name="frmSubmitBtn">
+                            <input type="button" class="btn wzb-btn-big wzb-btn-orange" value="取消" name="frmSubmitBtn">
+                        </div>
+                        <!-- <input type="button" value="一号" class="btn wzb-btn-small wzb-btn-blue">
+                        <input type="button" value="一号" class="btn wzb-btn-small wzb-btn-orange">
+                        <div style="height:5px;"></div> -->
+                        <!-- <input type="button" value="三号" class="btn wzb-btn-normal wzb-btn-blue">
+                        <input type="button" value="三号" class="btn wzb-btn-normal wzb-btn-orange">
+                        <div style="height:5px;"></div> -->
+                    </div>
+                </div>
+            </div>
+            <!-- 按钮类 end -->
+
+            <div style="width:100%;height:20px;background:#ebeff2"></div>
+
+            <!-- 问答类 start --> 
+            <div class="xyd-main clearfix" style="background:#fff;padding:0;" id="7">
+                <div style="background:#fff;padding:0;">
+                    <div class="demo-wzb-title">问答类</div>
+                    <div style="padding:15px 30px 20px 30px;">
+                        <div class="wzb-title-2">
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;">
+                                    <div>1、标题：字号：16px，字颜色：#fff，背景色分别为：#b5ce0b，#ec0a8f，#999999。</div>
+                                    <div style="color:pink;">注：开发：三条标题不同的背景图片类名为：wzb-wenda-bg01，wzb-wenda-bg02，wzb-wenda-bg03。</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div class="wzb-wenda-title"><strong class="wzb-wenda-break wzb-wenda-bg01"><span>相关回答</span></strong></div>
+                        <div class="wzb-wenda-title"><strong class="wzb-wenda-break wzb-wenda-bg02"><span>我的回答</span></strong></div>            
+                        <div class="wzb-wenda-title"><strong class="wzb-wenda-break wzb-wenda-bg03"><span>相关问题</span></strong></div>
+                    </div>
+                </div>
+            </div>
+            <!-- 问答类 end --> 
+
+            <div style="width:100%;height:20px;background:#ebeff2"></div>
+
+            <!-- 评论 start --> 
+            <div class="xyd-main clearfix" style="background:#fff;padding:0;" id="8">
+                <div style="background:#fff;padding:0;">
+                    <div class="demo-wzb-title">评论</div>
+                    <div style="padding:15px 30px 20px 30px;" class="panel-content">
+                        <div class="wzb-title-2">
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;width:400px;height:140px;overflow-y:auto;">
+                                    <div>1、用户头像：宽：63px，高：62px。</div>
+                                    <div style="margin-top:5px;">2、用户名：字号：14px，颜色：#00aeef；</div>
+                                    <div>鼠标经过时：颜色：#333；</div>
+                                    <div style="margin-top:5px;">3、日期：字号：14px，颜色：#999；</div>
+                                    <div style="margin-top:5px;">4、字体图标（赞、评论、删除按钮）：字号：14px，颜色：#00aeef；</div>
+                                    <div>数量的数字：字号：14px，颜色：#666；</div>
+                                    <div>鼠标经过时：透明度：0.7。</div>
+                                    <div style="margin-top:5px;">5、评论区域：字号：14px，颜色：#333；背景色：#f9f9f9；</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div class="wzb-trend clearfix">
+                            <div class="wzb-user wzb-user68 wzb-user-1">
+                                <a href="javascript:void(0)"><img class="wzb-pic" src="../static/images/teacher02.png" alt="了解Ta"></a>
+                                <p class="companyInfo" style="display: none;">了解Ta</p>
+                                <div class="cornerTL" style="width:60px; height:60px;">&nbsp;</div>
+                                <div class="cornerTR" style="width:60px; height:60px;">&nbsp;</div>
+                                <div class="cornerBL" style="width:60px; height:60px;">&nbsp;</div>
+                                <div class="cornerBR" style="width:60px; height:60px;">&nbsp;</div>
+                            </div>
+                            <script type="text/javascript">
+                                $(".wzb-user-1").hover(function() {
+                                    $(this).children('div').stop(true);
+                                    $(this).children('div').animate({"width":"200px","height":"200px"});
+                                    $(this).children('p').fadeIn("fast");
+                                }, function() {
+                                     $(this).children('div').stop(true);
+                                    $(this).children('div').animate({"width":"60px","height":"60px"});
+                                    $(this).children('p').hide();
+                                });
+                            </script>
+                            <div class="wzb-trend-content">
+                                <div class="color-gray999">
+                                    <span class="pull-right" style="margin-right: 50px">
+                                        <em class="margin-right15">2016-08-29 16:50:48</em>
+                                        <a class="wzb-link03 margin-right15 like" href="javascript:void(0)" title="赞">
+                                            <i class="fa skin-color fa-thumbs-o-up"></i>
+                                            <span>0</span>
+                                        </a>
+                                        <a uname="Administrator" uid="3" did="47" class="wzb-link03 margin-right15 review" href="javascript:;"><i class="fa skin-color fa-comment"></i><span>0</span></a>
+                                        <a class="wzb-link03" href="javascript:void(0)"><i data="47" class="del fa skin-color fa-times"></i></a>
+                                    </span>
+                                    <a href="javascript:void(0)" class="wzb-link04" title="">Administrator</a>
+                                 </div>
+                            </div>
+                            <div class="wzb-trend-parcel">
+                                汇思与领点共同推出领思云移动学习平台
+                                <div class="queen mt15"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 评论 end --> 
+
+            <div style="width:100%;height:20px;background:#ebeff2"></div>
+
+            <!-- 页码 start -->
+            <div class="xyd-main clearfix" style="background:#fff;padding:0;" id="10">
+                <div style="background:#fff;padding:0;">
+                    <div class="demo-wzb-title">页码</div>
+                    <div style="padding:15px 30px 20px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;width:530px;height:140px;overflow-y:auto;z-index:900;">
+                                    <div>1、数字：字号：14px，字颜色：#00aeef；</div>
+                                    <div>当前状态时：边框颜色为：#CCC；</div>
+                                    <div style="color:pink;">当前状态时在 a 标签添加类名：active ；</div>
+                                    <div style="margin-top:5px;">2、信息（“共10条记录”）：字号：14px；颜色：#333；</div>
+                                    <div style="margin-top:5px;">3、左侧栏的页码一般默认显示3个页码；整个页面的一般默认显示10个页码；</div>
+                                    <div style="color:pink;">注：开发：首页类名：datatable-pager-btn datatable-pager-btn-first；</div>
+                                    <div style="color:pink;">最后一页类名：datatable-pager-btn datatable-pager-btn-last；</div>
+                                    <div style="color:pink;">前一页类名：datatable-pager-btn datatable-pager-btn-prev；</div>
+                                    <div style="color:pink;">后一页类名：datatable-pager-btn datatable-pager-btn-next；</div>
+                                    <div style="color:pink;">数字页码类名：datatable-pager-btn datatable-pager-btn-num；</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div style="width:200px;">
+                            <div class="datatable list-group wzb-list-1" id="kb_item_catalog" style="width:100%;">
+                                <div class="wzb-item-left">
+                                    <div class="datatable-pager">   
+                                        <a class="datatable-pager-btn datatable-pager-btn-first"></a>   
+                                        <a class="datatable-pager-btn datatable-pager-btn-prev"></a>    
+                                        <a num="1" class="datatable-pager-btn datatable-pager-btn-num">1</a>   
+                                        <a num="2" class="datatable-pager-btn datatable-pager-btn-num active">2</a> 
+                                        <a num="3" class="datatable-pager-btn datatable-pager-btn-num">3</a>   
+                                        <a class="datatable-pager-btn datatable-pager-btn-next"></a>    
+                                        <a class="datatable-pager-btn datatable-pager-btn-last"></a>
+                                        <p style="padding:0 6px;display:inline-block;margin:0;margin-left:10px;vertical-align:middle;">共10条记录</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="height:30px;"></div>
+
+                        <div class="datatable list-group wzb-list-1" id="kb_item_catalog" style="width:100%;">
+                            <div class="datatable-pager">   
+                                <a class="datatable-pager-btn datatable-pager-btn-first"></a>   
+                                <a class="datatable-pager-btn datatable-pager-btn-prev"></a>    
+                                <a num="1" class="datatable-pager-btn datatable-pager-btn-num">1</a>   
+                                <a num="2" class="datatable-pager-btn datatable-pager-btn-num active">2</a> 
+                                <a num="3" class="datatable-pager-btn datatable-pager-btn-num">3</a>   
+                                <a num="4" class="datatable-pager-btn datatable-pager-btn-num">4</a>   
+                                <a num="5" class="datatable-pager-btn datatable-pager-btn-num">5</a>   
+                                <a num="6" class="datatable-pager-btn datatable-pager-btn-num">6</a>   
+                                <a num="7" class="datatable-pager-btn datatable-pager-btn-num">7</a>   
+                                <a num="8" class="datatable-pager-btn datatable-pager-btn-num">8</a>   
+                                <a num="9" class="datatable-pager-btn datatable-pager-btn-num">9</a>   
+                                <a num="10" class="datatable-pager-btn datatable-pager-btn-num">10</a>
+                                <a class="datatable-pager-btn datatable-pager-btn-next"></a>    
+                                <a class="datatable-pager-btn datatable-pager-btn-last"></a>
+                                <p style="padding:0 6px;display:inline-block;margin:0;margin-left:10px;vertical-align:middle;">共100条记录</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 页码 end -->
+
+            <div style="width:100%;height:20px;background:#ebeff2"></div>
+
+            <!-- 提示类 start --> 
+            <div class="xyd-main clearfix" style="background:#fff;padding:0;" id="9">
+                <div style="background:#fff;padding:0;">
+                    <div class="demo-wzb-title">提示类</div>
+                    <div style="padding:15px 30px 20px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">点击
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;width:330px;">
+                                    <div>字体图标：字号：24px，颜色：灰色（点击图标）：#666，蓝色：#00aeef；</div>
+                                    <div>鼠标经过时（赞、收藏、评论）：透明度：0.7。</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div class="mode">
+                            <div class="losepage sessionTimeOut"><!-- losepage-out -->
+                                <div class="losepage_tit">您的登录已经失效！</div>
+                                <div class="losepage_info">请重新登陆，本页将默认<span id="second" style="color:#00aeef;margin:0 2px;">0</span>秒后自动跳转至登录页</div>
+                                <div class="losepage_desc"><input type="button" class="btn   wzb-btn-yellow" onclick="go()" value="登录页面"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 提示类 end --> 
+
+            <div style="width:100%;height:20px;background:#ebeff2"></div>
+
+            <!-- 功能类 start --> 
+            <div class="xyd-main clearfix" style="background:#fff;padding:0;" id="9">
+                <div style="background:#fff;padding:0;">
+                    <div class="demo-wzb-title">功能类</div>
+                    <div style="padding:15px 30px 20px 30px;border-bottom:1px solid #EBEFF2;">
+                        <div class="wzb-title-2">点击
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;width:330px;">
+                                    <div>字体图标：字号：24px，颜色：灰色（点击图标）：#666，蓝色：#00aeef；</div>
+                                    <div>鼠标经过时（赞、收藏、评论）：透明度：0.7。</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div class="wzb-article-tool">
+                            <a class="wzb-link03" href="javascript:void(0)"><i class="fa skin-color fa-thumbs-o-up"></i>赞(<span>6</span>)</a>
+                            <a class="wzb-link03" href="javascript:void(0)"><i class="fa skin-color fa-star"></i>收藏(<span>3</span>)</a>
+                            <a class="wzb-link03" href="javascript:void(0)"><i class="fa skin-color fa-comment"></i>评论(<span>2</span>)</a>
+                            <em style="cursor:text;margin-right:45px;color:#666;" id="itm_access_count"><i class="fa fa-hand-o-up"></i>点击(<span>6</span>)</em>
+                            <em class="color-gray666"><i class="fa skin-color fa-clock-o"></i>2016-07-29</em>
+                        </div>
+                    </div>
+                    <div style="padding:15px 30px 20px 30px;">
+                        <div class="wzb-title-2">文件上传
+                            <i class="demo-wenhao">
+                                <div class="demo-wzb-content-1" style="display:none;width:500px;">
+                                    <div>1、文字（请选择上传文件）：字号：12px；颜色：#999；</div>
+                                    <div style="margin-top:5px;">2、线框：大小：1px；颜色：#eee；</div>
+                                    <div style="margin-top:5px;">3、按钮：字号：14px，颜色：#fff，背景色：#ff8c00。</div>
+                                </div>
+                            </i>
+                        </div>
+                        <div class="file">
+                            <input id="file" class="file_file" name="image" type="file">
+                            <input id="textfield" class="file_txt" value="请选择上传文件">
+                            <div class="file_button">
+                                浏览
+                            </div>
+                        </div>
+                        <div style="height:50px;"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- 功能类 end --> 
+
+
+            <script type="text/javascript">
+                $(".demo-wenhao").hover(function(){
+                   $(this).children('.demo-wzb-content-1').toggle();
+                });
+
+                var goToQuestion = function(num){
+                     $("html,body").animate({scrollTop:$("#"+num+"").offset().top-200},1000);
+                }
+            </script>
+
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+        var tyys = $("#0").offset().top-240;
+        var lbxs = $("#1").offset().top-240;
+        var btxs = $("#2").offset().top-240;
+        var xxk = $("#4").offset().top-240;
+        var an = $("#6").offset().top-240;
+        var wdl = $("#7").offset().top-240;
+        var pll = $("#8").offset().top-240;
+        var ym = $("#10").offset().top-240;
+        var gn = $("#9").offset().top-240;
+        $(window).scroll(function(event){
+            var val = $(document).scrollTop();
+            if(val>=tyys){
+                $(".tyys a").addClass("cur").parent().siblings().children('a').removeClass("cur");
+            }
+            if(val>=lbxs){
+                $(".lbxs a").addClass("cur").parent().siblings().children('a').removeClass("cur");
+            }
+            if(val>=btxs){
+                $(".btxs a").addClass("cur").parent().siblings().children('a').removeClass("cur");
+            }
+            if(val>=xxk){
+                $(".xxk a").addClass("cur").parent().siblings().children('a').removeClass("cur");
+            }
+            if(val>=an){
+                $(".an a").addClass("cur").parent().siblings().children('a').removeClass("cur");
+            }
+            if(val>=wdl){
+                $(".wdl a").addClass("cur").parent().siblings().children('a').removeClass("cur");
+            }
+            if(val>=pll){
+                $(".pll a").addClass("cur").parent().siblings().children('a').removeClass("cur");
+            }
+            if(val>=ym){
+                $(".ym a").addClass("cur").parent().siblings().children('a').removeClass("cur");
+            }
+            if(val>=gn){
+                $(".gn a").addClass("cur").parent().siblings().children('a').removeClass("cur");
+            }
+        });
+
+    </script>
+                
+
+
+
+
+
+</body>
+</html> 

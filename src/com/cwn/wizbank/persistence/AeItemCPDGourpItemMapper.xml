@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.AeItemCPDGourpItemMapper">
+
+	<resultMap id="AeItemCPDGourpItemMap" type="AeItemCPDGourpItem">
+	        <id column="acgi_id" property="acgi_id" />
+	        <result column="acgi_cg_id" property="acgi_cg_id"></result>
+	        <result column="acgi_aci_id" property="acgi_aci_id"></result>
+	        <result column="acgi_itm_id" property="acgi_itm_id"></result>
+	        <result column="acgi_award_core_hours" property="acgi_award_core_hours"></result>
+	        <result column="acgi_award_non_core_hours" property="acgi_award_non_core_hours"></result>
+	        <result column="acgi_create_usr_ent_id" property="acgi_create_usr_ent_id"></result>
+	        <result column="acgi_update_usr_ent_id" property="acgi_update_usr_ent_id"></result>
+	        <result column="acgi_create_datetime" property="acgi_create_datetime"  ></result>
+	        <result column="acgi_update_datetime" property="acgi_update_datetime"  ></result>
+	        <association property="aeItemCPDItem" javaType="AeItemCPDItem">
+	            <id property="aci_id" column="aci_id" />
+	            <result property="aci_accreditation_code" column="aci_accreditation_code" />
+	            <result column="aci_hours_end_date" property="aci_hours_end_date" javaType="java.util.Date" jdbcType="DATE"></result>
+	        </association>
+    </resultMap>
+	
+	<select id="getAeItemCPDGourpItem" resultMap="AeItemCPDGourpItemMap" parameterType="Map">
+	    <![CDATA[
+			select 
+				acgi_id ,
+				acgi_cg_id ,
+				acgi_aci_id ,
+				acgi_itm_id ,
+				acgi_award_core_hours ,
+				acgi_award_non_core_hours ,
+				acgi_create_usr_ent_id ,
+				acgi_create_datetime ,
+				acgi_update_usr_ent_id ,
+				acgi_update_datetime ,
+				aci_id,
+				aci_accreditation_code,
+				aci_hours_end_date
+	         from 
+         		aeItemCPDGourpItem  
+	         	inner join aeItemCPDItem  on (acgi_aci_id = aci_id)
+	         where 
+	         	1 = 1
+		]]>
+		<if test="id !=null">
+			<![CDATA[
+				and acgi_itm_id = #{id}
+			]]>
+		</if>
+		<if test="itm_id !=null">
+			<![CDATA[
+				and acgi_itm_id = #{itm_id}
+			]]>
+		</if>
+		<if test="cg_id !=null">
+			<![CDATA[
+				and acgi_cg_id = #{cg_id}
+			]]>
+		</if>
+		order by acgi_create_datetime asc
+	</select>
+	
+    <select id="getCountItemByCgID" resultType="java.lang.Integer" parameterType="java.lang.Long">
+		<![CDATA[
+			select count(*)
+			from aeItemCPDGourpItem  
+			where  acgi_cg_id = #{cg_id}
+			and (acgi_award_core_hours > 0 or acgi_award_non_core_hours > 0)
+			]]>
+	  </select>
+
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.AeItemCPDGourpItem">
+       <![CDATA[
+            insert into AeItemCPDGourpItem(
+            		acgi_cg_id,
+            		acgi_aci_id,
+            		acgi_itm_id,
+            		acgi_award_core_hours,
+            		acgi_award_non_core_hours,
+            		acgi_create_usr_ent_id,
+            		acgi_create_datetime
+            ) values (
+            	#{acgi_cg_id,jdbcType=INTEGER},
+            	#{acgi_aci_id,jdbcType=INTEGER},
+            	#{acgi_itm_id,jdbcType=INTEGER},
+            	#{acgi_award_core_hours,jdbcType=FLOAT},
+            	#{acgi_award_non_core_hours,jdbcType=FLOAT},
+            	#{acgi_create_usr_ent_id,jdbcType=INTEGER},
+            	#{acgi_create_datetime,jdbcType=TIMESTAMP}
+            )
+        ]]>
+    </insert>
+
+    <update id="update" parameterType="com.cwn.wizbank.entity.AeItemCPDGourpItem">
+	    <![CDATA[
+	        update AeItemCPDGourpItem 
+	        set
+	            acgi_award_core_hours = #{acgi_award_core_hours,jdbcType=VARCHAR},
+				acgi_award_non_core_hours = #{acgi_award_non_core_hours,jdbcType=TIMESTAMP},
+           		acgi_update_usr_ent_id = #{acgi_update_usr_ent_id,jdbcType=INTEGER},
+           		acgi_update_datetime = #{acgi_update_datetime,jdbcType=TIMESTAMP}
+	         where acgi_id = #{acgi_id,jdbcType=INTEGER}
+	    ]]>
+	</update>
+
+
+</mapper>

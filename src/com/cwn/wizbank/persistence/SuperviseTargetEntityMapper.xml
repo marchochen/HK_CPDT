@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.SuperviseTargetEntityMapper">
+	<select id="get" resultType="SuperviseTargetEntity" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				spt_source_usr_ent_id,
+				spt_type,
+				spt_target_ent_id,
+				spt_create_timestamp,
+				spt_create_usr_id,
+				spt_syn_timestamp,
+				spt_eff_start_datetime,
+				spt_eff_end_datetime
+			from SuperviseTargetEntity t
+			where
+				 t.spt_source_usr_ent_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.SuperviseTargetEntity">
+	    <![CDATA[
+	        update SuperviseTargetEntity
+	        set 
+				spt_source_usr_ent_id = #{spt_source_usr_ent_id,jdbcType=INTEGER},
+				spt_type = #{spt_type,jdbcType=VARCHAR},
+				spt_target_ent_id = #{spt_target_ent_id,jdbcType=INTEGER},
+				spt_create_timestamp = #{spt_create_timestamp,jdbcType=DATE},
+				spt_create_usr_id = #{spt_create_usr_id,jdbcType=VARCHAR},
+				spt_syn_timestamp = #{spt_syn_timestamp,jdbcType=DATE},
+				spt_eff_start_datetime = #{spt_eff_start_datetime,jdbcType=DATE},
+				spt_eff_end_datetime = #{spt_eff_end_datetime,jdbcType=DATE}
+	         where t.spt_source_usr_ent_id = #{spt_source_usr_ent_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.SuperviseTargetEntity">
+    	<![CDATA[
+            insert into SuperviseTargetEntity(
+            		spt_create_timestamp,
+            		spt_create_usr_id,
+            		spt_syn_timestamp,
+            		spt_eff_start_datetime,
+            		spt_eff_end_datetime
+            ) values (
+            	#{spt_create_timestamp,jdbcType=DATE},
+            	#{spt_create_usr_id,jdbcType=VARCHAR},
+            	#{spt_syn_timestamp,jdbcType=DATE},
+            	#{spt_eff_start_datetime,jdbcType=DATE},
+            	#{spt_eff_end_datetime,jdbcType=DATE}
+            )
+        ]]>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from SuperviseTargetEntity where
+	        spt_source_usr_ent_id = #{spt_source_usr_ent_id}
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="SuperviseTargetEntity">
+	    <![CDATA[
+	         select 
+				spt_source_usr_ent_id,
+				spt_type,
+				spt_target_ent_id,
+				spt_create_timestamp,
+				spt_create_usr_id,
+				spt_syn_timestamp,
+				spt_eff_start_datetime,
+				spt_eff_end_datetime
+			from SuperviseTargetEntity t 
+	    ]]>
+	</select>
+	<select id="selectSubordinateList" resultType="RegUser" parameterType="Page">
+		select usr_ent_id,
+		usr_display_bil,
+		usg_display_bil,
+		ugr_display_bil,
+		urx_extra_43            as "usr_photo",
+		my_att.s_att_target_uid as "snsAttention.s_att_target_uid",
+		he_att.s_att_source_uid as "snsAttention.s_att_source_uid"
+		from reguser left join RegUserExtension on urx_usr_ent_id = usr_ent_id
+		left join EntityRelation usg on usg.ern_child_ent_id = usr_ent_id and usg.ern_type = 'USR_PARENT_USG' and usg.ern_parent_ind = 1
+		left join UserGroup on usg_ent_id = usg.ern_ancestor_ent_id
+		left join EntityRelation ugr on ugr.ern_child_ent_id = usr_ent_id and ugr.ern_type = 'USR_CURRENT_UGR' and ugr.ern_parent_ind = 1
+		left join UserGrade on ugr_ent_id = ugr.ern_ancestor_ent_id
+		left join sns_attention my_att on my_att.s_att_target_uid = usr_ent_id and my_att.s_att_source_uid = ${params.usr_ent_id}
+		left join sns_attention he_att on he_att.s_att_source_uid = usr_ent_id and he_att.s_att_target_uid = ${params.usr_ent_id}
+		where usr_status = 'OK' and usr_ent_id != ${params.usr_ent_id}
+		<if test="params.itmId != null and params.itmId > 0">
+			and not exists(
+			select 1 from aeapplication where app_ent_id = usr_ent_id and
+			not exists(select 1 from courseEvaluation where cov_tkh_id = app_tkh_id and cov_status not in ('C', 'P'))
+			and app_itm_id = #{params.itmId}
+			)
+		</if>
+		and
+		<choose>
+			<when test="params.type == 'all'">
+				(
+				exists(
+				select 1 from EntityRelation where ern_child_ent_id = usr_ent_id
+				and ern_ancestor_ent_id in (
+				select spt_target_ent_id from SuperviseTargetEntity where
+				#{params.curTime} between spt_eff_start_datetime and spt_eff_end_datetime and spt_source_usr_ent_id = ${params.usr_ent_id} and spt_type = 'SUPERVISE'
+				) and ern_type = 'USR_PARENT_USG'
+				)
+				or
+				usr_ent_id in (select spt_target_ent_id from SuperviseTargetEntity where spt_source_usr_ent_id = ${params.usr_ent_id} and spt_type =  'DIRECT_SUPERVISE' )
+				)
+			</when>
+			<when test="params.type == 'direct'">
+				usr_ent_id in (select spt_target_ent_id from SuperviseTargetEntity where spt_source_usr_ent_id = ${params.usr_ent_id} and spt_type =  'DIRECT_SUPERVISE' )
+			</when>
+			<otherwise>
+				exists(
+				select 1 from EntityRelation where ern_child_ent_id = usr_ent_id
+				and ern_ancestor_ent_id in (
+				select spt_target_ent_id from SuperviseTargetEntity where
+				#{params.curTime} between spt_eff_start_datetime and spt_eff_end_datetime and spt_source_usr_ent_id = ${params.usr_ent_id} and spt_type = 'SUPERVISE'
+				) and ern_type = 'USR_PARENT_USG'
+				)
+			</otherwise>
+		</choose>
+
+		<if test="params.searchContent != null and params.searchContent != ''">
+			and (
+			lower(usr_display_bil) like #{params.searchContent}
+			or lower(usr_ste_usr_id) like #{params.searchContent}
+			or lower(usg_display_bil) like #{params.searchContent}
+			or lower(ugr_display_bil) like #{params.searchContent}
+			)
+		</if>
+
+		<if test="params.itmId != null and params.itmId > 0">
+			and usr_ent_id not in (
+				select app_ent_id FROM aeApplication
+				left  join courseEvaluation on
+				<choose>
+					<when test="_databaseId == 'ORACLE'">
+						NVL(cov_tkh_id,0)
+					</when>
+					<when test="_databaseId == 'SQLSERVER'">
+						ISNULL(cov_tkh_id,0)
+					</when>
+					<when test="_databaseId == 'MYSQL'">
+						IFNULL(cov_tkh_id,0)
+					</when>
+				</choose>  = app_tkh_id
+				where
+				<choose>
+					<when test="_databaseId == 'ORACLE'">
+						NVL(cov_tkh_id,0)
+					</when>
+					<when test="_databaseId == 'SQLSERVER'">
+						ISNULL(cov_tkh_id,0)
+					</when>
+					<when test="_databaseId == 'MYSQL'">
+						IFNULL(cov_tkh_id,0)
+					</when>
+				</choose> in (
+					select max(app_tkh_id) from aeApplication where app_itm_id = ${params.itmId}
+					group by app_ent_id
+				) and (cov_status != 'C' or app_status in ('Waiting','Withdrawn','Rejected','Pending'))
+			) order by usr_display_bil
+		</if>
+	</select>
+	<select id="selectMySupervise" resultType="RegUser" parameterType="Long">
+		select 
+			usr_ent_id, 
+			usr_display_bil 
+		from superviseTargetEntity
+		left join regUser on usr_ent_id = spt_source_usr_ent_id
+		where spt_target_ent_id = #{usr_ent_id}
+	</select>
+
+	<select id="isUserSuperviser" resultType="Boolean">
+		select count(1)
+		from superviseTargetEntity
+		where spt_target_ent_id = #{userEntId} and spt_source_usr_ent_id = #{superviserEntId}
+		and spt_type = 'DIRECT_SUPERVISE'
+	</select>
+
+	<select id="isUserGroupSuperviser" resultType="Boolean">
+		select count(1)
+		from superviseTargetEntity
+		inner join EntityRelation on ern_ancestor_ent_id = spt_target_ent_id and ern_type = 'USR_PARENT_USG'
+		inner join RegUser on ern_ancestor_ent_id = usr_app_approval_usg_ent_id
+		where spt_source_usr_ent_id = #{superviserEntId} and ern_child_ent_id =  #{userEntId}
+		and spt_type = 'SUPERVISE'
+	</select>
+
+	<delete id="delBySourceEntId" parameterType="Long">
+		DELETE FROM SuperviseTargetEntity WHERE spt_source_usr_ent_id = #{usr_ent_id}
+	</delete>
+
+
+	   <select id="getDirectSupervise" resultType="SuperviseTargetEntity" parameterType="Map">
+        select  distinct spt_source_usr_ent_id  from   superviseTargetEntity
+        left join regUser on usr_ent_id = spt_source_usr_ent_id
+        where usr_status = 'OK'
+        and spt_type = 'DIRECT_SUPERVISE'
+        <choose>
+                         <when test="spt_target_ent_id!= null  and  spt_target_ent_id.length>0">
+                             and
+                             <foreach collection="spt_target_ent_id" item="item" open="(" separator="or" close=")">
+                               spt_target_ent_id  =   #{item}
+                             </foreach>
+                         </when>
+                         <otherwise>
+                              and spt_target_ent_id = null
+                        </otherwise>
+         </choose>
+
+    </select>
+
+   <select id="getGroupSupervise" resultType="SuperviseTargetEntity" parameterType="Map">
+        select distinct spt_source_usr_ent_id  from   superviseTargetEntity     
+        inner join EntityRelation supervise on supervise.ern_ancestor_ent_id = spt_target_ent_id   
+        and spt_type = 'SUPERVISE'  and supervise.ern_type = 'USR_PARENT_USG'  
+        <choose>
+                         <when test="ern_child_ent_id!= null  and  ern_child_ent_id.length>0">
+                             and 
+                             <foreach collection="ern_child_ent_id" item="item" open="(" separator="or" close=")">
+                               supervise.ern_child_ent_id  =   #{item}
+                             </foreach>
+                         </when>
+                         <otherwise>
+                              and supervise.ern_child_ent_id   = null
+                        </otherwise>
+         </choose>
+
+    </select>
+    
+</mapper>

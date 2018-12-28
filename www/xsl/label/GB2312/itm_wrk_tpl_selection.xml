@@ -1,0 +1,20 @@
+<label_reference_data_list>
+	<label name="lab_g_select_enrol_wf">请选择</label>
+	<label name="lab_g_enrol_wf">报名工作流</label>
+	<label name="lab_g_form_btn_next_step">下一步</label>
+	<label name="lab_g_form_btn_cancel">取消</label>
+	<label name="lab_g_template_workflow">
+		<element id="7">
+			<title>直接录取</title>
+			<description/>
+		</element>
+		<element id="15">
+			<title>需要审批</title>
+			<description/>
+		</element>
+		<element id="18">
+			<title>Auto Enrollment Payment Workflow</title>
+			<description/>
+		</element>
+	</label>
+</label_reference_data_list>

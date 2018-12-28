@@ -1,0 +1,286 @@
+#线程全局开关
+openScheduler: true
+ #执行的线程信息
+schedulerInfo:
+   #线程1
+   core-task01:
+     name: MessageScheduler
+     group: core
+     #线程状态
+     status: true
+     #线程执行时间"秒 分 时 日 月 年"
+     cronExpression: "0 0/15 * * * ?"
+     #备注
+     desc: "messaging thread properties	retry_attempt: number of times to re-try sending in case of failure of sending mails (positive integer)	notes_log_file: log file for sending NOTES message (located in log_dir)"
+     #执行主体
+     runClass: "com.cw.wizbank.message.MessageScheduler"
+     #参数
+     params:
+       retry_attempt: 3
+       notes_log_file: notes_log.txt
+   #线程2
+   core-task02:
+     name: MessagePushScheduler
+     group: core
+     #线程状态
+     status: true
+     #线程执行时间"秒 分 时 日 月 年"
+     cronExpression: "0 0/3 * * * ?"
+     #备注
+     desc: ""
+     #执行主体
+     runClass: "com.cw.wizbank.message.MessagePushScheduler"
+   #线程3
+   core-task03:
+     name: loadTargetLrnCacheAndCourseEnrollScheduler
+     group: core
+     #线程状态
+     status: true
+     #线程执行时间"秒 分 时 日 月 年"
+     cronExpression: "0 2 1 * * ?"
+     #备注
+     desc: "该线程必需总是保持开启, 否则目标学员功能将会不正常; 另外,这个线程请在用保完用户同步后再启动.
+                   这个线程的作用先把课程的目标学员预计算好,并加载到中间表,供页面上查询用,以提高效率
+                 然后为已设置自动报名的课程,为目标学员自动报名."
+     #执行主体
+     runClass: "com.cw.wizbank.course.loadTargetLrnCacheAndCourseEnrollScheduler"
+   #线程4
+   core-task04:
+     name: MarkCourse
+     group: core
+     #线程状态
+     status: true
+     #线程执行时间"秒 分 时 日 月 年"
+     cronExpression: "0 0 1 * * ?"
+     #备注
+     desc: ""
+     #执行主体
+     runClass: "com.cw.wizbank.batch.markEvaluation.MarkCourse"
+     #参数
+     params:
+       finalize_course: true
+   #线程5
+   core-task05:
+     name: TempDirCleaner
+     group: core
+     #线程状态
+     status: true
+     #线程执行时间"秒 分 时 日 月 年"
+     cronExpression: "0 0 0/1 * * ?"
+     #备注
+     desc: "tempfile_time_to_live: how old (in seconds) a file can retain before being cleaned (positive integer)"
+     #执行主体
+     runClass: "com.cw.wizbank.qdb.TempDirCleaner"
+     #参数
+     params:
+       temp_file_time_to_live: 3600
+   #线程6
+   core-task06:
+     name: CleanTestMemory
+     group: core
+     #线程状态
+     status: true
+     #线程执行时间"秒 分 时 日 月 年"
+     cronExpression: "0 0 1 * * ?"
+     #备注
+     desc: ""
+     #执行主体
+     runClass: "com.cw.wizbank.qdb.CleanTestMemory"
+   #线程7
+   core-task07:
+     name: CourseNotifyScheduler
+     group: core
+     #线程状态
+     status: true
+     #线程执行时间"秒 分 时 日 月 年"
+     cronExpression: "0 0 1 * * ?"
+     #备注
+     desc: "Complete end date notification email"
+     #执行主体
+     runClass: "com.cw.wizbank.course.CourseNotifyScheduler"
+     #参数
+     params:
+       send_mail_interval: 1
+   #线程8
+   core-task08:
+     name: CheckActiveUserScheduler
+     group: core
+     #线程状态
+     status: true
+     #线程执行时间"秒 分 时 日 月 年"
+     cronExpression: "0 0/5 * * * ?"
+     #备注
+     desc: "performance warning notification email.		send_mail_interval : only send one mail for warning or blocking inside send_mail_interval"
+     #执行主体
+     runClass: "com.cw.wizbank.qdb.CheckActiveUserScheduler"
+     #参数
+     params:
+       send_mail_interval: 1
+   #线程9
+   core-task09:
+     name: IMSEnterpriseScheduler
+     group: core
+     #线程状态
+     status: false
+     #线程执行时间"秒 分 时 日 月 年"
+     cronExpression: "0 0 1 * * ?"
+     #备注
+     desc: "IMSAPI schedule.		Please refer to the ims_enerprise_api doucment for parameter settings."
+     #执行主体
+     runClass: "com.cw.wizbank.enterprise.IMSEnterpriseScheduler"
+     #参数
+     params:
+       init_file: ..\..\batch\enterprise\config\wizb.ini
+       action: IMPORT
+       type: USER_GROUP
+       file: ..\..\batch\enterprise\import\ims_xml.xml
+       log_dir: ..\..\batch\enterprise\log
+   #线程10
+   core-task10:
+     name: UserCreditsScheduler
+     group: core
+     #线程状态
+     status: true
+     #线程执行时间"秒 分 时 日 月 年"
+     cronExpression: "0 30 1 * * ?"
+     #备注
+     desc: "update user credits."
+     #执行主体
+     runClass: "com.cw.wizbank.JsonMod.credit.UserCreditsScheduler"
+   #线程11
+   core-task11:
+     name: MarkPopularQueScheduler
+     group: core
+     #线程状态
+     status: true
+     #线程执行时间"秒 分 时 日 月 年"
+     cronExpression: "0 40 1 * * ?"
+     #备注
+     desc: "mark popular question.		available_question_days: the period of vaild vote. 		available_vote_threshold: the threshold of vote count in every period 								  and vote count of popular question in its period must be greater than or equal to the threshold. 		popular_question_count: the number of question that is marked popular."
+     #执行主体
+     runClass: "com.cw.wizbank.JsonMod.know.MarkPopularQueScheduler"
+     #参数
+     params:
+       available_question_days: 7
+       available_vote_threshold: 1
+       popular_question_count: 100
+   #线程12
+   core-task12:
+     name: LoadTestScheduler
+     group: core
+     #线程状态
+     status: true
+     #线程执行时间"秒 分 时 日 月 年"
+     cronExpression: "0 0 2 * * ?"
+     #备注
+     desc: "load Test"
+     #执行主体
+     runClass: "com.cw.wizbank.qdb.LoadTestScheduler"
+   #线程13
+   core-task13:
+     name: CleanCache
+     group: core
+     #线程状态
+     status: true
+     #线程执行时间"秒 分 时 日 月 年"
+     cronExpression: "0 30 1 * * ?"
+     #备注
+     desc: "clean cache"
+     #执行主体
+     runClass: "com.cw.wizbank.cache.CleanCache"
+   #线程14
+   core-task14:
+     name: UserManageScheduler
+     group: core
+     #线程状态
+     status: true
+     #线程执行时间"秒 分 时 日 月 年"
+     cronExpression: "0 0 1 * * ?"
+     #备注
+     desc: "delete expired user"
+     #执行主体
+     runClass: "com.cw.wizbank.JsonMod.user.UserManageScheduler"
+   #线程15
+   core-task15:
+     name: SynlrnActivityReportScheduler
+     group: core
+     #线程状态
+     status: true
+     #线程执行时间"秒 分 时 日 月 年"
+     cronExpression: "0 0 2 * * ?"
+     #备注
+     desc: ""
+     #执行主体
+     runClass: "com.cw.wizbank.report.SynlrnActivityReportScheduler"
+   #线程16
+   core-task16:
+     name: LearningSituationScheduled
+     group: core
+     #线程状态
+     status: true
+     #线程执行时间"秒 分 时 日 月 年"
+     cronExpression: "0 0 3 * * ?"
+     #备注
+     desc:  "统计个人学习概况"
+     #执行主体
+     runClass: "com.cwn.wizbank.scheduled.LearningSituationScheduled"
+   #线程17
+   core-task17:
+     name: ImportUserFromFile
+     group: core
+     #线程状态
+     status: true
+     #线程执行时间"秒 分 时 日 月 年"
+     cronExpression: "0 0/1 * * * ?"
+     #备注
+     desc: "导入用户线程, 在页面上传文件导入用户时，不是会马上被导入，而是先放到队列，然后线程定时检查队列，进行导入用户的操作"
+     #执行主体
+     runClass: "com.cwn.wizbank.scheduled.ImportUserFromFile"
+   #线程18
+   core-task18:
+     name: LoginLogScheduler
+     group: core
+     #线程状态
+     status: true
+     #线程执行时间"秒 分 时 日 月 年"
+     cronExpression: "0 0 1 * * ?"
+     #备注
+     desc: "登陆日志定时任务，用于删除1年前的数据库和生成3个报表,每晚1点执行一次"
+     #执行主体
+     runClass: "com.cwn.wizbank.systemLog.LoginLogScheduler"
+   #线程19
+   core-task19:
+     name: LiveScheduler
+     group: core
+     #线程状态
+     status: true
+     #线程执行时间"秒 分 时 日 月 年"
+     cronExpression: "0 0/3 * * * ?"
+     #备注
+     desc: "直播相关线程"
+     #执行主体
+     runClass: "com.cwn.wizbank.scheduled.LiveScheduler"
+   #线程20
+   core-task20:
+     name: CpdHistoryScheduler
+     group: core
+     #线程状态
+     status: false
+     #线程执行时间"秒 分 时 日 月 年"
+     cronExpression: "0 0 2 * * ?"
+     #备注
+     desc: "cpd时数历史快照线程,每天2点执行一次"
+     #执行主体
+     runClass: "com.cwn.wizbank.scheduled.CpdHistoryScheduler"
+   #线程21
+   core-task21:
+     name: CpdOutstandingHoursEmailScheduler
+     group: core
+     #线程状态
+     status: false
+     #线程执行时间"秒 分 时 日 月 年"
+     cronExpression: "0 0 2 * * ?"
+     #备注
+     desc: "cpd生成CPT/D Outstanding Hours Email Alert 邮件，每天执行一次"
+     #执行主体
+     runClass: "com.cwn.wizbank.scheduled.CpdOutstandingHoursEmailScheduler"

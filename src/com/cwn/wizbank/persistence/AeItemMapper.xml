@@ -1,0 +1,2068 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.AeItemMapper">
+
+
+	<sql id="page_where">
+		<where>
+		</where>
+	</sql>
+
+	<select id="getCount" resultType="java.lang.Long"
+		parameterType="Long">
+	    <![CDATA[
+	        select count(*) from AeItem t 
+	    ]]>
+		<include refid="page_where" />
+
+	</select>
+	
+	<sql id="aeitemColumn">
+		itm_id,
+		itm_title,
+		itm_code,
+		itm_version_code,
+		itm_type,
+		itm_capacity,
+		itm_min_capacity,
+		itm_unit,
+		itm_fee_ccy,
+		itm_fee,
+		itm_appn_start_datetime,
+		itm_appn_end_datetime,
+		itm_eff_start_datetime,
+		itm_eff_end_datetime,
+		itm_xml,
+		itm_status,
+		itm_owner_ent_id,
+		itm_create_timestamp,
+		itm_create_usr_id,
+		itm_upd_timestamp,
+		itm_upd_usr_id,
+		itm_ext1,
+		itm_create_run_ind,
+		itm_run_ind,
+		itm_apply_ind,
+		itm_deprecated_ind,
+		itm_qdb_ind,
+		itm_auto_enrol_qdb_ind,
+		itm_life_status,
+		itm_apply_method,
+		itm_imd_id,
+		itm_person_in_charge,
+		itm_rsv_id,
+		itm_cancellation_reason,
+		itm_cancellation_type,
+		itm_ctf_id,
+		itm_syn_timestamp,
+		itm_create_session_ind,
+		itm_session_ind,
+		itm_has_attendance_ind,
+		itm_ji_ind,
+		itm_completion_criteria_ind,
+		itm_fee_1,
+		itm_can_cancel_ind,
+		itm_content_eff_start_datetime,
+		itm_content_eff_end_datetime,
+		itm_content_eff_duration,
+		itm_can_qr_ind,
+		itm_retake_ind,
+		itm_approval_status,
+		itm_approval_action,
+		itm_approve_timestamp,
+		itm_approve_usr_id,
+		itm_submit_action,
+		itm_submit_timestamp,
+		itm_submit_usr_id,
+		itm_app_approval_type,
+		itm_tcr_id,
+		itm_content_def,
+		itm_enroll_type,
+		itm_send_enroll_email_ind,
+		itm_qte_notify_timestamp,
+		itm_access_type,
+		itm_mark_buffer_day,
+		itm_notify_days,
+		itm_notify_email,
+		itm_not_allow_waitlist_ind,
+		itm_target_enrol_type,
+		itm_comment_avg_score,
+		itm_comment_total_count,
+		itm_comment_total_score,
+		itm_publish_timestamp,
+		itm_srh_content,
+		itm_desc,
+		itm_plan_code,
+		itm_icon,
+		itm_exam_ind,
+		itm_blend_ind,
+		itm_ref_ind,
+		itm_bonus_ind,
+		itm_diff_factor,
+		itm_integrated_ind,
+		itm_share_ind,
+		itm_offline_pkg,
+		itm_offline_pkg_file,
+		itm_cfc_id,
+		itm_inst_type,
+		itm_parent_id,
+		itm_ji_send_datetime,
+		itm_reminder_send_datetime,
+		itm_mobile_ind
+	</sql>
+
+
+	<select id="getPermission" resultType="AeItem" parameterType="Page">
+		select
+		itm_id,
+		itm_code,
+		itm_title,
+		itm_icon,
+		itm_type,
+		itm_status,
+		itm_mobile_ind,
+		itm_app_approval_type,
+		itm_appn_start_datetime,
+		itm_appn_end_datetime,
+		itm_eff_start_datetime,
+		itm_eff_end_datetime,
+		itm_content_eff_start_datetime AS "itm_content_eff_start_time",
+		itm_content_eff_end_datetime AS "itm_content_eff_end_time",
+		itm_content_eff_duration,
+		itm_retake_ind,
+		itm_not_allow_waitlist_ind,
+		itm_capacity,
+		itm_blend_ind,
+		itm_exam_ind,
+		itm_ref_ind,
+		itm_create_run_ind,
+		itm_run_ind,
+		itm_integrated_ind,
+		itm_fee,
+		itm_desc,
+		itm_cfc_id,
+		tcr.tcr_id as "tcr.tcr_id",
+		tcr.tcr_code as "tcr.tcr_code",
+		tcr.tcr_title as "tcr.tcr_title",
+		ies.ies_lang AS "ies.ies_lang",
+		ies.ies_objective AS "ies.ies_objective",
+		ies.ies_contents AS "ies.ies_contents",
+		ies.ies_duration AS "ies.ies_duration",
+		ies.ies_audience AS "ies.ies_audience",
+		ies.ies_prerequisites AS "ies.ies_prerequisites",
+		ies.ies_exemptions AS "ies.ies_exemptions",
+		ies.ies_remarks AS "ies.ies_remarks",
+		ies.ies_enroll_confirm_remarks AS "ies.ies_enroll_confirm_remarks",
+		ies.ies_schedule AS "ies.ies_schedule",
+		ies.ies_access_count AS "ies_access_count",
+		ies.ies_credit AS "ies.ies_credit",
+		(case when s_vtl_log_id is null then 0 else 1 end) is_user_like,
+		cfc_title as "itm_cfc_title",
+		(select count(app_id) from aeApplication group by app_itm_id having app_itm_id = #{params.itmId}) as "cnt_app_count"
+		from aeItem
+		inner join tcTrainingCenter tcr on (itm_tcr_id = tcr.tcr_id )
+		inner join aeItemextension ies on (itm_id = ies.ies_itm_id)
+		left join certificate on itm_cfc_id = cfc_id
+		left join sns_valuation_log on s_vtl_target_id = itm_id
+		and (s_vtl_is_comment = 0 or s_vtl_is_comment is null ) and s_vtl_module = 'Course' and s_vtl_uid = #{params.userEntId}
+		where
+		itm_id = #{params.itmId}
+		and itm_id in (
+			<include refid="com.cwn.wizbank.persistence.BaseMapper.courseAuthority"/>
+		)
+	</select>
+	
+	<select id="getOpenPermission" resultType="AeItem" parameterType="Map">
+		select
+		itm_id,
+		itm_code,
+		itm_title,
+		itm_icon,
+		itm_type,
+		itm_status,
+		itm_app_approval_type,
+		itm_appn_start_datetime,
+		itm_appn_end_datetime,
+		itm_eff_start_datetime,
+		itm_eff_end_datetime,
+		itm_publish_timestamp,
+		itm_content_eff_start_datetime AS "itm_content_eff_start_time",
+		itm_content_eff_end_datetime AS "itm_content_eff_end_time",
+		itm_retake_ind,
+		itm_not_allow_waitlist_ind,
+		itm_capacity,
+		itm_blend_ind,
+		itm_exam_ind,
+		itm_ref_ind,
+		itm_create_run_ind,
+		itm_run_ind,
+		itm_integrated_ind,
+		itm_fee,
+		itm_desc,
+		itm_cfc_id,
+		tcr.tcr_id,
+		tcr.tcr_code,
+		tcr.tcr_title,
+		ies.ies_lang AS "ies.ies_lang",
+		ies.ies_objective AS "ies.ies_objective",
+		ies.ies_contents AS "ies.ies_contents",
+		ies.ies_duration AS "ies.ies_duration",
+		ies.ies_audience AS "ies.ies_audience",
+		ies.ies_prerequisites AS "ies.ies_prerequisites",
+		ies.ies_exemptions AS "ies.ies_exemptions",
+		ies.ies_remarks AS "ies.ies_remarks",
+		ies.ies_enroll_confirm_remarks AS "ies.ies_enroll_confirm_remarks",
+		ies.ies_schedule AS "ies.ies_schedule",
+		ies.ies_access_count AS "ies_access_count",
+		(case when s_vtl_log_id is null then 0 else 1 end) is_user_like
+		from aeItem
+		left join tcTrainingCenter tcr on (itm_tcr_id = tcr.tcr_id )
+		left join aeItemextension ies on (itm_id = ies.ies_itm_id)
+		left join sns_valuation_log on s_vtl_target_id = itm_id 
+		and (s_vtl_is_comment=0 or s_vtl_is_comment is null )  and s_vtl_module = 'Course' and s_vtl_uid = #{userEntId}
+		where
+		itm_id = #{itmId}
+		and itm_id in (
+			select ath.itm_id from aeItem ath
+			where ath.itm_status ='ON' 	
+<!-- 		课程是否发布 -->
+		and 
+		<choose>
+			<when test="isManage">
+				ath.itm_tcr_id in (
+					select tco_tcr_id from tcTrainingCenterOfficer 
+					where tco_usr_ent_id =  #{userEntId}
+					union
+					select tcn_child_tcr_id from tcTrainingCenterOfficer 
+					left join tcRelation on tcn_ancestor = tco_tcr_id
+					where tco_usr_ent_id = #{userEntId}
+				)
+			</when>
+			<otherwise>
+				( ath.itm_share_ind = 1 
+		<!-- 		共享课程 -->
+					or ath.itm_tcr_id in(select athTc.tcr_id from V_usrTcRelation athTc where athTc.u_id = #{userEntId}
+			<!-- 		是否可以访问该培训中心下的课程 -->
+			<!-- 		如果是二级培训中心独立还有加上以下条件 -->
+						<if test="tcrId != null and tcrId &gt; 1">
+						  and tcr_parent_tcr_id >0
+						</if>
+					)
+				)
+			</otherwise>
+		</choose>
+		)
+	</select>
+	
+	<select id="get" resultType="AeItem" parameterType="java.lang.Long">
+		select
+		itm_id,
+		itm_code,
+		itm_title,
+		itm_icon,
+		itm_type,
+		itm_status,
+		itm_cfc_id,
+		itm_app_approval_type,
+		itm_appn_start_datetime,
+		itm_appn_end_datetime,
+		itm_eff_start_datetime,
+		itm_eff_end_datetime,
+		itm_content_eff_start_datetime AS "itm_content_eff_start_time",
+		itm_content_eff_end_datetime AS "itm_content_eff_end_time",
+		itm_retake_ind,
+		itm_not_allow_waitlist_ind,
+		itm_capacity,
+		itm_blend_ind,
+		itm_exam_ind,
+		itm_ref_ind,
+		itm_create_run_ind,
+		itm_run_ind,
+		itm_integrated_ind,
+		itm_apply_ind,
+		itm_fee,
+		itm_desc,
+		itm_content_def,
+		itm_tcr_id,
+		tcr.tcr_id,
+		tcr.tcr_code,
+		tcr.tcr_title,
+		ies.ies_lang,
+		ies.ies_objective,
+		ies.ies_contents ,
+		ies.ies_duration AS "ies.ies_duration",
+		ies.ies_audience AS "ies.ies_audience",
+		ies.ies_prerequisites AS "ies.ies_prerequisites",
+		ies.ies_exemptions AS "ies.ies_exemptions",
+		ies.ies_remarks AS "ies.ies_remarks",
+		ies.ies_enroll_confirm_remarks AS "ies.ies_enroll_confirm_remarks",
+		ies.ies_schedule AS "ies.ies_schedule",
+		ies.ies_itm_ref_materials_1,
+		ies.ies_itm_ref_materials_2,
+		ies.ies_itm_ref_materials_3,
+		ies.ies_itm_ref_materials_4,
+		ies.ies_itm_ref_materials_5,
+		ies.ies_itm_ref_url_1,
+		ies.ies_itm_ref_url_2,
+		ies.ies_itm_ref_url_3,
+		ies.ies_itm_ref_url_4,
+		ies.ies_itm_ref_url_5,
+		ies.ies_itm_rel_materials_1,
+		ies.ies_itm_rel_materials_2,
+		ies.ies_itm_rel_materials_3,
+		ies.ies_itm_rel_materials_4,
+		ies.ies_itm_rel_materials_5,
+		ies.ies_itm_rel_materials_6,
+		ies.ies_itm_rel_materials_7,
+		ies.ies_itm_rel_materials_8,
+		ies.ies_itm_rel_materials_9,
+		ies.ies_itm_rel_materials_10,
+		cos_res_id AS "course.cos_res_id",
+		cos_structure_xml AS "course.cos_structure_xml"
+		from AeItem
+		left join tcTrainingCenter tcr on (itm_tcr_id = tcr.tcr_id )
+		left join aeItemextension ies on (itm_id = ies.ies_itm_id)
+		left join course on (itm_id = cos_itm_id)
+		where
+		itm_id = #{itm_id}
+	</select>
+
+	<update id="update" parameterType="com.cwn.wizbank.entity.AeItem">
+	    <![CDATA[
+	        update AeItem t 
+	        set 
+				itm_id = #{itm_id,jdbcType=INTEGER},
+				itm_title = #{itm_title,jdbcType=VARCHAR},
+				itm_code = #{itm_code,jdbcType=VARCHAR},
+				itm_version_code = #{itm_version_code,jdbcType=VARCHAR},
+				itm_type = #{itm_type,jdbcType=VARCHAR},
+				itm_capacity = #{itm_capacity,jdbcType=INTEGER},
+				itm_min_capacity = #{itm_min_capacity,jdbcType=INTEGER},
+				itm_unit = #{itm_unit,jdbcType=DECIMAL},
+				itm_fee_ccy = #{itm_fee_ccy,jdbcType=VARCHAR},
+				itm_fee = #{itm_fee,jdbcType=DOUBLE},
+				itm_appn_start_datetime = #{itm_appn_start_datetime,jdbcType=TIMESTAMP},
+				itm_appn_end_datetime = #{itm_appn_end_datetime,jdbcType=TIMESTAMP},
+				itm_eff_start_datetime = #{itm_eff_start_datetime,jdbcType=TIMESTAMP},
+				itm_eff_end_datetime = #{itm_eff_end_datetime,jdbcType=TIMESTAMP},
+				itm_xml = #{itm_xml,jdbcType=VARCHAR},
+				itm_status = #{itm_status,jdbcType=VARCHAR},
+				itm_owner_ent_id = #{itm_owner_ent_id,jdbcType=INTEGER},
+				itm_create_timestamp = #{itm_create_timestamp,jdbcType=TIMESTAMP},
+				itm_create_usr_id = #{itm_create_usr_id,jdbcType=VARCHAR},
+				itm_upd_timestamp = #{itm_upd_timestamp,jdbcType=TIMESTAMP},
+				itm_upd_usr_id = #{itm_upd_usr_id,jdbcType=VARCHAR},
+				itm_ext1 = #{itm_ext1,jdbcType=VARCHAR},
+				itm_create_run_ind = #{itm_create_run_ind,jdbcType=BOOLEAN},
+				itm_run_ind = #{itm_run_ind,jdbcType=BOOLEAN},
+				itm_apply_ind = #{itm_apply_ind,jdbcType=BOOLEAN},
+				itm_deprecated_ind = #{itm_deprecated_ind,jdbcType=BOOLEAN},
+				itm_qdb_ind = #{itm_qdb_ind,jdbcType=BOOLEAN},
+				itm_auto_enrol_qdb_ind = #{itm_auto_enrol_qdb_ind,jdbcType=BOOLEAN},
+				itm_life_status = #{itm_life_status,jdbcType=VARCHAR},
+				itm_apply_method = #{itm_apply_method,jdbcType=VARCHAR},
+				itm_imd_id = #{itm_imd_id,jdbcType=INTEGER},
+				itm_person_in_charge = #{itm_person_in_charge,jdbcType=VARCHAR},
+				itm_rsv_id = #{itm_rsv_id,jdbcType=INTEGER},
+				itm_cancellation_reason = #{itm_cancellation_reason,jdbcType=VARCHAR},
+				itm_cancellation_type = #{itm_cancellation_type,jdbcType=VARCHAR},
+				itm_ctf_id = #{itm_ctf_id,jdbcType=INTEGER},
+				itm_syn_timestamp = #{itm_syn_timestamp,jdbcType=TIMESTAMP},
+				itm_create_session_ind = #{itm_create_session_ind,jdbcType=INTEGER},
+				itm_session_ind = #{itm_session_ind,jdbcType=INTEGER},
+				itm_has_attendance_ind = #{itm_has_attendance_ind,jdbcType=INTEGER},
+				itm_ji_ind = #{itm_ji_ind,jdbcType=INTEGER},
+				itm_completion_criteria_ind = #{itm_completion_criteria_ind,jdbcType=INTEGER},
+				itm_fee_1 = #{itm_fee_1,jdbcType=DECIMAL},
+				itm_can_cancel_ind = #{itm_can_cancel_ind,jdbcType=BOOLEAN},
+				itm_content_eff_start_datetime = #{itm_content_eff_start_time,jdbcType=TIMESTAMP},
+				itm_content_eff_end_datetime = #{itm_content_eff_end_time,jdbcType=TIMESTAMP},
+				itm_content_eff_duration = #{itm_content_eff_duration,jdbcType=INTEGER},
+				itm_can_qr_ind = #{itm_can_qr_ind,jdbcType=BOOLEAN},
+				itm_retake_ind = #{itm_retake_ind,jdbcType=INTEGER},
+				itm_approval_status = #{itm_approval_status,jdbcType=VARCHAR},
+				itm_approval_action = #{itm_approval_action,jdbcType=VARCHAR},
+				itm_approve_timestamp = #{itm_approve_timestamp,jdbcType=TIMESTAMP},
+				itm_approve_usr_id = #{itm_approve_usr_id,jdbcType=VARCHAR},
+				itm_submit_action = #{itm_submit_action,jdbcType=VARCHAR},
+				itm_submit_timestamp = #{itm_submit_timestamp,jdbcType=TIMESTAMP},
+				itm_submit_usr_id = #{itm_submit_usr_id,jdbcType=VARCHAR},
+				itm_app_approval_type = #{itm_app_approval_type,jdbcType=VARCHAR},
+				itm_tcr_id = #{itm_tcr_id,jdbcType=INTEGER},
+				itm_content_def = #{itm_content_def,jdbcType=VARCHAR},
+				itm_enroll_type = #{itm_enroll_type,jdbcType=VARCHAR},
+				itm_send_enroll_email_ind = #{itm_send_enroll_email_ind,jdbcType=INTEGER},
+				itm_qte_notify_timestamp = #{itm_qte_notify_timestamp,jdbcType=TIMESTAMP},
+				itm_access_type = #{itm_access_type,jdbcType=VARCHAR},
+				itm_mark_buffer_day = #{itm_mark_buffer_day,jdbcType=INTEGER},
+				itm_notify_days = #{itm_notify_days,jdbcType=INTEGER},
+				itm_notify_email = #{itm_notify_email,jdbcType=VARCHAR},
+				itm_not_allow_waitlist_ind = #{itm_not_allow_waitlist_ind,jdbcType=INTEGER},
+				itm_target_enrol_type = #{itm_target_enrol_type,jdbcType=VARCHAR},
+				itm_comment_avg_score = #{itm_comment_avg_score,jdbcType=DECIMAL},
+				itm_comment_total_count = #{itm_comment_total_count,jdbcType=INTEGER},
+				itm_comment_total_score = #{itm_comment_total_score,jdbcType=INTEGER},
+				itm_publish_timestamp = #{itm_publish_timestamp,jdbcType=TIMESTAMP},
+				itm_srh_content = #{itm_srh_content,jdbcType=VARCHAR},
+				itm_desc = #{itm_desc,jdbcType=VARCHAR},
+				itm_plan_code = #{itm_plan_code,jdbcType=VARCHAR},
+				itm_icon = #{itm_icon,jdbcType=VARCHAR},
+				itm_exam_ind = #{itm_exam_ind,jdbcType=INTEGER},
+				itm_blend_ind = #{itm_blend_ind,jdbcType=INTEGER},
+				itm_ref_ind = #{itm_ref_ind,jdbcType=INTEGER},
+				itm_bonus_ind = #{itm_bonus_ind,jdbcType=BOOLEAN},
+				itm_diff_factor = #{itm_diff_factor,jdbcType=DECIMAL},
+				itm_integrated_ind = #{itm_integrated_ind,jdbcType=INTEGER},
+				itm_share_ind = #{itm_share_ind,jdbcType=BOOLEAN},
+				itm_offline_pkg = #{itm_offline_pkg,jdbcType=VARCHAR},
+				itm_offline_pkg_file = #{itm_offline_pkg_file,jdbcType=VARCHAR},
+				itm_cfc_id = #{itm_cfc_id,jdbcType=INTEGER},
+				itm_inst_type = #{itm_inst_type,jdbcType=VARCHAR},
+				itm_parent_id = #{itm_parent_id,jdbcType=INTEGER}
+	         where t.itm_id = #{itm_id,jdbcType=INTEGER}
+	    ]]>
+	</update>
+
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.AeItem">
+    	<![CDATA[
+            insert into AeItem(
+            		itm_title,
+            		itm_code,
+            		itm_version_code,
+            		itm_type,
+            		itm_capacity,
+            		itm_min_capacity,
+            		itm_unit,
+            		itm_fee_ccy,
+            		itm_fee,
+            		itm_appn_start_datetime,
+            		itm_appn_end_datetime,
+            		itm_eff_start_datetime,
+            		itm_eff_end_datetime,
+            		itm_xml,
+            		itm_status,
+            		itm_owner_ent_id,
+            		itm_create_timestamp,
+            		itm_create_usr_id,
+            		itm_upd_timestamp,
+            		itm_upd_usr_id,
+            		itm_ext1,
+            		itm_create_run_ind,
+            		itm_run_ind,
+            		itm_apply_ind,
+            		itm_deprecated_ind,
+            		itm_qdb_ind,
+            		itm_auto_enrol_qdb_ind,
+            		itm_life_status,
+            		itm_apply_method,
+            		itm_imd_id,
+            		itm_person_in_charge,
+            		itm_rsv_id,
+            		itm_cancellation_reason,
+            		itm_cancellation_type,
+            		itm_ctf_id,
+            		itm_syn_timestamp,
+            		itm_create_session_ind,
+            		itm_session_ind,
+            		itm_has_attendance_ind,
+            		itm_ji_ind,
+            		itm_completion_criteria_ind,
+            		itm_fee_1,
+            		itm_can_cancel_ind,
+            		itm_content_eff_start_datetime AS "itm_content_eff_start_time",
+            		itm_content_eff_end_datetime AS "itm_content_eff_end_time",
+            		itm_content_eff_duration,
+            		itm_can_qr_ind,
+            		itm_retake_ind,
+            		itm_approval_status,
+            		itm_approval_action,
+            		itm_approve_timestamp,
+            		itm_approve_usr_id,
+            		itm_submit_action,
+            		itm_submit_timestamp,
+            		itm_submit_usr_id,
+            		itm_app_approval_type,
+            		itm_tcr_id,
+            		itm_content_def,
+            		itm_enroll_type,
+            		itm_send_enroll_email_ind,
+            		itm_qte_notify_timestamp,
+            		itm_access_type,
+            		itm_mark_buffer_day,
+            		itm_notify_days,
+            		itm_notify_email,
+            		itm_not_allow_waitlist_ind,
+            		itm_target_enrol_type,
+            		itm_comment_avg_score,
+            		itm_comment_total_count,
+            		itm_comment_total_score,
+            		itm_publish_timestamp,
+            		itm_srh_content,
+            		itm_desc,
+            		itm_plan_code,
+            		itm_icon,
+            		itm_exam_ind,
+            		itm_blend_ind,
+            		itm_ref_ind,
+            		itm_bonus_ind,
+            		itm_diff_factor,
+            		itm_integrated_ind,
+            		itm_share_ind,
+            		itm_offline_pkg,
+            		itm_offline_pkg_file,
+            		itm_cfc_id,
+            		itm_inst_type,
+            		itm_parent_id
+            ) values (
+            	#{itm_title,jdbcType=VARCHAR},
+            	#{itm_code,jdbcType=VARCHAR},
+            	#{itm_version_code,jdbcType=VARCHAR},
+            	#{itm_type,jdbcType=VARCHAR},
+            	#{itm_capacity,jdbcType=INTEGER},
+            	#{itm_min_capacity,jdbcType=INTEGER},
+            	#{itm_unit,jdbcType=DECIMAL},
+            	#{itm_fee_ccy,jdbcType=VARCHAR},
+            	#{itm_fee,jdbcType=DOUBLE},
+            	#{itm_appn_start_datetime,jdbcType=TIMESTAMP},
+            	#{itm_appn_end_time,jdbcType=TIMESTAMP},
+            	#{itm_eff_start_time,jdbcType=TIMESTAMP},
+            	#{itm_eff_end_datetime,jdbcType=TIMESTAMP},
+            	#{itm_xml,jdbcType=VARCHAR},
+            	#{itm_status,jdbcType=VARCHAR},
+            	#{itm_owner_ent_id,jdbcType=INTEGER},
+            	#{itm_create_timestamp,jdbcType=TIMESTAMP},
+            	#{itm_create_usr_id,jdbcType=VARCHAR},
+            	#{itm_upd_timestamp,jdbcType=TIMESTAMP},
+            	#{itm_upd_usr_id,jdbcType=VARCHAR},
+            	#{itm_ext1,jdbcType=VARCHAR},
+            	#{itm_create_run_ind,jdbcType=BOOLEAN},
+            	#{itm_run_ind,jdbcType=BOOLEAN},
+            	#{itm_apply_ind,jdbcType=BOOLEAN},
+            	#{itm_deprecated_ind,jdbcType=BOOLEAN},
+            	#{itm_qdb_ind,jdbcType=BOOLEAN},
+            	#{itm_auto_enrol_qdb_ind,jdbcType=BOOLEAN},
+            	#{itm_life_status,jdbcType=VARCHAR},
+            	#{itm_apply_method,jdbcType=VARCHAR},
+            	#{itm_imd_id,jdbcType=INTEGER},
+            	#{itm_person_in_charge,jdbcType=VARCHAR},
+            	#{itm_rsv_id,jdbcType=INTEGER},
+            	#{itm_cancellation_reason,jdbcType=VARCHAR},
+            	#{itm_cancellation_type,jdbcType=VARCHAR},
+            	#{itm_ctf_id,jdbcType=INTEGER},
+            	#{itm_syn_timestamp,jdbcType=TIMESTAMP},
+            	#{itm_create_session_ind,jdbcType=INTEGER},
+            	#{itm_session_ind,jdbcType=INTEGER},
+            	#{itm_has_attendance_ind,jdbcType=INTEGER},
+            	#{itm_ji_ind,jdbcType=INTEGER},
+            	#{itm_completion_criteria_ind,jdbcType=INTEGER},
+            	#{itm_fee_1,jdbcType=DECIMAL},
+            	#{itm_can_cancel_ind,jdbcType=BOOLEAN},
+            	#{itm_content_eff_start_datetime,jdbcType=TIMESTAMP},
+            	#{itm_content_eff_end_datetime,jdbcType=TIMESTAMP},
+            	#{itm_content_eff_duration,jdbcType=INTEGER},
+            	#{itm_can_qr_ind,jdbcType=BOOLEAN},
+            	#{itm_retake_ind,jdbcType=INTEGER},
+            	#{itm_approval_status,jdbcType=VARCHAR},
+            	#{itm_approval_action,jdbcType=VARCHAR},
+            	#{itm_approve_timestamp,jdbcType=TIMESTAMP},
+            	#{itm_approve_usr_id,jdbcType=VARCHAR},
+            	#{itm_submit_action,jdbcType=VARCHAR},
+            	#{itm_submit_timestamp,jdbcType=TIMESTAMP},
+            	#{itm_submit_usr_id,jdbcType=VARCHAR},
+            	#{itm_app_approval_type,jdbcType=VARCHAR},
+            	#{itm_tcr_id,jdbcType=INTEGER},
+            	#{itm_content_def,jdbcType=VARCHAR},
+            	#{itm_enroll_type,jdbcType=VARCHAR},
+            	#{itm_send_enroll_email_ind,jdbcType=INTEGER},
+            	#{itm_qte_notify_timestamp,jdbcType=TIMESTAMP},
+            	#{itm_access_type,jdbcType=VARCHAR},
+            	#{itm_mark_buffer_day,jdbcType=INTEGER},
+            	#{itm_notify_days,jdbcType=INTEGER},
+            	#{itm_notify_email,jdbcType=VARCHAR},
+            	#{itm_not_allow_waitlist_ind,jdbcType=INTEGER},
+            	#{itm_target_enrol_type,jdbcType=VARCHAR},
+            	#{itm_comment_avg_score,jdbcType=DECIMAL},
+            	#{itm_comment_total_count,jdbcType=INTEGER},
+            	#{itm_comment_total_score,jdbcType=INTEGER},
+            	#{itm_publish_timestamp,jdbcType=TIMESTAMP},
+            	#{itm_srh_content,jdbcType=VARCHAR},
+            	#{itm_desc,jdbcType=VARCHAR},
+            	#{itm_plan_code,jdbcType=VARCHAR},
+            	#{itm_icon,jdbcType=VARCHAR},
+            	#{itm_exam_ind,jdbcType=INTEGER},
+            	#{itm_blend_ind,jdbcType=INTEGER},
+            	#{itm_ref_ind,jdbcType=INTEGER},
+            	#{itm_bonus_ind,jdbcType=BOOLEAN},
+            	#{itm_diff_factor,jdbcType=DECIMAL},
+            	#{itm_integrated_ind,jdbcType=INTEGER},
+            	#{itm_share_ind,jdbcType=BOOLEAN},
+            	#{itm_offline_pkg,jdbcType=VARCHAR},
+            	#{itm_offline_pkg_file,jdbcType=VARCHAR},
+            	#{itm_cfc_id,jdbcType=INTEGER},
+            	#{itm_inst_type,jdbcType=VARCHAR},
+            	#{itm_parent_id,jdbcType=INTEGER}
+            )
+        ]]>
+	</insert>
+
+	<delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from AeItem  where itm_id = #{itm_id}
+	    ]]>
+	</delete>
+
+	<select id="selectList" resultType="AeItem" parameterType="Page">
+	    <![CDATA[
+	         select 
+				itm_id,
+				itm_title,
+				itm_code,
+				itm_version_code,
+				itm_type,
+				itm_capacity,
+				itm_min_capacity,
+				itm_unit,
+				itm_fee_ccy,
+				itm_fee,
+				itm_appn_start_datetime,
+				itm_appn_end_datetime,
+				itm_eff_start_datetime,
+				itm_eff_end_datetime,
+				itm_xml,
+				itm_status,
+				itm_owner_ent_id,
+				itm_create_timestamp,
+				itm_create_usr_id,
+				itm_upd_timestamp,
+				itm_upd_usr_id,
+				itm_ext1,
+				itm_create_run_ind,
+				itm_run_ind,
+				itm_apply_ind,
+				itm_deprecated_ind,
+				itm_qdb_ind,
+				itm_auto_enrol_qdb_ind,
+				itm_life_status,
+				itm_apply_method,
+				itm_imd_id,
+				itm_person_in_charge,
+				itm_rsv_id,
+				itm_cancellation_reason,
+				itm_cancellation_type,
+				itm_ctf_id,
+				itm_syn_timestamp,
+				itm_create_session_ind,
+				itm_session_ind,
+				itm_has_attendance_ind,
+				itm_ji_ind,
+				itm_completion_criteria_ind,
+				itm_fee_1,
+				itm_can_cancel_ind,
+				itm_content_eff_start_datetime AS "itm_content_eff_start_time",
+				itm_content_eff_end_datetime AS "itm_content_eff_end_time",
+				itm_content_eff_duration,
+				itm_can_qr_ind,
+				itm_retake_ind,
+				itm_approval_status,
+				itm_approval_action,
+				itm_approve_timestamp,
+				itm_approve_usr_id,
+				itm_submit_action,
+				itm_submit_timestamp,
+				itm_submit_usr_id,
+				itm_app_approval_type,
+				itm_tcr_id,
+				itm_content_def,
+				itm_enroll_type,
+				itm_send_enroll_email_ind,
+				itm_qte_notify_timestamp,
+				itm_access_type,
+				itm_mark_buffer_day,
+				itm_notify_days,
+				itm_notify_email,
+				itm_not_allow_waitlist_ind,
+				itm_target_enrol_type,
+				itm_comment_avg_score,
+				itm_comment_total_count,
+				itm_comment_total_score,
+				itm_publish_timestamp,
+				itm_srh_content,
+				itm_desc,
+				itm_plan_code,
+				itm_icon,
+				itm_exam_ind,
+				itm_blend_ind,
+				itm_ref_ind,
+				itm_bonus_ind,
+				itm_diff_factor,
+				itm_integrated_ind,
+				itm_share_ind,
+				itm_offline_pkg,
+				itm_offline_pkg_file,
+				itm_cfc_id,
+				itm_inst_type,
+				itm_parent_id
+			from AeItem t
+	    ]]>
+	</select>
+
+
+	<select id="getParent" resultType="AeItem" parameterType="java.lang.Long" flushCache="true" useCache="false">
+		select
+		itm_id,
+		itm_code,
+		itm_title,
+		itm_icon,
+		itm_type,
+		itm_status,
+		itm_app_approval_type,
+		itm_appn_start_datetime,
+		itm_appn_end_datetime,
+		itm_eff_start_datetime,
+		itm_eff_end_datetime,
+		itm_content_eff_start_datetime AS "itm_content_eff_start_time",
+		itm_content_eff_end_datetime AS "itm_content_eff_end_time",
+		itm_retake_ind,
+		itm_not_allow_waitlist_ind,
+		itm_capacity,
+		itm_blend_ind,
+		itm_exam_ind,
+		itm_ref_ind,
+		itm_create_run_ind,
+		itm_run_ind,
+		itm_integrated_ind,
+		itm_fee,
+		itm_desc,
+		itm_cfc_id,
+		ies.ies_itm_id,
+		ies.ies_lang,
+		ies.ies_objective,
+		ies.ies_contents ,
+		ies.ies_duration,
+		ies.ies_audience,
+		ies.ies_prerequisites,
+		ies.ies_exemptions,
+		ies.ies_remarks,
+		ies.ies_enroll_confirm_remarks,
+		ies.ies_schedule,
+		ies.ies_itm_ref_materials_1,
+		ies.ies_itm_ref_materials_2,
+		ies.ies_itm_ref_materials_3,
+		ies.ies_itm_ref_materials_4,
+		ies.ies_itm_ref_materials_5,
+		ies.ies_itm_ref_url_1,
+		ies.ies_itm_ref_url_2,
+		ies.ies_itm_ref_url_3,
+		ies.ies_itm_ref_url_4,
+		ies.ies_itm_ref_url_5,
+		ies.ies_itm_rel_materials_1,
+		ies.ies_itm_rel_materials_2,
+		ies.ies_itm_rel_materials_3,
+		ies.ies_itm_rel_materials_4,
+		ies.ies_itm_rel_materials_5,
+		ies.ies_itm_rel_materials_6,
+		ies.ies_itm_rel_materials_7,
+		ies.ies_itm_rel_materials_8,
+		ies.ies_itm_rel_materials_9,
+		ies.ies_itm_rel_materials_10
+		from aeItem
+		inner join aeItemRelation on itm_id = ire_parent_itm_id
+		inner join
+		aeItemextension ies on (itm_id = ies.ies_itm_id)
+		where
+		ire_child_itm_id = #{itm_id}
+	</select>
+
+	<select id="getChildrens" resultType="AeItem" parameterType="Map">
+		select
+		itm.itm_id,
+		itm.itm_code,
+		itm.itm_title,
+		itm.itm_icon,
+		itm.itm_type,
+		itm.itm_status,
+		itm.itm_mobile_ind,
+		itm.itm_app_approval_type,
+		itm.itm_appn_start_datetime,
+		itm.itm_appn_end_datetime,
+		itm.itm_eff_start_datetime,
+		itm.itm_eff_end_datetime,
+		itm.itm_content_eff_start_datetime  AS "itm_content_eff_start_time",
+		itm.itm_content_eff_end_datetime AS "itm_content_eff_end_time",
+		itm.itm_retake_ind,
+		itm.itm_not_allow_waitlist_ind,
+		itm.itm_capacity,
+		itm.itm_blend_ind,
+		itm.itm_exam_ind,
+		itm.itm_ref_ind,
+		itm.itm_create_run_ind,
+		itm.itm_run_ind,
+		itm.itm_integrated_ind,
+		itm.itm_fee,
+		itm.itm_desc,
+		itm.itm_cfc_id,
+		ies.ies_itm_id AS "ies.ies_itm_id",
+		ies.ies_lang AS "ies.ies_lang",
+		ies.ies_objective AS "ies.ies_objective",
+		ies.ies_contents AS "ies.ies_contents" ,
+		ies.ies_duration AS "ies.ies_duration",
+		ies.ies_audience AS "ies.ies_audience",
+		ies.ies_prerequisites AS "ies.ies_prerequisites",
+		ies.ies_exemptions AS "ies.ies_exemptions",
+		ies.ies_remarks AS "ies.ies_remarks",
+		ies.ies_enroll_confirm_remarks  AS "ies.ies_enroll_confirm_remarks",
+		ies.ies_schedule AS "ies.ies_schedule",
+		ies.ies_itm_ref_materials_1,
+		ies.ies_itm_ref_materials_2,
+		ies.ies_itm_ref_materials_3,
+		ies.ies_itm_ref_materials_4,
+		ies.ies_itm_ref_materials_5,
+		ies.ies_itm_ref_url_1,
+		ies.ies_itm_ref_url_2,
+		ies.ies_itm_ref_url_3,
+		ies.ies_itm_ref_url_4,
+		ies.ies_itm_ref_url_5,
+		ies.ies_itm_rel_materials_1,
+		ies.ies_itm_rel_materials_2,
+		ies.ies_itm_rel_materials_3,
+		ies.ies_itm_rel_materials_4,
+		ies.ies_itm_rel_materials_5,
+		ies.ies_itm_rel_materials_6,
+		ies.ies_itm_rel_materials_7,
+		ies.ies_itm_rel_materials_8,
+		ies.ies_itm_rel_materials_9,
+		ies.ies_itm_rel_materials_10,
+		app_tkh_id AS "app.app_tkh_id",
+		(case when cov_status is not null  then cov_status else app_status end) as "app.app_status"		
+		from aeItem itm
+		left join aeItemRelation on itm.itm_id = ire_child_itm_id
+		left join aeItem parent on parent.itm_id = ire_parent_itm_id
+		left join aeItemextension ies on (itm.itm_id = ies.ies_itm_id)
+		left join aeapplication on app_itm_id = itm.itm_id and app_ent_id = #{userEntId} and app_status != 'Withdrawn'
+		left join CourseEvaluation cov on app_tkh_id = cov.cov_tkh_id
+		where
+		parent.itm_id = #{itmId}
+		and itm.itm_status = 'ON'
+		and	(app_id in(
+	        select max(app_id ) from aeApplication where (app_status ='Admitted' or app_status = 'Pending' or app_status = 'Waiting' or app_status = 'Rejected')
+	                      and app_itm_id = itm.itm_id 
+	                      and app_ent_id = #{userEntId}
+	                      group by app_itm_id 
+	    ) or app_id is null)
+	    order by itm.itm_content_eff_start_datetime
+	</select>
+
+	<select id="getCatalogCourse" resultType="AeItem"
+		parameterType="Page">
+		select
+		distinct itm.itm_id,
+		<if test="params.userEntId != null and params.userEntId > 0">
+			itd_group_ind AS "itd.itd_group_ind",
+			itd_grade_ind AS "itd.itd_grade_ind",
+			itd_position_ind AS "itd.itd_position_ind",
+<!-- 		    (case when cov_status is not null  then cov_status else app.app_status end) as "app.app_status", -->
+		</if>
+		itm.itm_title,
+		itm.itm_desc,
+		itm.itm_icon,
+		itm.itm_type,
+		itm.itm_mobile_ind,
+		itm.itm_exam_ind,
+		itm_run_ind,
+		itm.itm_publish_timestamp,
+		itm.itm_content_eff_duration,
+		itm.itm_content_eff_end_datetime AS "itm_content_eff_end_time",
+		itd_compulsory_ind AS "itd.itd_compulsory_ind"
+		from aeitem itm
+		inner join aeTreeNode on tnd_itm_id = itm_id and (tnd_status = 'ON' or tnd_status is null)
+		inner join aeCatalog on tnd_cat_id = cat_id and cat_status = 'ON' 
+		<if test="params.isCpd != null and params.isCpd =='true'">
+		inner join aeItemCPDGourpItem ci on ci.acgi_itm_id = itm.itm_id  
+		inner join aeItemCPDItem aci on ci.acgi_aci_id = aci.aci_id 
+		</if>
+		left join ItemTargetLrnDetail t  on itm.itm_id = itd_itm_id and itd_usr_ent_id = #{params.userEntId}
+		<if test="params.userEntId != null and params.userEntId !=''">
+			left join aeApplication app on app.app_itm_id = itm.itm_id and app_ent_id = #{params.userEntId}
+			left join aeAttendance on att_app_id = app_id
+			left join CourseEvaluation cov on app_tkh_id = cov.cov_tkh_id
+		</if>
+		
+		where tnd_itm_id > 0
+		
+		<if test="params.showMobileOnly != null and params.showMobileOnly"><!-- 是不是只获取发布到移动端的课程 -->
+			and itm_mobile_ind = 'yes'
+		</if>
+		
+		<if test="params.selectType != null">
+			<choose>
+				<!-- 用户组推荐 -->
+				<when test="params.selectType == 'group'">
+				 and itd_group_ind = 1
+				</when>
+				<!-- 职级推荐 -->
+				<when test="params.selectType == 'grade'">
+				 and itd_grade_ind = 1
+				</when>
+				<!-- 岗位推荐 -->
+				<when test="params.selectType ==  'position'">
+				 and itd_position_ind = 1
+				</when>
+				<when test="params.selectType == 'sup'">
+				 and app_nominate_type = 'SUP'
+				</when>
+				<when test="params.selectType == 'tadm'">
+				 and app_nominate_type = 'TADM'
+				</when>
+			</choose>
+		</if>
+		<if test="params.itemType != null">
+			<choose>
+				<!-- 网上课程 -->
+				<when test="params.itemType == 'selfstudy'">
+					and itm_create_run_ind = 0 and itm_run_ind = 0 and itm_integrated_ind = 0
+				</when>
+				<!-- 面授课程 -->
+				<when test="params.itemType == 'classroom'">
+					and itm_create_run_ind = 1 and itm_run_ind = 0 and itm_integrated_ind = 0
+				</when>
+				<!-- 项目式课程 -->
+				<when test="params.itemType == 'integrated'">
+					and itm_integrated_ind = 1
+				</when>
+			</choose>
+		</if>
+		
+		<if test="params.isCompulsory !=null and params.isCompulsory != '' ">
+			and itd_compulsory_ind = #{params.isCompulsory}
+		</if>
+		
+		<if test="params.tndId != null and params.tndId > 0">
+		    and tnd_id in(select tnr_child_tnd_id from aeTreeNodeRelation where tnr_ancestor_tnd_id = #{params.tndId}  )
+		</if>
+		
+		<if test="params.periods != null and params.periods != ''" >		    
+	and (
+	<!--    网上课程/集成培训 -->
+	    (  
+	      itm_run_ind = 0 and itm_create_run_ind = 0 and itm_ref_ind =0 and (
+	      (itm_appn_start_datetime &lt; #{params.endTime}   and itm_appn_end_datetime  is null and (itm_content_eff_end_datetime is null or itm_content_eff_end_datetime &gt; #{params.startTime}))
+	        or itm_appn_start_datetime between #{params.startTime} and #{params.endTime}
+	       )
+	     )
+	
+	<!--     离线课程 -->
+	     or exists(select ire_parent_itm_id from aeItemRelation, aeItem citm where ire_parent_itm_id = itm.itm_id and ire_child_itm_id = citm.itm_id and citm.itm_status='ON'
+		 and citm.itm_eff_start_datetime between #{params.startTime} and #{params.endTime}
+		 )
+	  )
+		</if>
+		
+		<!-- 是否为考试 -->
+		and	itm_exam_ind = #{params.isExam}
+		<!-- 不是公开课 -->
+		and itm_ref_ind = 0
+		<!-- 已经发布 -->
+		and itm_status ='ON' 
+		<if test="params.selectTcrId != null and params.selectTcrId > 0">
+			and cat_tcr_id = #{params.selectTcrId}
+		</if>
+		
+		and itm_run_ind != 1 <!-- 过滤掉班级 -->
+		
+		<if test="params.isCpd != null and params.isCpd =='true'">
+            <if test="(params.maxCpd != null and params.maxCpd!='') or (params.minCpd != null and params.minCpd!='')">
+                <![CDATA[
+                and(
+                 ]]>
+                 
+    			<if test="params.maxCpd != null and params.maxCpd!='' and (params.minCpd == null or params.minCpd=='') ">
+    				<![CDATA[
+    				(ci.acgi_award_core_hours  <=  #{params.maxCpd})
+    				]]>
+    			</if>
+    			<if test="params.minCpd != null and params.minCpd!='' and (params.maxCpd == null or params.maxCpd=='') ">
+    				<![CDATA[
+    				(#{params.minCpd} <= ci.acgi_award_core_hours )
+    				]]>
+    			</if>
+                <if test="params.minCpd != null and params.minCpd!='' and params.maxCpd != null and params.maxCpd!='' ">
+                    <![CDATA[
+                    (ci.acgi_award_core_hours  <=  #{params.maxCpd} and  #{params.minCpd} <= ci.acgi_award_core_hours )
+                    ]]>
+                </if>
+                
+                
+                <if test="params.maxCpd != null and params.maxCpd!='' and (params.minCpd == null or params.minCpd=='') ">
+                    <![CDATA[
+                    or (ci.acgi_award_non_core_hours  <=  #{params.maxCpd})
+                    ]]>
+                </if>
+                <if test="params.minCpd != null and params.minCpd!='' and (params.maxCpd == null or params.maxCpd=='') ">
+                    <![CDATA[
+                    or (#{params.minCpd} <= ci.acgi_award_non_core_hours )
+                    ]]>
+                </if>
+                <if test="params.minCpd != null and params.minCpd!='' and params.maxCpd != null and params.maxCpd!='' ">
+                    <![CDATA[
+                    or (ci.acgi_award_non_core_hours  <=  #{params.maxCpd} and  #{params.minCpd} <= ci.acgi_award_non_core_hours )
+                    ]]>
+                </if>
+                
+    			
+                <![CDATA[
+                )
+                 ]]>
+            </if>
+		</if>
+		
+		and itm_id in (
+			<include refid="com.cwn.wizbank.persistence.BaseMapper.courseAuthority"/>
+		)
+		
+		order by itm_publish_timestamp desc
+
+	</select>
+	
+	<select id="getAeitemRank" resultType="AeItem"
+		parameterType="Page">
+		select 
+			itm_id, 
+			itm_title, 
+			itm_mobile_ind,
+			itm_icon,
+			itm_integrated_ind,
+			itm_create_run_ind,
+			itm_run_ind,
+			itm_type,
+			itd_compulsory_ind AS "itd.itd_compulsory_ind",
+			(case when s_cnt_like_count is null then 0 else s_cnt_like_count end) AS s_cnt_like_count,
+			itm_publish_timestamp, 
+			count(app_tkh_id) AS "app.app_total" 
+		from aeItem
+		inner join aeTreeNode on tnd_itm_id = itm_id and (tnd_status = 'ON' or tnd_status is null)
+		inner join aeCatalog on tnd_cat_id = cat_id and cat_status = 'ON' 
+		left join sns_count on s_cnt_target_id =  itm_id and s_cnt_module = 'Course' and s_cnt_is_comment = 0
+		left join aeApplication on app_itm_id = itm_id and app_status = 'Admitted'
+		left join ItemTargetLrnDetail t  on itm_id = itd_itm_id and itd_usr_ent_id = #{params.userEntId}
+		where itm_publish_timestamp is not null and itm_status = 'ON' and itm_ref_ind = 0 and itm_exam_ind != 1  
+		
+		<if test="params.showMobileOnly != null and params.showMobileOnly"><!-- 是不是只获取发布到移动端的课程 -->
+			and itm_mobile_ind = 'yes'
+		</if>
+		
+		and itm_run_ind != 1 <!-- 过滤掉班级 -->
+		
+		and itm_id in (
+			<include refid="com.cwn.wizbank.persistence.BaseMapper.courseAuthority"/>
+		)
+		
+		group by itm_id, itm_title, itm_mobile_ind ,itm_icon, s_cnt_like_count, itm_publish_timestamp , itd_compulsory_ind ,itm_integrated_ind, itm_create_run_ind,itm_run_ind,itm_type
+	</select>
+
+
+	<select id="getIntegratedChildren" resultType="AeItem" parameterType="Map">
+		select
+		itm_id,
+		itm_title,
+		itm_type,
+		itm_mobile_ind,
+		itm_exam_ind,
+		icd_id AS "icd.icd_id",
+		icd_completed_item_count AS "icd.icd_completed_item_count",
+		icd_type AS "icd.icd_type"
+			,
+	    cov_progress AS "cov.cov_progress",
+		app_ent_id AS "app.app_ent_id",
+		app_tkh_id AS "app.app_tkh_id",
+		(case when cov_status is not null  then cov_status else app_status end) as "cov.cov_status"
+
+		from aeItem
+		right join IntegRelationItem on itm_id = iri_relative_itm_id
+		left join IntegCompleteCondition on icd_id = iri_icd_id
+		left join IntegCourseCriteria on icd_icc_id = icc_id
+		left join aeApplication on app_itm_id = itm_id and app_ent_id = #{userEntId} and (app_status ='Admitted' or app_status = 'Pending' or app_status = 'Waiting')
+		left join CourseEvaluation on app_tkh_id = cov_tkh_id
+			
+		where icc_itm_id = #{itmId}
+		and itm_status = 'ON'
+		
+		and	(app_id in(
+	        select max(app_id ) from aeApplication where (app_status ='Admitted' or app_status = 'Pending' or app_status = 'Waiting')
+	                      and app_itm_id = itm_id 
+	                      and app_ent_id = #{userEntId}
+	                      group by app_itm_id 
+	    ) or app_id is null)
+	</select>
+	
+	
+	<!-- 公开课 -->
+	<select id="getOpens" resultType="AeItem" parameterType="Page">
+	 select 
+				itm_id,
+				itm_title,
+				itm_publish_timestamp,
+				itm_desc,
+				itm_icon,
+				count(clk.s_vtl_log_id) AS "c",
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					NVL(ies_access_count,0)
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					ISNULL(ies_access_count,0)
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					IFNULL(ies_access_count,0)
+				</when>
+			</choose>
+			AS "ies_access_count",
+			(case when lk.s_vtl_log_id is null then 0 else 1 end) is_user_like,
+			s_cnt_like_count AS "snsCount.s_cnt_like_count"
+			from AeItem 
+      		left join  aeTreeNode on tnd_itm_id = itm_id 
+			left join sns_valuation_log lk on lk.s_vtl_target_id = itm_id
+			and (lk.s_vtl_is_comment=0 or lk.s_vtl_is_comment is null )  and lk.s_vtl_module = 'Course' and s_vtl_uid = #{params.userEntId}
+			left join sns_valuation_log clk on clk.s_vtl_target_id = itm_id 
+			and (clk.s_vtl_is_comment=0 or clk.s_vtl_is_comment is null) and clk.s_vtl_module = 'Course' and clk.s_vtl_module = 'Course'
+			left join aeItemExtension on ies_itm_id = itm_id
+			left join sns_count sc on s_cnt_target_id = itm_id and s_cnt_module = 'Course' and (s_cnt_is_comment = 0 or s_cnt_is_comment is null)
+			<!-- 是否公开课 -->
+			where itm_ref_ind = 1  
+			and itm_status ='ON'
+			<if test="params.tndId != null and params.tndId > 0">
+			    and tnd_id in(select tnr_child_tnd_id from aeTreeNodeRelation where tnr_ancestor_tnd_id = #{params.tndId}  )
+			</if>
+			and itm_id in (
+			select ath.itm_id from aeItem ath
+			where ath.itm_status ='ON' 
+	<!-- 		课程是否发布 -->
+			and
+	<!-- 		培训中心条件 -->
+			( ath.itm_share_ind = 1 
+	<!-- 		共享课程 -->
+			or
+				ath.itm_tcr_id in(select athTc.tcr_id from V_usrTcRelation athTc where athTc.u_id = #{params.userEntId}
+	<!-- 		是否可以访问该培训中心下的课程 -->
+	<!-- 		如果是二级培训中心独立还有加上以下条件 -->
+				<if test="params.tcrId != null and params.tcrId &gt; 1">
+				 and   tcr_parent_tcr_id > 0
+				</if>
+				)
+			)
+			)
+			group by
+				itm_id,
+				itm_title,
+				itm_publish_timestamp,
+				itm_desc,
+				itm_icon,
+				lk.s_vtl_log_id,
+				ies_access_count,
+				s_cnt_like_count
+			order by 
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					NVL(ies_access_count,0)					
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					ies_access_count
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					ies_access_count
+				</when>
+			</choose>
+			desc
+	
+	</select>	
+	
+	
+	<select id="getLearningMap" resultType="AeItem"  parameterType="Map">
+		select
+		    itd_usr_ent_id AS "itd.itd_usr_ent_id",
+		    itd_group_ind AS "itd.itd_group_ind",
+		    itd_grade_ind AS "itd.itd_grade_ind",
+		    itd_position_ind AS "itd.itd_position_ind",
+		    itd_compulsory_ind AS "itd.itd_compulsory_ind",
+		    itm_id,
+		    itm_title,
+		    itm_desc,
+		    itm_icon,
+		    itm_type,
+		    itm_exam_ind,
+		    itm_eff_start_datetime,
+		    itm_eff_end_datetime,
+		    status AS "app.app_status",
+		    itm_run_ind,
+		    itm_integrated_ind,
+		    itm_create_run_ind,
+		    app_nominate_type AS "app.app_nominate_type",
+		    app_tkh_id AS "app.app_tkh_id"
+		from(
+<!-- 		已报名的课程/班级 -->
+		select 
+		    itm_id,
+		    itd_usr_ent_id ,
+		    itd_group_ind ,
+		    itd_grade_ind ,
+		    itd_position_ind ,
+		    itd_compulsory_ind ,
+		    itm.itm_title,
+		    itm.itm_desc,
+		    itm.itm_icon,
+		    itm.itm_type,
+		    itm.itm_exam_ind,
+		    itm_run_ind, 
+		    itm_integrated_ind,
+		    itm_create_run_ind,
+		    (case when itm.itm_eff_start_datetime is not null then itm.itm_eff_start_datetime  else att_create_timestamp end ) itm_eff_start_datetime,
+		    
+		    (case when itm.itm_content_eff_end_datetime is not null then itm.itm_content_eff_end_datetime
+		          when itm.itm_content_eff_end_datetime is null and att_timestamp is not null then att_timestamp
+		          when itm.itm_content_eff_end_datetime is null and itm_content_eff_duration > 0 then att_create_timestamp  + itm_content_eff_duration
+		     else itm.itm_content_eff_end_datetime 
+		    end ) itm_eff_end_datetime,
+		
+		    (case when cov_status is not null then cov_status else app.app_status end) status,
+		   app.app_nominate_type,
+		   app.app_tkh_id
+		   from aeItem itm
+		    inner join aeApplication app on (app.app_itm_id = itm.itm_id and app_ent_id = #{userEntId})
+		    inner join aeAttendance on att_app_id = app_id
+		    inner join CourseEvaluation cov on app_tkh_id = cov.cov_tkh_id
+		    left join ItemTargetLrnDetail on(itd_itm_id = itm_id and itd_usr_ent_id = #{userEntId})
+		    where app_ent_id = #{userEntId} and itm_status = 'ON' and app_status = 'Admitted' and cov_status = 'I'
+		  union all
+<!-- 		  未报名的网上课程 -->
+		   select 
+		    itm_id,
+		    itd_usr_ent_id,
+		    itd_group_ind ,
+		    itd_grade_ind ,
+		    itd_position_ind ,
+		    itd_compulsory_ind ,
+		    itm_title,
+		    itm_desc,
+		    itm_icon,
+		    itm_type,
+		    itm_exam_ind,
+		    itm_run_ind,
+		    itm_integrated_ind,
+		    itm_create_run_ind,
+		    (case when itm_eff_start_datetime is not null then itm_eff_start_datetime else itm_create_timestamp end ) itm_eff_start_datetime,
+		    (case when itm_content_eff_end_datetime is not null then itm_content_eff_end_datetime else NULL end ) itm_eff_end_datetime,
+		    NULL status,
+		    NULL app_nominate_type,
+		    NULL app_tkh_id
+		 from aeItem 
+		    inner join ItemTargetLrnDetail on(itd_itm_id = itm_id  and itd_usr_ent_id = #{userEntId})
+		    where itm_apply_ind = 1 and itm_create_run_ind = 0 and itm_run_ind = 0 and itm_status = 'ON'  
+<!-- 		      排除掉已报名的课程 -->
+		    and not exists (select app_itm_id from aeApplication where app_itm_id = itm_id and app_ent_id = #{userEntId} and app_status = 'Admitted')
+		
+		    
+		     union all
+<!-- 		       未报名的离线课程 -->
+		   select 
+		    itm_id,
+		    itd_usr_ent_id,
+		    itd_group_ind ,
+		    itd_grade_ind ,
+		    itd_position_ind ,
+		    itd_compulsory_ind ,
+		    itm_title,
+		    itm_desc,
+		    itm_icon,
+		    itm_type,
+		    itm_exam_ind,
+		    itm_run_ind,
+		    itm_integrated_ind,
+		    itm_create_run_ind,
+		    itm.itm_eff_start_datetime,
+		    itm.itm_eff_end_datetime,
+		    NULL status,
+		    NULL app_nominate_type,
+		    NULL app_tkh_id
+		 from aeItem 
+		   inner join (
+<!-- 		         取班级最小开始日期为课程开始日期,  最大结束日期为课程的结束日期 -->
+		         select ire_parent_itm_id,min(itm_eff_start_datetime) itm_eff_start_datetime,max(itm_eff_end_datetime ) itm_eff_end_datetime
+		           from aeItemrelation, aeItem 
+		          where ire_child_itm_id = itm_id and itm_run_ind=1 and itm_status = 'ON' group by ire_parent_itm_id
+		   )itm on (itm_id = ire_parent_itm_id)
+		    inner join ItemTargetLrnDetail on(itd_itm_id = itm_id  and itd_usr_ent_id = #{userEntId})
+		    where itm_create_run_ind = 1 and itm_status = 'ON'   
+<!-- 		        如果已报名了课程下的班级 将不需要显示该课程 -->
+		    and not exists (select ire_parent_itm_id from aeApplication ,aeItemrelation where app_itm_id = ire_child_itm_id 
+		                      and ire_parent_itm_id = itm_id and app_ent_id = #{userEntId} and app_status = 'Admitted')
+		    ) t where  
+		    (
+			    <choose>
+					<when test="end == null">
+						itm_eff_start_datetime &lt;= #{start, jdbcType=TIMESTAMP} and itm_eff_end_datetime &gt; #{start, jdbcType=TIMESTAMP}
+					</when>
+					<otherwise>
+						itm_eff_start_datetime &lt;= #{start, jdbcType=TIMESTAMP} and #{start, jdbcType=TIMESTAMP} &lt;= itm_eff_end_datetime and itm_eff_end_datetime &lt;= #{end, jdbcType=TIMESTAMP}
+						or
+						#{start, jdbcType=TIMESTAMP} &lt;= itm_eff_start_datetime and itm_eff_end_datetime &lt;= #{end, jdbcType=TIMESTAMP}
+						or
+						#{start, jdbcType=TIMESTAMP} &lt;= itm_eff_start_datetime and itm_eff_start_datetime &lt;= #{end, jdbcType=TIMESTAMP} and #{end, jdbcType=TIMESTAMP} &lt;= itm_eff_end_datetime
+						or
+						itm_eff_end_datetime is null and itm_eff_start_datetime &lt;= #{end, jdbcType=TIMESTAMP}
+						or
+						itm_eff_start_datetime &lt;= #{start, jdbcType=TIMESTAMP} and #{start, jdbcType=TIMESTAMP} &lt;= itm_eff_end_datetime and itm_eff_end_datetime &gt;= #{end, jdbcType=TIMESTAMP}
+					</otherwise>
+			    </choose>
+		    )
+		    and (itm_eff_end_datetime is null or itm_eff_start_datetime &lt; itm_eff_end_datetime)
+
+		<if test="itemType != null">
+			<choose>
+				<!-- 网上课程 -->
+				<when test="itemType == 'selfstudy'">
+					and itm_create_run_ind = 0 and itm_run_ind = 0 and itm_integrated_ind = 0
+				</when>
+				<!-- 面授课程 -->
+				<when test="itemType == 'classroom'">
+					and itm_create_run_ind = 1 and itm_run_ind = 0 and itm_integrated_ind = 0
+				</when>
+				<!-- 项目式课程 -->
+				<when test="itemType == 'integrated'">
+					and itm_integrated_ind = 1
+				</when>
+			</choose>
+		</if>
+		
+		<if test="isCompulsory !=null and isCompulsory != '' ">
+			and itd_compulsory_ind = #{isCompulsory}
+		</if>
+		<!-- 是否为考试 -->
+		<if test="isExam != null">
+			and	itm_exam_ind = #{isExam}
+		</if>
+		
+		<if test="appStatus != null">
+			<choose>
+			    <when test="appStatus == 'notcompleted'">
+			        and (status ='F' or status = 'W' or status is null)
+			    </when>
+			    <when test="appStatus == 'completed'">
+			        and (status = 'C')
+			    </when>
+			    <when test="appStatus == 'inprogeress'">
+			        and status = 'I'
+			    </when>
+			</choose>
+		</if>
+		order by app_nominate_type desc
+	</select>
+	
+	
+	
+	<select id="getHotCourse" resultType="AeItem"
+		parameterType="Page">
+		select 
+			itm_id, 
+			itm_title, 
+			itm_icon,
+			itm_type,
+			itm_status,
+			itm_app_approval_type,
+			itm_appn_start_datetime,
+			itm_appn_end_datetime,
+			itm_eff_start_datetime,
+			itm_eff_end_datetime,
+			itm_content_eff_start_datetime AS "itm_content_eff_start_time",
+			itm_content_eff_end_datetime AS "itm_content_eff_end_time",
+			itm_retake_ind,
+			itm_not_allow_waitlist_ind,
+			itm_capacity,
+			itm_blend_ind,
+			itm_exam_ind,
+			itm_ref_ind,
+			itm_create_run_ind,
+			itm_run_ind,
+			(case when s_cnt_like_count is null then 0 else s_cnt_like_count end) AS s_cnt_like_count,
+			itm_publish_timestamp, 
+			count(app_tkh_id) AS "app.app_total" 
+		from aeItem
+		left join sns_count on s_cnt_target_id =  itm_id and s_cnt_module = 'Course' and s_cnt_is_comment = 0
+		left join aeApplication on app_itm_id = itm_id and app_status = 'Admitted'
+		where itm_publish_timestamp is not null and itm_status = 'ON' and itm_ref_ind = 0
+		and itm_id in (
+				select ath.itm_id from aeItem ath
+		where ath.itm_status ='ON' 
+		and
+		ath.itm_tcr_id in(select athTc.tcr_id from V_usrTcRelation athTc where athTc.u_id = #{params.userEntId}
+<!-- 		是否可以访问该培训中心下的课程 -->
+<!-- 		如果是二级培训中心独立还有加上以下条件 -->
+			<if test="params.tcrId != null and params.tcrId &gt; 1">
+			  and tcr_parent_tcr_id > 0
+			</if>
+		)
+<!-- 		课程是否发布 -->
+		and (
+		(
+<!-- 		一般课程 -->
+<!-- 		目标学员条件 -->
+		(ath.itm_access_type = 'ALL' or ath.itm_access_type is null 
+<!-- 发布对像为所有人 -->
+		or (ath.itm_access_type = 'TARGET_LEARNER' and itm_id in(select
+		athitd.itd_itm_id from itemTargetLrnDetail athitd where athitd.itd_usr_ent_id = #{params.userEntId})
+<!-- 		发布对像只是目标学员 -->
+		)
+		and
+		( ath.itm_share_ind = 1 
+<!-- 		共享课程 -->
+
+		)
+		)
+<!-- 		已报名课程 -->
+		or ath.itm_id in(
+<!-- 		已报名的课程 -->
+			select athApp.app_itm_id from aeApplication athApp where athApp.app_ent_id = #{params.userEntId}
+		)
+		or ath.itm_id in(
+<!-- 		已报名该课程下的班级 -->
+			select athIre.ire_parent_itm_id from aeApplication athApp2,aeItemrelation athIre where athApp2.app_itm_id =
+			athIre.ire_child_itm_id and athApp2.app_ent_id = #{params.userEntId}
+		)
+		)
+		)
+		)
+		group by 
+			itm_id, 
+			itm_title, 
+			itm_icon,
+			itm_type,
+			itm_status,
+			itm_app_approval_type,
+			itm_appn_start_datetime,
+			itm_appn_end_datetime,
+			itm_eff_start_datetime,
+			itm_eff_end_datetime,
+			itm_content_eff_start_datetime,
+			itm_content_eff_end_datetime,
+			itm_retake_ind,
+			itm_not_allow_waitlist_ind,
+			itm_capacity,
+			itm_blend_ind,
+			itm_exam_ind,
+			itm_ref_ind,
+			itm_create_run_ind,
+			itm_run_ind,
+ 			s_cnt_like_count, itm_publish_timestamp
+ 			
+ 			order by "app.app_total" desc
+	</select>
+	
+	<select id="getCatalogCount" resultType="Integer" parameterType="Map">
+		select
+		count(itm_id)
+		from aeitem 
+		where 
+		<!-- 是否为考试 -->
+		itm_exam_ind = #{isExam}
+		<!-- 不是公开课 -->
+		and itm_ref_ind = 0
+		<!-- 已经发布 -->
+		and itm_status ='ON'
+		and itm_publish_timestamp &gt; #{beforeTime}
+	</select>
+	
+	<select id="checkAeItemCompetence" resultType="AeItem" parameterType="Page">
+		select * from aeItem where itm_id = #{params.itmId}
+		and itm_id in (
+			<include refid="com.cwn.wizbank.persistence.BaseMapper.courseAuthority"/>
+		)
+	</select>
+	
+	
+	
+	<select  id="pageAdmin" parameterType="Page" resultType="AeItem">
+		 SELECT  
+		DISTINCT i.itm_id
+		 ,i.itm_ext1
+		 ,i.itm_life_status
+		 ,i.itm_apply_method
+		 ,i.itm_version_code 
+		 ,i.itm_person_in_charge
+		 ,i.itm_cancellation_reason 
+		 ,i.itm_min_capacity 
+		 ,i.itm_unit  
+		 ,i.itm_create_run_ind
+		 ,i.itm_create_session_ind 
+		 ,i.itm_qdb_ind 
+		 ,i.itm_run_ind
+		 ,i.itm_session_ind
+		 ,i.itm_has_attendance_ind 
+		 ,i.itm_ji_ind
+		 ,i.itm_completion_criteria_ind 
+		 ,i.itm_apply_ind 
+		 ,i.itm_deprecated_ind
+		 ,i.itm_imd_id
+		 ,i.itm_auto_enrol_qdb_ind  
+		 ,i.itm_id r_itm_id
+		 ,i.itm_title
+		 ,i.itm_mobile_ind
+		 ,i.itm_type 
+		 ,i.itm_create_usr_id
+		 ,i.itm_create_timestamp 
+		 ,i.itm_status
+		 ,i.itm_code
+		 ,itm_icon
+		 ,i.itm_owner_ent_id 
+		 ,i.itm_approval_status 
+		 ,i.itm_approval_action
+		 ,i.itm_approve_usr_id
+		 ,i.itm_approve_timestamp
+		 ,i.itm_submit_action 
+		 ,i.itm_submit_usr_id
+		 ,i.itm_submit_timestamp
+		 ,i.itm_exam_ind
+		 ,i.itm_ref_ind
+		 ,i.itm_blend_ind 
+		 ,i.itm_eff_start_datetime
+		 ,i.itm_content_eff_end_datetime 
+		 ,i.itm_appn_start_datetime
+		 ,i.itm_appn_end_datetime 
+		 ,i.itm_upd_usr_id 
+		 ,i.itm_upd_timestamp
+		 ,i.itm_publish_timestamp
+		 ,i.itm_capacity 
+		 ,tcr_title 
+		 ,enrolled
+		 ,c.cos_res_id
+		  from aeItem i  
+		  inner join Course c on(i.itm_id=c.cos_itm_id)
+		  inner join tcTrainingCenter on (i.itm_tcr_id = tcr_id ) 
+		  left join (select app_itm_id, Count(app_id) as enrolled From aeApplication Where app_status = 'ON' group by app_itm_id) app on (i.itm_id = app.app_itm_id)
+		  
+		  <if test="params.tndId != null and params.tndId > 0">
+		      inner join aeTreeNode on tnd_itm_id = itm_id
+		  	  inner join aeCatalog on tnd_cat_id = cat_id
+		  </if>
+		  
+		  where i.itm_life_status is null 
+		  <if test="params.tndId != null and params.tndId > 0">
+		    and tnd_id in(select tnr_child_tnd_id from aeTreeNodeRelation where tnr_ancestor_tnd_id = #{params.tndId}  )
+		  </if>
+		  
+		  <if test="params.isRoleTcInd != null and params.isRoleTcInd == true"> 
+			and (itm_tcr_id  in (
+				select child.tcn_child_tcr_id
+			    from tcTrainingCenterOfficer, tcTrainingCenter parent, tcRelation child
+			    where tco_tcr_id = parent.tcr_id
+			    and parent.tcr_status = 'OK'
+			    and parent.tcr_id = child.tcn_ancestor
+			    and tco_usr_ent_id = #{params.userEntId}
+			    )
+		    	or itm_tcr_id in(
+		    	select tco_tcr_id from tcTrainingCenterOfficer , tcTrainingCenter 
+		    	where  tco_tcr_id = tcr_id and tco_usr_ent_id = #{params.userEntId}
+		    	)
+	   		) 
+	      </if>  
+	   	  	
+		  <if test="params.tcrId != null and params.tcrId > 0">
+		  	  and tcr_id = #{params.tcrId}
+		  </if>
+		  
+		  <if test="params.itm_status != null and params.itm_status !='' ">
+		  	  and itm_status = #{params.itm_status}
+		  </if>
+		  
+		  <if test="params.itm_mobile_ind != null and params.itm_mobile_ind == 'yes' ">
+		  	  and itm_mobile_ind = 'yes'
+		  </if>
+		  
+		  <if test="params.searchText != null and params.searchText !=''">
+		   
+			and ( lower(i.itm_code) like #{params.searchText} or lower(i.itm_title) like #{params.searchText} )
+		  </if>
+		  
+		  <if test="params.cos_type != null">
+			<choose>
+				<!-- 网上课程 -->
+				<when test="params.cos_type == 'selfstudy'">
+					and itm_create_run_ind = 0 and itm_run_ind = 0 and itm_integrated_ind = 0
+				</when>
+				<!-- 面授课程 -->
+				<when test="params.cos_type == 'classroom'">
+					and itm_create_run_ind = 1 and itm_run_ind = 0 and itm_integrated_ind = 0
+				</when>
+				<!-- 项目式课程 -->
+				<when test="params.cos_type == 'integrated'">
+					and itm_integrated_ind = 1
+				</when>
+			</choose>
+		</if>
+		and itm_run_ind = 0
+		<choose>
+			<when test="params.itm_type == 'course'">
+					and itm_exam_ind = 0
+			</when>
+			<when test="params.itm_type == 'exam'">
+				and itm_exam_ind = 1
+			</when>
+			<otherwise>
+				and itm_exam_ind = 0
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="params.itm_type == 'open'">
+				and itm_ref_ind = 1
+			</when>
+			<otherwise>
+				and itm_ref_ind = 0
+			</otherwise>
+		</choose>
+		  
+		<if test="params.itm_periods != null and params.itm_periods != ''" >		    
+		and (
+		<!--    网上课程/集成培训 -->
+	    (  
+	      itm_run_ind = 0 and itm_create_run_ind = 0 and itm_ref_ind =0 and (
+	      (itm_appn_start_datetime &lt; #{params.endTime}   and itm_appn_end_datetime  is null and (itm_content_eff_end_datetime is null or itm_content_eff_end_datetime &gt; #{params.startTime}))
+	        or itm_appn_start_datetime between #{params.startTime} and #{params.endTime}
+	       )
+	     )
+	
+	<!--     离线课程 -->
+	     or exists(select ire_parent_itm_id from aeItemRelation, aeItem citm where ire_parent_itm_id = itm_id and ire_child_itm_id = citm.itm_id
+		 and citm.itm_eff_start_datetime between #{params.startTime} and #{params.endTime}
+		 )
+	  )
+		</if>
+		<choose>
+			<when test="params.sortname != null and params.sortname !=''">
+				<![CDATA[
+					order by ${params.sortname} ${params.sortorder}
+				]]>
+			</when>
+			<otherwise>
+			order by itm_title asc ,
+		   itm_upd_timestamp desc
+		   </otherwise>
+		</choose>
+	</select>
+	
+
+	
+	
+	<select id="pageInstrCos" resultType="AeItem" parameterType="Page">
+		select itm_icon,itm_type, itm_desc,itm_publish_timestamp,
+			  itm_id,
+			  itm_title,
+			  parent_itm_title as "parent.itm_title", 
+			  parent_itm_id as "parent.itm_id",
+			  itm_mobile_ind, 
+			  itm_status, 
+			  itm_eff_start_datetime, itm_eff_end_datetime, 
+			  itm_integrated_ind, 
+			  itm_blend_ind, itm_exam_ind, itm_ref_ind,
+			  <!-- app_tkh_id  AS "app.app_tkh_id", -->
+			  aap.cnt_app_count cnt_app_count
+		from (
+			select itm_type, itm_desc,itm_publish_timestamp,
+			
+				null parent_itm_id,
+        		null parent_itm_title,
+				itm_id,		
+				itm_title,
+				    
+				itm_mobile_ind, 
+				itm_status, 
+				itm_eff_start_datetime, itm_eff_end_datetime, 
+				itm_integrated_ind, 
+				itm_blend_ind, itm_exam_ind, itm_ref_ind ,itm_icon
+			from aeItemAccess, aeItem 
+			where iac_ent_id =  #{params.instrId}
+				  and iac_access_type = 'ROLE'
+				  and iac_access_id in (select rol_ext_id from acRole where rol_ste_uid = 'INSTR')
+				  and itm_id = iac_itm_id 
+				  and itm_run_ind = 0  and itm_status = 'ON'
+		    union
+			select course.itm_type, run.itm_desc,run.itm_publish_timestamp,
+			
+				course.itm_id parent_itm_id,
+				course.itm_title parent_itm_title,
+				run.itm_id itm_id,
+				run.itm_title itm_title, 
+				    
+				course.itm_mobile_ind , run.itm_status, 
+				run.itm_eff_start_datetime, run.itm_eff_end_datetime, 
+				course.itm_integrated_ind, 
+				course.itm_blend_ind, course.itm_exam_ind, course.itm_ref_ind ,course.itm_icon
+			from aeItemAccess, aeItem run, aeItemRelation, aeItem course 
+			where iac_ent_id = #{params.instrId}
+				  and iac_access_type = 'ROLE'
+				  and iac_access_id in (select rol_ext_id from acRole where rol_ste_uid = 'INSTR') 
+				  and run.itm_id = iac_itm_id 
+				  and run.itm_run_ind = 1
+				  and ire_child_itm_id = iac_itm_id 
+				  and ire_parent_itm_id = course.itm_id and run.itm_status = 'ON'
+		) itm		 
+		left join 
+			(select app_itm_id,COUNT(app_id) cnt_app_count 
+				from aeApplication where app_status = 'Admitted'
+				group by app_itm_id) aap on itm_id = app_itm_id
+				
+	</select>	
+	
+	
+
+	
+	<select id="getItemCount" parameterType="Integer" resultType="Long">
+		select count(itm_id) cnt from aeItem where lower(itm_type) in ('selfstudy', 'classroom', 'integrated') and itm_create_run_ind = 0 
+		and itm_exam_ind = #{id}
+	</select>
+	
+    <select id="getAeItemByPositionMap" parameterType="Page" resultType="AeItem">
+	     select     
+	       distinct
+	        itm_id,
+	        itm_title,
+	        itm_desc,
+	        itm_icon,
+	        itm_type,
+	        itm_exam_ind,
+	        itm_publish_timestamp,
+	        s_cnt_like_count,
+	        itm_mobile_ind,
+	        comment_count as cnt_comment_count
+	     from userPositionLrnItem
+	      inner join userPositionLrnMap on upm_id=upi_upm_id
+	     inner join aeItem on upi_itm_id =itm_id
+	     left join sns_count on s_cnt_target_id = itm_id and s_cnt_module = 'Course' and (s_cnt_is_comment = 0 or s_cnt_is_comment is null)
+	     left join (
+			select s_cmt_target_id , count(s_cmt_id) comment_count from sns_comment where s_cmt_module = 'Course' group by s_cmt_target_id
+		 ) courseCommentCount
+		  on courseCommentCount.s_cmt_target_id = itm_id 
+	     where 1=1 and itm_status = 'ON' 
+	        <if test="params.upi_upm_id !=null and params.upi_upm_id != 0 ">         
+	        and upi_upm_id=#{params.upi_upm_id}
+	        </if>
+	        <if test="params.top_tcr_id !=null and params.top_tcr_id !=''  ">         
+	        and (upm_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{params.top_tcr_id} ) or upm_tcr_id = #{params.top_tcr_id})
+	        </if>
+     </select>
+     
+     <select id="getAeItemBySpecialPage" parameterType="Page" resultType="AeItem">
+	     select  
+	     distinct
+	        itm_id,
+	        itm_title,
+	        itm_desc,
+	        itm_icon,
+	        itm_type,
+	        itm_exam_ind,
+	        itm_publish_timestamp,
+	        s_cnt_like_count,
+	        itm_mobile_ind,
+	        comment_count as cnt_comment_count
+	      from userspecialItem
+	       inner join userspecialtopic on ust_utc_id=ust_id
+	      inner join aeItem on usi_itm_id =itm_id 
+	      left join sns_count on s_cnt_target_id = itm_id and s_cnt_module = 'Course' and (s_cnt_is_comment = 0 or s_cnt_is_comment is null)
+	      left join (
+			select s_cmt_target_id , count(s_cmt_id) comment_count from sns_comment where s_cmt_module = 'Course' group by s_cmt_target_id
+		  ) courseCommentCount
+		  on courseCommentCount.s_cmt_target_id = itm_id 
+          where 1=1 and itm_status = 'ON'
+          <if test="params.ust_utc_id !=null and params.ust_utc_id != 0 ">         
+          	and ust_utc_id=#{params.ust_utc_id}
+          </if>
+              <if test="params.top_tcr_id !=null and params.top_tcr_id !=''  ">         
+	        and (ust_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{params.top_tcr_id} ) or ust_tcr_id = #{params.top_tcr_id})
+	        </if>
+      </select>
+      
+      <sql id="getProfessionLrnItemPage">
+      	select  
+          distinct 
+          itm_id,
+          itm_title,
+          itm_desc,
+          itm_icon,
+          itm_type,
+          itm_exam_ind,
+          itm_publish_timestamp,
+          s_cnt_like_count,
+          itd_compulsory_ind,
+          itm_mobile_ind,
+          comment_count as cnt_comment_count
+	      from professionLrnItem
+        inner join profession on pfs_id=psi_pfs_id
+	      inner join aeItem on psi_itm_id =itm_id 
+          left join ItemTargetLrnDetail   on itm_id = itd_itm_id
+	      left join sns_count on s_cnt_target_id = itm_id and s_cnt_module = 'Course' and (s_cnt_is_comment = 0 or s_cnt_is_comment is null)
+	      left join (
+			select s_cmt_target_id , count(s_cmt_id) comment_count from sns_comment where s_cmt_module = 'Course' group by s_cmt_target_id
+		  ) courseCommentCount
+		  on courseCommentCount.s_cmt_target_id = itm_id 
+          where pfs_status=1 and itm_status = 'ON' 
+          <if test="psi_ugr_id !=null and psi_ugr_id != 0 ">         
+          	and psi_ugr_id=#{psi_ugr_id}
+          </if>
+          <if test="psi_pfs_id !=null and psi_pfs_id != 0 ">         
+          	and psi_pfs_id=#{psi_pfs_id}
+          </if>
+              <if test="top_tcr_id !=null and top_tcr_id !=''  ">         
+	        and (pfs_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{top_tcr_id} ) or pfs_tcr_id = #{top_tcr_id})
+	        </if>
+      </sql>
+      
+      <select id="getAeItemByProfessionLrnItemPage" parameterType="Map" resultType="com.cwn.wizbank.entity.vo.AeItemVo">
+   		 select * from (<include refid="getProfessionLrnItemPage" />) a
+	     	where not exists( 
+	     		select 1 from (<include refid="getProfessionLrnItemPage" />) b
+	     			where a.itm_id = itm_id and a.itd_compulsory_ind &lt; itd_compulsory_ind)
+      </select>
+      	<select  id="pageAdminCourse" parameterType="Page" resultType="AeItem">
+		 SELECT  
+		 distinct i.itm_id
+		 ,i.itm_ext1
+		 ,i.itm_life_status
+		 ,i.itm_apply_method
+		 ,i.itm_version_code 
+		 ,i.itm_person_in_charge
+		 ,i.itm_cancellation_reason 
+		 ,i.itm_min_capacity 
+		 ,i.itm_unit  
+		 ,i.itm_create_run_ind
+		 ,i.itm_create_session_ind 
+		 ,i.itm_qdb_ind 
+		 ,i.itm_run_ind
+		 ,i.itm_session_ind
+		 ,i.itm_has_attendance_ind 
+		 ,i.itm_ji_ind
+		 ,i.itm_completion_criteria_ind 
+		 ,i.itm_apply_ind 
+		 ,i.itm_deprecated_ind
+		 ,i.itm_imd_id
+		 ,i.itm_auto_enrol_qdb_ind  
+		 ,i.itm_id r_itm_id
+		 ,i.itm_title
+		 ,i.itm_type 
+		 ,i.itm_create_usr_id
+		 ,i.itm_create_timestamp 
+		 ,i.itm_status
+		 ,i.itm_code
+		 ,itm_icon
+		 ,i.itm_owner_ent_id 
+		 ,i.itm_approval_status 
+		 ,i.itm_approval_action
+		 ,i.itm_approve_usr_id
+		 ,i.itm_approve_timestamp
+		 ,i.itm_submit_action 
+		 ,i.itm_submit_usr_id
+		 ,i.itm_submit_timestamp
+		 ,i.itm_exam_ind
+		 ,i.itm_ref_ind
+		 ,i.itm_blend_ind 
+		 ,i.itm_eff_start_datetime
+		 ,i.itm_content_eff_end_datetime 
+		 ,i.itm_appn_start_datetime
+		 ,i.itm_appn_end_datetime 
+		 ,i.itm_upd_usr_id 
+		 ,i.itm_upd_timestamp
+		 ,i.itm_publish_timestamp
+		 ,i.itm_capacity 
+		 ,tcr_title 
+		 ,enrolled
+		 ,c.cos_res_id
+		  from aeItem i  
+		  inner join Course c on(i.itm_id=c.cos_itm_id)
+		  inner join tcTrainingCenter on (i.itm_tcr_id = tcr_id ) 
+		  left join (select app_itm_id, Count(app_id) as enrolled From aeApplication Where app_status = 'ON' group by app_itm_id) app on (i.itm_id = app.app_itm_id)
+		  
+		  <if test="params.tndId != null and params.tndId > 0">
+		      inner join aeTreeNode on tnd_itm_id = itm_id
+		  	  inner join aeCatalog on tnd_cat_id = cat_id
+		  </if>
+		  
+		  where i.itm_life_status is null  
+		<!--   屏蔽考试 -->
+		  and i.itm_exam_ind != 1
+		  <!-- and itm_access_type != 'TARGET_LEARNER' -->		  <if test="params.tndId != null and params.tndId > 0">
+		    and tnd_id in(select tnr_child_tnd_id from aeTreeNodeRelation where tnr_ancestor_tnd_id = #{params.tndId}  )
+		  </if>
+		   <if test="params.rolExtId == null">
+			and (itm_tcr_id  in (
+				select child.tcn_child_tcr_id
+			    from tcTrainingCenterOfficer, tcTrainingCenter parent, tcRelation child
+			    where tco_tcr_id = parent.tcr_id
+			    and parent.tcr_status = 'OK'
+			    and parent.tcr_id = child.tcn_ancestor
+			    and tco_usr_ent_id = #{params.userEntId}
+			    )
+		    	or itm_tcr_id in(
+		    	select tco_tcr_id from tcTrainingCenterOfficer , tcTrainingCenter 
+		    	where  tco_tcr_id = tcr_id and tco_usr_ent_id = #{params.userEntId}
+		    	)
+	   		) 
+	   		</if>
+		  <if test="params.tcrId != null and params.tcrId > 0">
+		  	  and tcr_id = #{params.tcrId}
+		  </if>
+		  
+		  <if test="params.itm_status != null and params.itm_status !='' ">
+		  	  and itm_status = #{params.itm_status}
+		  </if>
+		  <if test="params.searchText != null and params.searchText !=''">
+			and ( lower(i.itm_code) like #{params.searchText} or lower(i.itm_title) like #{params.searchText} )
+		  </if>
+		  
+		  <if test="params.cos_type != null">
+			<choose>
+				<!-- 网上课程 -->
+				<when test="params.cos_type == 'selfstudy'">
+					and itm_create_run_ind = 0 and itm_run_ind = 0 and itm_integrated_ind = 0
+				</when>
+				<!-- 面授课程 -->
+				<when test="params.cos_type == 'classroom'">
+					and itm_create_run_ind = 1 and itm_run_ind = 0 and itm_integrated_ind = 0
+				</when>
+				<!-- 项目式课程 -->
+				<when test="params.cos_type == 'integrated'">
+					and itm_integrated_ind = 1
+				</when>
+			</choose>
+		</if>
+		and itm_run_ind = 0
+		<choose>
+			<when test="params.itm_type == 'course'">
+					and itm_exam_ind = 0
+			</when>
+			<when test="params.itm_type == 'exam'">
+				and itm_exam_ind = 1
+			</when>
+			<when test="params.itm_type == 'all'">
+			</when>
+			<otherwise>
+				and itm_exam_ind = 0
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="params.itm_type == 'open'">
+				and itm_ref_ind = 1
+			</when>
+			<otherwise>
+				and itm_ref_ind = 0
+			</otherwise>
+		</choose>
+		  
+		<if test="params.itm_periods != null and params.itm_periods != ''" >		    
+		and (
+		<!--    网上课程/集成培训 -->
+	    (  
+	      itm_run_ind = 0 and itm_create_run_ind = 0 and itm_ref_ind =0 and (
+	      (itm_appn_start_datetime &lt; #{params.endTime}   and itm_appn_end_datetime  is null and (itm_content_eff_end_datetime is null or itm_content_eff_end_datetime &gt; #{params.startTime}))
+	        or itm_appn_start_datetime between #{params.startTime} and #{params.endTime}
+	       )
+	     )
+	
+	<!--     离线课程 -->
+	     or exists(select ire_parent_itm_id from aeItemRelation, aeItem citm where ire_parent_itm_id = itm_id and ire_child_itm_id = citm.itm_id
+		 and citm.itm_eff_start_datetime between #{params.startTime} and #{params.endTime}
+		 )
+	  )
+		</if>
+		  order by itm_upd_timestamp desc
+	</select>
+	
+	<select id="getAeItemTotalCountForTA" resultType="Long" parameterType="Map">
+		select COUNT(itm_id) from aeItem i 
+		       inner join tcTrainingCenter on (i.itm_tcr_id = tcr_id )
+		  where
+	   		itm_tcr_id in
+						(
+						select  distinct child.tcr_id
+									 from tcTrainingCenter ancestor
+									 inner join tcTrainingCenterOfficer on (tco_tcr_id = ancestor.tcr_id)
+									 left join tcRelation on (tcn_ancestor = ancestor.tcr_id)
+									inner join tcTrainingCenter child on (child.tcr_id = tcn_child_tcr_id or child.tcr_id = ancestor.tcr_id)
+									where tco_usr_ent_id = #{usrEntId}
+									 and child.tcr_status = 'OK'
+									and ancestor.tcr_status ='OK'
+						)
+			<if test="isOpen &lt; 1"><!-- 不是公开课 -->
+				<choose>
+					<!-- 网上课程 -->
+					<when test="itemType == 'SELFSTUDY'">
+						and itm_create_run_ind = 0 and itm_run_ind = 0 and itm_integrated_ind = 0
+					</when>
+					<!-- 面授课程 -->
+					<when test="itemType == 'CLASSROOM'">
+						and itm_create_run_ind = 1 and itm_run_ind = 0 and itm_integrated_ind = 0
+					</when>
+					<!-- 项目式课程 -->
+					<when test="itemType == 'INTEGRATED'">
+						and itm_integrated_ind = 1
+					</when>
+				</choose>
+			</if>
+			and itm_run_ind = 0
+			and itm_ref_ind = #{isOpen}
+			and itm_exam_ind = #{isExam}
+	</select>
+	
+	<select id="getChItemIDList" resultType="Integer" parameterType="Map">
+	    SELECT ire_child_itm_id 
+	    from aeitemrelation 
+	    where ire_parent_itm_id= ${itm_id}
+	</select>
+	
+	<select id="checkAeitemExist" resultType="AeItem" parameterType="String">
+        select 
+			itm_id,
+			itm_code,
+			itm_title,
+			itm_icon,
+			itm_type,
+			itm_status,
+			itm_mobile_ind,
+			itm_app_approval_type,
+			itm_appn_start_datetime,
+			itm_appn_end_datetime,
+			itm_eff_start_datetime,
+			itm_eff_end_datetime,
+			itm_content_eff_start_datetime AS "itm_content_eff_start_time",
+			itm_content_eff_end_datetime AS "itm_content_eff_end_time",
+			itm_content_eff_duration,
+			itm_retake_ind,
+			itm_not_allow_waitlist_ind,
+			itm_capacity,
+			itm_blend_ind,
+			itm_exam_ind,
+			itm_ref_ind,
+			itm_create_run_ind,
+			itm_run_ind,
+			itm_integrated_ind,
+			itm_fee,
+			itm_desc,
+			itm_cfc_id,
+	        ire_parent_itm_id AS "itm_parent_id"
+        from aeItem
+        left join aeItemRelation on  ire_child_itm_id = itm_id
+        where itm_code = #{_parameter}
+    </select>
+    
+    <select id="getParentAeitem" resultType="com.cwn.wizbank.entity.AeItem" parameterType="java.lang.Long">
+    	SELECT
+			<include refid="aeitemColumn" />
+		FROM
+			aeItem
+		WHERE
+			itm_id = (
+				SELECT
+					ire_parent_itm_id
+				FROM
+					aeItemRelation
+				WHERE
+					ire_child_itm_id = #{childItmId}
+			)
+    </select>
+	
+</mapper>

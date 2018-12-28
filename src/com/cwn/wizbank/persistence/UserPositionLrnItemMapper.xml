@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.UserPositionLrnItemMapper">
+	<select id="get" parameterType="Long" resultType="UserPositionLrnItem">
+		select upi_id,upi_upm_id,upi_itm_id,itm_title as title from userpositionlrnitem left join aeItem on upi_itm_id=itm_id  where upi_id  = #{upi_id}
+	</select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.UserPositionLrnItem">
+		update UserpositionLrnItem  set upi_upm_id = #{upi_upm_id}
+		,upi_itm_id = #{upi_itm_id}
+		where upi_id = #{upi_id}
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from UserpositionLrnItem where upi_id = #{id}
+	</delete>
+	<delete id="deleteByUpmId" parameterType="java.lang.Long">
+		delete from UserpositionLrnItem where upi_upm_id = #{id}
+	</delete>
+	<insert id="add" parameterType="com.cwn.wizbank.entity.UserPositionLrnItem">
+		insert into UserpositionLrnItem(upi_upm_id,upi_itm_id)
+		values(#{upi_upm_id},#{upi_itm_id})
+		<selectKey resultType="java.lang.Long" keyProperty="upi_id" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select userPositionLrnItem_seq.CURRVAL AS upi_id FROM DUAL
+				</when>
+				<otherwise>
+					select @@IDENTITY as upi_id
+				</otherwise>
+			</choose>
+		</selectKey>
+	</insert>
+	<select id="getItemByMapList" parameterType="Long" resultType="UserPositionLrnItem">
+	select upi_id,upi_upm_id,upi_itm_id,itm_title as title from userpositionlrnitem inner join aeItem on upi_itm_id=itm_id  where upi_upm_id = #{upi_upm_id}	</select>
+</mapper>

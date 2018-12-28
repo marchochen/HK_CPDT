@@ -1,0 +1,63 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Parent Info
+suffix								   :ParInf
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : parinf.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+.wbParInfBg, .wbParInfBarBg {
+	background-color: #8CCAF0;
+}
+
+.wbParInfContentBg{
+	background-color: #FFFFFF;
+}
+
+.wbParInfContentRedText{
+	color: #FF0099;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbParInfTitleRedText{
+	color: #FF0099;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbParInfLinkBg{
+	background-color: #A7E8FF;
+}
+
+.wbParInfLinkText{
+	color: #000000;
+	font: 9pt   "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbParInfLinkSText{
+	color: #000000;
+	font: 9pt   "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbParInfResLeftBg{
+	background: #8CCAF1;
+	height: 16px;
+}
+
+.wbParInfResRightBg{
+	background: url(../frm_bg.gif) #8CCAF1;
+	height: 16px;
+}
+
+.wbParInfText, .wbParInfTitleTextBold, .wbParInfContentTextBold, .wbParInfMultiTitleText {
+	color: #08426F;
+	font: bold 9pt   "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbParInfTitleBg{
+		background-color: #F0FBFF;
+}
+
+.wbParInfTitleText, .wbParInfContentText, .wbParInfMultiContentText, .wbParInfResLeftText {
+	color: #08426F;
+	font: 9pt   "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}

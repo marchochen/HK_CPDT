@@ -1,0 +1,23 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Cyberwisdom wizBank</title>
+<script src="../js/urlparam.js" language="JavaScript"></script>
+<script src="../js/wb_utils.js" language="JavaScript"></script>
+<script language="javascript">
+function _close_win ()
+{
+    if (typeof(window.parent.opener) == 'undefined') {
+        window.parent.opener = null;
+    }
+    var ua = navigator.userAgent.toLowerCase();
+	if(((ua.indexOf("android") > -1) || ((ua.match(/iphone/i)) || (ua.match(/ipod/i)) || (ua.match(/ipad/i))) || ua.match(/Windows Phone/i) || ua.match(/BlackBerry/i) || ua.match(/webOS/i))){
+		window.parent.location.href = wb_utils_app_base + 'app/course/return/' + getUrlParam("tkh_id");
+	}
+    window.parent.close();
+}
+</script>
+</head>
+<body onload="_close_win()">
+</body>
+</html>

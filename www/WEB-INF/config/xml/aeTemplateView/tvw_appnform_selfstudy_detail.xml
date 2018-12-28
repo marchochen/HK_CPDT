@@ -1,0 +1,11 @@
+<template_view>
+	<section id="1">
+		<field01>
+			<title>
+				<desc lan="ISO-8859-1" name="Remark (optional)"/>
+				<desc lan="Big5" name="備註 (選項)"/>
+				<desc lan="GB2312" name="备注"/>
+			</title>
+		</field01>
+	</section>
+</template_view>

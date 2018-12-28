@@ -1,0 +1,77 @@
+<!doctype html>
+<html ng-app="setUp">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/SetUpController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var logoImage = '../../images/logo2.png';
+		var token = null;
+		if(window.localStorage){
+	     	token = window.localStorage.getItem("token") || window.sessionStorage.getItem("token");
+		}
+		$.ajax({
+			url : serverHost+'/app/user/sitePoster',
+			type: "GET",
+	        dataType: 'jsonp',
+	        async : true,
+	        jsonp: 'callback',
+	        data : {
+	            token : token,
+	            developer : 'mobile'
+	        },
+	        beforeSend: function(request) {
+	            request.setRequestHeader("Accept", "application/javascript");
+	        },
+	        success : function(data){
+	        	var result = $.parseJSON(data);
+	        	var sitePoster = result.sitePoster;
+	        	var site = result.site;
+	        	if(sitePoster && sitePoster.login_bg_file1 && sitePoster.login_bg_file1 != '' ){
+	        		logoImage = serverHost + '/poster/' + site + '/' + sitePoster.sp_logo_file_hk;
+	        	}
+	        	$('.guanyu img').attr('src', logoImage);
+	        }        
+		});
+	});
+</script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="aboutController">
+<div class="wrap" id="wizwrap">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back();" title="back"></a>
+    <span class="header-title">{{ 'set_about' | translate }}</span>
+</header> <!-- header End -->
+
+<section class="content">
+<div class="guanyu">
+     <img src="../../images/logo2.png" alt="" ng-show="!flag"/>
+     <img src="{{logoImage}}" alt="" ng-show="flag"/>
+</div>
+
+<div class="panel-list-box">
+<div class="panel-title-6"><div class="panel-add-01 clearfix"><em class="panel-num-3">3.7.0</em>{{ 'set_about_version' | translate}}<!--版本号：3.6--></div></div>
+<!-- <div class="panel-title-6 panel-title-6-no"><div class="panel-add-01 clearfix"><em class="panel-num-3">020-38886860</em>{{ 'set_about_phone' | translate }}客服电话</div></div>
+<div class="panel-title-6 panel-title-6-no"><div class="panel-add-01 clearfix"><em class="panel-num-3" style="width:70%;">sales_gz@cyberwisdom.net</em>{{ 'set_about_suggest' | translate }}意见反馈</div></div> -->
+<!-- <div class="panel-title-6 panel-title-6-no"><a class="panel-add-01 clearfix" href="###" title=""><em class="panel-num-3">cyberwisdom.net</em>{{ 'set_about_net_hk' | translate }}香港官网</a></div> -->
+<!-- <div class="panel-title-6 panel-title-6-no"><a class="panel-add-01 clearfix" href="###" title=""><em class="panel-num-3">cyberwisdom.net.cn</em>{{ 'set_about_net_cn' | translate }}大陆官网</a></div> -->
+<!-- <div class="panel-title-6 panel-title-6-no"><div class="panel-add-01 clearfix"><em class="panel-num-3">cyberwisdom.net.cn</em>{{ 'set_about_weixin' | translate }}微信公众号</div></div> -->
+</div>
+
+<div class="panel-info-tool">
+     <p><img src="../../images/logo4.png" alt=""/></p>
+     <p>Copyright© All Rights Reserved </p>
+</div>
+
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

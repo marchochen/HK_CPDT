@@ -1,0 +1,38 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Announcement
+suffix								   :announce
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : announce.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+.wbAnnounceBg{
+	background: #F8F9DD;
+	scrollbar-3dlight-color: #F8F9DD;
+	scrollbar-arrow-color: #000000;
+	scrollbar-base-color: #A9BB31;
+	scrollbar-darkshadow-color: #859334;
+	scrollbar-face-color: #A9BB31;
+	scrollbar-highlight-color: #F8F9DD;
+	scrollbar-shadow-color: #859334;
+	scrollbar-track-color: #A9BB31;
+}
+
+.wbAnnounceHRBar{
+	color: #000000;
+}
+
+.wbAnnounceRTEcontent {
+	background: #F8F9DD;
+	vertical-align: top;
+}
+
+.wbAnnounceText{
+	color: #000000;
+	font: 9pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbAnnounceTitleText{
+	color: #000000;
+	font: bold 9pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}

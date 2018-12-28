@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title>Document</title>
+<link rel="stylesheet" href="../../css/basic.css" />
+<link rel="stylesheet" href="../../css/pure-min.css">
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<!--[if lt IE 9]>
+<script src="../../js/lib/html5.js" type="text/jscript"></script>
+<![endif]-->
+</head>
+<body>
+
+<div class="wrap" id="wizwrap">
+<header class="header mm-background">
+    <a class="header-back" href="shezhi.html" title="返回"></a>
+    <span class="header-title">隐私设置</span>
+</header> <!-- header End -->
+<div class="header-overlay"></div>
+
+<section class="content">
+
+<div class="panel-list-box">
+<div class="panel-title-6"><a class="panel-add-01 yinsi-tip" href="###" title=""><em class="panel-num-1">我关注的人可见</em>我的群组</a></div>
+<div class="panel-title-6 panel-title-6-no"><a class="panel-add-01 yinsi-tip" href="###" title=""><em class="panel-num-1">我关注的人可见</em>我的关注</a></div>
+<div class="panel-title-6 panel-title-6-no"><a class="panel-add-01 yinsi-tip" href="###" title=""><em class="panel-num-1">我关注的人可见</em>我的粉丝</a></div>
+<div class="panel-title-6 panel-title-6-no"><a class="panel-add-01 yinsi-tip" href="###" title=""><em class="panel-num-1">我关注的人可见</em>我的赞</a></div>
+<div class="panel-title-6 panel-title-6-no"><a class="panel-add-01 yinsi-tip" href="###" title=""><em class="panel-num-1">我关注的人可见</em>我的动态</a></div>
+<div class="panel-title-6 panel-title-6-no"><a class="panel-add-01 yinsi-tip" href="###" title=""><em class="panel-num-1">我关注的人可见</em>我的档案</a></div>
+<div class="panel-title-6 panel-title-6-no"><a class="panel-add-01 yinsi-tip" href="###" title=""><em class="panel-num-1">我关注的人可见</em>我的收藏</a></div>
+
+
+<div class="yinsi-desc" style="display:none;">
+<div class="yinsi-info" style="display:none;">
+<ul class="panel-list-1-7">
+     <li><a href="###" title="">所有人可见</a></li>
+     <li><a href="###" title="">所有人不可见</a></li>
+     <li><a href="###" title="">我关注的人可见</a></li>
+     <li><a href="###" title="">取消</a></li>
+</ul> 
+</div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+$(".yinsi-tip").click(function(){
+    $(".yinsi-desc").width($("#wizwrap").width()).toggleClass("show");
+    $(".yinsi-info").width($("#wizwrap").width()).slideToggle();
+    $(".yinsi-desc").height($(window).height());
+});
+});
+</script>
+</div>
+
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

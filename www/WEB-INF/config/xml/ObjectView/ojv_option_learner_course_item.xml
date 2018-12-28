@@ -1,0 +1,32 @@
+<template_view>
+	<section id="1">
+		<field01 paramname="itm_code" checked="no" sortable="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Course code"/>
+				<desc lan="Big5" name="課程編號"/>
+				<desc lan="GB2312" name="课程编号"/>
+			</title>
+		</field01>
+		<field02 paramname="itm_title" checked="no" sortable="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Course title"/>
+				<desc lan="Big5" name="課程名稱"/>
+				<desc lan="GB2312" name="课程名称"/>
+			</title>
+		</field02>
+		<itm_type type="itm_type" paramname="itm_type" checked="no">
+			<title>
+				<desc lan="ISO-8859-1" name="Type"/>
+				<desc lan="Big5" name="類型"/>
+				<desc lan="GB2312" name="类型"/>
+			</title>
+		</itm_type>
+		<catalog type="catalog_attachment" paramname="tnd_id_lst" required="no">
+			<title>
+				<desc lan="ISO-8859-1" name="Categories"/>
+				<desc lan="Big5" name="課程目錄"/>
+				<desc lan="GB2312" name="课程目录"/>
+			</title>
+		</catalog>
+	</section>
+</template_view>

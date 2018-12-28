@@ -1,0 +1,7 @@
+<data_list>
+	<data name="show_old_version" value="0"/>
+	<data name="itm_content_lst" value="field02"/>
+	<data name="itm_content_lst" value="itm_type"/>
+	<data name="content_lst" value="question"/>
+	<data name="datetime_restriction" value="att_create_timestamp"/>
+</data_list>

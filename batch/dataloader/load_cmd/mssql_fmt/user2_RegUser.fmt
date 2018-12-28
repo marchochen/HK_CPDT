@@ -1,0 +1,17 @@
+8.0
+15
+1	SQLNCHAR	0	0	"\t\0"		1	usr_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	usr_ent_id	""
+3	SQLNCHAR	0	0	"\t\0"		3	usr_pwd	""
+4	SQLNCHAR	0	0	"\t\0"		10	usr_display_bil	""
+5	SQLNCHAR	0	0	"\t\0"		25	usr_signup_date	""
+6	SQLNCHAR	0	0	"\t\0"		27	usr_last_login_date	""
+7	SQLNCHAR	0	0	"\t\0"		28	usr_status	""
+8	SQLNCHAR	0	0	"\t\0"		29	usr_upd_date	""
+9	SQLNCHAR	0	0	"\t\0"		30	usr_ste_ent_id	""
+10	SQLNCHAR	0	0	"\t\0"		31	usr_ste_usr_id	""
+11	SQLNCHAR	0	0	"\t\0"		47	usr_approve_timestamp	""
+12	SQLNCHAR	0	0	"\t\0"		50	usr_pwd_upd_timestamp	""
+13	SQLNCHAR	0	0	"\t\0"		51	usr_syn_rol_ind	""
+14	SQLNCHAR	0	0	"\t\0"	56	usr_source	""
+15	SQLNCHAR	0	0	"\r\0\n\0"	57	usr_nickname	""

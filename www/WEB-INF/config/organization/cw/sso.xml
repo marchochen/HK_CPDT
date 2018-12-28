@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sso_link xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\sso.xsd">
+	<links>
+		<root>http://yourhost:yourport/</root>
+		<learner_home active="true">
+			<location>learner_home.asp?</location>
+		</learner_home>
+		<approval_list active="true">
+			<location>approval_list.asp?</location>
+		</approval_list>	
+		<learner_catalog active="true">
+			<location>learner_catalog.asp?</location>
+		</learner_catalog>
+		<learner_course_home active="true">
+			<location>learner_course_home.asp?</location>
+		</learner_course_home>
+		<learner_module active="true">
+			<location>learner_module.asp?</location>
+		</learner_module>
+	</links>
+</sso_link>

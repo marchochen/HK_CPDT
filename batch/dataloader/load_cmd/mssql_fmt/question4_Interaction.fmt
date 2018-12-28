@@ -1,0 +1,6 @@
+8.0
+4
+1	SQLNCHAR	0	0	"\t\0"		1	int_res_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	int_order	""
+3	SQLNCHAR	0	0	"\t\0"		4	int_xml_outcome	""
+4	SQLNCHAR	0	0	"\r\0\n\0"	5	int_xml_explain	""

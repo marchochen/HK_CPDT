@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title>Document</title>
+<link rel="stylesheet" href="../../css/basic.css" />
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<!--[if lt IE 9]>
+<script src="../../js/lib/html5.js" type="text/jscript"></script>
+<![endif]-->
+</head>
+<body style="background:#fff;">
+
+    <div class="wrap" id="wizwrap">
+        <header class="header mm-background">
+            <a class="header-back" href="toupiao-liebiao.html" title="返回"></a>
+            <span class="header-title">结果分析</span>
+        </header> <!-- header End -->
+                                                                  
+        <section class="content">
+            <div class="cont-info" style="margin-top:0;">
+                 <h1 class="cont-info-title-1">2015年第二季度课程评选</h1>
+                 <div class="cont-info-period">截止时间：2015-07-31</div>
+                 
+                 <div class="cont-info-desc">
+                      <p>2015年第二季度，平台增加更多新课程，由相关专业讲师倾力讲解，也获得了不少学员的支持与点赞。下面请各位学员选出你认为最能代表本季度的课程，或者是你认为内容最棒的课程！选出你所支持，会有机会获得小礼品~！</p>
+                 </div>
+            </div>
+
+            <div class="panel-title-6 clearfix"><div class="panel-add-01"><em class="panel-num-5"><i class="panel-num-9">0</i></em>参与人数</div></div>
+
+
+            <div class="panel-list-box">
+                <div class="panel-tab-1 pub-tab">
+                    <ul class="panel-tabnav-1 pub-tabnav">
+                        <li class="cur">饼状图</li>
+                        <li>条形图</li>
+                    </ul>
+
+                    <div class="panel-tabcont-2 pub-tabcont">
+                        <div class="chart-box clearfix">
+                            <div class="panel-list-boxdate">
+                                <div class="panel-list-nodate">没有人参与投票哦</div>
+                            </div>
+
+                        </div>
+                    </div> <!-- pub-tabcont End -->
+
+                    <div class="panel-tabcont-2 pub-tabcont" style="display:none;">
+                        <div class="panel-list-boxdate">
+                            <div class="panel-list-nodate">没有人参与投票哦</div>
+                        </div>
+                    </div> <!-- pub-tabcont End -->
+
+                <script type="text/javascript">
+                (function($){ 
+                $(".pub-tab .pub-tabnav li").click(function(){
+                    $(this).parent(".pub-tabnav").find("li").removeClass("cur");
+                    $(this).addClass("cur");
+                    $(this).parents(".pub-tab").find(".pub-tabcont").hide();
+                    $(this).parents(".pub-tab").find(".pub-tabcont:eq("+$(this).parent(".pub-tabnav").find("li").index($(this))+")").show();
+                });
+                })(jQuery);
+                </script>
+                </div>
+
+            </div> <!-- panel-list-box End -->
+
+        </section> <!-- content End -->
+    </div> <!-- wrap End -->
+
+</body>
+</html>

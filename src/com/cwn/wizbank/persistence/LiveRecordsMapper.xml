@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.LiveRecordsMapper">
+
+	<update id="update" parameterType="com.cwn.wizbank.entity.LiveRecords">
+	    <![CDATA[
+	        update LiveRecords  set lr_status = #{lr_status,jdbcType=INTEGER}
+	         where lr_live_id = #{lr_live_id,jdbcType=INTEGER} and lr_usr_id = #{lr_usr_id,jdbcType=VARCHAR}
+	    ]]>
+	</update>
+
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.LiveRecords">
+    	<![CDATA[
+            insert into LiveRecords(
+				lr_usr_id,  
+				lr_create_time,  
+				lr_live_id,
+				lr_status
+            ) values (
+            	#{lr_usr_id,jdbcType=VARCHAR},
+            	#{lr_create_time,jdbcType=TIMESTAMP},
+            	#{lr_live_id,jdbcType=INTEGER},
+				#{lr_status,jdbcType=INTEGER}
+            )
+        ]]>
+	</insert>
+
+	<select id="getLiveRecordsByUsrAndLvId" resultType="LiveRecords" parameterType="Map">
+		<![CDATA[
+		select
+			lr_usr_id,
+			lr_live_id,
+			lr_create_time,
+			lr_status
+		from LiveRecords
+		where
+		lr_live_id = #{lr_live_id}
+		and lr_usr_id = #{lr_usr_id}		
+		order by lr_create_time desc
+		]]>
+	</select>
+	
+	<select id="getLiveOnlineUser" resultType="LiveRecords" parameterType="Page">
+	         select 
+				lr_usr_id,
+				lr_live_id,
+				lr_create_time,
+				lr_status
+			from LiveRecords 
+			where 1=1 
+			and lr_status = 1 
+			and lr_live_id = #{params.lv_id}
+			order by lr_create_time desc
+	</select>
+	
+	<select id="getLiveInvolvementTotal" resultType="int" parameterType="java.util.Map">
+       select COUNT(lr_live_id) live_involvement_total from liveRecords where lr_live_id = #{lv_id}
+	</select>
+	
+</mapper>

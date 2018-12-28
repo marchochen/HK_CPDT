@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.UsrPwdResetHisMapper">
+	<update id="updatePrhStatusN" parameterType="java.lang.Long">
+		update usrPwdResetHis
+		set prh_status = 'N'
+		where prh_id = #{prh_id}
+	</update>
+	<select id="selectUsrPwdResetHis" parameterType="java.util.Map" resultType="UsrPwdResetHis">
+		select 
+			prh_id,
+			prh_ent_id,
+			prh_ip,
+			prh_status,
+			prh_attempted,
+			prh_create_timestamp,
+			usr_ste_usr_id AS "user.usr_ste_usr_id"
+		from usrPwdResetHis
+		left join regUser on usr_ent_id = prh_ent_id
+		where prh_id = #{prh_id}
+		and prh_status = 'Y'
+		and prh_attempted &lt; #{max_attempt}
+		and (prh_create_timestamp + #{link_last_days}) > #{curTime}
+		and prh_id = (select MAX(prh_id) from usrPwdResetHis 
+			where prh_ent_id = (select prh_ent_id from usrPwdResetHis where prh_id = #{prh_id}))
+	</select>
+</mapper>

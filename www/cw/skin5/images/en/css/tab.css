@@ -1,0 +1,39 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Tab Bar
+suffix								   :Tab
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : tab.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+a.wbTabBarLink,a.wbTabBarLink:visited,a.wbTabBarLink.active, a.wbTabBarLink:hover {
+	color: #8A8A8A;
+	font: bold 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-decoration: none;
+}
+
+a.wbTabBarTargetLink,a.wbTabBarTargetLink:visited,a.wbTabBarTargetLink.active, a.wbTabBarTargetLink:hover {
+	color: #000000;
+	font: bold 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-decoration: none;
+}
+
+.wbTabBarBg{
+	background-color: #EFEFEF;
+	height: 24px;
+}
+
+.wbTabBarTargetBg{
+	background-color: D8D8D8;
+	height: 24px;
+}
+
+.wbTabBarTargetText{
+	color: #000000;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbTabBarText{
+	color: #8A8A8A;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}

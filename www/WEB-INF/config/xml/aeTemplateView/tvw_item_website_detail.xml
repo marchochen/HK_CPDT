@@ -1,0 +1,210 @@
+<template_view>
+	<section id="1">
+		<title>
+			<desc lan="ISO-8859-1" name="General information"/>
+			<desc lan="Big5" name="基本資訊"/>
+			<desc lan="GB2312" name="基本信息"/>
+		</title>
+		<itm_type type="itm_type" paramname="itm_type">
+			<title>
+				<desc lan="ISO-8859-1" name="Type"/>
+				<desc lan="Big5" name="類型"/>
+				<desc lan="GB2312" name="类型"/>
+			</title>
+		</itm_type>
+		<field01>
+			<title>
+				<desc lan="ISO-8859-1" name="Code"/>
+				<desc lan="Big5" name="編號"/>
+				<desc lan="GB2312" name="编号"/>
+			</title>
+		</field01>
+		<field02>
+			<title>
+				<desc lan="ISO-8859-1" name="Title"/>
+				<desc lan="Big5" name="名稱"/>
+				<desc lan="GB2312" name="名称"/>
+			</title>
+		</field02>
+		<field99 width="226" height="137">
+			<title>
+				<desc lan="ISO-8859-1" name="Icon"/>
+				<desc lan="Big5" name="圖示"/>
+				<desc lan="GB2312" name="图示"/>
+			</title>
+		</field99>
+		<training_center type="tcr_pickup" paramname="itm_tcr_id" required="yes" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Training center"/>
+				<desc lan="Big5" name="培訓中心"/>
+				<desc lan="GB2312" name="培训中心"/>
+			</title>
+		</training_center>
+		<catalog type="catalog_attachment" paramname="tnd_id_lst" required="yes" dependant="training_center">
+			<title>
+				<desc lan="ISO-8859-1" name="Categories"/>
+				<desc lan="Big5" name="目錄"/>
+				<desc lan="GB2312" name="目录"/>
+			</title>
+		</catalog>
+		<field04>
+			<title>
+				<desc lan="ISO-8859-1" name="Language medium"/>
+				<desc lan="Big5" name="語言"/>
+				<desc lan="GB2312" name="语言"/>
+			</title>
+		</field04>
+		<field41>
+			<title>
+				<desc lan="ISO-8859-1" name="URL"/>
+				<desc lan="Big5" name="URL"/>
+				<desc lan="GB2312" name="URL"/>
+			</title>
+		</field41>
+		<field42>
+			<title>
+				<desc lan="ISO-8859-1" name="Related URLs"/>
+				<desc lan="Big5" name="相關網址"/>
+				<desc lan="GB2312" name="相关网址"/>
+			</title>
+			<subfield_list>
+				<subfield id="1">
+					<title>
+						<desc lan="ISO-8859-1" name="URL 1"/>
+						<desc lan="Big5" name="URL 1"/>
+						<desc lan="GB2312" name="URL 1"/>
+					</title>
+				</subfield>
+				<subfield id="2">
+					<title>
+						<desc lan="ISO-8859-1" name="URL 2"/>
+						<desc lan="Big5" name="URL 2"/>
+						<desc lan="GB2312" name="URL 2"/>
+					</title>
+				</subfield>
+				<subfield id="3">
+					<title>
+						<desc lan="ISO-8859-1" name="URL 3"/>
+						<desc lan="Big5" name="URL 3"/>
+						<desc lan="GB2312" name="URL 3"/>
+					</title>
+				</subfield>
+				<subfield id="4">
+					<title>
+						<desc lan="ISO-8859-1" name="URL 4"/>
+						<desc lan="Big5" name="URL 4"/>
+						<desc lan="GB2312" name="URL 4"/>
+					</title>
+				</subfield>
+				<subfield id="5">
+					<title>
+						<desc lan="ISO-8859-1" name="URL 5"/>
+						<desc lan="Big5" name="URL 5"/>
+						<desc lan="GB2312" name="URL 5"/>
+					</title>
+				</subfield>
+			</subfield_list>
+		</field42>
+		<field06>
+			<title>
+				<desc lan="ISO-8859-1" name="Summary"/>
+				<desc lan="Big5" name="簡介"/>
+				<desc lan="GB2312" name="简介"/>
+			</title>
+		</field06>
+		<field07>
+			<title>
+				<desc lan="ISO-8859-1" name="Contents"/>
+				<desc lan="Big5" name="內容"/>
+				<desc lan="GB2312" name="内容"/>
+			</title>
+		</field07>
+		<field14>
+			<title>
+				<desc lan="ISO-8859-1" name="Remarks"/>
+				<desc lan="Big5" name="備註"/>
+				<desc lan="GB2312" name="备注"/>
+			</title>
+		</field14>
+	</section>
+	<section id="2">
+		<title>
+			<desc lan="ISO-8859-1" name="Administrative information"/>
+			<desc lan="Big5" name="管理資訊"/>
+			<desc lan="GB2312" name="管理信息"/>
+		</title>
+		<item_access type="item_access_pickup" paramname="iac_id_lst" id="TADM" dependant="training_center">
+			<title>
+				<desc lan="ISO-8859-1" name="Training administrator"/>
+				<desc lan="Big5" name="培訓管理員"/>
+				<desc lan="GB2312" name="培训管理员"/>
+			</title>
+		</item_access>
+		<item_status type="radio" value="OFF" paramname="itm_status" required="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Publish to catalog"/>
+				<desc lan="Big5" name="在目錄中發佈"/>
+				<desc lan="GB2312" name="在目录中发布"/>
+			</title>
+			<item_status id="0" value="TARGET_LEARNER">
+				<title>
+					<desc lan="ISO-8859-1" name="Target learners only"/>
+					<desc lan="Big5" name="僅目標學員"/>
+					<desc lan="GB2312" name="仅目标学员"/>
+				</title>
+			</item_status>
+			<item_status id="1" value="ALL">
+				<title>
+					<desc lan="ISO-8859-1" name="All learners"/>
+					<desc lan="Big5" name="所有學員"/>
+					<desc lan="GB2312" name="所有学员"/>
+				</title>
+			</item_status>
+			<item_status id="2" value="OFF">
+				<title>
+					<desc lan="ISO-8859-1" name="No"/>
+					<desc lan="Big5" name="否"/>
+					<desc lan="GB2312" name="否"/>
+				</title>
+			</item_status>
+		</item_status>
+		<!--
+		<targeted_lrn type="targeted_lrn_pickup" paramname="target_ent_group_lst" required="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Target learners"/>
+				<desc lan="Big5" name="目標學員"/>
+				<desc lan="GB2312" name="目标学员"/>
+			</title>
+		</targeted_lrn>
+		-->
+		<!-- not appear in edit mode -->
+		<create_date type="read_datetime" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Created"/>
+				<desc lan="Big5" name="創建日期"/>
+				<desc lan="GB2312" name="创建日期"/>
+			</title>
+		</create_date>
+		<created_by type="read" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Created by"/>
+				<desc lan="Big5" name="創建者"/>
+				<desc lan="GB2312" name="创建者"/>
+			</title>
+		</created_by>
+		<update_date type="read_datetime" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Modifed"/>
+				<desc lan="Big5" name="修改日期"/>
+				<desc lan="GB2312" name="修改日期"/>
+			</title>
+		</update_date>
+		<updated_by type="read" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Modified by"/>
+				<desc lan="Big5" name="修改者"/>
+				<desc lan="GB2312" name="修改者"/>
+			</title>
+		</updated_by>
+	</section>
+</template_view>

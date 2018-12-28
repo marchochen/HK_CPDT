@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.AeTreeNodeRelationMapper">
+	<select id="get" resultType="AeTreeNodeRelation" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				tnr_child_tnd_id,
+				tnr_ancestor_tnd_id,
+				tnr_type,
+				tnr_order,
+				tnr_parent_ind,
+				tnr_remain_on_syn,
+				tnr_create_timestamp,
+				tnr_create_usr_id
+			from AeTreeNodeRelation t 
+			where
+				 t.tnr_child_tnd_id = #{id}
+		]]>
+	</select>	
+	<update id="update" parameterType="com.cwn.wizbank.entity.AeTreeNodeRelation">
+	    <![CDATA[
+	        update AeTreeNodeRelation t 
+	        set 
+				tnr_child_tnd_id = #{tnr_child_tnd_id,jdbcType=INTEGER},
+				tnr_ancestor_tnd_id = #{tnr_ancestor_tnd_id,jdbcType=INTEGER},
+				tnr_type = #{tnr_type,jdbcType=VARCHAR},
+				tnr_order = #{tnr_order,jdbcType=INTEGER},
+				tnr_parent_ind = #{tnr_parent_ind,jdbcType=INTEGER},
+				tnr_remain_on_syn = #{tnr_remain_on_syn,jdbcType=INTEGER},
+				tnr_create_timestamp = #{tnr_create_timestamp,jdbcType=TIMESTAMP},
+				tnr_create_usr_id = #{tnr_create_usr_id,jdbcType=VARCHAR}
+	         where t.tnr_child_tnd_id = #{tnr_child_tnd_id,jdbcType=INTEGER}
+	    ]]>
+    </update>    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.AeTreeNodeRelation">
+    	<![CDATA[
+            insert into AeTreeNodeRelation(
+            		tnr_type,
+            		tnr_order,
+            		tnr_parent_ind,
+            		tnr_remain_on_syn,
+            		tnr_create_timestamp,
+            		tnr_create_usr_id
+            ) values (
+            	#{tnr_type,jdbcType=VARCHAR},
+            	#{tnr_order,jdbcType=INTEGER},
+            	#{tnr_parent_ind,jdbcType=INTEGER},
+            	#{tnr_remain_on_syn,jdbcType=INTEGER},
+            	#{tnr_create_timestamp,jdbcType=TIMESTAMP},
+            	#{tnr_create_usr_id,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from AeTreeNodeRelation where
+	        tnr_child_tnd_id = #{tnr_child_tnd_id}
+	    ]]>
+    </delete>	
+	<select id="selectAll" resultType="AeTreeNodeRelation">
+	    <![CDATA[
+	         select 
+				tnr_child_tnd_id,
+				tnr_ancestor_tnd_id,
+				tnr_type,
+				tnr_order,
+				tnr_parent_ind,
+				tnr_remain_on_syn,
+				tnr_create_timestamp,
+				tnr_create_usr_id
+			from AeTreeNodeRelation t 
+	    ]]>
+	</select>	
+</mapper>

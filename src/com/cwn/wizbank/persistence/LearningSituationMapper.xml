@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.LearningSituationMapper">
+	<select id="selectLearningSituation" resultType="LearningSituation" parameterType="Long">
+	select
+			ls_ent_id,
+			ls_learn_duration,
+       		ls_learn_credit,
+         	ls_total_integral,
+         	ls_total_courses,
+			ls_course_completed_num,
+          	ls_course_fail_num,
+         	ls_course_inprogress_num,
+			ls_course_pending_num,
+          	ls_total_exams,
+         	ls_exam_completed_num,
+           	ls_exam_fail_num,
+			ls_exam_inprogress_num,
+           	ls_exam_pending_num,
+           	ls_fans_num,
+           	ls_attention_num,
+			ls_praised_num,
+          	ls_praise_others_num,
+          	ls_collect_num,
+          	ls_share_num,
+			ls_create_group_num,
+           	ls_join_group_num,
+           	ls_group_speech_num,
+           	ls_question_num,
+			ls_answer_num,
+           	ls_update_time,
+           	ls_share_count,
+           	ls_access_count
+		from LearningSituation
+ 		where ls_ent_id = #{usr_ent_id}
+ 		</select>
+	<select id="selectLearningRankList" resultType="LearningSituation" parameterType="Page">
+		select
+			ls_ent_id,
+         	ls_learn_duration,
+         	ls_update_time,
+           	usr_display_bil AS "user.usr_display_bil",
+           	usr_ste_usr_id AS "user.usr_ste_usr_id",
+           	usr_ent_id AS "user.usr_ent_id",
+           	usg_display_bil AS "usg_name",
+           	urx_extra_43 AS "user.usr_photo"
+ 		from LearningSituation		
+		inner join regUser on usr_ent_id = ls_ent_id and (usr_status = 'OK')
+		inner join regUserExtension on urx_usr_ent_id = usr_ent_id
+		<if test="params.tcrId > 0">
+			and usr_ent_id in (
+				select u_id from V_usrTcRelation where tcr_parent_tcr_id = ${params.tcrId} or tcr_id = ${params.tcrId}
+			)
+		</if>
+ 		inner join entityRelation on ern_child_ent_id = ls_ent_id and ern_type = 'USR_PARENT_USG' and ern_parent_ind = 1
+ 		inner join userGroup on usg_ent_id = ern_ancestor_ent_id
+		order by ls_learn_duration desc, ls_update_time, ls_ent_id
+	</select>
+	<select id="selectLearningRankDetail" resultType="LearningSituation" parameterType="Map">
+		select * from (
+		<if test="_databaseId == 'ORACLE'">select row_.*, rownum from (</if>
+			select
+				<if test="_databaseId == 'SQLSERVER'">top 100 percent</if>
+				<if test="_databaseId == 'MYSQL'">@rownum:=@rownum+1 rownum ,</if>
+				ls_ent_id,
+				ls_learn_duration,
+	       		ls_learn_credit,
+	         	ls_total_integral,
+	         	ls_total_courses,
+				ls_course_completed_num,
+	          	ls_course_fail_num,
+	         	ls_course_inprogress_num,
+				ls_course_pending_num,
+	          	ls_total_exams,
+	         	ls_exam_completed_num,
+	           	ls_exam_fail_num,
+				ls_exam_inprogress_num,
+	           	ls_exam_pending_num,
+	           	ls_fans_num,
+	           	ls_attention_num,
+				ls_praised_num,
+	          	ls_praise_others_num,
+	          	ls_collect_num,
+	          	ls_share_num,
+				ls_create_group_num,
+	           	ls_join_group_num,
+	           	ls_group_speech_num,
+	           	ls_question_num,
+				ls_answer_num,
+	           	ls_update_time,
+	           	ls_share_count,
+	           	ls_access_count
+		<if test="_databaseId == 'SQLSERVER'">, rank() over(order by 
+			<choose>
+				<when test="learningSituation != null and learningSituation == true">
+					ls_total_integral desc 
+				</when>
+				<otherwise>
+					ls_learn_duration desc
+				</otherwise>
+			</choose>
+			, ls_update_time, ls_ent_id) rownum
+		</if>
+			from 
+			<if test="_databaseId == 'MYSQL'"> (SELECT @rownum:=0) r, </if>
+			LearningSituation
+ 			inner join regUser on usr_ent_id = ls_ent_id and (usr_status = 'OK')
+ 			<if test="tcrId > 0">
+				and usr_ent_id in (
+					select u_id from V_usrTcRelation where tcr_parent_tcr_id = #{tcrId} or tcr_id = #{tcrId}
+				)
+			</if>
+		<if test="_databaseId == 'ORACLE'">order by 
+			<choose>
+				<when test="learningSituation != null and learningSituation == true">
+					ls_total_integral desc 
+				</when>
+				<otherwise>
+					ls_learn_duration desc
+				</otherwise>
+			</choose>
+			
+			, ls_update_time, ls_ent_id	
+			) row_
+		</if>
+		<if test="_databaseId == 'MYSQL'">order by 
+			<choose>
+				<when test="learningSituation != null and learningSituation == true">
+					ls_total_integral desc 
+				</when>
+				<otherwise>
+					ls_learn_duration desc
+				</otherwise>
+			</choose>
+			
+			, ls_update_time, ls_ent_id	
+		</if>
+		) detail where ls_ent_id =  #{usr_ent_id}
+	</select>
+	
+	<select id="getlearningHistoryForMobile" resultType="LearningSituation" parameterType="Long">
+		select
+			Is_first_course_date,
+			ls_total_courses,
+       		ls_praised_num,
+         	Is_first_praised_date,
+         	Is_first_fans_usr,
+			ls_fans_num,
+          	ls_question_num,
+         	Is_first_helper_usr,
+			Is_first_que_date,
+			Is_signup_date,
+			Is_first_fans_date,
+			Is_first_share_date,
+			ls_answer_num,
+			Is_first_praised_usr
+		from LearningSituation
+ 		where ls_ent_id = #{usr_ent_id}
+ 	</select>
+	
+	<select id="getUserLearnSituation" resultType="LearningSituation" parameterType="Long">
+		 select usr_ent_id, sum(cov_total_time) ls_learn_duration, sum(ies_credit) ls_learn_credit, uct_total ls_total_integral,usr_signup_date Is_signup_date
+    			from regUser 
+	    	inner join acEntityRole on erl_ent_id = usr_ent_id 
+	    	inner join acRole on rol_id = erl_rol_id 
+	    	left join aeApplication on app_ent_id = usr_ent_id 
+	    	left join CourseEvaluation on cov_tkh_id = app_tkh_id 
+	    	left join aeItem on itm_id = app_itm_id 
+	    	left join aeItemExtension on ies_itm_id = itm_id and cov_status = 'C' and app_status = 'Admitted' 
+	    	left join userCredits on uct_ent_id = usr_ent_id 
+	    	where usr_ent_id = #{usr_ent_id}
+	    	group by usr_ent_id,usr_signup_date, uct_total order by usr_ent_id 
+	</select>
+	
+	<select id="selectDynamicLearningSituation" resultType="LearningSituation" parameterType="Long">
+    	select usr_ent_id AS ls_ent_id, sum(cov_total_time) ls_learn_duration, sum(case when erl_rol_id = 5 then ies_credit else 0 end) ls_learn_credit, uct_total AS ls_total_integral,usr_signup_date AS Is_signup_date
+    			from regUser 
+    			inner join acEntityRole on erl_ent_id = usr_ent_id 
+    			inner join acRole on rol_id = erl_rol_id 
+    			left join aeApplication on app_ent_id = usr_ent_id 
+    			left join CourseEvaluation on cov_tkh_id = app_tkh_id and cov_tkh_id in 
+    			(select MAX(cov_tkh_id) from CourseEvaluation where cov_status = 'C' group by cov_cos_id,cov_ent_id) 
+    			left join aeItem on itm_id = app_itm_id 
+    			left join aeItemExtension on ies_itm_id = itm_id and cov_status = 'C' and app_status = 'Admitted'
+    			left join userCredits on uct_ent_id = usr_ent_id 
+    			group by usr_ent_id,usr_signup_date, uct_total 
+    			having usr_ent_id = #{usr_ent_id}
+	</select>
+	<select id="selectDynamicAeItemSituation" resultType="LearningSituation" parameterType="Map">
+		<choose>
+			<when test="itm_exam_ind !=null and itm_exam_ind == true">	
+		    	select allApp.app_ent_id AS ls_ent_id, count(itm_id) ls_total_exams, count(distinct C_course.cov_tkh_id) ls_exam_completed_num, 
+						 count(distinct F_course.cov_tkh_id) ls_exam_fail_num, count(distinct I_course.cov_tkh_id) ls_exam_inprogress_num, count(distinct Pending.app_id) ls_exam_pending_num 
+			</when>
+			<otherwise>
+		    	select allApp.app_ent_id AS ls_ent_id, count(itm_id) ls_total_courses, count(distinct C_course.cov_tkh_id) ls_course_completed_num, 
+				 count(distinct F_course.cov_tkh_id) ls_course_fail_num, count(distinct I_course.cov_tkh_id) ls_course_inprogress_num, count(distinct Pending.app_id) ls_course_pending_num 
+					 , min(allApp.app_create_timestamp) Is_first_course_date
+			</otherwise>
+		</choose>
+		 from aeApplication allApp left join aeItem on itm_id = allApp.app_itm_id  
+		 left join CourseEvaluation C_course on C_course.cov_tkh_id = allApp.app_tkh_id and C_course.cov_status = 'C' 
+		 left join CourseEvaluation F_course on F_course.cov_tkh_id = allApp.app_tkh_id and (F_course.cov_status = 'F' or F_course.cov_status = 'W') 
+		 left join CourseEvaluation I_course on I_course.cov_tkh_id = allApp.app_tkh_id and I_course.cov_status = 'I' 
+		 left join aeApplication Pending on Pending.app_id = allApp.app_id and (Pending.app_status = 'Pending' or Pending.app_status = 'Waiting')
+		 where allApp.app_ent_id = #{usr_ent_id} and itm_exam_ind = #{itm_exam_ind} and allApp.app_Status != 'Withdrawn' group by allApp.app_ent_id
+	</select>
+	<select id="selectDynamicAttentionSituation" resultType="LearningSituation" parameterType="Long">
+	    	 select usr.usr_ent_id ls_ent_id ,count(distinct my_att.s_att_target_uid) ls_attention_num,count(distinct other_att.s_att_source_uid) ls_fans_num, 
+    			 min(other_att.s_att_id) firt_fans_id from RegUser usr 
+    			 inner join acEntityRole on erl_ent_id = usr_ent_id 
+    			 inner join acRole on rol_id = erl_rol_id  
+    			 left join sns_attention my_att on my_att.s_att_source_uid = usr.usr_ent_id 
+    			 left join sns_attention other_att on other_att.s_att_target_uid = usr.usr_ent_id 
+    			 group by usr.usr_ent_id having usr.usr_ent_id = #{usr_ent_id}
+	</select>
+	<select id="selectDynamicPraiseSituation" resultType="LearningSituation" parameterType="Long">
+    	 select usr_ent_id AS ls_ent_id, count(distinct praise_other.s_vtl_target_id) ls_praise_others_num, 
+    			 count(distinct praised.s_vtl_log_id) ls_praised_num , min(praised.s_vtl_log_id)  min_vtl_log_id from regUser 
+    			 inner join acEntityRole on erl_ent_id = usr_ent_id 
+    			 inner join acRole on rol_id = erl_rol_id  
+    			 left join sns_valuation_log praise_other on praise_other.s_vtl_uid = usr_ent_id and Lower(praise_other.s_vtl_type) = 'like'  and (Lower(praise_other.s_vtl_module) != 'course' or s_vtl_is_comment = 1) 
+    			 left join ( 
+    			 	select s_cmt_uid,s_vtl_log_id from sns_comment 
+    			 	inner join sns_valuation_log on Lower(s_vtl_type) = 'like' and s_cmt_id = s_vtl_target_id and Lower(s_vtl_module) in ('doing','group','course') and s_vtl_is_comment = 1 
+    					inner join sns_doing on s_doi_id = s_cmt_reply_to_id 
+    			 	union ( 
+    						select s_doi_uid,s_vtl_log_id from sns_doing 
+    						inner join sns_valuation_log on Lower(s_vtl_type) = 'like' and s_doi_id = s_vtl_target_id and Lower(s_vtl_module) in ('doing','group') and s_vtl_is_comment = 0 
+    				) union ( 
+    						select ans_create_ent_id,s_vtl_log_id from knowAnswer 
+    					inner join sns_valuation_log on Lower(s_vtl_type) = 'like' and ans_id = s_vtl_target_id and Lower(s_vtl_module) = 'answer') 
+    			 ) praised on  praised.s_cmt_uid = usr_ent_id 
+    			 group by usr_ent_id having usr_ent_id = #{usr_ent_id}
+	</select>
+	<select id="selectDynamicCollectAndShareSituation" resultType="LearningSituation" parameterType="Long">
+    	 select usr_ent_id AS ls_ent_id, count(distinct s_clt_id) ls_collect_num, count(distinct s_sha_id) ls_share_num, min(s_sha_create_datetime) Is_first_share_date
+    			 from regUser 
+    			 inner join acEntityRole on erl_ent_id = usr_ent_id 
+    			 inner join acRole on rol_id = erl_rol_id  
+    			 left join sns_collect on s_clt_uid = usr_ent_id 
+    			 left join sns_share on s_sha_uid = usr_ent_id 
+    			 group by usr_ent_id having usr_ent_id = #{usr_ent_id}
+	</select>
+	<select id="selectDynamicGroupSituation" resultType="LearningSituation" parameterType="Long">
+    	 select usr_ent_id AS ls_ent_id, count(distinct s_grp_id) ls_create_group_num, count(distinct s_gpm_id) ls_join_group_num, 
+    			 count(distinct s_doi_id) + count(distinct s_cmt_id) ls_group_speech_num from regUser 
+    			 inner join acEntityRole on erl_ent_id = usr_ent_id 
+    			 inner join acRole on rol_id = erl_rol_id 
+    			 left join sns_group on s_grp_create_uid = usr_ent_id 
+    			 left join ( 
+						select s_gpm_id, s_gpm_usr_id from sns_group_member 
+					  	left join sns_group on s_gpm_grp_id = s_grp_id 
+					  	where s_gpm_status = 1 and s_grp_status = 'OK' 
+					) t on s_gpm_usr_id = usr_ent_id 
+    			 left join sns_doing on s_doi_uid = usr_ent_id and Lower(s_doi_act) = 'group' 
+    			 left join sns_comment on s_cmt_uid = usr_ent_id and s_cmt_module = 'Group' 
+    			 group by usr_ent_id having usr_ent_id = #{usr_ent_id}
+	</select>
+	<select id="selectDynamicKnowSituation" resultType="LearningSituation" parameterType="Long">
+    	 select usr_ent_id AS ls_ent_id, count(distinct que_id) ls_question_num, min(que_create_timestamp) Is_first_que_date, count(distinct ans_id) ls_answer_num from regUser 
+    			 inner join acEntityRole on erl_ent_id = usr_ent_id 
+    			 inner join acRole on rol_id = erl_rol_id 
+    			 left join knowQuestion on que_create_ent_id = usr_ent_id and que_status = 'OK' 
+    			 left join knowAnswer on ans_create_ent_id = usr_ent_id and ans_status = 'OK' 
+    			 group by usr_ent_id having usr_ent_id = #{usr_ent_id}
+	</select>
+	<select id="selectDynamicKnowSituationFirs" resultType="LearningSituation" parameterType="Long">
+    		 select u.usr_ent_id AS ls_ent_id, rg.usr_display_bil as Is_first_helper_usr from knowAnswer inner join ( 
+    		    select usr_ent_id, min(ans_id) min_and_id from regUser 
+    			 inner join acEntityRole on erl_ent_id = usr_ent_id 
+    			 inner join acRole on rol_id = erl_rol_id 
+    			 inner join knowQuestion on que_create_ent_id = usr_ent_id and que_status = 'OK' 
+    			 inner join knowAnswer on que_id = ans_que_id and ans_status = 'OK' 
+    			 where  que_create_ent_id != ans_create_ent_id
+    			 group by usr_ent_id 
+    			 ) u on (ans_id = u.min_and_id) 
+    		 inner join regUser rg on rg.usr_ent_id = ans_create_ent_id and rg.usr_ent_id = #{usr_ent_id}
+	</select>
+	<select id="selectDynamicKnowledgeSituation" resultType="LearningSituation" parameterType="Long">
+    	 select usr_ent_id as ls_ent_id,COUNT(distinct kbi_id) ls_share_count, min(kbi_create_datetime) Is_first_share_date,COUNT(distinct kiv_kbi_id) ls_access_count from RegUser 
+    			 inner join acEntityRole on erl_ent_id = usr_ent_id 
+    			 inner join acRole on rol_id = erl_rol_id  
+    			 left join kb_item on usr_id = kbi_create_user_id and 
+    			 ((kbi_app_status='APPROVED' and kbi_approve_user_id is not null) or kbi_app_status != 'APPROVED') 
+    			 left join kb_item_view on usr_ent_id = kiv_usr_ent_id 
+    			 group by usr_ent_id having usr_ent_id = #{usr_ent_id}
+	</select>
+</mapper>

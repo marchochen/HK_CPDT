@@ -1,0 +1,8 @@
+8.0
+6
+1	SQLNCHAR	0	0	"\t\0"		1	rpm_res_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	rpm_ent_id	""
+3	SQLNCHAR	0	0	"\t\0"		3	rpm_rol_ext_id	""
+4	SQLNCHAR	0	0	"\t\0"		4	rpm_read	""
+5	SQLNCHAR	0	0	"\t\0"		5	rpm_write	""
+6	SQLNCHAR	0	0	"\r\0\n\0"	6	rpm_execute	""

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.CreditsTypeMapper">
+	<select id="get" resultType="CreditsType" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				cty_id,
+				cty_code,
+				cty_title,
+				cty_deduction_ind,
+				cty_manual_ind,
+				cty_deleted_ind,
+				cty_relation_total_ind,
+				cty_relation_type,
+				cty_default_credits_ind,
+				cty_default_credits,
+				cty_create_usr_id,
+				cty_create_timestamp,
+				cty_update_usr_id,
+				cty_update_timestamp,
+				cty_hit,
+				cty_period,
+				cty_tcr_id
+			from CreditsType t where t.cty_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.CreditsType">
+	    <![CDATA[
+	        update CreditsType t 
+	        set 
+				cty_id = #{cty_id,jdbcType=INTEGER},
+				cty_code = #{cty_code,jdbcType=VARCHAR},
+				cty_title = #{cty_title,jdbcType=VARCHAR},
+				cty_deduction_ind = #{cty_deduction_ind,jdbcType=INTEGER},
+				cty_manual_ind = #{cty_manual_ind,jdbcType=INTEGER},
+				cty_deleted_ind = #{cty_deleted_ind,jdbcType=INTEGER},
+				cty_relation_total_ind = #{cty_relation_total_ind,jdbcType=INTEGER},
+				cty_relation_type = #{cty_relation_type,jdbcType=VARCHAR},
+				cty_default_credits_ind = #{cty_default_credits_ind,jdbcType=INTEGER},
+				cty_default_credits = #{cty_default_credits,jdbcType=DOUBLE},
+				cty_create_usr_id = #{cty_create_usr_id,jdbcType=VARCHAR},
+				cty_create_timestamp = #{cty_create_timestamp,jdbcType=TIMESTAMP},
+				cty_update_usr_id = #{cty_update_usr_id,jdbcType=VARCHAR},
+				cty_update_timestamp = #{cty_update_timestamp,jdbcType=TIMESTAMP},
+				cty_hit = #{cty_hit,jdbcType=INTEGER},
+				cty_period = #{cty_period,jdbcType=VARCHAR},
+				cty_tcr_id = #{cty_tcr_id,jdbcType=INTEGER}
+	         where t.cty_id = #{cty_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.CreditsType">
+    	<![CDATA[
+            insert into CreditsType(
+            		cty_code,
+            		cty_title,
+            		cty_deduction_ind,
+            		cty_manual_ind,
+            		cty_deleted_ind,
+            		cty_relation_total_ind,
+            		cty_relation_type,
+            		cty_default_credits_ind,
+            		cty_default_credits,
+            		cty_create_usr_id,
+            		cty_create_timestamp,
+            		cty_update_usr_id,
+            		cty_update_timestamp,
+            		cty_hit,
+            		cty_period,
+            		cty_tcr_id
+            ) values (
+            	#{cty_code,jdbcType=VARCHAR},
+            	#{cty_title,jdbcType=VARCHAR},
+            	#{cty_deduction_ind,jdbcType=INTEGER},
+            	#{cty_manual_ind,jdbcType=INTEGER},
+            	#{cty_deleted_ind,jdbcType=INTEGER},
+            	#{cty_relation_total_ind,jdbcType=INTEGER},
+            	#{cty_relation_type,jdbcType=VARCHAR},
+            	#{cty_default_credits_ind,jdbcType=INTEGER},
+            	#{cty_default_credits,jdbcType=DOUBLE},
+            	#{cty_create_usr_id,jdbcType=VARCHAR},
+            	#{cty_create_timestamp,jdbcType=TIMESTAMP},
+            	#{cty_update_usr_id,jdbcType=VARCHAR},
+            	#{cty_update_timestamp,jdbcType=TIMESTAMP},
+            	#{cty_hit,jdbcType=INTEGER},
+            	#{cty_period,jdbcType=VARCHAR},
+            	#{cty_tcr_id,jdbcType=INTEGER}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from CreditsType  where cty_id = #{cty_id}
+	    ]]>
+    </delete>	
+	<select id="selectAll" resultType="CreditsType">
+	    <![CDATA[
+	         select 
+				cty_id,
+				cty_code,
+				cty_title,
+				cty_deduction_ind,
+				cty_manual_ind,
+				cty_deleted_ind,
+				cty_relation_total_ind,
+				cty_relation_type,
+				cty_default_credits_ind,
+				cty_default_credits,
+				cty_create_usr_id,
+				cty_create_timestamp,
+				cty_update_usr_id,
+				cty_update_timestamp,
+				cty_hit,
+				cty_period,
+				cty_tcr_id
+			from CreditsType t 
+	    ]]>
+	</select>	
+	
+	<select id="getCreditsTypeByCode" parameterType="java.lang.String" resultType="CreditsType">
+		select * from creditsType where cty_code = #{cty_code}
+	</select>
+</mapper>

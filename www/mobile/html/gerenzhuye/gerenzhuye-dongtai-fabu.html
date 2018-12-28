@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title>Document</title>
+<link rel="stylesheet" href="../../css/basic.css" />
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<!--[if lt IE 9]>
+<script src="../../js/lib/html5.js" type="text/jscript"></script>
+<![endif]-->
+</head>
+<body>
+
+<div class="wrap" id="wizwrap">
+<header class="header mm-background">
+    <a class="header-back" href="gerenzhuye-xuexigaikuang.html" title="返回"></a>
+    <span class="header-title">动态</span>
+    <a class="header-info" href="###" title="发布">发布</a>
+</header> <!-- header End -->
+
+<section class="content">
+<div class="cont-review-show"><textarea class="pure-form-txt-5" name="">我想再学些相关业务类的课程，大家有什么推荐吗？</textarea></div> 
+
+<div class="cont-review-tool">
+     <a class="review-tool-pic-hover" href="###" title="图片"></a>
+     <a class="review-tool-file" href="###" title="文件"></a>
+     <a class="review-tool-shipin" href="###" title="视频"></a>
+</div>
+
+<div class="cont-review-info clearfix">
+     <div class="rewiew-tool">
+          <img class="rewiew-tool-photo" src="../../images/user31.jpg" alt=""/>
+          <span class="rewiew-tool-delete">x</span>
+     </div>
+     <a class="rewiew-tool-add yinsi-tip" href="javascript:;" title="添加图片"></a>
+</div>
+
+<div class="yinsi-desc">
+     <div class="yinsi-load" style="display:none;">100</div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+$(".yinsi-tip").click(function(){
+    $(".yinsi-desc").width($("#wizwrap").width()).toggleClass("show");
+    $(".yinsi-load").width($("#wizwrap").width()).height($(window).height()).slideToggle();
+    $(".yinsi-desc").height($(window).height());
+	$(".yinsi-load").css("lineHeight",$(window).height()-120+"px");
+});
+});
+</script>
+
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

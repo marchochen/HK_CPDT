@@ -1,0 +1,57 @@
+<!doctype html>
+<html ng-app="evaluation">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/EvaluationController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="evaluationController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+
+<div class="wrap" id="wizwrap">
+<header class="header mm-background">
+    <a class="header-back" href="{{backvalue?'javascript:back(2);':'javascript:back();'}}" title="back"></a>
+    <span class="header-title">{{'evaluation' | translate}}</span>
+</header> <!-- header End -->
+<wzm-docker rp="../../"></wzm-docker>
+<section class="content-2">
+<div class="panel-list-box" style="margin:0;">
+<tabs> 
+    <pane style="panel-tabcont-2 pub-tabcont" title="{{'eva_wait_anwser' | translate}}" select="show.evaWaitAnwser"> 
+        <ul class="panel-list-1-2 list-icon-answer" >
+             <li ng-repeat=" eva in evaListF.items" ng-click="detail(eva)" >
+                <a class="panel-list-title-1" href="javascript:;"  title="">
+                   {{eva.res_title}}
+                   <div class="panel-list-time">{{eva.tcr.tcr_title}}</div>
+                	<div class="panel-list-time">{{'eva_end_date' | translate}}：{{eva.mod.mod_eff_end_datetime | toDate}}</div>
+                </a>
+             </li>  
+        </ul>
+        <div loader="evaListF"></div>
+    </pane>
+    <pane style="panel-tabcont-2 pub-tabcont" title="{{'eva_anwsered' | translate}}" select="show.evaAnwsered"> 
+        <ul class="panel-list-1-2 list-icon-norefer">
+              <li ng-repeat=" eva in evaListC.items">
+                <div class="panel-list-title-1">
+                     {{eva.res_title}}
+                     <div class="panel-list-time">{{eva.tcr.tcr_title}}</div>
+                    <div class="panel-list-time">{{'eva_submit_date' | translate}}：{{eva.mov.mov_create_timestamp | toDate}}</div>
+                </div>
+                
+             </li>    
+        </ul>
+        <div loader="evaListC"></div>      
+    </pane>
+</tabs>
+</div> <!-- panel-list-box End -->
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

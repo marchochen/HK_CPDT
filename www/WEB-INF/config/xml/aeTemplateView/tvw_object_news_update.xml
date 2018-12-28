@@ -1,0 +1,79 @@
+<template_view>
+	<section id="1">
+		<title>
+			<desc lan="ISO-8859-1" name="Item properties"/>
+			<desc lan="Big5" name="知識屬性"/>
+			<desc lan="GB2312" name="知识属性"/>
+		</title>
+		<field01 marked="yes" ext_value_label_tag="object_type_list">
+			<title>
+				<desc lan="ISO-8859-1" name="Type"/>
+				<desc lan="Big5" name="類型"/>
+				<desc lan="GB2312" name="类型"/>
+			</title>
+		</field01>
+		<field31 marked="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Code"/>
+				<desc lan="Big5" name="編號"/>
+				<desc lan="GB2312" name="编号"/>
+			</title>
+		</field31>
+		<km_next_version marked="yes" type="constant" required="yes" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Next version"/>
+				<desc lan="Big5" name="下一版本"/>
+				<desc lan="GB2312" name="下一版本"/>
+			</title>
+		</km_next_version>
+		<field02 marked="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Title"/>
+				<desc lan="Big5" name="名稱"/>
+				<desc lan="GB2312" name="名称"/>
+			</title>
+		</field02>
+		<!--field06 marked="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="File"/>
+				<desc lan="Big5" name="!!!File"/>
+				<desc lan="GB2312" name="文件"/>
+			</title>
+		</field06-->
+		<field03 marked="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Content"/>
+				<desc lan="Big5" name="内容"/>
+				<desc lan="GB2312" name="内容"/>
+			</title>
+		</field03>
+		<field04 marked="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Author"/>
+				<desc lan="Big5" name="作者"/>
+				<desc lan="GB2312" name="作者"/>
+			</title>
+		</field04>
+		<field05 marked="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Keywords"/>
+				<desc lan="Big5" name="關鍵字"/>
+				<desc lan="GB2312" name="关键词"/>
+			</title>
+		</field05>
+	</section>
+	<section id="2">
+		<title>
+			<desc lan="ISO-8859-1" name="Version comments"/>
+			<desc lan="Big5" name="版本備註"/>
+			<desc lan="GB2312" name="版本备注"/>
+		</title>
+		<field07 marked="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Comments"/>
+				<desc lan="Big5" name="備註"/>
+				<desc lan="GB2312" name="备注"/>
+			</title>
+		</field07>
+	</section>
+</template_view>

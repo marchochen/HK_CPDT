@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.UserSpecialExpertMapper">
+	<select id="get" parameterType="Long" resultType="UserSpecialExpert">
+		select * from UserSpecialExpert where use_id = #{use_id}
+	</select>
+
+	<update id="update" parameterType="com.cwn.wizbank.entity.UserSpecialExpert">
+		update UserSpecialExpert set
+		use_ust_id = #{use_ust_id}
+		,use_ent_id = #{use_ent_id}
+		where use_id = #{use_id}
+	</update>
+
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from UserSpecialExpert where use_id = #{id}
+	</delete>
+	<insert id="add" parameterType="com.cwn.wizbank.entity.UserSpecialExpert">
+		insert into UserSpecialExpert(use_ust_id,use_ent_id) values (#{use_ust_id},#{use_ent_id})
+     <selectKey resultType="java.lang.Long" keyProperty="use_id" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select userSpecialExpert_seq.CURRVAL AS use_id FROM DUAL
+				</when>
+				<otherwise>
+					select @@IDENTITY as use_id
+				</otherwise>
+			</choose>
+		</selectKey>
+	</insert>
+	<select id="list" parameterType="Map" resultType="UserSpecialExpert">
+		select * from UserSpecialExpert where use_id = #{use_id}
+	</select>
+	<delete id="deleteByUstId" parameterType="java.lang.Long">
+		delete from UserSpecialExpert where use_ust_id = #{id}
+	</delete>
+	<select id="getExpertsByUstId" parameterType="Map" resultType="UserSpecialExpert">
+	select * from (                                                             
+				select use_id,use_ent_id,iti_type,iti_expertise_areas,use_ust_id,iti_name as title,iti_level,(select avg(itc_style_score + itc_quality_score + itc_structure_score + itc_interaction_score ) / 4 as score from InstructorComment where itc_iti_ent_id = iti_ent_id ) as iti_score ,iti_img as usr_photo
+				 from UserSpecialExpert  
+                       inner join InstructorInf on iti_ent_id = use_ent_id                                                                                        
+				 inner join entity on(iti_ent_id = ent_id and iti_type_mark = 'EXT')    
+				 	 where 1=1
+				 <if test="top_tc_id != null and top_tc_id != ''">
+			 	   and (
+			 	   		iti_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{top_tc_id} )
+			 	   		or iti_tcr_id = #{top_tc_id}
+			 	   )
+			 	</if>                                                           
+					 union 
+				<choose>
+					<when test="_databaseId == 'ORACLE'">
+						select use_id,use_ent_id,iti_type,iti_expertise_areas,use_ust_id,cast(usr_display_bil as nvarchar2(255)) as title,iti_level,(select avg(itc_style_score + itc_quality_score + itc_structure_score + itc_interaction_score ) / 4 as score from InstructorComment where itc_iti_ent_id = iti_ent_id ) as iti_score ,urx_extra_43 as usr_photo
+					</when>
+					<otherwise>
+						select use_id,use_ent_id,iti_type,iti_expertise_areas,use_ust_id,usr_display_bil as 'title',iti_level,(select avg(itc_style_score + itc_quality_score + itc_structure_score + itc_interaction_score ) / 4 as score from InstructorComment where itc_iti_ent_id = iti_ent_id ) as iti_score ,urx_extra_43 as 'usr_photo'
+					</otherwise>
+				</choose>
+				from UserSpecialExpert             
+		         inner join InstructorInf on iti_ent_id = use_ent_id                                                                                       
+				 inner join reguser on(iti_ent_id = usr_ent_id)                                                             
+				 left join RegUserSkillSet on(uss_ent_id = usr_ent_id)                                                      
+				 left join cmSkillSet on(uss_ske_id = sks_ske_id and sks_owner_ent_id = 1 and  sks_type = 'SKP' )
+				 inner join  RegUserExtension on (iti_ent_id = urx_usr_ent_id ) 
+				 where 1=1
+				 <if test="top_tc_id != null and top_tc_id != ''">
+			 	   and (
+			 	   		iti_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{top_tc_id} )
+			 	   		or iti_tcr_id = #{top_tc_id}
+			 	   )
+			 	</if>        
+			) ins 
+		 where use_ust_id = #{use_ust_id}
+	</select>
+</mapper>

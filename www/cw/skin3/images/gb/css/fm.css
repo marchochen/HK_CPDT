@@ -1,0 +1,98 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :facility management
+suffix								   :fm
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : calendar.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+a.wbFmFsText:hover, .wbFmFsHeadText, .wbFmCalDateText, .wbFmCalColTodayDateText, .wbFmLegendText, .wbFmRsvRowBg, .wbFmRsvRowHeadBarText, a.wbFmRsvRowText,a.wbFmRsvRowText:hover,a.wbFmRsvRowText,visited,a.wbFmRsvRowText:active {
+	color: #000000;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+a.wbFmNavLink{
+	color: #000000;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-decoration: none;
+}
+
+.wbFmCalCellAlmostFullBg{
+	background-color: #5375A3;
+}
+
+/* Calendar Cell Bg*/
+.wbFmCalCellAvailBg{
+	background-color: #DEF7FF;
+}
+
+.wbFmCalCellFullRsvBg{
+	background-color: #2E3F75;
+}
+
+.wbFmCalColDateBg{
+	background: #003E53;
+}
+
+.wbFmCalColHeadBg{
+	background: #066686;
+}
+
+.wbFmCalColHeadText, .wbFmCalColDateText {
+	color: #FFFFFF;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFmCalColTodayDateBg, .wbFmCalCellPartlyRsvBg {
+	background-color: #8CCAF0;
+}
+
+.wbFmCalText{
+	color: #000000;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFmFsBg, .wbFmRsvRowHeadBarBg {
+	background-color: #DFE8F1;
+}
+
+.wbFmFsHRBarBg, .wbFmLegendBg {
+	background-color: #000000;
+}
+
+.wbFmFsText, a.wbFmFsText,a.wbFmFsText:active,a.wbFmFsText:visited {
+	color: #943300;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFmHeadBarBg{
+	background: #8CCAF0;
+}
+
+.wbFmHeadBarText{
+	color: #06446C;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	padding-top: 2px;
+}
+
+.wbFmHeadRefBg{
+	background-color: #A8D6E6;
+}
+
+.wbFmHeadRefText{
+	color: #06446C;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFmNavBg{
+	background-color: #EFEFEF;
+}
+
+.wbFmRsvCancelRowTexT{
+	color: #C0C0C0;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFmRsvRowText, .wbFmBg, .wbFmCalBg {
+	background-color: #FFFFFF;
+}

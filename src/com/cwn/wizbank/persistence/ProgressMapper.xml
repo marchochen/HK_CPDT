@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.ProgressMapper">
+	<select id="get" resultType="Progress" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				pgr_usr_id,
+				pgr_res_id,
+				pgr_attempt_nbr,
+				pgr_score,
+				pgr_grade,
+				pgr_max_score,
+				pgr_rank_bil,
+				pgr_schedule_datetime,
+				pgr_start_datetime,
+				pgr_complete_datetime,
+				pgr_last_acc_datetime,
+				pgr_status,
+				pgr_tkh_id,
+				pgr_completion_status
+			from Progress t 
+			where
+				 t.pgr_usr_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.Progress">
+	    <![CDATA[
+	        update Progress t 
+	        set 
+				pgr_usr_id = #{pgr_usr_id,jdbcType=VARCHAR},
+				pgr_res_id = #{pgr_res_id,jdbcType=INTEGER},
+				pgr_attempt_nbr = #{pgr_attempt_nbr,jdbcType=INTEGER},
+				pgr_score = #{pgr_score,jdbcType=DECIMAL},
+				pgr_grade = #{pgr_grade,jdbcType=VARCHAR},
+				pgr_max_score = #{pgr_max_score,jdbcType=DECIMAL},
+				pgr_rank_bil = #{pgr_rank_bil,jdbcType=VARCHAR},
+				pgr_schedule_datetime = #{pgr_schedule_datetime,jdbcType=TIMESTAMP},
+				pgr_start_datetime = #{pgr_start_datetime,jdbcType=TIMESTAMP},
+				pgr_complete_datetime = #{pgr_complete_datetime,jdbcType=TIMESTAMP},
+				pgr_last_acc_datetime = #{pgr_last_acc_datetime,jdbcType=TIMESTAMP},
+				pgr_status = #{pgr_status,jdbcType=VARCHAR},
+				pgr_tkh_id = #{pgr_tkh_id,jdbcType=INTEGER},
+				pgr_completion_status = #{pgr_completion_status,jdbcType=VARCHAR}
+	         where t.pgr_usr_id = #{pgr_usr_id,jdbcType=VARCHAR}
+	    ]]>
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.Progress">
+    	<![CDATA[
+            insert into Progress(
+            		pgr_score,
+            		pgr_grade,
+            		pgr_max_score,
+            		pgr_rank_bil,
+            		pgr_schedule_datetime,
+            		pgr_start_datetime,
+            		pgr_complete_datetime,
+            		pgr_last_acc_datetime,
+            		pgr_status,
+            		pgr_completion_status
+            ) values (
+            	#{pgr_score,jdbcType=DECIMAL},
+            	#{pgr_grade,jdbcType=VARCHAR},
+            	#{pgr_max_score,jdbcType=DECIMAL},
+            	#{pgr_rank_bil,jdbcType=VARCHAR},
+            	#{pgr_schedule_datetime,jdbcType=TIMESTAMP},
+            	#{pgr_start_datetime,jdbcType=TIMESTAMP},
+            	#{pgr_complete_datetime,jdbcType=TIMESTAMP},
+            	#{pgr_last_acc_datetime,jdbcType=TIMESTAMP},
+            	#{pgr_status,jdbcType=VARCHAR},
+            	#{pgr_completion_status,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from Progress where
+	        pgr_usr_id = #{pgr_usr_id}
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="Progress">
+	    <![CDATA[
+	         select 
+				pgr_usr_id,
+				pgr_res_id,
+				pgr_attempt_nbr,
+				pgr_score,
+				pgr_grade,
+				pgr_max_score,
+				pgr_rank_bil,
+				pgr_schedule_datetime,
+				pgr_start_datetime,
+				pgr_complete_datetime,
+				pgr_last_acc_datetime,
+				pgr_status,
+				pgr_tkh_id,
+				pgr_completion_status
+			from Progress t 
+	    ]]>
+	</select>
+	
+	<select id="selectAnswerDetail" resultType="Progress" parameterType="Page">
+		SELECT
+	correct_id AS "pgr_correct_ind",
+	COUNT(*) AS "pgr_total",
+	pgr_attempt_nbr,
+	pgr_score,
+	pgr_max_score,
+	pgr_completion_status,
+	mod_pass_score AS "mod.mod_pass_score"
+	FROM
+	(
+		SELECT
+			pgr_attempt_nbr,
+			pgr_score,
+			pgr_max_score,
+			pgr_completion_status,
+			mod_pass_score,
+			(
+				CASE
+				WHEN correct_ind = res_count THEN
+					1
+				ELSE
+					0
+				END
+			) AS correct_id 
+		FROM
+			(
+				SELECT
+					pgr_attempt_nbr,
+					pgr_max_score,
+					atm_int_res_id,
+					<choose>
+						<when test="_databaseId == 'ORACLE'">SUM (atm_correct_ind) AS correct_ind,</when>
+						<when test="_databaseId == 'SQLSERVER'">SUM (cast(atm_correct_ind as bigint)) AS correct_ind,</when>
+						<when test="_databaseId == 'MYSQL'">SUM(atm_correct_ind) AS correct_ind,</when>
+					</choose>
+					COUNT(atm_int_res_id) AS res_count,
+					pgr_score,
+					pgr_completion_status,
+					mod_pass_score
+				FROM
+					Progress
+				LEFT JOIN module ON mod_res_id = pgr_res_id
+				LEFT JOIN ProgressAttempt ON atm_pgr_res_id = pgr_res_id
+				AND atm_pgr_attempt_nbr = pgr_attempt_nbr
+				AND atm_tkh_id = pgr_tkh_id
+		where pgr_res_id = #{params.res_id} and pgr_tkh_id = #{params.tkh_id} 
+		<choose>
+			<when test="params.attempt == 0">
+				and pgr_attempt_nbr = (
+				      select max(pgr_attempt_nbr) from Progress
+				      where pgr_res_id = #{params.res_id} and pgr_tkh_id = #{params.tkh_id}
+				) 
+			</when>
+			<otherwise>
+				and pgr_attempt_nbr = #{params.attempt}
+			</otherwise>
+		</choose>
+				GROUP BY
+					pgr_attempt_nbr,
+					pgr_max_score,
+					atm_int_res_id,
+					pgr_score,
+					pgr_completion_status,
+					mod_pass_score
+				) temp_t
+		) temp_t2
+		GROUP BY
+		temp_t2.correct_id,
+		pgr_attempt_nbr,
+		pgr_max_score,
+		pgr_score,
+		pgr_completion_status,
+		mod_pass_score
+	</select>
+	
+	<select id="selectAllTstResult" resultType="Progress" parameterType="com.cwn.wizbank.entity.Progress">
+		select 
+				pgr_usr_id,
+				pgr_res_id,
+				pgr_attempt_nbr,
+				pgr_score,
+				pgr_grade,
+				pgr_max_score,
+				pgr_rank_bil,
+				pgr_schedule_datetime,
+				pgr_start_datetime,
+				pgr_complete_datetime,
+				pgr_last_acc_datetime,
+				pgr_status,
+				pgr_tkh_id,
+				pgr_completion_status
+			from Progress t 
+			where
+				 t.pgr_res_id = #{pgr_res_id}
+				 and t.pgr_tkh_id = #{pgr_tkh_id}
+				 and t.pgr_usr_id = #{pgr_usr_id}
+	</select>
+	
+	<select id="selectAllAnswerDetail" resultType="Progress" parameterType="Page">
+		SELECT			
+			(ATM_INT_RES_ID) AS pgr_res_id,
+			min(ATM_SCORE) AS pgr_score,
+			ATM_ORDER
+		FROM
+			ProgressAttempt
+		WHERE
+		ATM_PGR_ATTEMPT_NBR = #{params.attempt}
+		AND ATM_PGR_RES_ID = #{params.res_id}
+		AND ATM_TKH_ID =  #{params.tkh_id}
+		AND ATM_PGR_USR_ID =  #{params.usr_id}
+		GROUP BY ATM_INT_RES_ID, ATM_ORDER
+		ORDER BY
+			ATM_ORDER ASC
+	</select>
+	
+	<select id="selectNotScore" resultType="java.lang.Long" parameterType="com.cwn.wizbank.entity.Progress">
+		SELECT COUNT(*) FROM PROGRESSATTEMPT WHERE ATM_PGR_ATTEMPT_NBR =  #{pgr_attempt_nbr,jdbcType=VARCHAR} AND ATM_PGR_RES_ID = #{pgr_res_id,jdbcType=VARCHAR} AND ATM_TKH_ID = #{pgr_tkh_id,jdbcType=VARCHAR} AND ATM_PGR_USR_ID =#{pgr_usr_id,jdbcType=VARCHAR} AND ATM_SCORE = -1
+	</select>
+	
+	<select id="getMaxAttemptNbr" resultType="java.lang.Long" parameterType="com.cwn.wizbank.entity.Progress">
+		 SELECT 
+		 	<choose>
+				<when test="_databaseId == 'ORACLE'">
+					NVL(MAX(pgr_attempt_nbr),0) attempt_nbr 
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					ISNULL(MAX(pgr_attempt_nbr),0) attempt_nbr
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					IFNULL(MAX(pgr_attempt_nbr),0) attempt_nbr
+				</when>
+			</choose>  
+		from Progress where pgr_res_id = #{pgr_res_id} and pgr_tkh_id = #{pgr_tkh_id} 
+	</select>
+	
+	<select id="getMaxProgressAttempt" resultType="Progress" parameterType="Page">
+		select * from Progress where  pgr_res_id = #{params.res_id} and pgr_tkh_id = #{params.tkh_id}
+		and pgr_score = (select MAX(pgr_score) from Progress where  pgr_res_id = #{params.res_id} and pgr_tkh_id = #{params.tkh_id}) order by pgr_attempt_nbr desc
+	</select>
+	
+</mapper>

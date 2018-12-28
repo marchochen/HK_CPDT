@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.UserPositionMapper">
+	<select id="get" parameterType="Long" resultType="Userposition">
+		select * from userposition where 1=1 and upt_id= #{id}
+	</select>
+		<select id="getByMapId" parameterType="Long" resultType="Userposition">
+		select * from userposition left join userpositioncatalog on upt_upc_id=upc_id 
+		left join userpositionlrnmap on upt_id=upm_upt_id 
+		where 1=1 and upm_id= #{id}
+	</select>
+	<select id="getPositionList" parameterType="Map" resultType="UserPosition">
+		select * from userposition left join userpositioncatalog on upt_upc_id=upc_id 
+		where  1=1
+    	<if test="params.upt_id != null and params.upt_id != 0  ">		 
+			and upt_id= #{params.upt_id}
+		 </if>
+		<if test="params.upt_id != null and params.upc_id != 0 ">	
+			<choose>
+				<when test="params.upc_id == -1">
+					and upt_upc_id IS NULL
+				</when>
+				<otherwise>
+					and upt_upc_id= #{params.upc_id}
+				</otherwise>
+			</choose>	 
+		 </if>
+		 <if test="params.top_tcr_id != null and params.top_tcr_id !=0  ">		 
+			and (upt_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{params.top_tcr_id} ) or upt_tcr_id = #{params.top_tcr_id})
+		 </if>
+		 <if test="params.searchText != null and params.searchText !=''">
+		    <bind name="searchText" value="'%' + params.searchText + '%'" />
+			and ( lower(upt_title) like N'${searchText}' )
+		  </if>
+	</select>
+	<select id="getPositionMapPage" parameterType="Map" resultType="UserPosition">
+select * from userposition left join userpositioncatalog on upt_upc_id=upc_id 
+		where  upt_id not in( select upt_id from UserPositionlrnMap inner join UserPosition on upm_upt_id=upt_id left join UserPositionCatalog on   upc_id=upt_upc_id)
+    <if test="params.upt_id != null and params.upt_id != 0  ">		 
+		and upt_id= #{params.upt_id} 
+		 </if>
+		     <if test="params.upc_id != null and params.upc_id != 0  ">		 
+		and upt_upc_id= #{params.upc_id} 
+		 </if>
+	  <if test="params.top_tcr_id != null and params.top_tcr_id !=0  ">		 
+			and (upt_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{params.top_tcr_id} ) or upt_tcr_id = #{params.top_tcr_id})
+		 </if>
+		  
+		 <if test="params.searchText != null and params.searchText !=''">
+		    <bind name="searchText" value="'%' + params.searchText + '%'" />
+			and ( lower(upt_title) like N'${searchText}' )
+		  </if>
+	</select>
+	<select id="getList" parameterType="Map" resultType="UserPosition">
+		select *from userposition 
+		where 1=1
+    	<if test="ids !=null  ">
+			and upt_id in (${ids})
+		</if>
+    	<if test="upt_upc_id != null and upt_upc_id !=0  ">
+			and upt_upc_id= #{upt_upc_id}
+		</if>
+		<if test="title !=null  ">
+			and upt_title = #{title}
+		</if>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.UserPosition">
+		update UserPosition set upt_title = #{upt_title}
+		,upt_code = #{upt_code}
+		,upt_tcr_id = #{upt_tcr_id}
+		,pfs_update_usr_id = #{pfs_update_usr_id}
+		,pfs_update_time = #{pfs_update_time}
+		,upt_upc_id = #{upt_upc_id}
+		where upt_id = #{upt_id}
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.Long">
+		delete UserPosition where upt_id = #{id}
+	</delete>
+	<insert id="add" parameterType="com.cwn.wizbank.entity.UserPosition">
+		insert into UserPosition(upt_title,upt_code,upt_tcr_id,pfs_update_usr_id,pfs_update_time,upt_upc_id)
+		values(#{upt_title},#{upt_code},#{upt_tcr_id},#{pfs_update_usr_id},#{pfs_update_time},#{upt_upc_id})
+	<selectKey resultType="java.lang.Long" keyProperty="upt_id" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select UserPosition_seq.CURRVAL AS upt_id FROM DUAL
+				</when>
+				<otherwise>
+					select @@IDENTITY as upt_id
+				</otherwise>
+			</choose>
+		</selectKey>
+	</insert>
+	<delete id="batchdelete">
+		delete from UserPosition where upt_id in (${ids})
+	</delete>
+	<select id="getCountById" parameterType="Map" resultType="int">
+		select count(upt_id) from userposition
+		where 1=1
+    <if test="upt_upc_id !=null">		 
+		and upt_upc_id= #{upt_upc_id}
+		 </if>
+		   <if test="top_tcr_id != null and top_tcr_id !='' ">		 
+			and (upt_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{top_tcr_id} ) or upt_tcr_id = #{top_tcr_id})
+		 </if>
+	</select>
+	<select id="isExistFormProp" parameterType="Map" resultType="boolean">
+		select count(upt_id) from userposition
+		where 1=1
+		<if test="upt_title != null and upt_title !=''">
+			 and   upt_title= N'${upt_title}' 
+		</if>
+		<if test="upt_code != null and upt_code !=''">
+		  and  upt_code= N'${upt_code}' 
+		</if>
+		<if test="old_id != null and old_id !=''">	 
+				and upt_id != '${old_id}'
+		</if>
+		 
+		 <if test="top_tcr_id != null and top_tcr_id !='' and (old_id == null or old_id =='')">		 
+			and (upt_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{top_tcr_id} ) or upt_tcr_id = #{top_tcr_id})
+		 </if>
+	</select>
+	<select id="getDelUptAffectUsr" parameterType="Map" resultType="Userposition">
+		select usr_ste_usr_id,usr_display_bil,ern_ancestor_ent_id from UserPosition 
+					inner join UserPositionRelation on upr_upt_id = upt_id 
+					 inner join reguser on usr_ent_id = upr_usr_ent_id 
+				 inner join entityrelation on ern_child_ent_id = usr_ent_id and ern_type = 'USR_PARENT_USG' and ern_parent_ind = 1 
+				where upt_id in (${ids})
+	</select>
+</mapper>

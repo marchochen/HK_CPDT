@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.cyberwisdom.net" xmlns:jxb="http://java.sun.com/xml/ns/jaxb" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" jxb:version="1.0">
+	<xsd:element name="extension">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<jxb:schemaBindings>
+					<jxb:package name="org.imsglobal.enterprise.cwn"/>
+				</jxb:schemaBindings>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="grade" minOccurs="0">
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:string">
+								<xsd:attribute name="id" type="xsd:string" use="required"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="position" minOccurs="0" maxOccurs="unbounded">
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:string">
+								<xsd:attribute name="id" type="xsd:string" use="required"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="job_title" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="join_date" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="classification_list" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="classification" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute name="type" type="xsd:string" use="required"/>
+											<xsd:attribute name="id" type="xsd:string" use="required"/>
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="status" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="item_title" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="title" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute name="lang" type="xsd:string" use="required"/>
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="item_url" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="url" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute name="lang" type="xsd:string" use="required"/>
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="credit_list" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="credit" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute name="type" type="xsd:string" use="required"/>
+											<xsd:attribute name="subtype" type="xsd:string"/>
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="completiondate" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="enrollmentdate" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="timespent" type="xsd:float" minOccurs="0"/>
+				<xsd:element name="lastaccessdate" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="enrollmentworkflow" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="sendmail" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="ext" minOccurs="0" maxOccurs="unbounded">
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:string">
+								<xsd:attribute name="exttype" type="xsd:string" use="required"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

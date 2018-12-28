@@ -1,0 +1,19 @@
+<template>
+<field01 name="Code" type="text" size="20" required="yes" paramname="itm_code" addSrhContent="true"/>
+<field02 name="Title" type="text" size="200" required="yes" paramname="itm_title" addSrhContent="true"/>
+<field04 name="Language medium" type="text" size="500" required="no" addSrhContent="true"/>
+<field06 name="Summary" type="textarea" size="2000" required="no" paramname="itm_desc" addSrhContent="true"/>
+<field07 name="Contents" type="textarea" size="4000" required="no" addSrhContent="true"/>
+<field14 name="Remarks" type="textarea" size="4000" required="no" addSrhContent="true"/>
+<field41 name="URL" type="url" size="500" required="no" addSrhContent="true"/>
+<field42 name="Related URLs" required="no" addSrhContent="true">
+<subfield_list>
+<subfield id="1" name="URL 1" type="url" size="500" required="no"/>
+<subfield id="2" name="URL 2" type="url" size="500" required="no"/>
+<subfield id="3" name="URL 3" type="url" size="500" required="no"/>
+<subfield id="4" name="URL 4" type="url" size="500" required="no"/>
+<subfield id="5" name="URL 5" type="url" size="500" required="no"/>
+</subfield_list>
+</field42>
+<field99 name="Icon" type="image" required="no" paramname="itm_icon"/>
+</template>

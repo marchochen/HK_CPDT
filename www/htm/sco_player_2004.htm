@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>Cyberwisdom wizBank</title>
+<script language="JavaScript" src="../js/urlparam.js" type="text/javascript"></script>
+<script language="JavaScript" src="../js/wb_utils.js" type="text/javascript"></script>
+<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript"><!--
+var API_1484_11 = null;
+var sco_ver = "2004";
+function init() {
+	//API = self.frames["adapter"].API;
+	API_1484_11 = self.frames["adapter"].document.applets.API;
+	API_1484_11.setCmiURL(getUrlParam('aicc_url'));
+	API_1484_11.setSessionID(getUrlParam('aicc_sid'));
+	/*
+	var sid = getUrlParam('aicc_sid');
+	API_1484_11.setCbtAiccVersion('2.2');
+
+	if (getUrlParam('web_launch') != null) {
+		if (getUrlParam('web_launch') != '') {
+			API_1484_11.setLaunchData(getUrlParam('web_launch'));
+		}
+	}
+	
+	API_1484_11.getParam();
+	*/
+	self.frames["content"].location = getUrlParam('cos_url');
+	var cos_id = getUrlParam('cos_id');
+	var tkh_id = getUrlParam('tkh_id');
+	var mod_id = getUrlParam('mod_id');
+	//show menu for multi-sco scorm
+	var is_multi_sco = getUrlParam('is_multi_sco');
+	if(cos_id==null || cos_id==0 || is_multi_sco == undefined || is_multi_sco=='' ){
+		document.getElementById("menu_content").cols="0,*";
+	}else{
+		var url = wb_utils_invoke_servlet('cmd','GET_NA_COS','cos_id',cos_id,'tkh_id',tkh_id,'mod_id',mod_id,'stylesheet','lrn_sco_nav_menu.xsl');
+		self.frames["menu"].location = url;
+	}
+}
+
+--></SCRIPT>
+</head>
+<frameset rows="0,*" cols="*" frameborder="NO" border="0" framespacing="0">
+	<frame src="adapter_2004.htm" scrolling="NO" noresize name="adapter" onload="init();">
+	<frameset id="menu_content" rows="*" cols="30,*" frameborder="NO" border="0" framespacing="0">
+		<frame src="" scrolling="NO" noresize name="menu">
+		<frame src="sco_loading.htm" scrolling="YES" noresize name="content">
+	</frameset>
+</frameset>
+</html>

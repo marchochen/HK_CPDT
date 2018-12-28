@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.AcSiteMapper">
+	
+	
+	<sql id="page_where">
+		<where>
+		</where>
+	</sql>
+	
+	<select id="getCount" resultType="java.lang.Integer" parameterType="Map">
+	    <![CDATA[
+	        select count(*) from AcSite t 
+	    ]]>
+	    <include refid="page_where"/>
+	</select>
+
+	
+	<select id="get" resultType="AcSite" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				ste_ent_id,
+				ste_name,
+				ste_join_datetime,
+				ste_status,
+				ste_domain,
+				ste_login_url,
+				ste_ird_id,
+				ste_trusted,
+				ste_max_users,
+				ste_eff_start_date,
+				ste_eff_end_date,
+				ste_max_login_trial,
+				ste_cov_syn_datetime,
+				ste_default_sys_ent_id,
+				ste_targeted_entity_lst,
+				ste_rsv_min_gap,
+				ste_rsv_min_len,
+				ste_rsv_link,
+				ste_lan_xml,
+				ste_guest_ent_id,
+				ste_ctl_4,
+				ste_target_by_peer_ind,
+				ste_ldap_host,
+				ste_ldap_dn,
+				ste_appr_staff_role,
+				ste_usr_pwd_valid_period,
+				ste_qr_mod_types,
+				ste_id,
+				ste_type,
+				ste_developer_id
+			from AcSite t
+			where
+				 t.ste_ent_id = #{id}
+		]]>
+	</select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.AcSite">
+	    <![CDATA[
+	        update AcSite
+	        set 
+				ste_ent_id = #{ste_ent_id,jdbcType=INTEGER},
+				ste_name = #{ste_name,jdbcType=VARCHAR},
+				ste_join_datetime = #{ste_join_datetime,jdbcType=DATE},
+				ste_status = #{ste_status,jdbcType=VARCHAR},
+				ste_domain = #{ste_domain,jdbcType=VARCHAR},
+				ste_login_url = #{ste_login_url,jdbcType=VARCHAR},
+				ste_ird_id = #{ste_ird_id,jdbcType=INTEGER},
+				ste_trusted = #{ste_trusted,jdbcType=BOOLEAN},
+				ste_max_users = #{ste_max_users,jdbcType=VARCHAR},
+				ste_eff_start_date = #{ste_eff_start_date,jdbcType=VARCHAR},
+				ste_eff_end_date = #{ste_eff_end_date,jdbcType=VARCHAR},
+				ste_max_login_trial = #{ste_max_login_trial,jdbcType=INTEGER},
+				ste_cov_syn_datetime = #{ste_cov_syn_datetime,jdbcType=DATE},
+				ste_default_sys_ent_id = #{ste_default_sys_ent_id,jdbcType=INTEGER},
+				ste_targeted_entity_lst = #{ste_targeted_entity_lst,jdbcType=VARCHAR},
+				ste_rsv_min_gap = #{ste_rsv_min_gap,jdbcType=INTEGER},
+				ste_rsv_min_len = #{ste_rsv_min_len,jdbcType=INTEGER},
+				ste_rsv_link = #{ste_rsv_link,jdbcType=VARCHAR},
+				ste_lan_xml = #{ste_lan_xml,jdbcType=VARCHAR},
+				ste_guest_ent_id = #{ste_guest_ent_id,jdbcType=INTEGER},
+				ste_ctl_4 = #{ste_ctl_4,jdbcType=VARCHAR},
+				ste_target_by_peer_ind = #{ste_target_by_peer_ind,jdbcType=INTEGER},
+				ste_ldap_host = #{ste_ldap_host,jdbcType=VARCHAR},
+				ste_ldap_dn = #{ste_ldap_dn,jdbcType=VARCHAR},
+				ste_appr_staff_role = #{ste_appr_staff_role,jdbcType=VARCHAR},
+				ste_usr_pwd_valid_period = #{ste_usr_pwd_valid_period,jdbcType=INTEGER},
+				ste_qr_mod_types = #{ste_qr_mod_types,jdbcType=VARCHAR},
+				ste_id = #{ste_id,jdbcType=VARCHAR},
+				ste_type = #{ste_type,jdbcType=VARCHAR},
+				ste_developer_id = #{ste_developer_id,jdbcType=VARCHAR}
+	         where t.ste_ent_id = #{ste_ent_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.AcSite">
+    	<![CDATA[
+            insert into AcSite(
+            		ste_name,
+            		ste_join_datetime,
+            		ste_status,
+            		ste_domain,
+            		ste_login_url,
+            		ste_ird_id,
+            		ste_trusted,
+            		ste_max_users,
+            		ste_eff_start_date,
+            		ste_eff_end_date,
+            		ste_max_login_trial,
+            		ste_cov_syn_datetime,
+            		ste_default_sys_ent_id,
+            		ste_targeted_entity_lst,
+            		ste_rsv_min_gap,
+            		ste_rsv_min_len,
+            		ste_rsv_link,
+            		ste_lan_xml,
+            		ste_guest_ent_id,
+            		ste_ctl_4,
+            		ste_target_by_peer_ind,
+            		ste_ldap_host,
+            		ste_ldap_dn,
+            		ste_appr_staff_role,
+            		ste_usr_pwd_valid_period,
+            		ste_qr_mod_types,
+            		ste_id,
+            		ste_type,
+            		ste_developer_id
+            ) values (
+            	#{ste_name,jdbcType=VARCHAR},
+            	#{ste_join_datetime,jdbcType=DATE},
+            	#{ste_status,jdbcType=VARCHAR},
+            	#{ste_domain,jdbcType=VARCHAR},
+            	#{ste_login_url,jdbcType=VARCHAR},
+            	#{ste_ird_id,jdbcType=INTEGER},
+            	#{ste_trusted,jdbcType=BOOLEAN},
+            	#{ste_max_users,jdbcType=VARCHAR},
+            	#{ste_eff_start_date,jdbcType=VARCHAR},
+            	#{ste_eff_end_date,jdbcType=VARCHAR},
+            	#{ste_max_login_trial,jdbcType=INTEGER},
+            	#{ste_cov_syn_datetime,jdbcType=DATE},
+            	#{ste_default_sys_ent_id,jdbcType=INTEGER},
+            	#{ste_targeted_entity_lst,jdbcType=VARCHAR},
+            	#{ste_rsv_min_gap,jdbcType=INTEGER},
+            	#{ste_rsv_min_len,jdbcType=INTEGER},
+            	#{ste_rsv_link,jdbcType=VARCHAR},
+            	#{ste_lan_xml,jdbcType=VARCHAR},
+            	#{ste_guest_ent_id,jdbcType=INTEGER},
+            	#{ste_ctl_4,jdbcType=VARCHAR},
+            	#{ste_target_by_peer_ind,jdbcType=INTEGER},
+            	#{ste_ldap_host,jdbcType=VARCHAR},
+            	#{ste_ldap_dn,jdbcType=VARCHAR},
+            	#{ste_appr_staff_role,jdbcType=VARCHAR},
+            	#{ste_usr_pwd_valid_period,jdbcType=INTEGER},
+            	#{ste_qr_mod_types,jdbcType=VARCHAR},
+            	#{ste_id,jdbcType=VARCHAR},
+            	#{ste_type,jdbcType=VARCHAR},
+            	#{ste_developer_id,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>
+    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from AcSite where
+	        ste_ent_id = #{ste_ent_id}
+	    ]]>
+    </delete>
+	
+	<select id="selectAll" resultType="AcSite">
+	    <![CDATA[
+	         select 
+				ste_ent_id,
+				ste_name,
+				ste_join_datetime,
+				ste_status,
+				ste_domain,
+				ste_login_url,
+				ste_ird_id,
+				ste_trusted,
+				ste_max_users,
+				ste_eff_start_date,
+				ste_eff_end_date,
+				ste_max_login_trial,
+				ste_cov_syn_datetime,
+				ste_default_sys_ent_id,
+				ste_targeted_entity_lst,
+				ste_rsv_min_gap,
+				ste_rsv_min_len,
+				ste_rsv_link,
+				ste_lan_xml,
+				ste_guest_ent_id,
+				ste_ctl_4,
+				ste_target_by_peer_ind,
+				ste_ldap_host,
+				ste_ldap_dn,
+				ste_appr_staff_role,
+				ste_usr_pwd_valid_period,
+				ste_qr_mod_types,
+				ste_id,
+				ste_type,
+				ste_developer_id
+			from AcSite t 
+	    ]]>
+	</select>	
+	
+</mapper>

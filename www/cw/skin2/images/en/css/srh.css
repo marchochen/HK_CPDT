@@ -1,0 +1,30 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Search Bar
+suffix								   :Srh
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : srh.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+input.wbSrhFrm{
+	border: solid;
+	border-color: #97A222;
+	border-width: 0px 0px 0px 0px;
+	font: 9pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	width: 100px;
+}
+
+.wbSrhBarBg{
+	background-color: #B9C26C;
+	height: 24px;
+}
+
+.wbSrhBarHeadText{
+	color: #596323;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbSrhBarText{
+	color: #000000;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}

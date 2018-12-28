@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.AppClientMapper">
+
+	<select id="getValidRecodeByUsrEntIdList" parameterType="java.util.Map" resultType="com.cwn.wizbank.entity.AppClient">
+		select * from appClient ac
+		    inner join APIToken at on ac.usrEntId = at.atk_usr_ent_id and atk_developer_id = 'mobile'
+		    where 
+		    status = 'online'
+		    and
+		    usrEntId in
+				<foreach collection="usrEntIdList" item="item" open="(" separator="," close=")">
+	     			#{item}
+	 			</foreach>
+ 			and atk_expiry_timestamp >= #{curTime}
+	</select>
+	
+	<select id="getByClientIdAndMobileIndAndAppIdAndStatus" parameterType="com.cwn.wizbank.entity.AppClient" resultType="com.cwn.wizbank.entity.AppClient">
+		select * from appClient 
+				where 
+					clientId = #{clientId} 
+					and 
+					mobileInd = #{mobileInd}
+					and
+					appId = #{appId}
+					and
+					status = #{status}
+	</select>
+	
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.AppClient">
+		insert into appClient(usrEntId,mobileInd,clientId,appId,status)
+		values(#{usrEntId},#{mobileInd},#{clientId},#{appId},#{status})
+	</insert>
+	
+	
+	<update id="updateStatus" parameterType="com.cwn.wizbank.entity.AppClient">
+		update appClient set status = #{status}
+				where 
+					usrEntId = #{usrEntId} 
+					and 
+					mobileInd = #{mobileInd}
+					and
+					appId = #{appId}
+					and
+					clientId = #{clientId}
+	</update>
+
+	
+	<delete id="delete" parameterType="com.cwn.wizbank.entity.AppClient">
+		delete from appClient 
+			where
+				usrEntId = #{usrEntId} 
+				and
+				mobileInd = #{mobileInd}
+				and
+				appId = #{appId}
+				and
+				clientId = #{clientId}
+				and
+				status = #{status}
+	</delete>
+	
+	<delete id="deleteByUsrEntIdOrClientId" parameterType="com.cwn.wizbank.entity.AppClient">
+		delete from appClient 
+			where
+				usrEntId = #{usrEntId}
+				or 
+				clientId = #{clientId}
+	</delete>
+
+
+</mapper>

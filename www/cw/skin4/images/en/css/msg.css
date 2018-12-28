@@ -1,0 +1,33 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Message Box
+suffix								   :msg
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : msg.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+.wbMsgBg{
+	background: #FFFFFF;
+}
+
+.wbMsgBoxBg{
+	background: #912323;
+}
+
+.wbMsgDownBg{
+	background: #E67171;
+}
+
+.wbMsgHeadText{
+	color: #FFFFFF;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbMsgShadowBg{
+	background: #F4BBBB;
+}
+
+.wbMsgText{
+	color: #000000;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html ng-app="gradeMapModule" lang="en" full>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title translate="cwn_title"></title>
+	<link rel="stylesheet" href="../../css/basic.css" />
+	<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="../../js/jquery.load.js"></script>
+	<script type="text/javascript" src="../../lib/common.js"></script>
+	<script type="text/javascript" src="../../js/controllers/gradeMap/gradeMapController.js"></script>
+	<style>
+		body{font-size:20px;color:#644A06;font-family:"Microsoft YaHei";overflow:hidden;margin:0 auto;background:#93C21E;}
+		[full]{width:100%;height:100%;}
+		#mycontent div{position:absolute;}
+		#mycontent img{position:absolute;}
+		.totd{ font-family:"Microsoft YaHei"; font-size:0.5em; color:#fff; line-height:100%;}
+	</style>
+</head>
+<body ng-cloak class="ng-cloak" full ondragstart="return false;" ng-controller="gradeMapListController">
+	<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>
+	<header class="header mm-background">
+	    <a class="header-back" href="javascript:back();"></a>
+	    <span class="header-title">{{'map_profession_develop' | translate}}</span>
+	</header> <!-- header End -->
+	<div id="mycontent" style="left:0%;top:0%;width:100%;height:100%;position:absolute;overflow-x:hidden;">
+		<div class="F1" style="left:0%;top:0%;width:100%;height:100%;overflow:hidden;display:none;">
+			<img class="p1" style="left:0%;top:0%;width:100%;height:100%;" src="../../images/p1.jpg" alt="" />
+			<img class="ww1" style="left:26.481%;top:22.604%;width:10.741%;height:3.125%;" src="../../images/waterwaves.gif" alt="" />
+			<img class="ww2" style="left:24.444%;top:20.208%;width:7.593%;height:2.083%;" src="../../images/waterwaves.gif" alt="" />
+			<img class="ww3" style="left:17.222%;top:22.5%;width:7.593%;height:2.083%;" src="../../images/waterwaves.gif" alt="" />
+			<img class="ww4" style="left:25.741%;top:43.75%;width:6.111%;height:1.771%;" src="../../images/waterwaves.gif" alt="" />
+			<img class="ww5" style="left:90.37%;top:76.25%;width:5.556%;height:1.563%;" src="../../images/waterwaves.gif" alt="" />
+			<div class="carren" style="left:0%;top:0%;width:100%;height:100%;overflow:hidden;">
+				<img class="car1_r" style="left:-5.926%;top:38.125%;width:4.815%;height:1.875%;" src="../../images/car1_r.png" alt="" />
+				<img class="car1_d" style="left:-5.926%;top:38.125%;width:4.815%;height:1.875%;" src="../../images/car1_d.png" alt="" />
+				<img class="car1_u" style="left:-5.926%;top:38.125%;width:4.815%;height:1.875%;" src="../../images/car1_u.png" alt="" />
+				<img class="car2_r" style="left:68.519%;top:35%;width:4.815%;height:1.875%;" src="../../images/car2_r.png" alt="" />
+				<img class="car2_l" style="left:68.519%;top:35%;width:4.815%;height:1.875%;" src="../../images/car2_l.png" alt="" />
+				<img class="car2_d" style="left:68.519%;top:35%;width:4.815%;height:1.875%;" src="../../images/car2_d.png" alt="" />
+				<img class="car2_u" style="left:68.519%;top:35%;width:4.815%;height:1.875%;" src="../../images/car2_u.png" alt="" />
+				<img class="car3_r" style="left:38.333%;top:63.75%;width:4.815%;height:1.875%;" src="../../images/car2_r.png" alt="" />
+				<img class="car3_l" style="left:38.333%;top:63.75%;width:4.815%;height:1.875%;" src="../../images/car2_l.png" alt="" />
+				<img class="car3_d" style="left:38.333%;top:63.75%;width:4.815%;height:1.875%;" src="../../images/car2_d.png" alt="" />
+				<img class="car3_u" style="left:38.333%;top:63.75%;width:4.815%;height:1.875%;" src="../../images/car2_u.png" alt="" />
+				<img class="car4_l" style="left:91.296%;top:91.979%;width:4.815%;height:1.875%;" src="../../images/car3_l.png" alt="" />
+				<img class="car4_d" style="left:91.296%;top:91.979%;width:4.815%;height:1.875%;" src="../../images/car3_d.png" alt="" />
+				<img class="car4_u" style="left:91.296%;top:91.979%;width:4.815%;height:1.875%;" src="../../images/car3_u.png" alt="" />
+				<img class="ren1_l" style="left:45.37%;top:30.417%;width:2.963%;height:2.083%;" src="../../images/ren1_l.gif" alt="" />
+				<img class="ren1_r" style="left:45.37%;top:30.417%;width:2.963%;height:2.083%;" src="../../images/ren1_r.gif" alt="" />
+				<img class="ren2_l" style="left:18.519%;top:53.854%;width:2.963%;height:2.083%;" src="../../images/ren1_l.gif" alt="" />
+				<img class="ren2_r" style="left:18.519%;top:53.854%;width:2.963%;height:2.083%;" src="../../images/ren1_r.gif" alt="" />
+				<img class="ren3_l" style="left:100.926%;top:78.75%;width:2.963%;height:2.083%;" src="../../images/ren2_l.gif" alt="" />
+				<img class="ren3_r" style="left:100.926%;top:78.75%;width:2.963%;height:2.083%;" src="../../images/ren2_r.gif" alt="" />
+				<img class="ren4_r" style="left:51.481%;top:40.208%;width:2.963%;height:2.083%;" src="../../images/ren2_l.gif" alt="" />
+				<img class="ren4_l" style="left:51.481%;top:40.208%;width:2.963%;height:2.083%;" src="../../images/ren2_r.gif" alt="" />
+				<img class="ren5_l" style="left:46.111%;top:55.625%;width:2.963%;height:2.083%;" src="../../images/ren3_l.gif" alt="" />
+				<img class="ren5_r" style="left:46.111%;top:55.625%;width:2.963%;height:2.083%;" src="../../images/ren3_r.gif" alt="" />
+			</div>
+			<div class="house1" style="left:49.815%;top:5.625%;width:43.519%;height:24.479%;">
+				<img class="house_bg" style="left:0%;top:0%;width:100%;height:100%;" src="../../images/house1.png" alt="" />
+				<img class="house_tbg" style="left:23.404%;top:7.66%;width:62.128%;height:24.681%;" src="../../images/housetitlebg.png" alt="" />
+				<div class="house_t" style="left:24.255%;top:8.085%;width:60.851%;height:20%;overflow:hidden;">
+					<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0"><tr align="center"><td align="center" valign="middle" class="totd"></td></tr></table>
+				</div>
+			</div>
+			<div class="house2" style="left:6.481%;top:18.125%;width:43.519%;height:24.479%;">
+				<img class="house_bg" style="left:0%;top:0%;width:100%;height:100%;" src="../../images/house2.png" alt="" />
+				<img class="house_tbg" style="left:23.404%;top:7.66%;width:62.128%;height:24.681%;" src="../../images/housetitlebg.png" alt="" />
+				<div class="house_t" style="left:24.255%;top:8.085%;width:60.851%;height:20%;overflow:hidden;">
+					<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0"><tr align="center"><td align="center" valign="middle" class="totd"></td></tr></table>
+				</div>
+			</div>
+			<div class="house3" style="left:49.63%;top:30.625%;width:43.519%;height:24.479%;">
+				<img class="house_bg" style="left:0%;top:0%;width:100%;height:100%;" src="../../images/house3.png" alt="" />
+				<img class="house_tbg" style="left:23.404%;top:7.66%;width:62.128%;height:24.681%;" src="../../images/housetitlebg.png" alt="" />
+				<div class="house_t" style="left:24.255%;top:8.085%;width:60.851%;height:20%;overflow:hidden;">
+					<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0"><tr align="center"><td align="center" valign="middle" class="totd"></td></tr></table>
+				</div>
+			</div>
+			<div class="house4" style="left:6.481%;top:43.229%;width:43.519%;height:24.479%;">
+				<img class="house_bg" style="left:0%;top:0%;width:100%;height:100%;" src="../../images/house4.png" alt="" />
+				<img class="house_tbg" style="left:23.404%;top:7.66%;width:62.128%;height:24.681%;" src="../../images/housetitlebg.png" alt="" />
+				<div class="house_t" style="left:24.255%;top:8.085%;width:60.851%;height:20%;overflow:hidden;">
+					<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0"><tr align="center"><td align="center" valign="middle" class="totd"></td></tr></table>
+				</div>
+			</div>
+			<div class="house5" style="left:49.63%;top:55.729%;width:43.519%;height:24.479%;">
+				<img class="house_bg" style="left:0%;top:0%;width:100%;height:100%;" src="../../images/house5.png" alt="" />
+				<img class="house_tbg" style="left:23.404%;top:7.66%;width:62.128%;height:24.681%;" src="../../images/housetitlebg.png" alt="" />
+				<div class="house_t" style="left:24.255%;top:8.085%;width:60.851%;height:20%;overflow:hidden;">
+					<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0"><tr align="center"><td align="center" valign="middle" class="totd"></td></tr></table>
+				</div>
+			</div>
+			<div class="house6" style="left:6.481%;top:68.333%;width:43.519%;height:24.479%;">
+				<img class="house_bg" style="left:0%;top:0%;width:100%;height:100%;" src="../../images/house1.png" alt="" />
+				<img class="house_tbg" style="left:23.404%;top:7.66%;width:62.128%;height:24.681%;" src="../../images/housetitlebg.png" alt="" />
+				<div class="house_t" style="left:24.255%;top:8.085%;width:60.851%;height:20%;overflow:hidden;">
+					<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0"><tr align="center"><td align="center" valign="middle" class="totd"></td></tr></table>
+				</div>
+			</div>
+			<img class="ren6_l" style="left:22.778%;top:87.188%;width:2.963%;height:2.083%;" src="../../images/ren3_l.gif" alt="" />
+			<img class="ren6_r" style="left:22.778%;top:87.188%;width:2.963%;height:2.083%;" src="../../images/ren3_r.gif" alt="" />
+		</div>
+		<div class="F2" style="left:0%;top:100%;width:100%;height:100%;display:none;">
+			<img class="p1" style="left:0%;top:0%;width:100%;height:100%;" src="../../images/p1.jpg" alt="" />
+			<img class="ww1" style="left:26.574%;top:22.604%;width:10.833%;height:3.073%;" src="../../images/waterwaves.gif" alt="" />
+			<img class="ww2" style="left:24.444%;top:20.208%;width:7.593%;height:2.135%;" src="../../images/waterwaves.gif" alt="" />
+			<img class="ww3" style="left:17.13%;top:22.448%;width:7.593%;height:2.135%;" src="../../images/waterwaves.gif" alt="" />
+			<img class="ww4" style="left:25.741%;top:43.802%;width:6.019%;height:1.719%;" src="../../images/waterwaves.gif" alt="" />
+			<img class="ww5" style="left:90.278%;top:76.302%;width:5.556%;height:1.563%;" src="../../images/waterwaves.gif" alt="" />
+			<div class="carren" style="left:0%;top:0%;width:100%;height:100%;overflow:hidden;">
+				<img class="car1_r" style="left:-5.926%;top:38.177%;width:4.815%;height:1.823%;" src="../../images/car1_r.png" alt="" />
+				<img class="car1_d" style="left:-5.926%;top:38.177%;width:4.815%;height:1.823%;" src="../../images/car1_d.png" alt="" />
+				<img class="car1_u" style="left:-5.926%;top:38.177%;width:4.815%;height:1.823%;" src="../../images/car1_u.png" alt="" />
+				<img class="car2_r" style="left:68.519%;top:35%;width:4.815%;height:1.823%;" src="../../images/car2_r.png" alt="" />
+				<img class="car2_l" style="left:68.519%;top:35%;width:4.815%;height:1.823%;" src="../../images/car2_l.png" alt="" />
+				<img class="car2_d" style="left:68.519%;top:35%;width:4.815%;height:1.823%;" src="../../images/car2_d.png" alt="" />
+				<img class="car2_u" style="left:68.519%;top:35%;width:4.815%;height:1.823%;" src="../../images/car2_u.png" alt="" />
+				<img class="car3_r" style="left:38.333%;top:63.75%;width:4.815%;height:1.823%;" src="../../images/car2_r.png" alt="" />
+				<img class="car3_l" style="left:38.333%;top:63.75%;width:4.815%;height:1.823%;" src="../../images/car2_l.png" alt="" />
+				<img class="car3_d" style="left:38.333%;top:63.75%;width:4.815%;height:1.823%;" src="../../images/car2_d.png" alt="" />
+				<img class="car3_u" style="left:38.333%;top:63.75%;width:4.815%;height:1.823%;" src="../../images/car2_u.png" alt="" />
+				<img class="car4_l" style="left:91.296%;top:91.979%;width:4.815%;height:1.823%;" src="../../images/car3_l.png" alt="" />
+				<img class="car4_d" style="left:91.296%;top:91.979%;width:4.815%;height:1.823%;" src="../../images/car3_d.png" alt="" />
+				<img class="car4_u" style="left:91.296%;top:91.979%;width:4.815%;height:1.823%;" src="../../images/car3_u.png" alt="" />
+				<img class="ren1_l" style="left:45.37%;top:30.417%;width:2.963%;height:2.083%;" src="../../images/ren1_l.gif" alt="" />
+				<img class="ren1_r" style="left:45.37%;top:30.417%;width:2.963%;height:2.083%;" src="../../images/ren1_r.gif" alt="" />
+				<img class="ren2_l" style="left:18.519%;top:53.906%;width:2.963%;height:2.083%;" src="../../images/ren1_l.gif" alt="" />
+				<img class="ren2_r" style="left:18.519%;top:53.906%;width:2.963%;height:2.083%;" src="../../images/ren1_r.gif" alt="" />
+				<img class="ren3_l" style="left:100.926%;top:78.75%;width:2.963%;height:2.083%;" src="../../images/ren2_l.gif" alt="" />
+				<img class="ren3_r" style="left:100.926%;top:78.75%;width:2.963%;height:2.083%;" src="../../images/ren2_r.gif" alt="" />
+				<img class="ren4_r" style="left:51.481%;top:40.26%;width:2.963%;height:2.083%;" src="../../images/ren2_l.gif" alt="" />
+				<img class="ren4_l" style="left:51.481%;top:40.26%;width:2.963%;height:2.083%;" src="../../images/ren2_r.gif" alt="" />
+				<img class="ren5_l" style="left:46.111%;top:55.677%;width:2.963%;height:2.083%;" src="../../images/ren3_l.gif" alt="" />
+				<img class="ren5_r" style="left:46.111%;top:55.677%;width:2.963%;height:2.083%;" src="../../images/ren3_r.gif" alt="" />
+			</div>
+			<div class="house1" style="left:49.907%;top:-19.271%;width:43.426%;height:24.427%;">
+				<img class="house1_bg" style="left:0%;top:0%;width:100%;height:100%;" src="../../images/house4.png" alt="" />
+				<img class="house1_tbg" style="left:23.454%;top:7.463%;width:62.047%;height:24.733%;" src="../../images/housetitlebg.png" alt="" />
+				<div class="house1_t" style="left:24.094%;top:8.102%;width:60.768%;height:19.829%;">
+					<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0"><tr align="center"><td align="center" valign="middle" class="totd"></td></tr></table>
+				</div>
+			</div>
+			<div class="house2" style="left:6.574%;top:-6.875%;width:43.426%;height:24.427%;">
+				<img class="house2_bg" style="left:0%;top:0%;width:100%;height:100%;" src="../../images/house2.png" alt="" />
+				<img class="house2_tbg" style="left:23.454%;top:7.463%;width:62.047%;height:24.733%;" src="../../images/housetitlebg.png" alt="" />
+				<div class="house2_t" style="left:24.094%;top:8.102%;width:60.768%;height:19.829%;">
+					<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0"><tr align="center"><td align="center" valign="middle" class="totd"></td></tr></table>
+				</div>
+			</div>
+			<div class="house3" style="left:49.907%;top:5.573%;width:43.426%;height:24.427%;">
+				<img class="house3_bg" style="left:0%;top:0%;width:100%;height:100%;" src="../../images/house3.png" alt="" />
+				<img class="house3_tbg" style="left:23.454%;top:7.463%;width:62.047%;height:24.733%;" src="../../images/housetitlebg.png" alt="" />
+				<div class="house3_t" style="left:24.094%;top:8.102%;width:60.768%;height:19.829%;">
+					<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0"><tr align="center"><td align="center" valign="middle" class="totd"></td></tr></table>
+				</div>
+			</div>
+			<div class="house4" style="left:6.574%;top:18.125%;width:43.426%;height:24.427%;">
+				<img class="house4_bg" style="left:0%;top:0%;width:100%;height:100%;" src="../../images/house4.png" alt="" />
+				<img class="house4_tbg" style="left:23.454%;top:7.463%;width:62.047%;height:24.733%;" src="../../images/housetitlebg.png" alt="" />
+				<div class="house4_t" style="left:24.094%;top:8.102%;width:60.768%;height:19.829%;">
+					<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0"><tr align="center"><td align="center" valign="middle" class="totd"></td></tr></table>
+				</div>
+			</div>
+			<div class="house5" style="left:49.63%;top:30.677%;width:43.426%;height:24.427%;">
+				<img class="house5_bg" style="left:0%;top:0%;width:100%;height:100%;" src="../../images/house5.png" alt="" />
+				<img class="house5_tbg" style="left:23.454%;top:7.463%;width:62.047%;height:24.733%;" src="../../images/housetitlebg.png" alt="" />
+				<div class="house5_t" style="left:24.094%;top:8.102%;width:60.768%;height:19.829%;">
+					<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0"><tr align="center"><td align="center" valign="middle" class="totd"></td></tr></table>
+				</div>
+			</div>
+			<div class="house6" style="left:6.574%;top:43.281%;width:43.426%;height:24.427%;">
+				<img class="house6_bg" style="left:0%;top:0%;width:100%;height:100%;" src="../../images/house1.png" alt="" />
+				<img class="house6_tbg" style="left:23.454%;top:7.463%;width:62.047%;height:24.733%;" src="../../images/housetitlebg.png" alt="" />
+				<div class="house6_t" style="left:24.094%;top:8.102%;width:60.768%;height:19.829%;">
+					<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0"><tr align="center"><td align="center" valign="middle" class="totd"></td></tr></table>
+				</div>
+			</div>
+			<div class="house7" style="left:49.722%;top:55.781%;width:43.426%;height:24.427%;">
+				<img class="house7_bg" style="left:0%;top:0%;width:100%;height:100%;" src="../../images/house4.png" alt="" />
+				<img class="house7_tbg" style="left:23.454%;top:7.463%;width:62.047%;height:24.733%;" src="../../images/housetitlebg.png" alt="" />
+				<div class="house7_t" style="left:24.094%;top:8.102%;width:60.768%;height:19.829%;">
+					<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0"><tr align="center"><td align="center" valign="middle" class="totd"></td></tr></table>
+				</div>
+			</div>
+			<div class="house8" style="left:6.574%;top:68.385%;width:43.426%;height:24.427%;">
+				<img class="house8_bg" style="left:0%;top:0%;width:100%;height:100%;" src="../../images/house1.png" alt="" />
+				<img class="house8_tbg" style="left:23.454%;top:7.463%;width:62.047%;height:24.733%;" src="../../images/housetitlebg.png" alt="" />
+				<div class="house8_t" style="left:24.094%;top:8.102%;width:60.768%;height:19.829%;">
+					<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0"><tr align="center"><td align="center" valign="middle" class="totd"></td></tr></table>
+				</div>
+			</div>
+			<img class="ren6_l" style="left:22.87%;top:87.188%;width:2.963%;height:2.083%;" src="../../images/ren3_l.gif" alt="" />
+			<img class="ren6_r" style="left:22.87%;top:87.188%;width:2.963%;height:2.083%;" src="../../images/ren3_r.gif" alt="" />
+		</div>
+	</div>
+</body>
+</html>

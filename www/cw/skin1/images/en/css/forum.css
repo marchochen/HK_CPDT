@@ -1,0 +1,101 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :FORUM
+suffix								   :f
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : forumcss	
+version								: wizBank 3.5
+=======================================================================*/
+
+a.wbFHText:hover{
+	color: #99FFFF;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+a.wbFTLink,a.wbFTLink:active, .wbFTText {
+	color: #000000;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+a.wbFTLink:hover{
+	color: #3366FF;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFBarBg{
+	background: #00799F;
+}
+
+.wbFBg{
+	background: #DBEBF5;
+}
+
+.wbFCText{
+	color: #009999;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFDText{
+	color: #006699;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFFrm{
+	background: #F5FAFE;
+	border: 1px solid;
+	border-color: #A8D6E6;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	scrollbar-3dlight-color: #F5FAFE;
+	scrollbar-arrow-color: #000000;
+	scrollbar-base-color: #A8D6E6;
+	scrollbar-darkshadow-color: #46A8CB;
+	scrollbar-face-color: #A8D6E6;
+	scrollbar-highlight-color: #FFFFFF;
+	scrollbar-shadow-color: #46A8CB;
+	scrollbar-track-color: #A8D6E6;
+}
+
+.wbFHBBg{
+	background: #ADD8E6;
+}
+
+.wbFHBg{
+	background: #00A9BC;
+}
+
+.wbFHText,a.wbFHText:visited,a.wbFHText:active,a.wbFHText{
+	color: #FFFFFF;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFPContentText, .wbFSContentText {
+	color: #336699;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFRBg{
+}
+
+.wbFRTextBold, .wbFRText, .wbFRDText, a.wbFTLink:visited, .wbFRLink {
+	color: #006699;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFSelFrmIE{
+	background: #F5FAFE;
+	color: #000000;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFSelFrmNN{
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFSTitleText, .wbFHBText, .wbFPTitleText {
+	color: #336699;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFTTextBold{
+	color: #006699;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}

@@ -1,0 +1,54 @@
+<!doctype html>
+<html ng-app="transfer">
+<head>
+<meta charset="utf-8">
+<title translate="cwn_title"></title>
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+
+
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="transferController">
+
+	<script>
+	
+	$.include([
+      ], '../../');
+	
+    $(function(){
+       var transferModule = angular.module('transfer', ['globalCwn']);
+
+       transferModule.controller('transferController',function(Store,$window){
+    	   
+   	     //1.获取参数：1.token，2.目标的url，3.类型type
+   	     var token = app.getUrlParam("token");
+   	     var url = app.getUrlParam("url");
+   	     if(!url){
+   	    	 url = "../../index.html";
+   	     }
+   	     var type = app.getUrlParam("type");
+
+    	   
+    	 //2.将获取到的token放到本地存储
+    	 if(token){
+    		 Store.set("token", token); 
+    	 }
+    	 
+    	 
+    	 //3转到目标页面
+    	 if(url.indexOf("javascript:clicked") > -1){
+    		 eval(url);
+    	 }else{
+    		 $window.location.href = url;
+    	 }
+    	   
+       });
+
+    });
+
+	
+	</script>
+
+</body>
+</html>

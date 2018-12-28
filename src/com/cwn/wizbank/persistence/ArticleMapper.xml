@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.ArticleMapper">
+	<sql id="page_where">
+		<where/>
+	</sql>
+	<select id="getCount" resultType="java.lang.Integer" parameterType="Map">
+		<![CDATA[
+	        select count(*) from article t 
+		]]>
+		<include refid="page_where"/>
+	</select>
+	<select id="get" resultType="Article" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				art_id,
+				art_title,
+				art_introduction,
+				art_keywords,
+				art_content,
+				art_user_id,
+				art_create_datetime,
+				art_update_datetime,
+				art_update_user_id,
+				art_location,
+				art_type,
+				art_status,
+				art_tcr_id,
+				art_push_mobile,
+				art_is_html,
+				art_icon_file,
+				art_access_count,
+				usr_display_bil AS "user.usr_display_bil",
+				aty_id AS "articleType.aty_id",
+				aty_title AS "articleType.aty_title"
+			from article t, regUser, articleType 
+			where art_user_id = usr_ent_id and t.art_id = #{id} and t.art_type = aty_id
+
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.Article">
+		<![CDATA[
+	        update article  
+	        set 
+				art_title = #{art_title,jdbcType=VARCHAR},
+				
+art_introduction = #{art_introduction,jdbcType=VARCHAR},
+				art_keywords = #{art_keywords,jdbcType=VARCHAR},
+				
+art_content = #{art_content,jdbcType=VARCHAR},
+				art_user_id = #{art_user_id,jdbcType=INTEGER},
+				
+art_create_datetime = #{art_create_datetime,jdbcType=TIMESTAMP},
+				art_update_datetime = #{art_update_datetime,jdbcType=TIMESTAMP},
+				
+art_update_user_id = #{art_update_user_id,jdbcType=INTEGER},
+				art_location = #{art_location,jdbcType=VARCHAR},
+				
+art_type = #{art_type,jdbcType=VARCHAR},
+				art_status = #{art_status,jdbcType=INTEGER},
+				art_tcr_id 
+= #{art_tcr_id,jdbcType=INTEGER},
+				art_push_mobile = #{art_push_mobile,jdbcType=INTEGER},
+				art_is_html 
+= #{art_is_html,jdbcType=INTEGER},
+art_access_count=#{art_access_count,jdbcType=INTEGER}
+	         where art_id = #{art_id,jdbcType=INTEGER}
+		]]>
+	</update>
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.Article">
+		<![CDATA[
+            insert into article(
+            		art_title,
+            		art_introduction,
+            		
+art_keywords,
+            		art_content,
+            		art_user_id,
+            		art_create_datetime,
+            		
+art_update_datetime,
+            		art_update_user_id,
+            		art_location,
+            		art_type,
+            		
+art_status,
+            		art_tcr_id,
+            		art_push_mobile,
+            		art_is_html,
+            		art_access_count
+            
+) values (
+            	#{art_title,jdbcType=VARCHAR},
+            	#{art_introduction,jdbcType=VARCHAR},
+            	
+#{art_keywords,jdbcType=VARCHAR},
+            	#{art_content,jdbcType=VARCHAR},
+            	#{art_user_id,jdbcType=INTEGER},
+            	
+#{art_create_datetime,jdbcType=TIMESTAMP},
+            	#{art_update_datetime,jdbcType=TIMESTAMP},
+            	
+#{art_update_user_id,jdbcType=INTEGER},
+            	#{art_location,jdbcType=VARCHAR},
+            	#{art_type,jdbcType=VARCHAR},
+            	
+#{art_status,jdbcType=INTEGER},
+            	#{art_tcr_id,jdbcType=INTEGER},
+            	#{art_push_mobile,jdbcType=INTEGER},            	
+#{art_is_html,jdbcType=INTEGER},
+#{art_access_count,jdbcType=INTEGER}
+            )
+		]]>
+	</insert>
+	<delete id="delete" parameterType="java.lang.Long">
+		<![CDATA[
+	        delete from article  where art_id = #{art_id}
+		]]>
+	</delete>
+	<select id="selectList" resultType="Article" parameterType="Page">
+		select 
+			art_id,
+			art_title,
+			art_introduction,
+			art_keywords,
+			art_content,
+			art_user_id,
+			art_create_datetime,
+			art_update_datetime,
+			art_update_user_id,
+			art_location,
+			art_type,
+			art_status,
+			art_tcr_id,
+			art_push_mobile,
+			art_is_html,
+			art_icon_file,
+			art_access_count,
+			usr_display_bil AS "user.usr_display_bil",
+			<if test="_databaseId == 'ORACLE'">
+				nvl(s_vtl_log_id_count,0) s_vtl_log_id_count,
+			</if>
+			<if test="_databaseId == 'SQLSERVER'">
+				isNULL(s_vtl_log_id_count,0) s_vtl_log_id_count,
+			</if>
+			<if test="_databaseId == 'MYSQL'">
+				ifNULL(s_vtl_log_id_count,0) s_vtl_log_id_count,
+			</if>
+			(case when art_create_datetime is null then 0 when #{params.curTime} &lt; art_create_datetime + ${params.new_duration} then 1 else 0 end) as "art_is_new"
+		from article
+		inner join regUser on art_user_id = usr_ent_id
+		left join (select s_vtl_target_id,count(s_vtl_log_id) as s_vtl_log_id_count from sns_valuation_log where (s_vtl_is_comment=0 or s_vtl_is_comment is null) and s_vtl_module = 'Article' group by s_vtl_target_id) t on t.s_vtl_target_id = art_id
+		where  art_status = 1
+		and art_tcr_id in (select athTc.tcr_id from V_usrTcRelation athTc where athTc.u_id = #{params.userEntId}
+<!-- 		是否可以访问该培训中心下的课程 -->
+<!-- 		如果是二级培训中心独立还有加上以下条件 -->
+			<if test="params.tcr_id != null and params.tcr_id &gt; 1">
+			  and  tcr_parent_tcr_id > 0
+			</if>
+		)
+		<if test="params.aty_id_list != null and params.aty_id_list.size > 0">
+			and art_type in
+			<foreach collection="_parameter['params']['aty_id_list']" item="aty_id" index="index" open="(" separator="," close=")">${aty_id}</foreach>
+		</if>
+		<if test="params.art_push_mobile != null and params.art_push_mobile > 0">
+		   and art_push_mobile=#{params.art_push_mobile}
+		</if>
+	</select>
+	
+	<select id="selectArticleType" resultType="ArticleType" parameterType="ArticleType">
+		select 
+			distinct
+			aty_id,
+			aty_title 
+		from articleType 
+		left join tcRelation on tcn_child_tcr_id = aty_tcr_id or tcn_ancestor = aty_tcr_id
+		where aty_tcr_id = ${aty_tcr_id}
+	</select>
+		
+</mapper>

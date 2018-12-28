@@ -1,0 +1,3 @@
+svn: 此客户端对于工作副本 “D:\dev\CORE\trunk” 太旧。你需要取得更新的 Subversion 客户端，或者降级
+工作副本。参见 http://subversion.tigris.org/faq.html#working-copy-format-change
+以获得更详细的信息。

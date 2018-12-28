@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title>Document</title>
+<link rel="stylesheet" href="../../css/basic.css" />
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<!--[if lt IE 9]>
+<script src="../../js/lib/html5.js" type="text/jscript"></script>
+<![endif]-->
+</head>
+<body>
+
+<div class="wrap" id="wizwrap">
+<header class="header mm-background">
+    <a class="header-back" href="../index.html" title="返回"></a>
+    <span class="header-title">考试题目</span>
+    <a class="header-shiti header-pop" href="#" title="试题"></a>
+    
+    <div class="header-tip" style="display:none;">
+         <div class="header-tip-info"><img src="../../images/proper.png" alt=""/>提交成功</div>
+    </div>
+    
+	<script type="text/javascript">
+    (function($){         
+         $(".header-pop").click(function(){
+              $(".header-tip").slideToggle();
+              $(".header-overlay").toggleClass("show");
+         });
+    })(jQuery);
+	</script>
+</header> <!-- header End -->
+<div class="header-overlay"></div>
+
+<section class="content">
+<div class="jifen-info clearfix">
+     <div class="jifen-info-blue jifen-info-line"><span class="jifen-desc">3</span><em class="jifen-desc">已答题</em></div> 
+     <div class="jifen-info-blue jifen-info-line"><span class="jifen-desc">15</span><em class="jifen-desc">未答题</em></div>
+     <div class="jifen-info-blue"><span class="jifen-desc">00:50:21</span><em class="jifen-desc">剩余时间</em></div>
+</div>
+
+<dl class="diaocha-list">
+    <dt>3. <span class="diaocha-type">[填空题]</span>保险的社会功能，体现在很多方面，比如（ ）。</dt>
+    <dd>
+        <div class="cont-review-show">
+            <textarea class="pure-form-txt-5 pure-form-txt-12" placeholder="请输入您的答案" style="padding:8px 8px 8px 24px;overflow-y: auto;"></textarea>
+        </div>
+     </dd>
+</dl>
+
+<div class="diaocha-page">
+     <a class="diaocha-page-prev" href="###">上一题</a>
+     <a class="diaocha-page-next" href="###">下一题</a>
+     <a class="diaocha-page-submit" href="###">交卷</a>
+</div>
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

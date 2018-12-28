@@ -1,0 +1,3 @@
+<template>
+	<field01 name="Remark" type="textarea" size="4000" required="no" paramname="comment"/>
+</template>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html ng-app="module">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link rel="stylesheet" href="../../css/module.css"/>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../lib/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/ModuleController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="assSub2Controller">
+<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+
+<div class="wrap">
+	<header class="header mm-background">
+	    <a class="header-back" href="javascript:back();"></a>
+	    <span class="header-title" translate="mod_sub_homework"></span>
+	</header> <!-- header End -->
+	
+	<section class="content-2">
+		<div class="work_step">
+			<span class="yellow_icon">2</span><span translate="mod_sub_file_2"></span>
+		</div>
+		<div class="work_font" translate="mod_sub_file_2_desc"></div>
+		
+		<form id="assForm" action="/app/module/submitAss" method="post" enctype="multipart/form-data">
+			<div class="work_frame" ng-repeat="num in list">
+				<div class="work_div_left">
+					<span class="grayC999"><span translate="mod_file"></span>{{$index+1}} :</span>
+				</div>
+				<div class="work_div_right">
+					<span class="Text">
+						<div class="file">
+							<input onchange="$('#text'+this.id).html(this.value);$('#text'+this.id).attr('title',this.value);" name="ass_file" class="file_file" id="file_{{$index+1}}" type="file">
+							<div class="file_txt" id="textfile_{{$index+1}}"></div>
+							<div class="file_button" translate="btn_browse"></div>
+						</div>
+					<input name="file{{$index+1}}" type="hidden">
+					</span>
+				</div>
+				<div class="work_div_left">
+				<span class="grayC999"><span translate="desc"></span> :</span>
+				</div>
+				<div class="work_div_right">
+					<textarea name="comment" cols="35" style="width:90%;" wrap="VIRTUAL" rows="3" class="wbpl showhide"></textarea>
+				</div>
+			</div>
+			<input type="hidden" name="tkh_id" value=""/>
+			<input type="hidden" name="mod_id" value=""/>
+			<input type="hidden" name="step" value=""/>
+			<input type="hidden" name="isMobile" value="true"/>
+		</form>
+		
+		<div class="diaocha-page">
+		     <a class="diaocha-page-submit" href="javascript:back(2);" translate="btn_cancel"></a>
+		     <a class="diaocha-page-prev" href="javascript:back();" translate="btn_prev"></a>
+		     <a class="diaocha-page-next" href="javascript:;" ng-click="next()" translate="btn_next"></a>
+		</div>
+	</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

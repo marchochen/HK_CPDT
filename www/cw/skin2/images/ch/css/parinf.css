@@ -1,0 +1,82 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Parent Info
+suffix								   :ParInf
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : parinf.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+.wbParInfBg, .wbParInfBarBg {
+	background-color: #859334;
+}
+
+.wbParInfContentBg{
+	background-color: #FFFFFF;
+}
+
+.wbParInfContentHLText{
+	color: #DC143C;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbParInfContentRedText{
+	color: #FF0099;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbParInfCourseTitleText{
+	color: #859334;
+	font: bold 10pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbParInfLinkBg{
+	background-color: #A9BB31;
+}
+
+.wbParInfLinkText, .wbParInfContentText, .wbParInfMultiContentText {
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+.wbParInfLinkSText{
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+
+.wbParInfMultiTitleText, .wbParInfTitleTextBold, .wbParInfContentTextBold {
+	color: #000000;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbParInfResLeftBg{
+	background: #AABC34;
+	height: 16px;
+}
+
+.wbParInfResLeftText{
+	color: #FFFFFF;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbParInfResRightBg{
+	background: url(../frm_bg.gif) #8CCAF1;
+	height: 16px;
+}
+
+.wbParInfText{
+	color: #FFFFFF;
+	font: bold 10pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbParInfTitleBg{
+	background-color: #F8F9DD;
+}
+
+.wbParInfTitleText{
+	color: #000000;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+.wbParInfTitleRedText{
+	color: #FF0099;
+	font: 8pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}

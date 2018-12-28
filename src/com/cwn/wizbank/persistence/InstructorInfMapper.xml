@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.InstructorInfMapper">
+	
+	
+	<sql id="page_where">
+		<where>
+		</where>
+	</sql>
+	
+	<select id="getCount" resultType="java.lang.Integer" parameterType="Map">
+	    <![CDATA[
+	        select count(*) from InstructorInf t 
+	    ]]>
+	    <include refid="page_where"/>
+	</select>
+
+	
+	<select id="get" resultType="InstructorInf" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				iti_ent_id,
+				iti_name,
+				iti_gender,
+				iti_bday,
+				iti_mobile,
+				iti_email,
+				iti_img,
+				iti_introduction,
+				iti_level,
+				iti_cos_type,
+				iti_main_course,
+				iti_type,
+				iti_property,
+				iti_highest_educational,
+				iti_graduate_institutions,
+				iti_address,
+				iti_work_experience,
+				iti_education_experience,
+				iti_training_experience,
+				iti_expertise_areas,
+				iti_good_industry,
+				iti_training_company,
+				iti_training_contacts,
+				iti_training_tel,
+				iti_training_email,
+				iti_training_address,
+				iti_status,
+				iti_type_mark,
+				iti_score,
+				iti_create_datetime,
+				iti_create_user_id,
+				iti_update_datetime,
+				iti_update_user_id,
+				iti_tcr_id
+			from InstructorInf t
+			where
+				 t.iti_ent_id = #{id}
+		]]>
+	</select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.InstructorInf">
+	    <![CDATA[
+	        update InstructorInf
+	        set 
+				iti_ent_id = #{iti_ent_id,jdbcType=INTEGER},
+				iti_name = #{iti_name,jdbcType=VARCHAR},
+				iti_gender = #{iti_gender,jdbcType=VARCHAR},
+				iti_bday = #{iti_bday,jdbcType=DATE},
+				iti_mobile = #{iti_mobile,jdbcType=VARCHAR},
+				iti_email = #{iti_email,jdbcType=VARCHAR},
+				iti_img = #{iti_img,jdbcType=VARCHAR},
+				iti_introduction = #{iti_introduction,jdbcType=VARCHAR},
+				iti_level = #{iti_level,jdbcType=VARCHAR},
+				iti_cos_type = #{iti_cos_type,jdbcType=VARCHAR},
+				iti_main_course = #{iti_main_course,jdbcType=VARCHAR},
+				iti_type = #{iti_type,jdbcType=VARCHAR},
+				iti_property = #{iti_property,jdbcType=VARCHAR},
+				iti_highest_educational = #{iti_highest_educational,jdbcType=VARCHAR},
+				iti_graduate_institutions = #{iti_graduate_institutions,jdbcType=VARCHAR},
+				iti_address = #{iti_address,jdbcType=VARCHAR},
+				iti_work_experience = #{iti_work_experience,jdbcType=VARCHAR},
+				iti_education_experience = #{iti_education_experience,jdbcType=VARCHAR},
+				iti_training_experience = #{iti_training_experience,jdbcType=VARCHAR},
+				iti_expertise_areas = #{iti_expertise_areas,jdbcType=VARCHAR},
+				iti_good_industry = #{iti_good_industry,jdbcType=VARCHAR},
+				iti_training_company = #{iti_training_company,jdbcType=VARCHAR},
+				iti_training_contacts = #{iti_training_contacts,jdbcType=VARCHAR},
+				iti_training_tel = #{iti_training_tel,jdbcType=VARCHAR},
+				iti_training_email = #{iti_training_email,jdbcType=VARCHAR},
+				iti_training_address = #{iti_training_address,jdbcType=VARCHAR},
+				iti_status = #{iti_status,jdbcType=VARCHAR},
+				iti_type_mark = #{iti_type_mark,jdbcType=VARCHAR},
+				iti_score = #{iti_score,jdbcType=DOUBLE},
+				iti_create_datetime = #{iti_create_datetime,jdbcType=DATE},
+				iti_create_user_id = #{iti_create_user_id,jdbcType=VARCHAR},
+				iti_update_datetime = #{iti_update_datetime,jdbcType=DATE},
+				iti_update_user_id = #{iti_update_user_id,jdbcType=VARCHAR},
+				iti_tcr_id = #{iti_tcr_id,jdbcType=INTEGER}
+	         where t.iti_ent_id = #{iti_ent_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.InstructorInf">
+    	<![CDATA[
+            insert into InstructorInf(
+            		iti_name,
+            		iti_gender,
+            		iti_bday,
+            		iti_mobile,
+            		iti_email,
+            		iti_img,
+            		iti_introduction,
+            		iti_level,
+            		iti_cos_type,
+            		iti_main_course,
+            		iti_type,
+            		iti_property,
+            		iti_highest_educational,
+            		iti_graduate_institutions,
+            		iti_address,
+            		iti_work_experience,
+            		iti_education_experience,
+            		iti_training_experience,
+            		iti_expertise_areas,
+            		iti_good_industry,
+            		iti_training_company,
+            		iti_training_contacts,
+            		iti_training_tel,
+            		iti_training_email,
+            		iti_training_address,
+            		iti_status,
+            		iti_type_mark,
+            		iti_score,
+            		iti_create_datetime,
+            		iti_create_user_id,
+            		iti_update_datetime,
+            		iti_update_user_id,
+            		iti_tcr_id
+            ) values (
+            	#{iti_name,jdbcType=VARCHAR},
+            	#{iti_gender,jdbcType=VARCHAR},
+            	#{iti_bday,jdbcType=DATE},
+            	#{iti_mobile,jdbcType=VARCHAR},
+            	#{iti_email,jdbcType=VARCHAR},
+            	#{iti_img,jdbcType=VARCHAR},
+            	#{iti_introduction,jdbcType=VARCHAR},
+            	#{iti_level,jdbcType=VARCHAR},
+            	#{iti_cos_type,jdbcType=VARCHAR},
+            	#{iti_main_course,jdbcType=VARCHAR},
+            	#{iti_type,jdbcType=VARCHAR},
+            	#{iti_property,jdbcType=VARCHAR},
+            	#{iti_highest_educational,jdbcType=VARCHAR},
+            	#{iti_graduate_institutions,jdbcType=VARCHAR},
+            	#{iti_address,jdbcType=VARCHAR},
+            	#{iti_work_experience,jdbcType=VARCHAR},
+            	#{iti_education_experience,jdbcType=VARCHAR},
+            	#{iti_training_experience,jdbcType=VARCHAR},
+            	#{iti_expertise_areas,jdbcType=VARCHAR},
+            	#{iti_good_industry,jdbcType=VARCHAR},
+            	#{iti_training_company,jdbcType=VARCHAR},
+            	#{iti_training_contacts,jdbcType=VARCHAR},
+            	#{iti_training_tel,jdbcType=VARCHAR},
+            	#{iti_training_email,jdbcType=VARCHAR},
+            	#{iti_training_address,jdbcType=VARCHAR},
+            	#{iti_status,jdbcType=VARCHAR},
+            	#{iti_type_mark,jdbcType=VARCHAR},
+            	#{iti_score,jdbcType=DOUBLE},
+            	#{iti_create_datetime,jdbcType=DATE},
+            	#{iti_create_user_id,jdbcType=VARCHAR},
+            	#{iti_update_datetime,jdbcType=DATE},
+            	#{iti_update_user_id,jdbcType=VARCHAR},
+            	#{iti_tcr_id,jdbcType=INTEGER}
+            )
+        ]]>
+    </insert>
+    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from InstructorInf where
+	        iti_ent_id = #{iti_ent_id}
+	    ]]>
+    </delete>
+	
+	<select id="page" resultType="InstructorInf" parameterType="Page">
+			select * from (                                                             
+			<if test="params.iti_type_mark =='EXT' or params.iti_type_mark == null or params.iti_type_mark == '' ">
+				select iti_ent_id, iti_name, iti_gender, iti_level, NULL as sks_title, iti_main_course, iti_mobile,(select avg(itc_style_score + itc_quality_score + itc_structure_score + itc_interaction_score ) / 4 as score from InstructorComment where itc_iti_ent_id = iti_ent_id ) as iti_score ,iti_training_company,iti_expertise_areas, iti_type_mark, iti_update_datetime,iti_img,iti_type,iti_recommend
+				 from InstructorInf                                                                                        
+				 inner join entity on(iti_ent_id = ent_id and iti_type_mark = 'EXT') 
+				  where 1=1 
+				 <if test="params.top_tc_id != null and params.top_tc_id != ''">
+			 	   and (
+			 	   		iti_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{params.top_tc_id} )
+			 	   		or iti_tcr_id = #{params.top_tc_id}
+			 	   )
+			 	</if>                                                            
+			</if>
+			<if test="params.iti_type_mark == 'IN' or params.iti_type_mark == null or params.iti_type_mark == '' ">
+				<if test="params.iti_type_mark == null or params.iti_type_mark == '' " >
+					 union 
+				</if>
+				<choose>
+					<when test="_databaseId == 'ORACLE'">
+						select iti_ent_id, cast(usr_display_bil as nvarchar2(255)) as iti_name, cast(usr_gender as nvarchar2(20)) as iti_gender, iti_level, sks_title, iti_main_course, cast(usr_tel_1 as nvarchar2(255)) as iti_mobile,(select avg(itc_style_score + itc_quality_score + itc_structure_score + itc_interaction_score ) / 4 as score from InstructorComment where itc_iti_ent_id = iti_ent_id ) as iti_score ,iti_training_company, iti_expertise_areas, iti_type_mark, iti_update_datetime,urx_extra_43 as iti_img ,iti_type,iti_recommend
+					</when>
+					<otherwise>
+						select iti_ent_id, usr_display_bil as iti_name, usr_gender as iti_gender, iti_level, sks_title, iti_main_course, usr_tel_1 as iti_mobile,(select avg(itc_style_score + itc_quality_score + itc_structure_score + itc_interaction_score ) / 4 as score from InstructorComment where itc_iti_ent_id = iti_ent_id ) as iti_score ,iti_training_company, iti_expertise_areas, iti_type_mark, iti_update_datetime ,urx_extra_43 as iti_img,iti_type,iti_recommend
+					</otherwise>
+				</choose>
+				 from InstructorInf                                                                                       
+				 inner join reguser on(iti_ent_id = usr_ent_id)                                                             
+				 left join RegUserSkillSet on(uss_ent_id = usr_ent_id)                                                      
+				 left join cmSkillSet on(uss_ske_id = sks_ske_id and sks_owner_ent_id = 1 and  sks_type = 'SKP' )
+				 inner join  RegUserExtension on (iti_ent_id = urx_usr_ent_id ) 
+				 where 1=1
+				 <if test="params.top_tc_id != null and params.top_tc_id != ''">
+			 	   and (
+			 	   		iti_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{params.top_tc_id} )
+			 	   		or iti_tcr_id = #{params.top_tc_id}
+			 	   )
+			 	</if>        
+			</if>
+			) ins 
+			 where 1=1 
+			 <if test="params.iti_type != null and params.iti_type != ''">
+			 	<choose>
+					<when test="params.iti_type eq 'P'.toString()">
+						 and (iti_type = #{params.iti_type} or iti_type_mark = 'EXT') 
+					</when> 
+					 <otherwise>
+					 	  and iti_type like #{params.iti_type}
+					 </otherwise>
+			 	</choose>
+			 </if>
+			 <if test="params.iti_level != null and params.iti_level != ''">
+			 	 and iti_level like #{params.iti_level}
+			 </if>
+			 <choose>
+				<when test="_databaseId == 'ORACLE'">
+					order by nvl(iti_recommend,0) desc , nvl(iti_score,0) desc 
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					order by iti_recommend desc , iti_score desc 
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					order by iti_recommend desc , iti_score desc 
+				</when>
+			</choose>
+	</select>	
+	
+	<select id="getInstructor" parameterType="Long" resultType="InstructorInf">
+		select * from (                                                             
+				select iti_ent_id, iti_name, iti_gender, iti_level, NULL as sks_title, iti_main_course, iti_mobile,(select avg(itc_style_score + itc_quality_score + itc_structure_score + itc_interaction_score ) / 4 as score from InstructorComment where itc_iti_ent_id = iti_ent_id ) as iti_score ,iti_training_company,iti_expertise_areas, iti_type_mark, iti_update_datetime ,iti_img,iti_bday,iti_introduction,iti_email,iti_cos_type,iti_type,iti_good_industry,iti_recommend,iti_highest_educational,iti_graduate_institutions,iti_address
+				 from InstructorInf                                                                                        
+				 inner join entity on(iti_ent_id = ent_id and iti_type_mark = 'EXT')                                                             
+				union 
+				<choose>
+					<when test="_databaseId == 'ORACLE'">
+						select iti_ent_id, cast(usr_display_bil as nvarchar2(255)) as iti_name, cast(usr_gender as nvarchar2(20)) as iti_gender, iti_level, sks_title, iti_main_course, cast(usr_tel_1 as nvarchar2(255)) as iti_mobile,(select avg(itc_style_score + itc_quality_score + itc_structure_score + itc_interaction_score ) / 4 as score from InstructorComment where itc_iti_ent_id = iti_ent_id ) as iti_score ,iti_training_company, iti_expertise_areas, iti_type_mark, iti_update_datetime ,urx_extra_43 as iti_img,usr_bday as iti_bday,iti_introduction,usr_email as iti_email,iti_cos_type,iti_type,iti_good_industry,iti_recommend,iti_highest_educational,iti_graduate_institutions,iti_address
+					</when>
+					<otherwise>
+						select iti_ent_id, usr_display_bil as iti_name, usr_gender as iti_gender, iti_level, sks_title, iti_main_course, usr_tel_1 as iti_mobile,(select avg(itc_style_score + itc_quality_score + itc_structure_score + itc_interaction_score ) / 4 as score from InstructorComment where itc_iti_ent_id = iti_ent_id ) as iti_score ,iti_training_company, iti_expertise_areas, iti_type_mark, iti_update_datetime ,urx_extra_43 as iti_img,usr_bday as iti_bday,iti_introduction,usr_email as iti_email,iti_cos_type,iti_type,iti_good_industry,iti_recommend,iti_highest_educational,iti_graduate_institutions,iti_address
+					</otherwise>
+				</choose>
+				 from InstructorInf                                                                                       
+				 inner join reguser on(iti_ent_id = usr_ent_id)                                                             
+				 left join RegUserSkillSet on(uss_ent_id = usr_ent_id)                                                      
+				 left join cmSkillSet on(uss_ske_id = sks_ske_id and sks_owner_ent_id = 1 and  sks_type = 'SKP' )
+				 inner join  RegUserExtension on (iti_ent_id = urx_usr_ent_id )           
+			) ins 
+			 where ins.iti_ent_id = #{id}
+	</select>
+		<select id="getInstructors" resultType="InstructorInf" parameterType="Page">
+			select * from (                                                             
+			<if test="params.iti_type_mark =='EXT' or params.iti_type_mark == null or params.iti_type_mark == '' ">
+				select iti_ent_id,NULL as upt_title, iti_name, iti_gender, iti_level, NULL as sks_title, iti_main_course, iti_mobile,(select avg(itc_style_score + itc_quality_score + itc_structure_score + itc_interaction_score ) / 4 as score from InstructorComment where itc_iti_ent_id = iti_ent_id ) as iti_score ,iti_training_company,iti_expertise_areas, iti_type_mark, iti_update_datetime,iti_img,iti_type,iti_recommend
+				 from InstructorInf                                                                                        
+				 inner join entity on(iti_ent_id = ent_id and iti_type_mark = 'EXT')    
+				 where 1=1
+				  <if test="params.top_tc_id != null and params.top_tc_id != ''">
+			 	   and (
+			 	   		iti_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{params.top_tc_id} )
+			 	   		or iti_tcr_id = #{params.top_tc_id}
+			 	   )
+			 	</if>                                                                 
+			</if>
+			<if test="params.iti_type_mark == 'IN' or params.iti_type_mark == null or params.iti_type_mark == '' ">
+				<if test="params.iti_type_mark == null or params.iti_type_mark == '' " >
+					 union 
+				</if>
+				<choose>
+					<when test="_databaseId == 'ORACLE'">
+						select distinct iti_ent_id,upt_title, cast(usr_display_bil as nvarchar2(255)) as iti_name, cast(usr_gender as nvarchar2(20)) as iti_gender, iti_level, sks_title, iti_main_course, cast(usr_tel_1 as nvarchar2(255)) as iti_mobile,(select avg(itc_style_score + itc_quality_score + itc_structure_score + itc_interaction_score ) / 4 as score from InstructorComment where itc_iti_ent_id = iti_ent_id ) as iti_score ,iti_training_company, iti_expertise_areas, iti_type_mark, iti_update_datetime,urx_extra_43 as iti_img ,iti_type,iti_recommend
+					</when>
+					<otherwise>
+						select distinct iti_ent_id,upt_title, usr_display_bil as iti_name, usr_gender as iti_gender, iti_level, sks_title, iti_main_course, usr_tel_1 as iti_mobile,(select avg(itc_style_score + itc_quality_score + itc_structure_score + itc_interaction_score ) / 4 as score from InstructorComment where itc_iti_ent_id = iti_ent_id ) as iti_score ,iti_training_company, iti_expertise_areas, iti_type_mark, iti_update_datetime ,urx_extra_43 as iti_img,iti_type,iti_recommend
+					</otherwise>
+				</choose>
+				 from InstructorInf
+				 inner join reguser on(iti_ent_id = usr_ent_id )
+				 left join UserPositionRelation on iti_ent_id = upr_usr_ent_id
+                 left join UserPosition on upr_upt_id = upt_id                                                                               
+				 left join RegUserSkillSet on(uss_ent_id = usr_ent_id)                                                      
+				 left join cmSkillSet on(uss_ske_id = sks_ske_id and sks_owner_ent_id = 1 and  sks_type = 'SKP' )
+				 inner join  RegUserExtension on (iti_ent_id = urx_usr_ent_id ) 
+				 where 1=1
+				 <if test="params.top_tc_id != null and params.top_tc_id != ''">
+			 	   and (
+			 	   		iti_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{params.top_tc_id} )
+			 	   		or iti_tcr_id = #{params.top_tc_id}
+			 	   )
+			 	</if>        
+			</if>
+			) ins 
+			 where 1=1 
+			 <if test="params.iti_type != null and params.iti_type != ''">
+			 	<choose>
+					<when test="params.iti_type eq 'P'.toString()">
+						 and (iti_type = #{params.iti_type} or iti_type_mark = 'EXT') 
+					</when> 
+					 <otherwise>
+					 	  and iti_type = #{params.iti_type}
+					 </otherwise>
+			 	</choose>
+			 </if>
+			 <if test="params.iti_level != null and params.iti_level != ''">
+			 	 and iti_level = #{params.iti_level}
+			 </if>
+			 <if test="params.searchContent != null and params.searchContent != ''">
+			and  
+			lower(iti_name) like #{params.searchContent} 
+			or lower(upt_title) like #{params.searchContent}
+		</if>
+			 <choose>
+				<when test="_databaseId == 'ORACLE'">
+					order by nvl(iti_recommend,0) desc , nvl(iti_score,0) desc 
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					order by iti_recommend desc , iti_score desc 
+				</when>
+			</choose>
+	</select>	
+	
+</mapper>

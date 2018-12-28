@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.KnowCatalogRelationMapper">
+	<select id="get" resultType="KnowCatalogRelation" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				kcr_child_kca_id,
+				kcr_ancestor_kca_id,
+				kcr_type,
+				kcr_order,
+				kcr_parent_ind,
+				kcr_syn_timestamp,
+				kcr_remain_on_syn,
+				kcr_create_usr_id,
+				kcr_create_timestamp
+			from KnowCatalogRelation t 
+			where
+				 t.kcr_child_kca_id = #{id}
+		]]>
+	</select>	
+	<update id="update" parameterType="com.cwn.wizbank.entity.KnowCatalogRelation">
+	    <![CDATA[
+	        update KnowCatalogRelation t 
+	        set 
+				kcr_child_kca_id = #{kcr_child_kca_id,jdbcType=INTEGER},
+				kcr_ancestor_kca_id = #{kcr_ancestor_kca_id,jdbcType=INTEGER},
+				kcr_type = #{kcr_type,jdbcType=VARCHAR},
+				kcr_order = #{kcr_order,jdbcType=INTEGER},
+				kcr_parent_ind = #{kcr_parent_ind,jdbcType=INTEGER},
+				kcr_syn_timestamp = #{kcr_syn_timestamp,jdbcType=DATE},
+				kcr_remain_on_syn = #{kcr_remain_on_syn,jdbcType=INTEGER},
+				kcr_create_usr_id = #{kcr_create_usr_id,jdbcType=VARCHAR},
+				kcr_create_timestamp = #{kcr_create_timestamp,jdbcType=TIMESTAMP}
+	         where t.kcr_child_kca_id = #{kcr_child_kca_id,jdbcType=INTEGER}
+	    ]]>
+    </update>    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.KnowCatalogRelation">
+    	<![CDATA[
+            insert into KnowCatalogRelation(
+            		kcr_child_kca_id,
+            		kcr_ancestor_kca_id,
+            		kcr_type,
+            		kcr_order,
+            		kcr_parent_ind,
+            		kcr_syn_timestamp,
+            		kcr_remain_on_syn,
+            		kcr_create_usr_id,
+            		kcr_create_timestamp
+            ) values (
+            	#{kcr_child_kca_id,jdbcType=INTEGER},
+            	#{kcr_ancestor_kca_id,jdbcType=INTEGER},
+            	#{kcr_type,jdbcType=VARCHAR},
+            	#{kcr_order,jdbcType=INTEGER},
+            	#{kcr_parent_ind,jdbcType=INTEGER},
+            	#{kcr_syn_timestamp,jdbcType=TIMESTAMP},
+            	#{kcr_remain_on_syn,jdbcType=INTEGER},
+            	#{kcr_create_usr_id,jdbcType=VARCHAR},
+            	#{kcr_create_timestamp,jdbcType=TIMESTAMP}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="com.cwn.wizbank.entity.KnowCatalogRelation">
+	    <![CDATA[
+	   	delete from KnowCatalogRelation where
+	        kcr_child_kca_id = #{kcr_child_kca_id} and kcr_type = #{kcr_type}
+	    ]]>
+    </delete>	
+	<select id="selectAll" resultType="KnowCatalogRelation">
+	    <![CDATA[
+	         select 
+				kcr_child_kca_id,
+				kcr_ancestor_kca_id,
+				kcr_type,
+				kcr_order,
+				kcr_parent_ind,
+				kcr_syn_timestamp,
+				kcr_remain_on_syn,
+				kcr_create_usr_id,
+				kcr_create_timestamp
+			from KnowCatalogRelation t 
+	    ]]>
+	</select>	
+	
+	<delete id="deleteRecation" parameterType="Long">
+		delete from knowCatalogRelation where kcr_ancestor_kca_id = #{id} or kcr_child_kca_id = #{id}
+	</delete>
+	
+	<select id="selectParents" parameterType="Long" resultType="Long">
+		select * from 
+			(select	kcr_ancestor_kca_id
+				from KnowQuestion
+				inner join knowCatalogRelation on kcr_child_kca_id = que_id 
+				where que_id = #{id} and kcr_type = 'QUE_PARENT_KCA' ) kq 
+				union 
+				(select kcr_ancestor_kca_id from knowCatalogRelation where kcr_type = 'KCA_PARENT_KCA' 
+					and kcr_child_kca_id in (select	kcr_ancestor_kca_id
+					from KnowQuestion
+					inner join knowCatalogRelation on kcr_child_kca_id = que_id 
+					where que_id = #{id} and kcr_type = 'QUE_PARENT_KCA' ))
+	</select>
+</mapper>

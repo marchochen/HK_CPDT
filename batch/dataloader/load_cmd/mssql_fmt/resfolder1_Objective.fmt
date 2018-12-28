@@ -1,0 +1,8 @@
+8.0
+6
+1	SQLNCHAR	0	0	"\t\0"		1	obj_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	obj_syl_id	""
+3	SQLNCHAR	0	0	"\t\0"		3	obj_type	""
+4	SQLNCHAR	0	0	"\t\0"		4	obj_desc	""
+5	SQLNCHAR	0	0	"\t\0"		10	obj_status	""
+6	SQLNCHAR	0	0	"\r\0\n\0"	11	obj_tcr_id	""

@@ -1,0 +1,138 @@
+<!doctype html>
+<html ng-app="group">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/GroupController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak"  ng-controller="informationController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">
+{{alert.msg | translate}}
+</alert> 
+<div class="wrap" id="wizwrap"  ng-show="show.detail">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back();" title="back"></a>
+    <span class="header-title" translate="group_information"><!--群资料--></span>
+    <a class="header-info" href="javascript:;" ng-if="isManager || !isNormal" ng-click="updateGroup()" title="save" translate="btn_save"><!--保存--></a>
+    <div id="success" class="header-tip" style="display:none;">
+         <div class="header-tip-info">
+            <img src="../../images/proper.png" alt=""/>
+            <span translate="group_update_success"></span><!--提交成功-->
+        </div>
+    </div>
+</header> <!-- header End -->
+
+<section class="content">
+    <div class="panel-title-19">
+        <a class="panel-add-06 clearfix" href="javascript:;" ng-click="edit('text', 'group_name', 's_grp_title')" title="">
+            <span class="{{isManager != null && isManager || !isNormal ? 'panel-num-22' : 'panel-num-3'}}" ng-bind="snsGroup.s_grp_title"></span>
+            <span translate="group_name"></span><!--群名-->
+        </a>
+    </div>
+    <div class="panel-title-19 panel-title-19-no">
+        <a class="panel-add-06 clearfix" href="javascript:;" title="">
+            <span class="panel-num-3" ng-bind="snsGroup.s_grp_create_datetime | toDate"></span>
+            <span translate="group_create_time"></span><!--创建时间-->
+        </a>
+    </div>
+    <div class="panel-title-19 panel-title-19-no">
+        <a class="panel-add-06 clearfix"  href="javascript:;" ng-click="edit('text', 'group_desc', 's_grp_desc')" title="">
+            <span class="{{isManager != null && isManager || !isNormal ? 'panel-num-22' : 'panel-num-3'}}" ng-bind="snsGroup.s_grp_desc"></span>
+            <span translate="group_desc"></span><!--描述-->
+        </a>
+    </div>
+    <div class="panel-title-19 panel-title-19-no">
+        <a class="panel-add-06 clearfix"  href="javascript:;" ng-click="" title="">
+            <span class="panel-num-22" forward="snsGroup.s_grp_uid | personUrl" ng-bind="snsGroup.user.usr_display_bil"></span>
+            <span translate="group_manager"><!--管理员--></span>
+        </a>
+    </div>
+    <div class="panel" ng-if="s_grp_private!=2">
+        <div class="panel-title-19">
+            <a class="panel-add-06 clearfix" href="{{{url:'memberList.html',groupId:groupId} | appUrl}}" title="">
+                <span class="panel-num-22" ng-bind="memberList.totalRecord"></span>
+                <span translate="group_member"></span><!--群成员-->
+            </a>
+        </div> 
+        <div class="tuwen-list-3">
+             <div class="tuwen-list-3-box clearfix">
+                  <img id="user_photo_{{member.user.usr_ent_id}}" alt="" ng-repeat="member in memberList.items" forward="member.user.usr_ent_id | personUrl" ng-src="{{serverHost}}{{member.user.usr_photo}}" class="pic-radius">  
+             </div>        
+        </div>
+    </div> <!-- panel End -->
+    <div class="panel-title-19 panel-title-19-no" ng-if="s_grp_private!=2 && (isManager || !isNormal)">
+        <a class="panel-add-06 clearfix" href="{{{url:'approve.html',groupId:groupId} | appUrl}}" title="">
+            <span class="panel-num-3" ng-bind="memberAppList.totalRecord"></span>
+            <span translate="group_approve_member"></span><!--成员审批-->
+        </a>
+    </div>
+    <div class="panel-title-19 panel-title-19-no" ng-if="s_grp_private!=2 && (isManager || !isNormal)">
+        <a class="panel-add-06 clearfix" ng-href="{{{url:'changeManager.html',groupId:groupId} | appUrl}}" title="">
+            <span class="panel-num-3">&nbsp;</span>
+            <span translate="group_change_manager"></span><!--转让管理员-->
+        </a>
+    </div>
+    <div class="panel-title-19 panel-title-19-no">
+        <a class="panel-add-06 yinsi-tip clearfix" href="javascript:;" ng-click="edit('select')" title="">
+            <span  class="{{isManager != null && isManager || !isNormal ? 'panel-num-22' : 'panel-num-3'}}" ng-bind="snsGroup.s_grp_private | private"></span>
+            <span translate="group_private"></span><!--群隐私-->
+        </a>
+    </div>
+    
+    <div class="panel-list-cont-12">
+         <a ng-if="s_grp_private!=2 && !(isManager || !isNormal)" ng-click="exit()" class="panel-box-btn-02" href="javascript:;" title="" translate="group_exit"><!--退出本群--></a>
+        <a ng-if="isManager || !isNormal"  ng-click="exit()" class="panel-box-btn-02" href="javascript:;" title="" translate="group_delete"><!--解散本群--></a>
+    </div>
+    
+    <div class="yinsi-desc" ng-click="toggle()" style="display:none;">
+    <div class="yinsi-info" style="display:none;">
+        <div class="cont-info-title-7"><span translate="group_private"></span>：<!--群隐私--></div>
+        <ul class="panel-list-1-7">
+            <li>
+                <a href="javascript:;"  ng-class="{'selectBox' : snsGroup.s_grp_private == 1}" ng-click="saveSelect(1);" translate="group_type_private">
+                    <!--不公开-->
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;" ng-class="{'selectBox' : snsGroup.s_grp_private == 0}"  ng-click="saveSelect(0);" translate="group_type_public">
+                    <!--公开-->
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;" ng-class="{'selectBox' : snsGroup.s_grp_private == 2}"  ng-click="saveSelect(2);" translate="group_type_open">
+                    <!--开放-->
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;"  translate="group_cancel">
+                    <!--取消-->
+                </a>
+            </li>
+        </ul> 
+    </div>
+    </div>
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+<div class="wrap" ng-show="show.editText">
+    <header class="header mm-background">
+        <a class="header-back" href="javascript:;" ng-click="showPage('detail')" title="back"></a>
+        <span class="header-title" ng-bind="edit.title"></span>
+        <a class="header-info" href="javascript:;" ng-click="saveText()" title="save" translate="btn_save"><!--保存--></a>
+    </header> <!-- header End -->
+    <div class="header-overlay"></div>
+    <section class="content">
+    	<div style="padding: 20px 10px 0;">
+        <textarea class="pure-form-txt-4" name="" ng-model="edit.text"></textarea> 
+        </div>
+    </section> <!-- content End -->
+</div> <!-- wrap End -->
+</body>
+</html>

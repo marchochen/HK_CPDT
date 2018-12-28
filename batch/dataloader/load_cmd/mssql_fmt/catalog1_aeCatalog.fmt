@@ -1,0 +1,12 @@
+8.0
+10
+1	SQLNCHAR	0	0	"\t\0"		1	cat_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	cat_title	""
+3	SQLNCHAR	0	0	"\t\0"		3	cat_public_ind	""
+4	SQLNCHAR	0	0	"\t\0"		4	cat_status	""
+5	SQLNCHAR	0	0	"\t\0"		5	cat_owner_ent_id	""
+6	SQLNCHAR	0	0	"\t\0"		6	cat_create_timestamp	""
+7	SQLNCHAR	0	0	"\t\0"		7	cat_create_usr_id	""
+8	SQLNCHAR	0	0	"\t\0"		8	cat_update_timestamp	""
+9	SQLNCHAR	0	0	"\t\0"		9	cat_update_usr_id	""
+10	SQLNCHAR	0	0	"\r\0\n\0"	11	cat_tcr_id	""

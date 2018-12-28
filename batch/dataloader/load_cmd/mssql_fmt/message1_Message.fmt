@@ -1,0 +1,14 @@
+8.0
+12
+1	SQLNCHAR	0	0	"\t\0"		1	msg_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	msg_usr_id	""
+3	SQLNCHAR	0	0	"\t\0"		3	msg_type	""
+4	SQLNCHAR	0	0	"\t\0"		4	msg_title	""
+5	SQLNCHAR	0	0	"\t\0"		5	msg_body	""
+6	SQLNCHAR	0	0	"\t\0"		6	msg_begin_date	""
+7	SQLNCHAR	0	0	"\t\0"		7	msg_end_date	""
+8	SQLNCHAR	0	0	"\t\0"		8	msg_status	""
+9	SQLNCHAR	0	0	"\t\0"		9	msg_res_id	""
+10	SQLNCHAR	0	0	"\t\0"		10	msg_root_ent_id	""
+11	SQLNCHAR	0	0	"\t\0"		11	msg_upd_date	""
+12	SQLNCHAR	0	0	"\r\0\n\0"	13	msg_tcr_id	""

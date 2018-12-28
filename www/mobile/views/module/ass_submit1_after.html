@@ -1,0 +1,166 @@
+<!doctype html>
+<html ng-app="module">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0,user-scalable=yes" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link rel="stylesheet" href="../../css/module.css"/>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+<!-- 加载content内容 start  -->
+<link rel="stylesheet" href="../../css/photoSwipe/photoswipe.css"> 
+<link rel="stylesheet" href="../../css/photoSwipe/default-skin/default-skin.css"> 
+
+<!-- 播放器样式 -->
+<link href="../../css/video-js.min.css" rel="stylesheet" type="text/css" />
+<!-- 播放器video.js -->
+<script type="text/javascript" src="../../lib/video/video.js"></script>
+<!-- 加载content内容 end  -->
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/ModuleController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+
+		<script src="../../lib/photoSwipe/photoswipe.min.js"></script> 
+		<script src="../../lib/photoSwipe/photoswipe-ui-default.min.js"></script>
+		<style type="text/css">
+			.pswp__top-bar {position: absolute;top:90%;height: 44px;width: 100%;}
+		</style>
+		
+</head>
+
+<body ng-cloak class="ng-cloak" ng-controller="assSub1Controller">
+
+<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>
+<!-- 加载content内容 start  -->
+		<div class="wrap" ng-controller="assContentController">
+		<header class="header mm-background" ><!-- ng-click="leave()" -->
+			    <a class="header-back"  href="javascript:back();"></a>
+			    <span class="header-title" translate="mod_sub_homework"></span>
+			</header> <!-- header End -->
+			<section class="content">
+				<div ng-if="ass.source[0].type == 'null'">
+					<div class="work_input_desc">{{ass.desc[0].text}}</div>
+					<div class="ui_head">
+						<span class="report_outline">{{'mod_content' | translate}}</span>
+					</div>
+					<div style="padding:10px 0px;" class="content_info report_title ">
+						<p class="work_font">{{ass.instruction[0].text}}</p>
+					</div>
+				</div>
+				<iframe ng-src="{{src}}" width="100%" height="800px" frameborder="0" ng-if="showIfm == true"></iframe>
+				
+				<div ng-if="img" style="text-align: center">
+					<img width="100%" ng-src="{{src}}"/>
+				</div>
+				
+				<video id="video" ng-src="{{src}}" ng-if="video == true" class="video-js vjs-default-skin vjs-big-play-centered" controls="controls" 
+			      	preload="auto"  width="100%" height="460px" poster="../../images/course_open_video_post.png">
+				</video>
+				
+				<Webview-iframe url="{{previewUrl}}" ng-if="showDoc"></Webview-iframe>
+			</section> <!-- content End -->
+		</div> <!-- wrap End --
+<!-- 加载content内容 end  -->
+
+<!-- submit assignment start -->
+<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+
+<div class="wrap" ng-controller="assScoreController">
+	<header class="header mm-background">
+	    <a class="header-back" href="javascript:back();"></a>
+	    <span class="header-title">{{ass.header[0].title[0].text}}</span>
+	</header> <!-- header End -->
+	
+	<section class="content">
+		<!-- <div class="work_input_desc">
+			{{'mod_onclick' | translate}}
+			<a href="javascript:;" class="TextBold" ng-click="getContent()" translate="mod_this"></a>
+			{{'mod_ass_desc' | translate}}
+		</div> -->
+		<div class="ui_head">
+			<span class="report_outline" translate="mod_score"></span>
+		</div>
+		
+		<div class="report_info clean_margin">
+			<div class="clearfix" ng-if="ass.header[0].max_score == -1">
+				<div class="left_div_width">
+					<span class="grayC999"><span translate="mod_grade"></span>:</span>
+				</div>
+				<div class="right_div_width">
+					<span>
+						{{ass.status == 'NOT GRADED' ? 'data_null' : 'mod_grade_' + ass.grade.charAt(0) | translate}}
+						{{ass.grade == 'null' ? '' : ass.grade.charAt(1)}}
+					</span>
+				</div>
+			</div>
+			
+			<div class="clearfix" ng-if="ass.header[0].max_score != -1">
+				<div class="left_div_width">
+					<span class="grayC999"><span translate="cos_score"></span>:</span>
+				</div>
+				<div class="right_div_width">
+					<span>{{ass.score}}&nbsp;(&nbsp;<span translate="mod_full_score"></span>&nbsp;:&nbsp;{{ass.header[0].max_score}}&nbsp;)</span>
+				</div>
+			</div>
+			
+			<div class="clearfix">
+				<div class="left_div_width">
+					<span class="grayC999"><span translate="mod_remark"></span>:</span>
+				</div>
+				<div class="right_div_width" ng-if="ass.status == 'NOT GRADED'">
+					<span translate="mod_not_score"></span>
+				</div>
+				<div class="right_div_width" ng-if="ass.status == 'GRADED' && last_file.type == 'TEACHER'">
+					<p ng-if="last_file.name != 'null'" ng-click="open(ass.body[0].uploadPath[0].teacher + last_file.name)">
+						<a >
+							<img ng-src="{{serverHost}}/wb_image/icon_{{last_file.name | typeImg}}.gif" align="" height="32" hspace="4" vspace="4" width="32" border="0">
+						</a>
+						<span>{{last_file.name}}</span>
+					</p>
+					<p>{{frist_file.desc == 'null' ? '--' : frist_file.desc}}</p>
+				</div>
+			</div>
+			
+			<div class="clearfix">
+				<div class="left_div_width">
+					<span class="grayC999"><span translate="mod_sub_detail"></span>:</span>
+				</div>
+				<div class="right_div_width">
+					<span translate="mod_show_file"></span>
+				</div>
+			</div>
+			
+			<div class="clearfix" ng-repeat="file in file_list" ng-if="file.type == 'STUDENT'">
+				<div class="left_div_width">
+					<span class="grayC999">&nbsp;</span>
+				</div>
+				<div class="right_div_width">
+					<p ng-click="open(ass.body[0].uploadPath[0].student + file.name)">
+						<a >
+							<img ng-src="{{serverHost}}/wb_image/icon_{{file.name | typeImg}}.gif" align="" height="32" hspace="4" vspace="4" width="32" border="0">
+						</a>
+						<span>{{file.name}}</span>
+					</p>
+					<p ng-if="last_file.type == 'TEACHER' && last_file.desc != 'null'">
+						{{last_file.desc}}
+					</p>
+				</div>
+			</div>
+			
+			<div class="clearfix">
+				<div class="left_div_width">
+					<span class="grayC999">{{'mod_sub_time' | translate}}:</span>
+				</div>
+				<div class="right_div_width">
+					<span>{{ass.complete_date.substring(0, 16)}}</span>
+				</div>
+			</div>
+		</div>
+	</section> <!-- content End -->
+</div> <!-- wrap End -->
+<!-- submit assignment start -->
+
+</body>
+</html>

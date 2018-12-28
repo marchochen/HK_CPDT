@@ -1,0 +1,604 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cwn="http://www.cyberwisdom.net">
+	<xsd:import namespace="http://www.cyberwisdom.net" schemaLocation="cwn.xsd"/>
+	<xsd:element name="enterprise">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="comments" minOccurs="0"/>
+				<xsd:element ref="properties"/>
+				<xsd:element ref="person" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="group" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="membership" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="type" type="xsd:string"/>
+	<xsd:element name="sourcedid">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="source"/>
+				<xsd:element ref="id"/>
+			</xsd:sequence>
+			<xsd:attribute name="sourcedidtype">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="New"/>
+						<xsd:enumeration value="Old"/>
+						<xsd:enumeration value="Duplicate"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="source" type="xsd:string"/>
+	<xsd:element name="id" type="xsd:string"/>
+	<xsd:element name="userid">
+		<xsd:complexType>
+					<xsd:attribute name="useridtype" type="xsd:string"/>
+					<xsd:attribute name="password" type="xsd:string"/>
+					<xsd:attribute name="pwencryptiontype" type="xsd:string"/>
+					<xsd:attribute name="authenticationtype" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="email" type="xsd:string"/>
+	<!--  <xsd:element name="extension" type="xsd:string" />-->
+	<xsd:element name="extension">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="cwn:extension" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<!--
+<xsd:element name="cwn:extension">
+    <xsd:complexType>
+      <xsd:sequence>
+	<xsd:element minOccurs="0" ref="cwn:grade" />
+	<xsd:element minOccurs="0" maxOccurs="unbounded" ref="cwn:position" />
+	<xsd:element minOccurs="0" ref="cwn:classification_list" />
+	<xsd:element minOccurs="0" ref="cwn:status" />
+	<xsd:element minOccurs="0" ref="cwn:item_title" />
+	<xsd:element minOccurs="0" ref="cwn:item_url" />
+	<xsd:element minOccurs="0" ref="cwn:credit_list" />
+	<xsd:element minOccurs="0" ref="cwn:completion_date" />
+	<xsd:element minOccurs="0" ref="cwn:enrollment_date" />
+	<xsd:element minOccurs="0" maxOccurs="unbounded" ref="cwn:ext" />
+      </xsd:sequence>
+      <xsd:attribute ref="xmlns:cwn" />
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="cwn:grade">
+    <xsd:complexType>
+      <xsd:simpleContent>
+	<xsd:extension base="xsd:string">
+	  <xsd:attribute name="id" type="xsd:string" use="required" />
+	</xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="cwn:position">
+    <xsd:complexType>
+      <xsd:simpleContent>
+	<xsd:extension base="xsd:string">
+	  <xsd:attribute name="id" type="xsd:string" use="required" />
+	</xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="cwn:classification_list">
+    <xsd:complexType>
+      <xsd:sequence>
+	<xsd:element maxOccurs="unbounded" ref="cwn:classification" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="cwn:classification">
+    <xsd:complexType>
+      <xsd:simpleContent>
+	<xsd:extension base="xsd:string">
+	  <xsd:attribute name="type" type="xsd:string" use="required" />
+	  <xsd:attribute name="id" type="xsd:string" use="required" />
+	</xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="cwn:status" type="xsd:string" />
+  <xsd:element name="cwn:item_title">
+    <xsd:complexType>
+      <xsd:sequence>
+	<xsd:element maxOccurs="unbounded" ref="cwn:title" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="cwn:title">
+    <xsd:complexType>
+      <xsd:simpleContent>
+	<xsd:extension base="xsd:string">
+	  <xsd:attribute name="lang" type="xsd:string" use="required" />
+	</xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="cwn:item_url">
+    <xsd:complexType>
+      <xsd:sequence>
+	<xsd:element maxOccurs="unbounded" ref="cwn:url" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="cwn:url">
+    <xsd:complexType>
+      <xsd:simpleContent>
+	<xsd:extension base="xsd:string">
+	  <xsd:attribute name="lang" type="xsd:string" use="required" />
+	</xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="cwn:credit_list">
+    <xsd:complexType>
+      <xsd:sequence>
+	<xsd:element maxOccurs="unbounded" ref="cwn:credit" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="cwn:credit">
+    <xsd:complexType>
+      <xsd:simpleContent>
+	<xsd:extension base="xsd:string">
+	  <xsd:attribute name="type" type="xsd:string" use="required" />
+	  <xsd:attribute name="subtype" type="xsd:string" />
+	</xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="cwn:completion_date" type="xsd:string" />
+  <xsd:element name="cwn:enrollment_date" type="xsd:string" />
+  <xsd:element name="cwn:ext">
+    <xsd:complexType>
+      <xsd:simpleContent>
+	<xsd:extension base="xsd:string">
+	  <xsd:attribute name="exttype" type="xsd:string" use="required" />
+	</xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>-->
+	<xsd:element name="properties">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="comments" minOccurs="0"/>
+				<xsd:element ref="datasource"/>
+				<xsd:element ref="target" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="type" minOccurs="0"/>
+				<xsd:element ref="datetime"/>
+				<xsd:element ref="extension" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute name="lang" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="datasource" type="xsd:string"/>
+	<xsd:element name="target" type="xsd:string"/>
+	<xsd:element name="datetime" type="xsd:string"/>
+	<xsd:element name="person">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="comments" minOccurs="0"/>
+				<xsd:element ref="sourcedid" maxOccurs="unbounded"/>
+				<xsd:element ref="userid" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="name"/>
+				<xsd:element ref="demographics" minOccurs="0"/>
+				<xsd:element ref="email" minOccurs="0"/>
+				<xsd:element ref="url" minOccurs="0"/>
+				<xsd:element ref="tel" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="adr" minOccurs="0"/>
+				<xsd:element ref="photo" minOccurs="0"/>
+				<xsd:element ref="systemrole" minOccurs="0"/>
+				<xsd:element ref="institutionrole" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="datasource" minOccurs="0"/>
+				<xsd:element ref="extension" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute name="recstatus">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="1"/>
+						<xsd:enumeration value="2"/>
+						<xsd:enumeration value="3"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="name">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="fn"/>
+				<xsd:element ref="sort" minOccurs="0"/>
+				<xsd:element ref="nickname" minOccurs="0"/>
+				<xsd:element ref="n" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="fn" type="xsd:string"/>
+	<xsd:element name="sort" type="xsd:string"/>
+	<xsd:element name="nickname" type="xsd:string"/>
+	<xsd:element name="n">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="family" minOccurs="0"/>
+				<xsd:element ref="given" minOccurs="0"/>
+				<xsd:element ref="other" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="prefix" minOccurs="0"/>
+				<xsd:element ref="suffix" minOccurs="0"/>
+				<xsd:element ref="partname" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="family" type="xsd:string"/>
+	<xsd:element name="given" type="xsd:string"/>
+	<xsd:element name="other" type="xsd:string"/>
+	<xsd:element name="prefix" type="xsd:string"/>
+	<xsd:element name="suffix" type="xsd:string"/>
+	<xsd:element name="partname">
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string">
+					<xsd:attribute name="lang" type="xsd:string"/>
+					<xsd:attribute name="partnametype" type="xsd:string" use="required"/>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="demographics">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="gender" minOccurs="0"/>
+				<xsd:element ref="bday" minOccurs="0"/>
+				<xsd:element ref="disability" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="gender" type="xsd:string"/>
+	<xsd:element name="bday" type="xsd:string"/>
+	<xsd:element name="disability" type="xsd:string"/>
+	<xsd:element name="tel">
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string">
+					<xsd:attribute name="teltype" default="1">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="1"/>
+								<xsd:enumeration value="2"/>
+								<xsd:enumeration value="3"/>
+								<xsd:enumeration value="4"/>
+								<xsd:enumeration value="Voice"/>
+								<xsd:enumeration value="Fax"/>
+								<xsd:enumeration value="Mobile"/>
+								<xsd:enumeration value="Pager"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="adr">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="pobox" minOccurs="0"/>
+				<xsd:element ref="extadd" minOccurs="0"/>
+				<xsd:element ref="street" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="locality" minOccurs="0"/>
+				<xsd:element ref="region" minOccurs="0"/>
+				<xsd:element ref="pcode" minOccurs="0"/>
+				<xsd:element ref="country" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="pobox" type="xsd:string"/>
+	<xsd:element name="extadd" type="xsd:string"/>
+	<xsd:element name="street" type="xsd:string"/>
+	<xsd:element name="locality" type="xsd:string"/>
+	<xsd:element name="region" type="xsd:string"/>
+	<xsd:element name="pcode" type="xsd:string"/>
+	<xsd:element name="country" type="xsd:string"/>
+	<xsd:element name="photo">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="extref"/>
+			</xsd:sequence>
+			<xsd:attribute name="imgtype" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="systemrole">
+		<xsd:complexType>
+			<xsd:attribute name="systemroletype" use="required">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="SysAdmin"/>
+						<xsd:enumeration value="SysSupport"/>
+						<xsd:enumeration value="Creator"/>
+						<xsd:enumeration value="AccountAdmin"/>
+						<xsd:enumeration value="User"/>
+						<xsd:enumeration value="None"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="institutionrole">
+		<xsd:complexType>
+			<xsd:attribute name="primaryrole" use="required">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Yes"/>
+						<xsd:enumeration value="No"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="institutionroletype" use="required">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Student"/>
+						<xsd:enumeration value="Faculty"/>
+						<xsd:enumeration value="Staff"/>
+						<xsd:enumeration value="Alumni"/>
+						<xsd:enumeration value="ProspectiveStudent"/>
+						<xsd:enumeration value="Guest"/>
+						<xsd:enumeration value="Other"/>
+						<xsd:enumeration value="Administrator"/>
+						<xsd:enumeration value="Observer"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="extref" type="xsd:string"/>
+	<xsd:element name="group">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="comments" minOccurs="0"/>
+				<xsd:element ref="sourcedid" maxOccurs="unbounded"/>
+				<xsd:element name="grouptype" minOccurs="0" maxOccurs="unbounded">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="scheme" minOccurs="0"/>
+							<xsd:element ref="typevalue" maxOccurs="unbounded"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element ref="description"/>
+				<xsd:element ref="org" minOccurs="0"/>
+				<xsd:element ref="timeframe" minOccurs="0"/>
+				<xsd:element ref="enrollcontrol" minOccurs="0"/>
+				<xsd:element ref="email" minOccurs="0"/>
+				<xsd:element ref="url" minOccurs="0"/>
+				<xsd:element ref="relationship" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="datasource" minOccurs="0"/>
+				<xsd:element ref="extension" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute name="recstatus">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="1"/>
+						<xsd:enumeration value="2"/>
+						<xsd:enumeration value="3"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="scheme" type="xsd:string"/>
+	<xsd:element name="typevalue">
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string">
+					<xsd:attribute name="level" type="xsd:string" use="required"/>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="description">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="short"/>
+				<xsd:element ref="long" minOccurs="0"/>
+				<xsd:element ref="full" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="short" type="xsd:string"/>
+	<xsd:element name="long" type="xsd:string"/>
+	<xsd:element name="full" type="xsd:string"/>
+	<xsd:element name="org">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="orgname" minOccurs="0"/>
+				<xsd:element ref="orgunit" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="type" minOccurs="0"/>
+				<xsd:element ref="id" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="orgname" type="xsd:string"/>
+	<xsd:element name="orgunit" type="xsd:string"/>
+	<xsd:element name="timeframe">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="begin" minOccurs="0"/>
+				<xsd:element ref="end" minOccurs="0"/>
+				<xsd:element ref="adminperiod" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="begin">
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string">
+					<xsd:attribute name="restrict" type="xsd:string"/>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="end">
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string">
+					<xsd:attribute name="restrict" type="xsd:string"/>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="adminperiod" type="xsd:string"/>
+	<xsd:element name="enrollcontrol">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="enrollaccept" minOccurs="0"/>
+				<xsd:element ref="enrollallowed" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="enrollaccept" type="xsd:string"/>
+	<xsd:element name="enrollallowed" type="xsd:string"/>
+	<xsd:element name="url" type="xsd:string"/>
+	<xsd:element name="relationship">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="sourcedid"/>
+				<xsd:element ref="label"/>
+			</xsd:sequence>
+			<xsd:attribute name="relation" default="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="1"/>
+						<xsd:enumeration value="2"/>
+						<xsd:enumeration value="3"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="label" type="xsd:string"/>
+	<xsd:element name="membership">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="comments" minOccurs="0"/>
+				<xsd:element ref="sourcedid"/>
+				<xsd:element ref="member" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="member">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="comments" minOccurs="0"/>
+				<xsd:element ref="sourcedid"/>
+				<xsd:element ref="idtype"/>
+				<xsd:element ref="role" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="idtype" type="xsd:string"/>
+	<xsd:element name="role">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="subrole" minOccurs="0"/>
+				<xsd:element ref="status"/>
+				<xsd:element ref="userid" minOccurs="0"/>
+				<xsd:element ref="comments" minOccurs="0"/>
+				<xsd:element ref="datetime" minOccurs="0"/>
+				<xsd:element ref="timeframe" minOccurs="0"/>
+				<xsd:element ref="interimresult" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="finalresult" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="email" minOccurs="0"/>
+				<xsd:element ref="datasource" minOccurs="0"/>
+				<xsd:element ref="extension" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute name="recstatus">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="1"/>
+						<xsd:enumeration value="2"/>
+						<xsd:enumeration value="3"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="roletype" default="01">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="01"/>
+						<xsd:enumeration value="02"/>
+						<xsd:enumeration value="03"/>
+						<xsd:enumeration value="04"/>
+						<xsd:enumeration value="05"/>
+						<xsd:enumeration value="06"/>
+						<xsd:enumeration value="07"/>
+						<xsd:enumeration value="08"/>
+						<xsd:enumeration value="Learner"/>
+						<xsd:enumeration value="Instructor"/>
+						<xsd:enumeration value="ContentDeveloper"/>
+						<xsd:enumeration value="Member"/>
+						<xsd:enumeration value="Manager"/>
+						<xsd:enumeration value="Mentor"/>
+						<xsd:enumeration value="Administrator"/>
+						<xsd:enumeration value="TeachingAssistant"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="subrole" type="xsd:string"/>
+	<xsd:element name="status" type="xsd:string"/>
+	<xsd:element name="comments">
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string">
+					<xsd:attribute name="lang" type="xsd:string"/>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="finalresult">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="mode" minOccurs="0"/>
+				<xsd:element ref="values" minOccurs="0"/>
+				<xsd:element ref="result" minOccurs="0"/>
+				<xsd:element ref="comments" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="interimresult">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="mode" minOccurs="0"/>
+				<xsd:element ref="values" minOccurs="0"/>
+				<xsd:element ref="result" minOccurs="0"/>
+				<xsd:element ref="comments" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute name="resulttype" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="mode" type="xsd:string"/>
+	<xsd:element name="values">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="list" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="min" minOccurs="0"/>
+				<xsd:element ref="max" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute name="valuetype" use="required">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="0"/>
+						<xsd:enumeration value="1"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="list" type="xsd:string"/>
+	<xsd:element name="max" type="xsd:string"/>
+	<xsd:element name="min" type="xsd:string"/>
+	<xsd:element name="result" type="xsd:string"/>
+</xsd:schema>

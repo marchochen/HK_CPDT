@@ -1,0 +1,22 @@
+<label_reference_data_list>
+	<label name="lab_upd_work_flow">报名工作流</label>
+	<label name="lab_g_select_enrol_wf">请选择</label>
+	<label name="lab_g_form_btn_ok">确定</label>
+	<label name="lab_g_form_btn_cancel">取消</label>
+	<label name="lab_g_template_workflow">
+		<element id="15">
+			<title id="1">无需经过审批</title>
+			<description id="1"></description>
+			<title id="2">需经过以下审批：</title>
+			<description id="2"></description>
+			<title id="3">领导审批：</title>
+			<description id="3"></description>
+			<title id="4">只需直属领导审批</title>
+			<description id="4">如果需要直属领导参与审批，申请者个人资料中的“直属领导”属性必须先被设定。</description>
+			<title id="5">先通过直属领导审批，再由用户组领导审批</title>
+			<description id="5">如果需要用户组领导参与审批，申请者个人资料中的“最高报名审批用户组”属性必须先被设定。</description>
+			<title id="6">培训管理员审批</title>
+			<description id="6"></description>
+		</element>
+	</label>
+</label_reference_data_list>

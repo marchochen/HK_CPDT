@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.TagMapper">
+	<resultMap id="TagWithTcr" type="Tag">
+		<id column="tag_id" property="tag_id" />
+		<result column="tag_title" property="tag_title"></result>
+		<result column="tag_create_datetime" property="tag_create_datetime"></result>
+		<result column="tag_create_user_id" property="tag_create_user_id"></result>
+		<result column="tag_update_datetime" property="tag_update_datetime"></result>
+		<result column="tag_update_user_id" property="tag_update_user_id"></result>
+		<result column="tag_knowledge_number" property="tag_knowledge_number"></result>
+		<association property="tcTrainingCenter" javaType="TcTrainingCenter">
+			<id property="tcr_id" column="tcr_id" />
+			<result property="tcr_title" column="tcr_title" />
+		</association>
+	</resultMap>
+	<sql id="page_where">
+		<where>
+		</where>
+	</sql>
+	<select id="getCount" resultType="java.lang.Integer"
+		parameterType="Map">
+	    <![CDATA[
+	        select count(*) from tag t 
+	    ]]>
+		<include refid="page_where" />
+	</select>
+	<select id="isExistForTitle" resultType="java.lang.Boolean"
+		parameterType="com.cwn.wizbank.entity.Tag">
+	    <![CDATA[
+			select count(*)
+	         from tag 
+	         where tag_title = N'${tag_title}'
+		]]>
+		<if test="tag_id !=null and tag_id !=''">
+			<![CDATA[
+				and tag_id != #{tag_id}
+			]]>
+		</if>
+	</select>
+
+	<select id="get" resultMap="TagWithTcr" parameterType="java.lang.Long">
+	    <![CDATA[
+	        select tag.*,tcr.tcr_id,tcr.tcr_title
+	         from tag 
+	         left join TcTrainingCenter tcr on tcr.tcr_id = tag_tcr_id
+	         where tag_id = #{id}
+	    ]]>
+	</select>
+
+	<select id="searchAll" resultMap="TagWithTcr" parameterType="Page">
+		<![CDATA[
+			select tag.*,tcr.tcr_id,tcr.tcr_title,
+			kit.tag_knowledge_number
+			from tag left join TcTrainingCenter tcr
+			on tag_tcr_id = tcr.tcr_id left join
+			(select kit_tag_id,COUNT(*) tag_knowledge_number from kb_item_tag 
+			inner join kb_item on kit_kbi_id = kbi_id and kbi_app_status = 'APPROVED'
+			group by kit_tag_id) kit on tag.tag_id = kit.kit_tag_id
+			where exists (select t.tcr_id from tcTrainingCenter t
+		     where exists ( select * from tcTrainingCenter ancestor  
+		      ]]>
+		   <if test="params.current_role != null and params.current_role != '' and params.current_role != 'ADM_1'">
+		     inner join tcTrainingCenterOfficer on (tco_tcr_id = ancestor.tcr_id)  
+		     left join tcRelation on (tcn_ancestor = ancestor.tcr_id) 
+		     inner join tcTrainingCenter child on (child.tcr_id = tcn_child_tcr_id or child.tcr_id = ancestor.tcr_id) 
+		     where tco_usr_ent_id =  #{params.usr_ent_id} 
+		     and child.tcr_id = t.tcr_id
+		     </if>
+		 <![CDATA[ 
+		     ) and t.tcr_status = 'OK' and t.tcr_id = tag.tag_tcr_id)
+		]]>
+
+		<if test="params.tag_title != null and params.tag_title !=''">
+			<![CDATA[
+				and tag_title like
+				N'%${params.tag_title}%'
+			]]>
+		</if>
+		<![CDATA[
+			order by tag_update_datetime desc
+		]]>
+	</select>
+
+
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.Tag">
+	    <![CDATA[
+            insert into tag(
+            		tag_title,
+            		tag_tcr_id,
+            		tag_create_datetime,
+            		tag_create_user_id
+            ) values (
+            	#{tag_title,jdbcType=VARCHAR},
+            	#{tcTrainingCenter.tcr_id,jdbcType=VARCHAR},
+            	#{tag_create_datetime,jdbcType=TIMESTAMP},
+            	#{tag_create_user_id,jdbcType=VARCHAR}
+            )
+        ]]>
+	</insert>
+
+	<update id="update" parameterType="com.cwn.wizbank.entity.Tag">
+	    <![CDATA[
+	        update tag 
+	        set
+				tag_title = #{tag_title,jdbcType=VARCHAR},
+				tag_tcr_id = #{tcTrainingCenter.tcr_id,jdbcType=VARCHAR},
+				tag_update_datetime = #{tag_update_datetime,jdbcType=TIMESTAMP},
+				tag_update_user_id = #{tag_update_user_id,jdbcType=VARCHAR}
+	         where tag_id = #{tag_id,jdbcType=VARCHAR}
+	    ]]>
+
+	</update>
+
+	<update id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from tag 
+	        where tag_id = #{tag_id}
+	    ]]>
+	</update>
+
+	<select id="jsonList" resultType="java.util.Map" parameterType="java.lang.String">
+		 <![CDATA[
+			select tag_id as id, tag_title as title, tag_tcr_id
+			from tag where exists
+			(select t.tcr_id from tcTrainingCenter t
+		     where exists ( select * from tcTrainingCenter ancestor  
+		     ]]>
+		   <if test="current_role != null and current_role != '' and current_role != 'ADM_1'">
+		     inner join tcTrainingCenterOfficer on (tco_tcr_id = ancestor.tcr_id)  
+		     left join tcRelation on (tcn_ancestor = ancestor.tcr_id) 
+		     inner join tcTrainingCenter child on (child.tcr_id = tcn_child_tcr_id or child.tcr_id = ancestor.tcr_id) 
+		     where tco_usr_ent_id =  #{usr_ent_id} 
+		     and child.tcr_id = t.tcr_id
+		     </if>
+		 <![CDATA[ 
+		     ) and t.tcr_status = 'OK' and t.tcr_id = tag.tag_tcr_id)
+		 ]]>
+		<if test="filter != null and filter != ''">
+			and tag_title like #{filter}
+		</if>
+	</select>
+
+	<select id="selectTagByTcr" resultType="com.cwn.wizbank.entity.Tag"
+		parameterType="java.util.Map">
+		<![CDATA[
+			select tag.*,case when children > 0 then 1 else 0 end isChecked from tag left join 
+			(select kit_tag_id,COUNT(*) as children from kb_item_tag where kit_kbi_id=#{kbi_id} group by kit_tag_id) kit 
+			on tag.tag_id = kit.kit_tag_id
+			
+			where EXISTS (SELECT DISTINCT tcr_id
+					FROM EntityRelation, tcTrainingCenterTargetEntity, tcTrainingCenter
+					WHERE ern_ancestor_ent_id = tce_ent_id
+						and ern_child_ent_id = #{usr_ent_id}
+						AND ern_type = 'USR_PARENT_USG'
+		]]>
+		<if test="tc_independent == true">
+			and tcr_parent_tcr_id > 0
+		</if>
+		<![CDATA[
+						AND tce_tcr_id = tcr_id
+						AND tcr_id = tag.tag_tcr_id)
+		]]>
+		order by tag_title
+
+	</select>
+</mapper>

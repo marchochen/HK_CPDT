@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.ProfessionMapper">
+	<select id="getAllPfsList" parameterType="Map" resultType="Profession">
+		select pfs_id, 
+		pfs_title, 
+		psi_ugr_id as "psi.psi_ugr_id",
+		psi_itm as "psi.psi_itm"
+		from profession 
+		inner join ProfessionItem on (pfs_id = psi_pfs_id) 
+	</select>
+	
+	<select id="getCurUserUgrId" parameterType="Map" resultType="Long">
+		SELECT ern_ancestor_ent_id 
+		FROM EntityRelation 
+		WHERE ern_child_ent_id = #{ern_child_ent_id}
+		AND ern_type= #{ern_type}
+		AND ern_parent_ind = #{ern_parent_ind}
+	</select>
+	
+	<select id="getUgrTitleByUgrId" parameterType="Long" resultType="String">
+		select ugr_display_bil from userGrade where ugr_ent_id = #{ugr_ent_id}
+	</select>
+	
+	<select id="get" parameterType="Long" resultType="Profession">
+		select * from profession where pfs_id = #{pfs_id}
+	</select>
+	
+	<select id="getAllPfsPage" parameterType="Page" resultType="Profession">
+		select pfs_id, 
+		pfs_title, 
+		psi_ugr_id as "psi.psi_ugr_id",
+		psi_itm as "psi.psi_itm",
+		pfs_create_time,
+		pfs_update_time
+		from profession 
+		inner join ProfessionItem on (pfs_id = psi_pfs_id) 
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.Profession">
+		update profession set pfs_title = #{pfs_title}
+		,pfs_create_time = #{pfs_create_time}
+		,pfs_update_time = #{pfs_update_time}
+		,pfs_create_usr_id = #{pfs_create_usr_id}
+		,pfs_update_usr_id = #{pfs_update_usr_id}
+		,pfs_template = #{pfs_template}
+		,pfs_status = #{pfs_status}
+		where pfs_id = #{pfs_id}
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from profession where pfs_id = #{id}
+	</delete>
+	<insert id="add" parameterType="com.cwn.wizbank.entity.Profession" useGeneratedKeys="true"  keyProperty="pfs_id">
+		insert into profession(pfs_title,pfs_create_time,pfs_update_time,pfs_create_usr_id,pfs_update_usr_id,pfs_template,pfs_tcr_id,pfs_status)
+		values(#{pfs_title},#{pfs_create_time},#{pfs_update_time},#{pfs_create_usr_id},#{pfs_update_usr_id},#{pfs_template},#{pfs_tcr_id},#{pfs_status})
+		   <selectKey resultType="java.lang.Long" keyProperty="pfs_id" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select Profession_seq.CURRVAL AS pfs_id FROM DUAL
+				</when>
+				<otherwise>
+					select @@IDENTITY as pfs_id
+				</otherwise>
+			</choose>
+		</selectKey>
+	</insert>
+	<select id="getAllProfessionPage" parameterType="Page" resultType="Profession">
+		select * from profession  where 1=1
+		  <if test="params.top_tcr_id != null and params.top_tcr_id !=0  ">         
+            and (pfs_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{params.top_tcr_id} ) or pfs_tcr_id = #{params.top_tcr_id})
+         </if>
+	</select>
+	<update id="updateStatus" parameterType="Map">
+		update profession set 
+		pfs_status = #{pfs_status}
+		where pfs_id = #{pfs_id}
+	</update>
+	<select id="getAll" parameterType="Map" resultType="Profession">
+		select * from profession where pfs_status=1
+		 <if test="top_tcr_id != null and top_tcr_id !='' ">         
+            and (pfs_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{top_tcr_id} ) or pfs_tcr_id = #{top_tcr_id})
+         </if>
+	</select>
+	<select id="isExistFormProp" parameterType="Map" resultType="boolean">
+		select count(pfs_id) from profession
+		where 1=1
+		<if test="pfs_title != null and pfs_title !=''">
+		 and   pfs_title= N'${pfs_title}' 
+		<if test="old_value != null and old_value !=''">	 
+		and pfs_title != N'${old_value}'
+		 </if>
+		  </if>
+	</select>
+	<select id="getAffectedPfs" parameterType="Long" resultType="int">
+	select  count(DISTINCT pfs_id) from  profession inner join professionlrnitem on pfs_id=psi_pfs_id
+		  WHERE psi_ugr_id IN ( SELECT DISTINCT(ern_child_ent_id) FROM EntityRelation
+		  WHERE ern_type='UGR_PARENT_UGR'
+		  AND ern_parent_ind = 1 AND ( ern_child_ent_id=#{ugr_ent_id} OR ern_ancestor_ent_id =#{ugr_ent_id} ) )
+	</select>
+</mapper>

@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.CpdGroupMapper">
+	<resultMap id="CpdGroup" type="CpdGroup">
+		<id column="cg_id" property="cg_id" />
+		<result column="cg_code" property="cg_code"></result>
+		<result column="cg_alias" property="cg_alias"></result>
+		<result column="cg_display_order" property="cg_display_order"></result>
+		<result column="cg_contain_non_core_ind" property="cg_contain_non_core_ind"></result>
+		<result column="cg_display_in_report_ind" property="cg_display_in_report_ind"></result>
+		<result column="cg_ct_id" property="cg_ct_id"></result>
+		<result column="cg_create_usr_ent_id" property="cg_create_usr_ent_id"></result>
+		<result column="cg_create_datetime" property="cg_create_datetime"></result>
+		<result column="cg_update_usr_ent_id" property="cg_update_usr_ent_id"></result>
+		<result column="cg_update_datetime" property="cg_update_datetime"></result>
+		<result column="cg_status" property="cg_status"></result>
+		<association property="cpdType" column="cg_ct_id" javaType="CpdType">
+            <result column="ct_id" property="ct_id"/>
+            <result column="ct_license_type" property="ct_license_type"></result>
+		    <result column="ct_license_alias" property="ct_license_alias"></result>
+		    <result column="ct_starting_month" property="ct_starting_month"></result>
+        </association>
+        <association property="cpdGroupRegistration" column="cg_id" javaType="com.cwn.wizbank.entity.CpdGroupRegistration">
+            <result column="cgr_cg_id" property="cgr_cg_id"/>
+            <result column="cgr_id" property="cgr_id"/>
+            <result column="cgr_usr_ent_id" property="cgr_usr_ent_id"></result>
+            <result column="cgr_initial_date" property="cgr_initial_date"  javaType="java.util.Date" jdbcType="DATE"></result>
+            <result column="cgr_expiry_date" property="cgr_expiry_date"  javaType="java.util.Date" jdbcType="DATE"></result>
+        </association>
+	</resultMap>
+	
+	
+	<select id="isExistForType" resultType="java.lang.Boolean"
+		parameterType="com.cwn.wizbank.entity.CpdGroup">
+	    <![CDATA[
+			select count(*)
+	         from cpdGroup
+	         where cg_code = N'${cg_code}'
+	         and cg_status = 'OK'  and cg_ct_id = #{cg_ct_id}
+		]]>
+		<if test="cg_id !=null and cg_id !=''">
+			<![CDATA[
+				and cg_id != #{cg_id}
+			]]>
+		</if>
+	</select>
+
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.CpdGroup">
+	    <![CDATA[
+            insert into cpdGroup(
+            		cg_code,
+            		cg_alias,
+            		cg_display_order,
+            		cg_contain_non_core_ind,
+            		cg_display_in_report_ind,
+            		cg_ct_id,
+            		cg_create_usr_ent_id,
+            		cg_create_datetime,
+            		cg_status
+            ) values (
+            	#{cg_code,jdbcType=VARCHAR},
+            	#{cg_alias,jdbcType=VARCHAR},
+            	#{cg_display_order,jdbcType=INTEGER},
+            	#{cg_contain_non_core_ind,jdbcType=INTEGER},
+            	#{cg_display_in_report_ind,jdbcType=INTEGER},
+            	#{cg_ct_id,jdbcType=INTEGER},
+            	#{cg_create_usr_ent_id,jdbcType=TIMESTAMP},
+            	#{cg_create_datetime,jdbcType=TIMESTAMP},
+            	#{cg_status,jdbcType=VARCHAR}
+            )
+        ]]>
+	</insert>
+
+	<update id="update" parameterType="com.cwn.wizbank.entity.CpdGroup">
+	    <![CDATA[
+	        update cpdGroup 
+	        set
+				cg_code = #{cg_code,jdbcType=VARCHAR},
+				cg_alias = #{cg_alias,jdbcType=VARCHAR},
+           		cg_contain_non_core_ind = #{cg_contain_non_core_ind,jdbcType=INTEGER},
+           		cg_display_in_report_ind = #{cg_display_in_report_ind,jdbcType=INTEGER},
+           		cg_update_usr_ent_id = #{cg_update_usr_ent_id,jdbcType=INTEGER},
+           		cg_update_datetime = #{cg_update_datetime,jdbcType=TIMESTAMP}
+	         where cg_id = #{cg_id,jdbcType=INTEGER}
+	    ]]>
+	</update>
+	
+		
+	<select id="getCpdGroup" resultType="com.cwn.wizbank.entity.CpdGroup" parameterType="com.cwn.wizbank.entity.CpdGroup">
+	    <![CDATA[
+			select *
+	         from cpdGroup 
+	        where 1=1  and cg_ct_id = #{cg_ct_id}
+		]]>
+		<if test="cg_id !=null and cg_id !=''">
+			<![CDATA[
+				and cg_id != #{cg_id}
+			]]>
+		</if>
+		<if test="cg_status !=null and cg_status !=''">
+			<![CDATA[
+				and cg_status != #{cg_status}
+			]]>
+		</if>
+		<if test="cg_code !=null and cg_code !=''">
+			<![CDATA[
+			and	cg_code = N'${cg_code}'
+			]]>
+		</if>
+	</select>
+
+    <select id="getMaxOrder" resultType="java.lang.Integer">
+		<![CDATA[ SELECT  ]]>	
+		 <choose>
+			<when test="_databaseId == 'ORACLE'">
+			    <![CDATA[  NVL(max(cg_display_order),0) ]]>	
+			</when>
+			<when test="_databaseId == 'SQLSERVER'">
+				 <![CDATA[	ISNULL(max(cg_display_order),0)  ]]>	
+			</when>
+			<when test="_databaseId == 'MYSQL'">
+				 <![CDATA[	IFNULL(max(cg_display_order),0)  ]]>	
+			</when>
+		</choose>
+		<![CDATA[ 		
+			 as cg_display_order
+		FROM 
+			cpdGroup
+			 ]]>	
+	</select>
+   
+<select id="searchAll" resultMap="CpdGroup" parameterType="Page">
+		<![CDATA[
+		  SELECT CpdGroup.*
+			  FROM CpdGroup
+			  where cg_status = 'OK' 
+		   ]]>
+		     <if test="params.cg_ct_id != null and params.cg_ct_id != '' ">
+			   <![CDATA[ 
+			     and cg_ct_id = ${params.cg_ct_id}
+			   ]]>
+			 </if>
+		  <![CDATA[  
+			  order by cg_display_order asc
+		]]>
+	</select>
+
+  <select id="get" resultMap="CpdGroup" parameterType="java.lang.Long">
+	    <![CDATA[
+	        select cg_id,
+	               cg_code,
+	               cg_alias,
+	               cg_display_order,
+	               cg_contain_non_core_ind,
+	               cg_display_in_report_ind,
+	               cg_ct_id,
+	               cg_create_usr_ent_id,
+	               cg_create_datetime,
+	               cg_update_usr_ent_id,
+	               cg_update_datetime,
+	               cg_status,
+	               ct_id,
+	               ct_license_type,
+	               ct_license_alias,
+	               ct_starting_month
+	         from cpdGroup 
+	         left join cpdType on ct_id = cg_ct_id
+	         where cg_id = #{id}  and cg_status = 'OK'
+	    ]]>
+	</select>
+
+<update id="delete" parameterType="com.cwn.wizbank.entity.CpdGroup">
+	    <![CDATA[
+	        update cpdGroup 
+	        set
+				cg_status = #{cg_status,jdbcType=VARCHAR},
+           		cg_update_usr_ent_id = #{cg_update_usr_ent_id,jdbcType=INTEGER},
+           		cg_update_datetime = #{cg_update_datetime,jdbcType=TIMESTAMP}
+	         where cg_id = #{cg_id,jdbcType=INTEGER}
+	    ]]>
+	</update>
+
+<update id="updateOrder" parameterType="com.cwn.wizbank.entity.CpdGroup">
+	    <![CDATA[
+	        update cpdGroup 
+	        set
+				cg_display_order = #{cg_display_order,jdbcType=INTEGER},
+           		cg_update_usr_ent_id = #{cg_display_order,jdbcType=INTEGER},
+           		cg_update_datetime = #{cg_update_datetime,jdbcType=TIMESTAMP}
+	         where cg_code = #{cg_code,jdbcType=VARCHAR} and  cg_ct_id = #{cg_ct_id,jdbcType=INTEGER}
+	    ]]>
+	</update>
+
+<update id="deleteAllByCtID" parameterType="Map">
+	    <![CDATA[
+	        update cpdGroup 
+	        set
+				cg_status = #{cg_status},
+           		cg_update_usr_ent_id = #{cg_update_usr_ent_id},
+           		cg_update_datetime = #{cg_update_datetime}
+	         where cg_ct_id =#{ct_id}
+	    ]]>
+	</update>
+
+
+<select id="getAllOrder" resultMap="CpdGroup" parameterType="java.util.Map">
+		<![CDATA[
+		  SELECT CpdGroup.*
+			  FROM CpdGroup
+			  inner join cpdType on cg_ct_id = ct_id
+			  where cg_status = 'OK' 
+			 ]]> 
+			   <if test="cg_ct_id != null and cg_ct_id != '' ">	
+			   <![CDATA[ and cg_ct_id = #{cg_ct_id}  ]]>
+			   </if>
+			   <!--CPT/D Awarded Hours Report (TA) 报表 查询设置可在报表中显示  根据大牌id查询  -->
+			   <if test="cpdGroupIds != null and cpdGroupIds.size > 0">
+			      and cg_ct_id in
+		 			<foreach collection="cpdGroupIds" item="item" index="index" 
+						open="(" separator="," close=")">
+						${item}
+					</foreach>
+			   </if>
+	     <![CDATA[
+			  order by ct_display_order ASC, cg_display_order ASC
+			  
+		]]>
+	</select>
+	
+	
+	    <select id="getUserGroupRegi"   resultMap="CpdGroup"  parameterType="java.util.Map">
+        <![CDATA[
+            select * from  (
+            select cg_id,cg_code,cg_alias,cgr_usr_ent_id,cgr_initial_date,cgr_expiry_date,cg_display_order  from cpdGroup left join cpdGroupRegistration on cgr_cg_id = cg_id
+            where cgr_cr_id = #{cgr_cr_id} and cgr_status = 'OK'
+            union all 
+            select cg_id,cg_code,cg_alias,0 as cgr_usr_ent_id,null as cgr_initial_date,null as cgr_expiry_date,cg_display_order from cpdGroup 
+            where cg_status = 'OK' and cg_ct_id = #{cg_ct_id}  and cg_id not in(select cg_id from cpdGroup left join cpdGroupRegistration on cgr_cg_id = cg_id where cgr_cr_id = #{cgr_cr_id}  and  cgr_status = 'OK' )
+            )t order by t.cg_display_order
+            ]]>
+    </select>
+    
+    <select id="searchByType" resultMap="CpdGroup" parameterType="java.util.Map">
+        <![CDATA[
+            SELECT CpdGroup.*,ct_id FROM CpdGroup left join cpdType on ct_id = cg_ct_id
+            where cg_status = 'OK' and ct_status ='OK'
+          ]]>
+          <if test="display_in_report_ind == null or display_in_report_ind == 1 ">
+          	 and cg_display_in_report_ind = 1
+          </if>
+           <![CDATA[
+            and cg_ct_id in 
+           ]]>
+           <foreach collection="cghiCtIds" item="item" open="(" separator="," close=")">
+               #{item}
+           </foreach>
+        	<![CDATA[
+                order by ct_display_order,cg_display_order
+           ]]>
+    </select>
+
+    <select id="getCountGroupByCtId" resultType="java.lang.Integer" parameterType="java.lang.Long">
+		<![CDATA[ 
+		  select count(cg_ct_id)
+			  from cpdGroup
+			  where cg_status = 'OK'
+			     and cg_ct_id = #{id}
+			 ]]>	
+	</select>
+	
+	   
+    <select id="getGroupByCode" resultType="CpdGroup"  parameterType="com.cwn.wizbank.entity.CpdGroup">
+        <![CDATA[
+            select *
+             from cpdGroup
+             where cg_code = N'${cg_code}'
+             and cg_status = 'OK'  and cg_ct_id = #{cg_ct_id}
+        ]]>
+    </select>
+    
+         <select id="getGroupCode" resultType="CpdGroup"  parameterType="com.cwn.wizbank.entity.CpdGroup">
+        <![CDATA[
+            select *
+             from cpdGroup
+             where cg_code = N'${cg_code}'
+             and cg_status = 'OK' 
+        ]]>
+    </select>
+    
+    
+
+</mapper>

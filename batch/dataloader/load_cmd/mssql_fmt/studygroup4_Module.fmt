@@ -1,0 +1,9 @@
+8.0
+7
+1	SQLNCHAR	0	0	"\t\0"	1	mod_res_id	""
+2	SQLNCHAR	0	0	"\t\0"	2	mod_type	""
+3	SQLNCHAR	0	0	"\t\0"	22	mod_has_rate_q	""
+4	SQLNCHAR	0	0	"\t\0"	23	mod_is_public	""
+5	SQLNCHAR	0	0	"\t\0"	26	mod_show_answer_ind	""
+6	SQLNCHAR	0	0	"\t\0"	27	mod_sub_after_passed_ind	""
+7	SQLNCHAR	0	0	"\r\0\n\0"	30	mod_sgp_ind	""

@@ -1,0 +1,552 @@
+<!doctype html>
+<html ng-app="cwn">
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+		<title translate="cwn_title"></title>
+		<link rel="stylesheet" href="../css/basic.css" />
+		<link rel="icon" href="../images/favicon.ico" type="image/x-icon" />
+		<script type="text/javascript" src="../lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.load.js"></script>
+		<script type="text/javascript" src="../lib/common.js"></script>
+		<script type="text/javascript" src="../js/controllers/IndexController.js"></script>
+		<script type="text/javascript" src="../lib/image-lazy-load.js"></script>
+	</head>
+
+	<body ng-cloak class="ng-cloak" ng-controller="IndexController_new">
+	  <alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>
+	  
+	  <div class="wrap" id="wizwrap">
+        <!-- <div class="{{recommendcos.items.length>0?'panel-list-popup':'panel-list-popup-er'}}" style="{{isFristLogin?'display:block;':'dispalay:none;'}}">
+            <div>
+                <div class="panel-list-well-user">
+                    <img id="user_photo_{{user.usr_ent_id}}" ng-src="{{serverHost}}{{user.usr_photo}}" alt=""/>
+                </div>
+                <p class="panel-popup-tit-1" translate="{{user.usr_display_bil}}"></p>
+                <a class="panel-list-popup-close" href="javascript:" ng-click="toogleType()"></a>
+            </div>
+            <p class="panel-popup-tit-2" translate="loginsuccess"></p>  
+            <div class="panle-popup-modle-1" style="{{recommendcos.items.length>0?'border-bottom:1px dotted #ddd;':'margin:54px 15px 0;'}}">
+                <div><span translate="this_award"></span><i class="panel-num-24" >{{ucl_point}}</i></div>
+                <div><span translate="thisTotalCredit"></span><i class="panel-num-15" style="margin:0 0 0 5px;">{{totalCredits}}</i></div>
+            </div>
+            <div ng-if="recommendcos.items.length>0">
+             <h3 style="padding:15px 15px 0; color:#666;" translate="forMylessons"></h3>
+             <ul class="panel-list-1-1 clearfix" style="padding:12px 5px 0; border-bottom:0;">
+                 <li ng-repeat="item in recommendcos.items">
+                     <a class="panel-list-cont-1" href="javascript:;" forward="{tkhId:item.item.app_tkh_id, itmId: item.item.encItmId, addCourseInd:true} | courseUrl" title="">
+                         <div class="list-pic-1">
+                             <img ng-src="{{serverHost}}{{item.item.itm_icon | htmlDecode}}"/>
+                             <span class="{{cur_lan_en=='en-us'?'list-tool-1-bixiu-e':'list-tool-1-bixiu'}}" ng-if="item.itd_compulsory_ind == 1"></span>
+                    <span class="{{item.item.cla}}"></span>
+                             <div class="showin"></div>
+                         </div>
+                         <div class="list-title list-title-1" style="padding:6px 0 0 0;">{{item.item.itm_title}}</div>
+                     </a>
+                     <div class="list-tool-1">
+                         <span id="ocl_1185" class="list-tool-1-laud ng-binding">{{item.item.snsCount && item.item.snsCount.s_cnt_like_count ? item.item.snsCount.s_cnt_like_count:0}}</span>
+                         <a class="list-tool-3-blue" href="javascript:;" forward="{tkhId:item.item.app_tkh_id, itmId: item.item.encItmId, addCourseInd:true} | courseUrl" title="去看看" style="margin-right:0;"><span translate="course_view"></span></a>
+                     </div>
+                 </li>
+             </ul>
+            </div>
+        </div> 
+        <div class="header-overlay" style="{{isFristLogin?'display:block;':'dispalay:none;'}}" ng-click="toogleType()"></div> -->
+       	
+       	<!-- 任务弹出框 start -->
+       	<div class="header-overlay" ng-style="{'display' : (taskShow ? 'block' : 'none')}" ng-click="toggleTaskModal()">
+        </div>
+        <div class="panel-list-tast" ng-style="{'display' : (taskShow ? 'block' : 'none')}">
+             <div style="position:relative;">
+                 <div class="panel-list-position"><img src="../images/renwutu_01.jpg" alt=""></div>
+                 <div class="panel-list-position2">
+                     <img src="../images/xyd-renwu.png" alt="" width="90px">
+                 </div>
+                 <i class="panel-list-i"></i>
+                 <p class="panel-list-p" translate="task_has_new_task_tip"></p>
+                 <img src="../images/renwutu_04 fengexian.png" alt="" style="width:200px;position:absolute;top:74px;margin:0 0 0 50px">
+             </div>
+             <div class="panel-list-icon">
+                 <ul>
+                     <li ng-if="hasStaff" class="renwu-shenpi" ng-click="toUrl('approval/approval.html')"><em class="icon-memu-tip" ng-show="approvalCount"></em>{{'task_evaluation' | translate}}<em class="panel-num-1"  id="approvalCount">{{approvalCount}}</em></li>
+                     <li class="renwu-tiaocha" ng-click="toUrl('evaluation/evaluation.html')"><em class="icon-memu-tip" ng-show="evaluationCount"></em>{{'task_approval' | translate}}<em class="panel-num-1"  id="evaluationCount">{{evaluationCount}}</em></li>
+                     <li class="renwu-toupiao" ng-click="toUrl('voting/index.html')"><em class="icon-memu-tip" ng-show="votingCount"></em>{{'task_voting' | translate}}<em class="panel-num-1"  id="votingCount">{{votingCount}}</em></li>
+                     <li class="renwu-gonggao" ng-click="toUrl('announce/announce.html')"><em class="icon-memu-tip" ng-show="announceCount"></em>{{'task_announceCount' | translate}}<em class="panel-num-1"  id="announceCount">{{announceCount}}</em></li>
+                     <li class="renwu-xiaoxi" ng-click="toUrl('message/message.html')"><em class="icon-memu-tip" ng-show="messageCount" style="left:38px;"></em>{{'task_messageCount' | translate}}<em class="panel-num-1"  id="messageCount">{{messageCount}}</em></li>
+                 </ul>
+             </div>
+             <div style="text-align:center;margin:10px 0 10px 0;">
+                 <a href="javascript:void(0)" ng-click="toggleTaskModal()" class="wiz-btn-1 wiz-btn-2"><i class="wiz-btn-2-icon" translate="task_btn_dismiss_modal"></i></a>
+             </div>
+         </div>
+       	<!-- 任务弹出框 start -->
+		
+	    <header class="header mm-background">
+		      <a class="header-sosuo-er" href="{{{url:'search/search.html'} | appUrl}}"></a>
+		      <span class="header-title" translate="index_text"></span>
+		      <a class="header-renwu" href="javascript:void(0)" ng-click="toggleTaskModal()">
+		      	<em class="icon-memu-tip" ng-show="totalCount" id="totalCount"></em>
+		      </a>
+	    </header> <!-- header End -->
+	    
+	    <wzm-docker rp="../" target="index"></wzm-docker>
+	
+	    <!-- section start -->
+	    <section class="content-2">
+	    
+	      <!-- 轮播图start -->
+	      <div class="touchslider">
+	        <div class="touchslider-viewport">
+	       	</div>
+	        <div class="touchslider-navtag">
+	          <div class="touchslider-navbox">
+	          </div>
+	        </div>
+	
+	        <script type="text/javascript" src="../lib/jquery/jquery.touchslider.min.js"></script>
+	        <script type="text/javascript">
+	        $(function($){
+	        	$(window).resize(function(){
+	        		var width=$('#wizwrap').width();
+	        		$('.touchslider-item img').css('width',width);
+	        		$('.touchslider-viewport').css('height',270*(width/640));
+	        	}).resize();	
+	        	$(".touchslider").touchSlider({mouseTouch:true, autoplay:true});
+	        });
+	        </script>	
+	      </div>
+	      <!-- 轮播图end -->
+		      
+	      <!-- 4个菜单按钮 start -->
+	      <div class="memu clearfix">
+               <a class="memu-box-4" href="javascript:clicked('learning/courseCatalog.html?show=courseCatalog',true)">
+                   <span class="icon-memu-model icon-memu-model-two icon-memu-danlv">
+                       <i class="icon-memu-lesson"></i>
+                   </span>
+                   <div class="memu-box-title" translate='cos_catalog'></div>
+               </a>
+            
+               <a class="memu-box-4" ng-if="!showLive" href="javascript:clicked('rank/course.html?show=newCourse',true)">
+                   <span class="icon-memu-model icon-memu-model-two icon-memu-orange">
+                       <i class="icon-memu-new-course"></i>
+                   </span>
+                   <div class="memu-box-title" translate="cos_the_new"></div>
+               </a>
+            
+               <!-- <a class="memu-box-4" href="{{ {url:'knowledge/main.html'} | appUrl}}">
+                   <span class="icon-memu-model icon-memu-model-two icon-memu-pink">
+                       <i class="icon-memu-Knowledge"></i>
+                   </span>
+                   <div class="memu-box-title" translate='knowledge_center'></div>
+               </a> -->
+               
+               <a class="memu-box-4" ng-if="showLive" href="{{ {url:'live/live.html'} | appUrl }}"><!--直播-->
+                   <span class="icon-memu-model icon-memu-model-two icon-memu-orange">
+                       <i class="icon-memu-zhibo"></i>
+                   </span>
+                   <div class="memu-box-title" translate="lab_live_title"></div>
+               </a>
+               
+               <a class="memu-box-4" href="{{{url:'announce/announce.html'} | appUrl}}">
+                   <span class="icon-memu-model icon-memu-model-two icon-memu-purple">
+                       <i class="icon-memu-post"></i>
+                       <em class="icon-memu-tip" style="top:-6px;" id="memuAnnounceCount" ng-show="announceCount > 0 ">{{announceCount}}</em>
+                   </span>
+                   <div class="memu-box-title" translate='announce'></div>
+               </a>
+           </div>
+           <!-- 4个菜单按钮 End -->
+
+		   
+		   <!-- 进行中的课程 start -->
+	       <div class="panel padding-top1" ng-show="progressCourseLoader.items.length > 0">
+	        
+	        <h3 class="panel-title-2 panel-tit-h20" ng-show="progressCourseLoader.show" style="border-bottom: 1px solid #eee;">
+	          <a class="panel-title-subject panel-tuijian panel-border-orange" href="javascript:clicked('../views/learning/courseCatalog.html?show=myCourse')" translate='personal_ls_ing_upd' style="color:#333;font-size:18px;"></a>
+	        </h3>
+	
+	        <ul class="panel-list-1-1 clearfix" ng-show="progressCourseLoader.show">
+	          	<div class="tuwen-list-1" style="{{$index==0?'border-top:0;':''}}" ng-if="item.app_status != 'C'" ng-repeat="item in progressCourseLoader.items">
+	                <a class="tuwen-list-1-box clearfix" href="javascript:clicked('course/detail.html?itmId={{item.item.encItmId}}&tkhId={{item.app_tkh_id}}',true,'item{{item.item.itm_id}}')" title="">
+	                    <div class="tuwen-list-1-pic">
+	                        <img ng-src="{{serverHost}}{{item.item.itm_icon}}">
+	                        <span class="{{cur_lan_en=='en-us'?'list-tool-1-bixiu-e':'list-tool-1-bixiu'}}" ng-if="item.itd.itd_compulsory_ind == 1"></span>
+	                        <span class="{{item.item.cla}}"></span>
+	                    </div>
+	                    
+	                    <div class="marginl">
+	                     <div class="tuwen-list-1-tit-1"><i class="wzb-pc-icon"></i><i class="wzb-phone-icon" ng-show="item.item.itm_mobile_ind && item.item.itm_mobile_ind == 'yes'"></i>{{item.item.itm_title}}</div>
+	                     <div class="wiz-load" ng-if="item.app_status == 'I' || item.app_status == 'Admitted'">
+	                         <div class="wbload">
+	                             <span style="width:{{item.cov_progress}}px"></span>
+	                         </div>
+	                         <span class="wbnum">{{item.cov_progress}}%</span>
+	                     </div>
+	                     
+	                     <div class="wiz-load" ng-if="!(item.app_status == 'I' || item.app_status == 'Admitted')">
+	                     	<span style="line-height: 26px" class="{{item.appStatusJson.cla}}">{{item.appStatusJson.title | translate}}</span>
+	                     </div>
+	                     
+	                     <!-- <div class="tuwen-list-tool">
+	                         <span class="list-tool-1-laud">{{item.item.snsCount && item.item.snsCount.s_cnt_like_count ? item.item.snsCount.s_cnt_like_count:0}}</span>
+	                         <span class="list-tool-1-review">{{item.item.cnt_comment_count?item.item.cnt_comment_count:0}}</span>
+	                     </div> -->
+	                    </div>   
+	                </a>
+	            </div>
+	         </ul>
+	       </div>
+	       <!-- 进行中的课程 end -->
+		   
+	
+	      <!-- 为你推荐、我的必修课 start -->
+<!-- 	      <div class="panel padding-top1" ng-show="recommendcos.items.length > 0">
+	        <h3 class="panel-title-2 panel-tit-h20" ng-show="recommendcos.show" style="border-bottom: 1px solid #eee;">
+	          <a class="panel-title-subject panel-tuijian panel-border-orange" href="javascript:clicked('../views/learning/courseCatalog.html?show=recommendCourse{{isCompulsory ? '&isCompulsory=1':''}}',true)" translate='{{compulsoryOrrecomendTitle}}' style="color:#333;font-size:18px;"></a>
+	        </h3>
+	
+	        <ul class="panel-list-1-1 clearfix" ng-show="recommendcos.show">
+	          <li ng-repeat="item in recommendcos.items">
+	            <a class="panel-list-cont-1" href="javascript:;" forward="{tkhId:item.item.app_tkh_id, itmId: item.item.encItmId, addCourseInd:true} | courseUrl">
+	              <div class="list-pic-1">
+	                <img ng-src="{{serverHost}}{{item.item.itm_icon | htmlDecode}}"/>
+	                <span class="{{cur_lan_en=='en-us'?'list-tool-1-bixiu-e':'list-tool-1-bixiu'}} ng-scope" ng-if="item.itd_compulsory_ind == 1"></span>
+	                <span class="{{item.item.cla}}"></span>
+	                <div class="showin"></div>
+	              </div>
+	              <div class="list-title list-title-1">{{item.item.itm_title}}</div>
+	            </a>
+	          </li>
+	          
+	          <li ng-show="recommendcos.items.length == 1">如果只有一张图片，第二张显示一张占位图.
+	            <a class="panel-list-cont-1" href="javascript:;">
+	            	<img src="../images/z-kecheng_meitu_1.png" width="94%" alt="">
+	            </a>
+	          </li>
+	        </ul>
+	        
+	      </div> -->
+	       <!-- 为你推荐、我的必修课 end -->
+	
+		  <!-- 精彩专题 start -->
+		  <div class="panel" ng-if="specialListForIndex && specialListForIndex.length > 0">
+                <h3 class="panel-title-2" style="border-bottom:1px solid #eee;">
+                    <a class="panel-title-subject panel-tuijian panel-border-blue" href="{{ {url:'specialTopic/specialTopicList.html'} | appUrl}}"style="color:#333;font-size:18px;">{{'map_special_topic' | translate}}</a>
+                </h3>
+
+                <ul class="panel-list-1-15 clearfix">
+                    <li forward="{url : 'specialTopic/specialTopicDetail.html?ust_id='+s.enc_ust_id} | appUrl" ng-repeat="s in specialListForIndex" style="{{specialListForIndex.length%2 == 1 && $last?'width:100%':''}}">
+                        <a class="panel-list-cont-1" href="javascript:;">
+                        	 <div class="panel-list-pic-15">
+	                       	 	<img ng-src="{{serverHost + s.abs_img}}" alt="">
+                         		<div class="showin"></div>
+                            </div>
+                        	<div class="list-title" ng-bind="s.ust_title"></div>
+                        </a>
+                        
+                    </li>
+                </ul>
+            </div>
+           <!-- 精彩专题 end -->
+           
+		  <!-- 公开课 start -->
+	      <div class="panel">
+	        <h2 class="panel-title-1 panel-bg-open" style="border-bottom:none;" ng-show="opencos.show">
+	          <a class="panel-class-open margin-top-1" href="{{{url:'course/openCourse.html'} | appUrl}}" translate="openCourse"></a>
+	        </h2> 
+	
+	        <div class="tuwen-list-1" ng-repeat="item in opencos.items">
+	          <a class="tuwen-list-1-box clearfix" href="javascript:;" forward="{itmId : item.encItmId, fatherCatalogInd : true} | openCourseUrl" title="">
+	            <div class="tuwen-list-1-pic">
+	              <img ng-src="{{serverHost}}{{item.itm_icon | htmlDecode}}" >
+	            </div>   
+	           
+	            <div class="tuwen-list-1-tit-1">{{item.itm_title}}</div>
+	              <!-- <div class="list-tool-1">
+	                <span id="ocl_{{item.itm_id}}" class="list-tool-1-laud">{{item.snsCount.s_cnt_like_count?item.snsCount.s_cnt_like_count:0}}</span>
+	                <span id="occ_{{item.itm_id}}" class="list-tool-1-review">{{item.cnt_comment_count}}</span>
+	            </div> -->
+	          </a>
+	        </div>
+	      </div>
+	      <!-- 公开课  end -->
+	
+	
+           <!-- 职级发展学习地图 start -->
+           <div class="panel wzm-show" ng-show="showGradeMap">
+                <a href="javascript:void(0)" class="list-pic-12">
+                    <img src="../images/M_a01.jpg" width="100%" alt="">
+                    <div translate="map_profession_develop"></div>
+                </a>
+                <div class="showin-2" onclick="javascript:clicked('gradeMap/gradeMapList.html')"></div>
+            </div>
+            <!-- 职级发展学习地图 end -->
+            
+           <!-- 关键岗位学习地图 start -->
+           <div class="panel wzm-show" ng-show="showPositionMap">
+                <a href="javascript:clicked('keyPosition/keyPositionList.html',true)" class="list-pic-12">
+                    <img src="../images/M_b01.jpg" width="100%" alt="">
+                    <div translate="map_position_learning"></div>
+                </a>
+                <div class="showin-2" onclick="javascript:clicked('keyPosition/keyPositionList.html',true);"></div>
+            </div>
+            <!-- 关键岗位学习地图 end -->
+           
+           <!-- 精品课程 start -->
+           <!-- <div class="panel">
+	           panel-jingpin start
+		        <h3 class="panel-title-2 panel-tit-h20" ng-show="newsCourseList.show">
+		          <a class="panel-title-subject panel-jingpin panel-border-green" href="javascript:clicked('rank/course.html',true)" translate="best_course" style="color:#333;font-size:18px;"></a>
+		        </h3>
+		
+		        <div class="tuwen-list-1" ng-show="newsCourseList.show" ng-repeat="item in newsCourseList.items">
+		          <a class="tuwen-list-1-box clearfix" href="javascript:clicked('course/detail.html?itmId={{item.encItmId}}',true,'item{{item.itm_id}}')">
+		            <div class="tuwen-list-1-pic">
+		              <img ng-src="{{serverHost}}{{item.itm_icon | htmlDecode}}" alt="">
+		              <span class="{{cur_lan_en=='en-us'?'list-tool-1-bixiu-e':'list-tool-1-bixiu'}}" ng-if="item.itd && item.itd.itd_compulsory_ind == 1"></span>
+		              <span class="{{item.cla}}"></span>
+		            </div>   
+		            <div class="tuwen-list-1-tit-1">{{item.itm_title}}</div>
+		            <div class="tuwen-list-tool">
+		              <span class="list-tool-laud">{{item.s_cnt_like_count}}</span>
+		              {{item.itm_publish_timestamp | toDate}}
+		            </div>
+		          </a>
+		        </div>
+           </div> -->
+           <!-- 精品课程 end -->
+	
+	      <!-- 资讯图片 start -->
+	      <!-- 
+	      <div class="panel wzm-show">
+
+	        <a href="{{{url:'article/article.html'} | appUrl}}">
+	          <img src="../images/poster001.png" width="100%" alt="">
+	        </a>
+	        <div class="showin-2" onClick="javascirpt:clicked('article/article.html',true);"></div>
+	      </div> -->
+	      <!-- 资讯图片 end -->
+	
+	      <!-- 讲师风采 start -->
+	      <!-- <div class="panel">
+	        <h2 class="panel-title-1 panel-bg-teacher" ng-show="instrLoader.show">
+	          <a class="panel-teacher" href="javascript:clicked('instructor/instructorList.html',true)" translate="instructor_style"></a>
+	        </h2> 
+	
+	        <div class="module-tuwen clearfix">
+	          <a href="javascript:clicked('instructor/instructorDetail.html?id={{item.enc_iti_ent_id}}',true);" class="module-tuwen-teacher" ng-repeat="item in instrLoader.items">
+	            <div class="module-tuwen-bg module-tuwen-bg-{{$index==0?'green':$index==1?'pink':'blue'}}">
+	             	<img class="own-box-user" ng-src="{{serverHost + item.iti_img}}"  alt="">
+	             	<p class="module-tuwen-tit-1" ng-bind="item.iti_name"></p>
+	              	<p class="module-tuwen-tit-2" ng-bind="item.iti_level"></p>
+	              	<div class="module-color-{{$index==0?'green':$index==1?'pink':'blue'}} teacher-start">
+	              		<i ng-repeat="star in item.iti_score_star" class="{{star.star}}"></i>
+		                
+		                	<ul class="module-teach-pingfen">
+			                  <li translate="instructor_score"></li>
+			                  <li ng-bind="item.iti_score ? item.iti_score : 0"></li>
+			                </ul> 
+			           
+	              	</div>
+	            </div>
+	          </a>
+	          <div class="module-tuwen-teacher" ng-repeat="i in [1, 2, 3] | limitTo:3 - instrLoader.items.length">
+	          	<div style="width:100px;margin:0 auto;border:1px solid #f1f1f1;">
+	          		<img src="../images/z-jiangshi.png" width="100px" alt=""/>
+	          	</div>
+	          </div>
+	        </div>
+	      </div> -->
+	      <!-- 讲师风采 End -->
+	
+	      <!-- 问题库图片 start -->
+	      <!-- <div class="panel">
+	      	<div class="wzm-show">
+		        <a href="{{{url:'know/main.html'} | appUrl}}">
+		          <img src="../images/poster003.png" width="100%" alt="">
+		        </a>
+		        <div class="showin-2" onclick="javascript:clicked('know/main.html',true)"></div>
+			</div>
+	        <div class="panel-title-21-box" ng-repeat="know in questionList.items" ng-click="toQuestionPage(know)">
+	          <a href="javascript:void(0)" >
+	          <div class="panel-title-21 tuwen-list-1-tit-1" ng-bind="know.que_title"></div>
+	          <div class="box-num-cont-2">
+	            <span class="{{know.typeInfo.cla}}">{{know.typeInfo.label | translate}}</span>
+	            <span class="wenda-list-info-4" ng-bind="know.que_create_timestamp | toDate"></span>
+	          </div>
+	          </a>
+	        </div>
+	      </div> -->
+	       <!-- 问题库图片 end -->
+	
+	      <!-- 知识中心 start -->
+	      <!-- <div class="panel">
+	        <h2 class="panel-title-1 panel-bg-Knowledge" style="border-bottom:none;" ng-show="knCenterList.show">
+	          <a class="panel-class-open" href="{{ {url:'knowledge/main.html'} | appUrl}}" translate="knowledge_center"></a>
+	        </h2> 
+	
+	        <div class="tuwen-list-1" ng-repeat="item in knCenterList.items">
+	          <a class="tuwen-list-1-box clearfix" ng-href="javascript:clicked('knowledge/detail.html?kbiId={{item.enc_kbi_id}}',true)">
+	            <div class="tuwen-list-1-pic">
+	              <img ng-src="{{serverHost + item.imageAttachment.kba_url}}"  alt="">
+	              <span class="list-tool-1-doctype {{item.info.cla}}">{{item.info.title}}</span>
+	            </div>   
+	            
+	            <div class="tuwen-list-1-tit-1" ng-bind="item.kbi_title"></div>
+                <div class="tuwen-list-1-tit-3">
+                  <span class="wenda-list-info-4" ng-bind="item.kbi_publish_datetime | toDate"></span>
+                </div>
+	          </a>
+	        </div>
+	      </div> -->
+	      <!-- 知识中心 end -->
+	
+	      <!-- 页面下方三个部分 start -->
+	      <!-- <div class="panel clearfix">
+	      	
+	      	百宝箱 start
+	        <div class="panel-magic">
+	          <a href="javascript:clicked('knowledge/main.html',true);">
+	            <div class="magic-box" id="magic">
+	              <div class="other-box-tit-1" translate="treasure"></div>
+	              <p class="other-box-tit-2" translate="treasure_desc"></p>
+	              <i class="magic-box-img">
+	                <img src="../images/magic-box.png" alt="">
+	              </i>
+	            </div>
+	          </a>
+	        </div>
+	        百宝箱 end
+	
+	        <div class="magic-box-right">
+	        
+	          圈子 start
+	          <div class="panel-group">
+	            <a href="{{{url:'group/main.html'} | appUrl : 'true'}}">
+	              <div class="other-box-tit-1" translate="circle"></div>
+	              <p class="other-box-tit-2" translate="circle_desc"></p>
+	              <i class="group-box-img">
+	                <img src="../images/group.png" alt="">
+	              </i>
+	            </a>
+	          </div>
+	          圈子 end
+	          
+			  排行榜 start
+	          <div class="magic-box" id="magic">
+	            <a href="{{{url:'rank/main.html'} | appUrl}}">
+	            <div class="other-box-tit-1" translate="rank"></div>
+	            <p class="other-box-tit-2" translate="rank_child"></p>
+	            <i class="group-box-img">
+	              <img src="../images/paihangbang.png" alt="">
+	            </i>
+	            </a>
+	          </div>
+	          排行榜 end
+	          
+	        </div>
+	        
+	      </div> -->
+	      
+	      <!--  排行榜 start -->
+	      <!-- <div  class="panel">
+	          <div class="magic-box" id="magic">
+	            	<a href="{{{url:'rank/main.html'} | appUrl}}">
+		            	<div class="other-box-tit-1" translate="rank"></div>
+		            	<p class="other-box-tit-2" translate="rank_child"></p>
+			            <i class="group-box-img">
+			              	<img src="../images/paihangbang.png" alt="">
+			            </i>
+		            </a>
+	          </div>
+          </div> -->
+          <!-- 排行榜 end -->
+	      
+	      
+	      <!-- 页面下方三个部分 -->
+	    </section>
+	    <!-- section end -->
+	
+	  </div> <!-- wrap End -->
+	  
+	<script>
+	
+		if(window.plus){
+			plusReady();
+		}else{
+			document.addEventListener('plusready',plusReady,false);
+		}
+		
+		function plusReady(){
+			
+			//监听app推送
+			var addPushListener = function(){
+				
+				/**
+				 * app推送事件处理器
+				 */
+				var appPushMessageHandler = (function(){
+					
+					return function(msg){
+
+						plus.push.clear();//清除消息通知
+						
+						var token = window.localStorage.getItem("token") || window.sessionStorage.getItem("token");
+						if(!token){
+							return;
+						}
+						
+						if(!msg){
+							return;
+						}
+						
+						var payload = null;
+						if( msg.payload && typeof(msg.payload) == 'object' ){
+							payload = msg.payload;
+						}else{
+							payload = app.isJsonStr(msg.payload);
+						}
+						
+						if(payload){//有传递透传数据
+							var type = payload.type;
+							var targetPage;
+							switch(type){
+								case 'message' :
+									targetPage = "message/message.html?msg_id="+payload.msg_id;
+									break;
+							}
+							
+							if(targetPage){
+								targetPage = getRelatievePathPrefix()+"views/"+targetPage;
+								clicked(targetPage);
+							}
+						}
+					};
+				})();
+				
+				if(!window.localStorage.getItem("hasPushListener")){
+					// 监听点击消息事件
+					plus.push.addEventListener( "click", function( msg ) {
+						appPushMessageHandler(msg);
+					}, false );
+					// 监听在线消息事件
+					plus.push.addEventListener( "receive", function( msg ) {
+						appPushMessageHandler(msg);
+					}, false );
+					
+					window.localStorage.setItem("hasPushListener",true);
+				}
+			};
+			
+			//当前webview显示的时候，添加推送消息监听
+			plus.webview.currentWebview().addEventListener("show",function(){
+				
+				addPushListener();
+				
+			});
+		}
+		
+	</script>
+	
+	</body>
+</html>

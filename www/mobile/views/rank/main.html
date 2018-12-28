@@ -1,0 +1,103 @@
+<!doctype html>
+<html ng-app="rank">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title>Document</title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/RankController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak"  ng-controller="mainController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">
+{{alert.msg | translate}}
+</alert>
+<div class="wrap">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back();" title="back"></a>
+    <span class="header-title" translate="rank"><!--排行榜--></span>
+</header> <!-- header End -->
+
+<wzm-docker rp="../../"></wzm-docker>
+
+<section class="content">
+<div class="cont-info" style="margin:0;">
+<div class="memu clearfix">
+     <a class="memu-box-3" href="{{{url:'learningSituation.html'} | appUrl}}" title="learning">
+        <span class="icon-memu-model icon-memu-danlv">
+              <i class="icon-memu-xuexi"></i>
+              <!--<em class="icon-memu-tip">2</em>-->
+        </span>
+        <div class="memu-box-title" translate="rank_learning"><!--学习--></div>
+     </a>
+
+     <a class="memu-box-3" href="{{{url:'course.html'} | appUrl}}" title="course">
+        <span class="icon-memu-model icon-memu-purple">
+              <i class="icon-memu-kecheng"></i>
+        </span>
+        <div class="memu-box-title" translate="rank_course"><!--课程--></div>
+     </a>
+	 
+	 <a class="memu-box-3" href="{{{url:'credits.html'} | appUrl}}" title="credits">
+        <span class="icon-memu-model icon-memu-pink">
+              <i class="icon-memu-integral"></i>
+        </span>
+        <div class="memu-box-title" translate="rank_credits"><!--积分--></div>
+     </a>
+	 
+</div> <!-- memu End -->
+</div>
+
+<div class="panel">
+     <div class="panel-list-cont-7">
+          <a class="panel-title-20" href="{{{url:'credits.html'} | appUrl}}" title="">
+              <div class="panel-add-07">
+                  <em class="panel-num-5">
+                      <i class="panel-num-8" ng-bind="creditDetail.rownum ? creditDetail.rownum : '--'"></i>
+                  </em>
+                  <span translate="rank_credits_my_location"></span><!--我的积分排名-->
+              </div>
+          </a>
+          <a class="panel-title-15" href="{{{url:'credits.html'} | appUrl}}" title="" style="font-size: 14px;">
+              <div class="panel-add-07">
+                  <em class="panel-num-5">
+                      <i class="panel-num-9" ng-bind="creditDetail.uct_total ? creditDetail.uct_total : '0'"></i>
+                  </em>
+                  <span translate="rank_credits_total"></span><!--总积分-->
+              </div>
+          </a>
+     </div>
+</div>
+
+<div class="panel">
+     <div class="panel-list-cont-7">
+          <a class="panel-title-20" href="{{{url:'learningSituation.html'} | appUrl}}" title="">
+              <div class="panel-add-07">
+                  <em class="panel-num-5">
+                      <i class="panel-num-8" ng-bind="learnDetail.rownum ? learnDetail.rownum : '--' "></i>
+                  </em>
+                  <span translate="rank_learning_my_loaction"></span><!--我的学习排名-->
+              </div>
+          </a>
+          <a class="panel-title-15" href="{{{url:'learningSituation.html'} | appUrl}}" title="" style="font-size: 14px;">
+              <div class="panel-add-07">
+                  <em class="panel-num-5">
+                      <i class="panel-num-9" ng-bind="learnDetail.ls_learn_duration/60/60/24 | toint">2</i>
+                      <span class="panel-num-10" translate="rank_date_until"><!--天--></span>
+                      <i class="panel-num-11">
+                      {{learnDetail.ls_learn_duration/60/60%24 | toint | timeFormat}}:{{learnDetail.ls_learn_duration/60%60 | toint | timeFormat}}:{{learnDetail.ls_learn_duration%60 | toint | timeFormat}}</i>
+                  </em>
+                  <span translate="rank_learning_total_time"></span><!--总时长-->
+              </div>
+          </a>
+     </div>
+</div>
+
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

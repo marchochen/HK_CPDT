@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.AeApplicationMapper">
+
+
+	<sql id="page_where">
+		<where>
+		</where>
+	</sql>
+
+	<select id="getCount" resultType="java.lang.Long"
+		parameterType="Long">
+	    <![CDATA[
+	        select count(*) from AeApplication where app_itm_id = #{itmId} 
+	    ]]>
+		<include refid="page_where" />
+	</select>
+
+
+	<select id="get" resultType="AeApplication" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				app_id,
+				app_ent_id,
+				app_itm_id,
+				app_status,
+				app_process_status,
+				app_process_xml,
+				app_xml,
+				app_create_timestamp,
+				app_create_usr_id,
+				app_upd_timestamp,
+				app_upd_usr_id,
+				app_ext1,
+				app_ext2,
+				app_ext3,
+				app_notify_status,
+				app_notify_datetime,
+				app_syn_date,
+				app_ext4,
+				app_usr_prof_xml,
+				app_priority,
+				app_tkh_id,
+				app_note,
+				app_nominate_type
+			from AeApplication t where t.app_id = #{id}
+		]]>
+	</select>
+	
+	<select id="getByTkhId" resultType="AeApplication" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				app_id,
+				app_ent_id,
+				app_itm_id,
+				app_status,
+				app_process_status,
+				app_process_xml,
+				app_xml,
+				app_create_timestamp,
+				app_create_usr_id,
+				app_upd_timestamp,
+				app_upd_usr_id,
+				app_ext1,
+				app_ext2,
+				app_ext3,
+				app_notify_status,
+				app_notify_datetime,
+				app_syn_date,
+				app_ext4,
+				app_usr_prof_xml,
+				app_priority,
+				app_tkh_id,
+				app_note,
+				app_nominate_type
+			from AeApplication t where t.app_tkh_id = #{id}
+		]]>
+	</select>
+
+	<update id="update" parameterType="com.cwn.wizbank.entity.AeApplication">
+	    <![CDATA[
+	        update AeApplication t 
+	        set 
+				app_id = #{app_id,jdbcType=INTEGER},
+				app_ent_id = #{app_ent_id,jdbcType=INTEGER},
+				app_itm_id = #{app_itm_id,jdbcType=INTEGER},
+				app_status = #{app_status,jdbcType=VARCHAR},
+				app_process_status = #{app_process_status,jdbcType=VARCHAR},
+				app_process_xml = #{app_process_xml,jdbcType=VARCHAR},
+				app_xml = #{app_xml,jdbcType=VARCHAR},
+				app_create_timestamp = #{app_create_timestamp,jdbcType=TIMESTAMP},
+				app_create_usr_id = #{app_create_usr_id,jdbcType=VARCHAR},
+				app_upd_timestamp = #{app_upd_timestamp,jdbcType=TIMESTAMP},
+				app_upd_usr_id = #{app_upd_usr_id,jdbcType=VARCHAR},
+				app_ext1 = #{app_ext1,jdbcType=VARCHAR},
+				app_ext2 = #{app_ext2,jdbcType=INTEGER},
+				app_ext3 = #{app_ext3,jdbcType=VARCHAR},
+				app_notify_status = #{app_notify_status,jdbcType=INTEGER},
+				app_notify_datetime = #{app_notify_datetime,jdbcType=TIMESTAMP},
+				app_syn_date = #{app_syn_date,jdbcType=TIMESTAMP},
+				app_ext4 = #{app_ext4,jdbcType=VARCHAR},
+				app_usr_prof_xml = #{app_usr_prof_xml,jdbcType=VARCHAR},
+				app_priority = #{app_priority,jdbcType=VARCHAR},
+				app_tkh_id = #{app_tkh_id,jdbcType=INTEGER},
+				app_note = #{app_note,jdbcType=VARCHAR}
+	         where t.app_id = #{app_id,jdbcType=INTEGER}
+	    ]]>
+	</update>
+
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.AeApplication">
+    	<![CDATA[
+            insert into AeApplication(
+            		app_ent_id,
+            		app_itm_id,
+            		app_status,
+            		app_process_status,
+            		app_process_xml,
+            		app_xml,
+            		app_create_timestamp,
+            		app_create_usr_id,
+            		app_upd_timestamp,
+            		app_upd_usr_id,
+            		app_ext1,
+            		app_ext2,
+            		app_ext3,
+            		app_notify_status,
+            		app_notify_datetime,
+            		app_syn_date,
+            		app_ext4,
+            		app_usr_prof_xml,
+            		app_priority,
+            		app_tkh_id,
+            		app_note
+            ) values (
+            	#{app_ent_id,jdbcType=INTEGER},
+            	#{app_itm_id,jdbcType=INTEGER},
+            	#{app_status,jdbcType=VARCHAR},
+            	#{app_process_status,jdbcType=VARCHAR},
+            	#{app_process_xml,jdbcType=VARCHAR},
+            	#{app_xml,jdbcType=VARCHAR},
+            	#{app_create_timestamp,jdbcType=TIMESTAMP},
+            	#{app_create_usr_id,jdbcType=VARCHAR},
+            	#{app_upd_timestamp,jdbcType=TIMESTAMP},
+            	#{app_upd_usr_id,jdbcType=VARCHAR},
+            	#{app_ext1,jdbcType=VARCHAR},
+            	#{app_ext2,jdbcType=INTEGER},
+            	#{app_ext3,jdbcType=VARCHAR},
+            	#{app_notify_status,jdbcType=INTEGER},
+            	#{app_notify_datetime,jdbcType=TIMESTAMP},
+            	#{app_syn_date,jdbcType=TIMESTAMP},
+            	#{app_ext4,jdbcType=VARCHAR},
+            	#{app_usr_prof_xml,jdbcType=VARCHAR},
+            	#{app_priority,jdbcType=VARCHAR},
+            	#{app_tkh_id,jdbcType=INTEGER},
+            	#{app_note,jdbcType=VARCHAR}
+            )
+        ]]>
+        <selectKey keyProperty="app_id" resultType="Long" order="AFTER">
+                 select ident_current('AeApplication') as app_id
+        </selectKey> 
+        
+	</insert>
+
+	<delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from AeApplication  where app_id = #{app_id}
+	    ]]>
+	</delete>
+
+	<select id="selectList" resultType="AeApplication">
+	    <![CDATA[
+	         select 
+				app_id,
+				app_ent_id,
+				app_itm_id,
+				app_status,
+				app_process_status,
+				app_process_xml,
+				app_xml,
+				app_create_timestamp,
+				app_create_usr_id,
+				app_upd_timestamp,
+				app_upd_usr_id,
+				app_ext1,
+				app_ext2,
+				app_ext3,
+				app_notify_status,
+				app_notify_datetime,
+				app_syn_date,
+				app_ext4,
+				app_usr_prof_xml,
+				app_priority,
+				app_tkh_id,
+				app_note,
+				app_nominate_type
+			from AeApplication t 
+	    ]]>
+	</select>
+
+	<!-- 	拿已报名的课程 -->
+	<select id="getSignup" resultType="AeApplication" parameterType="Page">
+		<!-- 定义常量 -->
+	    <bind name="pending" value="'pending'"/>	    
+		select 
+			distinct(app_id),
+			app_tkh_id,
+			app_create_timestamp,
+			<if test="params.appStatus != null and params.appStatus != pending">	
+				cov_commence_datetime AS "cov.cov_commence_datetime",
+			</if>
+			itm_id AS "itm.itm_id",
+			itm_code AS "itm.itm_code",
+			itm_title AS "itm.itm_title",
+			itm_icon AS "itm.itm_icon",
+			itm_type AS "itm.itm_type",
+			itm_status AS "itm.itm_status",
+			itm_mobile_ind AS "itm.itm_mobile_ind",
+			itm_app_approval_type AS "itm.itm_app_approval_type",
+			itm_appn_start_datetime AS "itm.itm_appn_start_datetime",
+			itm_appn_end_datetime AS "itm.itm_appn_end_datetime",
+			itm_eff_start_datetime AS "itm.itm_eff_start_datetime",
+			itm_eff_end_datetime AS "itm.itm_eff_end_datetime",
+			itm_content_eff_start_datetime AS "itm.itm_content_eff_start_time",
+			itm_content_eff_end_datetime AS "itm.itm_content_eff_end_time",
+			itm_retake_ind AS "itm.itm_retake_ind",
+			itm_not_allow_waitlist_ind AS "itm.itm_not_allow_waitlist_ind",
+			itm_capacity AS "itm.itm_capacity",
+			itm_blend_ind AS "itm.itm_blend_ind",
+			itm_exam_ind AS "itm.itm_exam_ind",
+			itm_ref_ind AS "itm.itm_ref_ind",
+			itm_create_run_ind AS "itm.itm_create_run_ind",
+			itm_run_ind AS "itm.itm_run_ind",
+			itm_integrated_ind AS "itm.itm_integrated_ind",
+			itm_desc AS "itm.itm_desc",
+			itm_publish_timestamp AS "itm.itm_publish_timestamp",
+			itd_compulsory_ind AS "itd.itd_compulsory_ind",
+			<choose>
+			    <!-- 审批中不查询这些数据 -->
+				<when test="params.appStatus != null and params.appStatus != pending">
+					cov.cov_progress AS "cov.cov_progress",
+					att_timestamp AS "att.att_timestamp",
+					(case when cov.cov_status is not null then cov.cov_status else app_status end) app_status,
+					cov.cov_update_timestamp
+				</when>
+				<otherwise>
+				    app_status,
+				    app_upd_timestamp
+				</otherwise>
+			</choose>
+		from aeapplication
+			inner join aeitem on app_itm_id = itm_id
+			inner join (    
+				select c.itm_id c_itm_id ,case when ire_parent_itm_id > 0 then ire_parent_itm_id else c.itm_id end parent_itm_id
+   			 	from aeItem c LEFT join aeItemrelation on( c.itm_id = ire_child_itm_id)
+   			) t on t.c_itm_id = itm_id
+			left join itemTargetLrnDetail on itd_itm_id = t.parent_itm_id and itd_usr_ent_id = #{params.userEntId}
+			<!-- 审批中不关联这两个表 -->
+			<if test="params.appStatus != null and  params.appStatus != pending">
+				inner join aeAttendance on att_app_id = app_id
+				inner join CourseEvaluation cov on app_tkh_id = cov.cov_tkh_id
+			</if>
+			
+		where
+	    app_ent_id = #{params.userEntId}
+	    <if test="params.itemType !=null">
+			<choose>
+				<!-- 网上课程 -->
+				<when test="params.itemType == 'selfstudy'">
+					and	itm_create_run_ind = 0 and itm_run_ind = 0 and itm_integrated_ind = 0
+				</when>
+				<!-- 面授课程 -->
+				<when test="params.itemType == 'classroom'">
+					and	itm_create_run_ind = 0 and itm_run_ind = 1 
+				</when>
+				<!-- 项目式课程 -->
+				<when test="params.itemType == 'integrated'">
+					and itm_integrated_ind = 1 
+				</when>
+			</choose>
+		</if>
+		and itm_qdb_ind = 1 and itm_apply_ind = 1
+		<if test="params.appStatus != null">
+			<choose>
+			    <when test="params.appStatus == pending">
+			        and (app_status = 'Pending' or app_status ='Waiting')
+			    </when>
+			    <when test="params.appStatus == 'completed'">
+			        and (cov_status = 'C' or cov_status ='F' or cov_status = 'W')
+			    </when>
+			    <when test="params.appStatus == 'inprogeress'">
+			        and cov_status = 'I'
+			    </when>
+			</choose>
+		</if>
+		
+		<if test="params.isCompulsory != null and params.isCompulsory != '' ">
+			<choose>
+				<when test="params.isCompulsory &lt; 1">
+				    and app_nominate_type is null
+				</when>
+				<otherwise>
+				    and app_nominate_type is not null
+				</otherwise>
+			</choose>
+		</if>
+		
+		<!-- 是否为考试 -->
+		<if test="params.isExam != null">
+			and	itm_exam_ind = #{params.isExam}
+		</if>
+
+		<!-- 已经发布 -->
+		and itm_status ='ON'
+		<!-- 不是公开课  -->
+		and itm_ref_ind = 0
+		
+		and itm_id in (
+			<include refid="com.cwn.wizbank.persistence.BaseMapper.courseAuthorityNoTcrId"/>
+		)
+		
+		<choose>
+			<when test="params.appStatus != null and params.appStatus != pending">
+				order by cov_update_timestamp desc
+			</when>
+			<otherwise>
+			    order by app_upd_timestamp desc
+			</otherwise>
+		</choose>
+
+	</select>
+	
+	<!-- 	用户在某个itm下的所有报名记录 -->
+	<select id="getUsrApps" resultType="AeApplication" parameterType="Map">
+
+			select 
+				app_id,
+				app_ent_id,
+				app_itm_id,
+				app_status,
+				app_process_status,
+				app_create_timestamp,
+				app_create_usr_id,
+				app_upd_timestamp,
+				app_upd_usr_id,
+				app_notify_status,
+				app_notify_datetime,
+				app_syn_date,
+				app_ext4,
+				app_priority,
+				app_tkh_id,
+				app_note,
+				app_nominate_type,
+				(select count(app_id) from aeApplication group by app_itm_id having app_itm_id = #{app_itm_id}) AS "app_total"
+			from AeApplication where app_ent_id = #{usr_ent_id} and app_itm_id = #{app_itm_id} order by app_id desc
+
+	</select>
+	
+	<!-- 获取我的下属审批信息  -->
+	<select id="getSubordinateApprovalDetail" resultType="AeApplication" parameterType="Page">
+		 select 
+		 	distinct
+			app_id,
+			app_create_timestamp,
+			app_upd_timestamp,
+			<choose>
+				<when test="params.type == 'PENDING'">
+					oAal.aal_action_timestamp,
+					oAal.aal_action_taken,
+				</when>
+				<otherwise>
+					mAal.aal_action_timestamp,
+					mAal.aal_action_taken,
+				</otherwise>
+			</choose>
+			mUser.usr_ent_id as "user.usr_ent_id",
+			mUser.usr_ste_usr_id as "user.usr_ste_usr_id",
+			mUser.usr_display_bil as "user.usr_display_bil",
+			cItm.itm_eff_start_datetime as "itm.itm_eff_start_datetime",
+			<choose>
+				<when test="_databaseId == 'SQLSERVER'">
+					cItm.itm_title + isNull('(' + pItm.itm_title + ')','') as "itm.itm_title"
+				</when>
+				<when test="_databaseId == 'ORACLE'">
+					cItm.itm_title || nvl2(pItm.itm_title, '(' || pItm.itm_title || ')', '') as "itm.itm_title"
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					concat(cItm.itm_title , ifNull('(' + pItm.itm_title + ')','') )as "itm.itm_title" 
+				</when>
+			</choose>
+		from aeAppnApprovalList mAal
+		left join aeApplication on app_id = mAal.aal_app_id
+		left join RegUser mUser on mUser.usr_ent_id = app_ent_id
+		inner join aeItem cItm on cItm.itm_id = app_itm_id and cItm.itm_status = 'ON'
+		left join aeItemRelation on ire_child_itm_id = cItm.itm_id
+		left join aeItem pItm on pItm.itm_id = ire_parent_itm_id
+		left join aeAppnApprovalList oAal on oAal.aal_app_id = mAal.aal_app_id 
+		<choose>
+			<when test="params.type == 'PENDING'">
+				and oAal.aal_action_timestamp = mAal.aal_create_timestamp
+				left join RegUser oUser on oUser.usr_ent_id = oAal.aal_usr_ent_id
+			</when>
+			<otherwise>
+				and oAal.aal_create_timestamp = mAal.aal_action_timestamp
+			</otherwise>
+		</choose>
+		where mAal.aal_status = '${params.type}' and mAal.aal_usr_ent_id = ${params.usr_ent_id}
+		<choose>
+			<when test="params.type == 'PENDING'">
+				and mAal.aal_approval_role != 'TADM'
+			</when>
+			<otherwise>
+				and mAal.aal_action_taker_usr_ent_id = ${params.usr_ent_id}
+			</otherwise>
+		</choose>
+		order by app_create_timestamp desc
+	</select>
+
+	<select id="selectItemIdByTkhId" resultType="Long" parameterType="Long">
+		select 
+			app_itm_id
+		from aeApplication
+		where app_tkh_id = #{tkh_id}
+	</select>
+	
+	<select id="getSignupCount" parameterType="Map" resultType="Integer">
+	    select count(app_id) from (
+			select 
+				distinct(app_id) app_id
+			from aeapplication
+				inner join aeitem on app_itm_id = itm_id
+				inner join (    
+					select c.itm_id c_itm_id ,case when ire_parent_itm_id > 0 then ire_parent_itm_id else c.itm_id end parent_itm_id
+	   			 	from aeItem c LEFT join aeItemrelation on( c.itm_id = ire_child_itm_id)
+	   			) t on t.c_itm_id = itm_id	
+	   			inner join CourseEvaluation cov on app_tkh_id = cov.cov_tkh_id
+	   					
+			where
+		    app_ent_id = #{userEntId}
+		    
+		    and cov_status = 'I'
+	
+			and itm_qdb_ind = 1 and itm_apply_ind = 1
+			
+			<!-- 是否为考试 -->
+			and	itm_exam_ind = #{isExam}
+	
+			<!-- 不是公开课  -->
+			and itm_ref_ind = 0
+<!-- 			and itm_publish_timestamp &gt; #{beforeTime} -->
+		) t
+	</select>
+	
+	
+	<select id="selectPedingAppCount" parameterType="Map" resultType="Long">
+		select count(app_id) from (
+			SELECT aal_usr_ent_id, aal_approval_role, itm_id, itm_title, app_id, 
+			app_ent_id, app_process_status , app_upd_timestamp, usr_display_bil as appt_display_bil, 
+			ern_ancestor_ent_id ern_usg_id, erh_ancestor_ent_id erh_usg_id, aal_create_timestamp, 
+			0 as run_itm_id,  null  as run_itm_title  
+			FROM aeAppnApprovalList 
+			inner join reguser on (usr_ent_id = aal_app_ent_id) 
+			 inner join entity on (ent_id = usr_ent_id)  
+			 inner join aeApplication on (app_id = aal_app_id)  
+			 inner join aeItem on (app_itm_id = itm_id AND itm_run_ind = 0)  
+			 left join EntityRelation on (usr_ent_id = ern_child_ent_id AND ern_type = 'USR_PARENT_USG' AND ern_parent_ind = 1) 
+			 left join EntityRelationHistory on (usr_ent_id = erh_child_ent_id AND erh_type = 'USR_PARENT_USG' AND erh_parent_ind = 11 and erh_end_timestamp = ent_delete_timestamp) 
+			 WHERE aal_status = 'PENDING' and
+			 <choose>
+				<when test="acRole != null and acRole == 'INSTR_1'">
+					itm_id in (select iac_itm_id from aeItemAccess 
+					where iac_access_type = 'ROLE' and iac_access_id = '${acRole}' and iac_ent_id = #{userEntId} ) 
+				</when>
+				<otherwise>
+					aal_usr_ent_id = #{userEntId}
+				</otherwise>
+			</choose>
+			 UNION SELECT aal_usr_ent_id, aal_approval_role, course.itm_id, course.itm_title, app_id, app_ent_id, app_process_status , app_upd_timestamp, 
+			 usr_display_bil as appt_display_bil, ern_ancestor_ent_id ern_usg_id,
+			  erh_ancestor_ent_id erh_usg_id, aal_create_timestamp, run.itm_id as run_itm_id,
+			   run.itm_title as run_itm_title  
+			   FROM aeAppnApprovalList  
+			   inner join reguser on (usr_ent_id = aal_app_ent_id)  
+			   inner join entity on (ent_id = usr_ent_id)  
+			   inner join aeApplication on (app_id = aal_app_id)  
+			   inner join aeItem run on (app_itm_id = run.itm_id AND run.itm_run_ind = 1) 
+			    inner join aeItemRelation on (run.itm_id = ire_child_itm_id)  
+			    inner join aeItem course on (course.itm_id = ire_parent_itm_id)  
+			    left join EntityRelation on (usr_ent_id = ern_child_ent_id AND ern_type = 'USR_PARENT_USG' AND ern_parent_ind = 1) 
+			    left join EntityRelationHistory on (usr_ent_id = erh_child_ent_id AND erh_type = 'USR_PARENT_USG' AND erh_parent_ind = 1 
+			    and erh_end_timestamp = ent_delete_timestamp) 
+			     WHERE aal_status = 'PENDING' and 
+			      <choose>
+					<when test="acRole != null and acRole == 'INSTR_1'">
+						course.itm_id in (select iac_itm_id from aeItemAccess 
+						where iac_access_type = 'ROLE' and iac_access_id = '${acRole}' and iac_ent_id = #{userEntId} ) 
+					</when>
+					<otherwise>
+						aal_usr_ent_id = #{userEntId}
+					</otherwise>
+				 </choose>
+		     ) tt
+	</select>
+
+	
+	<!-- 我的课程 -->
+	<select id="getMyCourse" resultType="AeApplication" parameterType="Page">
+		<!-- 定义常量 -->
+		select 
+			distinct(app_id),
+			app_tkh_id,
+			itm_id AS "itm.itm_id",
+			itm_title AS "itm.itm_title",
+			itm_mobile_ind AS "itm.itm_mobile_ind",
+			itm_desc AS "itm.itm_desc",
+			itm_icon AS "itm.itm_icon",
+			itm_type AS "itm.itm_type",
+			itm_integrated_ind AS "itm.itm_integrated_ind",
+			itm_create_run_ind AS "itm.itm_create_run_ind",
+			itm_run_ind AS "itm.itm_run_ind",
+			itd_compulsory_ind AS "itd.itd_compulsory_ind",
+			itm_exam_ind AS "itm.itm_exam_ind",
+			itm_content_eff_start_datetime AS "itm.itm_content_eff_start_time",
+			itm_content_eff_end_datetime AS "itm.itm_content_eff_end_time",
+			itm_content_eff_duration AS "itm.itm_content_eff_duration",
+			cov.cov_progress AS "cov.cov_progress",
+			cov.cov_commence_datetime AS "cov.cov_commence_datetime",
+			cov.cov_last_acc_datetime AS "cov.cov_last_acc_datetime",
+			cov_last_acc_datetime,
+			itm_publish_timestamp,
+			att.att_timestamp AS "att.att_timestamp",
+			(case when cov.cov_status is not null then cov.cov_status else app_status end) app_status,
+			(case when cov.cov_last_acc_datetime is not null then cov.cov_last_acc_datetime else app_create_timestamp end) order_time,
+			(case 
+				(case when cov.cov_status is not null then cov.cov_status  else app_status end) 
+				when N'I' then N'a'
+                when N'Pending' then N'b'
+                when N'Waiting' then N'c'
+                when N'C' then N'd'
+                when N'F' then N'e'
+                when N'W' then N'f'
+                when N'Rejected' then N'g' 
+             end) app_status_order,
+             (case 
+				itm_mobile_ind 
+				when 'yes' then 'a'
+                else 'b'
+             end) itm_mobile_order,
+             app_upd_timestamp
+		from aeapplication
+			inner join aeitem on app_itm_id = itm_id
+			inner join (    
+				select c.itm_id c_itm_id ,case when ire_parent_itm_id > 0 then ire_parent_itm_id else c.itm_id end parent_itm_id
+   			 	from aeItem c LEFT join aeItemrelation on( c.itm_id = ire_child_itm_id)
+   			) t on t.c_itm_id = itm_id
+			left join itemTargetLrnDetail on itd_itm_id = t.parent_itm_id and itd_usr_ent_id = #{params.userEntId}
+			left join CourseEvaluation cov on app_tkh_id = cov.cov_tkh_id	
+			left join aeAttendance att on att.att_app_id = app_id		
+		where
+	    app_ent_id = #{params.userEntId}
+	    <if test="params.itemType !=null">
+			<choose>
+				<!-- 网上课程 -->
+				<when test="params.itemType == 'selfstudy'">
+					and	itm_create_run_ind = 0 and itm_run_ind = 0 and itm_integrated_ind = 0
+				</when>
+				<!-- 面授课程 -->
+				<when test="params.itemType == 'classroom'">
+					and	itm_create_run_ind = 0 and itm_run_ind = 1 
+				</when>
+				<!-- 项目式课程 -->
+				<when test="params.itemType == 'integrated'">
+					and itm_integrated_ind = 1 
+				</when>
+			</choose>
+		 </if>
+		and itm_qdb_ind = 1 and itm_apply_ind = 1
+		
+		<if test="params.showMobileOnly != null and params.showMobileOnly"><!-- 是不是只获取发布到移动端的课程 -->
+			and itm_mobile_ind = 'yes'
+		</if>
+		
+		<if test="params.appStatus != null and params.appStatus != 'all'">
+			<choose>
+				<when test="params.appStatus == 'notIAndC'"><!-- 非进行中和已完成的课程 -->
+					and (case when cov.cov_status is not null then cov.cov_status  else app_status end) in ('Waiting','Pending','F','W','Rejected')
+				</when>
+				<otherwise>
+					and (case when cov.cov_status is not null then cov.cov_status  else app_status end) = #{params.appStatus}
+				</otherwise>
+			</choose>
+		</if>
+		
+		<if test="params.isCompulsory != null and params.isCompulsory != '' ">
+			<choose>
+				<when test="params.isCompulsory &lt; 1">
+				    and app_nominate_type is null
+				</when>
+				<otherwise>
+				    and app_nominate_type is not null
+				</otherwise>
+			</choose>
+		</if>
+		
+		<!-- 是否为考试 -->
+		<if test="params.isExam != null">
+			and	itm_exam_ind = #{params.isExam}
+		</if>
+
+		<!-- 已经发布 -->
+		and itm_status ='ON'
+		<!-- 不是公开课  -->
+		and itm_ref_ind = 0
+		
+		and itm_id in (
+			<include refid="com.cwn.wizbank.persistence.BaseMapper.courseAuthorityNoTcrId"/>
+		)
+		order by 
+		<if test="params.orderByPubType != null and params.orderByPubType"><!-- 是不是按发布渠道排序，PC排最后 -->
+			itm_mobile_order ,
+		</if>
+		app_status_order , order_time desc , itm_publish_timestamp desc
+
+	</select>
+	
+	<select id="getCItem" resultType="AeApplication" parameterType="Map">
+		<![CDATA[
+			select 
+				app_id,
+				app_ent_id,
+				app_itm_id,
+				app_status,
+				app_process_status,
+				app_process_xml,
+				app_xml,
+				app_create_timestamp,
+				app_create_usr_id,
+				app_upd_timestamp,
+				app_upd_usr_id,
+				app_ext1,
+				app_ext2,
+				app_ext3,
+				app_notify_status,
+				app_notify_datetime,
+				app_syn_date,
+				app_ext4,
+				app_usr_prof_xml,
+				app_priority,
+				app_tkh_id,
+				app_note,
+				app_nominate_type
+			from 
+				AeApplication 
+				inner join CourseEvaluation on cov_tkh_id = app_tkh_id
+			where 
+				cov_status = #{status}
+				and app_itm_id = #{itm_id}
+		]]>
+	</select>
+	
+	  <select id="getAeApplicationByitmUsrId" resultType="AeApplication"  parameterType="AeApplication">
+        <![CDATA[
+            select * from aeApplication where app_ent_id = #{app_ent_id} and app_itm_id = #{app_itm_id}
+        ]]>
+    </select>
+    
+        
+      <select id="getAeApplicationByitmAttend" resultType="AeApplication"  parameterType="AeApplication">
+        <![CDATA[
+            select aeApplication.* from aeApplication inner join aeAttendance on app_id = att_app_id 
+            and app_ent_id = #{app_ent_id} 
+            and app_itm_id =  #{app_itm_id} 
+            and att_timestamp is not null 
+        ]]>
+    </select>
+
+
+
+</mapper>

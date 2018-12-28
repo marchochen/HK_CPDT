@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.SnsAttentionMapper">
+	<select id="get" resultType="SnsAttention" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				s_att_id,
+				s_att_source_uid,
+				s_att_target_uid,
+				s_att_create_datetime
+			from sns_attention t where t.s_att_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.SnsAttention">
+	    <![CDATA[
+	        update sns_attention t 
+	        set 
+				s_att_id = #{s_att_id,jdbcType=INTEGER},
+				s_att_source_uid = #{s_att_source_uid,jdbcType=INTEGER},
+				s_att_target_uid = #{s_att_target_uid,jdbcType=INTEGER},
+				s_att_create_datetime = #{s_att_create_datetime,jdbcType=TIMESTAMP}
+	         where t.s_att_id = #{s_att_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.SnsAttention">
+    	<![CDATA[
+            insert into sns_attention(
+            		s_att_source_uid,
+            		s_att_target_uid,
+            		s_att_create_datetime
+            ) values (
+            	#{s_att_source_uid,jdbcType=INTEGER},
+            	#{s_att_target_uid,jdbcType=INTEGER},
+            	#{s_att_create_datetime,jdbcType=TIMESTAMP}
+            )
+        ]]>
+    </insert>
+    <delete id="delete" parameterType="com.cwn.wizbank.entity.SnsAttention">
+	    <![CDATA[
+	        delete from sns_attention  where s_att_source_uid = #{s_att_source_uid} and s_att_target_uid = #{s_att_target_uid}
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="SnsAttention">
+	    <![CDATA[
+	         select 
+				s_att_id,
+				s_att_source_uid,
+				s_att_target_uid,
+				s_att_create_datetime
+			from sns_attention t 
+	    ]]>
+	</select>
+	<select id="selectUserList" resultType="RegUser" parameterType="Page">
+		select distinct
+			usr_ent_id,
+			usr_display_bil,
+			usg_display_bil,
+			ugr_display_bil,
+			urx_extra_43 as "usr_photo",
+			my_att.s_att_target_uid as "snsAttention.s_att_target_uid",
+			he_att.s_att_source_uid as "snsAttention.s_att_source_uid"
+		from sns_attention target_att
+		<choose>
+			<when test="params.snsAttention.s_att_source_uid > 0">
+				left join RegUser on usr_ent_id = target_att.s_att_target_uid
+			</when>
+			<when test="params.snsAttention.s_att_target_uid > 0">
+				left join RegUser on usr_ent_id = target_att.s_att_source_uid
+			</when>
+		</choose>
+		left join RegUserExtension on urx_usr_ent_id = usr_ent_id
+		left join EntityRelation usg on usg.ern_child_ent_id = usr_ent_id and usg.ern_type = 'USR_PARENT_USG' and usg.ern_parent_ind = 1
+		left join UserGroup on usg_ent_id = usg.ern_ancestor_ent_id
+		left join EntityRelation ugr on ugr.ern_child_ent_id = usr_ent_id and ugr.ern_type = 'USR_CURRENT_UGR' and ugr.ern_parent_ind = 1
+		left join UserGrade on ugr_ent_id = ugr.ern_ancestor_ent_id
+		left join sns_attention my_att on my_att.s_att_source_uid = ${params.my_usr_ent_id} and my_att.s_att_target_uid = usr_ent_id
+		left join sns_attention he_att on he_att.s_att_target_uid = ${params.my_usr_ent_id} and he_att.s_att_source_uid = usr_ent_id
+		<choose>
+			<when test="params.snsAttention.s_att_source_uid > 0">
+				where target_att.s_att_source_uid = ${params.snsAttention.s_att_source_uid}
+			</when>
+			<when test="params.snsAttention.s_att_target_uid > 0">
+				where target_att.s_att_target_uid = ${params.snsAttention.s_att_target_uid}
+			</when>
+		</choose>
+		and (
+			lower(usr_display_bil) like lower(N'%${params.searchContent}%') 
+			or lower(usr_ste_usr_id) like lower(N'%${params.searchContent}%') 
+			or lower(usg_display_bil) like lower(N'%${params.searchContent}%') 
+			or lower(ugr_display_bil) like lower(N'%${params.searchContent}%')
+		)
+	</select>
+	<select id="findUserList" resultType="RegUser" parameterType="Page">
+		select 
+			distinct
+			usr_ent_id,
+			usr_display_bil,
+			usg_display_bil,
+			ugr_display_bil,
+			urx_extra_43 as "usr_photo",
+			my_att.s_att_target_uid as "snsAttention.s_att_target_uid",
+			he_att.s_att_source_uid as "snsAttention.s_att_source_uid"
+		from tcTrainingCenter
+		inner join tcTrainingCenterTargetEntity on (tce_tcr_id = tcr_id)
+		left join EntityRelation gpg on gpg.ern_ancestor_ent_id = tce_ent_id and gpg.ern_type = 'USG_PARENT_USG'
+		left join EntityRelation usg on (usg.ern_ancestor_ent_id = tce_ent_id or usg.ern_ancestor_ent_id = gpg.ern_child_ent_id) and usg.ern_type = 'USR_PARENT_USG' and usg.ern_parent_ind = 1
+		left join UserGroup on usg_ent_id = usg.ern_ancestor_ent_id
+		left join RegUser on usr_ent_id = usg.ern_child_ent_id and usr_status = 'OK'
+		left join EntityRelation ugr on ugr.ern_child_ent_id = usr_ent_id and ugr.ern_type = 'USR_CURRENT_UGR' and ugr.ern_parent_ind = 1
+		left join UserGrade on ugr_ent_id = ugr.ern_ancestor_ent_id
+		left join RegUserExtension on urx_usr_ent_id = usr_ent_id
+		left join sns_attention my_att on my_att.s_att_target_uid = usr_ent_id and my_att.s_att_source_uid = ${params.regUser.usr_ent_id}
+		left join sns_attention he_att on he_att.s_att_source_uid = usr_ent_id and he_att.s_att_target_uid = ${params.regUser.usr_ent_id}
+		left join acEntityRole on erl_ent_id = usr_ent_id
+		where usr_ent_id != ${params.regUser.usr_ent_id} and erl_rol_id in (select rol_id from acRole where rol_status = 'OK')
+		
+		<if test="params.groupid != null and params.groupid != ''">
+			and usg_ent_id = ${params.groupid} 
+		</if>
+		<if test="params.tcr_id != null and params.tcr_id != '' and params.tcr_id != 0">
+			and tcr_id = ${params.tcr_id}
+		</if>
+		and (
+			lower(usr_display_bil) like lower(N'%${params.searchContent}%') 
+			or lower(usr_ste_usr_id) like lower(N'%${params.searchContent}%') 
+			or lower(usg_display_bil) like lower(N'%${params.searchContent}%') 
+			or lower(ugr_display_bil) like lower(N'%${params.searchContent}%')
+		)
+	</select>
+	<select id="selectSnsAttentionTotal" parameterType="SnsAttention" resultType="java.lang.Long">
+		select
+			count(s_att_id) as "total"
+		from sns_attention
+		<choose>
+			<when test="s_att_source_uid > 0">
+				where s_att_source_uid = ${s_att_source_uid}
+			</when>
+			<otherwise>
+				where s_att_target_uid = ${s_att_target_uid}
+			</otherwise>
+		</choose>
+	</select>
+</mapper>

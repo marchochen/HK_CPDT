@@ -1,0 +1,53 @@
+<!doctype html>
+<html ng-app="personal">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/PersonalController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="creditsController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+
+<div class="wrap" id="wizwrap">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back();" title="back"></a>
+    <span class="header-title">
+    	  <span ng-if="isMeInd" translate="personal_credits"></span>
+    	  <span ng-if="!isMeInd" translate="personal_credits_her"></span>
+    	  <!--积分-->
+    </span>
+</header> <!-- header End -->
+
+<section class="content">
+<div class="cont-info" style="margin:0;">
+<div class="jifen-tit">{{totalCredits}}<span class="jifen-tit-sub"><span ng-if="isMeInd" translate="personal_credits"></span>
+    	<span ng-if="!isMeInd" translate="personal_credits_her"></span><!--总积分--></span></div>
+
+<div class="jifen-info clearfix">
+     <div class="jifen-info-red"><div class="panel-add-09">{{ 'personal_credits_train' | translate }}<!--培训积分--><span class="jifen-num">{{trainCredits}}</span></div></div> 
+     <div class="jifen-info-green"><div class="panel-add-09">{{ 'personal_credits_activity' | translate }}<!--活动积分--><span class="jifen-num">{{activityCredits}}</span></div></div>
+</div>
+
+<div class="panel-title-5"  style="padding:5px 0 5px 10px;">{{ 'personal_credits_list' | translate }}<!--积分列表--></div>
+                
+<div class="jifen-cont clearfix" ng-repeat="credits in creditsList.items">
+     <div class="jifen-cont-tit">{{{cty_title:credits.creditsType.cty_title, cty_manual_ind:credits.creditsType.cty_manual_ind} | creditsName}}</div> 
+     <div class="jifen-cont-fenshu">{{credits.ucl_point}}</div>
+     <div class="jifen-cont-time">{{credits.ucl_create_timestamp | toDate}}</div>
+</div>
+
+
+</div>
+<div loader="creditsList"></div>
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

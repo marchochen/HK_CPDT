@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.SnsValuationMapper">
+	<select id="getCount" resultType="java.lang.Integer" parameterType="Map">
+	       select count(s_vlt_id) from sns_valuation t 
+	       where
+	       s_vlt_target_id = #{targetId}
+	       and s_vlt_module = #{module}
+	</select>
+	<select id="get" resultType="SnsValuation" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				s_vlt_id,
+				s_vlt_type,
+				s_vlt_score,
+				s_vlt_module,
+				s_vlt_target_id
+			from sns_valuation t where t.s_vlt_id = #{id}
+		]]>
+	</select>
+	<update id="updateScore" parameterType="com.cwn.wizbank.entity.SnsValuation">
+	    <![CDATA[
+	        update sns_valuation 
+	        set 
+			    s_vlt_score = (
+					select (case when sum(s_vtl_score) is null then 0 else sum(s_vtl_score) end) from sns_valuation_log 
+					where 
+					s_vtl_type = #{s_vlt_type} and s_vtl_module = #{s_vlt_module} and s_vtl_target_id = #{s_vlt_target_id}
+				)
+	         where s_vlt_id = #{s_vlt_id,jdbcType=INTEGER} 
+	         and s_vlt_module = #{s_vlt_module,jdbcType=VARCHAR}
+	         and s_vlt_target_id = #{s_vlt_target_id,jdbcType=INTEGER}
+	         and s_vlt_type = #{s_vlt_type,jdbcType=VARCHAR}
+	         and s_vlt_is_comment = #{s_vlt_is_comment,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.SnsValuation">
+    	<![CDATA[
+            insert into sns_valuation(
+            		s_vlt_type,
+            		s_vlt_score,
+            		s_vlt_module,
+            		s_vlt_target_id,
+            		s_vlt_is_comment
+            ) values (
+            	#{s_vlt_type,jdbcType=VARCHAR},
+            	#{s_vlt_score,jdbcType=INTEGER},
+            	#{s_vlt_module,jdbcType=VARCHAR},
+            	#{s_vlt_target_id,jdbcType=INTEGER},
+            	#{s_vlt_is_comment,jdbcType=INTEGER}
+            )
+        ]]>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from sns_valuation  where s_vlt_id = #{s_vlt_id}
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="SnsValuation">
+	    <![CDATA[
+	         select 
+				s_vlt_id,
+				s_vlt_type,
+				s_vlt_score,
+				s_vlt_module,
+				s_vlt_target_id
+			from sns_valuation t 
+	    ]]>
+	</select>
+	
+	<delete id="delValuation" parameterType="Map">
+	    <![CDATA[
+	        delete from sns_valuation  
+	        where s_vlt_module = #{s_vlt_module}
+	        and s_vlt_target_id = #{s_vlt_target_id}
+	        and s_vlt_is_comment = #{s_vlt_is_comment}
+	    ]]>
+    </delete>
+</mapper>

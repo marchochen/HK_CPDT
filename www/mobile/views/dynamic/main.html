@@ -1,0 +1,61 @@
+<!doctype html>
+<html ng-app="doing">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title>Document</title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/DynamicController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body  ng-cloak class="ng-cloak"  ng-controller="doingController">
+
+<div class="wrap" id="wizwrap">
+<header class="header mm-background">
+        <a class="header-back" href="javascript:back();" title="back"></a>
+        <span class="header-title" translate="doing"><!--动态--></span>
+        <a class="header-sort" href="javascript:scroll(0,0);" ng-click="toggleSelect()" title="cat"></a>
+</header> <!-- header End -->
+<!-- <wzm-docker rp="../../"></wzm-docker> -->
+
+<section class="content-2" id="main">   
+	
+<div class="header-guide" style="display:none;margin:0px;">
+   <div class="header-guide-box">
+        <div class="header-guide-title" >{{'cos_type_short' | translate }}<i translate="dynamic_type_all_title" style="float:right;" ng-click="select('all')"></i><!--全部--></div>
+        <div class="header-guide-info" >
+             <a ng-class="{select : selectType == type.type}" ng-if="type.type != 'all'" ng-repeat="type in doingType" href="javascript:;" ng-click="select(type.type)" translate="{{type.title}}"></a>
+        </div>                      
+   </div>
+</div>
+    
+    <div class="list-pic-3">
+        <div class="own-box">
+            <div class="own-box-area">
+                <div class="own-box-pic">
+                    <a class="own-box-user" href="javascript:;" title="">
+                        <img id="user_photo_{{user.usr_ent_id}}" ng-src="{{serverHost}}{{user.usr_photo}}" alt=""/>
+                    </a>
+                </div>
+                <div class="own-box-tit-1">{{user.usr_display_bil}}</div>
+                <div class="own-box-tit-2">{{user.usg_display_bil}} {{user.ugr_display_bil != 'Unspecified' ? user.ugr_display_bil : ''}}</div>
+            </div>     
+        </div>
+        <img class="list-pic-3-pic" alt="" src="../../images/banner51.jpg">
+        <div class="list-pic-3-bg"></div>
+    </div> <!-- list-pic-3 End -->
+    <div class="panel-title-5" style="padding:4px 0 4px 10px;"><span ng-bind="title | translate"></span>(<span ng-bind="doingList.totalRecord"></span>)</div>
+    <div class="cont-box">
+        <div class="cont-info-tuwen">
+            <div doing="doingList" module="Doing"></div>
+        </div>
+    </div>
+    <div loader="doingList"></div>
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

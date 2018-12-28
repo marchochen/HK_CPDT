@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.KnowanswerMapper">
+	<select id="get" resultType="Knowanswer" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				ans_id,
+				ans_que_id,
+				ans_content,
+				ans_refer_content,
+				ans_right_ind,
+				ans_vote_total,
+				ans_vote_for,
+				ans_vote_down,
+				ans_temp_vote_total,
+				ans_temp_vote_for,
+				ans_temp_vote_for_down_diff,
+				ans_status,
+				ans_create_ent_id,
+				ans_create_timestamp,
+				ans_update_ent_id,
+				ans_update_timestamp,
+				ans_content_search
+			from Knowanswer t 
+			where
+				 t.ans_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.Knowanswer">
+        update Knowanswer 
+        set 
+           
+			ans_right_ind = #{ans_right_ind,jdbcType=INTEGER},
+			ans_vote_total = #{ans_vote_total,jdbcType=INTEGER},
+			ans_vote_for = #{ans_vote_for,jdbcType=INTEGER},
+			ans_vote_down = #{ans_vote_down,jdbcType=INTEGER},
+			ans_temp_vote_total = #{ans_temp_vote_total,jdbcType=INTEGER},
+			ans_temp_vote_for = #{ans_temp_vote_for,jdbcType=INTEGER},
+			ans_temp_vote_for_down_diff = #{ans_temp_vote_for_down_diff,jdbcType=INTEGER}
+			<if test="ans_update_ent_id != null and ans_update_ent_id != ''">
+				,ans_update_ent_id = #{ans_update_ent_id,jdbcType=INTEGER}
+			</if>
+			<if test="ans_content != null and ans_content != ''">
+				,ans_content = #{ans_content,jdbcType=VARCHAR}
+			</if>
+			<if test="ans_update_timestamp != null and ans_update_timestamp != ''">
+				,ans_update_timestamp = #{ans_update_timestamp,jdbcType=TIMESTAMP}
+			</if>
+         where ans_id = #{ans_id,jdbcType=INTEGER}
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.Knowanswer" keyProperty="ans_id">
+    	<![CDATA[
+            insert into Knowanswer(
+            		ans_que_id,
+            		ans_content,
+            		ans_refer_content,
+            		ans_right_ind,
+            		ans_vote_total,
+            		ans_vote_for,
+            		ans_vote_down,
+            		ans_temp_vote_total,
+            		ans_temp_vote_for,
+            		ans_temp_vote_for_down_diff,
+            		ans_status,
+            		ans_create_ent_id,
+            		ans_create_timestamp,
+            		ans_update_ent_id,
+            		ans_update_timestamp,
+            		ans_content_search
+            ) values (
+            	#{ans_que_id,jdbcType=INTEGER},
+            	#{ans_content,jdbcType=VARCHAR},
+            	#{ans_refer_content,jdbcType=VARCHAR},
+            	#{ans_right_ind,jdbcType=INTEGER},
+            	#{ans_vote_total,jdbcType=INTEGER},
+            	#{ans_vote_for,jdbcType=INTEGER},
+            	#{ans_vote_down,jdbcType=INTEGER},
+            	#{ans_temp_vote_total,jdbcType=INTEGER},
+            	#{ans_temp_vote_for,jdbcType=INTEGER},
+            	#{ans_temp_vote_for_down_diff,jdbcType=INTEGER},
+            	#{ans_status,jdbcType=VARCHAR},
+            	#{ans_create_ent_id,jdbcType=INTEGER},
+            	#{ans_create_timestamp,jdbcType=TIMESTAMP},
+            	#{ans_update_ent_id,jdbcType=INTEGER},
+            	#{ans_update_timestamp,jdbcType=TIMESTAMP},
+            	#{ans_content_search,jdbcType=VARCHAR}
+            )
+        ]]>
+        <selectKey keyProperty="ans_id" resultType="Long" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select knowanswer_seq.Currval from dual 
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					select ident_current('knowanswer') 
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+				   select last_insert_id()
+				</when>
+			</choose>
+		</selectKey>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from Knowanswer where
+	        ans_id = #{ans_id}
+	    ]]>
+    </delete>
+    <delete id="deleteThisAnswer" parameterType="com.cwn.wizbank.entity.Knowanswer">
+	  <![CDATA[
+	   	delete from Knowanswer where
+	        ans_id = #{ans_id} and ans_que_id = #{ans_que_id}
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="Knowanswer">
+	    <![CDATA[
+	         select 
+				ans_id,
+				ans_que_id,
+				ans_content,
+				ans_refer_content,
+				ans_right_ind,
+				ans_vote_total,
+				ans_vote_for,
+				ans_vote_down,
+				ans_temp_vote_total,
+				ans_temp_vote_for,
+				ans_temp_vote_for_down_diff,
+				ans_status,
+				ans_create_ent_id,
+				ans_create_timestamp,
+				ans_update_ent_id,
+				ans_update_timestamp,
+				ans_content_search
+			from Knowanswer t 
+	    ]]>
+	</select>
+	<resultMap type="Knowanswer" id="KnowanswerFile" >  
+        <id column="ans_id" property="ans_id"/>  
+        <result column="ans_que_id" property="ans_que_id"></result>
+        <result column="ans_content" property="ans_content"></result>
+        <result column="ans_refer_content" property="ans_refer_content"></result>
+        <result column="ans_right_ind" property="ans_right_ind"></result>
+        <result column="ans_vote_total" property="ans_vote_total"></result>
+        <result column="ans_vote_for" property="ans_vote_for"></result>
+        <result column="ans_vote_down" property="ans_vote_down"></result>
+        <result column="ans_temp_vote_total" property="ans_temp_vote_total"></result>
+        <result column="ans_temp_vote_for" property="ans_temp_vote_for"></result>
+        <result column="ans_temp_vote_for_down_diff" property="ans_temp_vote_for_down_diff"></result>
+        <result column="ans_status" property="ans_status"></result>
+        <result column="ans_create_ent_id" property="ans_create_ent_id"></result>
+        <result column="ans_create_timestamp" property="ans_create_timestamp"></result>
+        <result column="ans_update_ent_id" property="ans_update_ent_id"></result>
+        <result column="ans_update_timestamp" property="ans_update_timestamp"></result>
+        <result column="ans_content_search" property="ans_content_search"></result>
+        <result column="is_user_like" property="is_user_like"></result>
+        <association property="user" column="ans_create_ent_id" javaType="RegUser">
+	       <result column="is_instructor" property="is_instructor"/>
+            <result column="usr_ent_id" property="usr_ent_id"/>
+            <result column="urx_extra_43" property="usr_photo"/>  
+            <result column="usr_display_bil" property="usr_display_bil"/>
+        </association>
+        <association property="snsCount" column="s_cnt_target_id" javaType="SnsCount">
+            <result column="s_cnt_collect_count" property="s_cnt_collect_count"/>
+            <result column="s_cnt_share_count" property="s_cnt_share_count"/>
+            <result column="s_cnt_like_count" property="s_cnt_like_count"/>
+            <result column="s_sha_title" property="s_sha_title"/>
+        </association>
+        <collection property="fileList" column="ans_id" ofType="ModuleTempFile" select="getFileList"/>
+    </resultMap>	
+	<select id="selectKnowAnswerList" resultMap="KnowanswerFile" parameterType="Page">
+		select 
+			ans_id,
+			ans_content,
+			ans_refer_content,
+			ans_right_ind,
+			ans_vote_total,
+			ans_vote_for,
+			ans_vote_down,
+			ans_temp_vote_total,
+			ans_temp_vote_for,
+			ans_temp_vote_for_down_diff,
+			ans_create_ent_id,
+			ans_create_timestamp,
+			usr_ent_id as usr_ent_id,
+			usr_display_bil as usr_display_bil,
+			urx_extra_43 as urx_extra_43,
+			(case when s_cnt_collect_count is null then 0 else s_cnt_collect_count end) AS s_cnt_collect_count,
+			(case when s_cnt_share_count is null then 0 else s_cnt_share_count end) AS s_cnt_share_count,
+			(case when s_cnt_like_count is null then 0 else s_cnt_like_count end) AS s_cnt_like_count,
+			(case when s_vtl_log_id is null then 0 else 1 end) AS "is_user_like",
+			(case when iti_ent_id is null then 0 else 1 end) AS is_instructor
+		from knowAnswer
+		left join regUser on usr_ent_id = ans_create_ent_id
+		left join regUserExtension on urx_usr_ent_id = usr_ent_id 
+		left join sns_count on (s_cnt_target_id = ans_id and s_cnt_module = 'Answer')
+		left join sns_valuation_log on s_vtl_target_id = ans_id and s_vtl_uid = ${params.usr_ent_id} and s_vtl_module = 'Answer'
+		left join InstructorInf on iti_ent_id = usr_ent_id
+		where ans_que_id = ${params.knowanswer.ans_que_id} 
+		and ans_right_ind = ${params.knowanswer.ans_right_ind}
+		order by ans_create_timestamp desc
+	</select>	
+	<select id="getFileList" resultType="ModuleTempFile" parameterType="Long">
+	    	select 
+				mtf_id,
+				mtf_target_id,
+				mtf_module,
+				mtf_usr_id,
+				mtf_file_type,
+				mtf_type,
+				mtf_file_name,
+				mtf_file_rename,
+				mtf_file_size,
+				mtf_create_time,
+				mtf_url
+			from moduleTempFile 
+			where 
+			mtf_target_id  = #{ans_id}
+			and mtf_module = 'Know'
+	</select>
+	
+	<select id="getByQueId" parameterType="Long" resultType="Knowanswer">
+		select 
+			ans_id,
+			ans_que_id,
+			ans_content,
+			ans_refer_content,
+			ans_right_ind,
+			ans_vote_total,
+			ans_vote_for,
+			ans_vote_down,
+			ans_temp_vote_total,
+			ans_temp_vote_for,
+			ans_temp_vote_for_down_diff,
+			ans_status,
+			ans_create_ent_id,
+			ans_create_timestamp,
+			ans_update_ent_id,
+			ans_update_timestamp,
+			ans_content_search
+		from Knowanswer 
+		where
+			 ans_que_id = #{id}
+	
+	</select>
+</mapper>

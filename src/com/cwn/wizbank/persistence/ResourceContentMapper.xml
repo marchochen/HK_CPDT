@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.ResourceContentMapper">
+
+
+	
+	<select id="get" resultType="ResourceContent" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				rcn_res_id,
+				rcn_sub_nbr,
+				rcn_desc,
+				rcn_order,
+				rcn_res_id_content,
+				rcn_obj_id_content,
+				rcn_score_multiplier,
+				rcn_rcn_res_id_parent,
+				rcn_rcn_sub_nbr_parent,
+				rcn_tkh_id
+			from ResourceContent t
+			where
+				 t.rcn_res_id = #{id}
+		]]>
+	</select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.ResourceContent">
+	    <![CDATA[
+	        update ResourceContent
+	        set 
+				rcn_res_id = #{rcn_res_id,jdbcType=INTEGER},
+				rcn_sub_nbr = #{rcn_sub_nbr,jdbcType=INTEGER},
+				rcn_desc = #{rcn_desc,jdbcType=VARCHAR},
+				rcn_order = #{rcn_order,jdbcType=INTEGER},
+				rcn_res_id_content = #{rcn_res_id_content,jdbcType=INTEGER},
+				rcn_obj_id_content = #{rcn_obj_id_content,jdbcType=INTEGER},
+				rcn_score_multiplier = #{rcn_score_multiplier,jdbcType=INTEGER},
+				rcn_rcn_res_id_parent = #{rcn_rcn_res_id_parent,jdbcType=INTEGER},
+				rcn_rcn_sub_nbr_parent = #{rcn_rcn_sub_nbr_parent,jdbcType=INTEGER},
+				rcn_tkh_id = #{rcn_tkh_id,jdbcType=INTEGER}
+	         where t.rcn_res_id = #{rcn_res_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.ResourceContent">
+    	<![CDATA[
+            insert into ResourceContent(
+            		rcn_desc,
+            		rcn_order,
+            		rcn_res_id_content,
+            		rcn_obj_id_content,
+            		rcn_score_multiplier,
+            		rcn_rcn_res_id_parent,
+            		rcn_rcn_sub_nbr_parent,
+            ) values (
+            	#{rcn_desc,jdbcType=VARCHAR},
+            	#{rcn_order,jdbcType=INTEGER},
+            	#{rcn_res_id_content,jdbcType=INTEGER},
+            	#{rcn_obj_id_content,jdbcType=INTEGER},
+            	#{rcn_score_multiplier,jdbcType=INTEGER},
+            	#{rcn_rcn_res_id_parent,jdbcType=INTEGER},
+            	#{rcn_rcn_sub_nbr_parent,jdbcType=INTEGER},
+            )
+        ]]>
+    </insert>
+    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from ResourceContent where
+	        rcn_res_id = #{rcn_res_id}
+	    ]]>
+    </delete>
+		
+	
+</mapper>

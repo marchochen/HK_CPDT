@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<item_cost_management xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\item_cost_management.xsd">
+	<item_cost itm_type="CLASSROOM" itm_run_ind="true">
+		<!--the value of attribute "type" should be unique in one "item_cost"-->
+		<cost type="1">
+			<label xml:lang="en-us">Venue</label>
+			<label xml:lang="zh-cn">场租</label>
+			<label xml:lang="zh-hk">場租</label>
+		</cost>
+		<cost type="2">
+			<label xml:lang="en-us">Transportation</label>
+			<label xml:lang="zh-cn">交通费</label>
+			<label xml:lang="zh-hk">交通費</label>
+		</cost>
+		<cost type="3">
+			<label xml:lang="en-us">Lecturers</label>
+			<label xml:lang="zh-cn">讲师费</label>
+			<label xml:lang="zh-hk">講師費</label>
+		</cost>
+		<cost type="4">
+			<label xml:lang="en-us">Learning material</label>
+			<label xml:lang="zh-cn">教材费</label>
+			<label xml:lang="zh-hk">教材費</label>
+		</cost>
+		<cost type="7">
+			<label xml:lang="en-us">Accommodation</label>
+			<label xml:lang="zh-cn">住宿费</label>
+			<label xml:lang="zh-hk">住宿費</label>
+		</cost>
+		<cost type="5">
+			<label xml:lang="en-us">Meal</label>
+			<label xml:lang="zh-cn">餐费</label>
+			<label xml:lang="zh-hk">餐費</label>
+		</cost>
+		<cost type="6">
+			<label xml:lang="en-us">Others</label>
+			<label xml:lang="zh-cn">其他</label>
+			<label xml:lang="zh-hk">其他</label>
+		</cost>
+	</item_cost>
+	<item_cost itm_type="SELFSTUDY" itm_run_ind="false">
+		<cost type="4">
+			<label xml:lang="en-us">Learning material</label>
+			<label xml:lang="zh-cn">教材费</label>
+			<label xml:lang="zh-hk">教材費</label>
+		</cost>
+		<cost type="6">
+			<label xml:lang="en-us">Others</label>
+			<label xml:lang="zh-cn">其他</label>
+			<label xml:lang="zh-hk">其他</label>
+		</cost>
+	</item_cost>
+</item_cost_management>

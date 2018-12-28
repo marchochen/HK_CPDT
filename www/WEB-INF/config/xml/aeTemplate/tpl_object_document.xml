@@ -1,0 +1,10 @@
+<template>
+<field01 name="Type" type="reloading_select" required="yes" paramname="obj_type" value="DOCUMENT" option_src="object_type_list"/>
+<field31 name="Code" type="text" size="50" required="yes" paramname="obj_code"/>
+<field02 name="Title" type="text" size="200" required="yes" paramname="obj_title"/>
+<field06 name="File" type="file" size="100" required="yes" paramname="file1"/>
+<field03 name="Desc" type="textarea" size="1000" required="no" paramname="obj_desc"/>
+<field04 name="Author" type="text" size="100" required="no" paramname="obj_author"/>
+<field05 name="Keywords" type="text" size="50" required="no" paramname="obj_keywords"/>
+<field07 name="Comment" type="textarea" size="1000" required="no" paramname="obj_comment"/>
+</template>

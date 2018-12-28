@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.AcRoleFunctionMapper">
+	<select id="getCount" resultType="java.lang.Integer" parameterType="Map">
+	    <![CDATA[
+	        select count(*) from acRoleFunction t 
+	    ]]>
+	</select>
+
+	
+	<select id="get" resultType="AcRoleFunction" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				rfn_rol_id,
+				rfn_ftn_id,
+				rfn_create_usr_id,
+				RFN_CREATE_TIMESTAMP,
+				rfn_ftn_parent_id,
+				rfn_ftn_favorite,
+				rfn_ftn_level
+			from acRoleFunction t
+			where
+				 t.rfn_rol_id = #{id}
+		]]>
+	</select>
+	
+<select id="hasRolFtn" resultType="java.lang.Boolean" parameterType="Map">
+		select count(rfn_ftn_id) from acRoleFunction
+		where rfn_ftn_id = #{ftn_id}
+		and rfn_rol_id = #{rol_id}
+	</select>
+	
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.AcRoleFunction">
+	    <![CDATA[
+	        update acRoleFunction
+	        set 
+				rfn_rol_id = #{rfn_rol_id,jdbcType=INTEGER},
+				rfn_ftn_id = #{rfn_ftn_id,jdbcType=INTEGER},
+				rfn_create_usr_id = #{rfn_create_usr_id,jdbcType=VARCHAR},
+				RFN_CREATE_TIMESTAMP = #{rfn_create_timestamp,jdbcType=DATE},
+				rfn_ftn_parent_id = #{rfn_ftn_parent_id,jdbcType=INTEGER},
+				rfn_ftn_favorite = #{rfn_ftn_favorite,jdbcType=VARCHAR},
+				rfn_ftn_order = #{rfn_ftn_order,jdbcType=VARCHAR}
+	         where t.rfn_rol_id = #{rfn_rol_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.AcRoleFunction">
+    	<![CDATA[
+            insert into acRoleFunction(
+            		rfn_rol_id,
+            		rfn_ftn_id,
+            		rfn_create_usr_id,
+            		RFN_CREATE_TIMESTAMP,
+            		rfn_ftn_parent_id,
+            		rfn_ftn_favorite,
+            		rfn_ftn_order
+            ) values (
+            	#{rfn_rol_id,jdbcType=INTEGER},
+           		#{rfn_ftn_id,jdbcType=INTEGER},
+            	#{rfn_create_usr_id,jdbcType=VARCHAR},
+            	#{rfn_create_timestamp,jdbcType=DATE},
+            	#{rfn_ftn_parent_id,jdbcType=INTEGER},
+            	#{rfn_ftn_favorite,jdbcType=VARCHAR},
+            	#{rfn_ftn_order,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>
+    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from acRoleFunction where
+	        rfn_rol_id = #{rfn_rol_id}
+	    ]]>
+    </delete>
+    
+	<select id="hasRoleFunction" resultType="java.lang.Integer"  parameterType="java.lang.String">
+	    select count(*) from acRole,acFunction,acRoleFunction
+  		where rfn_rol_id = rol_id and rfn_ftn_id = ftn_id 
+  		and rol_ste_uid = #{rol_id}
+  		and ftn_ext_id = #{ftn_ext_id}
+	</select>
+	<select id="hasFunction" resultType="java.lang.Integer" parameterType="java.lang.String">
+		select count(*) from acRole,acFunction,acRoleFunction
+  		where rfn_rol_id = rol_id and rfn_ftn_id = ftn_id 
+  		and rol_ext_id = #{rol_ext_id}
+  		and ftn_ext_id = #{ftn_ext_id}
+	</select>
+	
+	<resultMap type="AcFunction" id="roleFunction">
+		<id column="ftn_id" property="ftn_id"/>
+		<result column="ftn_ext_id" property="ftn_ext_id"/>
+		<collection property="subFunctions" column="{ id=ftn_id, rol_id=rfn_rol_id }" ofType="AcFunction" select="getSubFunctions"/>
+	</resultMap>
+	
+	<select id="getFunctions" parameterType="String" resultMap="roleFunction">
+		SELECT distinct(ftn_id) ftn_id, ftn_ext_id, rfn_rol_id,ftn_level,ftn_order,ftn_assign FROM acFunction 
+		INNER JOIN acRoleFunction  ON ftn_id = rfn_ftn_id 
+		INNER JOIN acRole ON rfn_rol_id = rol_id
+		WHERE rol_ext_id = #{_parameter} AND ftn_level = '0' and ftn_status = 1 order by ftn_order
+	</select>
+	
+	<select id="getSubFunctions" resultType="AcFunction" parameterType="Map">
+		SELECT ftn_id,ftn_ext_id,ftn_order,ftn_assign FROM acFunction 
+		INNER JOIN acRoleFunction ON ftn_id = rfn_ftn_id 
+		WHERE ftn_parent_id  = #{id} AND rfn_rol_id = #{rol_id} AND ftn_level =1 and ftn_status = 1  order by  ftn_order
+	</select>
+	
+	<resultMap type="AcFunction" id="markFavoriteFunction">
+		<id column="ftn_id" property="ftn_id"/>
+		<result column="uff_fun_id" property="uff_fun_id"/>
+		<result column="ftn_ext_id" property="ftn_ext_id"/>
+		<collection property="subFunctions" column="{ id=ftn_id, rol_id=rfn_rol_id,usr_ent_id=uff_usr_ent_id}" ofType="AcFunction" select="getSubMenusMarkFavorite"/>
+	</resultMap>
+	
+	<select id="getMenusMarkFavorite" parameterType="Map" resultMap="markFavoriteFunction">
+		SELECT ftn_id, ftn_ext_id, rfn_rol_id, uff_fun_id,ftn_level,ftn_order,#{usr_ent_id} uff_usr_ent_id FROM acFunction 
+		INNER JOIN acRoleFunction  ON ftn_id = rfn_ftn_id 
+		INNER JOIN acRole ON rfn_rol_id = rol_id
+		LEFT JOIN userFavoriteFunction on ftn_id = uff_fun_id and UFF_USR_ENT_ID = #{usr_ent_id}
+		WHERE rol_ext_id = #{current_role} AND ftn_level = '0' and ftn_status = 1 order by  ftn_order
+	</select>
+	
+	<select id="getSubMenusMarkFavorite" resultType="AcFunction" parameterType="Map">
+		SELECT ftn_id,ftn_ext_id,uff_fun_id,ftn_order FROM acFunction 
+		INNER JOIN acRoleFunction ON ftn_id = rfn_ftn_id 
+		LEFT JOIN userFavoriteFunction on ftn_id = uff_fun_id and uff_usr_ent_id = #{usr_ent_id}
+		WHERE ftn_parent_id  = #{id} AND rfn_rol_id = #{rol_id} AND ftn_level =1  and ftn_status = 1 order by  ftn_order
+	</select>
+	
+	<!-- 角色管理查询菜单栏 -->
+	<resultMap type="AcFunction" id="roleFavoriteFunction">
+		<id column="ftn_id" property="ftn_id"/>
+		<result column="uff_fun_id" property="uff_fun_id"/>
+		<result column="ftn_ext_id" property="ftn_ext_id"/>
+		<collection property="subFunctions" column="{ id=ftn_id }" ofType="AcFunction" select="getRoleMenusMarkFavorite"/>
+	</resultMap>
+	
+	<!-- 查询一级菜单 -->
+	<select id="roleFavoriteFunctionJson" parameterType="String" resultMap="roleFavoriteFunction">
+		SELECT distinct(ftn_id) ftn_id, ftn_ext_id, uff_fun_id,ftn_level , ftn_tc_related FROM acFunction 
+		LEFT JOIN userFavoriteFunction on ftn_id = uff_fun_id
+		WHERE ftn_level = '0' and ftn_assign = 1  and ftn_status = 1
+	</select>
+	
+	<!-- 查询二级菜单 -->
+	<select id="getRoleMenusMarkFavorite" resultType="AcFunction" parameterType="Map">
+		SELECT distinct(ftn_id) ftn_id,ftn_ext_id , ftn_tc_related FROM acFunction 
+		WHERE ftn_parent_id  = #{id} and ftn_assign = 1 and ftn_status = 1
+	</select>
+	
+	<!-- 查询三级菜单 -->
+	<select id="getRoleFunctions" resultType="AcFunction" parameterType="int">
+		select ftn_id,ftn_ext_id,uff_fun_id,ftn_assign , ftn_tc_related from acFunction 
+				LEFT JOIN userFavoriteFunction on ftn_id = uff_fun_id
+				where ftn_parent_id = #{ftn_id} and ftn_level > 1 and ftn_assign = 1 and ftn_status = 1
+	</select>
+	
+	<!-- 查询 当前角色所拥有的功能权限-->
+	<select id="getRoleHasFunctions" parameterType="Long" resultType="AcFunction">
+		<![CDATA[
+		select ftn_id,ftn_ext_id,ftn_level,ftn_status,ftn_assign from acRole 
+			inner join acRoleFunction on (rol_id = rfn_rol_id)
+			inner join acFunction on (rfn_ftn_id = ftn_id)
+			where rol_id = #{role_id}
+		]]>
+	</select>
+	<delete id="deleteAll">
+		delete from acRoleFunction
+	</delete>
+	
+	<delete id="truncate">
+		TRUNCATE TABLE AcRoleFunction
+	</delete>
+	
+	<!-- 管理员端删除角色关联表 -->
+	<delete id="delRolFunById" parameterType="Long">
+		delete from acRoleFunction where rfn_rol_id = #{rfn_rol_id}
+	</delete>
+	
+	<!-- 管理员端删除角色关联表 -->
+	<delete id="delRolFunByIdExtRolFun" parameterType="Long">
+		delete from acRoleFunction where rfn_rol_id = #{rfn_rol_id} and rfn_ftn_id not in(select ftn_id from acFunction where  ftn_assign = 0)
+	</delete>
+</mapper>

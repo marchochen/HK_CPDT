@@ -1,0 +1,254 @@
+/*= wizbank  CSS =========================================================
+stylesheet type:ui
+stylesheet name:forumcss	
+=======================================================================*/
+
+@import url("tab.css");
+@import url("wb_ui_ie.css");
+
+a.Nav{
+	color: #174100;
+	font: bold 8pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+	text-decoration: none;
+}
+
+a.Text{
+	color: #174100;
+	font: 8pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+a.Text:hover{
+	color: #174100;
+	font: 8pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+a.ClientCheckText{
+	color: #FF0000;
+	font: bold 10pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+input.Btn{
+	background-color: #D1E8C3;
+	color: #00000;
+	font: 8pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+input.InputFrm{
+	background: #EDF2E6;
+	font: 8pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+td{
+	color: #174100;
+	font: 8pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+textarea.InputFrm{
+	background: #EDF2E6;
+	font: 8pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.Bg{
+	background-color: #F4FFED;
+}
+
+.BigText{
+	color: #000000;
+	font: bold 11pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.Desc{
+	color: #000000;
+	font: 8pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+	margin-left: 18px;
+	margin-right: 18px;
+	text-decoration: none;
+}
+
+.Head{
+	font: bold 9pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+	padding: 4px;
+}
+
+.Line{
+	background-color: #A9D190;
+}
+
+.Nav{
+	color: #174100;
+	font: bold 8pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+	text-decoration: none;
+}
+
+.NavLink{
+	color: #000000;
+	font: 10pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.RowsEven{
+	background: #FBFFF5;
+}
+
+.RowsOdd{
+	background: #FFFFFF;
+}
+
+.SecBg{
+	background-color: #D1E8C3;
+}
+
+.SecLine{
+	background-color: #000000;
+}
+
+.Select{
+	background: #EDF2E6;
+	color: #000000;
+	font: 8pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.SmallText{
+	color: #174100;
+	font: 9pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.SmallTextDisabled{
+	color: #999999;
+	font: 9pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.SmallTitleText{
+	color: #000000;
+	font: 8pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.SrhBg{
+}
+
+.SubTitle{
+	color: #000000;
+	font: bold 9pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.Text{
+	color: #174100;
+	font: 8pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.TextBold{
+	color: #174100;
+	font: bold 9pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.TextBtn{
+	color: #174100;
+	font: 9pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+	height: 16px;
+	text-indent: 2px;
+}
+
+.ThirdBg{
+	background-color: #D1E8C3;
+}
+
+.Title{
+	color: #000000;
+	font: bold 13pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.TitleText{
+	color: #000000;
+	font: 9pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.TitleTextBold{
+	color: #000000;
+	font: bold 9pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.TopBg{
+	background-color: #FFFFFF;
+}
+
+.TopText{
+	color: #000000;
+	font: bold 9pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+	text-decoration: none;
+}
+
+.StatDataText{
+	color: #3333ff;
+	font: bold 9pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.StatRowsEven{
+	background: #FBFFF5;
+	padding: 3pt;
+}
+
+.StatRowsOdd{
+	background: #FFFFFF;
+	padding: 3pt;
+}
+.Correct{ 
+	background-color: #98FB98; 
+	border: 1px solid Green;
+ }
+ 
+.Incorrect{
+
+ }
+
+#foldertab {
+	padding-left: 8px; padding-right: 0px; padding-bottom: 4px; padding-top: 6px;
+	border-bottom: #92B362 1px solid;
+	font: bold 11px Verdana, sans-serif;
+	margin-left: 0px;margin-bottom: 0px;
+}
+
+#foldertab li {
+	display: inline;
+	margin: 0px;
+	list-style-type: none;
+}
+
+#foldertab li a {
+	padding-left: 0.5em; padding-right: 0.5em; padding-bottom: 4px; padding-top: 4px;
+	border-left: #92B362 1px solid; border-right: #92B362 1px solid; border-top: #92B362 1px solid; border-bottom: #92B362 1px;
+	background: #EDF2E6;
+	margin-left: 0px;
+	text-decoration: none;
+}
+
+#foldertab li a:link {
+	color:#174100;
+}
+
+#foldertab li a:visited {
+	color:#174100;
+}
+
+#foldertab li a:hover {
+	color: white;
+	background: #92B362;
+}
+
+#foldertab li a.current {
+	border-top: #92B362 1px solid; 
+	padding-top: 4px;
+	padding-bottom: 4px;
+	background: #92B362;
+	color: white;
+}
+
+#foldertab li a.current:link {
+	color: white
+}
+
+#foldertab li a.current:visited {
+	color: white
+}
+
+#foldertab li a.current:hover {
+	color: #174100; background: #92B362;
+}

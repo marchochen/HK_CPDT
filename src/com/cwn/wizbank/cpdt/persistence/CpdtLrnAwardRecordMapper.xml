@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.cpdt.persistence.CpdtLrnAwardRecordMapper">
+
+	<!-- 增 -->
+	<insert id="insert" parameterType="com.cwn.wizbank.cpdt.entity.CpdtLrnAwardRecord">
+		INSERT INTO cpdLrnAwardRecord (
+            		clar_usr_ent_id,
+            		clar_itm_id,
+            		clar_app_id,
+            		clar_manul_ind,
+            		clar_ct_id,
+            		clar_cg_id,
+            		clar_acgi_id,
+            		clar_award_core_hours,
+            		clar_award_non_core_hours,
+            		clar_award_datetime,
+            		clar_create_usr_ent_id,
+            		clar_create_datetime,
+            		clar_update_usr_ent_id,
+            		clar_update_datetime
+            ) VALUES (
+				#{clar_usr_ent_id,jdbcType=INTEGER},
+				#{clar_itm_id,jdbcType=INTEGER},
+           		#{clar_app_id,jdbcType=INTEGER},
+           		#{clar_manul_ind,jdbcType=INTEGER},
+           		#{clar_ct_id,jdbcType=INTEGER},
+           		#{clar_cg_id,jdbcType=INTEGER},
+           		#{clar_acgi_id,jdbcType=INTEGER},
+           		#{clar_award_core_hours,jdbcType=FLOAT},
+           		#{clar_award_non_core_hours,jdbcType=FLOAT},
+           		#{clar_award_datetime,jdbcType=TIMESTAMP},
+           		#{clar_create_usr_ent_id,jdbcType=INTEGER},
+           		#{clar_create_datetime,jdbcType=TIMESTAMP},
+           		#{clar_update_usr_ent_id,jdbcType=INTEGER},
+           		#{clar_update_datetime,jdbcType=TIMESTAMP}
+            )
+	</insert>
+	<!-- 删 -->
+	<update id="delete" parameterType="com.cwn.wizbank.cpdt.entity.CpdtLrnAwardRecord">
+
+	</update>
+	<!-- 改 -->
+	<update id="update" parameterType="com.cwn.wizbank.cpdt.entity.CpdtLrnAwardRecord">
+
+	</update>
+	<!-- 通过ID查询 -->
+	<select id="get" resultType="com.cwn.wizbank.cpdt.entity.CpdtLrnAwardRecord" parameterType="com.cwn.wizbank.cpdt.entity.CpdtLrnAwardRecord">
+		
+	</select>
+	
+	<!-- 查询用户在该课程和小牌上，已经获取到的学分 -->
+	<select id="queryAlreadyAward" resultType="com.cwn.wizbank.cpdt.entity.CpdtLrnAwardRecord" parameterType="java.util.Map">
+		SELECT
+			clar_id,
+			clar_usr_ent_id,
+			clar_itm_id,
+			clar_app_id,
+			clar_manul_ind,
+			clar_ct_id,
+			clar_cg_id,
+			clar_acgi_id,
+			clar_award_core_hours,
+			clar_award_non_core_hours,
+			clar_award_datetime,
+			clar_create_usr_ent_id,
+			clar_create_datetime,
+			clar_update_usr_ent_id,
+			clar_update_datetime
+		FROM
+			cpdLrnAwardRecord
+		WHERE
+			clar_usr_ent_id = #{clarUsrEntId}
+		AND (
+			clar_itm_id IN (
+				SELECT
+					ar.ire_child_itm_id
+				FROM
+					aeItemRelation ar
+				INNER JOIN aeItemRelation ae ON ae.ire_child_itm_id = #{clarItmId}
+				AND ar.ire_parent_itm_id = ae.ire_parent_itm_id
+			)
+			OR clar_itm_id = #{clarItmId}
+		)
+		AND clar_cg_id = #{clarCgId}
+	</select>
+	
+</mapper>

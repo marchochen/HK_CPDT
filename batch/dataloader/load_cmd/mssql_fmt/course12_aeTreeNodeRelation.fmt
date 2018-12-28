@@ -1,0 +1,10 @@
+8.0
+8
+1	SQLNCHAR	0	0	"\t\0"		1	tnr_child_tnd_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	tnr_ancestor_tnd_id	""
+3	SQLNCHAR	0	0	"\t\0"		3	tnr_type	""
+4	SQLNCHAR	0	0	"\t\0"		4	tnr_order	""
+5	SQLNCHAR	0	0	"\t\0"		5	tnr_parent_ind	""
+6	SQLNCHAR	0	0	"\t\0"		6	tnr_remain_on_syn	""
+7	SQLNCHAR	0	0	"\t\0"		7	tnr_create_timestamp	""
+8	SQLNCHAR	0	0	"\r\0\n\0"	8	tnr_create_usr_id	""

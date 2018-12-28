@@ -1,0 +1,10 @@
+<object_view>
+	<attribute checked="yes" sortable="yes">att_create_timestamp</attribute>
+	<attribute checked="yes">att_status</attribute>
+	<attribute checked="yes" sortable="yes">att_timestamp</attribute>
+	<attribute checked="yes">cov_commence_datetime</attribute>
+	<attribute checked="yes">cov_last_acc_datetime</attribute>
+	<attribute checked="yes">total_attempt</attribute>
+	<attribute checked="yes">cov_total_time</attribute>
+	<attribute checked="yes">cov_score</attribute>
+</object_view>

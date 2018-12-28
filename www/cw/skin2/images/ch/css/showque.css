@@ -1,0 +1,26 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Show Question
+suffix								   :showque
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : ch_lrn_showque_cw.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+.wbShowQueBg{
+	background-color: #F8F9DD;
+}
+
+.wbShowQueHeadText{
+	color: #000000;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbShowQueHLText{
+	color: #FF3399;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbShowQueText{
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}

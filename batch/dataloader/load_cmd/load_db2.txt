@@ -1,0 +1,55 @@
+load from D:\temp\usergroup1_Entity.txt of del modified by identityoverride coldel0x09 messages D:\temp\usergroup1_Entity.log insert into Entity (ent_id, ent_type, ent_upd_date, ent_ste_uid, ent_syn_ind)
+ALTER TABLE Entity ALTER ent_id RESTART WITH 18
+load from D:\temp\usergroup2_UserGroup.txt of del modified by coldel0x09 messages D:\temp\usergroup2_UserGroup.log insert into UserGroup (usg_ent_id, usg_display_bil, usg_ent_id_root)
+SET INTEGRITY FOR UserGroup IMMEDIATE CHECKED
+load from D:\temp\usergroup3_EntityRelation.txt of del modified by coldel0x09 messages D:\temp\usergroup3_EntityRelation.log insert into EntityRelation (ern_child_ent_id, ern_ancestor_ent_id, ern_order, ern_type, ern_parent_ind, ern_syn_timestamp, ern_remain_on_syn, ern_create_timestamp, ern_create_usr_id)
+SET INTEGRITY FOR EntityRelation IMMEDIATE CHECKED
+load from D:\temp\user1_Entity.txt of del modified by identityoverride coldel0x09 messages D:\temp\user1_Entity.log insert into Entity (ent_id, ent_type, ent_upd_date, ent_syn_ind)
+ALTER TABLE Entity ALTER ent_id RESTART WITH 10018
+load from D:\temp\user2_RegUser.txt of del modified by coldel0x09 messages D:\temp\user2_RegUser.log insert into RegUser (usr_id, usr_ent_id, usr_pwd, usr_display_bil, usr_signup_date, usr_last_login_date, usr_status, usr_upd_date, usr_ste_ent_id, usr_ste_usr_id, usr_approve_timestamp, usr_pwd_upd_timestamp, usr_syn_rol_ind, usr_source)
+SET INTEGRITY FOR RegUser IMMEDIATE CHECKED
+load from D:\temp\user3_RegUserExtension.txt of del modified by coldel0x09 messages D:\temp\user3_RegUserExtension.log insert into RegUserExtension (urx_usr_ent_id)
+SET INTEGRITY FOR RegUserExtension IMMEDIATE CHECKED
+load from D:\temp\user4_acEntityRole.txt of del modified by coldel0x09 messages D:\temp\user4_acEntityRole.log insert into acEntityRole (erl_ent_id, erl_rol_id, erl_creation_timestamp, erl_eff_start_datetime, erl_eff_end_datetime)
+SET INTEGRITY FOR acEntityRole IMMEDIATE CHECKED
+load from D:\temp\user5_EntityRelation.txt of del modified by coldel0x09 messages D:\temp\user5_EntityRelation.log insert into EntityRelation (ern_child_ent_id, ern_ancestor_ent_id, ern_order, ern_type, ern_parent_ind, ern_syn_timestamp, ern_remain_on_syn, ern_create_timestamp, ern_create_usr_id)
+SET INTEGRITY FOR EntityRelation IMMEDIATE CHECKED
+load from D:\temp\user6_EntityRelation.txt of del modified by coldel0x09 messages D:\temp\user6_EntityRelation.log insert into EntityRelation (ern_child_ent_id, ern_ancestor_ent_id, ern_order, ern_type, ern_parent_ind, ern_syn_timestamp, ern_remain_on_syn, ern_create_timestamp, ern_create_usr_id)
+SET INTEGRITY FOR EntityRelation IMMEDIATE CHECKED
+load from D:\temp\user7_EntityRelation.txt of del modified by coldel0x09 messages D:\temp\user7_EntityRelation.log insert into EntityRelation (ern_child_ent_id, ern_ancestor_ent_id, ern_order, ern_type, ern_parent_ind, ern_syn_timestamp, ern_remain_on_syn, ern_create_timestamp, ern_create_usr_id)
+SET INTEGRITY FOR EntityRelation IMMEDIATE CHECKED
+load from D:\temp\user8_EntityRelation.txt of del modified by coldel0x09 messages D:\temp\user8_EntityRelation.log insert into EntityRelation (ern_child_ent_id, ern_ancestor_ent_id, ern_order, ern_type, ern_parent_ind, ern_syn_timestamp, ern_remain_on_syn, ern_create_timestamp, ern_create_usr_id)
+SET INTEGRITY FOR EntityRelation IMMEDIATE CHECKED
+load from D:\temp\resfolder1_Objective.txt of del modified by coldel0x09 messages D:\temp\resfolder1_Objective.log insert into Objective (obj_id, obj_syl_id, obj_type, obj_desc, obj_status, obj_tcr_id)
+SET INTEGRITY FOR Objective IMMEDIATE CHECKED
+load from D:\temp\resfolder2_ObjectiveAccess.txt of del modified by coldel0x09 messages D:\temp\resfolder2_ObjectiveAccess.log insert into ObjectiveAccess (oac_obj_id, oac_access_type, oac_ent_id)
+SET INTEGRITY FOR ObjectiveAccess IMMEDIATE CHECKED
+load from D:\temp\question1_Resources.txt of del modified by identityoverride coldel0x09 messages D:\temp\question1_Resources.log insert into Resources (res_id, res_title, res_type, res_subtype, res_difficulty, res_privilege, res_usr_id_owner, res_status, res_create_date, res_upd_user, res_upd_date)
+SET INTEGRITY FOR Resources IMMEDIATE CHECKED
+ALTER TABLE Resources ALTER res_id RESTART WITH 10001
+load from D:\temp\question2_ResourceObjective.txt of del modified by coldel0x09 messages D:\temp\question2_ResourceObjective.log insert into ResourceObjective (rob_res_id, rob_obj_id)
+SET INTEGRITY FOR ResourceObjective IMMEDIATE CHECKED
+load from D:\temp\question3_Question.txt of del modified by coldel0x09 messages D:\temp\question3_Question.log insert into Question (que_res_id , que_xml, que_score, que_type, que_int_count, que_media_ind, que_submit_file_ind)
+SET INTEGRITY FOR Question IMMEDIATE CHECKED
+load from D:\temp\question4_Interaction.txt of del modified by coldel0x09 messages D:\temp\question4_Interaction.log insert into Interaction (int_res_id, int_order, int_xml_outcome, int_xml_explain)
+SET INTEGRITY FOR Interaction IMMEDIATE CHECKED
+load from D:\temp\course1_aeItem.txt of del modified by identityoverride coldel0x09 messages D:\temp\course1_aeItem.log insert into aeItem (itm_id, itm_title, itm_code, itm_type, itm_appn_start_datetime, itm_appn_end_datetime, itm_xml, itm_status, itm_owner_ent_id, itm_create_timestamp, itm_create_usr_id, itm_upd_timestamp, itm_upd_usr_id, itm_create_run_ind, itm_run_ind, itm_apply_ind, itm_deprecated_ind, itm_qdb_ind, itm_auto_enrol_qdb_ind, itm_create_session_ind, itm_session_ind, itm_has_attendance_ind, itm_ji_ind, itm_completion_criteria_ind, itm_retake_ind, itm_tcr_id, itm_access_type)
+SET INTEGRITY FOR aeItem IMMEDIATE CHECKED
+ALTER TABLE aeItem ALTER itm_id RESTART WITH 1001
+load from D:\temp\course2_aeItemTemplate.txt of del modified by coldel0x09 messages D:\temp\course2_aeItemTemplate.log insert into aeItemTemplate (itp_itm_id, itp_ttp_id, itp_tpl_id, itp_create_timestamp, itp_create_usr_id)
+SET INTEGRITY FOR aeItemTemplate IMMEDIATE CHECKED
+load from D:\temp\course3_aeItemTemplate.txt of del modified by coldel0x09 messages D:\temp\course3_aeItemTemplate.log insert into aeItemTemplate (itp_itm_id, itp_ttp_id, itp_tpl_id, itp_create_timestamp, itp_create_usr_id)
+SET INTEGRITY FOR aeItemTemplate IMMEDIATE CHECKED
+load from D:\temp\course4_aeItemTemplate.txt of del modified by coldel0x09 messages D:\temp\course4_aeItemTemplate.log insert into aeItemTemplate (itp_itm_id, itp_ttp_id, itp_tpl_id, itp_create_timestamp, itp_create_usr_id)
+SET INTEGRITY FOR aeItemTemplate IMMEDIATE CHECKED
+load from D:\temp\course5_CourseCriteria.txt of del modified by coldel0x09 messages D:\temp\course5_CourseCriteria.log insert into CourseCriteria (ccr_pass_score, ccr_duration, ccr_pass_ind, ccr_all_cond_ind, ccr_create_timestamp, ccr_create_usr_id, ccr_upd_timestamp, ccr_upd_usr_id, ccr_type, ccr_upd_method, ccr_itm_id)
+SET INTEGRITY FOR CourseCriteria IMMEDIATE CHECKED
+load from D:\temp\course6_Resources.txt of del modified by identityoverride coldel0x09 messages D:\temp\course6_Resources.log insert into Resources (res_id, res_lan, res_title, res_type, res_usr_id_owner, res_status, res_create_date, res_upd_user, res_upd_date)
+SET INTEGRITY FOR Resources IMMEDIATE CHECKED
+ALTER TABLE Resources ALTER res_id RESTART WITH 11001
+load from D:\temp\course7_Course.txt of del modified by coldel0x09 messages D:\temp\course7_Course.log insert into Course (cos_res_id, cos_itm_id)
+SET INTEGRITY FOR Course IMMEDIATE CHECKED
+load from D:\temp\course8_ResourcePermission.txt of del modified by coldel0x09 messages D:\temp\course8_ResourcePermission.log insert into ResourcePermission (rpm_res_id, rpm_ent_id, rpm_rol_ext_id, rpm_read, rpm_write, rpm_execute)
+SET INTEGRITY FOR ResourcePermission IMMEDIATE CHECKED
+load from D:\temp\course9_aeItemAccess.txt of del modified by coldel0x09 messages D:\temp\course9_aeItemAccess.log insert into aeItemAccess (iac_itm_id, iac_ent_id, iac_access_type, iac_access_id)
+SET INTEGRITY FOR aeItemAccess IMMEDIATE CHECKED

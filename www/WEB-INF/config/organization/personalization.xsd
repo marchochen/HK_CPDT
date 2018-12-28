@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:simpleType name="nonNullStringType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="langListType">
+		<xsd:sequence>
+			<xsd:element name="lang" type="nonNullStringType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="roleListType">
+		<xsd:sequence>
+			<xsd:element name="role" type="nonNullStringType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="skinType">
+		<xsd:sequence>
+			<xsd:element name="name" type="nonNullStringType" minOccurs="0"/>
+			<xsd:element name="lang_list" type="langListType"/>
+			<xsd:element name="role_list" type="roleListType" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="id" type="nonNullStringType" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="skinListType">
+		<xsd:sequence>
+			<xsd:element name="skin" type="skinType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="default_id" type="nonNullStringType" use="required"/>
+		<xsd:attribute name="skin_selectable" type="xsd:boolean" use="required"/>
+		<xsd:attribute name="default_lang" type="nonNullStringType" use="required"/>
+		<xsd:attribute name="lang_selectable" type="xsd:boolean" use="required"/>
+	</xsd:complexType>
+	<xsd:element name="personalization">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="skin_list" type="skinListType"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

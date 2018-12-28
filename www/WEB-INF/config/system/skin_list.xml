@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+skin_list
+Description:
+	The skin definitions for all organizations. 
+Value:
+	default_id: Specifies the default skin identifier for functions before logging in. For example, the login page.
+	default_lang: Specifies the default language code (IETF RFC 1766) for functions before logging in. For example, the login page.
+Remarks:
+	The default language code (default_lang) must be supported by the default skin (default_id); otherwise, the behavior is undefined.
+	
+-->
+
+<!-- 这里设置的默认语言在和updxml.ini指定的审批流程所使用的语言版本一致,否则会导郅报名状态出错
+zh-cn  :  tpl_workflow_multilevel_zh_cn.xml
+zh-hk  :  tpl_workflow_multilevel_zh-hk.xml
+en-us  :  tpl_workflow_multilevel_en_us.xml
+-->
+<skin_list default_id="skin3" default_lang="en-us" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="skin_list.xsd">
+	<!-- 
+	skin
+	Description:
+		The definition of skin. 
+	Value:
+		id: Specifies the skin identifier. It should match with name of the folder storing the skin related files.
+	-->
+	<skin id="skin3">
+		<!-- name: Specifies the name of the skin to be displayed to the users. -->
+		<name>Grey</name>
+		<!-- lang_list: Specifies the language codes (IETF RFC 1766) supported by the skin. -->
+		<lang_list>
+			<lang>en-us</lang>
+			<lang>zh-cn</lang>
+			<lang>zh-hk</lang>
+		</lang_list>
+	</skin>
+	<skin id="skin2">
+		<!-- name: Specifies the name of the skin to be displayed to the users. -->
+		<name>Green</name>
+		<!-- lang_list: Specifies the language codes (IETF RFC 1766) supported by the skin. -->
+		<lang_list>
+			<lang>en-us</lang>
+			<lang>zh-cn</lang>
+			<lang>zh-hk</lang>
+		</lang_list>
+	</skin>
+	<skin id="skin5">
+		<!-- name: Specifies the name of the skin to be displayed to the users. -->
+		<name>Purple</name>
+		<!-- lang_list: Specifies the language codes (IETF RFC 1766) supported by the skin. -->
+		<lang_list>
+			<lang>en-us</lang>
+			<lang>zh-cn</lang>
+			<lang>zh-hk</lang>
+		</lang_list>
+	</skin>
+	<skin id="skin4">
+		<!-- name: Specifies the name of the skin to be displayed to the users. -->
+		<name>Brown</name>
+		<!-- lang_list: Specifies the language codes (IETF RFC 1766) supported by the skin. -->
+		<lang_list>
+			<lang>en-us</lang>
+			<lang>zh-cn</lang>
+			<lang>zh-hk</lang>
+		</lang_list>
+	</skin>
+	<skin id="skin1">
+		<!-- name: Specifies the name of the skin to be displayed to the users. -->
+		<name>Blue</name>
+		<!-- lang_list: Specifies the language codes (IETF RFC 1766) supported by the skin. -->
+		<lang_list>
+			<lang>en-us</lang>
+			<lang>zh-cn</lang>
+			<lang>zh-hk</lang>
+		</lang_list>
+	</skin>
+</skin_list>

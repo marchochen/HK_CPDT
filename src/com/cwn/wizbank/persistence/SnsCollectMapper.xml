@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.SnsCollectMapper">
+	<select id="get" resultType="SnsCollect" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				s_clt_id,
+				s_clt_title,
+				s_clt_url,
+				s_clt_create_datetime,
+				s_clt_uid,
+				s_clt_module,
+				s_clt_target_id
+			from sns_collect t where t.s_clt_id = #{id}
+		]]>
+	</select>
+	<select id="getByUserId" resultType="SnsCollect"  parameterType="Map">
+	    	select 
+				s_clt_id,
+				s_clt_title,
+				s_clt_url,
+				s_clt_create_datetime,
+				s_clt_uid,
+				s_clt_module,
+				s_clt_target_id
+			from sns_collect t where t.s_clt_target_id = #{targetId}
+			and s_clt_uid = #{userEntId}
+			and s_clt_module = #{module}
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.SnsCollect">
+	    <![CDATA[
+	        update sns_collect t 
+	        set 
+				s_clt_id = #{s_clt_id,jdbcType=INTEGER},
+				s_clt_title = #{s_clt_title,jdbcType=VARCHAR},
+				s_clt_url = #{s_clt_url,jdbcType=VARCHAR},
+				s_clt_create_datetime = #{s_clt_create_datetime,jdbcType=TIMESTAMP},
+				s_clt_uid = #{s_clt_uid,jdbcType=INTEGER},
+				s_clt_module = #{s_clt_module,jdbcType=VARCHAR},
+				s_clt_target_id = #{s_clt_target_id,jdbcType=INTEGER}
+	         where t.s_clt_id = #{s_clt_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.SnsCollect">
+    	<![CDATA[
+            insert into sns_collect(
+            		s_clt_title,
+            		s_clt_url,
+            		s_clt_create_datetime,
+            		s_clt_uid,
+            		s_clt_module,
+            		s_clt_target_id
+            ) values (
+            	#{s_clt_title,jdbcType=VARCHAR},
+            	#{s_clt_url,jdbcType=VARCHAR},
+            	#{s_clt_create_datetime,jdbcType=TIMESTAMP},
+            	#{s_clt_uid,jdbcType=INTEGER},
+            	#{s_clt_module,jdbcType=VARCHAR},
+            	#{s_clt_target_id,jdbcType=INTEGER}
+            )
+        ]]>
+    </insert>
+    <delete id="delete" parameterType="SnsCollect">
+	    <![CDATA[
+	        delete from sns_collect  where s_clt_uid = #{s_clt_uid} and s_clt_target_id = #{s_clt_target_id} and s_clt_module = #{s_clt_module}
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="SnsCollect">
+	    <![CDATA[
+	         select 
+				s_clt_id,
+				s_clt_title,
+				s_clt_url,
+				s_clt_create_datetime,
+				s_clt_uid,
+				s_clt_module,
+				s_clt_target_id
+			from sns_collect t 
+	    ]]>
+	</select>
+	<select id="selectCollectItemList" resultType="AeItem" parameterType="Page">
+		select 
+			itm.itm_id,
+			itm_title,
+			itm_icon,
+			itm_mobile_ind,
+			itm_integrated_ind,
+			itm_create_run_ind,
+			itm_run_ind,
+			itm_exam_ind,
+      		itm_type,
+			itd_compulsory_ind AS "itd.itd_compulsory_ind",
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					'Get_Tnd_Title' as "aeTreeNode.tnd_title",
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					'Get_Tnd_Title' as "aeTreeNode.tnd_title",
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					<!-- 目录字段合并  -->
+					"aeTreeNode.tnd_title" = (
+						STUFF((
+							select ',' + cat.tnd_title 
+							from aeItem 
+							left join aeTreeNode tItm on tItm.tnd_itm_id = itm_id
+							inner join aeTreeNodeRelation on tnr_child_tnd_id = tItm.tnd_id and tnr_parent_ind = 1 and tnr_ancestor_tnd_id = tItm.tnd_parent_tnd_id
+							left join aeTreeNode cat on cat.tnd_id = tnr_ancestor_tnd_id where itm_id = itm.itm_id 
+							for xml path('')
+						),1,1,'')
+					),
+				</when>
+			</choose>
+			s_clt_create_datetime 
+		from sns_collect
+		inner join aeItem itm on itm.itm_id = s_clt_target_id 
+		left join itemTargetLrnDetail on itd_itm_id = itm.itm_id and itd_usr_ent_id = ${params.usr_ent_id}
+		<if test="_databaseId == 'ORACLE'">
+			
+		</if>
+		where s_clt_uid = ${params.usr_ent_id} and s_clt_module = '${params.s_clt_module}'  ${params.open_symbol} 
+		order by s_clt_create_datetime desc, itm.itm_id
+	</select>
+	<select id="selectCollectArticleList" resultType="Article" parameterType="Page">
+		select
+			art_id,
+			art_title,
+			art_icon_file,
+			aty_title as "articleType.aty_title",
+			s_clt_create_datetime as "collect.s_clt_create_datetime"
+		from sns_collect
+		inner join article on art_id = s_clt_target_id and art_status = 1
+		left join articleType on aty_id = art_type 
+		where s_clt_uid = ${params.usr_ent_id} and s_clt_module = '${params.s_clt_module}'
+		<if test="params.art_push_mobile != null">
+		 and art_push_mobile=#{params.art_push_mobile}		
+		</if>
+		order by "collect.s_clt_create_datetime" desc, art_id
+	</select>
+	<select id="selectCollectKnowledgeList" resultType="KbItem" parameterType="Page">
+		select
+			kbi_id,
+			kbi_title,
+			kbi_image,
+			kbi_type,
+			kbi_content,
+			s_clt_create_datetime as "collect.s_clt_create_datetime",
+			kba_id as "imageAttachment.kba_id",
+			kba_filename as "imageAttachment.kba_filename",
+			kba_file as "imageAttachment.kba_file",
+			kba_url as "imageAttachment.kba_url",
+			kbi_publish_datetime,
+			kbi_filetype
+		from sns_collect
+		inner join kb_item on kbi_id = s_clt_target_id
+		left join kb_attachment kba on kbi_image =kba_id
+		where s_clt_uid = ${params.usr_ent_id} and s_clt_module = '${params.s_clt_module}'
+		order by "collect.s_clt_create_datetime" desc, kbi_id
+	</select>
+	
+	<delete id="delErrorData"  parameterType="Map" >
+    	<!-- 重复的错误数据会导致程序出错，在错误发生成调用该方法删除重复的数据 -->
+    	delete from sns_collect where s_clt_id not in(
+		  select max(s_clt_id) from sns_collect 
+		        group by s_clt_uid,s_clt_target_id,s_clt_module 
+		) 	
+	</delete>
+</mapper>

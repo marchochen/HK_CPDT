@@ -1,0 +1,57 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Form,Insert/Update
+suffix								   :Form
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : form.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+.wbFormBarBg{
+	background: #859334;
+}
+
+.wbFormHeadLeftBg{
+	background: #A9BB31;
+	height: 12px;
+}
+
+.wbFormHeadLeftText{
+	color: #FFFFFF;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+	padding-top: 2px;
+}
+
+.wbFormHeadRightBg{
+	background: url(../frm_bg.gif) #A9BB31;
+	height: 12px;
+}
+
+.wbFormLeftBg{
+	background: #F8F9DD;
+}
+
+.wbFormLeftText{
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+	margin-right: 5px;
+}
+
+.wbFormLeftTextBold{
+	color: #000000;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+	margin-right: 5px;
+}
+
+.wbFormRightBg{
+	background: #FFFFFF;
+}
+
+.wbFormRightText, .wbFormRightSText {
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbFormRightTextBold{
+	color: #000000;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}

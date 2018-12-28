@@ -1,0 +1,174 @@
+<!doctype html>
+<html ng-app="cwn">
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+		<title translate="cwn_title"></title>
+		<link rel="stylesheet" href="../../css/basic.css" />
+		<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.load.js"></script>
+		<script type="text/javascript" src="../../lib/common.js"></script>
+		<script type="text/javascript" src="../../js/controllers/learning/courseCatalogController.js"></script>
+		<!--[if lt IE 9]>
+		<script src="../js/lib/html5.js" type="text/jscript"></script>
+		<![endif]-->
+	</head>
+
+	<body ng-cloak class="ng-cloak" ng-controller="CourseCatalogController">
+		<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>
+	    <div class="wrap">
+	    
+	        <header class="header mm-background">
+			    <a class="header-back" href="javascript:back();"></a>
+			    <span class="header-title">{{'cos_title' | translate}}</span>
+			    <!-- <a class="{{headerClass}}" href="javascript:;" ng-click="toggleSelection()"></a> -->
+			    <a class="header-sosuo" href="{{{url:'../search/search.html'} | appUrl}}" title="search"></a>
+			</header> <!-- header End -->
+	        
+	        <wzm-docker rp="../../" target="learning"></wzm-docker>
+	       
+	        <section class="content-2" id="main">
+	          
+	            <!-- panel-list-box start -->
+	            <div class="panel-list-box" style="margin:0;">
+	                <div class="panel-tab-1 pub-tab">
+	                
+	                	<tabs css="1" selected-callback="selectedCallback">
+	                		<pane title="{{'my_course' | translate}}" select="show.myCourse">
+	                		
+	                			<!-- header-guide start -->
+					        	<div class="header-guide-box header-guide-box-toggle-myCourse" style="margin:0 0 10px 0;">
+					                <div class="header-guide-title">{{'cos_type' | translate}}<i style="float:right;border: #999 solid 1px; margin: -1px -6px 0 0; padding: 0 5px; border-radius: 5px;" translate="cos_type_all" ng-click="selectItemType('all')"></i></div>
+					                <div class="header-guide-info">
+					                    <a class="{{item.cla}}" ng-if="item.id!='all'" ng-class="{'select': item.select}" href="javascript:;" ng-click="selectItemType(item.id)" ng-repeat="item in itemTypes">{{item.title | translate}}</a>
+					                </div>
+					                <div>
+						                <div class="header-guide-title">{{'cos_app_status'|translate}}<i translate="cos_type_all" style="float:right;border: #999 solid 1px; margin: -1px -6px 0 0; padding: 0 5px; border-radius: 5px;" ng-click="selectAppStatus('all')"></i></div>
+						                <div class="header-guide-info">
+						                	<a ng-if="s.id!='all'" ng-click="selectAppStatus(s.id)" ng-repeat="s in appStatus" class="{{s.cla}}" href="javascript:void(0)" ng-class="{'select':s.id == appStatusSelectItemId}">{{s.title | translate}}</a>
+					                	</div>
+				                	</div>
+					            </div>
+						        <!-- header-guide End -->
+	                		
+				                <div class="tuwen-list-1" style="{{$index==0?'border-top:0;':''}}" ng-if="myCourseLoader.items.length>0" ng-repeat="item in myCourseLoader.items">
+				                    <a class="tuwen-list-1-box clearfix" href="javascript:clicked('../course/detail.html?itmId={{item.item.encItmId}}&tkhId={{item.app_tkh_id}}',true,'item{{item.item.itm_id}}')" title="">
+				                        <div class="tuwen-list-1-pic">
+				                            <img ng-src="{{serverHost}}{{item.item.itm_icon}}">
+				                            <span class="{{cur_lan_en=='en-us'?'list-tool-1-bixiu-e':'list-tool-1-bixiu'}}" ng-if="item.itd.itd_compulsory_ind == 1"></span>
+				                            <span class="{{item.item.cla}}"></span>
+				                        </div>
+				                        
+				                        <div class="marginl">
+					                        <div class="tuwen-list-1-tit-1"><i class="wzb-pc-icon"></i><i class="wzb-phone-icon" ng-show="item.item.itm_mobile_ind && item.item.itm_mobile_ind == 'yes'"></i>{{item.item.itm_title}}</div>
+					                        <div class="wiz-load" ng-if="item.app_status == 'I' || item.app_status == 'Admitted'">
+					                            <div class="wbload">
+					                                <span style="width:{{item.cov_progress}}px"></span>
+					                            </div>
+					                            <span class="wbnum">{{item.cov_progress}}%</span>
+					                        </div>
+					                        
+					                        <div class="wiz-load" ng-if="!(item.app_status == 'I' || item.app_status == 'Admitted')">
+					                        	<span style="line-height: 26px" class="{{item.appStatusJson.cla}}">{{item.appStatusJson.title | translate}}</span>
+					                        </div>
+					                        
+					                        <div class="tuwen-list-tool" style="height:100%">
+					                            <span >
+				                            		<!-- <span ng-if="item.item.itm_content_eff_start_time">{{item.item.itm_content_eff_start_time | toDate : 'yyyy-MM-dd' }}<br/></span>
+				                            		<span ng-if="!item.item.itm_content_eff_start_time" ng-bind="'itm_content_eff_start_time' | translate"></span>
+				                            		{{'time_to' | translate}} {{item.item.is_unlimited}}
+				                            		<span ng-if="item.item.itm_content_eff_end_time">{{item.item.itm_content_eff_end_time | toDate : 'yyyy-MM-dd' }}</span>
+				                            		<span ng-if="!item.item.itm_content_eff_end_time" ng-bind="'global_unlimit' | translate"></span> -->
+				                            		<span ng-if="item.item.itm_type == 'SELFSTUDY'">
+				                            			{{'mod_content_duration' | translate}}:
+					                            		<span ng-if="item.item.itm_online_content_period == 0">{{'mod_unlimit_time' | translate}}</span>
+					                            		<span ng-if="item.item.itm_online_content_period == 1 && item.item.itm_content_eff_end_time">
+					                            		{{'mod_by' | translate}} {{item.item.itm_content_eff_end_time | toDate : 'yyyy-MM-dd' }} {{'mod_before' | translate}}
+					                            		</span>
+					                            		<span ng-if="item.item.itm_online_content_period == 2 && item.item.itm_content_eff_duration">
+					                            			<span ng-if="item.item.itm_is_enrol == 0">{{item.item.itm_content_eff_duration}}{{'mod_after_days' | translate}}</span>
+					                            			<span ng-if="item.item.itm_is_enrol == 1">{{'mod_by' | translate}} {{item.item.itm_content_eff_end_time | toDate : 'yyyy-MM-dd' }} {{'mod_before' | translate}}</span>
+					                            		</span>
+					                            	</span>
+					                            	<span ng-if="item.item.itm_type == 'CLASSROOM'">
+					                            		{{'mod_class_period' | translate}}:
+					                            		{{'time_from' | translate}} {{item.item.itm_content_eff_start_time | toDate : 'yyyy-MM-dd' }}
+					                            		{{'time_to' | translate}} {{item.item.itm_content_eff_end_time | toDate : 'yyyy-MM-dd' }}
+					                            	</span>
+					                            </span>
+					                            <!-- <span class="list-tool-1-review">{{item.item.cnt_comment_count?item.item.cnt_comment_count:0}}</span> -->
+					                        </div>
+				                        </div>   
+				                        
+				                    </a>
+				                </div>
+				                <div loader="myCourseLoader"></div>
+	                		</pane>
+	                		
+	                		<pane title="{{'cos_catalog' | translate}}" select="show.courseCatalog">
+	                			
+	                			<catalog-menu rp="../../" type="course"></catalog-menu>
+	                			
+			                    <div>
+			                        <img src="../../images/poster004.png" width="100%" alt="">
+			                    </div>
+			                    <hierarchy-catalog type="course" rp="../../"></hierarchy-catalog>
+	                		</pane>
+	                		
+<!-- 	                		<pane title="{{'cos_recommend' | translate}}" select="show.recommendCourse">
+				                
+				                header-guide start
+					        	<div class="header-guide-box header-guide-box-toggle-recommendCourse" style="display:none;margin:0 0 10px 0;">
+					            	<div>
+					            		<div class="header-guide-title">{{'cos_recommend_type' | translate}}<i translate="cos_type_all" style="float:right;border: #999 solid 1px; margin: -1px -6px 0 0; padding: 0 5px; border-radius: 5px;" ng-click="selectRecommendType('all')"></i></div>
+					            		<div class="header-guide-info">
+						                    <div style="overflow:hidden; border-bottom:1px solid #d9d9d9;">
+						                        <a ng-repeat="r in recommendTypes" ng-if="r.id!='all'" ng-class="{'select':r.select}" href="javascript:void(0)" ng-click="selectRecommendType(r.id)">{{r.title | translate}}</a>
+						                    </div>
+						                    <div class="clearfix">
+						                        <a ng-repeat="c in compulsoryTypes" ng-class="{'select':c.select}" ng-click="selectCompulsoryType(c.id)" href="javascript:void(0)" >{{c.title | translate}}</a>
+						                    </div>
+						                </div>
+					            	</div>
+					                <div class="header-guide-title">{{'cos_type' | translate}}<i translate="cos_type_all" style="float:right;border: #999 solid 1px; margin: -1px -6px 0 0; padding: 0 5px; border-radius: 5px;" ng-click="selectItemType('all')"></i></div>
+					                <div class="header-guide-info">
+					                    <a class="{{item.cla}}" ng-if="item.id!='all'" ng-class="{'select': item.select}" href="javascript:;" ng-click="selectItemType(item.id)" ng-repeat="item in itemTypes">{{item.title | translate}}</a>
+					                </div>
+					                <div>
+						                <div class="header-guide-title">{{'cos_app_status'|translate}}<i translate="cos_type_all" style="float:right;border: #999 solid 1px; margin: -1px -6px 0 0; padding: 0 5px; border-radius: 5px;" ng-click="selectAppStatus('all')"></i></div>
+						                <div class="header-guide-info">
+						                	<a ng-if="s.id!='all'" ng-click="selectAppStatus(s.id)" ng-repeat="s in appStatus" class="{{s.cla}}" href="javascript:void(0)" ng-class="{'select':s.id == appStatusSelectItemId}">{{s.title | translate}}</a>
+					                	</div>
+				                	</div>
+					            </div>
+						        header-guide End
+				                
+				                <div class="tuwen-list-1" style="{{$index==0?'border-top:0;':''}}" ng-if="recommendCourseLoader.items.length>0" ng-repeat="item in recommendCourseLoader.items">
+				                    <a class="tuwen-list-1-box clearfix" href="javascript:clicked('../course/detail.html?itmId={{item.item.encItmId}}&tkhId={{item.app_tkh_id}}',true,'item{{item.item.itm_id}}')" title="">
+				                        <div class="tuwen-list-1-pic">
+				                            <img ng-src="{{serverHost}}{{item.item.itm_icon}}">
+				                            <span class="{{cur_lan_en=='en-us'?'list-tool-1-bixiu-e':'list-tool-1-bixiu'}}" ng-if="item.itd_compulsory_ind == 1"></span>
+				                            <span class="{{item.item.cla}}"></span>
+				                        </div>
+				                        
+				                        <div class="marginl">
+					                        <div class="tuwen-list-1-tit-1">{{item.item.itm_title}}</div>
+					                        <div class="tuwen-list-tool">
+					                            <span class="list-tool-1-laud">{{item.item.snsCount && item.item.snsCount.s_cnt_like_count ? item.item.snsCount.s_cnt_like_count:0}}</span>
+					                            <span class="list-tool-1-review">{{item.item.cnt_comment_count?item.item.cnt_comment_count:0}}</span>
+					                        </div>
+				                        </div>
+				                        
+				                    </a>
+				                </div>
+	                			<div loader="recommendCourseLoader"></div>
+	                		</pane> -->
+	                		
+	                	</tabs>
+	                    
+	                </div>
+	            </div> <!-- panel-list-box End -->
+	        </section> <!-- content End -->
+	    </div> <!-- wrap End -->
+	</body>
+</html>

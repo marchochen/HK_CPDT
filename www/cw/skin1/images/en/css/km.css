@@ -1,0 +1,44 @@
+/*= wizbank  CSS =========================================================
+suffix								   :km
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : km.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+a.wbKmNavLink{
+	color: #000000;
+	font: bold 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-decoration: none;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+a.wbKmNavTitle,.wbKmNavTitle{
+	color: #000000;
+	font: bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-decoration: none;
+	margin-left: 8px;
+	margin-right: 8px;
+}
+a.wbKmNavSubTitle,.wbKmNavSubTitle{
+	color: #000000;
+	font: bold 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-decoration: none;
+	margin-left: 12px;
+	margin-right: 12px;
+}
+a.wbKmNavDesc,.wbKmNavDesc{
+	color: #000000;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-decoration: none;
+	margin-left: 18px;
+	margin-right: 18px;
+}
+.wbKmNavNav{
+		font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+		margin-left: 12px;
+}
+
+.wbKmNavBg{
+	background-color: #ffffff;
+}

@@ -1,0 +1,71 @@
+<!doctype html>
+<html ng-app="approval">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/ApprovalController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="appController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+
+<div class="wrap" id="wizwrap">
+	<header class="header mm-background">
+	    <a class="header-back" href="javascript:back();"></a>
+	    <span class="header-title">{{'app_apply' | translate}}</span>
+	</header>
+	<wzm-docker rp="../../"></wzm-docker>
+	<section class="content">
+		<div class="panel-list-box" style="margin:0;">
+			<tabs> 
+				<pane title="{{'app_pending' | translate}}" style="panel-tabcont-2 pub-tabcont"> 
+					<ul class="panel-list-1-4">
+				   		<li ng-repeat="app in pendingList.items">
+							<div class="panel-list-title-2" href="javascript:;">
+						    	{{app.user.usr_display_bil}}
+						     	<div class="panel-list-date">{{app.app_upd_timestamp.substring(0,10)}}</div>
+							</div>
+				          	<div class="panel-list-cont-3">
+				          		<div class="panel-list-info">{{app.item.itm_title}}</div>
+				               	<div class="panel-list-info" style="line-height:28px;">{{'app_process' | translate}}：{{app.aal_action_timestamp.substring(0, 10)+' '}}{{app.aal_user_name+' '}}{{app.aal_action_taken | translate}}</div>
+				               	<a class="panel-list-tip" href="javascript:;" onClick="show(this)">{{'app_approval' | translate}}</a>
+				               
+				               	<div class="tipBox">
+				               		<div class="hd">
+				                    	<em class="arrow arrowT"><i></i></em>
+				                    </div>
+				                    <div class="bd clearfix">
+				                  		<a class="panel-list-ratify" href="javascript:;" ng-click="pass(app.app_id,app.app_upd_timestamp)">{{'btn_approval' | translate}}</a>
+				                    	<a class="panel-list-refuse" href="javascript:;" ng-click="refuse(app.app_id,app.app_upd_timestamp)">{{'btn_refuse' | translate}}</a>
+				         			</div>
+				   				</div>
+				    		</div>    
+						</li>
+				    </ul>
+					<div loader="pendingList"></div>
+			    </pane> 
+			    <pane title="{{'app_approved' | translate}}" style="panel-tabcont-2 pub-tabcont"> 
+					<ul class="panel-list-1-4">
+						<li ng-repeat="app in approvedList.items">
+							<div class="panel-list-title-2" href="javascript:;">
+				           		{{app.user.usr_display_bil}} 
+				          		<div class="panel-list-date">{{'app_' + app.aal_action_taken | translate}} {{app.app_upd_timestamp.substring(0,10)}}</div>
+				       		</div>
+				 			<div class="panel-list-info">{{app.item.itm_title}}</div>
+					       	<div class="panel-list-info">{{'app_next_approver' | translate}}：{{app.aal_user_name | translate}}</div>
+				    	</li>
+					</ul>
+					<div loader="approvedList"></div>
+				</pane> 
+			</tabs>
+		</div>
+	</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

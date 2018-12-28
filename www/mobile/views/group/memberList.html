@@ -1,0 +1,97 @@
+<!doctype html>
+<html ng-app="group">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/GroupController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="memberController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">
+{{alert.msg | translate}}
+</alert> 
+<div class="wrap" id="wizwrap"  ng-show="show.member">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:void(0);" ng-click="goBack()" title="back"></a>
+    <span class="header-title" translate="group_member"><!--群成员--></span>
+    <a ng-if="isManager || !isNormal" class="header-qunjia" href="javascript:;" ng-click="showPage('add');"></a>
+    <a ng-show="!remove" ng-if="isManager || !isNormal" class="header-qunjian" href="javascript:;" ng-click="showRemove()"></a>
+	<a ng-show="remove" class="header-info" href="javascript:;" ng-click="saveRemove()" style="right:50px" translate="btn_delete"></a>
+</header> <!-- header End -->
+
+<section class="content">
+     <div class="pure-form-box-5">
+          <div class="pure-form-box-5-in">
+	          <input type="text"  ng-model="searchContent" class="pure-form-txt-8" placeholder="{{'group_tip_search' | translate}}"/>
+	          <input type="button" ng-click="search()" value="" class="panel-box-btn-04" />
+          </div>
+     </div>
+     <div class="cont-info">
+          <div class="cont-info-tuwen">
+
+				<ul ng-class="{'panel-list-1-10': remove}">
+				   <li ng-class="{'cur':member.removeFlag}" ng-repeat="member in memberList.items" ng-click="removeItemClick($index)">
+					   <div class="tuwen-list-2 clearfix">
+							<a class="tuwen-list-2-pic" href="javascript:;" forward="member.user.usr_ent_id | personUrl" title="">
+								 <img id="user_photo_{{member.user.usr_ent_id}}" class="pic-user-w" ng-src="{{serverHost}}{{member.user.usr_photo}}" alt=""/>
+							</a>
+							<div class="tuwen-list-2-box" ng-style="{'border-bottom': ($last ? 'none':'1px solid #eee')}"> 
+								 <div class="tuwen-list-2-tit-1">
+									  <a href="javascript:;"  forward="member.user.usr_ent_id | personUrl" class="tuwen-list-2-user" title="" ng-bind="member.user.usr_display_bil"></a>
+								 </div>
+								 <p class="tuwen-list-2-tit-2">{{member.user.usg_display_bil}} {{member.user.ugr_display_bil != 'Unspecified' ? member.user.ugr_display_bil : ''}}</p>
+							</div>
+					   </div>
+				   </li>
+			   </ul>
+
+          </div>
+     </div>
+     <div loader="memberList"></div>
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+<div class="wrap" ng-show="show.add">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:;"  ng-click="showPage('member');" title="back"></a>
+    <span class="header-title" translate="group_add_member"><!--添加新成员--></span>
+    <a class="header-info" href="javascript:;" ng-click="addMembers();" title="sure" translate="btn_save"><!--确定--></a>
+</header> <!-- header End -->
+
+<section class="content">
+
+      <div class="pure-form-box-5" ng-style="{'margin':(s_grp_private != 3 ? '10px' : '')}">
+          <div ng-style="{'width':(s_grp_private != 3 ? '70%' : '')}" class="pure-form-box-5-in" style="display:inline-block;">
+	          <input style="width:74%;" type="text" ng-model="searchContent"  class="pure-form-txt-8" placeholder="{{'group_tip_search' | translate}}"/>
+	          <input type="button" ng-click="search()" value="" class="panel-box-btn-04" />
+     	  </div>
+     	<div ng-if="s_grp_private != 3" class="btn-orange" ng-bind="instrOnlyLabel | translate" ng-click="selectSearchType()"></div>
+     </div>
+     <div class="cont-info">
+          <ul class="panel-list-1-10">
+               <li ng-class="{cur : user.select}" ng-click= "select($index);" ng-repeat=" user in findMemberList.items">
+                    <div class="tuwen-list-2 clearfix">
+                         <a class="tuwen-list-2-pic" href="javascript:;" forward="user.usr_ent_id | personUrl" title="">
+                            <img id="user_photo_{{user.usr_ent_id}}" class="pic-user-w" ng-src="{{serverHost}}{{user.usr_photo}}" alt=""/>
+                         </a>          
+                         <div class="tuwen-list-2-box"> 
+                              <div class="tuwen-list-2-tit-1">
+                                   <div class="tuwen-list-2-user" ng-bind="user.usr_display_bil"></div>
+                              </div>
+                              <p class="tuwen-list-2-tit-2">{{user.usg_display_bil}} {{user.ugr_display_bil != 'Unspecified' ? user.ugr_display_bil : ''}}</p>
+                         </div>
+                    </div>
+               </li>
+          </ul>
+     </div>
+     <div loader="findMemberList"></div>
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+</body>
+</html>

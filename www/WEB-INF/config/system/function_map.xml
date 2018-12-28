@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<function_map xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="function_map.xsd">
+	<homepage_function id="NEED_MANAGER" isHomepageFunction="true" tc_related="false">
+		<desc lan="ISO-8859-1" name="Analysis"/>
+		<desc lan="GB2312" name="需求管理"/>
+		<desc lan="Big5" name="需求管理"/>
+		<child_functions>
+			<function id="CM_MAIN" tc_related="false">
+				<desc lan="ISO-8859-1" name="Competency Model"/>
+				<desc lan="GB2312" name="能力模型"/>
+				<desc lan="Big5" name="能力模型"/>
+			</function>
+			<function id="CM_ASS_MAIN" tc_related="false">
+				<desc lan="ISO-8859-1" name="Competency Assessment"/>
+				<desc lan="GB2312" name="能力评估"/>
+				<desc lan="Big5" name="能力評估"/>
+			</function>
+			<function id="CM_SKL_ANALYSIS" tc_related="false">
+				<desc lan="ISO-8859-1" name="Competency Analysis"/>
+				<desc lan="GB2312" name="能力分析"/>
+				<desc lan="Big5" name="能力分析"/>
+			</function>
+		</child_functions>
+	</homepage_function>
+	
+	<homepage_function id="TRA_PLA_MGT" isHomepageFunction="true" tc_related="true">
+		<desc lan="ISO-8859-1" name="Planning"/>
+		<desc lan="GB2312" name="计划管理"/>
+		<desc lan="Big5" name="計劃管理"/>
+		<child_functions>
+			<function id="PLAN_CARRY_OUT" tc_related="true">
+				<desc lan="ISO-8859-1" name="Training Plan Implementation"/>
+				<desc lan="GB2312" name="计划实施"/>
+				<desc lan="Big5" name="計劃實施"/>
+				<hidden_functions>
+				   <function id="ITM_CREATE"/>
+				</hidden_functions>
+			</function>
+			<function id="YEAR_PALN" tc_related="true">
+				<desc lan="ISO-8859-1" name="Annual Training Plan"/>
+				<desc lan="GB2312" name="年度计划"/>
+				<desc lan="Big5" name="年度計劃"/>
+			</function>
+			<function id="MAKEUP_PLAN" tc_related="true">
+				<desc lan="ISO-8859-1" name="Addtional Training Plan"/>
+				<desc lan="GB2312" name="编外计划"/>
+				<desc lan="Big5" name="編外計劃"/>
+			</function>
+			<function id="YEAR_PLAN_APPR" tc_related="true">
+				<desc lan="ISO-8859-1" name="Annual Training Plan Approval"/>
+				<desc lan="GB2312" name="年度计划审批"/>
+				<desc lan="Big5" name="年度計劃審批"/>
+			</function>
+			<function id="MAKEUP_PLAN_APPR" tc_related="true">
+				<desc lan="ISO-8859-1" name="Additional Training Plan Approval"/>
+				<desc lan="GB2312" name="编外计划审批"/>
+				<desc lan="Big5" name="編外計劃審批"/>
+			</function>
+			<function id="YEAR_SETTING" tc_related="true">
+				<desc lan="ISO-8859-1" name="Annual Setting"/>
+				<desc lan="GB2312" name="年度设置"/>
+				<desc lan="Big5" name="年度設置"/>
+				<hidden_functions>
+				   <function id="TRA_PLA_MGT"></function>
+				</hidden_functions>
+			</function>
+	   </child_functions>
+	   <hidden_functions>
+	       <function id="TC_MAIN_IN_TCR"></function>
+	   </hidden_functions>
+	</homepage_function>
+	
+	<homepage_function id="ITM_MAIN" isHomepageFunction="true" tc_related="true">
+		<desc lan="ISO-8859-1" name="Learning Solution Management"/>
+		<desc lan="GB2312" name="培训管理"/>
+		<desc lan="Big5" name="課程管理"/>
+		<child_functions>
+			<function id="ITM_INTEGRATED_MAIN" tc_related="true">
+				<desc lan="ISO-8859-1" name="Integrated Training Management"/>
+				<desc lan="GB2312" name="集成培训管理"/>
+				<desc lan="Big5" name="集成培訓管理"/>
+				<hidden_functions>
+					<function id="ITM_OFF_READ"/>
+					<function id="ITM_RUN_OFF_READ"/>
+					<function id="ITM_DETAIL_VIEW"/>
+				</hidden_functions>
+			</function>
+			<function id="ITM_COS_MAIN" tc_related="true">
+				<desc lan="ISO-8859-1" name="Course Training Management"/>
+				<desc lan="GB2312" name="课程管理"/>
+				<desc lan="Big5" name="課程管理"/>
+				<hidden_functions>
+					<function id="ITM_OFF_READ"/>
+					<function id="ITM_RUN_OFF_READ"/>
+					<function id="ITM_DETAIL_VIEW"/>
+				</hidden_functions>
+			</function>
+			<function id="ITM_EXAM_MAIN" tc_related="true">
+				<desc lan="ISO-8859-1" name="Exam Management"/>
+				<desc lan="GB2312" name="测试管理"/>
+				<desc lan="Big5" name="測試管理"/>
+				<hidden_functions>
+					<function id="ITM_OFF_READ"/>
+					<function id="ITM_RUN_OFF_READ"/>
+					<function id="ITM_DETAIL_VIEW"/>
+				</hidden_functions>
+			</function>
+			<function id="ITM_REF_MAIN" tc_related="true">
+				<desc lan="ISO-8859-1" name="Reference Management"/>
+				<desc lan="GB2312" name="参考资料管理"/>
+				<desc lan="Big5" name="参考資料管理"/>
+				<hidden_functions>
+					<function id="ITM_OFF_READ"/>
+					<function id="ITM_RUN_OFF_READ"/>
+					<function id="ITM_DETAIL_VIEW"/>
+				</hidden_functions>
+			</function>
+	        <function id="LRN_RES_MAIN" tc_related="true">
+	            <desc lan="ISO-8859-1" name="Resource Management"/>
+		        <desc lan="Big5" name="教學資源管理"/>
+		        <desc lan="GB2312" name="资源管理"/>
+	        </function>
+			<function id="ITM_MGT" tc_related="true">
+				<desc lan="ISO-8859-1" name="Learning Solution Maintenance"/>
+				<desc lan="GB2312" name="课程维护"/>
+				<desc lan="Big5" name="課程維護"/>
+				<hidden_functions>
+					<function id="ITM_ADD_CLASS"/>
+					<function id="ITM_CREATE"/>
+				</hidden_functions>
+			</function>
+			<function id="ITM_MGT_CONTENT" tc_related="true">
+				<desc lan="ISO-8859-1" name="Content"/>
+				<desc lan="GB2312" name="内容"/>
+				<desc lan="Big5" name="內容"/>
+			</function>
+			<function id="ITM_MGT_PERFORMANCE" tc_related="true">
+				<desc lan="ISO-8859-1" name="Performance"/>
+				<desc lan="GB2312" name="成绩"/>
+				<desc lan="Big5" name="成績"/>
+			</function>
+			<function id="ITM_MGT_APPLICATION" tc_related="true">
+				<desc lan="ISO-8859-1" name="Application Management"/>
+				<desc lan="GB2312" name="处理报名"/>
+				<desc lan="Big5" name="處理報名"/>
+				<hidden_functions>
+					<function id="QM_ADMIN"></function>
+				</hidden_functions>
+			</function>
+		</child_functions>
+	</homepage_function>
+	
+	<homepage_function id="RPT_LINK" isHomepageFunction="true" tc_related="true">
+		<desc lan="ISO-8859-1" name="Report Management"/>
+		<desc lan="Big5" name="報告查看"/>
+		<desc lan="GB2312" name="报告查看"/>
+	</homepage_function>
+	
+	<homepage_function id="EVN_MAIN" isHomepageFunction="true" tc_related="true">
+        <desc lan="ISO-8859-1" name="Survey Management"/>
+		<desc lan="GB2312" name="公告调查问卷管理"/>
+		<desc lan="Big5" name="公告調查問卷管理"/>
+		<hidden_functions>
+		   <function id="MOD_PUB_WRITE"></function>
+		   <function id="NEED_MANAGER"></function>
+		</hidden_functions>
+	</homepage_function>
+	<homepage_function id="COS_EVN_MAIN" isHomepageFunction="true" tc_related="false">
+		<desc lan="ISO-8859-1" name="Course evaluation builder"/>
+		<desc lan="Big5" name="課程評估問卷管理"/>
+		<desc lan="GB2312" name="课程评估问卷管理"/>
+		<hidden_functions>
+			<function id="MOD_PUB_WRITE"/>
+			<function id="ITM_MAIN"></function>
+		</hidden_functions>
+	</homepage_function>
+	<homepage_function id="BOOK_MAIN" isHomepageFunction="true" tc_related="false">
+	     <desc lan="ISO-8859-1" name="Facility Book Management"/>
+		 <desc lan="Big5" name="設施預定管理"/>
+		 <desc lan="GB2312" name="设施预定管理"/>
+		 <hidden_functions>
+		     <function id="ITM_MAIN"></function>
+		 </hidden_functions>
+	</homepage_function>
+    <homepage_function id="BOOK_QUERY" isHomepageFunction="true" tc_related="false">
+          <desc lan="ISO-8859-1" name="Facility Book Report"/>
+		  <desc lan="Big5" name="设施费用查询"/>
+		  <desc lan="GB2312" name="设施费用查询"/>
+		  <hidden_functions>
+		     <function id="ITM_MAIN"></function>
+		  </hidden_functions>
+    </homepage_function>
+	
+	<homepage_function id="TC_MAIN" isHomepageFunction="true" tc_related="true">
+		<desc lan="ISO-8859-1" name="Training Center Management"/>
+		<desc lan="Big5" name="培訓中心管理"/>
+		<desc lan="GB2312" name="培训中心管理"/>
+		<hidden_functions>
+		   <function id="TC_MAIN_IN_TCR"></function>
+		</hidden_functions>
+	</homepage_function>
+	<homepage_function id="CAT_MAIN" isHomepageFunction="true" tc_related="true">
+		<desc lan="ISO-8859-1" name="Learning Catalog"/>
+		<desc lan="Big5" name="培訓目錄"/>
+		<desc lan="GB2312" name="培训目录"/>
+		<hidden_functions>
+			<function id="CAT_MGT"/>
+			<function id="CAT_OFF_READ"/>
+		</hidden_functions>
+	</homepage_function>
+	<homepage_function id="USR_INFO_MAIN" isHomepageFunction="true" tc_related="true">
+		<desc lan="ISO-8859-1" name="User Management"/>
+		<desc lan="Big5" name="用戶管理"/>
+		<desc lan="GB2312" name="用户管理"/>
+		<hidden_functions>
+			<function id="USR_MGT_NON_ADMIN"/>
+		</hidden_functions>
+	</homepage_function>
+	<homepage_function id="CREDIT_OTHER_MAIN" isHomepageFunction="true" tc_related="false">
+		<desc lan="ISO-8859-1" name="Points Management"/>
+		<desc lan="Big5" name="積分管理"/>
+		<desc lan="GB2312" name="积分管理"/>
+	</homepage_function>
+	
+	<homepage_function id="KNOW_MAIN" isHomepageFunction="true" tc_related="false">
+		<desc lan="ISO-8859-1" name="Answers Management"/>
+		<desc lan="Big5" name="在線問答管理"/>
+		<desc lan="GB2312" name="在线问答管理"/>
+	</homepage_function>
+<!-- 	<homepage_function id="STUDY_GROUP_MAIN" isHomepageFunction="true" tc_related="true">
+		<desc lan="ISO-8859-1" name="Study Group Management"/>
+		<desc lan="Big5" name="學習小組管理"/>
+		<desc lan="GB2312" name="学习小组管理"/>
+	</homepage_function> -->
+	<homepage_function id="FOR_MAIN" isHomepageFunction="true">
+		<desc lan="ISO-8859-1" name="Forum"/>
+		<desc lan="Big5" name="論壇管理"/>
+		<desc lan="GB2312" name="论坛管理"/>
+	</homepage_function>
+	<homepage_function id="MSG_MGT_SYS" isHomepageFunction="true" tc_related="true">
+		<desc lan="ISO-8859-1" name="Announcement Management"/>
+		<desc lan="Big5" name="公告管理"/>
+		<desc lan="GB2312" name="公告管理"/>
+	</homepage_function>
+	
+	<other_functions>
+		<function id="USR_OWN_PREFER">
+			<desc lan="ISO-8859-1" name="My Preference"/>
+			<desc lan="Big5" name="我的喜好"/>
+			<desc lan="GB2312" name="我的喜好"/>
+		</function>
+		<function id="USR_OWN_MAIN">
+			<desc lan="ISO-8859-1" name="My Profile"/>
+			<desc lan="Big5" name="我的檔案"/>
+			<desc lan="GB2312" name="我的档案"/>
+			<hidden_functions>
+			   <function id="USR_MGT_OWN"></function>
+			</hidden_functions>
+		</function>
+		<function id="USR_PWD_UPD">
+			<desc lan="ISO-8859-1" name="Change Password"/>
+			<desc lan="Big5" name="更改密碼"/>
+			<desc lan="GB2312" name="修改密码"/>
+		</function>
+	</other_functions>
+</function_map>

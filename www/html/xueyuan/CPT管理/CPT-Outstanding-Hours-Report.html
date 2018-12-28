@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>wizbank学习 下属_cpt未完成时数报表</title>
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../../../static/js/layer/layer.js"></script>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/layer/skin/layer.css">
+<link rel="stylesheet" type="text/css" href="../../../static/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/css/learner.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/theme/blue/css/style.css"/>
+<!--[if lt IE 9]>
+    <script type="text/javascript" src="bootstrap/js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+<div class="xyd-header">
+    <div class="xyd-header-box">
+         <div class="xyd-logo"><a href="javascript:void(0)" title="xydbank"><img src="../images/xyd-logo.png" alt="xydbank"/></a></div>
+      
+         <div class="xyd-tool">
+              <div class="xyd-welcome">欢迎来到e-Learning学习平台</div>
+              <div class="xyd-email"><a href="../xiaoxi.html" title="xydbank"><i class="fa xyd-email-icon fa-envelope"></i><span>5</span></a></div>
+              <div class="xyd-people xyd-flag">
+                   <div class="xyd-menu">
+                        <ul>
+                             <li href="javascript:void(0)">
+                                 <a class="thickbox" id="tob" href="javascript:void(0)"><i class="fa xyd-flag-icon fa-flag-o"></i><span class="xyd-flag-number">12</span></a>
+                                 <ul>
+                                       <div class="xyd-tip-box"><div class="xyd-tip-hd"><em class="arrow arrowT"><i></i></em></div></div>
+                                       <li><a href="javascript:void(0)" title="报名审批">报名审批（5）</a></li>
+                                       <li><a href="javascript:void(0)" title="进行中的课程">进行中的课程（8）</a></li>
+                                       <li><a href="javascript:void(0)" title="进行中的考试">进行中的考试（2）</a></li>
+                                       <li><a href="javascript:void(0)" title="未提交的调查问卷">未提交的调查问卷（9）</a></li>
+                                       <li><a href="javascript:void(0)" title="投票">投票（0）</a></li>
+                                  </ul>
+                             </li>
+                        </ul>
+                   </div>
+              </div>
+              <div class="xyd-people">
+                   <div class="xyd-menu">
+                        <ul>
+                             <li href="javascript:void(0)">
+                                 <i class="fa xyd-user-icon fa-user"></i>
+                                 <ul>
+                                       <div class="xyd-tip-box"><div class="xyd-tip-hd"><em class="arrow arrowT"><i></i></em></div></div>
+                                       <li><a href="../gerenzhongxin-dangan.html" title="我的主页">我的主页</a></li>
+                                       <li><a href="../xiashu-chakanbaobiao.html" title="我的下属">我的下属</a></li>
+                                       <li><a href="../zhengshu.html" title="证书">证书</a></li>
+                                       <li><a href="javascript:void(0)" title="角色">角色</a>
+                                           <ul>
+                                               <li><a href="javascript:void(0)" title="学员">学员</a></li>
+                                               <li><a href="javascript:void(0)" title="培训管理员">培训管理员</a></li>
+                                               <li><a href="javascript:void(0)" title="系统管理员">系统管理员</a></li>
+                                           </ul>
+                                       </li>
+                                       <li><a href="javascript:void(0)" title="语言">语言</a>
+                                           <ul>
+                                                <li><a href="javascript:void(0)" title="简体中文">简体中文</a></li>
+                                                <li><a href="javascript:void(0)" title="繁体中文">繁体中文</a></li>
+                                                <li><a href="javascript:void(0)" title="English">English</a></li>
+                                           </ul>
+                                       </li>
+                                       <li><a href="javascript:void(0)" title="退出">退出</a></li>
+                                  </ul>
+                             </li>
+                        </ul>
+                   </div>
+              </div>
+         </div>
+    </div>     
+</div> <!-- xyd-header End-->
+
+<div class="xyd-fixbox">
+    <div class="xyd-fixcut xyd-nav skin-bg">
+        <div class="xyd-sub">
+             <div class="xyd-menu">
+                  <ul>
+                      <li><a href="../index.html" title="首 页">首 页</a></li>
+                      <li><a href="javascript:void(0)" title="">资讯</a>
+                          <ul>
+                               <li><a href="../gonggao.html" title="公告">公告</a></li>
+                               <li><a href="../haowaizixun.html" title="号外资讯">号外资讯</a></li>
+                          </ul>
+                     </li>
+                     <li><a href="javascript:void(0)" title="">学习</a>
+                         <ul>
+                              <li><a href="../xuexi-mulu.html" title="课程目录">课程目录</a></li>
+                              <li><a href="../xuexi-tuijian.html" title="推荐课程">推荐课程</a></li>
+                              <li><a href="../xuexi-yibaoming.html" title="已报名课程">已报名课程</a></li>
+                              <li><a href="../gongkaike.html" title="公开课">公开课</a></li>
+                              <li><a href="../xuexiricheng.html" title="学习日程">学习日程</a></li>
+                              <li><a href="../gangweifazhanlujing.html" title="岗位发展路径图">岗位发展路径图</a></li>
+                         </ul>
+                    </li>
+                    <li><a href="javascript:void(0)" title="">考试</a>
+                        <ul>
+                             <li><a href="../kaoshi-mulu.html" title="考试目录">考试目录</a></li>
+                             <li><a href="../kaoshi-tuijian.html" title="推荐考试">推荐考试</a></li>
+                             <li><a href="../kaoshi-yibaoming.html" title="已报名考试">已报名考试</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="javascript:void(0)" title="">社区</a>
+                        <ul>
+                             <li><a href="../qunzu-wodequnzu.html" title="群组">群组</a></li>
+                             <li><a href="../wenda-quanbuwenti.html" title="在线问答">在线问答</a></li>
+                             <li><a href="../zhishizhongxin.html" title="知识中心">知识中心</a></li>
+                             <li><a href="../dongtai-suoyoudongtai.html" title="动态消息">动态消息</a></li>
+                             <li><a href="../paihangbang-kecheng.html" title="课程排行榜">课程排行榜</a></li>
+                             <li><a href="../paihangbang-jifen.html" title="积分排行榜">积分排行榜</a></li>
+                             <li><a href="../paihangbang-xuexi.html" title="学习排行榜">学习排行榜</a></li>
+                        </ul>
+                    </li>
+                 </ul> <!-- nav End-->
+             </div>
+            
+             <div class="xyd-search">
+                  <form target="_blank" name="searchform" method="get" action="../souso.html">
+                        <input type="text" class="form-control xyd-search-text" name="mytext" placeholder="搜索课程、号外资讯......"/>
+        		        <input type="submit" class="xyd-search-button" name="mybtn" value=""/>
+                  </form>   
+             </div>
+        </div>     
+    </div>
+</div> <!-- xyd-menu End-->
+
+<div class="xyd-wrapper">
+    <div class="xyd-main clearfix">
+        <div class="xyd-sidebar">
+            <div class="xyd-user">
+                <div class="xyd-user-box clearfix">
+                    <div class="wzb-user wzb-user82">
+                         <a href="../gerenzhongxin-dangan.html"><img class="wzb-pic" src="../../../static/images/teacher02.png" alt="了解Ta" /></a>
+                         <p class="companyInfo">了解Ta</p>
+                         <div class="cornerTL">&nbsp;</div>
+                         <div class="cornerTR">&nbsp;</div>
+                         <div class="cornerBL">&nbsp;</div>
+                         <div class="cornerBR">&nbsp;</div>
+                    </div>
+
+                    <div class="xyd-user-content">
+                        <a href="../gerenzhongxin-dangan.html" class="wzb-link04" title="Andy">Andy</a>
+                        <p>开台部</p>
+                    	  <p>开发</p>
+                    </div>
+                </div>
+                <p>积分：<span class="skin-color"><a href="javascript:void(0)" class="skin-color">451.0</a></span></p>
+            </div> <!-- xyd-user End-->
+
+            <div class="wzb-model-7">
+                <div class="wzb-percent-biao">
+                    <div class="wzb-percent-3">
+                        <a class="wzb-percent-link" href="../gerenzhongxin-zan.html">
+                            <em>2</em>
+                            <span>赞</span>
+                        </a>
+                    </div>
+                     
+                    <div class="wzb-percent-3">
+                        <a class="wzb-percent-link" href="../gerenzhongxin-guanzhu.html">
+                            <em>0</em>
+                            <span>关注</span>
+                        </a>
+                    </div>
+                     
+                    <div class="wzb-percent-3">
+                        <a class="wzb-percent-link" href="../gerenzhongxin-fensi.html">
+                            <em>3</em>
+                            <span>粉丝</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wzb-model-1">
+                 <a title="发送信息" href="../xiashu-fasongxiaoxi.html" class="xyd-user-survey"><i class="fa skin-color fa-pencil-square-o"></i>发送信息</a>
+            </div>
+
+            <ul class="wzb-list-15">
+                <li><a href="../xiashu-liebiaoxiashu.html">下属列表</a></li>
+                <li><a href="../xiashu-chakanbaobiao.html">查看报表</a></li>
+                <li><a href="../xiashu-shenpibaoming.html">报表审批</a></li>
+                <li><a class="cur" href="CPT-Outstanding-Hours-Report.html">CPT/D未完成时数报表</a></li>
+                <li><a href="Individual-CPT-Hours-Report.html">个人CPT/D时数报表</a></li>
+            </ul>
+        </div> <!-- xyd-sidebar End-->
+
+        <div class="xyd-article">
+            <div role="tabpanel" class="wzb-tab-3">
+
+                <div class="wzb-title-12">CPT/D未完成时数报表</div>
+
+                <table class="margin-top15">
+                    <tr>
+                        <td class="wzb-form-label" valign="top"><span class="wzb-form-star">*</span>评估年份：</td>
+                        <td class="wzb-form-control">
+                            <select name="">
+                                <option value="">2010</option>
+                                <option value="">2011</option>
+                                <option value="">2012</option>
+                                <option value="">2013</option>
+                                <option value="">2014</option>
+                                <option value="">2015</option>
+                                <option value="">2016</option>
+                                <option value="" selected="selected">2017</option>
+                                <option value="">2018</option>
+                                <option value="">2019</option>
+                                <option value="">2020</option>
+                                <option value="">2021</option>
+                                <option value="">2022</option>
+                                <option value="">2023</option>
+                                <option value="">2024</option>
+                                <option value="">2025</option>
+                                <option value="">2026</option>
+                                <option value="">2027</option>
+                            </select>
+                            <span class="ask-in margin4 allhint-style-1" id="ask"></span>
+                        </td>
+                    </tr>
+                      
+                    <tr>
+                        <td class="wzb-form-label" valign="top"><span class="wzb-form-star">*</span>用户组：</td>
+                         
+                        <td class="wzb-form-control">
+                            <table>
+                                <tbody>
+                                    <tr>  
+                                        <td>
+                                            <label class="wzb-form-checkbox">
+                                                <input name="1" value="1" type="radio" checked="checked">我的所有下属
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label class="wzb-form-checkbox">
+                                                <input name="2" value="1" type="radio">我的直属下属
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label class="wzb-form-checkbox">
+                                                <input name="3" value="1" type="radio">指定学员
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">
+                                            <span class="margin-left20">
+                                                <select name="exportGroupIds" id="exportGroupIds" class="wzb-select" style="width:400px;height:120px;overflow-x:auto;" width="400" multiple="">
+                                                </select>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-left:20px;">
+                                            <input type="button" name="" value="选择" class="btn wzb-btn-blue margin-right4 xueyuan">
+                                            <input type="button" name=" " value="删除" class="btn wzb-btn-blue margin-right4">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="wzb-form-label" valign="top"><span class="wzb-form-star">*</span>牌照类型：</td>
+                           
+                        <td class="wzb-form-control">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td><input name="3" value="1" type="checkbox" checked="checked">Insurance Intermediaries(1 Aug 2016-31 Jul 2017)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input name="3" value="1" type="checkbox" checked="checked">MPF Intermediaries(1 Jan 2017-31 Dec 2017)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input name="3" value="1" type="checkbox" checked="checked">HKMA(1 Jan 2017-31 Dec 2017)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input name="3" value="1" type="checkbox" checked="checked">SFC(1 Jan 2017-31 Dec 2017)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                      
+                      
+                    <tr>
+                        <td class="wzb-form-label"></td>
+                        <td class="wzb-form-control"><span class="wzb-form-star">*</span>为必填</td>
+                    </tr>
+                </table>
+                  
+                <div class="wzb-bar">
+                     <input type="button" name=" " value="导出" class="btn wzb-btn-blue wzb-btn-big margin-right15">
+                     <input type="button" name=" " value="取消" class="btn wzb-btn-blue wzb-btn-big">
+                </div>
+            </div>
+        </div><!-- xyd-article End-->
+    </div>
+</div> <!-- xyd-wrap End-->
+
+<div class="xyd-bottom">
+    <div class="xyd-bottom-box">
+         <div class="pull-left">xydbank6.5 @ 汇思 Cyberwisdom 版权所有</div>
+         <div class="pull-right">香港官网 <a class="margin-right15 color-gray999" href="http://www.cyberwisdom.net" title="香港官网">cyberwisdom.net</a>  大陆官网 <a class="color-gray999" href="http://www.cyberwisdom.net.cn" title="大陆官网">cyberwisdom.net.cn</a></div>
+    </div>
+</div> <!-- xyd-bottom End-->
+
+<script type="text/javascript">
+    $("#ask").mousemove(function(){
+        layer.tips('指以评估周期开始时间所在年份。例如，当评估周期为2016年5月-2017年5月时，对应的评估年份应是2016年。','#ask', {
+        tips: [2,'rgba(128,128,128,0.9)'],
+        time:50000
+        });
+    })
+    $("#ask").mouseleave(function(){
+        layer.tips();
+    })
+</script>
+</body>
+</html> 

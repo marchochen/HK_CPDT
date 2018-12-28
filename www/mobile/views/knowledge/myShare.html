@@ -1,0 +1,82 @@
+<!doctype html>
+<html ng-app="knowledge">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title  translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/KnowledgeController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="myShareController">
+
+<div class="wrap">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back();" title="back"></a>
+    <span class="header-title" translate="knowledge_my_share"><!--我的分享--></span>
+</header> <!-- header End -->
+<wzm-docker rp="../../"></wzm-docker>
+<section class="content-2">
+<div class="panel-list-box" style="margin:0;">
+<tabs css="2">
+    <pane title="{{'knowledge_approved' | translate}}" select="show.alreadyApprove">
+        <div class="cont-list-tuwen">
+            <div class="tuwen-list-1" ng-repeat="item in knowledgesAppreoved.items">
+                <a class="tuwen-list-1-box clearfix" ng-href="{{item | detailUrl}}" title="">
+                    <div class="tuwen-list-1-pic">
+                        <img ng-src="{{serverHost + item.imageAttachment.kba_url}}" alt=""/>
+                        <span class="list-tool-1-doctype {{item.info.cla}}">{{item.info.title}}</span>
+                    </div>
+                    <div class="tuwen-list-1-tit-1" ng-bind="item.kbi_title"></div>
+                    <p class="tuwen-list-1-tit-3">
+                        <span ng-bind="item.kbi_approve_datetime | toDate"></span>
+                    </p>
+                </a>
+            </div>
+        </div>
+        <div loader="knowledgesAppreoved"></div>
+    </pane>
+    <pane title="{{'knowledge_pending' |  translate}}" select="show.notApprove">
+        <div class="cont-list-tuwen">
+            <div class="tuwen-list-1" ng-repeat="item in knowledgesPending.items">
+                <a class="tuwen-list-1-box clearfix"  ng-href="{{item | detailUrl}}" title="">
+                    <div class="tuwen-list-1-pic">
+                        <img ng-src="{{serverHost + item.imageAttachment.kba_url}}" alt=""/>
+                        <span class="list-tool-1-doctype {{item.info.cla}}">{{item.info.title}}</span>
+                    </div>
+                    <div class="tuwen-list-1-tit-1" ng-bind="item.kbi_title"></div>
+                    <p class="tuwen-list-1-tit-3">
+                        <span ng-bind="item.kbi_create_datetime | toDate"></span>
+                    </p>
+                </a>
+            </div>
+        </div>
+        <div loader="knowledgesPending"></div>
+    </pane>
+    <pane title="{{'knowledge_rejected' | translate}}" select="show.hasRefused">
+        <div class="cont-list-tuwen">
+            <div class="tuwen-list-1" ng-repeat="item in knowledgesReapproval.items">
+                <a class="tuwen-list-1-box clearfix"  ng-href="{{item | detailUrl}}" title="">
+                    <div class="tuwen-list-1-pic">
+                        <img ng-src="{{serverHost + item.imageAttachment.kba_url}}" alt=""/>
+                        <span class="list-tool-1-doctype {{item.info.cla}}">{{item.info.title}}</span>
+                    </div>
+                    <div class="tuwen-list-1-tit-1" ng-bind="item.kbi_title"></div>
+                    <p class="tuwen-list-1-tit-3">
+                        <span ng-bind="item.kbi_approve_datetime | toDate"></span>
+                    </p>
+                </a>
+            </div>
+        </div>
+        <div loader="knowledgesReapproval"></div>
+    </pane>
+</tabs>
+</div> <!-- panel-list-box End -->
+
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

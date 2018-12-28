@@ -1,0 +1,107 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :facility management
+suffix								   :fm
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : calendar.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+a.wbFmFsText:hover, .wbFmFsHeadText {
+	color: #000000;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+a.wbFmNavLink{
+	color: #000000;
+	font: bold 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-decoration: none;
+}
+
+.wbFmBg, .wbFmCalBg {
+	background-color: #FFFFFF;
+}
+
+.wbFmCalCellAlmostFullBg{
+	background-color: #5375A3;
+}
+
+/* Calendar Cell Bg*/
+.wbFmCalCellAvailBg{
+	background-color: #DEF7FF;
+}
+
+.wbFmCalCellFullRsvBg{
+	background-color: #2E3F75;
+}
+
+.wbFmCalCellPartlyRsvBg{
+	background-color: #8CCAF0;
+}
+
+.wbFmCalColDateBg{
+	background: #003E53;
+}
+
+.wbFmCalColHeadBg{
+	background: #066686;
+}
+
+.wbFmCalColHeadText, .wbFmCalColDateText {
+	color: #FFFFFF;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFmCalText{
+	color: #000000;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFmFsBg, .wbFmRsvRowHeadBarBg {
+	background-color: #F8F9DD;
+}
+
+.wbFmFsHRBarBg, .wbFmLegendBg {
+	background-color: #000000;
+}
+
+.wbFmFsText, a.wbFmFsText,a.wbFmFsText:active,a.wbFmFsText:visited {
+	color: #943300;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFmHeadBarBg{
+	background: #A9BB31;
+}
+
+.wbFmHeadBarText{
+	color: #FFFFFF;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	padding-top: 2px;
+}
+
+.wbFmHeadRefBg, .wbFmCalColTodayDateBg {
+	background-color: #C1CA88;
+}
+
+.wbFmHeadRefText{
+	color: #FFFFFF;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFmNavBg{
+	background-color: #EFEFEF;
+}
+
+.wbFmRsvCancelRowTexT{
+	color: #C0C0C0;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFmRsvRowHeadBarText, a.wbFmRsvRowText,a.wbFmRsvRowText:hover,a.wbFmRsvRowText,visited,a.wbFmRsvRowText:active, .wbFmCalDateText, .wbFmCalColTodayDateText, .wbFmLegendText, .wbFmRsvRowBg {
+	color: #000000;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFmRsvRowText{
+	background-color: #FFFFFF;
+}

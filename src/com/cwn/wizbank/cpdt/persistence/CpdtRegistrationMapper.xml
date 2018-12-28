@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.cpdt.persistence.CpdtRegistrationMapper">
+
+	<!-- 增 -->
+	<insert id="insert" parameterType="com.cwn.wizbank.cpdt.entity.CpdtRegistration">
+
+	</insert>
+	<!-- 删 -->
+	<update id="delete" parameterType="com.cwn.wizbank.cpdt.entity.CpdtRegistration">
+
+	</update>
+	<!-- 改 -->
+	<update id="update" parameterType="com.cwn.wizbank.cpdt.entity.CpdtRegistration">
+
+	</update>
+	<!-- 通过ID查询 -->
+	<select id="get" resultType="com.cwn.wizbank.cpdt.entity.CpdtRegistration" parameterType="com.cwn.wizbank.cpdt.entity.CpdtRegistration">
+		
+	</select>
+	
+	<!-- 获取用户最新的挂牌信息 -->
+	<select id="getNewestRegInfo" resultType="com.cwn.wizbank.cpdt.entity.CpdtRegistration" parameterType="java.util.Map">
+		SELECT
+			cr_id,
+			cr_usr_ent_id,
+			cr_ct_id,
+			cr_reg_datetime,
+			cr_de_reg_datetime,
+			cr_create_usr_ent_id,
+			cr_create_datetime,
+			cr_update_usr_ent_id,
+			cr_update_datetime,
+			cr_status,
+			cr_reg_number
+		FROM
+			cpdRegistration cr1
+		WHERE
+			cr_reg_datetime = (
+				SELECT
+					MAX (cr_reg_datetime)
+				FROM
+					cpdRegistration cr2
+				WHERE
+					cr1.cr_usr_ent_id = cr2.cr_usr_ent_id
+				AND cr1.cr_ct_id = cr2.cr_ct_id
+			)
+		AND cr_usr_ent_id = #{crUsrEntId}
+		AND cr_ct_id = #{crCtId}
+		AND cr_status = 'OK'
+	</select>
+    
+    <select id="getCpdtType" resultType="com.cwn.wizbank.cpdt.entity.CpdtType" >
+        <![CDATA[
+            select *
+             from cpdType 
+            where ct_status = 'OK' order by ct_display_order
+        ]]>
+    </select>
+</mapper>

@@ -1,0 +1,2040 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+    <title>移动端</title>
+    <link rel="stylesheet" type="text/css" href="../static/js/font-awesome/css/font-awesome.min.css"/>
+    <link type="text/css" rel="stylesheet" href="css/jquery.mmenu.css" />
+    <link type="text/css" rel="stylesheet" href="lib/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/basic.css" />
+    <script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
+    <link rel="stylesheet" href="../static/css/photoSwipe/photoswipe.css"> 
+    <link rel="stylesheet" href="../static/css/photoSwipe/default-skin/default-skin.css"> 
+    <script src="../static/js/photoSwipe/photoswipe.min.js"></script> 
+    <script src="../static/js/photoSwipe/photoswipe-ui-default.min.js"></script> 
+    <!--[if lt IE 9]>
+    <script src="../js/lib/html5.js" type="text/jscript"></script>
+    <![endif]-->
+    </head>
+<style type="text/css">
+    html{ -ms-text-size-adjust:none; -webkit-text-size-adjust:none; text-size-adjust:none; -webkit-tap-highlight-color:rgba(0, 0, 0, 0)}
+    body{ font-size:14px; font-family:Microsoft YaHei,Arial,sans,serif,monospace,custom; color:#333; background:#f2f2f2; overflow-x:hidden; -webkit-overflow-scrolling:touch;}
+    html,body,div,ul,ol,li,dl,dt,dd,p,span,em,img,h1,h2,h3,h4,h5,lable,form,table,caption,fieldset,figure{ margin:0; padding:0; outline:none; border:0;}
+    article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{ display:block;}
+    h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+    ul,ol,li,dl{ list-style-type:none;}
+    em,i,dfn,cite,strong,small{ font-style:normal;}
+    fieldset,img,button,input,select,option{ border:0; vertical-align:middle; font:14px/26px sans,serif,monospace,custom;}
+    table{ border-collapse:collapse; border-spacing:0;}
+    input[type="button"], input[type="submit"], input[type="reset"] {-webkit-appearance:none;}
+    textarea { -webkit-appearance:none;}
+    input:-webkit-autofill{ -webkit-box-shadow:0 0 0px 1000px white inset;}
+    input,button,select,textarea{outline:none;}
+    .demo-box-title{width:100%;height:110px;padding:10px 0;background:url(../static/images/demo/Slider1.jpg) no-repeat 50% 80%;background-size:100%;position:fixed;left:0;top:0;z-index:10001;}
+    .demo-box-yi{width:40%;float:left;padding:20px 0 0 0;}
+    .demo-box-yi-words-1{color:#fff;font-size:20px;text-align:right;}
+    .demo-box-yi-words-2{color:#fff;font-size:12px;text-align:right;line-height:20px;margin:0;}
+    .demo-box-er{margin:10px 0 0 50px;display:table;float:left;}
+    .demo-box-er-span{display:inline-block;width:60px;height:60px;background:#fff;border-radius:50%;}
+    .demo-box-er-span-i-1{display:block;width:40px;height:40px;background:url(images/wizper.png) no-repeat 3px -1248px; background-size:38px;margin:8px auto 0;}
+    .demo-box-er-span-i-2{display:block;width:40px;height:40px;background:url(../mobile/images/wzb-pc-icon.png) no-repeat -1px -346px; background-size:43px;margin:8px auto 0;}
+    .demo-box-er-span-i-3{display:block;width:40px;height:40px;background:url(../mobile/images/wzb-phone-icon.png) no-repeat 1px -207px; background-size:40px;margin:10px auto 0;}
+    .demo-box-er-span-i-4{display:block;width:40px;height:40px;background:url(../mobile/images/wiztool.png) no-repeat 4px -590px; background-size:40px;margin:10px auto 0;}
+    .demo-box-er a:hover .demo-box-er-span,.demo-box-er a.cur .demo-box-er-span{ background:#02cf97;}
+    .demo-box-er a:hover .demo-box-er-span-i-1,.demo-box-er a.cur .demo-box-er-span-i-1{ background-position:3px -1937px;}
+    .demo-box-er a:hover .demo-box-er-span-i-2,.demo-box-er a.cur .demo-box-er-span-i-2{ background-position:-1px -302px;}
+    .demo-box-er a:hover .demo-box-er-span-i-3,.demo-box-er a.cur .demo-box-er-span-i-3{ background-position:0 -158px;}
+    .demo-box-er a:hover .demo-box-er-span-i-4,.demo-box-er a.cur .demo-box-er-span-i-4{ background-position:4px -552px;}
+    .demo-sidebar{float:left; width:227px; min-height:830px; padding-bottom:20px;background:#999;}
+    .wzb-list-15{ margin:30px 0 0 0; padding:0;}
+    .wzb-list-15 li{ height: 40px; margin-bottom:5px; font-size:16px; list-style-type:none;}
+    .wzb-list-15 li a:link, .wzb-list-15 li a:visited { display:block; height:40px; line-height:40px; padding-left:20px; font-size:16px; color:#333; text-decoration:none;}
+    .demo-sidebar .wzb-list-15 li a.cur:link,.demo-sidebar .wzb-list-15 li a.cur:visited,.demo-sidebar .wzb-list-15 li a.cur:link i,.demo-sidebar .wzb-list-15 li a.cur:visited i{background:#666;}
+    .demo-sidebar .wzb-list-15 li a{color:#fff;}
+    .demo-sidebar .wzb-list-15 li a:hover{color:#fff; background:#666;}
+    .demo-wzb-title{ width:100%; height:44px; line-height:44px; background:#999; color:#fff; padding:0 20px 0 20px; font-size:18px;}
+    .demo-wenhao{float:right; width:100px; height:30px; background:url(../static/images/wehao.png) no-repeat 70px 0; background-size:26px; margin:2px 0 0 0; cursor:pointer; position:relative;}
+    .demo-wzb-content-1{ width:200px; line-height:22px; background:rgba(0, 0, 0, 0.9); color:#fff; position:absolute; right:0; top:30px; font-size:14px; font-weight:normal; padding:10px 15px; z-index:2;}
+/* xyd-header */
+.xyd-main{ width:984px; margin:0 auto; overflow:hidden; background:#fff;}
+.xyd-header{ width:100%; height:61px;}
+.xyd-header-box{ width:984px; height:61px; margin:0 auto;}
+.xyd-logo{ float:left; width:261px; height:60px;}
+.xyd-logo img{ display:block; width:261px; height:60px;}/* xyd-tool */
+.xyd-tool{ float:right; padding:25px 0 0 0;}
+.xyd-tool .xyd-welcome{ float:left; padding:1px 29px 0 0; color:#999; overflow: hidden; text-align: right; width:420px;}
+.xyd-tool .xyd-email{ float:left; height:30px; padding:1px 24px 0 24px; cursor:pointer; position:relative;}
+.xyd-tool .xyd-email a span{ width:22px; height:22px; line-height:22px; font-size:12px; color:#fff; text-align:center; border-radius:50%; position:absolute; top:-6px; right:10px; background:#f00;}
+.xyd-email-icon{ font-size:20px; color:#999;}
+.xyd-flag-icon{ display:block; margin:4px 0 0 0; font-size:18px; color:#999;}
+.xyd-user-icon{ width:30px; height:30px; border-radius:50%;}
+.xyd-flag{ width:80px; padding:0 24px 0 24px; margin:0;}
+.xyd-flag .xyd-flag-number{ width:22px; height:22px; line-height:22px; font-size:12px; color:#fff; text-align:center; border-radius:50%; position:absolute; top:-7px; right:6px; background:#f00;}
+.xyd-flag .xyd-menu ul li.cur ul{ width:195px; display:none; position:absolute; top:19px; right:25px; z-index:99990;}
+.xyd-flag .xyd-menu ul li.cur ul li{ width:195px; height:38px; display:block; position:relative;}
+.xyd-flag .xyd-menu ul li.cur ul li a:link,.xyd-flag .xyd-menu ul li.cur ul li a:visited,.xyd-flag .xyd-menu ul li.cur ul li a:hover{ display:block; width:195px; height:38px; line-height:38px; padding-left:15px;}
+.xyd-flag .xyd-menu ul li.cur ul li.cur a:link,.xyd-flag .xyd-menu ul li.cur ul li.cur a:visited,.xyd-flag .xyd-menu ul li.cur ul li.cur a:hover{ display:block; width:195px; height:38px; line-height:38px; padding-left:15px;}
+/* xyd-people */
+.xyd-people{ float:left; width:74px; height:30px; padding:0 0 0 24px; cursor:pointer; background:url(../images/zhiline.jpg) no-repeat left center;}
+.xyd-people .xyd-menu{ width:45px; height:30px;}
+.xyd-people .xyd-menu ul{ height:30px; margin:0; padding:0;}
+.xyd-people .xyd-menu ul li{ width:45px; height:30px; padding:0; list-style-type:none; position:relative;}
+.modal { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 1050; display: none; overflow: hidden; -webkit-overflow-scrolling: touch; outline: 0;}
+.modal.fade .modal-dialog { position:absolute; left:50%; top:50%;}
+.modal-content{ position:relative; background-color:#fff; -webkit-background-clip:padding-box; background-clip:padding-box; border:1px solid #999; border:1px solid rgba(0, 0, 0, .2); border-radius:6px; outline:0; -webkit-box-shadow:0 3px 9px rgba(0, 0, 0, .5); box-shadow:0 3px 9px rgba(0, 0, 0, .5);}
+.modal-body{position: relative;}
+.xyd-people .xyd-menu .nav-top{height:0px; display:none;}/*1*/
+.xyd-people .xyd-menu ul li ul{ width:250px; display:none; position:absolute; top:31px; right:-5px; z-index:99990;}/*2*/
+.xyd-people .xyd-menu ul li ul li{ width:250px; height:38px; display:block; position:relative;}
+.xyd-people .xyd-menu ul li ul li a:link,.xyd-people .xyd-menu ul li.cur ul li a:visited,.xyd-people .xyd-menu ul li.cur ul li a:hover{ display:block; width:250px; height:38px; line-height:38px; padding-left:15px;box-sizing:border-box;}
+.xyd-people .xyd-menu ul li.cur ul li.cur a:link,.xyd-people .xyd-menu ul li.cur ul li.cur a:visited,.xyd-people .xyd-menu ul li.cur ul li.cur a:hover{ display:block; width:250px; height:38px; line-height:38px; padding-left:15px;}
+.xyd-people .xyd-menu ul li.cur ul li.cur ul{ width:160px; display:block; position:absolute; top:0; right:250px; z-index:99990;}
+.xyd-people .xyd-menu ul li.cur ul li.cur ul li{ width:160px;}
+.xyd-people .xyd-menu ul li.cur ul li.cur ul li a:link,.xyd-people .xyd-menu ul li.cur ul li.cur ul li a:visited,.xyd-people .xyd-menu ul li.cur ul li.cur ul li a:hover{ display:block; width:160px; height:38px; line-height:38px; padding-left:15px;}
+.xyd-people .xyd-menu ul li.cur ul li.cur ul li.cur a:link,.xyd-people .xyd-menu ul li.cur ul li.cur ul li.cur a:visited,.xyd-people .xyd-menu ul li.cur ul li.cur ul li.cur a:hover{ display:block; width:160px; height:38px; line-height:38px; padding-left:15px;}
+.xyd-people .xyd-menu ul li ul li a:link,.xyd-people .xyd-menu ul li ul li a:visited,.xyd-people .xyd-menu ul li ul li a:hover{ font-size:14px; color:#fff; background:rgba(0,174,239,0.9);}
+.xyd-people .xyd-menu ul li.cur ul li.cur a:link,.xyd-people .xyd-menu ul li.cur ul li.cur a:visited,.xyd-people .xyd-menu ul li.cur ul li.cur a:hover{ font-size:14px; color:#fff; background:rgba(66, 139, 202, 0.9);}
+.xyd-people .xyd-menu ul li.cur ul li.cur ul li a:link,.xyd-people .xyd-menu ul li.cur ul li.cur ul li a:visited,.xyd-people .xyd-menu ul li.cur ul li.cur ul li a:hover{ font-size:14px; color:#fff; background:rgba(66, 139, 202, 0.9);}
+.xyd-people .xyd-menu ul li.cur ul li.cur ul li.cur a:link,.xyd-people .xyd-menu ul li.cur ul li.cur ul li.cur a:visited,.xyd-people .xyd-menu ul li.cur ul li.cur ul li.cur a:hover{ font-size:14px; color:#fff; background:rgba(42,100,150,0.9);}
+/*我的任务*/
+.bg-position01{ position:absolute; left:0; top:1px; z-index:0;}
+.bg-position02{ z-index:1;}
+.position03{ position:absolute; right:0; top:0px;z-index:3;}
+#TB_title{ height: 40px; padding: 0 0 0 0; overflow: hidden;}
+#TB_ajaxWindowTitle{ float:left; padding:7px 0 5px 10px; margin-bottom:1px;}
+#TB_closeAjaxWindow{float:right;}
+/* xyd-pop */
+.modal.fade .modal-dialog{ position:absolute; left:50%; top:50%; margin:-200px 0 0 -382px;}
+.modal.modal-gonggao .modal-body{ max-height:400px; overflow:auto;}
+.xyd-pop-top{ padding:40px 0 0 0; text-align:center; position:absolute; top:0; left:50%; transform:translateX(-50%); -webkit-transform:translateX(-50%); -moz-transform:translateX(-50%); -o-transform:translateX(-50%); -ms-transform:translateX(-50%);}
+.xyd-pop-title{ width:280px; height:54px; line-height:30px; margin:50px auto 0 auto; padding-bottom:15px; font-size:20px; font-family:"黑体";}
+.xyd-pop-content{ padding:256px 0 10px; color:#444;}
+.xyd-pop-info a{padding:0 25px;}
+.xyd-pop-info,.xyd-pop-info a{ display:block; line-height:33px;}
+.xyd-pop-info a:hover{ background:#f1f1f1;}
+.xyd-pop-num{ float:right; font-size:16px; color:#00aeef; text-align:right; line-height:33px;}
+.xyd-pop-bottom:link,.xyd-pop-bottom:visited{ display:block; width:100%; height:50px; line-height:50px; padding-top:4px; text-align:center; color:#fff; position:absolute; bottom:0; font-size:16px; background:#ff8c00;}
+.xyd-pop-bottom .fa-sanzhong{ font-size:28px; position:absolute; top:-10px; left:49%;}
+.modal-backdrop{ z-index:5999;}
+.modal-open .modal{ overflow:hidden; z-index:6000;}
+.close{ filter: alpha(opacity=60); opacity:0.6; color:#fff;}
+.close:hover, .close:focus{ color:#fff; filter:alpha(opacity=100); opacity:1;}
+.modal-footer{ text-align:center;}
+/* xyd-user */
+.xyd-user{ padding:15px 15px 15px 15px;}
+.xyd-user-box{ padding:5px 0 15px 90px; background:#fff;}
+.xyd-user-box .wzb-user82{ float:left; width:82px; height:82px; margin-left:-90px;}
+.xyd-user-content p{ margin:3px 0 0 0;}
+.xyd-user-survey:link,.xyd-user-survey:visited{ display:block; margin:10px 0 5px 0; padding:6px 10px 8px 10px; font-size:14px; color:#333; text-align:center; background:#f4f4f4;}
+.xyd-user-survey i{ margin-right:3px; vertical-align:-4px; font-size:22px;}
+.xyd-user-survey:hover,.xyd-user-survey:hover i{ filter:alpha(opacity=100); opacity:1; color:#fff; background:#ff8c00;}
+.wzb-user82-2{ width:90px; height:90px; border-radius:50%; background:rgba(255,255,255,0.2);}
+.wzb-user82-2 img{ width:82px; height:82px; border-radius:50%; margin:4px;}
+.xyd-tip-box-2{ width:250px; height:10px; background:url(../static/images/demo/xyd-xiala-san.png) no-repeat;}
+.wzb-user82 .wzb-pic{ display:block; width:82px; height:82px; border:none; border-radius:50%;}
+.wzb-title-2{ height:30px; line-height:30px; font-size:16px; font-weight:bold; padding:30px 10px 0;}
+    .my-gallery{ width:100%; float:left;}
+    .my-gallery img { width:100%; height:auto;}
+    .my-gallery figure{ display: block; float: left; margin:15px; padding:20px; width:26%; height:180px; overflow:hidden; border:1px solid #eee;}
+    .my-gallery figcaption{ display: none;}
+    .pswp{ z-index:99991;}
+</style>
+<body style="background:#ebeff2;overflow-x:scroll;">
+    <div class="demo-box-title">
+        <div class="demo-box-yi">
+            <p class="demo-box-yi-words-1">平台部产品设计与开发样式规范及说明</p>        
+            <p class="demo-box-yi-words-2">本规范适用ui、前端、开发的样式,请大家遵循</p>
+            <p class="demo-box-yi-words-2">如有疑问及修改请联系与isa/mabel沟通</p>
+        </div>
+        <div  class="demo-box-er">
+            <a href="../html/learner.html" style="float:left;margin:0 50px 0 0;">
+                <span class="demo-box-er-span"><i class="demo-box-er-span-i-1"></i></span>
+                <p style="color:#fff;text-align:center;">学员端</p>
+            </a>
+            <a href="../html/admin.html" style="float:left;margin:0 50px 0 0;">
+                <span class="demo-box-er-span"><i class="demo-box-er-span-i-2"></i></span>
+                <p style="color:#fff;text-align:center;">管理端</p>
+            </a>
+            <a href="../mobile/mobile.html" style="float:left;margin:0 50px 0 0;" class="cur">
+                <span class="demo-box-er-span"><i class="demo-box-er-span-i-3"></i></span>
+                <p style="color:#fff;text-align:center;">移动端</p>
+            </a>
+            <a href="../html/xiangmu.html" style="float:left;margin:0 50px 0 0;">
+                <span class="demo-box-er-span"><i class="demo-box-er-span-i-4"></i></span>
+                <p style="color:#fff;text-align:center;">项目</p>
+            </a>
+        </div>
+    </div>
+
+    <div style="min-width:1300px;">
+
+        <div class="demo-sidebar" style="position:fixed;left:0;top:130px;width:150px;z-index:9999">
+            <ul class="wzb-list-15" id="wzb-title-big">
+                <li class="tyys"><a href="javascript:goToQuestion(0)" class="cur">统一样式</a></li>
+                <li class="lbxs"><a href="javascript:goToQuestion(1)">列表形式</a></li>
+                <li class="btxs"><a href="javascript:goToQuestion(2)">标题形式</a></li>
+                <li class="twlb"><a href="javascript:goToQuestion(3)">图文列表</a></li>
+                <li class="lbtpys"><a href="javascript:goToQuestion(4)">列表、图片样式</a></li>
+                <li class="xxk"><a href="javascript:goToQuestion(5)">选项卡</a></li>
+                <li class="c-i"><a href="javascript:goToQuestion(6)">cont-info标题</a></li>
+                <li class="lbrq"><a href="javascript:goToQuestion(8)">列表容器</a></li>
+                <li class="an"><a href="javascript:goToQuestion(10)">按钮</a></li>
+                <li class="qt"><a href="javascript:goToQuestion(9)">其他</a></li>
+            </ul>
+            <script type="text/javascript">
+                $("#wzb-title-big li a").click(function(){
+                    $("#wzb-title-big li a").removeClass("cur");
+                    $(this).addClass("cur");
+                })
+            </script>
+        </div> 
+
+        <div style="margin:150px 0 0 0;">
+            <div class="xyd-main">
+                <!-- 统一样式 start -->
+                <div class="xyd-main clearfix" id="0">
+                    <div style="background:#fff;">
+                        <div class="demo-wzb-title">统一样式</div>
+                        <div class="panel-body">
+                            <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+                                <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                    <a href="../static/images/demo/C01.png" itemprop="contentUrl" data-size="1200x1105">
+                                        <img src="../static/images/demo/C01.png" itemprop="thumbnail" alt="Image description" />
+                                    </a>    
+                                    <figcaption itemprop="caption description">Image caption 1</figcaption>
+                                </figure>   
+                            
+                                <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                    <a href="../static/images/demo/C02.png" itemprop="contentUrl" data-size="1200x2842">
+                                        <img src="../static/images/demo/C02.png" itemprop="thumbnail" alt="Image description" />
+                                    </a>
+                                    <figcaption itemprop="caption description">Image caption 2</figcaption>
+                                </figure>
+                                
+                                <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                    <a href="../static/images/demo/C03.png" itemprop="contentUrl" data-size="1200x2921">
+                                        <img src="../static/images/demo/C03.png" itemprop="thumbnail" alt="Image description" />
+                                    </a>
+                                    <figcaption itemprop="caption description">Image caption 3</figcaption>
+                                </figure>
+                            </div>
+                            <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="pswp__bg"></div>
+                                <div class="pswp__scroll-wrap">
+                                    <div class="pswp__container">
+                                        <div class="pswp__item"></div>
+                                        <div class="pswp__item"></div>
+                                        <div class="pswp__item"></div>
+                                    </div>
+                                    <div class="pswp__ui pswp__ui--hidden">
+                                        <div class="pswp__top-bar">
+                                            <div class="pswp__counter"></div>
+                                            <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                                            <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                                            <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                                            <div class="pswp__preloader">
+                                                <div class="pswp__preloader__icn">
+                                                  <div class="pswp__preloader__cut">
+                                                    <div class="pswp__preloader__donut"></div>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                                            <div class="pswp__share-tooltip"></div> 
+                                        </div>
+                                        <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+                                        <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+                                        <div class="pswp__caption">
+                                            <div class="pswp__caption__center"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                                var initPhotoSwipeFromDOM = function(gallerySelector) {
+                                var parseThumbnailElements = function(el) {
+                                    var thumbElements = el.childNodes,
+                                        numNodes = thumbElements.length,
+                                        items = [],
+                                        figureEl,
+                                        linkEl,
+                                        size,
+                                        item;
+                                    for(var i = 0; i < numNodes; i++) {
+                                        figureEl = thumbElements[i];
+                                        if(figureEl.nodeType !== 1) {
+                                            continue;
+                                        }
+                                        linkEl = figureEl.children[0];
+                                        size = linkEl.getAttribute('data-size').split('x');
+                                        item = {
+                                            src: linkEl.getAttribute('href'),
+                                            w: parseInt(size[0], 10),
+                                            h: parseInt(size[1], 10)
+                                        };
+                                        if(figureEl.children.length > 1) {
+                                            item.title = figureEl.children[1].innerHTML; 
+                                        }
+                                        if(linkEl.children.length > 0) {
+                                            item.msrc = linkEl.children[0].getAttribute('src');
+                                        } 
+                                        item.el = figureEl; 
+                                        items.push(item);
+                                    }
+                                    return items;
+                                };
+                                var closest = function closest(el, fn) {
+                                    return el && ( fn(el) ? el : closest(el.parentNode, fn) );
+                                };
+                                var onThumbnailsClick = function(e) {
+                                    e = e || window.event;
+                                    e.preventDefault ? e.preventDefault() : e.returnValue = false;
+                                    var eTarget = e.target || e.srcElement;
+                                    var clickedListItem = closest(eTarget, function(el) {
+                                        return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+                                    });
+                                    if(!clickedListItem) {
+                                        return;
+                                    }
+                                    var clickedGallery = clickedListItem.parentNode,
+                                        childNodes = clickedListItem.parentNode.childNodes,
+                                        numChildNodes = childNodes.length,
+                                        nodeIndex = 0,
+                                        index;
+                                    for (var i = 0; i < numChildNodes; i++) {
+                                        if(childNodes[i].nodeType !== 1) { 
+                                            continue; 
+                                        }
+                                        if(childNodes[i] === clickedListItem) {
+                                            index = nodeIndex;
+                                            break;
+                                        }
+                                        nodeIndex++;
+                                    }
+                                    if(index >= 0) {
+                                        openPhotoSwipe( index, clickedGallery );
+                                    }
+                                    return false;
+                                };
+                                var photoswipeParseHash = function() {
+                                    var hash = window.location.hash.substring(1),
+                                    params = {};
+                                    if(hash.length < 5) {
+                                        return params;
+                                    }
+                                    var vars = hash.split('&');
+                                    for (var i = 0; i < vars.length; i++) {
+                                        if(!vars[i]) {
+                                            continue;
+                                        }
+                                        var pair = vars[i].split('=');  
+                                        if(pair.length < 2) {
+                                            continue;
+                                        }           
+                                        params[pair[0]] = pair[1];
+                                    }
+                                    if(params.gid) {
+                                        params.gid = parseInt(params.gid, 10);
+                                    }
+                                    return params;
+                                };
+                                var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+                                    var pswpElement = document.querySelectorAll('.pswp')[0],
+                                        gallery,
+                                        options,
+                                        items;
+                                    items = parseThumbnailElements(galleryElement);
+                                    options = {
+                                        galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+                                        getThumbBoundsFn: function(index) {
+                                            var thumbnail = items[index].el.getElementsByTagName('img')[0], 
+                                                pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                                                rect = thumbnail.getBoundingClientRect(); 
+                                            return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
+                                        }
+                                    };
+                                    if(fromURL) {
+                                        if(options.galleryPIDs) {
+                                            for(var j = 0; j < items.length; j++) {
+                                                if(items[j].pid == index) {
+                                                    options.index = j;
+                                                    break;
+                                                }
+                                            }
+                                        } else {
+                                            options.index = parseInt(index, 10) - 1;
+                                        }
+                                    } else {
+                                        options.index = parseInt(index, 10);
+                                    }
+                                    if( isNaN(options.index) ) {
+                                        return;
+                                    }
+                                    if(disableAnimation) {
+                                        options.showAnimationDuration = 0;
+                                    }
+                                    gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+                                    gallery.init();
+                                };
+                                var galleryElements = document.querySelectorAll( gallerySelector );
+                                for(var i = 0, l = galleryElements.length; i < l; i++) {
+                                    galleryElements[i].setAttribute('data-pswp-uid', i+1);
+                                    galleryElements[i].onclick = onThumbnailsClick;
+                                }
+                                var hashData = photoswipeParseHash();
+                                if(hashData.pid && hashData.gid) {
+                                    openPhotoSwipe( hashData.pid ,  galleryElements[ hashData.gid - 1 ], true, true );
+                                }
+                            };
+                            initPhotoSwipeFromDOM('.my-gallery');
+                            </script>
+                        </div>
+                        <div style="padding:15px 30px 20px 30px;border-top:1px solid #EBEFF2;">
+                            <div>结构的样式：</div>
+                            <div>整体：<\div class="wrap mm-page" id="wizwrap"><\div></div>
+                            <div>头部：<\header class="header mm-background"><\header></div>
+                            <div>内容(页面底部无导航)：<\section class="content"><\section></div>
+                            <div>内容(页面底部为导航)：<\section class="content-2"><\section></div>
+                            <div>内容(页面底部为点赞、收藏、评论)：<\section class="content-3"><\section></div>
+                            <div>底部导航：<\div class="docker-menu gps"><\div></div>
+                            <div>底部为点赞、收藏、评论：<\div class="mm-ismenu wiz-tool"><\div></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 统一样式 start -->
+
+                <div style="width:100%;height:20px;background:#ebeff2;"></div>
+
+                <!-- 列表形式 start -->
+                <div class="demo-wzb-title" id="1">列表形式</div>
+                <!-- 列表形式二 start -->
+                <h3 class="wzb-title-2" style="padding-top:10px;">列表形式二
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:420px;">
+                            <div>1、左侧图标位置宽55px；</div>
+                            <div style="margin-top:5px;">2、未读标题：16px字号，颜色：#00aeef；已读标题：16字号，颜色：#333；</div>
+                            <div style="color:pink;">注：开发：已读标题是在标题的span标签加上类名 mcolor-font-size ，未读标题去掉这个类名</div>
+                            <div style="margin-top:5px;">3、日期：14字号，颜色：#999；</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="padding-left:10px;color:#999;">使用说明：这种列表形式用在站内信、公告、调查问卷、投票等的列表页面。</div>
+                <div style="border-bottom:1px solid #EBEFF2;padding:10px 0 30px;">
+            		<div style="width:500px;">
+                        <ul class="panel-list-1-2 list-icon-mail">
+                            <li class="list-icon-mail-yidu">
+                                <div class="panel-list-title-1">
+                                    <a class="panel-list-title-1" href="javascript:void(0)"><span class="mcolor-font-size">Course Enrollment Approval</span>
+                                        <div class="panel-list-time">
+                                            2016-08-17
+                                        </div>
+                                    </a>
+                                    <span class="panel-num-2" style="margin:-20px 0 0 0;"><a class="list-tool-1-close" href="javascript:void(0)"></a></span>
+                                </div>
+                            </li>
+                            <li class="list-icon-mail-yidu">
+                                <div class="panel-list-title-1">
+                                    <a class="panel-list-title-1" href="javascript:void(0)"><span class="">Course Enrollment Approval</span>
+                                        <div class="panel-list-time">
+                                            2016-08-17
+                                        </div>
+                                    </a>
+                                    <span class="panel-num-2" style="margin:-20px 0 0 0;"><a class="list-tool-1-close" href="javascript:void(0)"></a></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 列表形式二 end -->
+
+                <!-- 列表形式七 start -->
+                <h3 class="wzb-title-2">列表形式七
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:400px;">
+                            <div>1、标题：14px字号，颜色：#333；</div>
+                            <div style="margin-top:5px;">2、内容：（未选中）14px字号，颜色：#999；（选中）14px字号；颜色：#428bca；</div>
+                            <div style="color:pink;">注：开发：选中的内容是在a标签加上类名class="selectBox"，未选中的内容去掉这个类名</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:20px 0 40px;">
+                    <div style="width:375px;height:667px;margin-left:10px;border:1px solid #00aeef;">
+                        <!-- 这里写的style只是在这个页面的改动 -->
+                        <div class="wrap" id="wizwrap" ng-show="show.detail" style="width:375px;position:relative;">
+                            <header class="header mm-background" style="position:absolute;">
+                                <a class="header-back" href="javascript:void(0);" title="back"></a>
+                                <span class="header-title">群组资料</span>
+                                <a class="header-info" href="javascript:void(0)" title="save">保存</a>
+                            </header>
+                            <section class="content" style="height:622px;">
+                                <div class="panel-title-19">
+                                    <a class="panel-add-06 clearfix" href="javascript:void(0)"  title="">
+                                        <em class="panel-num-22">汇思广州群组</em>
+                                        <span>群组名称</span>
+                                    </a>
+                                </div>
+                                <div class="panel-title-19 panel-title-19-no">
+                                    <a class="panel-add-06 clearfix" href="javascript:void(0)" title="">
+                                        <em class="panel-num-3">2016-08-22</em>
+                                        <span>创建时间</span>
+                                    </a>
+                                </div>
+                                <div class="panel-title-19 panel-title-19-no">
+                                    <a class="panel-add-06 clearfix" href="javascript:void(0)" title="">
+                                        <em class="panel-num-22">汇思--广州天河区</em>
+                                        <span>描述</span>
+                                    </a>
+                                </div>
+                                <div class="panel-title-19 panel-title-19-no">
+                                    <a class="panel-add-06 clearfix" href="javascript:void(0)" ng-click="" title="">
+                                        <em class="panel-num-22">Administrator</em>
+                                        <span>管理员</span>
+                                    </a>
+                                </div>
+                                <div class="panel">
+                                    <div class="panel-title-19">
+                                        <a class="panel-add-06 clearfix" href='javascript:void(0)' title="">
+                                            <em class="panel-num-22">1</em>
+                                            <span>群组成员</span>
+                                        </a>
+                                    </div> 
+                                    <div class="tuwen-list-3">
+                                        <div class="tuwen-list-3-box clearfix">
+                                            <img id="user_photo_3" alt="" class="pic-radius" src="images/user10.png">
+                                        </div>        
+                                    </div>
+                                </div>
+                                <div class="panel-title-19 panel-title-19-no">
+                                    <a class="panel-add-06 clearfix" href='javascript:void(0)' title="">
+                                        <em class="panel-num-3">0</em>
+                                        <span>成员审批</span>
+                                    </a>
+                                </div>
+                                <div class="panel-title-19 panel-title-19-no">
+                                    <a class="panel-add-06 clearfix" title="" href='javascript:void(0)'>
+                                        <em class="panel-num-3">&nbsp;</em>
+                                        <span>转让管理员</span>
+                                    </a>
+                                </div>
+                                <div class="panel-title-19 panel-title-19-no">
+                                    <a class="panel-add-06 yinsi-tip clearfix" href="javascript:void(0)" title="">
+                                        <em class="panel-num-22">所有人可以申请</em>
+                                        <span>群组隐私</span>
+                                    </a>
+                                </div>
+                                <div class="panel-list-cont-12">
+                                     <a class="panel-box-btn-02" href="javascript:void(0)" title="">解散本群</a>
+                                </div>
+                                <div class="yinsi-desc show" style="display:none;width:375px;height:667px;position:absolute;top:0;left:0;z-index:999;">
+                                    <div class="yinsi-info" style="width:375px; display: block;">
+                                        <div class="cont-info-title-7"><span>群组隐私</span>：</div>
+                                        <ul class="panel-list-1-7">
+                                            <li>
+                                                <a href="javascript:void(0)">不开放申请</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)" class="selectBox">所有人可以申请</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)">无需申请就可以加入</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)">取消</a>
+                                            </li>
+                                        </ul> 
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <!-- 列表形式七 end -->
+                            
+                <!-- 列表形式十 start -->
+                <h3 class="wzb-title-2">列表形式十
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:320px;">
+                            <div>1、左侧选择图标：选中图标为蓝色底白色打勾圆圈图标，未选中图标为灰色圆圈图标；</div>
+                            <div style="color:pink;">注：开发：选中是在 li 标签加上类名 cur ，未选中去掉这个类名。</div>
+                            <div style="margin-top:5px;">2、头像大小为46px*46px；</div>
+                            <div style="margin-top:5px;">3、字体：14px字号，颜色：#999；</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:0 0 30px;">
+                    <div style="width:500px;">
+                        <div class="cont-info">
+                            <ul class="panel-list-1-10">
+                                <li class="cur">
+                                    <div class="tuwen-list-2 clearfix">
+                                        <a class="tuwen-list-2-pic" href="javascript:void(0)">
+                                            <img id="user_photo_1341" class="pic-user-w" src="images/user10.png">
+                                        </a>          
+                                        <div class="tuwen-list-2-box"> 
+                                            <div class="tuwen-list-2-tit-1">
+                                                <div class="tuwen-list-2-user ">平台部</div>
+                                            </div>
+                                            <p class="tuwen-list-2-tit-2">Java开发组</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="tuwen-list-2 clearfix">
+                                        <a class="tuwen-list-2-pic" href="javascript:void(0)">
+                                            <img id="user_photo_3931" class="pic-user-w" src="images/user11.png">
+                                        </a>          
+                                        <div class="tuwen-list-2-box"> 
+                                            <div class="tuwen-list-2-tit-1">
+                                                <div class="tuwen-list-2-user">平台部</div>
+                                            </div>
+                                            <p class="tuwen-list-2-tit-2">测试组</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- 列表形式十 end -->
+                            
+                <!-- 列表形式十二 start -->
+                <h3 class="wzb-title-2">列表形式十二
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:300px;">
+                            <div>1、“问题分类”：16px字号，颜色：#999；</div>
+                            <div style="margin-top:5px;">2、内容标题：（未选中）14px字号，颜色：#333；（选中）14px字号，颜色：#00aeef；</div>
+                            <div style="color:pink;">注：开发：选中是在 li 标签加上类名 select ，未选中去掉这个类名。</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:20px 0 40px;">
+                    <div style="width:500px;">
+                        <div class="header-guide-box" style="background:#f2f2f2;">          
+                            <div class="header-guide-title" style="box-sizing:content-box;">问题分类</div>
+                            <div class="guide-menu clearfix">  
+                                <ul class="guide-menu-list-1 panel-list-cont-13" style="height:117px;">
+                                    <li id="select-1" class="select">     
+                                        <a href="javascript:void(0)">全部<em></em></a>
+                                    </li>
+                                    <li id="select-2">      
+                                        <a href="javascript:void(0)">平台部<em></em></a>
+                                    </li>
+                                    <li id="select-3">
+                                        <a href="javascript:void(0)">学习教育<em></em></a>
+                                    </li>  
+                                </ul>     
+                                <div class="guide-menu-cont" style="display:none; height: 117px;" id="guide-menu-cont-1">       
+                                    <ul class="guide-menu-list-2"> 
+                                        <li>
+                                            <a href="javascript:void(0)">Java工程师</a>
+                                        </li>
+                                        <li class="noline">
+                                            <a href="javascript:void(0)">测试大师</a>
+                                        </li>     
+                                    </ul>  
+                                </div>  
+                                <div class="guide-menu-cont" style="display:none; height: 117px;" id="guide-menu-cont-2">       
+                                    <ul class="guide-menu-list-2"> 
+                                        <li>
+                                            <a href="javascript:void(0)">知识点</a>
+                                        </li>
+                                        <li class="noline">
+                                            <a href="javascript:void(0)">教育信息</a>
+                                        </li>     
+                                    </ul>  
+                                </div>  
+                                <!-- js要用动态的，这里静态页面的js只做展示 -->
+                                <script type="text/javascript">
+                                    $("#select-1").click(function(){
+                                        $(this).removeClass('select').addClass('select');
+                                        $("#select-2").removeClass('select');
+                                        $("#select-3").removeClass('select');
+                                        $("#guide-menu-cont-1").css("display","none");
+                                        $("#guide-menu-cont-2").css("display","none");
+                                        $(".guide-menu-list-1").removeClass("guide-menu-click");
+                                    });
+                                    $("#select-2").click(function(){
+                                        $(this).removeClass('select').addClass('select');
+                                        $("#select-1").removeClass('select');
+                                        $("#select-3").removeClass('select');
+                                        $("#guide-menu-cont-1").css("display","block");
+                                        $("#guide-menu-cont-2").css("display","none");
+                                        $(".guide-menu-list-1").addClass("guide-menu-click");
+                                    });
+                                    $("#select-3").click(function(){
+                                        $(this).removeClass('select').addClass('select');
+                                        $("#select-1").removeClass('select');
+                                        $("#select-2").removeClass('select');
+                                        $("#guide-menu-cont-2").css("display","block");
+                                        $("#guide-menu-cont-1").css("display","none");
+                                        $(".guide-menu-list-1").addClass("guide-menu-click");
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 列表形式十二 end -->
+
+                <!-- 列表形式十三 start -->
+                <h3 class="wzb-title-2">列表形式十三
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:280px;">
+                            <div>1、左右各占50%；图片左右各缩进10px；</div>
+                            <div style="margin-top:5px;">2、标题：14px字号，颜色：#fff；</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:10px 0 40px;">
+                    <div style="width:500px;margin:40px 0 0 0;">
+                        <ul class="panel-list-1-13 clearfix">
+                            <li class="ng-scope">
+                                <a class="panel-list-1-13-cont" href="javascript:void(0)" title="">
+                                    <div class="list-pic-13">
+                                        <img src="images/adv35.jpg">
+                                        <div class="bg-9">
+                                            <i class="ng-binding">平台部Java工程师</i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="ng-scope">
+                                <a class="panel-list-1-13-cont" href="javascript:void(0)" title="">
+                                    <div class="list-pic-13">
+                                        <img src="images/adv34.jpg">
+                                        <div class="bg-9">
+                                            <i class="ng-binding">平台部Android</i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                         </ul>
+                     </div>
+                 </div>
+                <!-- 列表形式十三 end -->
+
+                <!-- 列表形式十五 start -->
+                <h3 class="wzb-title-2">列表形式十五
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:380px;">
+                            <div>1、标题：14px字号，颜色：#333；超2行显示“...”；</div>
+                            <div style="margin-top:5px;">2、偶数的课程是一行均分2门，奇数课程独占一行100%；</div>
+                            <div style="color:pink;">注：开发：单独一门课程在 li 标签添加 style="width:100%" 即可。</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:10px 0 10px;">
+                    <div style="width:500px;">
+                        <ul class="panel-list-1-15 clearfix">
+                            <li>
+                                <a class="panel-list-cont-1" href="javascript:void(0)">
+                                    <div class="panel-list-pic-15">
+                                        <img src="images/adv37.jpg">
+                                        <div class="showin"></div>
+                                    </div>
+                                    <div class="list-title">互联网+时代用技术成就职场梦想！让你从繁琐的工作中解放、让你的培训更有效！</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="panel-list-cont-1" href="javascript:void(0)">
+                                    <div class="panel-list-pic-15">
+                                        <img src="images/adv38.jpg">
+                                        <div class="showin"></div>
+                                    </div>
+                                    <div class="list-title">企业级整合式学习管理平台千万级用户，万人同时在线</div>
+                                </a>
+                            </li>
+                            <li style="width:100%;">
+                                <a class="panel-list-cont-1" href="javascript:void(0)">
+                                    <div class="panel-list-pic-15">
+                                        <img src="images/adv39.jpg">
+                                        <div class="showin"></div>
+                                    </div>
+                                    <div class="list-title">创新在线学习产品真正更好地帮助企业实现绩效支持</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 列表形式十五 end -->
+                <!-- 列表形式 end -->
+
+                <div style="width:100%;height:20px;background:#ebeff2;"></div>
+
+                <!-- 标题形式 start -->
+                <div class="demo-wzb-title" id="2">标题形式</div>
+
+                <!-- 标题形式二 start -->
+                <h3 class="wzb-title-2">标题形式二
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:280px;">
+                            <div>1、标题：18px字号，颜色：#333；</div>
+                            <div style="margin-top:5px;">2、标题前面的色块颜色色值分别是：#f68a3f，#00aeef，#02cf97，#ffd84d</div>
+                            <div style="color:pink;">注：开发：标题类名：panel-title-2；<br />标题前的色块在 a 标签添加类名即可，分别是：panel-border-orange，panel-border-blue，panel-border-green，panel-border-yellow</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:10px 0 40px;">
+                    <div style="width:500px;">
+                        <h3 class="panel-title-2" style="border-bottom: 1px solid #eee;">
+                            <a class="panel-title-subject panel-tuijian panel-border-orange" href="javascript:void(0)" style="color:#333;font-size:18px;">我的必修课</a>
+                        </h3>
+                        <h3 class="panel-title-2" style="border-bottom: 1px solid #eee;">
+                            <a class="panel-title-subject panel-tuijian panel-border-blue" href="javascript:void(0)" style="color:#333;font-size:18px;">我的必修课</a>
+                        </h3>
+                        <h3 class="panel-title-2" style="border-bottom: 1px solid #eee;">
+                            <a class="panel-title-subject panel-tuijian panel-border-green" href="javascript:void(0)" style="color:#333;font-size:18px;">我的必修课</a>
+                        </h3>
+                        <h3 class="panel-title-2" style="border-bottom: 1px solid #eee;">
+                            <a class="panel-title-subject panel-tuijian panel-border-yellow" href="javascript:void(0)" style="color:#333;font-size:18px;">我的必修课</a>
+                        </h3>
+                    </div>
+                </div>
+                <!-- 标题形式二 end -->
+
+                <!-- 标题形式六 start -->
+                <h3 class="wzb-title-2">标题形式六
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:280px;">
+                            <div>1、第一组标题（创建时间）：字号：14px，颜色：#333；上边距：10px，分隔线：1px，颜色：#eee；</div>
+                            <div style="color:pink;">注：开发：类名：panel-title-6，分隔线类名：panel-title-6-no；</div>
+                            <div style="margin-top:5px;">2、第二组标题（名称）：子号：16px，颜色：#333，上边距：10px，文字水平居中；</div>
+                            <div style="color:pink;">注：开发：类名：panel-title-6-center；</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:10px 0 40px;">
+                    <div style="width:500px;background:#f2f2f2;padding:1px 0 0 0;border:1px solid #ccc;">
+                        <div class="panel-title-6">创建时间</div>
+                        <div class="panel-title-6 panel-title-6-no">创建时间</div>
+                        <div class="panel-title-6-center">名称</div>
+                    </div>
+                </div>
+                <!-- 标题形式六 end -->
+
+                <!-- 标题形式九 start -->
+                <h3 class="wzb-title-2">标题形式九
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:280px;">
+                            <div>标题：18px字号，颜色：#333，</div>
+                            <div style="color:pink;">注：开发：标题类名：panel-title-9；<br />标题前的2个图标是单独写进标题前面的，加两个 i 标签即可，类名分别是：wzb-pc-icon ，wzb-phone-icon</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:10px 0 30px;">
+                    <div style="width:500px;">
+                        <div class="panel-title-9">
+                            <i class="wzb-pc-icon"></i><i class="wzb-phone-icon" ng-show="course.itm_mobile_ind &amp;&amp; course.itm_mobile_ind == 'yes'"></i>LPT是Learning Performance ThinkTank的缩写 是一个“学习与绩效智囊团”的社团组织。
+                        </div>
+                    </div>
+                </div>
+                <!-- 标题形式九 end -->
+
+                <!-- 标题形式十二 start -->
+                <h3 class="wzb-title-2">标题形式十二
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:300px;">
+                            <div style="color:pink;">类名：panel-title-12</div>
+                            <div>1、左侧文字：14px字号，颜色：#333；</div>
+                            <div style="margin-top:5px;">2、右侧数字：42px字号，颜色：#f7a901；文字 “题”：字号：20px，颜色：#333；</div>
+                            <div style="color:pink;">类名：右侧部分：panel-num-5，文字：panel-num-4</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:10px 0 20px;">
+                    <div style="width:500px;">
+                        <a class="panel-title-12" href='javascript:void(0)' title="">
+                            <div class="panel-add-01">
+                                <em class="panel-num-5">
+                                    <i class="panel-num-4">5</i>
+                                    <span>题</span>
+                                </em>
+                                <span>待解决问题</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- 标题形式十二 end -->
+
+                <!-- 标题形式十七 start -->
+                <h3 class="wzb-title-2">标题形式十七
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:280px;">
+                            <div>1、背景色：#f2f2f2；</div>
+                            <div style="color:pink;">类名：panel-title-17</div>
+                            <div style="margin-top:5px;">2、左侧文字：字号：14px，颜色：#666；</div>
+                            <div style="color:pink;">类名：panel-add-03</div>
+                            <div style="margin-top:5px;">3、右侧文字：字号：14px，颜色：#999；</div>
+                            <div style="color:pink;">类名：panel-num-2</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:10px 0 40px;">
+                    <div style="width:500px;padding:0 10px;">
+                        <div class="panel-title-17"><div class="panel-add-03 clearfix"><em class="panel-num-2">网上课程</em>类型</div></div>
+                    </div>
+                </div>
+                <!-- 标题形式十七 end -->
+
+                <!-- 标题形式十八 start -->
+                <h3 class="wzb-title-2">标题形式十八
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:280px;">
+                            <div>1、边距：上下：10px，左右：0；</div>
+                            <div style="color:pink;">类名：panel-title-18</div>
+                            <div style="color:pink;">上框线类名：panel-title-18-no</div>
+                            <div style="margin-top:5px;">2、左侧文字：字号：14px，颜色：#333；</div>
+                            <div style="color:pink;">类名：panel-add-01</div>
+                            <div style="margin-top:5px;">3、右侧文字：字号：20px，颜色：#333；</div>
+                            <div style="color:pink;">类名：panel-num-5</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:10px 0 20px;">
+                    <div style="width:500px;padding:0 10px;">
+                        <div class="panel-title-18 panel-title-18-no">
+                            <span class="panel-add-01 clearfix ng-binding"><em class="panel-num-5 ng-binding">00:00:00</em>学习时长</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 标题形式十八 end -->
+
+                <!-- 标题形式十九 start -->
+                <h3 class="wzb-title-2">标题形式十九
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:300px;">
+                            <div>左侧文字：字号：14px，颜色：#333；</div>
+                            <div>右侧数字标识：字号：14px，颜色：#999；</div>
+                            <div style="color:pink;">类名：panel-title-19；线的类名：panel-list-cont-10-top（线要单独用一个标签）；top线类名：panel-title-19-no（与panel-title-19一起使用即可）</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:10px 0 30px;">
+                    <div style="width:500px;">
+                        <div class="panel-title-19">
+                            <a href="javascript:void(0)" title="">
+                                <i class="icon-jifen"></i>
+                                <em class="panel-num-1">119</em>
+                                <span>总积分</span>
+                            </a>
+                        </div>
+                        <div class="panel-list-cont-10-top"></div>
+                        <div class="panel-title-19">
+                            <a href="javascript:void(0)" title="">
+                                <i class="icon-gaikuang"></i>
+                                <em class="panel-num-1">&nbsp;</em>
+                                 学习概况
+                            </a>
+                        </div>
+                        <div class="panel-title-19 panel-title-19-no">
+                            <a class="panel-add-06 clearfix" href="javascript:void(0)" title="">
+                                <em class="panel-num-3">2016-08-22</em>
+                                <span class="ng-scope">创建时间</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- 标题形式十九 end -->
+
+                <!-- 标题形式二十一 start -->
+                <h3 class="wzb-title-2">标题形式二十一
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:300px;">
+                            <div>标题：字号：14px；颜色：#333；标题超 2 行显示 ...</div>
+                            <div>色块里的文字：字号：12px；颜色：#fff；色块颜色分别是：#f15e4c，#f7a900，#00aeef，#b273c2；</div>
+                            <div style="color:pink;">注：开发：色块颜色的类名分别是：box-num-cont-pink，box-num-cont-yellow，box-num-cont-blue，box-num-cont-purple</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:10px 0 40px;">
+                    <div style="width:500px;">
+                        <div class="panel-title-21-box">
+                            <a href="javascript:void(0)">
+                                <div class="panel-title-21 tuwen-list-1-tit-1">广州汇思信息科技有限公司在香港、北京、上海、广州和深圳均设有分支机构，作为亚太地区领先与大中华地区规模最大的人才发展整体解决方案的提供商。</div>
+                                <div class="box-num-cont-2">
+                                    <span class="box-num-cont-pink">待解决</span>
+                                    <span class="wenda-list-info-4"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="panel-title-21-box">
+                            <a href="javascript:void(0)">
+                                <div class="panel-title-21 tuwen-list-1-tit-1">人才发展就是向人们提供足以满足当前或未来个人成就实现所需要的知识、技能和机会。</div>
+                                <div class="box-num-cont-2">
+                                    <span class="box-num-cont-yellow">已解决</span>
+                                    <span class="wenda-list-info-4"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="panel-title-21-box">
+                            <a href="javascript:void(0)">
+                                <div class="panel-title-21 tuwen-list-1-tit-1">人才发展就是向人们提供足以满足当前或未来个人成就实现所需要的知识、技能和机会。</div>
+                                <div class="box-num-cont-2">
+                                    <span class="box-num-cont-blue">FAQ</span>
+                                    <span class="wenda-list-info-4"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="panel-title-21-box">
+                            <a href="javascript:void(0)">
+                                <div class="panel-title-21 tuwen-list-1-tit-1">人才发展就是向人们提供足以满足当前或未来个人成就实现所需要的知识、技能和机会。</div>
+                                <div class="box-num-cont-2">
+                                    <span class="box-num-cont-purple">精选</span>
+                                    <span class="wenda-list-info-4"></span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- 标题形式二十一 end -->
+
+                <!-- 标题形式二十二 start -->
+                <h3 class="wzb-title-2">标题形式二十二
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:280px;">
+                            <div>1、一级标题：字号：16px；颜色：#333；</div>
+                            <div style="margin-top:5px;">2、二级标题：字号：14px；颜色：#333；</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:10px 0 30px;">
+                    <div style="width:500px;">
+                        <div>                           
+                            <h2 class="panel-title-1 panel-bg-product panel-num-15">                          
+                                <a class="panel-class-open padding-model-1" href="javascript:void(0)" title="">“快数据”管理平台</a>                         
+                            </h2>    
+                            <ul class="panel-title-22">                              
+                                <li>
+                                    •   <a href="javascript:void(0)">多语言课程</a>
+                                </li>
+                                <li>
+                                    •   <a href="javascript:void(0)">定制课件</a>
+                                </li>                          
+                            </ul>                        
+                        </div>
+                    </div>
+                </div>
+                <!-- 标题形式二十二 end -->
+
+                <!-- 标题形式二十三 start -->
+                <h3 class="wzb-title-2">标题形式二十三
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:220px;">
+                            <div>标题：14px字号，颜色：#333，文字超过 2 行显示“...” 。</div>
+                            <div style="color:pink;">注：开发：标题类名：panel-title-23</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:20px 0 30px;">
+                    <div style="width:500px;">
+                        <div style="background:#f2f2f2;padding:8px 0;">
+                            <ul class="panel-title-23 clearfix">
+                                <li>
+                                    <p>java工程师</p><em></em>
+                                </li>
+                                <li>
+                                    <p>其他岗位</p><em></em>
+                                </li>
+                             </ul>
+                         </div>
+                     </div>
+                 </div>
+                <!-- 标题形式二十三 end -->
+                <!-- 标题形式 end -->
+
+                <div style="width:100%;height:20px;background:#ebeff2;"></div>
+
+                <!-- 图文列表 start -->
+                <h3 class="demo-wzb-title" id="3">图文列表</h3>
+
+                <!-- 图文列表一 start -->
+                <h3 class="wzb-title-2">图文列表一
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:400px;height:400px;overflow-y:auto;">
+                            <div>1、左侧图片大小为：宽：114px，高：70px；在公开课列表里，正在播放的课程图片加上2px蓝色边框，图片上的黑色透明层和播放图标。</div>
+                            <div style="color:pink;">注：开发：公开课的蓝色边框在类名为 tuwen-list-1-pic 的div加上类名 list-border-1 blue ；黑色透明层和播放图标添加代码（与img标签同级）：（span class="tuwen-list-1-bg"）（i class="tuwen-list-1-png"）（i）（ span）【自己组织一下结构*_*】</div>
+                            <div style="margin-top:5px;">2、标题：字号：14px；颜色：#333；文字超 2 行显示 ...</div>
+                            <div style="margin-top:5px;">3、点赞和评论的数字：字号：12px，颜色：#999；第一条网上课程的时间：字号：14px；颜色：#999；其他列表的时间：字号：12px; 颜色：#999；</div>
+                            <div style="margin-top:5px;">4、学习课程和考试的图片右上角是对改课程或考试的类型作区别，分别是网上课程，面授课程，项目式培训，网上考试，离线考试。</div>
+                            <div style="color:pink;">注：开发：类型的类名是：网上课程：list-tool-1-wangshang，面授课程：list-tool-1-mianshou，项目式培训：list-tool-1-xiangmushi，网上考试：list-tool-1-onlineexams，离线考试：list-tool-1-offlineexams。</div>
+                            <div style="margin-top:5px;">5、学习状态或考试状态小图标<div style="color:pink;">开发：等待中：wiz-wait，审批中：wiz-approveing，进行中：wiz-learning，已完成：wiz-finish，未完成：wiz-unfinish，已放弃：wiz-giveup，已拒绝：wiz-rejected。</div></div>
+                            <div style="margin-top:5px;">6、文档分类，图片右下角的色块：宽度：35px，高度20px，字号：12px，颜色：#fff；色块颜色分别是：#02cf97，#f15e4c，#00aeef，#f6aa00，#b273c2，#f68a3f，#33cc33。</div>
+                            <div style="color:pink;">注：开发：文档分类的色块颜色类名：XLS：tuwen-list-1-xls；PPT：tuwen-list-1-ppt；DOC：tuwen-list-1-doc；PDF：tuwen-list-1-pdf；PHO：tuwen-list-2-pho；VOD：tuwen-list-1-vod；ART：tuwen-list-1-art。</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:10px 0 30px;">
+                    <div style="width:500px;">
+                        <div class="tuwen-list-1 border-top">
+                            <a class="tuwen-list-1-box clearfix" href="javascript:void(0)">
+                                <div class="tuwen-list-1-pic">
+                                    <img alt="" src="images/adv09.png">
+                                    <span class="list-tool-1-wangshang"></span>
+                                </div>   
+                                <div class="tuwen-list-1-tit-1"><i class="wzb-pc-icon"></i><i class="wzb-phone-icon"></i>网上课程：LPT是Learning Performance ThinkTank的缩写是一个“学习与绩效智囊团”的社团组织。</div>
+                                <div class="tuwen-list-tool">
+                                    <span class="list-tool-laud">3</span>
+                                    2016-09-03
+                                </div>
+                            </a>
+                        </div>
+                        <div class="tuwen-list-1">
+                            <a class="tuwen-list-1-box clearfix" href="javascript:void(0)" title="">
+                                <div class="tuwen-list-1-pic">
+                                    <img src="images/adv09.png">
+                                    <span class="list-tool-1-mianshou"></span>
+                                </div>
+                                
+                                <div class="marginl">
+                                    <div class="tuwen-list-1-tit-1"><i class="wzb-pc-icon"></i><i class="wzb-phone-icon"></i>面授课程：LPT是Learning Performance ThinkTank的缩写是一个“学习与绩效智囊团”的社团组织。</div>
+                                    <div class="tuwen-list-tool">
+                                        <span class="list-tool-1-laud">0</span>
+                                        <span class="list-tool-1-review">0</span>
+                                    </div>
+                                </div>   
+                            </a>
+                        </div>
+                        <div class="tuwen-list-1">
+                            <a class="tuwen-list-1-box clearfix" href="javascript:void(0)" title="">
+                                <div class="tuwen-list-1-pic">
+                                    <img src="images/adv09.png">
+                                    <span class="list-tool-1-xiangmushi"></span>
+                                </div>
+                                <div class="marginl">
+                                    <div class="tuwen-list-1-tit-1"><i class="wzb-pc-icon"></i>项目式培训：汇思LPT同时还是一个凝聚企业培训管理者以及高层管理人员的非盈利性会员制组织</div>
+                                    <div class="wiz-load">
+                                        <div class="wbload">
+                                            <span style="width:10px;"></span>
+                                        </div>
+                                        <span class="wbnum ng-binding">50%</span>
+                                        <div class="tuwen-list-tool">
+                                            <span class="list-tool-1-laud ng-binding">0</span>
+                                            <span class="list-tool-1-review ng-binding">0</span>
+                                        </div>
+                                    </div>   
+                                </div>
+                            </a>
+                        </div>
+                        <div class="tuwen-list-1">
+                            <a class="tuwen-list-1-box clearfix" href="javascript:void(0)" title="">
+                                <div class="tuwen-list-1-pic">
+                                    <img src="images/adv09.png">
+                                    <span class="list-tool-1-onlineexams"></span>
+                                </div>
+                                <div class="marginl">
+                                    <div class="tuwen-list-1-tit-1"><i class="wzb-pc-icon"></i>网上考试：汇思LPT同时还是一个凝聚企业培训管理者以及高层管理人员的非盈利性会员制组织</div>
+                                    <div class="wiz-load">
+                                        <div class="wbload">
+                                            <span style="width:10px;"></span>
+                                        </div>
+                                        <span class="wbnum ng-binding">50%</span>
+                                        <div class="tuwen-list-tool">
+                                            <span class="list-tool-1-laud ng-binding">0</span>
+                                            <span class="list-tool-1-review ng-binding">0</span>
+                                        </div>
+                                    </div>   
+                                </div>
+                            </a>
+                        </div>
+                        <div class="tuwen-list-1">
+                            <a class="tuwen-list-1-box clearfix" href="javascript:void(0)" title="">
+                                <div class="tuwen-list-1-pic">
+                                    <img src="images/adv09.png">
+                                    <span class="list-tool-1-offlineexams"></span>
+                                </div>
+                                <div class="marginl">
+                                    <div class="tuwen-list-1-tit-1">
+                                        <i class="wzb-pc-icon"></i>离线考试：汇思LPT同时还是一个凝聚企业培训管理者以及高层管理人员的非盈利性会员制组织
+                                    </div>
+                                    <div class="wiz-load">
+                                        <div class="wiz-load">
+                                            <span style="line-height:26px;" class="wiz-approveing">审批中</span>
+                                        </div>
+                                        <div class="tuwen-list-tool">
+                                            <span class="list-tool-1-laud ng-binding">0</span>
+                                            <span class="list-tool-1-review ng-binding">0</span>
+                                        </div>
+                                    </div>   
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="padding:0 0 15px 15px;">
+                            <h3 style="line-height:40px;font-size:16px;">学习状态或考试状态小图标：
+                                <i class="demo-wenhao">
+                                    <div class="demo-wzb-content-1" style="display:none;">
+                                        <div style="color:pink;">注：开发：图标的类名分别是：<br />wiz-wait；wiz-approveing；<br />wiz-learning；wiz-finish；<br />wiz-unfinish；wiz-giveup；<br />wiz-rejected</div>
+                                    </div>
+                                </i>
+                            </h3>
+                            <div class="wiz-load" style="width:88px;display:inline-block;">
+                                <span style="line-height:26px;" class="wiz-wait">等待中</span>
+                            </div>
+                            <div class="wiz-load" style="width:88px;display:inline-block;">
+                                <span style="line-height:26px;" class="wiz-approveing">审批中</span>
+                            </div>
+                            <div class="wiz-load" style="width:88px;display:inline-block;">
+                                <span style="line-height:26px;" class="wiz-learning">进行中</span>
+                            </div>
+                            <div class="wiz-load" style="width:88px;display:inline-block;">
+                                <span style="line-height:26px;" class="wiz-finish">已完成</span>
+                            </div>
+                            <div class="wiz-load" style="width:88px;display:inline-block;">
+                                <span style="line-height:26px;" class="wiz-unfinish">未完成</span>
+                            </div>
+                            <div class="wiz-load" style="width:88px;display:inline-block;">
+                                <span style="line-height:26px;" class="wiz-giveup">已放弃</span>
+                            </div>
+                            <div class="wiz-load" style="width:88px;display:inline-block;">
+                                <span style="line-height:26px;" class="wiz-rejected">已拒绝</span>
+                            </div>
+                        </div>
+                        <div class="tuwen-list-1">
+                             <div class="tuwen-list-1-box clearfix">
+                                 <a class="tuwen-list-1-pic">
+                                    <img alt="" src="images/adv09.png">
+                                 </a>
+                                 <div class="marginl">
+                                     <div class="tuwen-list-1-tit-1 ng-binding">资讯</div>
+                                     <p class="tuwen-list-1-tit-3 ng-binding">2016-09-08</p>
+                                     <div class="tuwen-list-tool">
+                                         <span class="list-tool-1-laud">1</span>
+                                         <span class="list-tool-1-review">0</span>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                        <div class="tuwen-list-1">
+                            <a class="tuwen-list-1-box clearfix" href="javascript:void(0)"  title="">
+                                <div class="tuwen-list-1-pic list-border-1 blue">
+                                    <img alt="" src="images/adv09.png">
+                                    <span class="tuwen-list-1-bg"><i class="tuwen-list-1-png"></i></span>
+                                </div>
+                                <div class="tuwen-list-1-tit-1">热烈庆祝汇思与中欧互联共同投资建立的“一带一路”学习支持中心正式开业，由此开启e-learning新时代。</div>
+                                <p class="tuwen-list-1-tit-3">2016-08-26 10:06:17</p>
+                             </a>
+                        </div>
+                        <div class="tuwen-list-1">
+                            <a class="tuwen-list-1-box clearfix" href="javascript:void(0)">
+                                <div class="tuwen-list-1-pic">
+                                  <img src="images/adv09.png">
+                                  <span class="list-tool-1-doctype tuwen-list-1-art">ART</span>
+                                </div>   
+                                <div class="tuwen-list-1-tit-1">凡致力于企业学习及绩效支持的研究和实践之同仁，其资历由汇思LPT组委会审核通过后均可加入</div>
+                                <div class="tuwen-list-1-tit-3">
+                                  <span class="wenda-list-info-4">2016-05-27</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                        <div style="padding:0 0 15px 12px;">
+                            <h3 style="line-height:40px;font-size:16px;">文档分类：
+                                <i class="demo-wenhao">
+                                    <div class="demo-wzb-content-1" style="display:none;">
+                                        <div style="color:pink;">注：开发：标签的类名分别是：<br />tuwen-list-1-xls；<br />tuwen-list-1-ppt；<br />tuwen-list-1-doc；<br />tuwen-list-1-pdf；<br />tuwen-list-2-pho；<br />tuwen-list-1-vod；<br />tuwen-list-1-art</div>
+                                    </div>
+                                </i>
+                            </h3>
+                            <a class="tuwen-list-1-box clearfix" href="javascript:void(0)">
+                                <div class="tuwen-list-1-pic">
+                                   <img src="images/adv09.png">
+                                   <span class="list-tool-1-doctype tuwen-list-1-xls">XLS</span>
+                                </div>
+                                <div class="tuwen-list-1-pic">
+                                   <img src="images/adv09.png">
+                                   <span class="list-tool-1-doctype tuwen-list-1-ppt">PPT</span>
+                                </div>
+                                <div class="tuwen-list-1-pic">
+                                    <img src="images/adv09.png">
+                                    <span class="list-tool-1-doctype tuwen-list-1-doc">DOC</span>
+                                </div>
+                                <div class="tuwen-list-1-pic">
+                                   <img src="images/adv09.png">
+                                   <span class="list-tool-1-doctype tuwen-list-1-pdf">PDF</span>
+                                </div>
+                                <div class="tuwen-list-1-pic">
+                                   <img src="images/adv09.png">
+                                   <span class="list-tool-1-doctype tuwen-list-2-pho">PHO</span>
+                                </div>
+                                <div class="tuwen-list-1-pic">
+                                   <img src="images/adv09.png">
+                                   <span class="list-tool-1-doctype tuwen-list-1-vod">VOD</span>
+                                </div>
+                                <div class="tuwen-list-1-pic">
+                                   <img src="images/adv09.png">
+                                   <span class="list-tool-1-doctype tuwen-list-1-art">ART</span>
+                                </div>
+                            </a>
+                        </div>
+                </div>
+                <!-- 图文列表一 end -->
+
+                <!-- 图文列表二 start -->
+                <h3 class="wzb-title-2">图文列表二
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:421px;">
+                            <div>1、标题：字号：16px；颜色：#666；</div>
+                            <div style="margin-top:5px;">2、群组人数和评论数的数字：字号：12px，颜色：#999；</div>
+                            <div style="margin-top:5px;">3、时间：字号：14px，颜色：#999；</div>
+                            <div style="color:pink;">注：开发：根据成员的1-5个人的多少改变前面标题前面的图片，<br />成员为一个人时，图片结构的 a 标签添加类名：pic-user-1，并且在 img 标签添加类名：pic-user-w（只有是一位成员时才需要在 img 标签添加类名）。<br />成员为两个人时，图片结构的 a 标签添加类名：pic-user-2。<br />成员为三个人时，图片结构的 a 标签添加类名：pic-user-3。<br />成员为四个人时，图片结构的 a 标签添加类名：pic-user-4。<br />成员为五个人及以上时，图片结构的 a 标签添加类名：pic-user-5。</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="padding-left:10px;color:#999;">使用说明：在群组页面，根据成员的1-5个人及5个人以上的人数改变前面标题前面的图片</div>
+                <div style="border-bottom:1px solid #EBEFF2;padding:10px 0 20px;">
+                    <div style="width:500px;" class="cont-info-tuwen">
+                        <div class="tuwen-list-2 clearfix">
+                            <a class="tuwen-list-2-pic pic-user-1" href="javascript:void(0)" title="">
+                                <img src="images/user08.png" class="pic-user-w">
+                            </a>
+                      
+                            <div class="tuwen-list-2-box"> 
+                                <div class="tuwen-list-2-tit-1" style="padding:0 14px 0 0;">
+                                    <a href="javascript:void(0)" class="tuwen-list-2-user" title="">汇思培训学院联合领思</a>
+                                </div>
+                                <div class="list-tool-4">
+                                     <span class="list-tool-1-yuan">50</span>
+                                     <span class="list-tool-1-xinxi">20</span>
+                                     <span class="list-tool-1-text">2016-03-14</span>
+                                </div>
+                                <span class="tuwen-list-2-jiantou"></span>
+                            </div>
+                        </div>
+                        <div class="tuwen-list-2 clearfix">
+                            <a class="tuwen-list-2-pic pic-user-2" href="javascript:void(0)" title="">
+                                <img src="images/user08.png">
+                                <img src="images/user09.png">
+                            </a>
+                      
+                            <div class="tuwen-list-2-box"> 
+                                <div class="tuwen-list-2-tit-1" style="padding:0 14px 0 0;">
+                                    <a href="javascript:void(0)" class="tuwen-list-2-user" title="">汇思培训学院联合领思</a>
+                                </div>
+                                <div class="list-tool-4">
+                                     <span class="list-tool-1-yuan">50</span>
+                                     <span class="list-tool-1-xinxi">20</span>
+                                     <span class="list-tool-1-text">2016-03-14</span>
+                                </div>
+                                <span class="tuwen-list-2-jiantou"></span>
+                            </div>
+                        </div>
+                        <div class="tuwen-list-2 clearfix">
+                            <a class="tuwen-list-2-pic pic-user-3" href="javascript:void(0)" title="">
+                                <img src="images/user08.png">
+                                <img src="images/user11.png">
+                                <img src="images/user13.png">
+                            </a>
+                      
+                            <div class="tuwen-list-2-box"> 
+                                <div class="tuwen-list-2-tit-1" style="padding:0 14px 0 0;">
+                                    <a href="javascript:void(0)" class="tuwen-list-2-user" title="">汇思培训学院联合领思</a>
+                                </div>
+                                <div class="list-tool-4">
+                                     <span class="list-tool-1-yuan">50</span>
+                                     <span class="list-tool-1-xinxi">20</span>
+                                     <span class="list-tool-1-text">2016-03-14</span>
+                                </div>
+                                <span class="tuwen-list-2-jiantou"></span>
+                            </div>
+                        </div>
+                        <div class="tuwen-list-2 clearfix">
+                            <a class="tuwen-list-2-pic pic-user-4" href="javascript:void(0)" title="">
+                                <img src="images/user08.png">
+                                <img src="images/user09.png">
+                                <img src="images/user10.png">
+                                <img src="images/user11.png">
+                            </a>
+                      
+                            <div class="tuwen-list-2-box"> 
+                                <div class="tuwen-list-2-tit-1" style="padding:0 14px 0 0;">
+                                    <a href="javascript:void(0)" class="tuwen-list-2-user" title="">汇思培训学院联合领思</a>
+                                </div>
+                                <div class="list-tool-4">
+                                     <span class="list-tool-1-yuan">50</span>
+                                     <span class="list-tool-1-xinxi">20</span>
+                                     <span class="list-tool-1-text">2016-03-14</span>
+                                </div>
+                                <span class="tuwen-list-2-jiantou"></span>
+                            </div>
+                        </div>
+                        <div class="tuwen-list-2 clearfix">
+                            <a class="tuwen-list-2-pic pic-user-5" href="javascript:void(0)" title="">
+                                <img src="images/user08.png">
+                                <img src="images/user09.png">
+                                <img src="images/user10.png">
+                                <img src="images/user11.png">
+                                <img src="images/user13.png">
+                            </a>
+                      
+                            <div class="tuwen-list-2-box"> 
+                                <div class="tuwen-list-2-tit-1" style="padding:0 14px 0 0;">
+                                    <a href="javascript:void(0)" class="tuwen-list-2-user" title="">汇思培训学院联合领思</a>
+                                </div>
+                                <div class="list-tool-4">
+                                     <span class="list-tool-1-yuan">50</span>
+                                     <span class="list-tool-1-xinxi">20</span>
+                                     <span class="list-tool-1-text">2016-03-14</span>
+                                </div>
+                                <span class="tuwen-list-2-jiantou"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 图文列表二 end -->
+
+                <!-- 图文列表三 start -->
+                <h3 class="wzb-title-2">图文列表三
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;">
+                            <div>头像图片的宽度：50px，高度：50px，2个头像图片相隔 15px 。</div>
+                            <div style="color:pink;">注：开发：结构和类名：div.tuwen-list-3 > div.tuwen-list-3-box > img.pic-radius</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:20px 0 30px;">
+                    <div style="width:500px;">
+                        <div class="tuwen-list-3">
+                            <div class="tuwen-list-3-box clearfix">
+                                <img alt="" class="pic-radius" src="images/user08.png">
+                                <img alt="" class="pic-radius" src="images/user11.png">
+                                <img alt="" class="pic-radius" src="images/user13.png">
+                            </div>        
+                        </div>
+                    </div>
+                </div>
+                <!-- 图文列表三 end -->
+
+                <!-- 图文列表六 start -->
+                <h3 class="wzb-title-2">图文列表六
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:400px;">
+                            <div>1、左边头像图片：宽度：80px；高度：80px；</div>
+                            <div style="margin-top:5px;">2、讲师名称：字号：16px；颜色：#00aeef；</div>
+                            <div style="margin-top:5px;">3、讲师评分：实心星星表示评分的分数；</div>
+                            <div style="color:pink;">类名：实心星星：start-g start-g-full；空心星星：start-g</div>
+                            <div style="margin-top:5px;">4、讲师类型（高级讲师）：字号：14px，颜色：#333；</div>
+                            <div style="margin-top:5px;">5、擅长领域：字号：14px，颜色：#666；文字超过2行显示 ... </div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:20px 0 30px;">
+                    <div style="width:500px;">
+                        <div class="tuwen-list-6 clearfix">
+                        <a title="" href="javascript:void(0)" class="tuwen-list-pic tui">
+                            <img class="tuwen-list-w" src="images/user11.png">
+                            <i class="tuijian"></i>
+                        </a>
+                        <div class="tuwen-list-6-box" style="line-height:24px;">
+                            <a href="javascript:void(0)" class="user">讲师名称</a>
+                            <span class="start teacher-start">
+                                <i class="start-g start-g-full"></i>
+                                <i class="start-g"></i>
+                                <i class="start-g"></i>
+                                <i class="start-g"></i>
+                                <i class="start-g"></i>
+                            </span>
+                        </div>
+                        <div class="tuwen-list-6-box-2" style="line-height:28px;">
+                            <span class="font-size:16px;">高级讲师</span>
+                        </div>
+                        <div class="tuwen-list-1-tit-1" style="color:#666;"><i class="wenzi-4">擅长领域</i>Guangzhou collect information technology co., LTD. In Hong Kong, Beijing, Shanghai, guangzhou and shenzhen have branch offices.As the lead in the asia-pacific region and the greater China region gauge</div>
+                     </div>
+                    </div>
+                </div>
+                <!-- 图文列表六 end -->
+                <!-- 图文列表 end -->
+
+                <div style="width:100%;height:20px;background:#ebeff2;"></div>
+
+                <!-- 列表、图片样式 start -->
+                <h3 class="demo-wzb-title" id="4">列表、图片样式</h3>
+
+                <!-- 列表、图片样式十 start -->
+                <h3 class="wzb-title-2">列表、图片样式十
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;">
+                            <div>1、图片宽高自由缩放，宽度是100%的。</div>
+                            <div style="margin-top:5px;">2、标题：字号：16px，颜色：#333，超出2行文字显示 ...</div>
+                            <div style="margin-top:5px;">3、简介：字号：14px，颜色：#999，超出2行文字显示 ...</div>
+                            <div style="margin-top:5px;">4、点击次数的数字：字号：14px，颜色：#999</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:10px 0 30px;">
+                    <div style="width:500px;">
+                        <div class="panel-list-box list-pic-10">
+                            <img src="images/adv35.jpg">
+                            <span class="tuwen-list-1-tit-1" style="font-size:16px;">wizMobile给所有管理者及学员一个账号轻松实现“学习管理”的目标</span>
+                            <span class="tuwen-list-1-tit-1" style="color:#999;">汇思的移动学习远远不是多了一个学习方式，也不只是多了移动终端，wizMobile是"整体解决方案"的延伸，汇思移动学习方案是从前台到后台管理的全面管理体系，wizMobile　可实现面授培训，e-Learning报名流程全程跟踪，实现支持企业全过程的培训管理，培训需求和规划、培训计划、培训实施和培训结果评价。</span>
+                            <p>
+                                <a class="list-tool-2-dian" href="javascript:void(0)" title="">6</a>
+                                <i class="list-tool-2-you"></i>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="width:100%;height:20px;background:#ebeff2;"></div>
+
+                <!-- 选项卡 start -->
+                <h3 class="demo-wzb-title" id="5">选项卡</h3>
+
+                <!-- 选项卡一 start -->
+                <h3 class="wzb-title-2">选项卡一
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:360px;">
+                            <div>文字：字号：16px，颜色：#333；下划线：大小：1px，颜色：#eee；</div>
+                            <div>当前状态文字：字号：16px，颜色：#00aeef；下划线：大小：2px，颜色：#00aeef；</div>
+                            <div style="color:pink;">注：开发：ul的类名：panel-tabnav-3；切换选项时，在 li 标签添加或删除类名 cur 。</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:10px 0 40px;">
+                    <div style="width:500px;">
+                        <ul class="panel-tabnav-1">
+                            <li style="white-space:nowrap;" class="cur">待回答</li>
+                            <li style="white-space:nowrap;" class="">已回答</li>
+                        </ul>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(".panel-tabnav-1 li").click(function(){
+                        $(".panel-tabnav-1 li").removeClass("cur");
+                        $(this).addClass("cur");
+                    })
+                </script>
+
+                <!-- 选项卡二 start -->
+                <h3 class="wzb-title-2">选项卡二
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:360px;">
+                            <div>文字：字号：16px，颜色：#333；下划线：大小：1px，颜色：#eee；</div>
+                            <div>当前状态文字：字号：16px，颜色：#00aeef；下划线：大小：2px，颜色：#00aeef；</div>
+                            <div style="color:pink;">注：开发：ul的类名：panel-tabnav-3；切换选项时，在 li 标签添加或删除类名 cur 。</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:10px 0 40px;">
+                    <div style="width:500px;">
+                        <ul class="panel-tabnav-2">
+                            <li style="white-space:nowrap;" class="cur">我的课程</li>
+                            <li style="white-space:nowrap;" class="">选课中心</li>
+                            <li style="white-space:nowrap;" class="">推荐课程</li>
+                        </ul>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(".panel-tabnav-2 li").click(function(){
+                        $(".panel-tabnav-2 li").removeClass("cur");
+                        $(this).addClass("cur");
+                    })
+                </script>
+                <!-- 选项卡二 end -->
+
+                <!-- 选项卡三 start -->
+                <h3 class="wzb-title-2">选项卡三
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:380px;height:78px;overflow-y:auto;">
+                            <div>文字：字号：16px，颜色：#333；下划线：大小：1px，颜色：#eee；</div>
+                            <div>当前状态文字：字号：16px，颜色：#00aeef；下划线：大小：2px，颜色：#00aeef；</div>
+                            <div style="color:pink;">注：开发：ul的类名：panel-tabnav-3；切换选项时，在 li 标签添加或删除类名 cur 。</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="padding:10px 0 30px;">
+                    <div style="width:500px;">
+                        <ul class="panel-tabnav-3">
+                            <li style="white-space:nowrap;" class="cur">概况</li>
+                            <li style="white-space:nowrap;" class="">学习</li>
+                            <li style="white-space:nowrap;" class="">考试</li>
+                            <li style="white-space:nowrap;" class="">社区</li>
+                        </ul>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(".panel-tabnav-3 li").click(function(){
+                        $(".panel-tabnav-3 li").removeClass("cur");
+                        $(this).addClass("cur");
+                    })
+                </script>
+                <!-- 选项卡三 end -->
+
+                <div style="width:100%;height:20px;background:#ebeff2;"></div>
+
+                <!-- cont-info标题 start -->
+                <h3 class="demo-wzb-title" id="6">cont-info标题</h3>
+                <h3 class="wzb-title-2">
+                    <i class="demo-wenhao">
+                        <div class="demo-wzb-content-1" style="display:none;width:380px;">
+                            <div>1、标题一：字号：18px，颜色：#333；</div>
+                            <div style="color:pink;">类名：cont-info-title-1</div>
+                            <div style="margin-top:5px;">2、标题二：字号：14px，颜色：#333，背景色：#f2f2f2；</div>
+                            <div style="color:pink;">类名：cont-info-title-2</div>
+                            <div style="margin-top:5px;">3、标题三：字号：16px，颜色：#666；</div>
+                            <div style="color:pink;">类名：cont-info-title-3</div>
+                            <div style="margin-top:5px;">4、标题四：字号：14px，颜色：#333，文字水平居中；</div>
+                            <div style="color:pink;">类名：cont-info-title-4</div>
+                            <div style="margin-top:5px;">5、标题五：字号：14px，颜色：#333，背景色：#f2f2f2；</div>
+                            <div style="color:pink;">类名：cont-info-title-5</div>
+                            <div style="margin-top:5px;">6、标题六：字号：14px，颜色：#333，背景色：#f2f2f2；</div>
+                            <div style="color:pink;">类名：cont-info-title-6</div>
+                            <div style="margin-top:5px;">7、标题七：字号：14px，颜色：#333；</div>
+                            <div style="color:pink;">类名：cont-info-title-7</div>
+                        </div>
+                    </i>
+                </h3>
+                <div style="color:red;padding-left:10px;">注：蓝色背景色不是该样式的背景色，只是直观的显示每个标题样式的不同边距。但是，灰色的背景色是样式自带的。</div>
+                <div style="width:500px;background:#DFF0FF;margin-top:10px;">
+                    <h1 class="cont-info-title-1 ng-binding">标题一：人才发展就是向人们提供足以满足当前或未来个人成就实现所需要的知识、技能和机会。</h1>
+                </div>
+                <div style="width:500px;background:#DFF0FF;margin-top:10px;">
+                    <h1 class="cont-info-title-2 ng-binding">标题二：人才发展就是向人们提供足以满足当前或未来个人成就实现所需要的知识、技能和机会。</h1>
+                </div>
+                <div style="width:500px;background:#DFF0FF;margin-top:10px;">
+                    <h1 class="cont-info-title-3 ng-binding">标题三：人才发展就是向人们提供足以满足当前或未来个人成就实现所需要的知识、技能和机会。</h1>
+                </div>
+                <div style="width:500px;background:#DFF0FF;margin-top:10px;">
+                    <h1 class="cont-info-title-4 ng-binding">标题四：人才发展就是向人们提供足以满足当前或未来个人成就实现所需要的知识、技能和机会。</h1>
+                </div>
+                <div style="width:500px;background:#DFF0FF;margin-top:10px;">
+                    <h1 class="cont-info-title-5 ng-binding">标题五：人才发展就是向人们提供足以满足当前或未来个人成就实现所需要的知识、技能和机会。</h1>
+                </div>
+                <div style="width:500px;background:#DFF0FF;margin-top:10px;">
+                    <h1 class="cont-info-title-6 ng-binding">标题六：人才发展就是向人们提供足以满足当前或未来个人成就实现所需要的知识、技能和机会。</h1>
+                </div>
+                <div style="width:500px;background:#DFF0FF;margin:10px 0;">
+                    <h1 class="cont-info-title-7 ng-binding">标题七：人才发展就是向人们提供足以满足当前或未来个人成就实现所需要的知识、技能和机会。</h1>
+                </div>
+                <!-- cont-info标题 end -->
+
+                <div style="width:100%;height:20px;background:#ebeff2;"></div>
+
+                <!-- 列表容器 start -->
+                <h3 class="demo-wzb-title" id="8">列表容器</h3>
+                <div style="color:#999;padding:10px 0 0 10px;">注：容器中的展示：灰色边框不会在该样式中显示，只作为区域的范围显示。灰色背景色是作为移动端背景色显示。白色背景色是该类名的样式。</div>
+
+                <div style="padding:0 0 30px 0;border-bottom:1px solid #EBEFF2;">
+                    <h3 class="wzb-title-2" style="padding:20px 10px;">列表容器二
+                        <i class="demo-wenhao">
+                            <div class="demo-wzb-content-1" style="display:none;width:380px;">
+                                <div>文字：字号：14px，颜色：#333，背景色：#f2f2f2；</div>
+                                <div style="color:pink;">注：开发：类名：panel-list-cont-2</div>
+                            </div>
+                        </i>
+                    </h3>
+                    <div style="width:500px;border:1px solid #999;background:#f2f2f2;">
+                        <div class="panel-list-cont-2">
+                           外边距：左右：各10px;
+                        </div>
+                    </div>
+                </div>
+
+                <div style="padding:0 0 30px 0;border-bottom:1px solid #EBEFF2;">
+                    <h3 class="wzb-title-2" style="padding:20px 10px;">列表容器四
+                        <i class="demo-wenhao">
+                            <div class="demo-wzb-content-1" style="display:none;width:380px;">
+                                <div>文字：字号：14px，颜色：#333，背景色：#f2f2f2；</div>
+                                <div style="color:pink;">注：开发：类名：panel-list-cont-4</div>
+                            </div>
+                        </i>
+                    </h3>
+                    <div style="width:500px;border:1px solid #999;background:#f2f2f2;">
+                        <div class="panel-list-cont-4">
+                           外边距：左右：各10px，内边距：下：15px;
+                        </div>
+                    </div>
+                </div>
+
+                <div style="padding:0 0 30px 0;border-bottom:1px solid #EBEFF2;">
+                    <h3 class="wzb-title-2" style="padding:20px 10px;">列表容器五
+                        <i class="demo-wenhao">
+                            <div class="demo-wzb-content-1" style="display:none;width:380px;">
+                                <div>文字：字号：14px，颜色：#333，背景色：#f2f2f2；上边框线：1px，颜色：#eee；</div>
+                                <div style="color:pink;">注：开发：类名：panel-list-cont-5</div>
+                            </div>
+                        </i>
+                    </h3>
+                    <div style="width:500px;border:1px solid #999;background:#f2f2f2;">
+                        <div class="panel-list-cont-5">
+                           外边距：上：15px；左右：各10px，内边距：上：10px;
+                        </div>
+                    </div>
+                </div>
+
+                <div style="padding:0 0 30px 0;border-bottom:1px solid #EBEFF2;">
+                    <h3 class="wzb-title-2" style="padding:20px 10px;">列表容器六
+                        <i class="demo-wenhao">
+                            <div class="demo-wzb-content-1" style="display:none;width:380px;">
+                                <div>文字：字号：14px，颜色：#333，背景色：#fff；</div>
+                                <div style="color:pink;">注：开发：类名：panel-list-cont-6</div>
+                            </div>
+                        </i>
+                    </h3>
+                    <div style="width:500px;border:1px solid #999;background:#f2f2f2;">
+                        <div class="panel-list-cont-6">
+                           外边距：上：15px；左右：各15px，内边距：上：10px;
+                        </div>
+                    </div>
+                </div>
+
+                <div style="padding:0 0 30px 0;border-bottom:1px solid #EBEFF2;">
+                    <h3 class="wzb-title-2" style="padding:20px 10px;">列表容器七
+                        <i class="demo-wenhao">
+                            <div class="demo-wzb-content-1" style="display:none;width:380px;">
+                                <div>文字：字号：14px，颜色：#333，背景色：#fff；</div>
+                                <div style="color:pink;">注：开发：类名：panel-list-cont-7</div>
+                            </div>
+                        </i>
+                    </h3>
+                    <div style="width:500px;border:1px solid #999;background:#f2f2f2;">
+                        <div class="panel-list-cont-7">
+                           外边距：左边：10px，内边距：上下：各10px;
+                        </div>
+                    </div>
+                </div>
+
+                <div style="padding:0 0 30px 0;border-bottom:1px solid #EBEFF2;">
+                    <h3 class="wzb-title-2" style="padding:20px 10px;">列表容器九
+                        <i class="demo-wenhao">
+                            <div class="demo-wzb-content-1" style="display:none;width:380px;">
+                                <div>文字：字号：16px，颜色：#999，背景色：#f2f2f2；</div>
+                                <div style="color:pink;">注：开发：类名：panel-list-cont-9</div>
+                            </div>
+                        </i>
+                    </h3>
+                    <div style="width:500px;border:1px solid #999;background:#f2f2f2;">
+                        <div class="panel-list-cont-9">
+                           内边距：上：10px，下：11px，左：75px，右：10px；
+                        </div>
+                    </div>
+                </div>
+
+                <div style="padding:0 0 30px 0;border-bottom:1px solid #EBEFF2;">
+                    <h3 class="wzb-title-2" style="padding:20px 10px;">列表容器十
+                        <i class="demo-wenhao">
+                            <div class="demo-wzb-content-1" style="display:none;width:336px;">
+                                <div>1、文字：字号：14px，颜色：#333，背景色：#fff；</div>
+                                <div>2、第二种和第三种的上边框线：1px，颜色：#eee；</div>
+                                <div style="color:pink;">注：开发：第一组类名：panel-list-cont-10；第二组：panel-list-cont-10 panel-list-cont-10-no；第三组：panel-list-cont-10 panel-list-cont-10-top</div>
+                            </div>
+                        </i>
+                    </h3>
+                    <div style="width:500px;border:1px solid #999;background:#f2f2f2;">
+                        <div class="panel-list-cont-10">
+                           外边距：左：10px；
+                        </div>
+                        <div class="panel-list-cont-10">
+                           外边距：左：10px；
+                        </div>
+                    </div>
+                    <div style="width:500px;border:1px solid #999;background:#f2f2f2;margin-top:20px;">
+                        <div class="panel-list-cont-10">
+                           外边距：左：10px；
+                        </div>
+                        <div class="panel-list-cont-10 panel-list-cont-10-no">
+                           外边距：左：10px；
+                        </div>
+                    </div>
+                    <div style="width:500px;border:1px solid #999;background:#f2f2f2;margin-top:20px;">
+                        <div class="panel-list-cont-10 panel-list-cont-10-top">
+                           外边距：左：42px；
+                        </div>
+                        <div class="panel-list-cont-10 panel-list-cont-10-top">
+                           外边距：左：42px；
+                        </div>
+                    </div>
+                </div>
+
+                <div style="padding:0 0 30px 0;border-bottom:1px solid #EBEFF2;">
+                    <h3 class="wzb-title-2" style="padding:20px 10px;">列表容器十一
+                        <i class="demo-wenhao">
+                            <div class="demo-wzb-content-1" style="display:none;width:380px;">
+                                <div>文字：字号：14px，颜色：#333，背景色：#f2f2f2；</div>
+                                <div style="color:pink;">注：开发：类名：panel-list-cont-11</div>
+                            </div>
+                        </i>
+                    </h3>
+                    <div style="width:500px;border:1px solid #999;background:#f2f2f2;">
+                        <div class="panel-list-cont-11">
+                           内边距：上：10px，下：11px，左：15px，右：0；
+                        </div>
+                    </div>
+                </div>
+
+                <div style="padding:0 0 30px 0;border-bottom:1px solid #EBEFF2;">
+                    <h3 class="wzb-title-2" style="padding:20px 10px;">列表容器十二
+                        <i class="demo-wenhao">
+                            <div class="demo-wzb-content-1" style="display:none;width:380px;">
+                                <div>文字：字号：14px，颜色：#333，背景色：#f2f2f2；</div>
+                                <div style="color:pink;">注：开发：类名：panel-list-cont-12</div>
+                            </div>
+                        </i>
+                    </h3>
+                    <div style="width:500px;border:1px solid #999;background:#f2f2f2;">
+                        <div class="panel-list-cont-12">
+                           内边距：下：20px；
+                           外边距：左右：各10px；
+                        </div>
+                    </div>
+                </div>
+
+                <div style="padding:0 0 30px 0;">
+                    <h3 class="wzb-title-2" style="padding:20px 10px;">列表容器十三
+                        <i class="demo-wenhao">
+                            <div class="demo-wzb-content-1" style="display:none;width:380px;">
+                                <div>文字：字号：14px，颜色：#333，背景色：#f2f2f2；最大高度：214px；</div>
+                                <div style="color:pink;">注：开发：类名：panel-list-cont-13</div>
+                            </div>
+                        </i>
+                    </h3>
+                    <div style="width:500px;border:1px solid #999;background:#f2f2f2;">
+                        <div class="panel-list-cont-13">
+                           没有边距
+                        </div>
+                    </div>
+                </div>
+                <!-- 列表容器 end -->
+
+                <div style="width:100%;height:20px;background:#ebeff2;"></div>
+
+                <!-- 其他 start -->
+                <h3 class="demo-wzb-title" id="10">按钮</h3>
+                <div style="border-bottom:1px solid #EBEFF2;padding:10px 0 40px;">
+                    <h3 class="wzb-title-2">
+                        <i class="demo-wenhao">
+                            <div class="demo-wzb-content-1" style="display:none;width:430px;">
+                                <div>1、第一个按钮文字：字号：14px，颜色：#fff；背景色：#f7a900；</div>
+                                <div>2、第二个按钮文字：字号：16px，颜色：#fff；背景色：#f7a900；</div>
+                                <div>3、第三个按钮文字：字号：16px，颜色：#fff；背景色：#f7a900；</div>
+                                <div style="color:pink;">注：开发：类名从上到下分别为：xuan-info-down，btn-orange-center，panel-box-btn-02</div>
+                            </div>
+                        </i>
+                    </h3>
+                    <div style="padding:0 0 20px;">
+                        <a class="xuan-info-down" href='javascript:void(0)'>提交作业</a>
+                    </div>
+                    <div style="padding:0 10px;">
+                        <a class="btn-orange-center" href="javascript:void(0)">我想放弃学习</a>
+                    </div>
+                    <div style="padding:0 10px;width:400px;">
+                        <a class="panel-box-btn-02" href="javascript:void(0)">申请加入</a>
+                    </div>
+                </div>
+
+                <div style="width:100%;height:20px;background:#ebeff2;"></div>
+
+                <!-- 其他 start -->
+                <h3 class="demo-wzb-title" id="9">其他</h3>
+                <!-- 排行榜 start -->
+                <div style="height:120px;border-bottom:1px solid #EBEFF2;padding:10px 0 40px;">
+                    <h3 class="wzb-title-2">排行榜
+                        <i class="demo-wenhao">
+                            <div class="demo-wzb-content-1" style="display:none;width:360px;">
+                                <div>1、有背景图片的文字：字号：16px，颜色：#fff；</div>
+                                <div>没有背景图片的文字：字号：20px，颜色：#00aeef；</div>
+                                <div>2、第一个背景图片颜色：#33cc33；</div>
+                                <div>第二个背景图片颜色：#00aeef；</div>
+                                <div>第三个背景图片颜色：#b273c2；</div>
+                                <div style="color:pink;">注：开发：类名从左到右分别为：box-num-1，box-num-3，box-num-4，box-num-2</div>
+                            </div>
+                        </i>
+                    </h3>
+                    <div style="width:500px;">
+                        <span class="box-num-1" style="margin:10px 0 19px 10px;">1</span>
+                        <span class="box-num-3" style="margin:10px 0 19px 10px;">2</span>
+                        <span class="box-num-4" style="margin:10px 0 19px 10px;">3</span>
+                        <span class="box-num-2" style="margin:0;">4</span>
+                    </div>
+                </div>
+                <!-- 排行榜 end -->
+                
+                <!-- 弹出层 -->
+                <div style="border-bottom:1px solid #EBEFF2;padding:10px 0 40px;">
+                    <h3 class="wzb-title-2">弹出层
+                        <i class="demo-wenhao">
+                            <div class="demo-wzb-content-1" style="display:none;width:316px;">
+                                <div>1、内容文字：字号：14px，颜色：#333；</div>
+                                <div>2、按钮文字：字号：14px，颜色：#fff；</div>
+                                <div>按钮颜色：#ffba00；</div>
+                                <div style="color:pink;">注：开发：类名：大div：wzm-modal；内容div：modal-body；按钮div：modal-footer；</div>
+                            </div>
+                        </i>
+                    </h3>
+
+                    <div style="width:300px;"><!--  class="wzm-modal" -->
+                        <div class="modal-body">是否退出登录？</div> 
+                        <div class="modal-footer">     
+                            <button class="btn">确认</button>   
+                            <span style="padding-left:5px;">&nbsp;&nbsp;</span>     
+                            <button class="btn">取消</button> 
+                        </div>
+                    </div>
+                </div>
+                <!-- 弹出层 -->
+
+                <!-- 数字编码 start -->
+                <!-- <div style="padding:10px 0 20px;">
+                    <h3 class="wzb-title-2">数字编码
+                        <i class="demo-wenhao">
+                            <div class="demo-wzb-content-1" style="display:none;width:360px;">
+                                <div>1、有背景图片的文字：字号：16px，颜色：#fff；</div>
+                                <div>没有背景图片的文字：字号：20px，颜色：#00aeef；</div>
+                                <div>2、第一个背景图片颜色：#33cc33；</div>
+                                <div>第二个背景图片颜色：#00aeef；</div>
+                                <div>第三个背景图片颜色：#b273c2；</div>
+                                <div style="color:pink;">注：开发：类名从左到右分别为：box-num-1，box-num-3，box-num-4，box-num-2</div>
+                            </div>
+                        </i>
+                    </h3>
+                    <div style="width:500px;line-height:50px;height:50px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-1">1</em>
+                    </div>
+                    <div style="width:500px;line-height:50px;height:50px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-2">2</em>
+                    </div>
+                    <div style="width:500px;height:40px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-3">3</em>
+                    </div>
+                    <div style="width:500px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-4">4</em>
+                    </div>
+                    <div style="width:500px;line-height:50px;height:50px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-5">5</em>
+                    </div>
+                    <div style="width:500px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-6">6</em>
+                    </div>
+                    <div style="width:500px;height:31px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-7">7</em>
+                    </div>
+                    <div style="width:500px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-8">8</em>
+                    </div>
+                    <div style="width:500px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-9">9</em>
+                    </div>
+                    <div style="width:500px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-10">10</em>
+                    </div>
+                    <div style="width:500px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-11">11</em>
+                    </div>
+                    <div style="width:500px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-12">12</em>
+                    </div>
+                    <div style="width:500px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-13">13</em>
+                    </div>
+                    <div style="width:500px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-15">15</em>
+                    </div>
+                    <div style="width:500px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-16">16</em>
+                    </div>
+                    <div style="width:500px;height:31px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-17">17</em>
+                    </div>
+                    <div style="width:500px;height:31px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-18">18</em>
+                    </div>
+                    <div style="width:500px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-19">19</em>
+                    </div>
+                    <div style="width:500px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-20">20</em>
+                    </div>
+                    <div style="width:500px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-21">21</em>
+                    </div>
+                    <div style="width:500px;height:47px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-22">22</em>
+                    </div>
+                    <div style="width:500px;line-height:50px;height:50px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-23">23</em>
+                    </div>
+                    <div style="width:500px;border-bottom:1px solid #EBEFF2;">
+                        <em class="panel-num-24">24</em>
+                    </div>
+                </div> -->
+                <!-- 数字编码 end -->
+
+
+                <!-- 其他 end -->
+                
+                <div style="height:28px;"></div>
+
+                <div style="width:100%;height:20px;background:#ebeff2;"></div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+            <script type="text/javascript">
+                $(".demo-wenhao").hover(function(){
+                   $(this).children('.demo-wzb-content-1').toggle();
+                });
+
+                var goToQuestion = function(num){
+                     $("html,body").animate({scrollTop:$("#"+num+"").offset().top-200},1000);
+                }
+            </script>
+
+    <script type="text/javascript">
+        var tongyiyangshi = $("#0").offset().top-240;
+        var liebiaoxingshi = $("#1").offset().top-240;
+        var biaotiyangshi = $("#2").offset().top-240;
+        var tuwenliebiao = $("#3").offset().top-240;
+        var liebiaotupianyangshi = $("#4").offset().top-240;
+        var xuanxiangka = $("#5").offset().top-240;
+        var continfo = $("#6").offset().top-240;
+        var liebiaorongqi = $("#8").offset().top-240;
+        var anniu = $("#10").offset().top-240;
+        var qita = $("#9").offset().top-240;
+        $(window).scroll(function(event){
+            var val = $(document).scrollTop();
+            if(val>=tongyiyangshi){
+                $(".tyys a").addClass("cur").parent().siblings().children('a').removeClass("cur");
+            }
+            if(val>=liebiaoxingshi){
+                $(".lbxs a").addClass("cur").parent().siblings().children('a').removeClass("cur");
+            }
+            if(val>=biaotiyangshi){
+                $(".btxs a").addClass("cur").parent().siblings().children('a').removeClass("cur");
+            }
+            if(val>=tuwenliebiao){
+                $(".twlb a").addClass("cur").parent().siblings().children('a').removeClass("cur");
+            }
+            if(val>=liebiaotupianyangshi){
+                $(".lbtpys a").addClass("cur").parent().siblings().children('a').removeClass("cur");
+            }
+            if(val>=xuanxiangka){
+                $(".xxk a").addClass("cur").parent().siblings().children('a').removeClass("cur");
+            }
+            if(val>=continfo){
+                $(".c-i a").addClass("cur").parent().siblings().children('a').removeClass("cur");
+            }
+            if(val>=liebiaorongqi){
+                $(".lbrq a").addClass("cur").parent().siblings().children('a').removeClass("cur");
+            }
+            if(val>=anniu){
+                $(".an a").addClass("cur").parent().siblings().children('a').removeClass("cur");
+            }
+            if(val>=qita){
+                $(".qt a").addClass("cur").parent().siblings().children('a').removeClass("cur");
+            }
+        });
+
+    </script>
+                
+
+
+
+
+
+</body>
+</html> 

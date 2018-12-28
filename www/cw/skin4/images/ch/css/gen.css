@@ -1,0 +1,244 @@
+/*= wizbank  CSS =========================================================
+stylesheet type:Generic
+suffix:Gen
+skin type:cw (cyberwisdom)
+stylesheet name:gen.css	
+version:wizBank 3.5
+=======================================================================*/
+
+/* Import the fancy styles for IE only (NS4.x doesn't use the 
+@import function) */
+@import url("gen_ie.css");
+/*newskin share item*/
+@import url("wb_ui.css");
+input.Btn{
+	background-color: #EEEEEE;
+	color: #00000;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+a.Nav,.Nav{
+	color: #07488E;
+	font: normal 9pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-decoration: none;
+}
+textarea.InputFrm, input.InputFrm {
+	background: #FCEEDE;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+.Select{
+	background: #f6f6f6;
+	color: #000000;
+	font: 9pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+/*newskin share item*/
+
+A{
+	color: #761113;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+}
+
+a.wbGenFooterLink,a.wbGenFooterLink:hover,a.wbGenFooterLink:visited,a.wbGenFooterLink:active, .wbGenFooterText {
+	color: #000000;
+	font: 9pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+a.wbGenNavigationLink,a.wbGenNavigationLink:visited,a.wbGenNavigationLink:active, .wbGenTOCLink {
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+	text-decoration: underline;
+}
+
+a.wbGenNavigationLink:hover{
+	background: #992121;
+	color: #FFFFFF;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+	text-decoration: underline;
+}
+
+/*Text Action Bar*/
+a.wbGenTextBtnLink:hover,{
+	background: #FFFFE0;
+	color: #000080;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+	text-decoration: none;
+}
+
+body{
+	scrollbar-base-color: #f6f6f6;
+}
+
+/*Form Input Element*/
+input.wbGenSubBtnFrm{
+	background: #eeeeee;
+	color: #000000;
+	cursor: hand;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+}
+
+textarea.wbGenInputFrm, input.wbGenInputFrm, textarea.aeGenInputFrm {
+	background: #f6f6f6;
+	border: 1px solid;
+	border-color: #adadad;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+	scrollbar-base-color: #ebebeb;
+}
+
+.wbGenButtonActionBarBg{
+	background: #C68F8F;
+	height: 20px;
+}
+
+.wbGenButtonActionBarText{
+	color: #FFFFFF;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+}
+
+.wbGenHeadBarBg, .wbGenHeadMenuBg, .wbGenAnnBg {
+	background: #F0DCDC;
+}
+
+.wbGenHeadBarText, .wbGenSTextBold, .wbGenNavigationDescTextBold {
+	color: #000000;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+}
+
+.wbGenHeadBg{
+	background: #761113;
+}
+
+.wbGenHeaderBarBg, .wbGenLrnHeadBarBg, .wbGenHeadLineBg, .wbGenPaginationBarBg, .wbGenButtonBarBg, .wbGenFooterBarBg {
+	background: #eeeeee;
+}
+
+.wbGenHeadText{
+	color: #FFFFFF;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+}
+
+.wbGenHeadTextBold, .wbGenPaginationBarText, .wbGenPaginationBarLink, .wbGenButtonBarText, .wbGenButtonBarLink {
+	color: #08426F;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+}
+
+.wbGenLoadMsgText{
+	color: #008CB8;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+}
+
+/* wizbank Header*/
+.wbGenLrnHeadBarText{
+	color: #FFFFFF;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+	vertical-align: middle;
+}
+
+.wbGenMenuBg, .wbGenHeadNavBg, .wbGenBg {
+	background: #FFFFFF;
+}
+
+.wbGenNavigationBg{
+	background: #F0DCDC;
+	border-color: #992121;
+	border-style: solid;
+	border-width: 1px 1px 0px 1px;
+}
+
+.wbGenNavigationDescText, .wbGenNavigationText, .wbGenSText, .wbGenTOCText, .wbGenSelectBarText {
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+}
+
+/*Navigation Classes */
+.wbGenNavigationLinkBold, .wbGenNavigationTextBold {
+	color: #000000;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+}
+
+.wbGenNavLink{
+	color: #761113;
+	font: normal 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+	text-decoration: none;
+}
+
+.wbGenNavLink:hover{
+	background: #761113;
+	color: #FFFFFF;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+	text-decoration: none;
+}
+
+.wbGenNavSText{
+	color: #000000;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+	text-decoration: none;
+}
+
+.wbGenNavSTextBold{
+	color: #DC143C;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+	text-decoration: none;
+}
+
+.wbGenSelectBarBg{
+	background: #EEEEEE;
+	height: 24px;
+}
+
+.wbGenSelFrmIE{
+	background: #f6f6f6;
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+}
+
+.wbGenSelFrmNN{
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+}
+
+.wbGenSubBtnLink{
+	color: #761113;
+	font: normal 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+}
+
+.wbGenTextBtnText, a.wbGenTextBtnLink{
+	color: #FFFFFF;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+	text-decoration: none;
+}
+.wbGenTextBtnText:hover ;.wbGenTextBtnLink:hover{
+	color: #761113;
+	font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-decoration: none;
+}
+
+
+.wbGenTOCBg{
+	background: #DEF7FF;
+}
+
+.wbGenTOCLink:hover{
+	color: #008CB8;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+	text-decoration: underline;
+}
+
+.wbGenTOCTitleBg{
+	background: #eeeeee;
+}
+
+.wbGenTOCTitleText{
+	color: #000000;
+	font-size: 9pt;
+	font-weight: bold;
+}
+
+.wbGenTxtBtn{
+	color: #FFFFFF;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+	text-decoration: none;
+}
+
+.wbGenTxtBtn:hover{
+	color: #F0DCDC;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","�s�ө���","Taipei";
+	text-decoration: none;
+}

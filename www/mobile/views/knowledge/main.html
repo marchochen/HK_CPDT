@@ -1,0 +1,158 @@
+<!doctype html>
+<html ng-app="knowledge">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+	<title  translate="cwn_title"></title>
+	<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+	<link type="text/css" rel="stylesheet" href="../../css/swiper.min.css" />
+	<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="../../js/jquery.load.js"></script>
+	<script type="text/javascript" src="../../js/swiper.min.js"></script>
+	<script type="text/javascript" src="../../js/controllers/KnowledgeController.js"></script>
+	<script type="text/javascript" src="../../lib/common.js"></script>
+	<script type="text/javascript" src="../../lib/iscroll/iscroll.js"></script>
+	
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="mainController">
+	<div class="wrap">
+		<header class="header mm-background" style="z-index: 10003;">
+		    <a class="header-back" href="javascript:back();" title="back"></a>
+		    <span class="header-title" translate="knowledge_center"><!--知识中心--></span>
+			<a class="header-sosuo" href='javascript:clicked("../search/search.html",true);' title="search"></a>
+			<!-- <a class="header-sort" href="javascript:void(0)" ng-click="toggleSelection()"></a> -->
+		</header> <!-- header End -->
+		
+		<wzm-docker rp="../../"></wzm-docker> 
+		<section class="content-2">
+			
+			<div class="header-guide-box">
+                <div class="header-guide-title" >{{'knowledge_type' | translate}}<i translate="text_all" style="float:right;" ng-click="selectKnowledgeType('')"></i><!--类型--></div>
+                <div class="header-guide-info">                              
+                    <a ng-click="selectKnowledgeType(i.value)" ng-if="i.value!=''" ng-class="{'select' : i.value==knowledgeType}" href="javascript:void(0)" class="{{i.cla}}" ng-repeat="i in knowledgeTypes">{{i.title | translate}}</a>
+                </div> 
+                  
+                <div ng-show="catalogs.length > 1">
+	                <div class="header-guide-title">{{'knowledge_cat' | translate}}<i translate="text_all" style="float:right;" ng-click="selectCatalog('')"></i><!--分类--></div>
+			        <div style="background:#fff;" >
+				        <div id="wrapper" class="zuoyou-huadong-nav">
+							<div id="scroller" class="swiper-container-horizontal swiper-container-free-mode">
+							    <ul class="huadong-dh-title swiper-wrapper">
+							        <li  style="width:auto" class="swiper-slide" ng-repeat="catalog in catalogs" ng-if="catalog.kbc_id!=''" ng-click="selectCatalog(catalog.kbc_id);">
+							        	<a href="javascript:;" ng-class="{'select' : kbcId == catalog.kbc_id}"  ng-bind="catalog.kbc_title"></a>
+							        </li>
+							    </ul>
+						    </div>
+						</div>
+					</div>
+                </div>
+	        	<!-- <div class="header-guide-info" id="catalogsnav">
+            		<a ng-repeat="catalog in catalogs" ng-if="catalog.kbc_id!=''" ng-class="{'select' : kbcId == catalog.kbc_id}"  ng-click="selectCatalog(catalog.kbc_id);" href="javascript:;"   ng-bind="catalog.kbc_title">全部</a>
+		        </div> -->
+				
+				<div ng-show="tags.length > 1">
+			        <div class="header-guide-title" >{{'knowledge_lab' | translate}}<i translate="text_all" style="float:right;" ng-click="selectTag('')"></i><!--标签--></div>
+			        <div style="background:#fff;">
+				        <div id="wrapper_tag" class="zuoyou-huadong-nav">
+							<div id="scroller_tag" class="swiper-container-horizontal swiper-container-free-mode">
+							    <ul class="huadong-dh-title swiper-wrapper">
+							        <li style="width:auto" class="swiper-slide" ng-if="tag.tag_id!=''" ng-click="selectTag(tag.tag_id);" ng-repeat="tag in tags">
+							        	<a ng-class="{'select' : tagId == tag.tag_id}"  href="javascript:;" ng-bind="tag.tag_title"></a>
+							        </li>
+							    </ul>
+						    </div>
+						</div>
+					</div>
+				</div>
+		        <!-- <div class="header-guide-info">
+		            <a ng-class="{'select' : tagId == tag.tag_id}" ng-if="tag.tag_id!=''" ng-click="selectTag(tag.tag_id);" ng-repeat="tag in tags" href="javascript:;" ng-bind="tag.tag_title"></a>
+		        </div> -->
+            </div>
+			
+			<div class="box-pic clearfix" style="height:100px;">
+		        <!-- <div class="box-pic-left">
+		            <a href="javascript:void(0)">
+		                <i class="box-pic-baibao"></i>
+		                <p class="other-box-tit-1 font-size14" style="color:gray;" translate="knowledge_store"></p>
+		            </a>
+		        </div> -->
+		
+		        <!-- <div class="box-pic-right">
+		            <div class="box-pic-fork-1">
+		                <a href="javascript:clicked('../rank/knowledge.html',true);">
+		                    <i class="box-pic-paihang"></i>
+		                    <p class="box-pic-wen" translate="rank"></p>
+		                </a> -->
+		                <a href="javascript:void(0)" class="box-pic-one box-pic-one-right" forward="{url:'../personal/personalCollect.html?showType=kn',person:personId} | appUrl">
+		                    <i class="box-pic-shoucang"></i>
+		                    <p class="box-pic-wen" translate="personal_collect"></p>
+		                </a>
+		            <!-- </div>
+		
+		            <div class="box-pic-fork-2"> -->
+		                <a href="javascript:clicked('myShare.html',true);"  class="box-pic-one box-pic-one-right">
+		                    <i class="box-pic-wdfenxiang"></i>
+		                    <p class="box-pic-wen" translate="knowledge_my_share"></p>
+		                </a>
+		
+		                <a href="javascript:void(0)" class="wyfenxiang box-pic-one" ng-click="toggle()">
+		                    <i class="box-pic-wyfenxiang"></i>
+		                    <p class="box-pic-wen" translate="knowledge_to_share"></p>
+		                </a>
+		                <div class="header-overlay" ng-click="toggle()"></div>
+		            <!-- </div>
+		        </div>  -->
+		    </div>
+		
+			<div class="panel">
+				
+				<div ng-class="{'border-top':($index == 0)}" class="tuwen-list-1" ng-repeat="item in knCenterList.items" ng-if="knCenterList && knCenterList.items && knCenterList.items.length>0">
+		          <a class="tuwen-list-1-box clearfix" ng-href="javascript:clicked('detail.html?kbiId={{item.enc_kbi_id}}',true)">
+		            <div class="tuwen-list-1-pic">
+		              <img ng-src="{{serverHost + item.imageAttachment.kba_url}}" alt="">
+		              <span class="list-tool-1-doctype {{item.info.cla}}">{{item.info.title}}</span>
+		            </div>   
+		            
+		            <div class="tuwen-list-1-tit-1" ng-bind="item.kbi_title"></div>
+	                <div class="tuwen-list-1-tit-3">
+	                  <span class="wenda-list-info-4" ng-bind="item.kbi_publish_datetime | toDate"></span>
+	                </div>
+		          </a>
+		        </div>
+				
+				<div loader="knCenterList"></div>
+				
+				<div class="header-zhishi" style="display:none;z-index: 10000;">
+			         <div class="nav-tool clearfix">
+			             <a class="nav-box-4" href="{{{url:'create.html?type=ARTICLE'} | appUrl}}" ng-click="toggle()">
+			                <span class="icon-nav-model">
+			                      <i class="icon-nav-wz11"></i>
+			                </span>
+			                <div class="nav-box-biao" translate="knowledge_type_article"><!--文章--></div>
+			             </a>
+			             <a class="nav-box-4" href="{{{url:'create.html?type=DOCUMENT'} | appUrl}}" ng-click="toggle()">
+			                <span class="icon-nav-model">
+			                      <i class="icon-nav-wd11"></i>
+			                </span>
+			                <div class="nav-box-biao" translate="knowledge_type_document"><!--文档--></div>
+			             </a>
+			             <a class="nav-box-4" href="{{{url:'create.html?type=IMAGE'} | appUrl}}" ng-click="toggle()">
+			                <span class="icon-nav-model">
+			                      <i class="icon-nav-tp11"></i>
+			                </span>
+			                <div class="nav-box-biao" translate="knowledge_type_image"><!--图片--></div>
+			             </a>
+			             <a class="nav-box-4" href="{{{url:'create.html?type=VEDIO'} | appUrl}}" ng-click="toggle()">
+			                <span class="icon-nav-model">
+			                      <i class="icon-nav-sp11"></i>
+			                </span>
+			                <div class="nav-box-biao" translate="knowledge_type_vedio"><!--视频--></div>
+			             </a>
+			         </div>
+			    </div>
+			</div>
+		</section> <!-- content End -->
+	</div> <!-- wrap End -->
+	
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html ng-app="KeyPositionModule">
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+		<title translate="cwn_title"></title>
+		<link rel="stylesheet" href="../../css/basic.css" />
+		<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.load.js"></script>
+		<script type="text/javascript" src="../../js/controllers/KeyPositionController/KeyPositionController.js"></script>
+		<script type="text/javascript" src="../../lib/common.js"></script>
+	</head>
+
+	<body ng-cloak class="ng-cloak" ng-controller="detailController">
+	  <alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>
+	  <!-- wrap start -->
+	  <div class="wrap mm-page">
+	  
+	  	<!-- header start -->
+		 <header class="header mm-background">
+            <a class="header-back" href="javascript:back()"></a>
+            <span class="header-title" ng-bind="pageTitle"></span>
+        </header>
+	    <!-- header end -->
+		 
+		<wzm-docker rp="../../"></wzm-docker>
+		 
+		<!-- section start -->
+		<section class="content-2">
+			<!-- 岗位列表导航start -->
+			<div class="header-guide" style="margin:0;">
+                <div class="header-guide-box">
+                    <wzm-navigator-scroller item-click-callback="scrollerItemClick" selected-index="scrollerSelectedIndex" display-field-name="upt_title" items="positionLrnMaps"></wzm-navigator-scroller>
+                </div>
+             </div>
+             <!-- 岗位列表导航end -->
+             
+             <!-- 岗位介绍图片和简介 start -->
+             <div class="panel-list-box" style="padding:10px 0;">
+                <a class="panel-list-1-13-cont bgcolor-99cd32" href="javascript:void(0)" title="">
+                    <div class="list-pic-13">
+                        <img ng-src="{{serverHost + positionMapDetail.abs_img}}" alt="">
+                        <div class="bg-9">
+                            <i ng-bind="positionMapDetail.upt_title"></i>
+                        </div>
+                    </div>
+                </a>
+                <p style="padding:10px;" ng-bind="positionMapDetail.upt_desc"></p>
+            </div>
+            <!-- 岗位介绍图片和简介 end -->
+            
+            <!-- 岗位推荐课程列表 start -->
+            <div class="panel" ng-show="positionCourseLoader.items.length > 0">
+                <div class="tuwen-list-1" ng-repeat="c in positionCourseLoader.items">
+                    <a class="tuwen-list-1-box clearfix" ng-if="c.itm_canread != 0" href="javascript:clicked('../course/detail.html?itmId={{c.encItmId}}',true,'item{{c.itm_id}}')">
+                        <div class="tuwen-list-1-pic">
+                        	<i class="wuquanxian" ng-if="c.itm_canread == 0"></i>
+                            <img ng-src="{{serverHost + c.itm_icon}}" alt="">
+                        </div>  
+                        <div class="marginl">  
+                            <div class="tuwen-list-1-tit-1" ng-bind="c.itm_title"></div>
+                            <div class="tuwen-list-tool">
+                                <span class="list-tool-1-laud" ng-bind="c.cnt_like_count"></span>
+                                <!-- <span class="list-tool-1-review" ng-bind="c.cnt_comment_count"></span> -->
+                            </div>
+                        </div>
+                    </a>
+                    <a class="tuwen-list-1-box clearfix" ng-if="c.itm_canread == 0" href="javascript:void(0)">
+                        <div class="tuwen-list-1-pic">
+                        	<i class="wuquanxian" ng-if="c.itm_canread == 0"></i>
+                            <img ng-src="{{serverHost + c.itm_icon}}" alt="">
+                        </div>  
+                        <div class="marginl">  
+                            <div class="tuwen-list-1-tit-1" ng-bind="c.itm_title"></div>
+                            <div class="tuwen-list-tool">
+                                <span class="list-tool-1-laud" ng-bind="c.cnt_like_count"></span>
+                                <!-- <span class="list-tool-1-review" ng-bind="c.cnt_comment_count"></span> -->
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <div loader="positionCourseLoader"></div>
+            </div>
+            <!-- 岗位推荐课程列表 end -->
+              			    
+		</section>
+		<!-- section end -->
+		 
+	  </div>
+	  <!-- wrap end -->
+	</body>
+</html>

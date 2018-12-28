@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="compile classes of config xml" default="cleanup" basedir=".">
+	<!-- set global properties for this build -->
+	<property name="src" location="src"/>
+	<property name="build" location="build"/>
+	<property name="dist" location="dist"/>
+	<property name="cplib" location="lib_compile"/>
+	<property name="wblib" location="..\www\WEB-INF\lib"/>
+	<property name="xsddir" location="..\www\WEB-INF\config"/>
+	<property name="package" value="com.cw.wizbank.config"/>
+	<path id="jaxbcp">
+		<fileset dir="${cplib}">
+			<include name="jaxb-xjc.jar"/>
+			<include name="jax-qname.jar"/>
+		</fileset>
+		<fileset dir="${wblib}">
+			<include name="jaxb-api.jar"/>
+			<include name="jaxb-libs.jar"/>
+			<include name="jaxb-ri.jar"/>
+			<include name="xercesImpl.jar"/>
+		</fileset>
+	</path>
+	<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+		<classpath refid="jaxbcp"/>
+	</taskdef>
+	<target name="init">
+		<!-- Create the time stamp -->
+		<tstamp/>
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${src}"/>
+		<mkdir dir="${build}"/>
+	</target>
+	<target name="compile" depends="init">
+		<xjc schema="${xsddir}\system\setup.xsd" target="${src}" package="${package}.system.setup"/>
+		<xjc schema="${xsddir}\system\setupadv.xsd" target="${src}" package="${package}.system.setupadv"/>
+		<xjc schema="${xsddir}\system\skin_list.xsd" target="${src}" package="${package}.system.skinlist"/>
+		<xjc schema="${xsddir}\system\db.xsd" target="${src}" package="${package}.system.db"/>
+		<xjc schema="${xsddir}\system\function_map.xsd" target="${src}" package="${package}.system.functionmap"/>
+		<xjc schema="${xsddir}\system\scheduled_task.xsd" target="${src}" package="${package}.system.scheduledtask"/>
+		<xjc schema="${xsddir}\organization\item_cost_management.xsd" target="${src}" package="${package}.organization.itemcostmgt"/>
+		<xjc schema="${xsddir}\organization\learning_plan.xsd" target="${src}" package="${package}.organization.learningplan"/>
+		<xjc schema="${xsddir}\organization\personalization.xsd" target="${src}" package="${package}.organization.personalization"/>
+		<xjc schema="${xsddir}\organization\record_id.xsd" target="${src}" package="${package}.organization.recordid"/>
+		<xjc schema="${xsddir}\organization\user_management.xsd" target="${src}" package="${package}.organization.usermanagement"/>
+		<xjc schema="${xsddir}\organization\sso.xsd" target="${src}" package="${package}.organization.sso"/>
+		<xjc schema="${xsddir}\organization\export_cols.xsd" target="${src}" package="${package}.organization.exportcols"/>
+		<javac sourcepath="" srcdir="${src}" destdir="${build}" deprecation="on" debug="on">
+			<classpath refid="jaxbcp"/>
+			<include name="com\cw\wizbank\config\"/>
+		</javac>
+	</target>
+	<target name="dist" depends="compile">
+		<copy todir="${build}">
+			<fileset dir="${src}">
+				<include name="**/bgm.ser"/>
+				<include name="**/jaxb.properties"/>
+			</fileset>
+		</copy>
+		<mkdir dir="${dist}"/>
+		<jar jarfile="${dist}\configSchemaJaxb.jar" basedir="${build}" update="no" compress="yes">
+			<include name="com\cw\wizbank\config\"/>
+		</jar>
+		<copy todir="${wblib}">
+			<fileset dir="${dist}">
+				<include name="**/configSchemaJaxb.jar"/>
+			</fileset>
+		</copy>
+	</target>
+	<target name="cleanup" depends="dist">
+		<delete dir="${src}" includeEmptyDirs="true"/>
+		<delete dir="${build}" includeEmptyDirs="true"/>
+	</target>
+</project>

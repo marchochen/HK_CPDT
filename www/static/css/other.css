@@ -1,0 +1,121 @@
+@charset "utf-8";
+*{ font:12px/26px Helvetica,Geneva,"Microsoft YaHei UI","Microsoft YaHei",DengXian,SimSun,"Segoe UI",Tahoma,Helvetica,sans-serif; }
+td{ font:12px/24px "Microsoft YaHei UI","Microsoft YaHei",DengXian,SimSun,"Segoe UI",Tahoma,Helvetica,sans-serif;} 
+
+fieldset,img,button,input,option{ border:0; vertical-align:middle; font:12px/18px Helvetica,Geneva,"Microsoft YaHei UI","Microsoft YaHei",DengXian,SimSun,"Segoe UI",Tahoma,Helvetica,sans-serif;}
+
+/* xyd-wrapper */
+#s_rsp_title{border:1px solid #ccc;}
+
+/*xyd-nav*/
+.xyd-nav .xyd-menu ul li a:link,.xyd-nav .xyd-menu ul li a:visited{ font-size:14px; padding:0 26px 0 15px;}
+.xyd-nav .xyd-menu ul li.cur ul li a:link,.xyd-nav .xyd-menu ul li.cur ul li a:visited{ font-size:12px;}
+.xyd-nav .xyd-menu ul li.cur ul li.cur a:link,.xyd-nav .xyd-menu ul li.cur ul li.cur a:visited{ font-size:12px;}
+
+/*xyd-learn-tool*/
+.xyd-learn-tool dd a.cur:link,.xyd-learn-tool dd a.cur:visited,.xyd-learn-info a.cur:link,.xyd-learn-info a.cur:visited{ font-size:14px; }
+.xyd-learn-tool dd a.cur:link,.xyd-learn-tool dd a.cur:visited,.xyd-learn-info a.cur:link,.xyd-learn-info a.cur:visited{ background:#ff8c00;}
+
+/*xyd-path-title*/
+.xyd-path-title span{ font-size:22px;}
+.xyd-path-title em{ font-size:22px;}
+.xyd-path-link:link,.xyd-path-link:visited{ font-size:12px;}
+
+.xyd-exam-one p,.xyd-exam-two p,.xyd-exam-three p{ font-size:14px;}
+.xyd-exam-two p{ line-height:18px;}
+
+.xyd-step01 strong{ padding-left:16px;}
+.xyd-step02 strong{ padding-left:59px;}
+.xyd-step03 strong{ padding-left:20px;}
+
+.xyd-jifen-list dt{ padding:32px 0 0 32px;}
+.xyd-jifen-red dt{ padding:42px 0 0 36px;}
+
+.xyd-privacy-title .fontfamily{ font-size:14px;}
+
+.qztabnav dd{ font-size:14px;}
+
+/* wzb-article-content */
+.wzb-article-tool i{ font-size:20px; } 
+
+.wzb-title-2{ font-size:14px;}
+.wzb-title-4{ font-size:14px;}
+.wzb-title-5{ font-size:14px;}
+.wzb-title-5 .wzb-title-more{ fongt-size:12px;}
+.wzb-title-6{ font-size:14px;}
+.wzb-title-7{ font-size:14px;}
+.wzb-title-8{ font-size:14px;}
+.wzb-list-9 dd a.cur:link,.wzb-list-9 dd a.cur:visited{ font-size:14px;}
+.wzb-title-10{ font-size:14px;}
+.wzb-list-15 li a:link,.wzb-list-15 li a:visited{ font-size:14px;}
+.wzb-list-17 li a:link,.wzb-list-17 li a:visited{ font-size:14px;}
+
+.wzb-model-11{ padding:30px 60px 30px 60px;}
+
+.wzb-toolbox a i{ font-size:24px;}
+
+.hold-fwim-gray:link,.hold-fwim-gray:visited{ font-size:12px;}
+
+.wzb-tab-1 .nav-tabs a:link,.wzb-tab-1 .nav-tabs a:visited{ font-size:14px;}
+.wzb-tab-2 .nav-tabs span{ font-size:14px;} 
+.wzb-tab-3 .nav-tabs li.active a:link,.wzb-tab-3 .nav-tabs li.active a:visited,.wzb-tab-3 .nav-tabs li.active a:hover,.wzb-tab-3 .nav-tabs li.active a:focus{ font-size:14px;}
+.wzb-tab-3 .nav li a:link,.wzb-tab-3 .nav li a:visited,.wzb-tab-3 .nav li a:hover,.wzb-tab-3 .nav li a:focus{ font-size:14px;}
+.wzb-tab-3 .nav li a.nav-more:link, .wzb-tab-3 .nav li a.nav-more:visited, .wzb-tab-3 .nav li a.nav-more:focus{font-size:12px;}
+.wzb-tab-3 .wzb-title-more{ font-size:12px;}
+.wzb-tab-5 .nav-tabs li.active a:link,.wzb-tab-5 .nav-tabs li.active a:visited,.wzb-tab-5 .nav-tabs li.active a:hover,.wzb-tab-5 .nav-tabs li.active a:focus{ font-size:14px;}
+.wzb-tab-5 .nav li a:link,.wzb-tab-5 .nav li a:visited,.wzb-tab-5 .nav li a:hover,.wzb-tab-5 .nav li a:focus{ font-size:14px;}
+
+.wzb-link01,.wzb-link01:link,.wzb-link01:visited{ font-size:14px;}
+.wzb-link02,.wzb-link02:link,.wzb-link02:visited{ font-size:12px;}
+.wzb-link03,.wzb-link03:link,.wzb-link03:visited{ font-size:12px;}
+.wzb-link04,.wzb-link04:link,.wzb-link04:visited{ font-size:12px;}
+
+.wzb-table-two td.wzb-table-tdbg{ font-size:14px;}
+.xyd-survey-left{ font-size:14px;}
+.wzb-entity-title{ font-size:14px;}
+.main_img .show .imgArea{ margin:-15px 0px 0px -52px;}
+.main_img .show .imgArea em{ font-size:14px;}
+.wzb-tab-6>ul>li>span{ font-size:18px;}
+.gangwei-bg{ font-size:24px;}
+.module-tuwen-tit-1{ font-size:16px;}
+.module-tuwen-tit-2{ font-size:12px;}
+.xyd-hold-left strong{font-size:20px;}
+.wzb-list-9-1 dt{ font-size:16px;}
+.wzb-hold-box .wzb-hold-title{font-size:16px;}
+.wzb-list-25 li i a{ font-size:18px;}
+.wzb-list-27-title{font-size:14px;}
+.wzb-list-31-title a{ font-size:14px;}
+
+/* file */
+.file_file{height:26px;}
+.file_txt{height:26px;}
+
+
+/*关键岗位地图*/
+.gangwei-bg{ font-size:24px;}
+.bg-9{font-size:24px;}
+.bg-9:before{ width:40px; height:46px; background:url(../images/tool-icon.png) no-repeat 0 -80px; background-size:40px;  margin:26px 8px 0 70px;}
+.bg-tuijian{ font-size:14px;}
+.number-1-1{ font-size:30px;}
+.number-1-2{font-size:14px;}
+.wenzi-1{font-size:22px;}
+.wenzi-2{ font-size:20px;}
+.wenzi-3{ font-size:22px;}
+.wenzi-5{font-size:14px;}
+.wenzi-6{font-size:14px;}
+.wenzi-7{font-size:28px;}
+.wenzi-8{ font-size:22px;}
+.fontfamily{font-size:22px;}
+
+/*讲师风采*/
+.tuijian-icon{ width:130px; background:url(../images/wiz-tui.png) no-repeat 100px 0; background-size:50px;}
+
+/*按钮样式*/
+.wzb-btn-yellow-border{padding:2px 14px;font-size:14px;}
+.xyd_warning_middle{font-size:14px; line-height:28px;}
+
+/* My schedule */
+.wzb-tab-8 .nav-tabs li.active span{font-size:12px;}
+.wzb-tab-8 .nav-tabs li.active{padding:0 12px;}
+
+

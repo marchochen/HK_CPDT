@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>学员端模板</title>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../static/js/jquery-table/css/jquery-table-default.css"/>
+<link rel="stylesheet" type="text/css" href="../../static/js/jquery-table/css/jquery-table-learner.css"/>
+<link rel="stylesheet" type="text/css" href="../../static/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="../../static/css/learner.css"/>
+<link rel="stylesheet" type="text/css" href="../../static/theme/blue/css/style.css"/>
+<!--[if lt IE 9]>
+    <script type="text/javascript" src="bootstrap/js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="xyd-header">
+<div class="xyd-header-box">
+     <div class="xyd-logo"><a href="###" title="xydbank"><img src="images/xyd-logo.png" alt="xydbank"/></a></div>
+     <div class="xyd-tool">
+          <div class="xyd-welcome">欢迎来到e-Learning学习平台</div>
+          <div class="xyd-email"><a href="xiaoxi.html" title="xydbank"><i class="fa xyd-email-icon fa-envelope"></i><span>5</span></a></div>
+          <div class="xyd-people xyd-flag">
+               <div class="xyd-menu">
+                    <ul>
+                         <li href="javascript:void(0)">
+                             <a class="thickbox" id="tob" href="#TB_inline?height=460&width=400&inlineId=wzb-pop"><i class="fa xyd-flag-icon fa-flag-o"></i><span class="xyd-flag-number">12</span></a>
+                             <!-- <ul>
+                                   <div class="xyd-tip-box"><div class="xyd-tip-hd"><em class="arrow arrowT"><i></i></em></div></div>
+                                   <li><a href="###" title="报名审批">报名审批（5）</a></li>
+                                   <li><a href="###" title="进行中的课程">进行中的课程（8）</a></li>
+                                   <li><a href="###" title="进行中的考试">进行中的考试（2）</a></li>
+                                   <li><a href="###" title="未提交的调查问卷">未提交的调查问卷（9）</a></li>
+                                   <li><a href="###" title="投票">投票（0）</a></li>
+                              </ul> -->
+                         </li>
+                    </ul>
+               </div>
+          </div>
+          <div class="xyd-people">
+               <div class="xyd-menu">
+                    <ul>
+                         <li href="javascript:void(0)" class="cur">
+                            <img src="../../static/images/teacher01.png" alt="" class="xyd-user-icon">
+                             <ul>
+                                  <!-- <div class="xyd-tip-box"><div class="xyd-tip-hd"><em class="arrow arrowT"><i></i></em></div></div> -->
+                                  <div class="xyd-tip-box-2"></div>
+                                  <li style="height:175px;background:rgba(255,255,255,0.9);" class="cur">
+                                      <div style="padding:5px 10px;">
+                                          <div class="xyd-user-box clearfix" style="background:none;">
+                                              <div class="wzb-user wzb-user82">
+                                                  <img src="../../static/images/teacher01.png" class="wzb-pic">
+                                              </div>
+
+                                              <div class="xyd-user-content">
+                                                  <p class="wzb-link04" title="" style="line-height:20px;">Andy</p>
+                                                  <p>技术部</p>
+                                              </div>
+                                          </div>
+                                          <!-- usermess End-->
+
+                                          <p><span class="color-gray666">上次登录：</span>2016-05-14 02:47</p>
+                                          <p><span class="color-gray666">我的积分：</span><span><em class="wzb-link04">200.0</em></span>
+                                          </p>
+                                      </div>     
+                                  </li>
+                                  <li style="height:42px;"><a href="gerenzhongxin-dangan.html" title="我的主页" class="wDzye" style="height:42px;line-height:44px;">我的主页</a></li>
+                                  <li><a href="xiashu-chakanbaobiao.html" title="我的下属" class="wDxshu">我的下属</a></li>
+                                  <li><a href="###" title="角色" class="jSe">角色</a>
+                                       <ul>
+                                          <li><a href="###" title="学员">学员</a></li>
+                                          <li><a href="###" title="培训管理员">培训管理员</a></li>
+                                          <li><a href="###" title="系统管理员">系统管理员</a></li>
+                                      </ul>
+                                  </li>
+                                  <li><a href="###" title="语言" class="yYan">语言</a>
+                                     <!--  <ul>
+                                           <li><a href="###" title="简体中文">简体中文</a></li>
+                                           <li><a href="###" title="繁体中文">繁体中文</a></li>
+                                           <li><a href="###" title="English">English</a></li>
+                                      </ul> -->
+                                  </li>
+                                  <li><a href="###" title="帮助" class="Bzhu">帮助</a></li>
+                                  <li style="height:42px;"><a href="###" title="退出" class="tChu" style="height:42px;line-height:44px;">退出</a></li>
+                              </ul>
+                         </li>
+                    </ul>
+               </div>
+          </div>
+     </div>
+</div>     
+</div> <!-- xyd-header End-->
+
+<div class="xyd-fixbox">
+<div class="xyd-fixcut xyd-nav skin-bg">
+<div class="xyd-sub">
+     <div class="xyd-menu">
+          <ul>
+              <li class="cur"><a href="index.html" title="首 页">首 页</a></li>
+              <li><a href="javascript:void(0)" title="">资讯</a>
+                  <ul>
+                       <li class="top-1"><a href="gonggao.html" title="公告">公告</a></li>
+                       <li class="top-2"><a href="haowaizixun.html" title="号外资讯">号外资讯</a></li>
+                  </ul>
+             </li>
+             <li><a href="javascript:void(0)" title="">学习</a>
+                 <ul>
+                      <li class="top-1"><a href="xuexi-mulu.html" title="课程目录">课程目录</a></li>
+                      <li class="top-2"><a href="xuexi-tuijian.html" title="推荐课程">推荐课程</a></li>
+                      <li class="top-3"><a href="xuexi-yibaoming.html" title="已报名课程">已报名课程</a></li>
+                      <li class="top-4"><a href="gongkaike.html" title="公开课">公开课</a></li>
+                      <li class="top-5"><a href="xuexiricheng.html" title="学习日程">学习日程</a></li>
+                      <li class="top-6"><a href="gangweifazhanlujing.html" title="岗位发展路径图">岗位发展路径图</a></li>
+                 </ul>
+            </li>
+            <li><a href="exam.html" title="">考试</a>
+                <ul>
+                     <li class="top-1"><a href="kaoshi-mulu.html" title="考试目录">考试目录</a></li>
+                     <li class="top-2"><a href="kaoshi-tuijian.html" title="推荐考试">推荐考试</a></li>
+                     <li class="top-3"><a href="kaoshi-yibaoming.html" title="已报名考试">已报名考试</a></li>
+                </ul>
+            </li>
+            <li><a href="javascript:void(0)" title="">学习地图 </a>
+                <ul>
+                     <li class="top-1"><a href="qunzu-wodequnzu.html" title="群组">群组</a></li>
+                     <li class="top-2"><a href="wenda-quanbuwenti.html" title="在线问答">在线问答</a></li>
+                     <li class="top-3"><a href="zhishizhongxin.html" title="知识中心">知识中心</a></li>
+                     <li class="top-4"><a href="dongtai-suoyoudongtai.html" title="动态消息">动态消息</a></li>
+                     <li class="top-5"><a href="paihangbang-kecheng.html" title="课程排行榜">课程排行榜</a></li>
+                     <li class="top-6"><a href="paihangbang-jifen.html" title="积分排行榜">积分排行榜</a></li>
+                     <li class="top-7"><a href="paihangbang-xuexi.html" title="学习排行榜">学习排行榜</a></li>
+                </ul>
+            </li>
+         </ul> <!-- nav End-->
+     </div>
+    
+     <div class="xyd-search">
+          <form target="_blank" name="searchform" method="get" action="souso.html">
+                <input type="text" class="form-control xyd-search-text" name="mytext" placeholder="搜索课程、号外资讯......"/>
+		        <input type="submit" class="xyd-search-button" name="mybtn" value=""/>
+          </form>   
+     </div>
+</div>
+
+<script>
+    $(function(){
+        $(".xyd-sub .xyd-menu ul li").hover(
+                function(){
+                   console.log($(this).children("ul").children().children().css("height"))
+                    $(this).children("ul").css("height",$(this).children("ul").children().length*47+"px");
+                      $(this).addClass("cur");
+                    //$(this).children("ul").show()
+                },
+                function(){
+                     $(this).children("ul").css("height","0px");
+                    $(this).removeClass("cur");
+                });
+
+        $(".xyd-people .xyd-menu ul li").hover(
+            function (){
+                $(this).addClass("cur");
+                $(this).children("ul").show()
+            },
+            function (){
+                $(this).removeClass("cur");
+              $(this).children("ul").hide()
+            }
+        )
+    })
+</script>     
+</div>
+</div> <!-- xyd-menu End-->
+
+<div class="xyd-wrapper">
+
+    <!-- 内容开始 -->
+    <!-- xyd-main-3 开始 -->
+    <div class="xyd-main-3 clearfix">
+        
+        <!-- 公告开始 -->
+        <div class="xyd-main-3 clearfix" style="background:#ffffcc;" id="announceContainer">
+            <div style="padding:6px 0; height:40px;width:984px;margin:0 auto;">
+                <span class="gonggao">公告</span>
+                <!-- <span class="gonggao-bg"></span> -->
+                <span class="wzb-close-b" id="wzb-close-gg"></span>
+                <span class="wzb-list-29" style="overflow:hidden;height:30px;">
+                    <ul class="guanggao" style="height:28px;" id="ul">
+                        <li>
+                            <p>
+                              <i class="fa fa-volume-down skin-color"></i>
+                              <a href="#">绩效支持1：不是学什么，而是做什么大锅饭大锅饭</a>
+                              <span style="float:right;">2016-06-12</span>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                              <i class="fa fa-volume-down skin-color"></i>
+                              <a href="#">绩效支持2：不是学什么，而是做什么</a>
+                              <span style="float:right;">2016-06-12</span></p>
+                        </li>
+                        <li>
+                            <p><i class="fa fa-volume-down skin-color"></i><a href="#">绩效支持3：不是学什么，而是做什么</a><span style="float:right;">2016-06-12</span></p>
+                        </li>
+                        <li>
+                            <p><i class="fa fa-volume-down skin-color"></i><a href="#">绩效支持4：不是学什么，而是做什么</a><span style="float:right;">2016-06-12</span></p>
+                        </li>
+                        <li>
+                            <p><i class="fa fa-volume-down skin-color"></i><a href="#">绩效支持5：不是学什么，而是做什么</a><span style="float:right;">2016-06-12</span></p>
+                        </li>
+                        <li>
+                            <p><i class="fa fa-volume-down skin-color"></i><a href="#">绩效支持6：不是学什么，而是做什么</a><span style="float:right;">2016-06-12</span></p>
+                        </li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $("#wzb-close-gg").click(function(){
+                $("#announceContainer").animate({"marginTop":"-40px"},1000);
+            })
+        </script>
+        <!-- 公告结束 -->
+
+        <div id="xyd-banner">
+            <ul id="xyd-banner-pic">
+                <li style="background:url(../../static/images/b1.jpg) 50% 0 no-repeat;"></li>
+                <li style="background:url(../../static/images/b1.png) 50% 0 no-repeat;"></li>
+                <li style="background:url(../../static/images/b2.jpg) 50% 0 no-repeat;"></li>
+            </ul>
+            <ul id="xyd-banner-pagination">
+              <li class="current"></li>
+              <li></li>
+              <li></li>
+            </ul>
+        </div>
+        <script type="text/javascript">
+            $(function() {
+                var $key=0;
+
+                //定时器
+                var timer=setInterval(autoplay, 5000);
+                $("#xyd-banner-pic li").eq($key).siblings().stop().fadeOut(0);
+                function autoplay(){
+                  $("#xyd-banner-pic li").stop().fadeOut(600);
+                  $key++;
+                  $key=$key%$("#xyd-banner-pic li").length;
+
+                   $("#xyd-banner-pic li").eq($key).stop().fadeIn(600);
+                   $("#xyd-banner-pagination li").eq($key).addClass('current').siblings().removeClass('current');
+                }
+                $("#xyd-banner-pagination li").click(function(event) {
+                    $(this).addClass('current').siblings().removeClass('current');
+                    $("#xyd-banner-pic li").eq($(this).index()).stop().fadeIn(600).siblings().stop().fadeOut(600);
+                    $key=$(this).index();
+                });
+              });
+        </script>
+    </div>
+    <!-- xyd-main-3 结束 -->
+    <!-- xyd-main 开始 -->
+    <div class="xyd-main clearfix" style="padding-top:0;">
+        <!-- <div class="wzb-model-14" style="padding:12px 15px; height:50px;">
+            <span class="gonggao">公告</span>
+            <span class="gonggao-bg"></span>
+            <span class="wzb-list-29" style="overflow: hidden;height: 30px">
+                <ul class="guanggao" style="height: 28px;" id="ul">
+                    <li>
+                        <p>
+                          <i class="fa fa-volume-down skin-color"></i>
+                          <a href="#">绩效支持1：不是学什么，而是做什么大锅饭大锅饭</a>
+                          <span style="float:right;">2016-06-12</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                          <i class="fa fa-volume-down"></i>
+                          <a href="#">绩效支持2：不是学什么，而是做什么</a>
+                          <span style="float:right;">2016-06-12</span></p>
+                    </li>
+                    <li>
+                        <p><i class="fa fa-volume-down"></i><a href="#">绩效支持3：不是学什么，而是做什么</a><span style="float:right;">2016-06-12</span></p>
+                    </li>
+                    <li>
+                        <p><i class="fa fa-volume-down"></i><a href="#">绩效支持4：不是学什么，而是做什么</a><span style="float:right;">2016-06-12</span></p>
+                    </li>
+                    <li>
+                        <p><i class="fa fa-volume-down"></i><a href="#">绩效支持5：不是学什么，而是做什么</a><span style="float:right;">2016-06-12</span></p>
+                    </li>
+                    <li>
+                        <p><i class="fa fa-volume-down"></i><a href="#">绩效支持6：不是学什么，而是做什么</a><span style="float:right;">2016-06-12</span></p>
+                    </li>
+                </ul>
+            </span>
+        </div> -->
+        <script>
+            // console.log($(".guanggao li").eq(1).html())
+            // $(function() {
+            //     var $this = $(".wzb-model-14");
+            //     var scrollTimer;
+            //     $this.hover(function() {
+            //         clearInterval(scrollTimer);
+            //     }, function() {
+            //         scrollTimer = setInterval(function() {
+            //             scrollNews($this);
+            //         }, 3000);
+            //     }).trigger("mouseleave");
+
+
+            //     function scrollNews(obj) {
+            //         var $self = obj.find(".guanggao");
+            //         var lineHeight = $self.find("li:first").height();
+            //         $self.animate({
+            //             "marginTop": -lineHeight + "px"
+            //         }, 600, function() {
+            //             $self.css({
+            //                 marginTop: 0
+            //             }),
+            //             $(".guanggao li:first-child").appendTo($(".guanggao"))
+            //             $(".guanggao li").eq(0).appendTo($(".guanggao"))
+
+            //          })
+            //      }
+            //  })
+        </script>
+		
+		<style>
+		.module-tuwen-teacher{
+			position:relative;
+			overflow:hidden;
+		}
+		.module-tuwen-teacher:hover:after{
+			left: 350px;
+			-webkit-transition: all 1000ms cubic-bezier(0.19, 1, 0.22, 1);
+          transition: all 1000ms cubic-bezier(0.19, 1, 0.22, 1);
+  
+		}
+	.module-tuwen-teacher:after{
+		background: #fff;
+		content: "";
+		height: 500px;
+		left: -200px;
+		opacity: .1;
+		position: absolute;
+		top: -60px;
+		-webkit-transform: rotate(35deg);
+		-ms-transform: rotate(35deg);
+		transform: rotate(35deg);
+		-webkit-transition: all 1000ms cubic-bezier(0.19, 1, 0.22, 1);
+		transition: all 1000ms cubic-bezier(0.19, 1, 0.22, 1);
+		width: 50px;
+		z-index: 108;
+	}
+</style>
+		
+        <div class="wzb-model-2" style="padding:25px 0 0 0;">
+            <!-- 选课中心开始 -->
+            <div class="xyd-train" style="margin:0;">
+                <div class="wzb-tab-3" style="display:inline-block;">
+                    <ul class="nav nav-tabs wblearn">
+                        <li class="active"><a href="#" style="padding-left:0;">为你推荐</a></li>
+                        <li><a href="#">最新课程</a></li>
+                        <li><a href="#">我的课程</a></li>
+                    </ul>
+                </div>
+                <span class="btn wzb-btn-blue-border" style="float:right;">前往选课中心<i class="xuexi-r"></i></span>
+                <!-- <input type="button" onclick="#" value="前往选课中心" class="btn wzb-btn-blue-border xuexi-r" style="float:right;"> -->
+            </div>
+            <div class="tab-content">
+                <div class="wbtabcont">
+                    <div class="home">
+                        <ul class="wzb-list-14 wzb-list-14-1 clearfix datatable" id="sign_lst">
+                            <div class="datatable-body">
+                                <table cellpadding="0" cellspacing="0" class="datatable-table">
+                                    <tbody class="datatable-table-tbody">
+                                        <tr>
+                                            <td>
+                                                <div class="datatable-table-grid-contrainer">
+                                                    <div class="datatable-table-grid-4">
+                                                        <div class="datatable-table-grid-content">
+                                                            <li>
+                                                              <a class="fwim" href="/app/course/detail/1477?tkhId=2866">
+                                                                  <div class="main_img">
+                                                                      <img class="fwpic" src="images/course1.png">
+                                                                      <div class="show">
+                                                                          <span class="imgArea"><em>点击学习</em></span>
+                                                                      </div>
+                                                                  </div>
+                                                                 <div class="fwimcont">培训QA组几个</div>
+                                                                 <div class="fwimbg"></div>
+                                                              </a>
+                                                              <div class="fwdesc">
+                                                                  <div class="clearfix">
+                                                                    <span class="pull-left color-gray666">学习进度：</span>
+                                                                    <div style="width:59%;" class="progress progress-xs">
+                                                                      <div style="width:px" class="progress-bar progress-bar-orange"></div>
+                                                                    </div>
+                                                                  </div>
+                                                                 <div class="color-gray666">上次访问：--</div>
+                                                              </div>
+                                                            </li>
+                                                        </div>
+                                                    </div>
+                                                    <div class="datatable-table-grid-4">
+                                                      <div class="datatable-table-grid-content">
+                                                          <li>
+                                                             <a class="fwim" href="/app/course/detail/9?tkhId=292">
+                                                                <div class="main_img">
+                                                                   <img class="fwpic" src="images/course1.png">
+                                                                   <div class="show">
+                                                                    <span class="imgArea"><em>点击学习</em></span>
+                                                                   </div>
+                                                               </div>
+                                                               <div class="fwimcont">视频课程2014/01/02</div>
+                                                               <div class="fwimbg"></div>
+                                                                    </a>
+
+                                                            <div class="fwdesc">
+                                                                 <div class="clearfix"><span class="pull-left color-gray666">学习进度：</span><div style="width:59%;" class="progress progress-xs"><div style="width:10px" class="progress-bar progress-bar-orange"></div></div></div>
+                                                               <div class="color-gray666">上次访问：2014-10-13</div>
+                                                            </div> 
+                                                          </li>
+                                                      </div>
+                                                    </div>
+                                                    <div class="datatable-table-grid-4">
+                                                      <div class="datatable-table-grid-content">
+                                                        <li>
+                                                           <a class="fwim" href="/app/course/detail/16?tkhId=831">
+                                                              <div class="main_img">
+                                                                 <img class="fwpic" src="images/course1.png">
+                                                                 <div class="show">
+                                                                  <span class="imgArea"><em>点击学习</em></span>
+                                                                 </div>
+                                                             </div>
+                                                             <div class="fwimcont">移动课程2015（央视新闻报道）</div>
+                                                             <div class="fwimbg"></div>
+                                                          </a>
+
+                                                          <div class="fwdesc">
+                                                               <div class="clearfix"><span class="pull-left color-gray666">学习进度：</span><div style="width:59%;" class="progress progress-xs"><div style="width:50px" class="progress-bar progress-bar-orange"></div></div></div>
+                                                             <div class="color-gray666">上次访问：2014-10-29</div>
+                                                          </div>
+                                                        </li>
+                                                      </div>
+                                                    </div>
+                                                    <div class="datatable-table-grid-4">
+                                                      <div class="datatable-table-grid-content">
+                                                        <li>
+                                                            <img src="../../static/images/z-kecheng.png" width="226px" alt="">
+                                                        </li>
+                                                      </div>
+                                                    </div>
+                                                    <div class="clear"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 选课中心结束 -->
+            <!-- 精彩专题开始 -->
+            <div class="wzb-title-5" onclick="window.open('jingcaizhuanti/zhuanti.html')">精彩专题<a title="更多" href="#" class="wzb-title-more">更多</a></div>
+            <ul class="wzb-list-27 wzb-list-27-1 clearfix">
+                <li onclick="window.open('jingcaizhuanti/zhuanti-xiangqing.html')">
+                    <div>
+                        <img src="images/adv01.jpg" alt="">
+                        <span class="wzb-list-27-title">圣诞特别版实操课圣诞特别版实操课</span>
+                        <span class="wzb-list-27-tit">越来越多的员工通过手机获取信息并解决问题</span><!-- 文字显示2行，超出用“...”显示 -->
+                    </div>
+                    <p style="padding:10px;margin:0;">
+                        <i class="list-tool-dian color-gray999">31</i>
+                        <i class="list-tool-you"></i>
+                    </p>
+                </li> 
+                <li style="margin:25px 0 0 0;">
+                    <img src="../../static/images/z-zhuanti.png" alt="" style="width:480px;height:346px;">
+                </li> 
+            </ul>
+            <!-- 精彩专题结束 -->
+            <!-- 分类开始 -->
+            <div class="wzb-tab-6">
+                <ul>
+                  <li><i class="rcbiao"></i><span style="right: 85px">日程表</span></li>
+                  <li><i class="zshi"></i><span>知识</span></li>
+                  <li><i class="wda"></i><span>问答</span></li>
+                  <li><i class="qzu"></i><span>群组</span></li>
+                </ul>
+            </div>
+
+
+
+            <script>
+
+
+                $(".wzb-tab-6>ul>li").hover(function(){
+                    $(this).find("i").removeClass("zhuan-3")
+                    $(this).find("i").addClass("zhuan-2")
+                    if($(this).index()==0){
+                        $(this).find("i").addClass("rcbiao-1")
+                        $(this).css({
+                            "background":"#00D399",
+                            color:"#fff"
+                        })
+                    }
+
+                    if($(this).index()==1){
+                                $(this).find("i").addClass("zshi-1")
+                                $(this).css({
+                                    "background":"#F3A800",
+                                    color:"#fff"
+                                })
+                            }
+
+                            if($(this).index()==2){
+                                $(this).find("i").addClass("wda-1")
+                                $(this).css({
+                                    "background":"#4E93F8",
+                                    color:"#fff"
+                                })
+                            }
+                            if($(this).index()==3){
+                                $(this).find("i").addClass("qzu-1")
+                                $(this).css({
+                                    "background":"#F05C52",
+                                    color:"#fff"
+                                })
+                            }
+                }, function () {
+
+                    $(this).css({"background":"#fff",color:"#333"})
+                    $(this).find("i").addClass("zhuan-3")
+                    $(this).find("i").removeClass('zhuan-2 rcbiao-1 zshi-1 wda-1 qzu-1')
+
+
+
+                        }
+                );
+
+
+            </script>
+            <!-- 分类结束 -->
+            <!-- 职级发展学习地图开始 -->
+            <div class="zhiji-bg">职级发展学习地图</div>
+            <!-- 职级发展学习地图结束 -->
+            <!-- 关键岗位开始 -->
+            <div class="gangwei-bg" onclick="window.open('guanjiangangwei/guanjiangangweixuexiditu.html')">关键岗位</div>
+            <!-- 关键岗位结束 -->
+            <!-- 公开课开始 -->
+            <div class="wzb-title-5">公开课<a title="更多" href="#" class="wzb-title-more">更多</a></div>
+            <ul class="wzb-list-14 wzb-width-14 clearfix">
+                <li>
+                    <div class="wzb-list-hover">
+                        <div class="subim">
+                            <a class="subxian" href="/app/course/detail/162" title=""><img src="images/course1.png"></a>
+                            <a title="" class="subbox" href="/app/course/detail/162" style="bottom: 0px;">公司行政对员工的苛刻制度是否能持续</a>
+
+                            <div class="subcont" style="bottom: -260px;">
+                                <div class="subarea">
+                                    <div class="subbar">
+                                        <a title="" class="subinfo" href="/app/course/detail/162"><em>公司行政对员工的苛刻制度是否能持续</em></a>
+                                        <div class="subdesc"><a title="" href="javascript:;" class="pull-left color-gray666"><i class="fa skin-color fa-thumbs-o-up"></i> <span>4</span></a> <span class="pull-right"><i class="fa skin-color fa-clock-o"></i>2014-10-23</span></div>
+                                   </div>
+                                   <div class="subfilter"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li> 
+                <li>
+                    <div class="wzb-list-hover">
+                        <div class="subim">
+                            <a class="subxian" href="/app/course/detail/162" title=""><img src="images/course1.png"></a>
+                            <a title="" class="subbox" href="/app/course/detail/162" style="bottom: 0px;">公司行政对员工的苛刻制度是否能持续</a>
+
+                            <div class="subcont" style="bottom: -260px;">
+                                <div class="subarea">
+                                    <div class="subbar">
+                                        <a title="" class="subinfo" href="/app/course/detail/162"><em>公司行政对员工的苛刻制度是否能持续</em></a>
+                                        <div class="subdesc"><a title="" href="javascript:;" class="pull-left color-gray666"><i class="fa skin-color fa-thumbs-o-up"></i> <span>4</span></a> <span class="pull-right"><i class="fa skin-color fa-clock-o"></i>2014-10-23</span></div>
+                                   </div>
+                                   <div class="subfilter"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="wzb-list-hover">
+                        <div class="subim">
+                            <a class="subxian" href="/app/course/detail/162" title=""><img src="images/course1.png"></a>
+                            <a title="" class="subbox" href="/app/course/detail/162" style="bottom: 0px;">公司行政对员工的苛刻制度是否能持续</a>
+
+                            <div class="subcont" style="bottom: -260px;">
+                                <div class="subarea">
+                                    <div class="subbar">
+                                        <a title="" class="subinfo" href="/app/course/detail/162"><em>公司行政对员工的苛刻制度是否能持续</em></a>
+                                        <div class="subdesc"><a title="" href="javascript:;" class="pull-left color-gray666"><i class="fa skin-color fa-thumbs-o-up"></i> <span>4</span></a> <span class="pull-right"><i class="fa skin-color fa-clock-o"></i>2014-10-23</span></div>
+                                   </div>
+                                   <div class="subfilter"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <img src="../../static/images/z-gongkaike.png" width="226px" alt="">
+                </li>
+            </ul>
+            <!-- 公开课结束 -->
+            <!-- 讲师风采开始 -->
+			<style>
+				.line-top{position:absolute;top:1px;border-top:1px solid red;width:0px;transition:all 0.5s;}
+				.line-left{position:absolute;left:0px;border-left:1px solid red;height:0px;transition:all 0.5s;z-index:10;}
+				.module-tuwen-teacher:hover .line-top{width:226px;}
+				.module-tuwen-teacher:hover .line-left{height:360px;}
+			</style>
+            <div class="wzb-title-5">讲师风采<a title="更多" href="#" class="wzb-title-more">更多</a></div>
+            <div class="module-tuwen wzb-tab-7 clearfix" style="padding:0;width:1010px;">
+                <ul>
+                  <li>
+                      <a href="jiangshi-neirong.html" class="module-tuwen-teacher">
+						<div class="line-top"></div>
+						<div class="line-left"></div>
+                          <div class="module-tuwen-bg module-tuwen-bg-green" style="margin-right: 10px;">
+                              <img src="../../static/images/teacher01.png" alt="" class="module-tuwen-bg-img">
+                              <p class="module-tuwen-tit-1">张立强</p>
+                              <div class="xyd-tool-pingfen">
+                                  <i class="start-g start-g-full"></i>
+                                  <i class="start-g start-g-full"></i>
+                                  <i class="start-g start-g-full"></i>
+                                  <i class="start-g start-g-full"></i>
+                                  <i class="start-g"></i>
+                              </div>
+                              <p class="module-tuwen-tit-2">高级讲师</p>
+                          </div>
+                          <div class="module-color-green wzb-tab-7-tit">
+                              <i class=" tool-station-f"></i>
+                              <span>新员工培训、人力资源体系培训、入职准侧培训、团队协作、新员工融入集体法则、HR课程培训。新员工培训、人力资源体系培训、入职准侧培训、团队协作、新员工融入集体法则、HR课程培训。</span>
+                              
+                          </div>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="../jiangshi-neirong.html" class="module-tuwen-teacher">
+                          <div class="module-tuwen-bg module-tuwen-bg-pink" style="margin-right: 10px;">
+                              <img src="../../static/images/teacher01.png" alt="" class="module-tuwen-bg-img">
+                              <p class="module-tuwen-tit-1">张立强</p>
+                              <div class="xyd-tool-pingfen">
+                                  <i class="start-g start-g-full"></i>
+                                  <i class="start-g start-g-full"></i>
+                                  <i class="start-g start-g-full"></i>
+                                  <i class="start-g start-g-full"></i>
+                                  <i class="start-g"></i>
+                              </div>
+                              <p class="module-tuwen-tit-2">高级讲师</p>
+                          </div>
+                          <div class="module-color-pink wzb-tab-7-tit">
+                              <i class=" tool-station-f"></i>
+                              <span>新员工培训、人力资源体系培训、入职准侧培训、团队协作、新员工融入集体法则、HR课程培训。</span>
+                          </div>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="../jiangshi-neirong.html" class="module-tuwen-teacher">
+                          <div class="module-tuwen-bg module-tuwen-bg-blue" style="margin-right: 10px;">
+                              <img src="../../static/images/teacher01.png" alt="" class="module-tuwen-bg-img">
+                              <p class="module-tuwen-tit-1">张立强</p>
+                              <div class="xyd-tool-pingfen">
+                                  <i class="start-g start-g-full"></i>
+                                  <i class="start-g start-g-full"></i>
+                                  <i class="start-g start-g-full"></i>
+                                  <i class="start-g start-g-full"></i>
+                                  <i class="start-g"></i>
+                              </div>
+                              <p class="module-tuwen-tit-2">高级讲师</p>
+                          </div>
+                          <div class="module-color-blue wzb-tab-7-tit">
+                              <i class=" tool-station-f"></i>
+                              <span>新员工培训、人力资源体系培训、入职准侧培训、团队协作、新员工融入集体法则、HR课程培训。</span>
+                          </div>
+                      </a>
+                  </li>
+                  <li>
+                      <img src="../../static/images/z-jiangshi.png" alt="">
+                  </li>
+                </ul>
+            </div>
+            <!-- 讲师风采结束 -->
+        </div>
+    </div>
+    <!-- xyd-main 结束 -->
+
+    <!-- 内容结束 -->
+</div> <!-- xyd-wrap End-->
+
+<div class="xyd-bottom">
+    <div class="xyd-bottom-box">
+         <div class="pull-left">xydbank6.0 @ 汇思 Cyberwisdom 版权所有</div>
+         <div class="pull-right">香港官网 <a class="margin-right15 color-gray999" href="http://www.cyberwisdom.net" title="香港官网">cyberwisdom.net</a>  大陆官网 <a class="color-gray999" href="http://www.cyberwisdom.net.cn" title="大陆官网">cyberwisdom.net.cn</a></div>
+    </div>
+</div> <!-- xyd-bottom End-->
+
+<div class="xyd_warning" id="xyd_warning">
+    <div class="xyd_warning_middle">
+        <em class="xyd_warning_bg"></em>
+        <i class="xyd_warning_deng"></i>
+        <b style="color:#DAFA10;">系统消息：</b>系统正处于高用户量状态，操作速度比较缓慢
+        <span class="btn wzb-btn-yellow-border" id="Iknow" style="margin:0 0 0 20px;">我知道了</span>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#Iknow").click(function(){
+        $("#xyd_warning").animate({"bottom":"-100px"},2000);
+    })
+</script>
+
+
+
+</body>
+</html> 

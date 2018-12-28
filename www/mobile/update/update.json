@@ -1,0 +1,14 @@
+{
+    "iOS": {
+        "version": "3.0.52979",
+        "title": "wizMobile(3.0.52979)版本更新",
+        "note": "新增自动升级检测功能\n新增分享功能演示页面\n新增推送功能演示页面\n",
+        "url": "http://newbie.cyberwisdom.net.cn/download/wizmobile3.6.ipa"
+    },
+    "Android": {
+        "version": "3.0.52979",
+        "title": "wizMobile(3.0.52979)版本更新",
+        "note": "BUG修复\n界面优化\n提高性能\n",
+        "url": "http://newbie.cyberwisdom.net.cn/download/wizmobile3.6.apk"
+    }
+}

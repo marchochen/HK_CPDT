@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.SearchMapper">
+
+
+	<select id="search" resultType="com.cwn.wizbank.entity.vo.SearchResultVo"
+		parameterType="Page">
+		<choose>
+			<when test="params.type == 'Course' or params.type == 'Open' or params.type == 'Exam'">
+				<!-- 课程 考试 公开课 -->
+				select itm_id AS "id",
+				itm_title AS "title",
+				itm_desc AS "introduction",
+				(case when itm_ref_ind = 1 then 'Open' when
+				itm_exam_ind =1 then 'Exam'
+				else 'Course' end) type,
+				itm_icon AS
+				"photo",
+				itm_mobile_ind itm_mobile_ind
+				from AeItem
+				where itm_id in (
+				<include refid="com.cwn.wizbank.persistence.BaseMapper.courseAuthority" />
+				)
+
+				<if test="params.showMobileOnly != null and params.showMobileOnly"><!-- 是不是只获取发布到移动端的课程 -->
+					and itm_mobile_ind = 'yes'
+				</if>
+
+				and itm_run_ind != 1 <!-- 过滤掉班级 -->
+				<if test="params.searchValue != null and params.searchValue !=''">
+					and (
+					lower(itm_title) like #{params.searchValue}
+					or
+					lower(itm_desc) like #{params.searchValue}
+					)
+					and itm_status = 'ON'
+				</if>
+
+				<!-- 是否为考试 -->
+				<choose>
+					<when test="params.type == 'Exam'">
+						and itm_exam_ind = 1
+					</when>
+					<otherwise>
+						and itm_exam_ind = 0
+					</otherwise>
+				</choose>
+
+				<!-- 是否公开课 -->
+				<choose>
+					<when test="params.type == 'Open'">
+						and itm_ref_ind = 1
+					</when>
+					<otherwise>
+						and itm_ref_ind = 0
+					</otherwise>
+				</choose>
+
+			</when>
+			<when test="params.type == 'Message'">
+				<!-- 公告 -->
+				select
+				msg_id AS "id",
+				msg_title AS "title",
+				'Message' type,
+				msg_icon AS
+				"photo"
+				<!-- , -->
+				<!-- msg_body AS "desc" -->
+				from message
+				where msg_tcr_id in (select athTc.tcr_id from
+				V_usrTcRelation athTc where athTc.u_id = #{params.userEntId}
+				<if test="params.tcrId != null and params.tcrId &gt; 1">
+					and tcr_parent_tcr_id >0
+				</if>
+				)
+				<if test="params.searchValue != null and params.searchValue !=''">
+					and
+					(
+					lower(msg_title) like #{params.searchValue}
+					<!-- or msg_body like #{params.s_grp_title,jdbcType=VARCHAR} -->
+					)
+				</if>
+				and msg_mobile_ind != 1
+				and msg_status = 'ON'
+			</when>
+			<when test="params.type == 'Article'">
+				<!-- 文章 -->
+				select
+				art_id AS "id",
+				art_title AS "title",
+				art_introduction AS
+				"introduction",
+				art_content AS "content",
+				'Article' type,
+				art_icon_file AS "photo"
+				from article
+				where art_tcr_id in (select
+				athTc.tcr_id from V_usrTcRelation athTc where
+				athTc.u_id =
+				#{params.userEntId}
+				<if test="params.tcrId != null and params.tcrId &gt; 1">
+					and tcr_parent_tcr_id >0
+				</if>
+				)
+				<if test="params.searchValue != null and params.searchValue !=''">
+					and
+					(
+					lower(art_title) like #{params.searchValue}
+					or
+					lower(art_introduction) like #{params.searchValue}
+					<!-- or art_content like #{params.s_grp_title,jdbcType=VARCHAR} -->
+					)
+				</if>
+				and art_status = 1
+				<if test="params.isMobile != null and params.isMobile > 0">
+					and art_push_mobile=1
+				</if>
+			</when>
+			<!-- <when test="params.type == 'Group'"> 群组 select s_grp_id AS "id", 
+				s_grp_title AS "title", s_grp_desc AS "introduction", 'Group' type, s_grp_card 
+				AS "photo" from sns_group where exists ( select grp.s_grp_id from sns_group 
+				grp inner join sns_group_member on s_gpm_grp_id = grp.s_grp_id or s_grp_private 
+				= 2 where s_gpm_usr_id = #{params.userEntId} and grp.s_grp_id = s_grp_id 
+				) and s_grp_tcr_id in (select athTc.tcr_id from V_usrTcRelation athTc where 
+				athTc.u_id = #{params.userEntId} <if test="params.tcrId != null and params.tcrId 
+				&gt; 1"> and tcr_parent_tcr_id >0 </if> ) and s_grp_private != 1 <if test="params.searchValue 
+				!= null and params.searchValue !=''"> and( lower(s_grp_desc) like #{params.searchValue} 
+				or lower(s_grp_title) like #{params.searchValue} ) and s_grp_status != 'DELETED' 
+				</if> </when> -->
+			<!-- 问答 -->
+			<when test="params.type == 'Answer'">
+
+				select
+				que_id AS "id",
+				<choose>
+					<when test="_databaseId == 'ORACLE'">
+						to_char(que_title) AS "title",
+					</when>
+					<when test="_databaseId == 'SQLSERVER'">
+						que_title AS "title",
+					</when>
+					<when test="_databaseId == 'MYSQL'">
+						que_title AS "title",
+					</when>
+				</choose>
+
+				'Answer' type
+				from knowQuestion
+				where que_status = 'OK'
+				<if test="params.searchValue != null and params.searchValue !=''">
+					and
+					(
+					lower(que_title) like #{params.searchValue}
+					or
+					lower(que_content) like #{params.searchValue}
+					)
+					and exists (select
+					kcr_child_kca_id from knowCatalogRelation
+					left join knowCatalog on
+					kcr_ancestor_kca_id = kca_id
+					where kcr_child_kca_id = que_id
+					<if test="params.tcrId &gt; 0">
+						and kca_tcr_id in (select athTc.tcr_id from V_usrTcRelation athTc
+						where athTc.u_id = #{params.userEntId}
+						<if test="params.tcrId != null and params.tcrId &gt; 1">
+							and tcr_parent_tcr_id >0
+						</if>
+						)
+					</if>
+					and kcr_type = 'QUE_PARENT_KCA'
+					)
+				</if>
+			</when>
+			<!-- <when test="params.type == 'Contacts'"> 人脉 select distinct usr_ent_id 
+				AS "id", usr_display_bil AS "title", usg_display_bil AS "introduction", 'Contacts' 
+				type, urx_extra_43 AS "photo" from tcTrainingCenter inner join tcTrainingCenterTargetEntity 
+				on (tce_tcr_id = tcr_id) left join EntityRelation gpg on gpg.ern_ancestor_ent_id 
+				= tce_ent_id and gpg.ern_type = 'USG_PARENT_USG' left join EntityRelation 
+				usg on (usg.ern_ancestor_ent_id = tce_ent_id or usg.ern_ancestor_ent_id = 
+				gpg.ern_child_ent_id) and usg.ern_type = 'USR_PARENT_USG' and usg.ern_parent_ind 
+				= 1 left join UserGroup on usg_ent_id = usg.ern_ancestor_ent_id left join 
+				RegUser on usr_ent_id = usg.ern_child_ent_id and usr_status = 'OK' left join 
+				RegUserExtension on urx_usr_ent_id = usr_ent_id left join acEntityRole on 
+				erl_ent_id = usr_ent_id where usr_ent_id != ${params.userEntId} and erl_rol_id 
+				= (select rol_id from acRole where rol_ste_uid = 'LRNR') <if test="params.tcrId 
+				!= null and params.tcrId &gt; 1"> and tcr_id = ${params.tcrId} </if> and 
+				( lower(usr_display_bil) like #{params.searchValue} ) </when> -->
+
+			<when test="params.type == 'Knowledge'">
+				<!-- 知识 -->
+				select kbi_id AS "id", kbi_title AS "title", 
+				
+				kbi_desc AS "introduction",
+				kbi_content AS "content", 
+				
+				'Knowledge' AS "type",
+				kba_url AS "photo" from kb_item kbi left join kb_attachment kba on
+				kbi.kbi_image = kba.kba_id
+				 <![CDATA[ 					
+				 where exists 
+					(select kic.kic_kbi_id from kb_item_cat kic inner join 
+					kb_catalog kbc on kic.kic_kbc_id=kbc.kbc_id where kbc.kbc_status='ON' 
+					and kbi.kbi_id = kic.kic_kbi_id)
+		
+					and EXISTS (SELECT kic2.kic_kbi_id
+						FROM kb_item_cat kic2 INNER JOIN kb_catalog kbc2 ON kic2.kic_kbc_id = kbc2.kbc_id
+						WHERE EXISTS (SELECT DISTINCT tcr_id
+								FROM EntityRelation, tcTrainingCenterTargetEntity, tcTrainingCenter
+								WHERE ern_ancestor_ent_id = tce_ent_id
+									and ern_child_ent_id = #{params.userEntId}
+									AND ern_type = 'USR_PARENT_USG'
+				]]>
+				<if test="params.tcrId != null and params.tcrId > 1">and tcr_parent_tcr_id > 0</if>
+				 <![CDATA[ 									AND tce_tcr_id = tcr_id
+									AND tcr_id = kbc2.kbc_tcr_id)
+							AND kbi.kbi_id = kic2.kic_kbi_id)
+				]]>
+				<if test="params.searchValue != null and params.searchValue !=''">
+					and ( lower(kbi_title) like #{params.searchValue} or
+					lower(kbi_desc) like #{params.searchValue}
+					<!-- or art_content like #{params.s_grp_title,jdbcType=VARCHAR} -->
+					)
+				</if>
+				and kbi_status = 'ON'
+			</when>
+
+			<otherwise>
+				select id, title, introduction, type, photo, tcr_id,itm_mobile_ind
+				from (
+
+				select itm_id id,
+				<choose>
+					<when test="_databaseId == 'ORACLE'">
+						to_char(itm_icon) photo,
+						to_char(itm_title) title,
+						to_char(itm_desc) introduction,
+					</when>
+					<when test="_databaseId == 'SQLSERVER'">
+						itm_icon photo,
+						itm_title title,
+						itm_desc
+						introduction,
+					</when>
+					<when test="_databaseId == 'MYSQL'">
+						itm_icon photo,
+						itm_title title,
+						itm_desc
+						introduction,
+					</when>
+				</choose>
+
+				(case when itm_ref_ind = 1 then 'Open' when itm_exam_ind =1 then
+				'Exam' else 'Course' end) type,
+				(case when itm_share_ind = 1 then -1
+				else itm_tcr_id end) tcr_id,
+				itm_mobile_ind itm_mobile_ind
+				from AeItem
+				where itm_status = 'ON'
+				<if test="params.showMobileOnly != null and params.showMobileOnly"><!-- 这个参数只对课程有效，是不是只获取发布到移动端的课程 -->
+					and itm_mobile_ind = 'yes'
+				</if>
+				and itm_run_ind != 1 <!-- 过滤掉班级 -->
+				and itm_exam_ind != 1 <!-- 屏蔽考试 -->
+				and itm_id in (
+				<include refid="com.cwn.wizbank.persistence.BaseMapper.courseAuthority" />
+				)
+				<if test="params.searchValue != null and params.searchValue !=''">
+					and (
+					lower(itm_title) like #{params.searchValue}
+					or
+					lower( itm_desc) like #{params.searchValue}
+					or lower(itm_code) like
+					#{params.searchValue}
+					)
+				</if>
+				<if test="params.showMobileOnly != null and params.showMobileOnly">
+					<!-- 是不是只获取发布到移动端的课程 -->
+					and itm_mobile_ind = 'yes'
+				</if>
+				union all
+
+				<!-- 公告 -->
+				select
+				msg_id id,
+				<choose>
+					<when test="_databaseId == 'ORACLE'">
+						to_char(msg_icon) photo,
+						to_char(msg_title) title,
+					</when>
+					<when test="_databaseId == 'SQLSERVER'">
+						msg_icon photo,
+						msg_title title,
+					</when>
+					<when test="_databaseId == 'MYSQL'">
+						msg_icon photo,
+						msg_title title,
+					</when>
+				</choose>
+
+				null introduction,
+				'Message' type,
+				msg_tcr_id tcr_id,
+				'' itm_mobile_ind
+				from message
+				where msg_status = 'ON'
+				<if test="params.searchValue != null and params.searchValue !=''">
+					and
+					(
+					lower(msg_title) like #{params.searchValue}
+					<!-- or msg_body like #{params.s_grp_title,jdbcType=VARCHAR} -->
+					)
+				</if>
+				and msg_mobile_ind != 1
+				union all
+				<!-- 文章 -->
+				select
+				art_id id,
+				<choose>
+					<when test="_databaseId == 'ORACLE'">
+						to_char(art_icon_file) photo,
+						to_char(art_title)
+						title,
+						to_char(art_introduction) introduction,
+					</when>
+					<when test="_databaseId == 'SQLSERVER'">
+						art_icon_file photo,
+						art_title title,
+						art_introduction introduction,
+					</when>
+					<when test="_databaseId == 'MYSQL'">
+						art_icon_file photo,
+						art_title title,
+						art_introduction introduction,
+					</when>
+				</choose>
+				'Article' type,
+				art_tcr_id tcr_id,
+				'' itm_mobile_ind
+				from article
+				where
+				art_tcr_id in (select athTc.tcr_id from V_usrTcRelation athTc where
+				athTc.u_id = #{params.userEntId}
+				<if test="params.tcrId != null and params.tcrId &gt; 1">
+					and tcr_parent_tcr_id >0
+				</if>
+				)
+				<if test="params.searchValue != null and params.searchValue !=''">
+					and
+					(
+					lower(art_title) like #{params.searchValue}
+					or
+					lower(art_introduction) like #{params.searchValue}
+					<!-- or art_content like #{params.s_grp_title,jdbcType=VARCHAR} -->
+					)
+
+				</if>
+				and art_status = 1
+				<if test="params.isMobile != null and params.isMobile > 0">
+					and art_push_mobile=1
+				</if>
+				<!-- <if test="params.isMobile == null or params.isMobile == 0"> -->
+					<!-- 知识 -->
+					<!-- union all
+
+					select
+					kbi_id id,
+					<choose>
+						<when test="_databaseId == 'ORACLE'">
+							to_char(kba_url) photo,
+							to_char(kbi_title) title,
+							to_char(kbi_desc) introduction,
+						</when>
+						<when test="_databaseId == 'SQLSERVER'">
+							kba_url photo,
+							kbi_title title,
+							kbi_desc
+							introduction,
+						</when>
+						<when test="_databaseId == 'MYSQL'">
+							kba_url photo,
+							kbi_title title,
+							kbi_desc
+							introduction,
+						</when>
+					</choose>
+					'Knowledge' type,
+					-1 tcr_id,
+					'' itm_mobile_ind
+					from kb_item kbi left
+					join kb_attachment kba on kbi.kbi_image =
+					kba.kba_id
+                <![CDATA[
+					where exists 
+					(select kic.kic_kbi_id from kb_item_cat kic inner join 
+					kb_catalog kbc on kic.kic_kbc_id=kbc.kbc_id where kbc.kbc_status='ON' 
+					and kbi.kbi_id = kic.kic_kbi_id)
+		
+					and EXISTS (SELECT kic2.kic_kbi_id
+						FROM kb_item_cat kic2 INNER JOIN kb_catalog kbc2 ON kic2.kic_kbc_id = kbc2.kbc_id
+						WHERE EXISTS (SELECT DISTINCT tcr_id
+								FROM EntityRelation, tcTrainingCenterTargetEntity, tcTrainingCenter
+								WHERE ern_ancestor_ent_id = tce_ent_id
+									and ern_child_ent_id = #{params.userEntId}
+									AND ern_type = 'USR_PARENT_USG'
+				]]>
+					<if test="params.tcrId != null and params.tcrId &gt; 1">
+						and tcr_parent_tcr_id > 0
+					</if>
+				<![CDATA[
+									AND tce_tcr_id = tcr_id
+									AND tcr_id = kbc2.kbc_tcr_id)
+							AND kbi.kbi_id = kic2.kic_kbi_id)
+				]]>
+					<if test="params.searchValue != null and params.searchValue !=''">
+						and
+						(
+						lower(kbi_title) like #{params.searchValue}
+						or
+						lower(kbi_desc) like #{params.searchValue} -->
+				<!-- 		or kbi_content like
+						#{params.s_grp_title,jdbcType=VARCHAR} -->
+						<!-- )
+
+					</if>
+					and kbi_status = 'ON'
+				</if> -->
+				<!-- union all -->
+				<!-- 群组 -->
+				<!-- select s_grp_id id, <choose> <when test="_databaseId == 'ORACLE'"> 
+					to_char(s_grp_card) photo, to_char(s_grp_title) title, to_char(s_grp_desc) 
+					introduction, </when> <when test="_databaseId == 'SQLSERVER'"> s_grp_card 
+					photo, s_grp_title title, s_grp_desc introduction, </when> <when test="_databaseId 
+					== 'MYSQL'"> s_grp_card photo, s_grp_title title, s_grp_desc introduction, 
+					</when> </choose> 'Group' type, -1 tcr_id, '' itm_mobile_ind from sns_group 
+					where exists ( select grp.s_grp_id from sns_group grp inner join sns_group_member 
+					on s_gpm_grp_id = grp.s_grp_id or s_grp_private = 2 where s_gpm_usr_id = 
+					#{params.userEntId} and grp.s_grp_id = s_grp_id ) and s_grp_tcr_id in (select 
+					athTc.tcr_id from V_usrTcRelation athTc where athTc.u_id = #{params.userEntId} 
+					<if test="params.tcrId != null and params.tcrId &gt; 1"> and tcr_parent_tcr_id 
+					>0 </if> ) and s_grp_private != 1 and s_grp_status != 'DELETED' <if test="params.searchValue 
+					!= null and params.searchValue !=''"> and ( lower(s_grp_desc) like #{params.searchValue} 
+					or lower(s_grp_title) like #{params.searchValue} ) </if> -->
+				<!-- <if test="params.isMobile == null or params.isMobile == 0">
+				union all
+
+
+				select
+				que_id id,
+				<choose>
+					<when test="_databaseId == 'ORACLE'">
+						to_char(null) photo,
+						to_char(que_title) title,
+					</when>
+					<when test="_databaseId == 'SQLSERVER'">
+						null photo,
+						que_title title,
+					</when>
+					<when test="_databaseId == 'MYSQL'">
+						null photo,
+						que_title title,
+					</when>
+				</choose>
+				null introduction,
+				'Answer' type,
+				-1 tcr_id,
+				'' itm_mobile_ind
+				from
+				knowQuestion
+				where que_status = 'OK'
+				<if test="params.searchValue != null and params.searchValue !=''">
+					and
+					(
+					lower(que_title) like #{params.searchValue}
+					or
+					lower(que_content) like #{params.searchValue}
+					)
+					and exists (select
+					kcr_child_kca_id from knowCatalogRelation
+					left join knowCatalog on
+					kcr_ancestor_kca_id = kca_id
+					where kcr_child_kca_id = que_id
+					<if test="params.tcrId &gt; 0">
+						and kca_tcr_id in (select athTc.tcr_id from V_usrTcRelation athTc
+						where athTc.u_id = #{params.userEntId}
+						<if test="params.tcrId != null and params.tcrId &gt; 1">
+							and tcr_parent_tcr_id >0
+						</if>
+						)
+					</if>
+					and kcr_type = 'QUE_PARENT_KCA'
+					)
+				</if>
+			</if> -->	
+				
+				) t
+				where tcr_id in (select athTc.tcr_id from V_usrTcRelation athTc
+				where
+				athTc.u_id = #{params.userEntId}
+				<if test="params.tcrId != null and params.tcrId &gt; 1">
+					and tcr_parent_tcr_id >0
+				</if>
+				) or tcr_id = -1
+
+				<!-- union all -->
+				<!-- 人脉 -->
+				<!-- select distinct usr_ent_id AS "id", <choose> <when test="_databaseId 
+					== 'ORACLE'"> to_char(usr_display_bil) AS "title", to_char(usg_display_bil) 
+					AS "introduction", 'Contacts' type, to_char(urx_extra_43) AS "photo", </when> 
+					<when test="_databaseId == 'SQLSERVER'"> usr_display_bil AS "title", usg_display_bil 
+					AS "introduction", 'Contacts' type, urx_extra_43 AS "photo", </when> <when 
+					test="_databaseId == 'MYSQL'"> usr_display_bil AS "title", usg_display_bil 
+					AS "introduction", 'Contacts' type, urx_extra_43 AS "photo", </when> </choose> 
+					-1 tcr_id, '' itm_mobile_ind from tcTrainingCenter inner join tcTrainingCenterTargetEntity 
+					on (tce_tcr_id = tcr_id) left join EntityRelation gpg on gpg.ern_ancestor_ent_id 
+					= tce_ent_id and gpg.ern_type = 'USG_PARENT_USG' left join EntityRelation 
+					usg on (usg.ern_ancestor_ent_id = tce_ent_id or usg.ern_ancestor_ent_id = 
+					gpg.ern_child_ent_id) and usg.ern_type = 'USR_PARENT_USG' and usg.ern_parent_ind 
+					= 1 left join UserGroup on usg_ent_id = usg.ern_ancestor_ent_id left join 
+					RegUser on usr_ent_id = usg.ern_child_ent_id and usr_status = 'OK' left join 
+					RegUserExtension on urx_usr_ent_id = usr_ent_id left join acEntityRole on 
+					erl_ent_id = usr_ent_id where usr_ent_id != ${params.userEntId} and erl_rol_id 
+					= (select rol_id from acRole where rol_ste_uid = 'LRNR') <if test="params.tcrId 
+					!= null and params.tcrId &gt; 1"> and tcr_id = ${params.tcrId} </if> and 
+					( lower(usr_display_bil) like #{params.searchValue} ) -->
+			</otherwise>
+
+		</choose>
+	</select>
+
+
+</mapper>

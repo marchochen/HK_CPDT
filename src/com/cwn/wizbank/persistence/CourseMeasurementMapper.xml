@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.CourseMeasurementMapper">
+	<select id="get" resultType="CourseMeasurement" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				cmt_id,
+				cmt_title,
+				cmt_ccr_id,
+				cmt_cmr_id,
+				cmt_max_score,
+				cmt_status,
+				cmt_contri_rate,
+				cmt_is_contri_by_score,
+				cmt_create_timestamp,
+				cmt_create_usr_id,
+				cmt_update_timestamp,
+				cmt_update_usr_id,
+				cmt_delete_timestamp,
+				cmt_pass_score,
+				cmt_status_desc_option,
+				cmt_order,
+				cmt_cmt_id_parent,
+				cmt_duration,
+				cmt_place
+			from CourseMeasurement t 
+			where
+				 t.cmt_id = #{id}
+		]]>
+	</select>	
+	<update id="update" parameterType="com.cwn.wizbank.entity.CourseMeasurement">
+	    <![CDATA[
+	        update CourseMeasurement t 
+	        set 
+				cmt_id = #{cmt_id,jdbcType=INTEGER},
+				cmt_title = #{cmt_title,jdbcType=VARCHAR},
+				cmt_ccr_id = #{cmt_ccr_id,jdbcType=INTEGER},
+				cmt_cmr_id = #{cmt_cmr_id,jdbcType=INTEGER},
+				cmt_max_score = #{cmt_max_score,jdbcType=DECIMAL},
+				cmt_status = #{cmt_status,jdbcType=VARCHAR},
+				cmt_contri_rate = #{cmt_contri_rate,jdbcType=DOUBLE},
+				cmt_is_contri_by_score = #{cmt_is_contri_by_score,jdbcType=INTEGER},
+				cmt_create_timestamp = #{cmt_create_timestamp,jdbcType=TIMESTAMP},
+				cmt_create_usr_id = #{cmt_create_usr_id,jdbcType=VARCHAR},
+				cmt_update_timestamp = #{cmt_update_timestamp,jdbcType=TIMESTAMP},
+				cmt_update_usr_id = #{cmt_update_usr_id,jdbcType=VARCHAR},
+				cmt_delete_timestamp = #{cmt_delete_timestamp,jdbcType=TIMESTAMP},
+				cmt_pass_score = #{cmt_pass_score,jdbcType=DECIMAL},
+				cmt_status_desc_option = #{cmt_status_desc_option,jdbcType=VARCHAR},
+				cmt_order = #{cmt_order,jdbcType=INTEGER},
+				cmt_cmt_id_parent = #{cmt_cmt_id_parent,jdbcType=INTEGER},
+				cmt_duration = #{cmt_duration,jdbcType=DECIMAL},
+				cmt_place = #{cmt_place,jdbcType=VARCHAR}
+	         where t.cmt_id = #{cmt_id,jdbcType=INTEGER}
+	    ]]>
+    </update>    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.CourseMeasurement">
+    	<![CDATA[
+            insert into CourseMeasurement(
+            		cmt_title,
+            		cmt_ccr_id,
+            		cmt_cmr_id,
+            		cmt_max_score,
+            		cmt_status,
+            		cmt_contri_rate,
+            		cmt_is_contri_by_score,
+            		cmt_create_timestamp,
+            		cmt_create_usr_id,
+            		cmt_update_timestamp,
+            		cmt_update_usr_id,
+            		cmt_delete_timestamp,
+            		cmt_pass_score,
+            		cmt_status_desc_option,
+            		cmt_order,
+            		cmt_cmt_id_parent,
+            		cmt_duration,
+            		cmt_place
+            ) values (
+            	#{cmt_title,jdbcType=VARCHAR},
+            	#{cmt_ccr_id,jdbcType=INTEGER},
+            	#{cmt_cmr_id,jdbcType=INTEGER},
+            	#{cmt_max_score,jdbcType=DECIMAL},
+            	#{cmt_status,jdbcType=VARCHAR},
+            	#{cmt_contri_rate,jdbcType=DOUBLE},
+            	#{cmt_is_contri_by_score,jdbcType=INTEGER},
+            	#{cmt_create_timestamp,jdbcType=TIMESTAMP},
+            	#{cmt_create_usr_id,jdbcType=VARCHAR},
+            	#{cmt_update_timestamp,jdbcType=TIMESTAMP},
+            	#{cmt_update_usr_id,jdbcType=VARCHAR},
+            	#{cmt_delete_timestamp,jdbcType=TIMESTAMP},
+            	#{cmt_pass_score,jdbcType=DECIMAL},
+            	#{cmt_status_desc_option,jdbcType=VARCHAR},
+            	#{cmt_order,jdbcType=INTEGER},
+            	#{cmt_cmt_id_parent,jdbcType=INTEGER},
+            	#{cmt_duration,jdbcType=DECIMAL},
+            	#{cmt_place,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from CourseMeasurement where
+	        cmt_id = #{cmt_id}
+	    ]]>
+    </delete>	
+	<select id="selectAll" resultType="CourseMeasurement">
+	    <![CDATA[
+	         select 
+				cmt_id,
+				cmt_title,
+				cmt_ccr_id,
+				cmt_cmr_id,
+				cmt_max_score,
+				cmt_status,
+				cmt_contri_rate,
+				cmt_is_contri_by_score,
+				cmt_create_timestamp,
+				cmt_create_usr_id,
+				cmt_update_timestamp,
+				cmt_update_usr_id,
+				cmt_delete_timestamp,
+				cmt_pass_score,
+				cmt_status_desc_option,
+				cmt_order,
+				cmt_cmt_id_parent,
+				cmt_duration,
+				cmt_place
+			from CourseMeasurement t 
+	    ]]>
+	</select>
+	<select id="getCourseMeasurementWithLrn" resultType="CourseMeasurement" parameterType="Map">
+		select cmt_id, cmt_title,cmt_ccr_id,cmt_status,cmt_contri_rate,cmt_is_contri_by_score,cmt_max_score,cmt_pass_score,
+		mtv_status AS "mov.mov_status",mtv_score AS "mov.mov_score", 0 AS "mov.mov_mod_id",
+	 	<choose>
+			<when test="_databaseId == 'ORACLE'">
+	 			cast(null as nvarchar2(10))
+			</when>
+			<when test="_databaseId == 'SQLSERVER'">
+				''
+			</when>
+			<when test="_databaseId == 'MYSQL'">
+				''
+			</when>
+		</choose>
+		 AS "res.res_type"
+         from courseMeasurement 
+            left join MeasurementEvaluation on(mtv_cmt_id = cmt_id and mtv_tkh_id = #{tkh_id})
+         where cmt_ccr_id = #{ccr_id} and cmt_cmr_id is null and cmt_delete_timestamp is null 
+         union 
+         SELECT cmt_id, res_title cmt_title, cmt_ccr_id, cmr_status cmt_status, cmr_contri_rate cmt_contri_rate,
+               cmr_is_contri_by_score cmt_is_contri_by_score, mod_max_score cmt_max_score,mod_pass_score cmt_pass_score,mov_status,mov_score,mod_res_id AS "mov.mov_mod_id",res_subtype 
+         FROM coursemeasurement
+             inner join CourseModuleCriteria on (cmt_cmr_id = cmr_id)
+             inner join module  on(cmr_res_id = mod_res_id )
+             inner join resources on(mod_res_id = res_id)
+             left join moduleevaluation on(mov_mod_id = cmr_res_id and mov_tkh_id =#{tkh_id})
+         WHERE cmt_ccr_id = #{ccr_id} AND cmr_del_timestamp is null 
+         order by  cmt_title  desc
+	</select>	
+	<select id="getCourseMeasurement" resultType="CourseMeasurement" parameterType="java.lang.Long">
+		select cmt_id, cmt_title,cmt_ccr_id,cmt_status,cmt_contri_rate,cmt_is_contri_by_score,cmt_max_score,cmt_pass_score
+         from courseMeasurement 
+         where cmt_ccr_id = #{ccr_id} and cmt_cmr_id is null and cmt_delete_timestamp is null 
+         union 
+         SELECT cmt_id, res_title cmt_title,cmt_ccr_id, cmr_status cmt_status, cmr_contri_rate cmt_contri_rate,
+               cmr_is_contri_by_score cmt_is_contri_by_score, mod_max_score cmt_max_score,mod_pass_score cmt_pass_score
+         FROM coursemeasurement
+             inner join CourseModuleCriteria on (cmt_cmr_id = cmr_id)
+             inner join module  on(cmr_res_id = mod_res_id )
+             inner join resources on(mod_res_id = res_id)
+         WHERE  cmt_ccr_id = #{ccr_id} AND cmr_del_timestamp is null 
+         order by  cmt_title  desc
+	</select>
+	<select id="getCourseMeasurementByCmtTitle" resultType="CourseMeasurement" parameterType="java.lang.String">
+		SELECT cmt_id, cmt_title,cmt_ccr_id,cmt_status,cmt_contri_rate,cmt_is_contri_by_score,
+			cmt_max_score,cmt_pass_score, cmr_status as "cmt_cmr_status"
+         FROM courseMeasurement 
+         	inner join  CourseModuleCriteria on cmt_cmr_id = cmr_id and cmt_title = cmr_res_id
+         WHERE cmt_title = #{cmt_title}
+	</select>
+</mapper>

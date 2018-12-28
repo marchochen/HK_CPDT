@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.BaseMapper">
+	<select id="getDate" resultType="java.sql.Timestamp">
+		select
+			<if test="_databaseId == 'ORACLE'">
+				sysdate from dual
+			</if>
+			<if test="_databaseId == 'SQLSERVER'">
+				getdate()
+			</if>
+			<if test="_databaseId == 'MYSQL'">
+				sysdate()
+			</if>
+	</select>	
+	<sql id="courseAuthority">	    
+		select ath.itm_id from aeItem ath
+		where ath.itm_status ='ON'  	<!-- 		课程是否发布 -->
+		and  (
+					ath.itm_run_ind = 1 <!-- 班级不需要判断权限 -->
+					
+					or
+					
+		           (  
+		            <!-- 		是否可以访问该培训中心下的课程 -->
+			        ath.itm_tcr_id in(select athTc.tcr_id from V_usrTcRelation athTc where athTc.u_id = #{params.userEntId}
+						<!-- 		如果是二级培训中心独立还有加上以下条件 -->
+									<if test="params.tcrId != null and params.tcrId &gt; 1">
+									  and  tcr_parent_tcr_id > 0
+									</if>
+								   )
+					and (
+					        <!--一般课程 -->
+					       <!-- 目标学员条件 -->
+							<!-- 发布对像为所有人 -->
+							ath.itm_access_type = 'ALL' or ath.itm_access_type is null 
+			
+					<!-- 		发布对像只是目标学员 -->
+							or (
+								ath.itm_access_type = 'TARGET_LEARNER' and itm_id in(select
+								athitd.itd_itm_id from itemTargetLrnDetail athitd where athitd.itd_usr_ent_id = #{params.userEntId})
+								)
+					    )
+				    )
+				
+				<!-- 		已报名课程和已报名该课程下的班级bug,如果课程已经换了一个培训中心，在搜索中all和其他分类会对应不上。 -->
+				<!-- 
+				or ath.itm_id in(
+				已报名的课程
+					select athApp.app_itm_id from aeApplication athApp where athApp.app_ent_id = #{params.userEntId}
+				)
+				 --><!-- 
+				or ath.itm_id in(
+				已报名该课程下的班级
+					select athIre.ire_parent_itm_id from aeApplication athApp2,aeItemrelation athIre where athApp2.app_itm_id =
+					athIre.ire_child_itm_id and athApp2.app_ent_id = #{params.userEntId}
+				)
+				 -->
+				or(
+				<!-- 		共享课程 -->
+				 ath.itm_share_ind = 1 
+				 <!-- 		如果是二级培训中心独立还有加上以下条件 -->
+				<if test="params.tcrId != null and params.tcrId &gt; 1">
+				     <!-- 		该用户所在培训二级培训中心及以下培训中心下的课程 -->
+				    and ( ath.itm_tcr_id = #{params.tcrId} or ath.itm_tcr_id in(select tcn_child_tcr_id from tcrelation where tcn_ancestor = #{params.tcrId}) )
+				 </if>
+				 
+				)
+		)
+	</sql>
+	
+	<sql id="courseAuthorityNoTcrId">	    
+		select ath.itm_id from aeItem ath
+		where ath.itm_status ='ON' 
+<!-- 		课程是否发布 -->
+		and (
+		(
+<!-- 		一般课程 -->
+<!-- 		目标学员条件 -->
+		(ath.itm_access_type = 'ALL' or ath.itm_access_type is null 
+<!-- 发布对像为所有人 -->
+		or (ath.itm_access_type = 'TARGET_LEARNER' and itm_id in(select
+		athitd.itd_itm_id from itemTargetLrnDetail athitd where athitd.itd_usr_ent_id = #{params.userEntId})
+<!-- 		发布对像只是目标学员 -->
+		)
+		or
+		
+		( ath.itm_share_ind = 1 
+<!-- 		共享课程 -->
+		)
+		)
+<!-- 		已报名课程 -->
+<!-- 
+		or ath.itm_id in(
+		已报名的课程
+			select athApp.app_itm_id from aeApplication athApp where athApp.app_ent_id = #{params.userEntId}
+		)
+		 -->
+		 <!-- 
+		or ath.itm_id in(
+		已报名该课程下的班级
+			select athIre.ire_parent_itm_id from aeApplication athApp2,aeItemrelation athIre where athApp2.app_itm_id =
+			athIre.ire_child_itm_id and athApp2.app_ent_id = #{params.userEntId}
+		)
+		 -->
+		)
+		)
+	</sql>
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="compile classes of wizbank" default="cleanup" basedir=".">
+	<!-- set global properties for this build -->
+	<property name="src" location=".."/>
+	<property name="build" location="build"/>
+	<property name="dist" location="dist"/>
+	<property name="cplib" location="lib_compile"/>
+	<property name="deploy_file" location="${dist}\adapter.jar"/>
+	<path id="wbcp">
+		<fileset dir="${cplib}"/>
+	</path>
+	<target name="init">
+		<!-- Create the time stamp -->
+		<tstamp/>
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}"/>
+	</target>
+	<target name="compile" depends="init" description="compile the source">
+		<javac sourcepath="" srcdir="${src}" destdir="${build}" deprecation="off" debug="on">
+			<classpath refid="wbcp"/>
+			<include name="com\cw\wizbank\scorm\adapter\"/>
+		</javac>
+	</target>
+	<target name="dist" depends="compile" description="generate the distribution">
+		<mkdir dir="${dist}"/>
+		<jar jarfile="${deploy_file}" basedir="${build}" update="no" compress="yes">
+			<include name="com\cw\wizbank\scorm\adapter\"/>
+		</jar>
+	</target>
+	<target name="cleanup" depends="dist">
+		<delete dir="${build}" includeEmptyDirs="true"/>
+	</target>
+</project>

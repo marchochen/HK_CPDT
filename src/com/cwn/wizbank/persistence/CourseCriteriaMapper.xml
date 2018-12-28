@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.CourseCriteriaMapper">
+	<select id="get" resultType="CourseCriteria" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				ccr_id,
+				ccr_pass_score,
+				ccr_duration,
+				ccr_pass_ind,
+				ccr_all_cond_ind,
+				ccr_create_timestamp,
+				ccr_create_usr_id,
+				ccr_upd_timestamp,
+				ccr_upd_usr_id,
+				ccr_type,
+				ccr_upd_method,
+				ccr_itm_id,
+				ccr_attendance_rate,
+				ccr_offline_condition,
+				ccr_ccr_id_parent
+			from CourseCriteria t 
+			where
+				 t.ccr_id = #{id}
+		]]>
+	</select>	
+	<select id="getByItm" resultType="CourseCriteria" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				ccr_id,
+				ccr_pass_score,
+				ccr_duration,
+				ccr_pass_ind,
+				ccr_all_cond_ind,
+				ccr_create_timestamp,
+				ccr_create_usr_id,
+				ccr_upd_timestamp,
+				ccr_upd_usr_id,
+				ccr_type,
+				ccr_upd_method,
+				ccr_itm_id,
+				ccr_attendance_rate,
+				ccr_offline_condition,
+				ccr_ccr_id_parent
+			from CourseCriteria t 
+			where
+				 ccr_itm_id = #{itm_id}
+		]]>
+	</select>	
+	<update id="update" parameterType="com.cwn.wizbank.entity.CourseCriteria">
+	    <![CDATA[
+	        update CourseCriteria t 
+	        set 
+				ccr_id = #{ccr_id,jdbcType=INTEGER},
+				ccr_pass_score = #{ccr_pass_score,jdbcType=DOUBLE},
+				ccr_duration = #{ccr_duration,jdbcType=INTEGER},
+				ccr_pass_ind = #{ccr_pass_ind,jdbcType=BOOLEAN},
+				ccr_all_cond_ind = #{ccr_all_cond_ind,jdbcType=BOOLEAN},
+				ccr_create_timestamp = #{ccr_create_timestamp,jdbcType=TIMESTAMP},
+				ccr_create_usr_id = #{ccr_create_usr_id,jdbcType=VARCHAR},
+				ccr_upd_timestamp = #{ccr_upd_timestamp,jdbcType=TIMESTAMP},
+				ccr_upd_usr_id = #{ccr_upd_usr_id,jdbcType=VARCHAR},
+				ccr_type = #{ccr_type,jdbcType=VARCHAR},
+				ccr_upd_method = #{ccr_upd_method,jdbcType=VARCHAR},
+				ccr_itm_id = #{ccr_itm_id,jdbcType=INTEGER},
+				ccr_attendance_rate = #{ccr_attendance_rate,jdbcType=INTEGER},
+				ccr_offline_condition = #{ccr_offline_condition,jdbcType=VARCHAR},
+				ccr_ccr_id_parent = #{ccr_ccr_id_parent,jdbcType=INTEGER}
+	         where t.ccr_id = #{ccr_id,jdbcType=INTEGER}
+	    ]]>
+    </update>    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.CourseCriteria">
+    	<![CDATA[
+            insert into CourseCriteria(
+            		ccr_pass_score,
+            		ccr_duration,
+            		ccr_pass_ind,
+            		ccr_all_cond_ind,
+            		ccr_create_timestamp,
+            		ccr_create_usr_id,
+            		ccr_upd_timestamp,
+            		ccr_upd_usr_id,
+            		ccr_type,
+            		ccr_upd_method,
+            		ccr_itm_id,
+            		ccr_attendance_rate,
+            		ccr_offline_condition,
+            		ccr_ccr_id_parent
+            ) values (
+            	#{ccr_pass_score,jdbcType=DOUBLE},
+            	#{ccr_duration,jdbcType=INTEGER},
+            	#{ccr_pass_ind,jdbcType=BOOLEAN},
+            	#{ccr_all_cond_ind,jdbcType=BOOLEAN},
+            	#{ccr_create_timestamp,jdbcType=TIMESTAMP},
+            	#{ccr_create_usr_id,jdbcType=VARCHAR},
+            	#{ccr_upd_timestamp,jdbcType=TIMESTAMP},
+            	#{ccr_upd_usr_id,jdbcType=VARCHAR},
+            	#{ccr_type,jdbcType=VARCHAR},
+            	#{ccr_upd_method,jdbcType=VARCHAR},
+            	#{ccr_itm_id,jdbcType=INTEGER},
+            	#{ccr_attendance_rate,jdbcType=INTEGER},
+            	#{ccr_offline_condition,jdbcType=VARCHAR},
+            	#{ccr_ccr_id_parent,jdbcType=INTEGER}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from CourseCriteria where
+	        ccr_id = #{ccr_id}
+	    ]]>
+    </delete>	
+	<select id="selectAll" resultType="CourseCriteria">
+	    <![CDATA[
+	         select 
+				ccr_id,
+				ccr_pass_score,
+				ccr_duration,
+				ccr_pass_ind,
+				ccr_all_cond_ind,
+				ccr_create_timestamp,
+				ccr_create_usr_id,
+				ccr_upd_timestamp,
+				ccr_upd_usr_id,
+				ccr_type,
+				ccr_upd_method,
+				ccr_itm_id,
+				ccr_attendance_rate,
+				ccr_offline_condition,
+				ccr_ccr_id_parent
+			from CourseCriteria t 
+	    ]]>
+	</select>
+</mapper>

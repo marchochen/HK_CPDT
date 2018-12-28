@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link type="text/css" rel="stylesheet" href="../css/basic.css" />
+	<style type="text/css">
+		.help_div{
+			width:100%;
+			position:absolute;
+			text-align:center;
+		}
+	</style>
+	<script type="text/javascript" src="../lib/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="../lib/jquery/jquery.touchslider.min.js"></script>
+</head>
+<body>
+<div class="touchslider" style="display: none;">
+	<div class="touchslider-viewport">
+   		<div class="touchslider-item">
+			<img src="../images/tg01.jpg" alt=""/>
+    	</div>
+    	<div class="touchslider-item">
+    		<img src="../images/tg02.jpg" alt=""/>
+    	</div>
+    	<div class="touchslider-item">
+    		<div style="width:100%">
+				<img src="../images/tg03.jpg" alt=""/>
+				<div class="help_div">
+					<a href="javascript:;" onclick="startUser()" class="help_div_a"></a>
+				</div>
+   			</div>
+    	</div>
+   	</div>
+	<div class="touchslider-navtag" style="width: auto;height: auto;-ms-transform: translate(-50%, -50%);-webkit-transform: translate(-50%, -50%);-moz-transform: translate(-50%, -50%);transform: translate(-50%, -50%);left: 50%;">
+		<div class="touchslider-navbox">
+			<span class="touchslider-nav-item touchslider-nav-item-current"></span>
+			<span class="touchslider-nav-item "></span>
+			<span class="touchslider-nav-item "></span>
+	  	</div>
+	</div> 
+	<script type="text/javascript">
+		if(window.plus){
+			plusReady();
+		}else{
+			document.addEventListener('plusready',plusReady,false);
+		}
+		function plusReady(){
+			$(function($){
+				$(".touchslider").show();
+				$(".touchslider").touchSlider({mouseTouch:true, autoplay:false, margin:0});
+				$(window).resize(function(){
+					var height = plus.display.resolutionHeight;
+					$('.touchslider-item img').css({'width':'100%','height':height,'position': 'absolute'});
+					$('.touchslider-viewport').css('height',height);
+					$('.touchslider-item a').css('height', height*0.35);
+					$('.touchslider-item a').parent().css('top', height*0.65);
+				}).resize();
+				plus.navigator.closeSplashscreen();
+				setTimeout(function(){
+					int = self.setInterval(function(){
+						if(window.plus){
+							plus.navigator.closeSplashscreen();
+							window.clearInterval(int);
+						}
+					},1000);
+				}, 10000);
+			});
+		}
+		function startUser(){
+			plus.storage.setItem("readHelp", "true");
+			window.location.href = 'login.html';
+		}
+	</script>	    
+</div> 
+</body>
+</html>

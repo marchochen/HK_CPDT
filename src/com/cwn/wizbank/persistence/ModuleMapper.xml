@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.ModuleMapper">
+	<select id="get" resultType="Module" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				mod_res_id,
+				mod_type,
+				mod_max_score,
+				mod_pass_score,
+				mod_instruct,
+				mod_max_attempt,
+				mod_max_usr_attempt,
+				mod_score_ind,
+				mod_score_reset,
+				mod_logic,
+				mod_eff_start_datetime,
+				mod_eff_end_datetime,
+				mod_usr_id_instructor,
+				mod_core_vendor,
+				mod_password,
+				mod_import_xml,
+				mod_import_datetime,
+				mod_time_limit_action,
+				mod_web_launch,
+				mod_vendor,
+				mod_aicc_version,
+				mod_has_rate_q,
+				mod_is_public,
+				mod_public_need_enrol,
+				mod_mod_id_root,
+				mod_show_answer_ind,
+				mod_sub_after_passed_ind,
+				mod_mod_res_id_parent,
+				mod_auto_save_ind,
+				mod_sgp_ind,
+				mod_managed_ind,
+				mod_started_ind,
+				mod_tcr_id,
+				mod_show_A_A_passed_ind,
+				mod_required_time,
+				mod_download_ind
+			from Module t where t.mod_res_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.Module">
+	    <![CDATA[
+	        update Module t 
+	        set 
+				mod_res_id = #{mod_res_id,jdbcType=INTEGER},
+				mod_type = #{mod_type,jdbcType=VARCHAR},
+				mod_max_score = #{mod_max_score,jdbcType=DOUBLE},
+				mod_pass_score = #{mod_pass_score,jdbcType=DOUBLE},
+				mod_instruct = #{mod_instruct,jdbcType=VARCHAR},
+				mod_max_attempt = #{mod_max_attempt,jdbcType=INTEGER},
+				mod_max_usr_attempt = #{mod_max_usr_attempt,jdbcType=INTEGER},
+				mod_score_ind = #{mod_score_ind,jdbcType=INTEGER},
+				mod_score_reset = #{mod_score_reset,jdbcType=INTEGER},
+				mod_logic = #{mod_logic,jdbcType=VARCHAR},
+				mod_eff_start_datetime = #{mod_eff_start_datetime,jdbcType=TIMESTAMP},
+				mod_eff_end_datetime = #{mod_eff_end_datetime,jdbcType=TIMESTAMP},
+				mod_usr_id_instructor = #{mod_usr_id_instructor,jdbcType=VARCHAR},
+				mod_core_vendor = #{mod_core_vendor,jdbcType=VARCHAR},
+				mod_password = #{mod_password,jdbcType=VARCHAR},
+				mod_import_xml = #{mod_import_xml,jdbcType=VARCHAR},
+				mod_import_datetime = #{mod_import_datetime,jdbcType=TIMESTAMP},
+				mod_time_limit_action = #{mod_time_limit_action,jdbcType=VARCHAR},
+				mod_web_launch = #{mod_web_launch,jdbcType=VARCHAR},
+				mod_vendor = #{mod_vendor,jdbcType=VARCHAR},
+				mod_aicc_version = #{mod_aicc_version,jdbcType=VARCHAR},
+				mod_has_rate_q = #{mod_has_rate_q,jdbcType=INTEGER},
+				mod_is_public = #{mod_is_public,jdbcType=INTEGER},
+				mod_public_need_enrol = #{mod_public_need_enrol,jdbcType=INTEGER},
+				mod_mod_id_root = #{mod_mod_id_root,jdbcType=INTEGER},
+				mod_show_answer_ind = #{mod_show_answer_ind,jdbcType=INTEGER},
+				mod_sub_after_passed_ind = #{mod_sub_after_passed_ind,jdbcType=INTEGER},
+				mod_mod_res_id_parent = #{mod_mod_res_id_parent,jdbcType=INTEGER},
+				mod_auto_save_ind = #{mod_auto_save_ind,jdbcType=INTEGER},
+				mod_sgp_ind = #{mod_sgp_ind,jdbcType=INTEGER},
+				mod_managed_ind = #{mod_managed_ind,jdbcType=INTEGER},
+				mod_started_ind = #{mod_started_ind,jdbcType=INTEGER},
+				mod_tcr_id = #{mod_tcr_id,jdbcType=INTEGER},
+				mod_show_answer_after_passed_ind = #{mod_show_answer_after_passed_ind,jdbcType=INTEGER},
+				mod_show_A_A_passed_ind = #{mod_show_a_a_passed_ind,jdbcType=INTEGER},
+				mod_required_time = #{mod_required_time,jdbcType=INTEGER},
+				mod_download_ind = #{mod_download_ind,jdbcType=INTEGER}
+	         where t.mod_res_id = #{mod_res_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.Module">
+    	<![CDATA[
+            insert into Module(
+            		mod_type,
+            		mod_max_score,
+            		mod_pass_score,
+            		mod_instruct,
+            		mod_max_attempt,
+            		mod_max_usr_attempt,
+            		mod_score_ind,
+            		mod_score_reset,
+            		mod_logic,
+            		mod_eff_start_datetime,
+            		mod_eff_end_datetime,
+            		mod_usr_id_instructor,
+            		mod_core_vendor,
+            		mod_password,
+            		mod_import_xml,
+            		mod_import_datetime,
+            		mod_time_limit_action,
+            		mod_web_launch,
+            		mod_vendor,
+            		mod_aicc_version,
+            		mod_has_rate_q,
+            		mod_is_public,
+            		mod_public_need_enrol,
+            		mod_mod_id_root,
+            		mod_show_answer_ind,
+            		mod_sub_after_passed_ind,
+            		mod_mod_res_id_parent,
+            		mod_auto_save_ind,
+            		mod_sgp_ind,
+            		mod_managed_ind,
+            		mod_started_ind,
+            		mod_tcr_id,
+            		mod_show_answer_after_passed_ind,
+            		mod_show_A_A_passed_ind,
+            		mod_required_time,
+            		mod_download_ind
+            ) values (
+            	#{mod_type,jdbcType=VARCHAR},
+            	#{mod_max_score,jdbcType=DOUBLE},
+            	#{mod_pass_score,jdbcType=DOUBLE},
+            	#{mod_instruct,jdbcType=VARCHAR},
+            	#{mod_max_attempt,jdbcType=INTEGER},
+            	#{mod_max_usr_attempt,jdbcType=INTEGER},
+            	#{mod_score_ind,jdbcType=INTEGER},
+            	#{mod_score_reset,jdbcType=INTEGER},
+            	#{mod_logic,jdbcType=VARCHAR},
+            	#{mod_eff_start_datetime,jdbcType=TIMESTAMP},
+            	#{mod_eff_end_datetime,jdbcType=TIMESTAMP},
+            	#{mod_usr_id_instructor,jdbcType=VARCHAR},
+            	#{mod_core_vendor,jdbcType=VARCHAR},
+            	#{mod_password,jdbcType=VARCHAR},
+            	#{mod_import_xml,jdbcType=VARCHAR},
+            	#{mod_import_datetime,jdbcType=TIMESTAMP},
+            	#{mod_time_limit_action,jdbcType=VARCHAR},
+            	#{mod_web_launch,jdbcType=VARCHAR},
+            	#{mod_vendor,jdbcType=VARCHAR},
+            	#{mod_aicc_version,jdbcType=VARCHAR},
+            	#{mod_has_rate_q,jdbcType=INTEGER},
+            	#{mod_is_public,jdbcType=INTEGER},
+            	#{mod_public_need_enrol,jdbcType=INTEGER},
+            	#{mod_mod_id_root,jdbcType=INTEGER},
+            	#{mod_show_answer_ind,jdbcType=INTEGER},
+            	#{mod_sub_after_passed_ind,jdbcType=INTEGER},
+            	#{mod_mod_res_id_parent,jdbcType=INTEGER},
+            	#{mod_auto_save_ind,jdbcType=INTEGER},
+            	#{mod_sgp_ind,jdbcType=INTEGER},
+            	#{mod_managed_ind,jdbcType=INTEGER},
+            	#{mod_started_ind,jdbcType=INTEGER},
+            	#{mod_tcr_id,jdbcType=INTEGER},
+            	#{mod_show_answer_after_passed_ind,jdbcType=INTEGER},
+            	#{mod_show_a_a_passed_ind,jdbcType=INTEGER},
+            	#{mod_required_time,jdbcType=INTEGER},
+            	#{mod_download_ind,jdbcType=INTEGER}
+            )
+        ]]>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from Module  where mod_res_id = #{mod_res_id}
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="Module">
+	    <![CDATA[
+	         select 
+				mod_res_id,
+				mod_type,
+				mod_max_score,
+				mod_pass_score,
+				mod_instruct,
+				mod_max_attempt,
+				mod_max_usr_attempt,
+				mod_score_ind,
+				mod_score_reset,
+				mod_logic,
+				mod_eff_start_datetime,
+				mod_eff_end_datetime,
+				mod_usr_id_instructor,
+				mod_core_vendor,
+				mod_password,
+				mod_import_xml,
+				mod_import_datetime,
+				mod_time_limit_action,
+				mod_web_launch,
+				mod_vendor,
+				mod_aicc_version,
+				mod_has_rate_q,
+				mod_is_public,
+				mod_public_need_enrol,
+				mod_mod_id_root,
+				mod_show_answer_ind,
+				mod_sub_after_passed_ind,
+				mod_mod_res_id_parent,
+				mod_auto_save_ind,
+				mod_sgp_ind,
+				mod_managed_ind,
+				mod_started_ind,
+				mod_tcr_id,
+				mod_show_answer_after_passed_ind,
+				mod_show_A_A_passed_ind,
+				mod_required_time,
+				mod_download_ind
+			from Module t 
+	    ]]>
+	</select>
+	<select id="getPublicEvaluation" resultType="Module" parameterType="Map">
+	    SELECT mod_res_id, 
+	    res_title AS "res.res_title", 
+	    mod_eff_start_datetime ,
+	    mod_eff_end_datetime , 
+	    res_status AS "res.res_status", 
+	    mod_usr_id_instructor, 
+	    res_upd_date, 
+	    res_desc AS "res.res_desc", 
+	    mod_type
+    	from module
+    	inner join resources on (mod_res_id = res_id )
+    	inner join reguser  on (res_usr_id_owner = usr_id)
+		inner join ModuleTrainingCenter on ( mtc_mod_id = mod_res_id
+		and (mtc_tcr_id in(select athTc.tcr_id from V_usrTcRelation athTc where athTc.u_id = #{params.userEntId}
+<!-- 		是否可以访问该培训中心下的课程 -->
+<!-- 		如果是二级培训中心独立还有加上以下条件 -->
+			<if test="params.tcrId != null and params.tcrId &gt; 1">
+			  and tcr_id >0
+			</if>
+		))
+		 ) 
+		 
+         left JOIN ModuleEvaluation on mov_mod_id = res_id and mov_tkh_id = 0 and mov_ent_id = #{params.userEntId} 
+           where mod_type = 'EVN'
+           and mod_sgp_ind = 0 and mod_is_public = 1 
+           and mod_res_id in (select eac_res_id from EvalAccess inner join entityRelation on
+          ((ern_ancestor_ent_id = eac_target_ent_id or ern_child_ent_id = eac_target_ent_id) 
+           and ern_type = 'USR_PARENT_USG') where ern_child_ent_id = #{params.userEntId} )
+           AND res_status = 'ON'
+           and #{params.curDate} between mod_eff_start_datetime AND mod_eff_end_datetime
+           and (mov_total_attempt is null or mov_total_attempt = 0) 
+           <if test="params.isMobile != null and params.isMobile > 0">
+           and mtc_mobile_ind = #{params.isMobile}
+           </if>
+           order by res_upd_date desc 
+	</select>
+	
+	<select id="selectModuleDetail" resultType="Module" parameterType="Page">
+		select 
+			mod_max_score,
+			mod_pass_score,
+			mod_max_usr_attempt,
+			res_title as "res.res_title",
+			res_duration as "res.res_duration",
+			count(distinct mov_ent_id) as "exam_total",
+			(case when mod_type = 'DXT' then msp_qcount else count(distinct rcn_order) end) as "topic_total"
+		from Module
+		left join ModuleEvaluation on mov_mod_id = mod_res_id
+		inner join Resources on res_id = mod_res_id
+		inner join ResourceContent on rcn_res_id = mod_res_id
+		left join ModuleSpec on msp_res_id = mod_res_id
+		where mod_res_id = #{params.mod_id}
+		group by mod_max_score,mod_pass_score,mod_max_usr_attempt,res_title,res_duration,mod_type,msp_qcount
+	</select>
+	
+	<select id="selectModuleById" resultType="Module" parameterType="Page">
+		select 
+			mod_max_score,
+			mod_pass_score,
+			mod_max_usr_attempt ,
+			res_title as "res.res_title",
+			res_duration as "res.res_duration",
+			mod_type,
+			mod_res_id,
+			mod_started_ind,
+			mod_managed_ind 
+			<if test="_databaseId == 'ORACLE'">
+				,nvl(mod_mod_res_id_parent,0) as "mod_mod_res_id_parent"
+			</if>
+			<if test="_databaseId == 'SQLSERVER'">
+				,isnull(mod_mod_res_id_parent,0) as "mod_mod_res_id_parent"
+			</if>
+			<if test="_databaseId == 'MYSQL'">
+				,ifnull(mod_mod_res_id_parent,0) as "mod_mod_res_id_parent"
+			</if>
+		from Module,Resources where res_id = mod_res_id and  res_id = #{params.mod_id}
+	</select>
+	
+	<select id="selectExamTotalById" resultType="Module" parameterType="Module">
+			select count(mov_ent_id) as "exam_total"  from ModuleEvaluation where mov_mod_id=#{mod_res_id}
+	</select>
+
+	<select id="selectTopicTotalById" resultType="Module" parameterType="Module">
+		<!-- 静态测验抽题条件可能会调用父资源抽题条件 -->
+	    <if test="mod_type != null and mod_type =='DXT' and mod_mod_res_id_parent == 0">
+			select sum(msp_qcount) as "topic_total" from ModuleSpec where msp_res_id=#{mod_res_id}
+		</if>
+		<if test="mod_type != null and mod_type =='DXT' and mod_mod_res_id_parent != 0">
+			select sum(msp_qcount) as "topic_total" from ModuleSpec where msp_res_id=#{mod_mod_res_id_parent}
+		</if>
+		<if test="mod_type != null and mod_type !='DXT'">
+			select count(rcn_order) as "topic_total" from ResourceContent where rcn_res_id=#{mod_res_id}
+		</if>
+	</select>
+	
+	<select id="getModTypeById" resultType="Module" parameterType="java.lang.Long">
+		SELECT mod_type from  Module where mod_res_id = #{mod_id}
+	</select>
+</mapper>

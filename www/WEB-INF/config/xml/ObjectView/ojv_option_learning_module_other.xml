@@ -1,0 +1,4 @@
+<object_view>
+	<attribute checked="yes" sortable="yes">att_create_timestamp</attribute>
+	<attribute checked="yes" sortable="yes">att_status</attribute>
+</object_view>

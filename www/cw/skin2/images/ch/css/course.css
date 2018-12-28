@@ -1,0 +1,55 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Course
+suffix								   :course
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : course.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+.wbCosLstAccBarBg{
+	background-color: #C1CA88;
+}
+
+.wbCosLstAccBg{
+	background-color: #A9BB31;
+}
+
+.wbCosLstBg{
+	background-color: #F8F9DD;
+}
+
+.wbCosLstItemText{
+	color: #859334;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbCosLstItemTitleText{
+	color: #859334;
+	font: bold  9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbCosOthersBg{
+	background-color: #F8F9DD;
+	scrollbar-3dlight-color: #F8F9DD;
+	scrollbar-arrow-color: #000000;
+	scrollbar-base-color: #A9BB31;
+	scrollbar-darkshadow-color: #859334;
+	scrollbar-face-color: #A9BB31;
+	scrollbar-highlight-color: #F8F9DD;
+	scrollbar-shadow-color: #859334;
+	scrollbar-track-color: #A9BB31;
+}
+
+.wbCosOthersHRBar{
+	color: #000000;
+}
+
+.wbCosOthersTitleText{
+	color: #000000;
+	font: bold  9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbCosStatusText, .wbCosOthersText {
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}

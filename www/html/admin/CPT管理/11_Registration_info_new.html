@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>wizbank网站管理平台</title>
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../../../static/js/layer/layer.js"></script>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/layer/skin/layer.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/jquery-table/css/jquery-table-default.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/jquery-table/css/jquery-table-admin.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/admin/css/admin.css"/>
+<!--[if lt IE 9]>
+    <script type="text/javascript" src="bootstrap/js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+<div class="wzb-body">
+<div class="wzb-top clearfix">
+     <a class="wzb-logo" href="###" title="wizbank"><img src="../../../static/images/wzb-logo.gif" alt="wizbank"/></a>
+     <div class="wzb-top-toggle"><i class="fa fa-bars"></i></div>
+     
+     <div class="wzb-tool">
+     <div class="wzb-menu">     
+          <ul class="clearfix">
+              <li><a class="wzb-menu-sup" href="###" title="信息"><i class="fa wzb-envelope-icon fa-envelope-o"></i> <span class="wzb-badge wzb-badge-purple">15</span></a></li>
+              <li>
+                  <a class="wzb-menu-sub" href="###" title="信息"><i class="fa wzb-envelope-icon fa-flag-o"></i> <span class="wzb-badge wzb-badge-pink">8</span></a>
+                  <ul>
+                      <li><a class="wzb-menu-son" href="###" title="报名审批"><i class="fa fa-check-circle-o"></i>报名审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="作业批改"><i class="fa fa-clipboard"></i>作业批改</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="试卷批改"><i class="fa fa-file-text-o"></i>试卷批改</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="知识审批"><i class="fa fa-life-ring"></i>知识审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="IDP审批"><i class="fa fa-level-up"></i>IDP审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="培训计划审批"><i class="fa fa-calendar"></i>培训计划审批</a></li>
+                 </ul>
+             </li>
+             <li>
+                 <a class="wzb-menu-sub" href="###" title="信息"><img class="wzb-user" src="images/wzb-user.jpg" alt="wizbank" />培训管理员<i class="fa wzb-caret-icon fa-caret-down"></i></a>
+                 <ul>
+                     <li><a class="wzb-menu-son" href="###" title="角色"><i class="fa fa-user"></i>角色</a>
+                         <dl>
+                             <dd><a href="###" title="学员">学员</a></dd>
+                             <dd><a href="###" title="培训管理员">培训管理员</a></dd>
+                             <dd><a href="###" title="系统管理员">系统管理员</a></dd>
+                             <dd><a href="###" title="考试监考员">考试监考员</a></dd>
+                         </dl>
+                     </li>
+                     <li><a class="wzb-menu-son" href="###" title="语言"><i class="fa fa-stack-exchange"></i>语言</a>
+                         <dl>
+                             <dd><a href="###" title="简体中文">简体中文</a></dd>
+                             <dd><a href="###" title="繁体中文">繁体中文</a></dd>
+                             <dd><a href="###" title="English">English</a></dd>
+                         </dl>
+                    </li>
+                    <li><a class="wzb-menu-son" href="###" title="我的档案"><i class="fa fa-instagram"></i>我的档案</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="修改密码"><i class="fa fa-key"></i>修改密码</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="我的喜好"><i class="fa fa-smile-o"></i>我的喜好</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="退出"><i class="fa fa-sign-out"></i>退出</a></li>
+                </ul>
+            </li>
+        </ul>
+      </div>  
+    </div>
+</div> <!-- wzb-top End-->
+
+<div class="wzb-sidebar">
+<div class="wzb-menu">
+    <ul>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-home"></i>首页</a></li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-globe"></i>资讯管理</a>
+            <ul>
+                <li><a href="###" title="">公告</a></li>
+                <li><a href="###" title="">资讯</a></li>
+                <li><a href="###" title="">常用工具</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-cubes"></i>需求管理</a>
+            <ul>
+                <li><a href="###" title="">投票</a></li>
+                <li><a href="###" title="">公共调查问卷</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-list-alt"></i>计划管理</a>
+            <ul>
+                <li><a href="###" title="">计划实施</a></li>
+                <li><a href="###" title="">年度计划</a></li>
+                <li><a href="###" title="">编外计划</a></li>
+                <li><a href="###" title="">年度计划审批</a></li>
+                <li><a href="###" title="">编外计审批</a></li>
+                <li><a href="###" title="">年度设置</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-maxcdn"></i>学习地图</a>
+            <ul>
+                <li><a href="###" title="">岗位发展路径</a></li>
+                <li><a href="###" title="">岗位</a></li>
+                <li><a href="###" title="">能力标签</a></li>
+                <li><a href="###" title="">能力测评模板</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-calendar"></i>培训管理</a>
+            <ul>
+                <li><a href="###" title="">网上课程</a></li>
+                <li><a href="###" title="">面授课程</a></li>
+                <li><a href="###" title="">项目式培训</a></li>
+                <li><a href="###" title="">证书</a></li>
+                <li><a href="###" title="">课程目录</a></li>
+                <li><a href="###" title="">公开课</a></li>
+                <li><a href="###" title="">教学资源</a></li>
+                <li><a href="###" title="">课程评估问卷</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-columns"></i>考试管理</a>
+            <ul>
+                <li><a href="###" title="">网上考试</a></li>
+                <li><a href="###" title="">离线考试</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-comments"></i>社区管理</a>
+            <ul>
+                <li><a href="###" title="">问答</a></li>
+                <li><a href="###" title="">群组</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-life-ring"></i>知识管理</a>
+            <ul>
+                <li><a href="###" title="">知识库</a></li>
+                <li><a href="###" title="">知识目录</a></li>
+                <li><a href="###" title="">知识标签</a></li>
+                <li><a href="###" title="">知识审批</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-table"></i>培训报表</a>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-child"></i>用户管理</a>
+            <ul>
+                <li><a href="###" title="">用户信息</a></li>
+                <li><a href="###" title="">职级</a></li>
+                <li><a href="###" title="">注册审批</a></li>
+                <li><a href="###" title="">用户激活</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-suitcase"></i>基础数据管理</a>
+            <ul>
+                <li><a href="###" title="">积分</a></li>
+                <li><a href="###" title="">内部讲题</a></li>
+                <li><a href="###" title="">外部讲题</a></li>
+                <li><a href="###" title="">供应商</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-wrench"></i>系统设置</a>
+            <ul>
+                <li><a href="###" title="">PC样式管理</a></li>
+                <li><a href="###" title="">移动管理</a></li>
+                <li><a href="###" title="">培训中心管理</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>    
+</div>  <!-- wzb-sibebar End-->
+
+<div class="wzb-wrapper">
+<div class="wzb-main">
+<div class="wzb-banner wzb-banner-bg01" style="opacity:1; background:rgb(0, 204, 51);"><i class="fa wzb-banner-icon fa-calendar"></i> CPT/D管理</div>
+
+<ol class="breadcrumb wzb-breadcrumb">
+  <li><a href="#"><i class="fa wzb-breadcrumb-home fa-home"></i>首页</a></li>
+  <li><a href="9_Registration_Management_new.html">CPT/D 牌照注册管理</a></li>
+  <li class="active">Randy</li>
+</ol> <!-- wzb-breadcrumb End-->
+
+<div class="panel wzb-panel">
+    <!-- 内容添加开始 -->
+    <div class="panel-body">
+        <table cellpadding="0" cellspacing="0" style="border-bottom:1px solid #ccc;">
+            <tbody>
+                <tr>
+                    <td class="text-left" width="50%">
+                        <span class="wzb-before">基本信息</span>
+                    </td>
+                    <td class="text-right" width="50%">
+                        <input type="button" value="修改" class="btn wzb-btn-orange margin-right4" onclick="window.open('12_Registration_info_change.html')"><input type="button" value="删除" class="btn wzb-btn-orange" id="delete">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table cellpadding="0" cellspacing="0" class="margin-top20">
+            <tbody>
+                <tr>
+                    <td class="wzb-form-label">用户名：</td>
+                    <td class="wzb-form-control">Randy</td>
+                </tr>
+                <tr>
+                    <td class="wzb-form-label">用户全名：</td>
+                    <td class="wzb-form-control">Randy.wang</td>
+                </tr>
+                <tr>
+                    <td class="wzb-form-label">牌照类别：</td>
+                    <td class="wzb-form-control">IA</td>
+                </tr>
+                <tr>
+                    <td class="wzb-form-label">别名：</td>
+                    <td class="wzb-form-control">Insurance</td>
+                </tr>
+                <tr>
+                    <td class="wzb-form-label">注册号码：</td>
+                    <td class="wzb-form-control">123456</td>
+                </tr>
+                <tr>
+                    <td class="wzb-form-label">注册时间：</td>
+                    <td class="wzb-form-control">2015-02-01</td>
+                </tr>
+                <tr>
+                    <td class="wzb-form-label">除牌时间：</td>
+                    <td class="wzb-form-control">2017-03-01</td>
+                </tr>
+            </tbody>
+        </table>  
+
+        <table cellpadding="0" cellspacing="0" class="margin-top20" style="border-bottom:1px solid #ccc;">
+            <tbody>
+                <tr>
+                    <td class="text-left">
+                        <div class="wzb-before">组别信息</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="datatable" style="margin-top:20px;">
+            <div class="datatable-body">
+                <table cellpadding="0" cellspacing="0" class="datatable-table">
+                    <thead class="datatable-table-thead">
+                        <tr class="datatable-table-row">
+                            <th width="20%" class="datatable-table-column-header text-left" rowspan="2">组别名称</th>
+                            <th width="15%" class="datatable-table-column-header text-center" rowspan="2">Initial date</th>
+                            <th width="10%" class="datatable-table-column-header text-center" rowspan="2">实际开始时间</th>
+                            <th width="10%" class="datatable-table-column-header text-center" rowspan="2">Expiry date</th>
+                            <th width="40%" class="datatable-table-column-header text-center" style="border-bottom:0;" colspan="2">Current assessment period require</th>
+                            <th width="15%" class="datatable-table-column-header text-right" rowspan="2"></th>
+                        </tr>
+                        <tr class="datatable-table-row">
+                            <th width="20%" class="datatable-table-column-header text-center">Core hour required</th>
+                            <th width="20%" class="datatable-table-column-header text-center">Non-core hour required</th>
+                        </tr>
+                    </thead>
+                    <tbody class="datatable-table-tbody">
+                        <tr class="datatable-table-row">
+                            <td class="datatable-table-column text-left">Group01</td>
+                            <td class="datatable-table-column text-center">2016-02-01</td>
+                            <td class="datatable-table-column text-center">2016-02-01</td>
+                            <td class="datatable-table-column text-center">--</td>
+                            <td class="datatable-table-column text-center">12<span>*</span></td>
+                            <td class="datatable-table-column text-center">6<span>*</span></td>
+                            <td class="datatable-table-column text-right">
+                                <input type="button" value="修改所需时数" class="btn wzb-btn-blue xiugai">
+                            </td>
+                        </tr>
+                        <tr class="datatable-table-row">
+                            <td class="datatable-table-column text-left">Group01</td>
+                            <td class="datatable-table-column text-center">2016-02-01</td>
+                            <td class="datatable-table-column text-center">2016-02-01</td>
+                            <td class="datatable-table-column text-center">--</td>
+                            <td class="datatable-table-column text-center">12</td>
+                            <td class="datatable-table-column text-center">6</td>
+                            <td class="datatable-table-column text-right">
+                                <input type="button" value="修改所需时数" class="btn wzb-btn-blue xiugai">
+                            </td>
+                        </tr>
+                        <tr class="datatable-table-row">
+                            <td class="datatable-table-column text-left">Group01</td>
+                            <td class="datatable-table-column text-center">2016-02-01</td>
+                            <td class="datatable-table-column text-center">2016-02-01</td>
+                            <td class="datatable-table-column text-center">--</td>
+                            <td class="datatable-table-column text-center">12</td>
+                            <td class="datatable-table-column text-center">6</td>
+                            <td class="datatable-table-column text-right">
+                                <input type="button" value="修改所需时数" class="btn wzb-btn-blue xiugai">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <form class="form-search">*<span class="wzb-form-star">表示要求时数已手动修改过</span></form>
+    </div>
+    <!-- 内容添加结束 -->
+
+    <script type="text/javascript">
+        $("#delete").click(function(){
+            layer.open({
+            type: 1,
+            btn:['确定'],
+            area: ['400px', '240px'], //宽高
+            content: '<div class="pop-up-word">是否永久删除用户注册信息？</div>'
+            });
+        })
+
+        $(".xiugai").click(function(){
+            layer.open({
+            type: 1,
+            closeBtn: 0,
+            title: '修改所需时数',
+            btn:['确定','取消'],
+            area: ['500px', '240px'], //宽高
+            content: '<div class="pop-up-word">'+
+                '<div class="margin-bottom20">'+
+                    '<span style="width:200px;text-align:right;display:inline-block;">Core Hour required：</span>'+
+                    '<span style="width:200px;text-align:left;">'+
+                        '<input class="wzb-inputText" value=" " name=" " type="text" style="width:150px;">'+
+                    '</span>'+
+                '</div>'+
+                '<div>'+
+                    '<span style="width:200px;text-align:right;display:inline-block;">Non-Core Hour required：</span>'+
+                    '<span style="width:200px;text-align:left;">'+
+                        '<input class="wzb-inputText" value=" " name=" " type="text" style="width:150px;">'+
+                    '</span>'+
+                '</div>'+
+            '</div>'
+            });
+        })
+    </script>
+
+
+
+
+</div>  <!-- wzb-panel End-->
+
+</div>  <!-- wzb-main End-->   
+
+</div> <!-- wzb-wrapper End-->
+
+<div class="wzb-footer"><div class="wzb-footer-box">wizbank6.5 @ 汇思 Cyberwisdom 版权所有</div></div>
+</div> <!-- wzb-body End-->
+
+</body>
+</html> 

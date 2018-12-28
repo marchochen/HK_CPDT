@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.MessageMapper">
+	<select id="get" resultType="Message" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				msg_id,
+				msg_usr_id,
+				msg_type,
+				msg_title,
+				msg_body,
+				msg_begin_date,
+				msg_end_date,
+				msg_status,
+				msg_res_id,
+				msg_root_ent_id,
+				msg_upd_date,
+				msg_level,
+				msg_tcr_id,
+				msg_icon,
+				msg_mobile_ind,
+				msg_receipt,
+				usr_display_bil AS "user.usr_display_bil"
+			from Message t,RegUser where t.msg_usr_id = usr_id and t.msg_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.Message">
+	    <![CDATA[
+	        update Message t 
+	        set 
+				msg_id = #{msg_id,jdbcType=INTEGER},
+				msg_usr_id = #{msg_usr_id,jdbcType=VARCHAR},
+				msg_type = #{msg_type,jdbcType=VARCHAR},
+				msg_title = #{msg_title,jdbcType=VARCHAR},
+				msg_body = #{msg_body,jdbcType=VARCHAR},
+				msg_begin_date = #{msg_begin_date,jdbcType=TIMESTAMP},
+				msg_end_date = #{msg_end_date,jdbcType=TIMESTAMP},
+				msg_status = #{msg_status,jdbcType=VARCHAR},
+				msg_res_id = #{msg_res_id,jdbcType=INTEGER},
+				msg_root_ent_id = #{msg_root_ent_id,jdbcType=INTEGER},
+				msg_upd_date = #{msg_upd_date,jdbcType=TIMESTAMP},
+				msg_level = #{msg_level,jdbcType=VARCHAR},
+				msg_tcr_id = #{msg_tcr_id,jdbcType=INTEGER},
+				msg_icon = #{msg_icon,jdbcType=VARCHAR},
+				msg_mobile_ind = #{msg_mobile_ind,jdbcType=INTEGER}
+	         where t.msg_id = #{msg_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.Message">
+    	<![CDATA[
+            insert into Message(
+            		msg_usr_id,
+            		msg_type,
+            		msg_title,
+            		msg_body,
+            		msg_begin_date,
+            		msg_end_date,
+            		msg_status,
+            		msg_res_id,
+            		msg_root_ent_id,
+            		msg_upd_date,
+            		msg_level,
+            		msg_tcr_id,
+            		msg_icon,
+            		msg_mobile_ind
+            ) values (
+            	#{msg_usr_id,jdbcType=VARCHAR},
+            	#{msg_type,jdbcType=VARCHAR},
+            	#{msg_title,jdbcType=VARCHAR},
+            	#{msg_body,jdbcType=VARCHAR},
+            	#{msg_begin_date,jdbcType=TIMESTAMP},
+            	#{msg_end_date,jdbcType=TIMESTAMP},
+            	#{msg_status,jdbcType=VARCHAR},
+            	#{msg_res_id,jdbcType=INTEGER},
+            	#{msg_root_ent_id,jdbcType=INTEGER},
+            	#{msg_upd_date,jdbcType=TIMESTAMP},
+            	#{msg_level,jdbcType=VARCHAR},
+            	#{msg_tcr_id,jdbcType=INTEGER},
+            	#{msg_icon,jdbcType=VARCHAR},
+            	#{msg_mobile_ind,jdbcType=INTEGER}
+            )
+        ]]>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from Message  where msg_id = #{msg_id}
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="Message">
+	    <![CDATA[
+	         select 
+				msg_id,
+				msg_usr_id,
+				msg_type,
+				msg_title,
+				msg_body,
+				msg_begin_date,
+				msg_end_date,
+				msg_status,
+				msg_res_id,
+				msg_root_ent_id,
+				msg_upd_date,
+				msg_level,
+				msg_tcr_id,
+				msg_icon,
+				msg_mobile_ind
+			from Message t 
+	    ]]>
+	</select>
+	<select id="page" resultType="Message" parameterType="com.cwn.wizbank.utils.Page">
+		SELECT
+			msg_id, msg_usr_id,
+			usr_display_bil AS "user.usr_display_bil",
+			msg_type, msg_level,
+			msg_title, msg_body,
+			msg_res_id, msg_status,
+			msg_begin_date, msg_end_date,
+			msg_upd_date, msg_icon,
+			tcr_id AS "tcenter.tcr_id",
+			tcr_title AS "tcenter.tcr_title",
+			(case when #{params.curTime} &lt; msg_begin_date + ${params.new_duration} then 1 else 0 end) as "newest_ind",
+			(case when curUsrReadList.rec_msg_id is null then 0 else 1 end) curUserIsRead<!-- 当前用户是以前阅读过此消息 -->
+		FROM
+		Message
+		left join RegUser on msg_usr_id = usr_id
+		left join tcTrainingCenter on msg_tcr_id = tcr_id
+		left join (select rec_msg_id from Receipt where REC_ENT_ID = #{params.usr_ent_id} ) curUsrReadList <!-- 当前用户已经阅读过的列表 -->
+				   on rec_msg_id = msg_id
+		WHERE
+			msg_type = 'SYS'	
+			and #{params.curTime} between msg_begin_date and msg_end_date
+<!-- 			AND NOT(msg_end_date &gt; #{params.curTime} ) -->
+<!-- 			AND NOT(msg_begin_date &lt; #{params.curTime}) -->
+			AND msg_root_ent_id = ${params.root_ent_id}			
+			AND msg_status = 'ON'
+			AND (msg_mobile_ind = #{params.isMobile}
+	
+		<choose>
+			<when test="params.isMobile == true">
+				or msg_mobile_ind is null )
+			</when>
+			<otherwise>
+				)
+			</otherwise>
+		</choose>
+		<if test="params.tcr_ids != null and params.tcr_ids.size > 0">
+ 			and msg_tcr_id in 
+ 			<foreach collection="_parameter['params']['tcr_ids']" item="item" index="index" 
+				open="(" separator="," close=")">
+				${item}
+			</foreach>
+		</if>
+		order by msg_begin_date desc
+	</select>
+	<select id="getMessagesByResId" parameterType="Map" resultType="Message">
+		SELECT msg_id, msg_usr_id,
+		msg_type, 
+		msg_level, 
+		msg_title, 
+		msg_body,
+		msg_res_id, 
+		msg_status, 
+		msg_type,
+		msg_begin_date, 
+		msg_end_date, 
+		msg_upd_date,
+		usr_display_bil AS "user.usr_display_bil"
+		FROM Message , RegUser
+		WHERE msg_type = 'RES' AND msg_usr_id = usr_id AND msg_status = 'ON' and
+		msg_res_id in
+		<foreach item="resId" index="index" collection="resIds" open="(" separator="," close=")">
+			#{resId}
+		</foreach>
+		and #{curTime} between msg_begin_date and msg_end_date
+		ORDER BY msg_upd_date DESC
+	</select>
+	
+	<select id="getNewCount" parameterType="Map" resultType="Integer">
+		select count(msg_id) from message where 
+		msg_begin_date &gt; #{beforeDate}
+		and msg_status = 'ON'
+		and msg_type = 'SYS'
+		and #{curTime} between msg_begin_date and msg_end_date
+		and (msg_mobile_ind = #{isMobile}		
+		<choose>
+			<when test="isMobile > 0">
+				or msg_mobile_ind is null )
+			</when>
+			<otherwise>
+				)
+			</otherwise>
+		</choose>
+		<if test="tcrIds != null and tcrIds.size > 0">
+ 			and msg_tcr_id in 
+ 			<foreach collection="_parameter['tcrIds']" item="item" index="index" 
+				open="(" separator="," close=")">
+				${item}
+			</foreach>
+		</if>
+		
+	</select>
+	
+	<select id="getReceipt" parameterType="Map" resultType="Integer">
+		select rec_id from receipt 
+		inner join Message on (msg_id = rec_msg_id) 
+		where rec_msg_id = #{msgId} 
+		and rec_ent_id = #{usrId}
+	</select>
+	
+	<select id="getIsOrNotReceipt" parameterType="Map" resultType="Integer">
+		select msg_receipt from Message 
+		where msg_id = #{msgId} 
+	</select>
+	
+	<select id="getNotReceipt" parameterType="Map" resultType="Integer">
+		select rec_id from receipt 
+		inner join Message on (msg_id = rec_msg_id) 
+		where rec_msg_id = #{msgId} 
+		and rec_ent_id = #{usrId}
+		and MSG_RECEIPT = 0
+	</select>
+	
+	<select id="getRecUsgId" parameterType="long" resultType="long">
+		select ern_ancestor_ent_id from ENTITYRELATION 
+		where ern_child_ent_id = #{rec_ent_id} 
+		and ern_parent_ind = 1 
+		and ern_type = 'USR_PARENT_USG' 
+	</select>
+	
+	<insert id="insReceipt" parameterType="com.cw.wizbank.JsonMod.Ann.bean.ReceiptBean" >
+		insert into Receipt(rec_msg_id,rec_ent_id,rec_usg_id,receipt_date) 
+		values(
+			#{rec_msg_id,jdbcType=INTEGER},
+			#{rec_ent_id,jdbcType=INTEGER},
+			#{rec_usg_id,jdbcType=INTEGER},
+			#{receipt_date,jdbcType=TIMESTAMP})
+		<selectKey keyProperty="rec_id" resultType="int" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select receipt_seq.nextval from dual
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					select IDENT_CURRENT('Receipt') as rec_id
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					select last_insert_id() as rec_id
+				</when>
+			</choose>
+		</selectKey>
+	</insert>
+	
+	
+	<select id="getNotReadCountByUsrId" parameterType="Map" resultType="Integer">
+		select count(msg_id) from message
+		where msg_status = 'ON'
+		and msg_type = 'SYS'
+		and #{curTime} between msg_begin_date and msg_end_date
+		and (msg_mobile_ind = #{isMobile}		
+		<choose>
+			<when test="isMobile > 0">
+				or msg_mobile_ind is null )
+			</when>
+			<otherwise>
+				)
+			</otherwise>
+		</choose>
+		<if test="tcrIds != null and tcrIds.size > 0">
+ 			and msg_tcr_id in 
+ 			<foreach collection="_parameter['tcrIds']" item="item" index="index" 
+				open="(" separator="," close=")">
+				${item}
+			</foreach>
+		</if>
+		
+		and msg_id not in (select rec_msg_id from Receipt where rec_ent_id = #{usr_ent_id})
+		
+	</select>
+	
+	
+</mapper>

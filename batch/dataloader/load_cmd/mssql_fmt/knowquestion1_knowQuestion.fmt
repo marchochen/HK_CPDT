@@ -1,0 +1,14 @@
+8.0
+12
+1 SQLNCHAR 0 0 "\t\0" 1 que_id ""
+2 SQLNCHAR 0 0 "\t\0" 2 que_kca_id ""
+3 SQLNCHAR 0 0 "\t\0" 3 que_title ""
+4 SQLNCHAR 0 0 "\t\0" 4 que_content ""
+5 SQLNCHAR 0 0 "\t\0" 5 que_type ""
+6 SQLNCHAR 0 0 "\t\0" 7 que_popular_ind ""
+7 SQLNCHAR 0 0 "\t\0" 9 que_reward_credits ""
+8 SQLNCHAR 0 0 "\t\0" 10 que_status ""
+9 SQLNCHAR 0 0 "\t\0" 11 que_create_ent_id ""
+10 SQLNCHAR 0 0 "\t\0" 12 que_create_timestamp ""
+11 SQLNCHAR 0 0 "\t\0" 13 que_update_ent_id ""
+12 SQLNCHAR 0 0 "\r\0\n\0" 14 que_update_timestamp ""

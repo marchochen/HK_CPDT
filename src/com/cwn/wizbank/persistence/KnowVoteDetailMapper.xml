@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.KnowVoteDetailMapper">
+	<select id="get" resultType="KnowVoteDetail" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				kvd_que_id,
+				kvd_ans_id,
+				kvd_ent_id,
+				kvd_create_usr_id,
+				kvd_create_timestamp
+			from KnowVoteDetail t 
+			where
+				 t.kvd_que_id = #{id}
+		]]>
+	</select>	
+	<update id="update" parameterType="com.cwn.wizbank.entity.KnowVoteDetail">
+        update KnowVoteDetail 
+        set 
+			kvd_que_id = #{kvd_que_id,jdbcType=INTEGER},
+			kvd_ans_id = #{kvd_ans_id,jdbcType=INTEGER},
+			kvd_ent_id = #{kvd_ent_id,jdbcType=INTEGER},
+			kvd_create_usr_id = #{kvd_create_usr_id,jdbcType=VARCHAR},
+			kvd_create_timestamp = #{kvd_create_timestamp,jdbcType=TIMESTAMP}
+         where kvd_que_id = #{kvd_que_id,jdbcType=INTEGER}
+    </update>    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.KnowVoteDetail">
+    	<![CDATA[
+            insert into KnowVoteDetail(
+            		kvd_que_id,
+            		kvd_ans_id,
+            		kvd_ent_id,
+            		kvd_create_usr_id,
+            		kvd_create_timestamp
+            ) values (
+            	#{kvd_que_id,jdbcType=INTEGER},
+            	#{kvd_ans_id,jdbcType=INTEGER},
+				#{kvd_ent_id,jdbcType=INTEGER},
+            	#{kvd_create_usr_id,jdbcType=VARCHAR},
+            	#{kvd_create_timestamp,jdbcType=TIMESTAMP}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from KnowVoteDetail where
+	        kvd_que_id = #{kvd_que_id}
+	    ]]>
+    </delete>	
+	<select id="selectAll" resultType="KnowVoteDetail" parameterType="KnowVoteDetail">
+         select 
+			kvd_que_id,
+			kvd_ans_id,
+			kvd_ent_id,
+			kvd_create_usr_id,
+			kvd_create_timestamp
+		from KnowVoteDetail 
+		where kvd_que_id = ${kvd_que_id} and kvd_ent_id = ${kvd_ent_id}
+	</select>	
+</mapper>

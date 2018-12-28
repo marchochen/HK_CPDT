@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.SnsValuationLogMapper">
+	<select id="getCount" resultType="java.lang.Integer" parameterType="Map">
+	    select count(s_vtl_log_id) from Sns_Valuation_Log t 
+	    where 1=1
+	    
+	    <if test="targetId != null and targetId !=''">
+	       and s_vtl_target_id = #{targetId}
+	    </if>
+	    <if test="usrEntId != null and usrEntId !=''">
+	       and s_vtl_uid = #{usrEntId}
+	    </if>
+	    <if test="module != null and module !=''">
+	       and s_vtl_module = #{module}
+	    </if>
+	    <if test="isComment != null and isComment !=''">
+	       and s_vtl_is_comment = #{isComment}
+	    </if>
+	</select>
+	<select id="get" resultType="SnsValuationLog" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				s_vtl_log_id,
+				s_vtl_type,
+				s_vtl_score,
+				s_vtl_create_datetime,
+				s_vtl_uid,
+				s_vtl_module,
+				s_vtl_target_id,
+				s_vtl_is_comment
+			from Sns_Valuation_Log t 
+			where
+				 t.s_vtl_log_id = #{id}
+		]]>
+	</select>
+	<select id="getByUserId" resultType="SnsValuationLog" parameterType="Map">
+	    	select 
+				s_vtl_log_id,
+				s_vtl_type,
+				s_vtl_score,
+				s_vtl_create_datetime,
+				s_vtl_uid,
+				s_vtl_module,
+				s_vtl_target_id,
+				s_vtl_is_comment
+			from Sns_Valuation_Log t 
+			where
+				 t.s_vtl_target_id = #{targetId}
+				 and s_vtl_uid = #{userEntId}
+				 and s_vtl_module = #{module}
+				 <choose>
+				     <when test="isComment != null and isComment &gt; 0">
+				         and s_vtl_is_comment = 1
+				     </when>
+				     <otherwise>
+				         and (s_vtl_is_comment = 0 or s_vtl_is_comment is null)
+				     </otherwise>
+				 </choose>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.SnsValuationLog">
+	    <![CDATA[
+	        update Sns_Valuation_Log t 
+	        set 
+				s_vtl_log_id = #{s_vtl_log_id,jdbcType=INTEGER},
+				s_vtl_type = #{s_vtl_type,jdbcType=VARCHAR},
+				s_vtl_score = #{s_vtl_score,jdbcType=INTEGER},
+				s_vtl_create_datetime = #{s_vtl_create_datetime,jdbcType=TIMESTAMP},
+				s_vtl_uid = #{s_vtl_uid,jdbcType=INTEGER},
+				s_vtl_module = #{s_vtl_module,jdbcType=VARCHAR},
+				s_vtl_target_id = #{s_vtl_target_id,jdbcType=INTEGER},
+				s_vtl_is_comment = #{s_vtl_is_comment,jdbcType=INTEGER}
+	         where t.s_vtl_log_id = #{s_vtl_log_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    <insert id="add" parameterType="com.cwn.wizbank.entity.SnsValuationLog" keyProperty="s_vtl_log_id">
+            insert into Sns_Valuation_Log(
+            		s_vtl_type,
+            		s_vtl_score,
+            		s_vtl_create_datetime,
+            		s_vtl_uid,
+            		s_vtl_module,
+            		s_vtl_target_id,
+            		s_vtl_is_comment
+            ) values (
+            	#{s_vtl_type,jdbcType=VARCHAR},
+            	#{s_vtl_score,jdbcType=INTEGER},
+            	#{s_vtl_create_datetime,jdbcType=TIMESTAMP},
+            	#{s_vtl_uid,jdbcType=INTEGER},
+            	#{s_vtl_module,jdbcType=VARCHAR},
+            	#{s_vtl_target_id,jdbcType=INTEGER},
+            	#{s_vtl_is_comment,jdbcType=INTEGER}
+            )
+        <selectKey keyProperty="s_vtl_log_id" resultType="Long" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select sns_valuation_log_seq.currval from dual
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					select ident_current('Sns_Valuation_Log')
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					select last_insert_id()
+				</when>
+			</choose>
+		</selectKey>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from Sns_Valuation_Log where
+	        s_vtl_log_id = #{s_vtl_log_id}
+	    ]]>
+    </delete>
+    <delete id="deleteList" parameterType="Map">
+	   	delete from Sns_Valuation_Log where
+	        s_vtl_target_id = #{targetId}
+	        and s_vtl_module = #{module}
+	        and s_vtl_is_comment = #{is_comment}
+    </delete>
+	<select id="selectAll" resultType="SnsValuationLog">
+	    <![CDATA[
+	         select 
+				s_vtl_log_id,
+				s_vtl_type,
+				s_vtl_score,
+				s_vtl_create_datetime,
+				s_vtl_uid,
+				s_vtl_module,
+				s_vtl_target_id,
+				s_vtl_is_comment
+			from Sns_Valuation_Log t 
+	    ]]>
+	</select>
+	<select id="selectUserLikeTotal" resultType="Long" parameterType="Long">
+		select count(*) like_total from (
+			select s_vtl_log_id from sns_comment
+			inner join sns_valuation_log on Lower(s_vtl_type) = 'like' and s_cmt_id = s_vtl_target_id and Lower(s_vtl_module) in ('doing','group','course','article','knowledge') and s_vtl_is_comment = 1
+			where s_cmt_uid = #{usr_ent_id}
+			union (
+				select s_vtl_log_id from sns_doing
+				inner join sns_valuation_log on Lower(s_vtl_type) = 'like' and s_doi_id = s_vtl_target_id and Lower(s_vtl_module) in ('doing','group') and s_vtl_is_comment = 0 
+				where s_doi_uid = #{usr_ent_id}
+			) union (
+				select s_vtl_log_id from knowAnswer
+				inner join sns_valuation_log on Lower(s_vtl_type) = 'like' and ans_id = s_vtl_target_id and Lower(s_vtl_module) = 'answer' 
+				where ans_create_ent_id = #{usr_ent_id}
+			)
+		) likeDetail
+	</select>
+	<select id="userLikeList" resultType="LikeMsgVo" parameterType="Page">
+		select * from (
+			select s_vtl_log_id as id,
+				<choose>
+					<when test="_databaseId == 'ORACLE'">
+						to_char(s_vtl_module) as module,
+			         	to_char(s_cmt_content) as title,
+			         	to_char('') as url,
+			         	s_cmt_target_id as targetId,
+			         	'1' as isComment,
+					</when>
+					<when test="_databaseId == 'SQLSERVER'">
+					 	s_vtl_module as module,
+			         	s_cmt_content as title,
+			         	'' as url,
+			         	s_cmt_target_id as targetId,
+			         	'1' as isComment,
+					</when>
+					<when test="_databaseId == 'MYSQL'">
+					 	s_vtl_module as module,
+			         	s_cmt_content as title,
+			         	'' as url,
+			         	s_cmt_target_id as targetId,
+			         	'1' as isComment,
+					</when>
+				</choose>		     
+				s_vtl_create_datetime as crtTime,		      
+		      	s_cmt_uid as "user.usr_ent_id",
+		      	s_vtl_uid as "operator.usr_ent_id",		
+		      	operator.usr_display_bil as "operator.usr_display_bil",
+	      	  	operator_.urx_extra_43 as "operator.usr_photo"
+			from sns_comment
+			inner join sns_valuation_log on 
+		      	(Lower(s_vtl_type) = 'like' and s_cmt_id = s_vtl_target_id and Lower(s_vtl_module) in ('doing','group','course','article','knowledge') and s_vtl_is_comment = 1)		
+			left join regUser operator on s_vtl_uid=operator.usr_ent_id
+			left join RegUserExtension operator_ on operator.usr_ent_id=operator_.urx_usr_ent_id
+			where s_cmt_uid = #{params.usr_ent_id}
+			union all
+			select 
+				s_vtl_log_id as id,
+		     	<choose>
+					<when test="_databaseId == 'ORACLE'">
+						to_char(s_vtl_module) as module,
+				        (CASE when s_doi_act_id>0 then to_char(s_cmt_content) else to_char(s_doi_title) end) as title,
+				        to_char(s_doi_url) as url,
+				        s_doi_target_id as targetId,
+				        '0' as isComment,
+					</when>
+					<when test="_databaseId == 'SQLSERVER'">
+						s_vtl_module as module,
+				        (case when s_doi_act_id > 0 then s_cmt_content else s_doi_title end)as title,
+				        s_doi_url as url,
+				        s_doi_target_id as targetId,
+				        '0' as isComment,
+					</when>
+					<when test="_databaseId == 'MYSQL'">
+						s_vtl_module as module,
+				        (case when s_doi_act_id > 0 then s_cmt_content else s_doi_title end)as title,
+				        s_doi_url as url,
+				        s_doi_target_id as targetId,
+				        '0' as isComment,
+					</when>
+				</choose>		      
+				s_vtl_create_datetime as crtTime,		      
+				s_doi_uid as "user.usr_ent_id",
+				s_vtl_uid as "operator.usr_ent_id",
+				operator.usr_display_bil as "operator.usr_display_bil",
+				operator_.urx_extra_43 as "operator.usr_photo"
+			from sns_doing
+			inner join sns_valuation_log on 
+				(Lower(s_vtl_type) = 'like' and s_doi_id = s_vtl_target_id and Lower(s_vtl_module) in ('doing','group') and s_vtl_is_comment = 0)
+			left join sns_comment on s_cmt_id = s_doi_act_id
+			left join regUser operator on s_vtl_uid=operator.usr_ent_id
+			left join RegUserExtension operator_ on operator.usr_ent_id=operator_.urx_usr_ent_id
+			where s_doi_uid = #{params.usr_ent_id}	
+			union all
+			select 
+				s_vtl_log_id as id,
+			    	<choose>
+						<when test="_databaseId == 'ORACLE'">
+							to_char(s_vtl_module) as module,
+					        to_char(ans_content) as title,
+					        to_char('') as url,
+					        ans_id as targetId,
+					        '0' as isComment,
+						</when>
+						<when test="_databaseId == 'SQLSERVER'">
+							s_vtl_module as module,
+				         	ans_content as title,
+				         	'' as url,
+				         	ans_id as targetId,
+				         	'0' as isComment,
+						</when>
+						<when test="_databaseId == 'MYSQL'">
+							s_vtl_module as module,
+				         	ans_content as title,
+				         	'' as url,
+				         	ans_id as targetId,
+				         	'0' as isComment,
+						</when>
+				 	</choose>		     
+		      	s_vtl_create_datetime as crtTime,
+		      	ans_create_ent_id as "user.usr_ent_id",s_vtl_uid as "operator.usr_ent_id",
+		      	operator.usr_display_bil as "operator.usr_display_bil",
+		      	operator_.urx_extra_43 as "operator.usr_photo"
+			from knowAnswer
+			inner join sns_valuation_log on Lower(s_vtl_type) = 'like' and ans_id = s_vtl_target_id and Lower(s_vtl_module) = 'answer' 
+			left join regUser operator on s_vtl_uid=operator.usr_ent_id
+			left join RegUserExtension operator_ on operator.usr_ent_id=operator_.urx_usr_ent_id
+			where ans_create_ent_id = #{params.usr_ent_id}
+		) likeDetail order by crtTime desc		
+	</select>
+	
+	
+	 <delete id="delErrorData"  parameterType="Map" >
+	 	<!-- 重复的错误数据会导致程序出错，在错误发生成调用该方法删除重复的数据 -->
+	 	<choose>
+	 		<when test="_databaseId == 'MYSQL'">
+	 			delete from sns_valuation_log where s_vtl_log_id not in(
+				  select * from (select max(s_vtl_log_id) from sns_valuation_log  where s_vtl_type = 'like'
+				        group by s_vtl_uid,s_vtl_target_id,s_vtl_type,s_vtl_module ) AS tmp
+				)
+				and s_vtl_target_id in (
+					select * from (
+							select s_vtl_target_id from sns_valuation_log  where s_vtl_type = 'like'
+							group by s_vtl_uid,s_vtl_target_id,s_vtl_type,s_vtl_module having count(*) > 1
+					) AS tmp1
+				)
+				and s_vtl_type = 'like'	
+	 		</when>
+	 		<otherwise>
+	 			delete from sns_valuation_log where s_vtl_log_id not in(
+				  select max(s_vtl_log_id) from sns_valuation_log  where s_vtl_type = 'like'
+				        group by s_vtl_uid,s_vtl_target_id,s_vtl_type,s_vtl_module 
+				)
+				and s_vtl_target_id in (
+				    select s_vtl_target_id from sns_valuation_log  where s_vtl_type = 'like'
+				    group by s_vtl_uid,s_vtl_target_id,s_vtl_type,s_vtl_module having count(*) > 1
+				)
+				and s_vtl_type = 'like'	
+	 		</otherwise>
+	 	</choose>
+
+	</delete>
+	
+</mapper>

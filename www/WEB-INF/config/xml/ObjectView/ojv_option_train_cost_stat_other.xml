@@ -1,0 +1,11 @@
+<object_view>
+	<attribute checked="yes">p_itm_code</attribute>
+	<attribute checked="yes">p_itm_title</attribute>
+	<attribute checked="yes">c_itm_code</attribute>
+	<attribute checked="yes">c_itm_title</attribute>
+	<attribute checked="yes">itm_cost_budget</attribute>
+	<attribute checked="yes">itm_cost_actual</attribute>
+	<attribute checked="yes">itm_cost_exec_rate</attribute>
+	<attribute checked="yes">no_of_training_attend</attribute>
+	<attribute checked="yes">charge_per_head</attribute>
+</object_view>

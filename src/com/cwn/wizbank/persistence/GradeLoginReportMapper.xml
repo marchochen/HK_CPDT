@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.GradeLoginReportMapper">
+
+<insert id="insert" parameterType="com.cwn.wizbank.entity.GradeLoginReport">
+	 <![CDATA[
+		insert into gradeLoginReport(
+			gdlr_ugr_id,
+       		gdlr_year,
+        	gdlr_month,
+        	gdlr_login_mode,
+        	gdlr_totle_login_number,
+        	gdlr_last_update_date
+		) values (
+         	#{gdlrUgrId,jdbcType=INTEGER},
+         	#{gdlrYear,jdbcType=INTEGER},
+         	#{gdlrMonth,jdbcType=INTEGER},
+         	#{gdlrLoginMode,jdbcType=INTEGER},
+         	#{gdlrTotleLoginNumber,jdbcType=INTEGER},
+         	#{gdlrLastUpdateDate,jdbcType=TIMESTAMP}
+		)
+	 ]]>
+	 	 
+</insert>
+
+<select id="checkNumber" parameterType="com.cwn.wizbank.entity.GradeLoginReport" resultType="java.lang.Integer">
+		SELECT 
+			count(*)
+		FROM 
+			gradeLoginReport
+		where  gdlr_ugr_id = #{gdlrUgrId}  and gdlr_year = #{gdlrYear} and gdlr_month = #{gdlrMonth} and gdlr_login_mode = #{gdlrLoginMode}
+</select>
+
+<update id="update" parameterType="com.cwn.wizbank.entity.GradeLoginReport">
+   <![CDATA[
+	        update 
+	        	gradeLoginReport
+	        set 
+				gdlr_totle_login_number =  #{gdlrTotleLoginNumber,jdbcType=INTEGER},
+				gdlr_last_update_date = #{gdlrLastUpdateDate,jdbcType=TIMESTAMP}
+	         where 
+	            gdlr_ugr_id = #{gdlrUgrId}  and gdlr_year = #{gdlrYear} and gdlr_month = #{gdlrMonth} and gdlr_login_mode = #{gdlrLoginMode}
+	    ]]>
+</update>
+
+
+</mapper>

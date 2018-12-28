@@ -1,0 +1,747 @@
+--------------------------------------------------------------------------------------------------
+-- 2003-06-11
+-- changes made after backup image "wbv35_core_qatemp_pre_config_setup.bak":
+
+
+
+-- take away non-necessary role
+update acRole
+set rol_ste_ent_id = 0
+where rol_ext_id in ('TUT_1', 'CDN_1', 'APPR_1')
+
+-- take away non-necessary item type
+update aeItemType
+set ity_owner_ent_id = 0
+where ity_id in ('CLASSROOM')
+
+-- take away non-necessary item type template
+update aeItemTypeTemplate
+set itt_ity_owner_ent_id = 0
+where itt_ity_id in ('CLASSROOM')
+
+-- update item type id
+declare @org_type_1 varchar(20)
+declare @new_type_1 varchar(20)
+declare @org_type_2 varchar(20)
+declare @new_type_2 varchar(20)
+
+set @org_type_1 = 'VIDEO'
+set @new_type_1 = 'AUDIOVIDEO'
+set @org_type_2 = 'AUDIO'
+set @new_type_2 = 'WEBSITE'
+
+update aeItemType set ity_id = @new_type_1 where ity_id = @org_type_1
+update aeItemType set ity_id = @new_type_2 where ity_id = @org_type_2
+update aeItemTypeTemplate set itt_ity_id = @new_type_1 where itt_ity_id = @org_type_1
+update aeItemTypeTemplate set itt_ity_id = @new_type_2 where itt_ity_id = @org_type_2
+update aeItem set itm_type = @new_type_1 where itm_type = @org_type_1
+update aeItem set itm_type = @new_type_2 where itm_type = @org_type_2
+
+-- update item type title
+call %UPDXMLCMD% ..\xml\item_type\item_type_title_selfstudy.xml		aeItemType	ity_title_xml	"ity_id = 'SELFSTUDY'"
+call %UPDXMLCMD% ..\xml\item_type\item_type_title_book.xml		aeItemType	ity_title_xml	"ity_id = 'BOOK'"
+call %UPDXMLCMD% ..\xml\item_type\item_type_title_audiovideo.xml	aeItemType	ity_title_xml	"ity_id = 'AUDIOVIDEO'"
+call %UPDXMLCMD% ..\xml\item_type\item_type_title_website.xml		aeItemType	ity_title_xml	"ity_id = 'WEBSITE'"
+
+-- update item type ity_can_cancel_ind
+update aeItemType
+set ity_can_cancel_ind = 0
+where ity_id in ('SELFSTUDY', 'BOOK', 'AUDIOVIDEO', 'WEBSITE')
+
+-- update template title
+update aeTemplate set tpl_title = 'Auto-approval Workflow Template'      where tpl_title = 'Self Study Workflow Template'
+update aeTemplate set tpl_title = 'One-level-approval Workflow Template' where tpl_title = '2 Level Workflow Template'
+update aeTemplate set tpl_title = 'Audio/Video Item Template'            where tpl_title = 'Video Item Template'
+update aeTemplate set tpl_title = 'Website Item Template'                where tpl_title = 'Audio Item Template'
+
+-- add one more workflow template to SELFSTUDY
+insert into aeItemTypeTemplate (
+itt_ity_owner_ent_id, itt_ity_id, itt_ttp_id, itt_seq_id, itt_tpl_id, itt_run_tpl_ind, itt_create_timestamp, itt_create_usr_id, itt_session_tpl_ind
+) values (
+1, 'SELFSTUDY', 1, 2, 15, 0, '2003-06-11', 's1u3', 0
+)
+
+-- update item template and template view
+call %UPDXMLCMD% ..\xml\item\item_template_selfstudy.xml	aeTemplate	tpl_xml	"tpl_title = 'Self Study Item Template'"
+call %UPDXMLCMD% ..\xml\item\item_template_book.xml		aeTemplate	tpl_xml	"tpl_title = 'Book Item Template'"
+call %UPDXMLCMD% ..\xml\item\item_template_audiovideo.xml	aeTemplate	tpl_xml	"tpl_title = 'Audio/Video Item Template'"
+call %UPDXMLCMD% ..\xml\item\item_template_website.xml		aeTemplate	tpl_xml	"tpl_title = 'Website Item Template'"
+
+call %UPDXMLCMD% ..\xml\item\item_template_selfstudy_detail.xml	aeTemplateview	tvw_xml	"tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Self Study Item Template')"
+call %UPDXMLCMD% ..\xml\item\item_template_selfstudy_list.xml	aeTemplateview	tvw_xml	"tvw_id = 'LIST_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Self Study Item Template')"
+call %UPDXMLCMD% ..\xml\item\item_template_selfstudy_lrn.xml	aeTemplateview	tvw_xml	"tvw_id = 'LRN_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Self Study Item Template')"
+call %UPDXMLCMD% ..\xml\item\item_template_selfstudy_apply.xml	aeTemplateview	tvw_xml	"tvw_id = 'APPLY_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Self Study Item Template')"
+
+call %UPDXMLCMD% ..\xml\item\item_template_book_detail.xml	aeTemplateview	tvw_xml	"tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Book Item Template')"
+call %UPDXMLCMD% ..\xml\item\item_template_book_list.xml	aeTemplateview	tvw_xml	"tvw_id = 'LIST_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Book Item Template')"
+call %UPDXMLCMD% ..\xml\item\item_template_book_lrn.xml		aeTemplateview	tvw_xml	"tvw_id = 'LRN_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Book Item Template')"
+
+call %UPDXMLCMD% ..\xml\item\item_template_audiovideo_detail.xml	aeTemplateview	tvw_xml	"tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Audio/Video Item Template')"
+call %UPDXMLCMD% ..\xml\item\item_template_audiovideo_list.xml		aeTemplateview	tvw_xml	"tvw_id = 'LIST_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Audio/Video Item Template')"
+call %UPDXMLCMD% ..\xml\item\item_template_audiovideo_lrn.xml		aeTemplateview	tvw_xml	"tvw_id = 'LRN_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Audio/Video Item Template')"
+
+call %UPDXMLCMD% ..\xml\item\item_template_website_detail.xml		aeTemplateview	tvw_xml	"tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Website Item Template')"
+call %UPDXMLCMD% ..\xml\item\item_template_website_list.xml		aeTemplateview	tvw_xml	"tvw_id = 'LIST_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Website Item Template')"
+call %UPDXMLCMD% ..\xml\item\item_template_website_lrn.xml		aeTemplateview	tvw_xml	"tvw_id = 'LRN_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Website Item Template')"
+
+-- update application form template and template view
+call %UPDXMLCMD% ..\xml\appnform\appnform_template_selfstudy.xml	aeTemplate	tpl_xml	"tpl_title = 'Self Study Enrollment Form Template'"
+call %UPDXMLCMD% ..\xml\appnform\appnform_template_selfstudy_detail.xml	aeTemplateview	tvw_xml	"tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Self Study Enrollment Form Template')"
+
+-- update workflow template
+call %UPDXMLCMD% ..\xml\workflow\workflow_template_auto_en_us.xml	aeTemplate	tpl_xml	"tpl_title = 'Auto-approval Workflow Template'"
+call %UPDXMLCMD% ..\xml\workflow\workflow_template_onelevel_en_us.xml	aeTemplate	tpl_xml	"tpl_title = 'One-level-approval Workflow Template'"
+
+
+
+--------------------------------------------------------------------------------------------------
+-- 2003-06-12
+-- changes made after backup image "wbv35_core_qatemp_post_config_setup.bak":
+
+
+
+-- set up the role authority level for all roles
+update acRole set rol_auth_level = 1 where rol_ext_id = 'ADM_1'
+update acRole set rol_auth_level = 2 where rol_ext_id = 'TADM_1'
+update acRole set rol_auth_level = 3 where rol_ext_id = 'APPR_1'
+update acRole set rol_auth_level = 3 where rol_ext_id = 'CDN_1'
+update acRole set rol_auth_level = 3 where rol_ext_id = 'TUT_1'
+update acRole set rol_auth_level = 3 where rol_ext_id = 'NLRN_1'
+update acRole set rol_auth_level = 3 where rol_ext_id = 'VISTR_1'
+
+insert into acRoleFunction
+select rol_id, ftn_id, '2003-06-12' from acRole, acFunction where rol_ext_id = 'ADM_1' and ftn_ext_id = 'USR_MGT_SAME_AND_LOWER_ROLE'
+insert into acRoleFunction
+select rol_id, ftn_id, '2003-06-12' from acRole, acFunction where rol_ext_id = 'TADM_1' and ftn_ext_id = 'USR_MGT_SAME_AND_LOWER_ROLE'
+
+-- take away non-necessary role from the user "admin"
+update acEntityRole
+set erl_eff_end_datetime = '2003-06-12'
+where erl_ent_id in (select usr_ent_id from RegUser where usr_ste_usr_id = 'admin')
+and erl_rol_id in (select rol_id from acRole where rol_ext_id in ('APPR_1', 'CDN_1', 'TUT_1'))
+
+-- qa_roll_out_4
+call %UPDXMLCMD% ..\xml\item\item_template_selfstudy_apply.xml		aeTemplateview	tvw_xml	"tvw_id = 'APPLY_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Self Study Item Template')"
+call %UPDXMLCMD% ..\xml\appnform\appnform_template_selfstudy.xml	aeTemplate	tpl_xml	"tpl_title = 'Self Study Enrollment Form Template'"
+call %UPDXMLCMD% ..\xml\appnform\appnform_template_selfstudy_detail.xml	aeTemplateview	tvw_xml	"tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Self Study Enrollment Form Template')"
+call %UPDXMLCMD% ..\xml\workflow\workflow_template_auto_en_us.xml	aeTemplate	tpl_xml	"tpl_title = 'Auto-approval Workflow Template'"
+call %UPDXMLCMD% ..\xml\workflow\workflow_template_onelevel_en_us.xml	aeTemplate	tpl_xml	"tpl_title = 'One-level-approval Workflow Template'"
+
+-- add the access right of view all items to training admin
+insert into acRoleFunction
+select rol_id, ftn_id, '2003-06-12' from acRole, acFunction where rol_ext_id = 'TADM_1' and ftn_ext_id = 'ITM_SEARCH_RESPON_ALL'
+
+-- add User Management to training admin
+insert into acRoleFunction
+select rol_id, ftn_id, '2003-06-14' from acRole, acFunction where rol_ext_id = 'TADM_1' and ftn_ext_id = 'USR_INFO_MAIN'
+insert into acRoleFunction
+select rol_id, ftn_id, '2003-06-14' from acRole, acFunction where rol_ext_id = 'TADM_1' and ftn_ext_id = 'USR_MGT_ADMIN'
+insert into acRoleFunction
+select rol_id, ftn_id, '2003-06-14' from acRole, acFunction where rol_ext_id = 'TADM_1' and ftn_ext_id = 'USR_MGT_NON_ADMIN'
+insert into acHomePage (
+ac_hom_ent_id, ac_hom_rol_ext_id, ac_hom_ftn_ext_id, ac_hom_create_usr_id, ac_hom_create_timestamp
+) values (
+null, 'TADM_1', 'USR_INFO_MAIN', 's1u3', '2003-06-14'
+)
+
+-- update the display sequence of role
+update acRole set rol_seq_id = 6 where rol_ext_id = 'ADM_1'
+update acRole set rol_seq_id = 5 where rol_ext_id = 'TADM_1'
+
+-- update the display name of role
+call %UPDXMLCMD% ..\xml\acRole\role_title_nlrn_1.xml	acRole	rol_xml	"rol_ext_id = 'NLRN_1'"
+call %UPDXMLCMD% ..\xml\acRole\role_title_adm_1.xml	acRole	rol_xml	"rol_ext_id = 'ADM_1'"
+
+-- update the homepage function of learner (some functions are deleted and inserted again is to make sure that it exists in acHomePage)
+delete from acRoleFunction where 
+rfn_rol_id in (select rol_id from acRole where rol_ext_id = 'NLRN_1')
+and
+rfn_ftn_id in (select ftn_id from acFunction where ftn_ext_id in ('CAT_LIST', 'CMT_LINK', 'EVN_LIST', 'CAT_MAIN', 'USR_OWN_PREFER'))
+delete from acHomePage where ac_hom_rol_ext_id = 'NLRN_1' and ac_hom_ftn_ext_id in ('CMT_LINK', 'EVN_LIST', 'CAT_MAIN', 'USR_OWN_PREFER')
+
+insert into acRoleFunction
+select rol_id, ftn_id, '2003-06-15' from acRole, acFunction where rol_ext_id = 'NLRN_1' and ftn_ext_id = 'CAT_MAIN'
+insert into acRoleFunction
+select rol_id, ftn_id, '2003-06-15' from acRole, acFunction where rol_ext_id = 'NLRN_1' and ftn_ext_id = 'USR_OWN_PREFER'
+insert into acHomePage (
+ac_hom_ent_id, ac_hom_rol_ext_id, ac_hom_ftn_ext_id, ac_hom_create_usr_id, ac_hom_create_timestamp
+) values (
+null, 'NLRN_1', 'CAT_MAIN', 's1u3', '2003-06-15'
+)
+insert into acHomePage (
+ac_hom_ent_id, ac_hom_rol_ext_id, ac_hom_ftn_ext_id, ac_hom_create_usr_id, ac_hom_create_timestamp
+) values (
+null, 'NLRN_1', 'USR_OWN_PREFER', 's1u3', '2003-06-15'
+)
+
+-- update the homepage function of training admin (some functions are deleted and inserted again is to make sure that it exists in acHomePage)
+delete from acRoleFunction where 
+rfn_rol_id in (select rol_id from acRole where rol_ext_id = 'TADM_1')
+and
+rfn_ftn_id in (select ftn_id from acFunction where ftn_ext_id in ('ATTENDANCE_MAIN', 'BOOK_MAIN', 'CAT_LIST', 'CMT_LINK', 'LRN_RES_MAIN', 'CAT_MAIN', 'COS_EVN_MAIN', 'FOR_LINK', 'USR_OWN_PREFER'))
+delete from acHomePage where ac_hom_rol_ext_id = 'TADM_1' and ac_hom_ftn_ext_id in ('ATTENDANCE_MAIN', 'BOOK_MAIN', 'CAT_LIST', 'CMT_LINK', 'LRN_RES_MAIN', 'CAT_MAIN', 'COS_EVN_MAIN', 'FOR_LINK', 'USR_OWN_PREFER')
+
+insert into acRoleFunction
+select rol_id, ftn_id, '2003-06-15' from acRole, acFunction where rol_ext_id = 'TADM_1' and ftn_ext_id = 'CAT_MAIN'
+insert into acRoleFunction
+select rol_id, ftn_id, '2003-06-15' from acRole, acFunction where rol_ext_id = 'TADM_1' and ftn_ext_id = 'COS_EVN_MAIN'
+insert into acRoleFunction
+select rol_id, ftn_id, '2003-06-15' from acRole, acFunction where rol_ext_id = 'TADM_1' and ftn_ext_id = 'FOR_MAIN'
+insert into acRoleFunction
+select rol_id, ftn_id, '2003-06-15' from acRole, acFunction where rol_ext_id = 'TADM_1' and ftn_ext_id = 'USR_OWN_PREFER'
+insert into acHomePage (
+ac_hom_ent_id, ac_hom_rol_ext_id, ac_hom_ftn_ext_id, ac_hom_create_usr_id, ac_hom_create_timestamp
+) values (
+null, 'TADM_1', 'CAT_MAIN', 's1u3', '2003-06-15'
+)
+insert into acHomePage (
+ac_hom_ent_id, ac_hom_rol_ext_id, ac_hom_ftn_ext_id, ac_hom_create_usr_id, ac_hom_create_timestamp
+) values (
+null, 'TADM_1', 'COS_EVN_MAIN', 's1u3', '2003-06-15'
+)
+insert into acHomePage (
+ac_hom_ent_id, ac_hom_rol_ext_id, ac_hom_ftn_ext_id, ac_hom_create_usr_id, ac_hom_create_timestamp
+) values (
+null, 'TADM_1', 'FOR_MAIN', 's1u3', '2003-06-15'
+)
+insert into acHomePage (
+ac_hom_ent_id, ac_hom_rol_ext_id, ac_hom_ftn_ext_id, ac_hom_create_usr_id, ac_hom_create_timestamp
+) values (
+null, 'TADM_1', 'USR_OWN_PREFER', 's1u3', '2003-06-15'
+)
+
+-- update the homepage function of admin (some functions are deleted and inserted again is to make sure that it exists in acHomePage)
+delete from acRoleFunction where 
+rfn_rol_id in (select rol_id from acRole where rol_ext_id = 'ADM_1')
+and
+rfn_ftn_id in (select ftn_id from acFunction where ftn_ext_id in ('BOOK_MAIN', 'CAT_MAIN', 'CM_ASS_MAIN', 'CM_MAIN', 'CM_SKL_ANALYSIS', 'EVN_MAIN', 'FOR_MAIN', 'LRN_RES_MAIN', 'USR_OWN_PREFER'))
+delete from acHomePage where ac_hom_rol_ext_id = 'ADM_1' and ac_hom_ftn_ext_id in ('BOOK_MAIN', 'CAT_MAIN', 'CM_ASS_MAIN', 'CM_MAIN', 'CM_SKL_ANALYSIS', 'EVN_MAIN', 'FOR_MAIN', 'LRN_RES_MAIN', 'USR_OWN_PREFER')
+
+insert into acRoleFunction
+select rol_id, ftn_id, '2003-06-15' from acRole, acFunction where rol_ext_id = 'ADM_1' and ftn_ext_id = 'USR_OWN_PREFER'
+insert into acHomePage (
+ac_hom_ent_id, ac_hom_rol_ext_id, ac_hom_ftn_ext_id, ac_hom_create_usr_id, ac_hom_create_timestamp
+) values (
+null, 'ADM_1', 'USR_OWN_PREFER', 's1u3', '2003-06-15'
+)
+
+-- remove those not necessary acHomePage functions (those that are not orginially shown in homgpage)
+delete from acRoleFunction where 
+rfn_rol_id in (select rol_id from acRole where rol_ext_id = 'NLRN_1')
+and
+rfn_ftn_id in (select ftn_id from acFunction where ftn_ext_id in ('KM_LINK', 'TO_DO_LIST'))
+delete from acRoleFunction where 
+rfn_rol_id in (select rol_id from acRole where rol_ext_id = 'TADM_1')
+and
+rfn_ftn_id in (select ftn_id from acFunction where ftn_ext_id in ('KM_LINK', 'KM_MGT'))
+delete from acRoleFunction where 
+rfn_rol_id in (select rol_id from acRole where rol_ext_id = 'ADM_1')
+and
+rfn_ftn_id in (select ftn_id from acFunction where ftn_ext_id in ('KM_MGT', 'TO_DO_LIST'))
+
+-- update the display name of function
+call %UPDXMLCMD% ..\xml\acFunction\function_title_acl_main.xml		acFunction ftn_xml "ftn_ext_id = 'ACL_MAIN'"
+call %UPDXMLCMD% ..\xml\acFunction\function_title_cat_main.xml		acFunction ftn_xml "ftn_ext_id = 'CAT_MAIN'"
+call %UPDXMLCMD% ..\xml\acFunction\function_title_cos_evn_main.xml	acFunction ftn_xml "ftn_ext_id = 'COS_EVN_MAIN'"
+call %UPDXMLCMD% ..\xml\acFunction\function_title_for_link.xml		acFunction ftn_xml "ftn_ext_id = 'FOR_LINK'"
+call %UPDXMLCMD% ..\xml\acFunction\function_title_for_main.xml		acFunction ftn_xml "ftn_ext_id = 'FOR_MAIN'"
+call %UPDXMLCMD% ..\xml\acFunction\function_title_ims_data_mgt.xml	acFunction ftn_xml "ftn_ext_id = 'IMS_DATA_MGT'"
+call %UPDXMLCMD% ..\xml\acFunction\function_title_itm_main.xml		acFunction ftn_xml "ftn_ext_id = 'ITM_MAIN'"
+call %UPDXMLCMD% ..\xml\acFunction\function_title_itm_new.xml		acFunction ftn_xml "ftn_ext_id = 'ITM_NEW'"
+call %UPDXMLCMD% ..\xml\acFunction\function_title_lrn_hist_link.xml	acFunction ftn_xml "ftn_ext_id = 'LRN_HIST_LINK'"
+call %UPDXMLCMD% ..\xml\acFunction\function_title_lrn_list.xml		acFunction ftn_xml "ftn_ext_id = 'LRN_LIST'"
+call %UPDXMLCMD% ..\xml\acFunction\function_title_lrn_soln_link.xml	acFunction ftn_xml "ftn_ext_id = 'LRN_SOLN_LINK'"
+call %UPDXMLCMD% ..\xml\acFunction\function_title_rpt_link.xml		acFunction ftn_xml "ftn_ext_id = 'RPT_LINK'"
+call %UPDXMLCMD% ..\xml\acFunction\function_title_usr_info_main.xml	acFunction ftn_xml "ftn_ext_id = 'USR_INFO_MAIN'"
+
+-- hide the field "instructor" in module details
+ALTER TABLE dbo.DisplayOption ADD dpo_moderator_ind_bak bit NULL
+ALTER TABLE dbo.DisplayOption ADD dpo_instructor_ind_bak bit NULL
+update DisplayOption
+set dpo_moderator_ind_bak = dpo_moderator_ind, dpo_instructor_ind_bak = dpo_instructor_ind
+update DisplayOption
+set dpo_moderator_ind = 0, dpo_instructor_ind = 0
+
+-- set the xml url for messaging (set the string to the hostname and port in deployment)
+update xslTemplate
+set xtp_xml_url = replace(xtp_xml_url, 'host:port', 'cw01:201')
+where xtp_type <> 'USR_CREATION'
+
+-- take away the not necessary catalog functions from admin
+delete from acRoleFunction where 
+rfn_rol_id in (select rol_id from acRole where rol_ext_id = 'ADM_1')
+and
+rfn_ftn_id in (select ftn_id from acFunction where ftn_ext_id in ('CAT_NEW', 'CAT_OFF_READ'))
+
+-- give "create catalog" function to training admin
+insert into acRoleFunction
+select rol_id, ftn_id, '2003-06-16' from acRole, acFunction where rol_ext_id = 'TADM_1' and ftn_ext_id = 'CAT_NEW'
+
+-- hide the user "admin"
+update RegUser set usr_status = 'SYS' where usr_id = 's1u3'
+
+-- update system message
+update SystemMessage
+set sms_desc = 'User ID "$data" exists. Please specify another user ID.'
+where sms_id = 'USR001' and sms_lan = 'ISO-8859-1'
+update SystemMessage
+set sms_desc = 'Registration submitted. Your registration is pending for further approval.'
+where sms_id = 'USR012' and sms_lan = 'ISO-8859-1'
+
+-- take away not necessary report templates from training admin, 'APPR_1' treats as a dummy role here
+update acReportTemplate
+set ac_rte_rol_ext_id = 'APPR_1'
+where ac_rte_rol_ext_id <> 'TADM_1' or ac_rte_id not in (
+select rte_id from ReportTemplate where rte_type in ('LEARNER', 'SURVEY_COS_GRP')
+)
+
+-- update the report template view
+call %UPDXMLCMD% ..\xml\ObjectView\object_view_option_learner_item.xml			ObjectView ojv_option_xml "ojv_owner_ent_id = 1 AND ojv_type = 'LEARNER_REPORT' AND ojv_subtype = 'ITM'"
+call %UPDXMLCMD% ..\xml\ObjectView\object_view_option_learner_other.xml			ObjectView ojv_option_xml "ojv_owner_ent_id = 1 AND ojv_type = 'LEARNER_REPORT' AND ojv_subtype = 'OTHER'"
+call %UPDXMLCMD% ..\xml\ObjectView\object_view_option_survey_course_report_item.xml	ObjectView ojv_option_xml "ojv_owner_ent_id = 1 AND ojv_type = 'SURVEY_COURSE_REPORT' AND ojv_subtype = 'ITM'"
+
+-- no run object view
+delete from ObjectView
+where ojv_owner_ent_id = 1 and ojv_type = 'SURVEY_COURSE_REPORT' and ojv_subtype = 'RUN'
+
+-- change attendance status
+update aeAttendanceStatus set ats_type = 'WITHDRAWN', ats_cov_status = 'W' WHERE ats_type = 'NOSHOW'
+
+call %UPDXMLCMD% ..\xml\aeAttendanceStatus\attendance_status_title_completed.xml	aeAttendanceStatus ats_title_xml "ats_type = 'ATTEND'"
+call %UPDXMLCMD% ..\xml\aeAttendanceStatus\attendance_status_title_enrolled.xml		aeAttendanceStatus ats_title_xml "ats_type = 'PROGRESS'"
+call %UPDXMLCMD% ..\xml\aeAttendanceStatus\attendance_status_title_incomplete.xml	aeAttendanceStatus ats_title_xml "ats_type = 'INCOMPLETE'"
+call %UPDXMLCMD% ..\xml\aeAttendanceStatus\attendance_status_title_withdrawn.xml	aeAttendanceStatus ats_title_xml "ats_type = 'WITHDRAWN'"
+
+-- standard report spec
+insert into ReportSpec values (2, null, 'standard_learner', '', 's1u3', '2003-06-16', 's1u3', '2003-06-16') 
+insert into ReportSpec values (4, null, 'standard_cos_evn', '', 's1u3', '2003-06-16', 's1u3', '2003-06-16') 
+
+call %UPDXMLCMD% ..\xml\ReportSpec\report_spec_type_learner.xml	ReportSpec rsp_xml "rsp_rte_id = 2 and rsp_ent_id is null"
+call %UPDXMLCMD% ..\xml\ReportSpec\report_spec_type_cos_evn.xml	ReportSpec rsp_xml "rsp_rte_id = 4 and rsp_ent_id is null"
+
+-- turn on effective dates for SVY module
+update DisplayOption
+set dpo_eff_start_datetime_ind = 1, dpo_eff_end_datetime_ind = 1
+where dpo_res_subtype = 'SVY'
+
+-- take away not necessary functions from training admin and admin (ITM_NEW, COS_MAIN, IMS_DATA_MGT)
+delete from acRoleFunction where 
+rfn_rol_id in (select rol_id from acRole where rol_ext_id = 'TADM_1')
+and
+rfn_ftn_id in (select ftn_id from acFunction where ftn_ext_id in ('COS_MAIN', 'ITM_NEW'))
+delete from acRoleFunction where 
+rfn_rol_id in (select rol_id from acRole where rol_ext_id = 'ADM_1')
+and
+rfn_ftn_id in (select ftn_id from acFunction where ftn_ext_id in ('IMS_DATA_MGT'))
+delete from acHomePage where ac_hom_rol_ext_id = 'TADM_1' and ac_hom_ftn_ext_id in ('COS_MAIN', 'ITM_NEW')
+delete from acHomePage where ac_hom_rol_ext_id = 'ADM_1' and ac_hom_ftn_ext_id in ('IMS_DATA_MGT')
+
+-- update item template for missing paramname attribute
+call %UPDXMLCMD% ..\xml\item\item_template_selfstudy.xml	aeTemplate	tpl_xml	"tpl_title = 'Self Study Item Template'"
+call %UPDXMLCMD% ..\xml\item\item_template_book.xml		aeTemplate	tpl_xml	"tpl_title = 'Book Item Template'"
+call %UPDXMLCMD% ..\xml\item\item_template_audiovideo.xml	aeTemplate	tpl_xml	"tpl_title = 'Audio/Video Item Template'"
+
+-- update selfstudy template for approval indicator
+call %UPDXMLCMD% ..\xml\item\item_template_selfstudy_detail.xml	aeTemplateview	tvw_xml	"tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Self Study Item Template')"
+call %UPDXMLCMD% ..\xml\item\item_template_selfstudy_lrn.xml	aeTemplateview	tvw_xml	"tvw_id = 'LRN_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Self Study Item Template')"
+call %UPDXMLCMD% ..\xml\item\item_template_selfstudy_apply.xml	aeTemplateview	tvw_xml	"tvw_id = 'APPLY_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Self Study Item Template')"
+
+
+--------------------------------------------------------------------------------------------------
+-- 2003-06-17
+-- changes made after backup image "wbv35_core_std_base_good_logical_name.bak":
+
+
+
+-- add Usergroup Management to training admin
+insert into acRoleFunction
+select rol_id, ftn_id, '2003-06-17' from acRole, acFunction where rol_ext_id = 'TADM_1' and ftn_ext_id = 'USG_MGT'
+
+-- redo the skipped db changes when making the clean db for std_base
+/*
+Author : Lun
+Desc: Add and remove column from table UploadLog, for enhancement in upload question
+Date: 2003-04-28
+*/
+Alter table UploadLog drop column [ulg_path]
+go
+Alter table UploadLog drop column [ulg_file_lastmod]
+go
+Alter table UploadLog drop column [ulg_file_size]
+go
+Alter table UploadLog drop column [ulg_rec_cnt]
+go
+Alter table UploadLog drop column [ulg_success_cnt]
+go
+Alter table UploadLog add ulg_desc ntext null
+go
+Alter table UploadLog add ulg_process varchar(20) null
+go
+Update UploadLog set ulg_process = 'IMPORT'
+Alter table UploadLog alter column ulg_process varchar(20) not null
+go
+ALTER TABLE UploadLog ADD ulg_method varchar(20) null
+go
+Update UploadLog set ulg_method = 'UI'
+Alter table UploadLog alter column ulg_method varchar(20) not null
+go
+
+
+-- "verb" of the two actions are changed
+call %UPDXMLCMD% ..\xml\workflow\workflow_template_auto_en_us.xml	aeTemplate	tpl_xml	"tpl_title = 'Auto-approval Workflow Template'"
+call %UPDXMLCMD% ..\xml\workflow\workflow_template_onelevel_en_us.xml	aeTemplate	tpl_xml	"tpl_title = 'One-level-approval Workflow Template'"
+
+update aeAppnActnHistory set aah_verb = 'Checked quota (Passed)' where aah_verb = 'Quota check passed'
+update aeAppnActnHistory set aah_verb = 'Checked quota (Failed)' where aah_verb = 'Quota check failed'
+update aeAppnActnHistory set aah_verb = 'Applied' where aah_verb = 'Enrolled'
+
+
+
+--------------------------------------------------------------------------------------------------
+-- 2003-07-02
+-- changes made after backup image "wbv35_core_std_base_20030627.bak":
+
+-- set the continuing method of tracking history
+update aeItemType set ity_tkh_method = 'SEPARATED'
+
+
+-- hide the field "language", "difficulty" and "suggested time" in module details
+ALTER TABLE dbo.DisplayOption ADD dpo_lan_ind_bak bit NULL
+go
+ALTER TABLE dbo.DisplayOption ADD dpo_difficulty_ind_bak bit NULL
+go
+ALTER TABLE dbo.DisplayOption ADD dpo_suggested_time_ind_bak bit NULL
+go
+update DisplayOption
+set dpo_lan_ind_bak = dpo_lan_ind, dpo_difficulty_ind_bak = dpo_difficulty_ind, dpo_suggested_time_ind_bak = dpo_suggested_time_ind
+update DisplayOption
+set dpo_lan_ind = 0, dpo_difficulty_ind = 0, dpo_suggested_time_ind = 0
+
+
+
+--------------------------------------------------------------------------------------------------
+-- 2003-07-09
+-- changes made after backup image "wbv35_core_std_base_20030703.bak":
+
+-- add the grade for "admin" and "sysadmin".
+-- specify a grade for user "admin" and "sysadmin"
+insert into GroupMember (gpm_ent_id_group, gpm_ent_id_member, gpm_type, gpm_ancester, gpm_syn_date, gpm_remain_on_syn, gpm_start_timestamp, gpm_end_timestamp, gpm_group_name, gpm_full_path, gpm_create_usr_id, gpm_create_timestamp)
+select ugr_ent_id, usr_ent_id, 'USR_CURRENT_UGR', ' 5 , 7 ', null, 0, '2003-07-08', '9999-12-31 23:59:59', ugr_display_bil, ugr_display_bil, 's1u3', '2003-07-08' 
+from UserGrade, RegUser where ugr_ent_id = 7 and usr_id in ('s1u3', 's1u4')
+
+
+-- put back "Data Import" function to system administrator
+insert into acRoleFunction
+select rol_id, ftn_id, '2003-07-10' from acRole, acFunction where rol_ext_id = 'ADM_1' and ftn_ext_id = 'IMS_DATA_MGT'
+insert into acHomePage (
+ac_hom_ent_id, ac_hom_rol_ext_id, ac_hom_ftn_ext_id, ac_hom_create_usr_id, ac_hom_create_timestamp
+) values (
+null, 'ADM_1', 'IMS_DATA_MGT', 's1u3', '2003-07-10'
+)
+
+-- set up the UID for the default grade
+update Entity
+set ent_ste_uid = (select ugr_display_bil from UserGrade where ugr_ent_id = 7)
+where ent_id = 7
+
+-- set up the UID for the default roles
+update acRole set rol_ste_uid = 'Administrator' where rol_ext_id = 'ADM_1'
+update acRole set rol_ste_uid = 'Learner' where rol_ext_id = 'NLRN_1'
+update acRole set rol_ste_uid = 'ContentDeveloper' where rol_ext_id = 'TADM_1'
+
+
+-- missed SystemMessage in the blank database
+/*
+Author : Clifford
+Desc : Insert System Message records for NETg and SCORM courses
+Date : 2002-07-26
+*/
+insert into SystemMessage (sms_id, sms_lan, sms_desc) values ('SCO01', 'ISO-8859-1', 'The SCORM course has been imported successfully.')
+insert into SystemMessage (sms_id, sms_lan, sms_desc) values ('SCO01', 'Big5', 'The SCORM course has been imported successfully.')
+insert into SystemMessage (sms_id, sms_lan, sms_desc) values ('SCO01', 'GB2312', 'The SCORM course has been imported successfully.')
+insert into SystemMessage (sms_id, sms_lan, sms_desc) values ('SCO02', 'ISO-8859-1', 'Unexpected errors occured when loading the Manifest file.  Please check the format of the file and try again.')
+insert into SystemMessage (sms_id, sms_lan, sms_desc) values ('SCO02', 'Big5', 'Unexpected errors occured when loading the Manifest file.  Please check the format of the file and try again.')
+insert into SystemMessage (sms_id, sms_lan, sms_desc) values ('SCO02', 'GB2312', 'Unexpected errors occured when loading the Manifest file.  Please check the format of the file and try again.')
+
+
+
+--------------------------------------------------------------------------------------------------
+-- 2003-07-18
+-- changes made after backup image "wbv35_core_std_base_20030714.bak":
+
+-- remove unnecessary records from KM Library
+delete from kmObjectTypeTemplate where 
+ott_oty_owner_ent_id = 1 and ott_oty_code = 'KM_BOOK' and ott_ttp_id = 2 and ott_tpl_id = 23
+delete from kmObjectTypeTemplate where 
+ott_oty_owner_ent_id = 1 and ott_oty_code = 'KM_VIDEO' and ott_ttp_id = 2 and ott_tpl_id = 24
+delete from kmObjectTypeTemplate where 
+ott_oty_owner_ent_id = 1 and ott_oty_code = 'PROPOSAL' and ott_ttp_id = 2 and ott_tpl_id = 26
+delete from kmObjectTypeTemplate where 
+ott_oty_owner_ent_id = 1 and ott_oty_code = 'PRESENTATION' and ott_ttp_id = 2 and ott_tpl_id = 27
+delete from kmObjectTypeTemplate where 
+ott_oty_owner_ent_id = 1 and ott_oty_code = 'BUSINESS_CASE' and ott_ttp_id = 2 and ott_tpl_id = 29
+
+delete from kmObjectType where 
+oty_owner_ent_id = 1 and oty_code = 'KM_BOOK' and oty_nature = 'LIBRARY' and oty_seq_no = 1
+delete from kmObjectType where 
+oty_owner_ent_id = 1 and oty_code = 'KM_VIDEO' and oty_nature = 'LIBRARY' and oty_seq_no = 2
+delete from kmObjectType where 
+oty_owner_ent_id = 1 and oty_code = 'PROPOSAL' and oty_nature = 'OBJECT' and oty_seq_no = 4
+delete from kmObjectType where 
+oty_owner_ent_id = 1 and oty_code = 'PRESENTATION' and oty_nature = 'OBJECT' and oty_seq_no = 5
+delete from kmObjectType where 
+oty_owner_ent_id = 1 and oty_code = 'BUSINESS_CASE' and oty_nature = 'OBJECT' and oty_seq_no = 7
+
+
+-- for de-centralized training administrator
+-- (remove 'ITM_MGT_IN_ORG','ITM_SEARCH_RESPON_ALL' and insert 'ITM_MGT_IN_ITM_ACC')
+delete from acRoleFunction where 
+rfn_rol_id in (select rol_id from acRole where rol_ext_id = 'TADM_1')
+and
+rfn_ftn_id in (select ftn_id from acFunction where ftn_ext_id in ('ITM_MGT_IN_ORG', 'ITM_SEARCH_RESPON_ALL'));
+
+insert into acRoleFunction
+select rol_id, ftn_id, '2003-07-09' from acRole, acFunction where rol_ext_id = 'TADM_1' and ftn_ext_id in ('ITM_MGT_IN_ITM_ACC','RUN_MGT_IN_ITM');
+
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_audiovideo_detail.xml	aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Audio/Video Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_book_detail.xml		aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Book Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_selfstudy_detail.xml	aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Self Study Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_website_detail.xml		aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Website Item Template')"
+
+-- for data migration of de-centralized training administrator
+-- (default the training administrator of the course is the create user of that course)
+insert into aeItemAccess (iac_itm_id, iac_ent_id, iac_access_type, iac_access_id, iac_syn_timestamp)
+select itm_id, usr_ent_id, 'ROLE', 'TADM_1', null from aeItem, RegUser 
+where itm_create_usr_id = usr_id
+and itm_id not in (select distinct iac_itm_id from aeItemAccess) 
+
+
+/*
+Auth: Dennis Yip
+Date: 2003-07-18
+Desc: Update Classroom changes
+*/
+update aeItemType set ity_owner_ent_id = 1
+where ity_id = 'CLASSROOM'
+
+update aeItemTypeTemplate
+set itt_ity_owner_ent_id = 1
+where itt_ity_id = 'CLASSROOM'
+
+update aeITemType set ity_seq_id = 1
+where ity_id = 'CLASSROOM'
+and ity_run_ind = 0
+
+declare @tpl_id int
+declare @ste_ent_id int
+
+declare site_cursor cursor for 
+select ste_ent_id from acSite 
+
+open site_cursor
+fetch next from site_cursor 
+into @ste_ent_id
+
+while @@fetch_status = 0
+begin
+	select @tpl_id = tpl_id From aeTemplate where tpl_title = 'Auto-approval Workflow Template' and tpl_owner_ent_id = 1
+	
+	update aeItemTypeTemplate set itt_seq_id = 2
+	where itt_seq_id =1
+	and itt_ity_id = 'CLASSROOM'
+	and itt_ity_owner_ent_id = 1
+	and itt_ttp_id = 1
+	
+	insert into aeItemTypeTemplate (itt_ity_owner_ent_id, itt_ity_id, itt_ttp_id, itt_seq_id, itt_tpl_id, itt_run_tpl_ind, itt_create_timestamp, itt_create_usr_id, itt_session_tpl_ind)
+	values (1, 'CLASSROOM', 1, 1, @tpl_id, 0, getdate(), 's1u3', 0)
+
+	fetch next from site_cursor 
+	into @ste_ent_id
+end
+close site_cursor
+deallocate site_cursor
+
+update aeItemType set ity_can_cancel_ind = 0
+where ity_id = 'CLASSROOM'
+
+update aeItem set itm_can_cancel_ind = 0
+where itm_type = 'CLASSROOM'
+
+update aeTemplateView set tvw_target_ind = 0, tvw_itm_acc_ind = 0, tvw_rsv_ind = 0
+where tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Classroom Run ItemTemplate')
+
+call %UPDXMLCMD% xml\aeTemplate\tpl_item_classroom.xml		aeTemplate tpl_xml "tpl_title = 'Classroom Item Template'"
+call %UPDXMLCMD% xml\aeTemplate\tpl_item_classroom_run.xml	aeTemplate tpl_xml "tpl_title = 'Classroom Run ItemTemplate'"
+
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_classroom_detail.xml	aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Classroom Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_classroom_lrn.xml		aeTemplateview tvw_xml "tvw_id = 'LRN_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Classroom Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_classroom_apply.xml	aeTemplateview tvw_xml "tvw_id = 'APPLY_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Classroom Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_classroom_run_detail.xml	aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Classroom Run ItemTemplate')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_classroom_run_lrn.xml	aeTemplateview tvw_xml "tvw_id = 'LRN_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Classroom Run ItemTemplate')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_classroom_run_apply.xml	aeTemplateview tvw_xml "tvw_id = 'APPLY_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Classroom Run ItemTemplate')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_selfstudy_lrn.xml		aeTemplateview tvw_xml "tvw_id = 'LRN_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Self Study Item Template')"
+
+-- hide CLASSROOM away again
+update aeItemType set ity_owner_ent_id = 0 
+where ity_id = 'CLASSROOM'
+
+update aeItemTypeTemplate
+set itt_ity_owner_ent_id = 0
+where itt_ity_id = 'CLASSROOM'
+
+
+-- update the templates of km object
+call %UPDXMLCMD% xml\aeTemplate\tpl_object_document.xml	aeTemplate tpl_xml "tpl_title = 'Document Object Template'"
+call %UPDXMLCMD% xml\aeTemplate\tpl_object_news.xml	aeTemplate tpl_xml "tpl_title = 'News Object Template'"
+
+call %UPDXMLCMD% xml\aeTemplateView\tvw_object_document_create.xml	aeTemplateview tvw_xml "tvw_id = 'CREATE_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Document Object Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_object_document_read.xml	aeTemplateview tvw_xml "tvw_id = 'READ_VIEW'   and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Document Object Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_object_document_update.xml	aeTemplateview tvw_xml "tvw_id = 'UPDATE_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Document Object Template')"
+
+call %UPDXMLCMD% xml\aeTemplateView\tvw_object_news_create.xml	aeTemplateview tvw_xml "tvw_id = 'CREATE_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'News Object Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_object_news_read.xml	aeTemplateview tvw_xml "tvw_id = 'READ_VIEW'   and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'News Object Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_object_news_update.xml	aeTemplateview tvw_xml "tvw_id = 'UPDATE_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'News Object Template')"
+
+
+-- for de-centralized training administrator
+-- (remove 'COS_MGT_IN_ORG')
+delete from acRoleFunction where 
+rfn_rol_id in (select rol_id from acRole where rol_ext_id = 'TADM_1')
+and
+rfn_ftn_id in (select ftn_id from acFunction where ftn_ext_id = 'COS_MGT_IN_ORG');
+
+/*
+Auth: kim
+Date: 2003-07-22
+Desc: change item list view
+*/
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_audiovideo_list.xml	aeTemplateview tvw_xml "tvw_id = 'LIST_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Audio/Video Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_book_list.xml		aeTemplateview tvw_xml "tvw_id = 'LIST_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Book Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_selfstudy_list.xml		aeTemplateview tvw_xml "tvw_id = 'LIST_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Self Study Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_website_list.xml		aeTemplateview tvw_xml "tvw_id = 'LIST_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Website Item Template')"
+
+/*
+Auth: kim
+Date: 2003-07-22
+Desc: change role code for data import 
+*/
+update acRole set rol_ste_uid = 'SADM' where rol_ext_id like 'ADM_%'
+update acRole set rol_ste_uid = 'LRNR' where rol_ext_id like 'NLRN_%'
+update acRole set rol_ste_uid = 'TADM' where rol_ext_id like 'TADM_%'
+
+/*
+Auth: kawai
+Date: 2003-07-27
+Desc: localization of gb text
+*/
+call %UPDXMLCMD% xml\aeTemplate\tpl_object_document.xml		aeTemplate tpl_xml "tpl_title = 'Document Object Template'"
+call %UPDXMLCMD% xml\aeTemplate\tpl_object_news.xml		aeTemplate tpl_xml "tpl_title = 'News Object Template'"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_audiovideo_detail.xml	aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Audio/Video Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_book_detail.xml		aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Book Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_selfstudy_detail.xml	aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Self Study Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_selfstudy_lrn.xml		aeTemplateview tvw_xml "tvw_id = 'LRN_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Self Study Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_website_detail.xml		aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Website Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_object_document_create.xml	aeTemplateview tvw_xml "tvw_id = 'CREATE_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Document Object Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_object_document_read.xml	aeTemplateview tvw_xml "tvw_id = 'READ_VIEW'   and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Document Object Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_object_document_update.xml	aeTemplateview tvw_xml "tvw_id = 'UPDATE_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Document Object Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_object_news_create.xml		aeTemplateview tvw_xml "tvw_id = 'CREATE_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'News Object Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_object_news_read.xml		aeTemplateview tvw_xml "tvw_id = 'READ_VIEW'   and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'News Object Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_object_news_update.xml		aeTemplateview tvw_xml "tvw_id = 'UPDATE_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'News Object Template')"
+
+/*
+Auth: kawai
+Date: 2003-07-27
+Desc: fixed the error that "Title" and "Type" are not default selected
+*/
+call %UPDXMLCMD% xml\ObjectView\ojv_option_learner_item.xml			ObjectView ojv_option_xml "ojv_owner_ent_id = 1 AND ojv_type = 'LEARNER_REPORT' AND ojv_subtype = 'ITM'"
+
+/*
+Auth: Dennis Yip
+Date: 2003-08-01
+Desc: Update BOOK's and Global Enrollment Report's Big5 name
+*/
+call %UPDXMLCMD% xml\aeItemType\ity_title_book.xml		aeItemType ity_title_xml "ity_id = 'BOOK'"
+call %UPDXMLCMD% xml\ReportTemplate\rte_title_global_enrollment.xml	ReportTemplate rte_title_xml "rte_type = 'GLOBAL_ENROLLMENT'"
+
+/*
+Auth: kawai
+Date: 2003-08-05
+Desc: take away wizpack template from "Reading" module
+*/
+update Template
+set tpl_type = 'RDG_EX'
+where tpl_name like 'wizPack Browser %' and tpl_type = 'RDG';
+
+/*
+Auth: kawai
+Date: 2003-08-06
+Desc: Update xml
+*/
+call %UPDXMLCMD% xml\aeTemplate\tpl_workflow_auto_en_us.xml	aeTemplate tpl_xml "tpl_title = 'Auto-approval Workflow Template'"
+call %UPDXMLCMD% xml\aeTemplate\tpl_workflow_onelevel_en_us.xml	aeTemplate tpl_xml "tpl_title = 'One-level-approval Workflow Template'"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_classroom_run_detail.xml	aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Classroom Run ItemTemplate')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_classroom_run_lrn.xml	aeTemplateview tvw_xml "tvw_id = 'LRN_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Classroom Run ItemTemplate')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_selfstudy_detail.xml	aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Self Study Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_selfstudy_lrn.xml		aeTemplateview tvw_xml "tvw_id = 'LRN_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Self Study Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_object_document_create.xml	aeTemplateview tvw_xml "tvw_id = 'CREATE_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Document Object Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_object_document_read.xml	aeTemplateview tvw_xml "tvw_id = 'READ_VIEW'   and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Document Object Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_object_document_update.xml	aeTemplateview tvw_xml "tvw_id = 'UPDATE_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Document Object Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_object_news_create.xml		aeTemplateview tvw_xml "tvw_id = 'CREATE_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'News Object Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_object_news_read.xml		aeTemplateview tvw_xml "tvw_id = 'READ_VIEW'   and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'News Object Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_object_news_update.xml		aeTemplateview tvw_xml "tvw_id = 'UPDATE_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'News Object Template')"
+
+/*
+Auth: Kim
+Date: 2003-08-14
+Desc: add new fields "Created", "Created By", "Modifed", "Modified By" in item detail view
+*/
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_classroom_run_detail.xml	aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Classroom Run ItemTemplate')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_classroom_detail.xml	aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Classroom Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_selfstudy_detail.xml	aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Self Study Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_audiovideo_detail.xml	aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Audio/Video Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_book_detail.xml		aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Book Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_website_detail.xml		aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Website Item Template')"
+
+/*
+Auth: Emily
+Date: 2003-08-30
+Desc: updated some template views
+*/
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_audiovideo_detail.xml	aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Audio/Video Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_audiovideo_lrn.xml		aeTemplateview tvw_xml "tvw_id = 'LRN_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Audio/Video Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_book_lrn.xml		aeTemplateview tvw_xml "tvw_id = 'LRN_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Book Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_website_detail.xml		aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Website Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_website_lrn.xml		aeTemplateview tvw_xml "tvw_id = 'LRN_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Website Item Template')"
+
+/*
+Auth: Emily
+Date: 2003-09-05
+Desc: update item title of classroom and update some template views
+*/
+call %UPDXMLCMD% xml\aeItemType\ity_title_classroom.xml		aeItemType ity_title_xml "ity_id = 'CLASSROOM' and ity_run_ind = 0"
+call %UPDXMLCMD% xml\aeItemType\ity_title_classroom_run.xml	aeItemType ity_title_xml "ity_id = 'CLASSROOM' and ity_run_ind = 1"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_classroom_detail.xml	aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Classroom Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_classroom_lrn.xml		aeTemplateview tvw_xml "tvw_id = 'LRN_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Classroom Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_classroom_run_detail.xml	aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Classroom Run ItemTemplate')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_classroom_run_lrn.xml	aeTemplateview tvw_xml "tvw_id = 'LRN_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Classroom Run ItemTemplate')"
+
+/*
+Auth: kawai
+Date: 2003-09-06
+Desc: update some template views
+*/
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_book_detail.xml		aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Book Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_selfstudy_detail.xml	aeTemplateview tvw_xml "tvw_id = 'DETAIL_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Self Study Item Template')"
+call %UPDXMLCMD% xml\aeTemplateView\tvw_item_selfstudy_lrn.xml		aeTemplateview tvw_xml "tvw_id = 'LRN_VIEW' and tvw_tpl_id in (select tpl_id from aeTemplate where tpl_title = 'Self Study Item Template')"
+
+/*
+Auth: kawai
+Date: 2003-12-10
+Desc: put back classroom
+*/
+update aeItemType set ity_owner_ent_id = 1
+where ity_id = 'CLASSROOM'
+
+update aeItemTypeTemplate
+set itt_ity_owner_ent_id = 1
+where itt_ity_id = 'CLASSROOM'

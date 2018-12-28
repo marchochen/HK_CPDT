@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<user_management xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\user_management.xsd">
+	<!-- 
+	account_registration
+	Description:
+		Enable/disable the account registration related functions
+	Value:
+		active: "true" | "false"
+	Remarks:
+		If it is set to active, the account registration function and the registration approval function will be enabled, and vice versa. 
+	-->
+	<account_registration active="true"/>	
+	<!--  
+	forget_password
+	Description:
+		Enable/disable the forget password functions
+	Value:
+		active: "true" | "false"
+		link_last_days: 
+		max_attempt: 
+	Remarks:	
+	-->
+	<forget_password max_attempt="3" link_last_days="1" active="true"/>	
+	<!-- 
+	account_suspension
+	Description:
+		Enable/disable the account suspension related functions
+	Value:
+		active: "true" | "false"
+		max_trial: A positive integer that determines the max number of consecutive login failure before the account is suspended.
+	Remarks:
+		If it is set to active, the account suspension function and reactivation function will be enabled respectively, and vice versa. 
+	-->
+	<account_suspension active="true" max_trial="6"/>
+	<!-- 
+	user_profile
+	Description: Properties of user profile aTcttributes
+	-->
+	<user_profile>
+		<!-- 
+		profile_attributes
+		Description:
+			- Define which user attributes are hidden from or readonly to the end users.
+			- Define which user extension attributes are active.
+		Value:
+			Attributes of the user profile, represented by the following tags:  
+				<user_id/>
+				<name/>
+				<gender/>
+				<date_of_birth/>
+				<email/>
+				<phone/>
+				<fax/>
+				<job_title/>
+				<grade/>
+				<group/>
+				<direct_supervisors/>
+				<join_date/>
+				<role/>
+				<extension_1/>
+				<extension_2/>
+				<extension_3/>
+				<extension_4/>
+				<extension_5/>
+				<extension_6/>
+				<extension_7/>
+				<extension_8/>
+				<extension_9/>
+				<extension_10/>
+				<extension_11/>
+				<extension_12/>
+				<extension_13/>
+				<extension_14/>
+				<extension_15/>
+				<extension_16/>
+				<extension_17/>
+				<extension_18/>
+				<extension_19/>
+				<extension_20/>
+				<extension_21/>
+				<extension_22/>
+				<extension_23/>
+				<extension_24/>
+				<extension_25/>
+				<extension_26/>
+				<extension_27/>
+				<extension_28/>
+				<extension_29/>
+				<extension_30/>
+				<extension_31/>
+				<extension_32/>
+				<extension_33/>
+				<extension_34/>
+				<extension_35/>
+				<extension_36/>
+				<extension_37/>
+				<extension_38/>
+				<extension_39/>
+				<extension_40/>
+				<supervised_groups/>
+			For each of the above tag, one of the followng XML attributes may be added: 
+				hidden="true": It means the attributes is hidden from the end users. 
+				readonly="true": It means the user attribute is read-only to the end users. If hidden="true" is also used, this read-only property is ignored.
+			For the extension attrbutes, i.e. extension_1 to extension_40, the following XML attribute MUST be defined:
+				active="true" | "false": It defines if the extension attribute is used in the system or not. If active="false", both hidden="true" and readonly="true" properties are ignored. 
+			For each of the above tag except <password/>, the following XML attributes may be added:
+			    instr_attr="true" | "false": It defines if the field will be shown in Instructor Database.
+			                                            For non-extension field, it will be shown as read-only in Instructor Database.
+			                                            For extension field, it will be shown as read-only in Instructor Database its active is "true". Otherwise, it will be editable in Instructor Database.
+			For each of the above tag, sub-tag of the user attribute name must be defined in each of the language used.
+				The format is <label xml:lang="{language_code}">{text}</label> 
+					where {language_code} follows IETF RFC 1766, 
+					in which 
+						en-us refers to English (United States), 
+						zh-cn refers to Chinese (PRC), 
+						zh-hk refers to Chinese (Hong Kong).						
+		Remarks:
+			- If both readonly="true" and hidden="true" are NOT defined for a user attribute, it is open for end user modification. 
+			- User ID must be read-only by design.
+			- Password must be hidden by design.
+		-->
+		<profile_attributes>
+			<user_id readonly="true" searchable="all" min_length="3" max_length="20" instr_attr="true" type="text" fieldname="usr_id" publicity="0" group="personal" registration="true" allowEmpty="false">
+				<label xml:lang="en-us">User ID</label>
+				<label xml:lang="zh-cn">用户名</label>
+				<label xml:lang="zh-hk">用戶名</label>
+			</user_id>
+		</profile_attributes>
+		<!--
+		GRADE_LIST
+		Description:
+			This defines the selection list used for the grade attribute. 
+		Value:
+			Max number of selection up to 50 (i.e. id assigned up to 50).		
+		-->
+		<!--		<grade_list>
+			<grade id="1">Director</grade>
+			<grade id="2">Associate Director</grade>
+			<grade id="3">Senior Manager</grade>
+			<grade id="4">Manager</grade>
+			<grade id="5">Senior Associate</grade>
+			<grade id="6">Associate</grade>
+			<grade id="7">Unassigned</grade>
+		</grade_list>-->
+	</user_profile>
+</user_management>

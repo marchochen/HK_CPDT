@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.SnsGroupMemberMapper">
+	<select id="get" resultType="SnsGroupMember" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				s_gpm_id,
+				s_gpm_grp_id,
+				s_gpm_usr_id,
+				s_gpm_join_datetime,
+				s_gpm_status,
+				s_gpm_type,
+				s_gpm_apply_datetime,
+				s_gpm_check_datetime,
+				s_gpm_check_user
+			from sns_group_member t where t.s_gpm_id = #{id}
+		]]>
+	</select>
+	<select id="getByGroupIdAndUserId" resultType="SnsGroupMember" parameterType="Map">
+		<![CDATA[
+			select 
+				s_gpm_id,
+				s_gpm_grp_id,
+				s_gpm_usr_id,
+				s_gpm_join_datetime,
+				s_gpm_status,
+				s_gpm_type,
+				s_gpm_apply_datetime,
+				s_gpm_check_datetime,
+				s_gpm_check_user
+			from sns_group_member t where t.s_gpm_usr_id = #{usr_id} and t.s_gpm_grp_id=#{grp_id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.SnsGroupMember">
+        update sns_group_member 
+        set 
+        	<if test="s_gpm_join_datetime != null and s_gpm_join_datetime != ''">
+        		s_gpm_join_datetime = #{s_gpm_join_datetime,jdbcType=TIMESTAMP},
+        	</if>
+			s_gpm_status = #{s_gpm_status,jdbcType=INTEGER},
+			<if test="s_gpm_apply_datetime != null">
+				s_gpm_apply_datetime = #{s_gpm_apply_datetime,jdbcType=TIMESTAMP},
+			</if>
+			s_gpm_check_datetime = #{s_gpm_check_datetime,jdbcType=TIMESTAMP},
+			s_gpm_check_user = #{s_gpm_check_user,jdbcType=INTEGER}
+         where s_gpm_id in
+         <foreach collection="_parameter['s_gpm_id_list']" item="s_gpm_id" index="index" 
+			open="(" separator="," close=")">
+			${s_gpm_id}
+		</foreach>
+    </update>
+    <update id="updateManager" parameterType="SnsGroupMember">
+    	update sns_group_member
+    	set
+    		s_gpm_type = #{s_gpm_type,jdbcType=INTEGER}
+    	where s_gpm_grp_id = ${s_gpm_grp_id} and s_gpm_usr_id = ${s_gpm_usr_id}
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.SnsGroupMember">
+		insert into sns_group_member(
+			s_gpm_grp_id,
+       		s_gpm_usr_id,
+       		s_gpm_join_datetime,
+       		s_gpm_status,
+       		s_gpm_type
+       		<if test="s_gpm_apply_datetime != null and s_gpm_apply_datetime !=''">
+       			,s_gpm_apply_datetime
+       		</if>
+       		<if test="s_gpm_check_datetime != null and s_gpm_check_datetime !=''">
+       			,s_gpm_check_datetime
+       		</if>
+       		<if test="s_gpm_check_user != null and s_gpm_check_user !=''">
+       			,s_gpm_check_user
+       		</if>
+		) values (
+           	#{s_gpm_grp_id,jdbcType=INTEGER},
+           	#{s_gpm_usr_id,jdbcType=INTEGER},
+           	#{s_gpm_join_datetime,jdbcType=TIMESTAMP},
+           	#{s_gpm_status,jdbcType=INTEGER},
+           	#{s_gpm_type,jdbcType=INTEGER}
+           	<if test="s_gpm_apply_datetime != null and s_gpm_apply_datetime !=''">
+       			,#{s_gpm_apply_datetime,jdbcType=TIMESTAMP}
+       		</if>
+       		<if test="s_gpm_check_datetime != null and s_gpm_check_datetime !=''">
+       			,#{s_gpm_check_datetime,jdbcType=TIMESTAMP}
+       		</if>
+       		<if test="s_gpm_check_user != null and s_gpm_check_user !=''">
+       			,#{s_gpm_check_user,jdbcType=INTEGER}
+       		</if>
+		)
+    </insert>
+    <delete id="delete" parameterType="SnsGroupMember">
+		delete from sns_group_member  where s_gpm_grp_id = ${s_gpm_grp_id} and s_gpm_usr_id = ${s_gpm_usr_id}
+    </delete>
+	<select id="selectAll" resultType="SnsGroupMember">
+	    <![CDATA[
+	         select 
+				s_gpm_id,
+				s_gpm_grp_id,
+				s_gpm_usr_id,
+				s_gpm_join_datetime,
+				s_gpm_status,
+				s_gpm_type,
+				s_gpm_apply_datetime,
+				s_gpm_check_datetime,
+				s_gpm_check_user
+			from sns_group_member t 
+	    ]]>
+	</select>
+	<select id="selectSnsGroupMemberList" resultType="SnsGroupMember" parameterType="Page">
+		select
+			s_gpm_id,
+			s_gpm_grp_id,
+			s_gpm_usr_id,
+			s_gpm_status,
+			s_gpm_apply_datetime,
+			s_gpm_check_datetime,
+			usr_ent_id as "user.usr_ent_id",
+			usr_display_bil as "user.usr_display_bil",
+			usr_display_bil,
+			usg_display_bil as "user.usg_display_bil",
+			usg_display_bil,
+			ugr_display_bil as "user.ugr_display_bil",
+			ugr_display_bil,
+			urx_extra_43 as "user.usr_photo"
+		from sns_group_member
+		left join regUser on usr_ent_id = s_gpm_usr_id
+		left join regUserExtension on urx_usr_ent_id = usr_ent_id
+		left join entityRelation usg on usg.ern_child_ent_id = usr_ent_id and usg.ern_type = 'USR_PARENT_USG' and usg.ern_parent_ind = 1
+		left join userGroup on usg_ent_id = usg.ern_ancestor_ent_id
+		left join entityRelation ugr on ugr.ern_child_ent_id = usr_ent_id and ugr.ern_type = 'USR_CURRENT_UGR' and ugr.ern_parent_ind = 1
+		left join userGrade on ugr_ent_id = ugr.ern_ancestor_ent_id
+		where s_gpm_grp_id = ${params.s_gpm_grp_id}
+		<choose>
+			<when test="params.s_gpm_usr_id != null and params.s_gpm_usr_id > 0">
+				and s_gpm_usr_id = ${params.s_gpm_usr_id}
+			</when>
+			<otherwise>
+				and s_gpm_status = ${params.s_gpm_status}
+			</otherwise>
+		</choose>
+		<if test="params.type != null and params.type == 'approve'">
+			and s_gpm_apply_datetime is not null
+		</if>
+		<if test="params.searchContent != null and params.searchContent != ''">
+			and (
+				lower(usr_display_bil) like lower(N'%${params.searchContent}%') 
+				or lower(usr_ste_usr_id) like lower(N'%${params.searchContent}%') 
+				or lower(usg_display_bil) like lower(N'%${params.searchContent}%') 
+				or lower(ugr_display_bil) like lower(N'%${params.searchContent}%')
+			)
+		</if>
+	</select>
+	<select id="isThisGroupMember" resultType="SnsGroupMember" parameterType="SnsGroupMember">
+		select 
+			s_gpm_id
+		from sns_group_member
+		where s_gpm_grp_id = #{s_gpm_grp_id} and s_gpm_usr_id = #{s_gpm_usr_id} and s_gpm_status = #{s_gpm_status}
+	</select>
+	<select id="findNotJoinGroupMemberList" resultType="RegUser" parameterType="Page">
+		select 
+			distinct
+			usr_ent_id,
+			usr_display_bil,
+			usg_display_bil,
+			ugr_display_bil,
+			urx_extra_43 as "usr_photo"
+		from tcTrainingCenter
+		inner join tcTrainingCenterTargetEntity on (tce_tcr_id = tcr_id)
+		left join EntityRelation gpg on gpg.ern_ancestor_ent_id = tce_ent_id and gpg.ern_type = 'USG_PARENT_USG'
+		left join EntityRelation usg on (usg.ern_ancestor_ent_id = tce_ent_id or usg.ern_ancestor_ent_id = gpg.ern_child_ent_id) and usg.ern_type = 'USR_PARENT_USG' and usg.ern_parent_ind = 1
+		left join UserGroup on usg_ent_id = usg.ern_ancestor_ent_id
+		left join RegUser on usr_ent_id = usg.ern_child_ent_id and usr_status = 'OK' 
+		left join EntityRelation ugr on ugr.ern_child_ent_id = usr_ent_id and ugr.ern_type = 'USR_CURRENT_UGR' and ugr.ern_parent_ind = 1
+		left join UserGrade on ugr_ent_id = ugr.ern_ancestor_ent_id
+		left join RegUserExtension on urx_usr_ent_id = usr_ent_id
+		left join acEntityRole on erl_ent_id = usr_ent_id
+		<if test="params.instrOnly != null and params.instrOnly == true">
+		inner join InstructorInf on iti_ent_id = usr_ent_id
+		</if>
+		where 1=1 and erl_rol_id = (select rol_id from acRole where rol_ste_uid = 'LRNR')
+		<if test="params.cfgTcEnabled != null and params.cfgTcEnabled == true">
+			and tcr_id = ${params.tcr_id}
+			and usg_ent_id in 
+				(
+				 select ern_child_ent_id from EntityRelation usg_id where ern_type = 'USG_PARENT_USG'
+				 	and usg_id.ern_ancestor_ent_id in (select tce_ent_id from tcTrainingCenterTargetEntity tcte1 
+				 	where tcte1.tce_tcr_id = ${params.tcp_id})
+				 union (select tce_ent_id ern_child_ent_id from tcTrainingCenterTargetEntity tcte2 
+				 	where tcte2.tce_tcr_id = ${params.tcp_id})
+				 )
+		</if>
+		and usr_ent_id not in (
+			select s_gpm_usr_id from sns_group_member 
+			where s_gpm_grp_id = ${params.s_gpm_grp_id} and s_gpm_status = ${params.s_gpm_status} 
+			union select ${params.usr_ent_id} from sns_group_member
+		) and (
+			lower(usr_display_bil) like lower(N'%${params.searchContent}%')
+			or lower(usr_ste_usr_id) like lower(N'%${params.searchContent}%') 
+			or lower(usg_display_bil) like lower(N'%${params.searchContent}%') 
+			or lower(ugr_display_bil) like lower(N'%${params.searchContent}%')
+		)
+	</select>
+	
+	<delete id="deleteAll" parameterType="Long">
+		delete from sns_group_member where s_gpm_grp_id = #{id}
+	</delete>
+</mapper>

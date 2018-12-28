@@ -1,0 +1,872 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.CpdLrnAwardRecordMapper">
+	
+	<resultMap type="com.cwn.wizbank.entity.CpdLrnAwardRecord" id="cpdAwardRecord">
+	    <id column="clar_id" property="clar_id" />
+		<result column="clar_usr_ent_id" property="clar_usr_ent_id"></result>
+		<result column="clar_itm_id" property="clar_itm_id"></result>
+		<result column="clar_app_id" property="clar_app_id"></result>
+		<result column="clar_manul_ind" property="clar_manul_ind"></result>
+		<result column="clar_ct_id" property="clar_ct_id"></result>
+		<result column="clar_cg_id" property="clar_cg_id"></result>
+		<result column="clar_acgi_id" property="clar_acgi_id"></result>
+		<result column="clar_award_core_hours" property="clar_award_core_hours"></result>
+		<result column="clar_award_non_core_hours" property="clar_award_non_core_hours"></result>
+		<result column="clar_award_datetime" property="clar_award_datetime"></result>
+		<result column="clar_create_usr_ent_id" property="clar_create_usr_ent_id"></result>
+		<result column="clar_create_datetime" property="clar_create_datetime"></result>
+		<result column="clar_update_usr_ent_id" property="clar_update_usr_ent_id"></result>
+		<result column="clar_update_datetime" property="clar_update_datetime"></result>
+        <result property="usr_display_bil" column="usr_display_bil" />
+        <result property="usr_ste_usr_id" column="usr_ste_usr_id" />
+        <result column="usg_name" property="usg_name"/>
+		<collection property="cpdLrnAwardRecordList"  column="{usr_ent_id = clar_usr_ent_id, itm_id=clar_itm_id,app_id = clar_app_id}" ofType="CpdLrnAwardRecord" select="getCpdLrnAward" />
+	</resultMap>
+	
+	<select id="getCpdLrnAwardRecord" resultType="CpdLrnAwardRecord" parameterType="Map">
+	    <![CDATA[
+			select 
+				clar_id ,
+				clar_usr_ent_id ,
+				clar_itm_id,
+				clar_app_id ,
+				clar_manul_ind,
+				clar_ct_id ,
+				clar_cg_id ,
+				clar_acgi_id ,
+				clar_award_core_hours ,
+				clar_award_non_core_hours ,
+				clar_award_datetime ,
+				clar_create_usr_ent_id ,
+				clar_create_datetime,
+				clar_update_usr_ent_id ,
+				clar_update_datetime
+	         from 
+	         	cpdLrnAwardRecord
+	      ]]>
+	      <if test="period !=null and period!=0">
+	         	,cpdGroupRegistration 
+	            ,cpdGroupRegHours 
+	      </if>
+	      <![CDATA[
+	         where 
+	         	1 = 1
+		 ]]>
+		<if test="period !=null and period!=0">
+			<![CDATA[
+			    and cgr_status = 'OK' 
+				and cgr_cg_id = clar_cg_id
+         		and cgrh_cgr_id = cgr_id
+         		and cgrh_cgr_period = #{period}
+				and (cgrh_cal_start_date <= clar_award_datetime and clar_award_datetime <= cgrh_cal_end_date )
+			]]>
+		</if>
+		<if test="clar_usr_ent_id !=null ">
+			<![CDATA[
+				and clar_usr_ent_id = #{clar_usr_ent_id}
+			]]>
+		</if>
+        <if test="clar_usr_ent_id !=null and period !=null and period!=0">
+            <![CDATA[
+                and cgr_usr_ent_id = #{clar_usr_ent_id}
+                and cgrh_usr_ent_id = #{clar_usr_ent_id}
+            ]]>
+        </if>
+        <if test="cgrh_cgr_id !=null">
+            <![CDATA[
+                and cgrh_cgr_id = #{cgrh_cgr_id}
+            ]]>
+        </if>
+		<if test="clar_itm_id !=null">
+			<![CDATA[
+			 and ( clar_itm_id  in ( select ar.ire_child_itm_id from aeItemRelation ar 
+				  inner join aeItemRelation ae on ae.ire_child_itm_id = #{clar_itm_id} 
+				  and ar.ire_parent_itm_id = ae.ire_parent_itm_id) or clar_itm_id = #{clar_itm_id} )
+			]]>
+		</if>
+		<if test="clar_app_id !=null">
+			<![CDATA[
+				and clar_app_id = #{clar_app_id}
+			]]>
+		</if>
+		<if test="clar_acgi_id !=null">
+			<![CDATA[
+				and clar_acgi_id = #{clar_acgi_id}
+			]]>
+		</if>
+		<if test="clar_cg_id !=null">
+			<![CDATA[
+				and clar_cg_id = #{clar_cg_id}
+			]]>
+		</if>
+		order by clar_award_datetime asc
+	</select>
+
+	<delete id="deleteCpdLrnAwardRecord" parameterType="Map">
+		<![CDATA[
+		delete cpdLrnAwardRecord 
+			where 1=1
+		]]>
+		<if test="itm_id !=null">
+			<![CDATA[
+				and clar_itm_id = #{itm_id}
+			]]>
+		</if>
+		<if test="usr_ent_id !=null">
+			<![CDATA[
+				and clar_usr_ent_id = #{usr_ent_id}
+			]]>
+		</if>
+		<if test="cg_id !=null">
+			<![CDATA[
+				and clar_cg_id = #{cg_id}
+			]]>
+		</if>
+	</delete>
+	
+	<select id="sumAwardHours" resultType="com.cwn.wizbank.cpd.vo.CpdHourVO" parameterType="Map">
+        <![CDATA[
+            select 
+                sum(clar_award_core_hours) totle_award_core_hours,
+                sum(clar_award_non_core_hours) totle_award_non_core_hours
+             from 
+                cpdLrnAwardRecord
+             where 
+                1 = 1
+        ]]>
+        <if test="usr_ent_id !=null">
+            <![CDATA[
+                and clar_usr_ent_id = #{usr_ent_id}
+            ]]>
+        </if>
+        <if test="itm_id !=null">
+            <![CDATA[
+                and clar_itm_id = #{itm_id}
+            ]]>
+        </if>
+        <if test="cg_id !=null">
+            <![CDATA[
+                and clar_cg_id = #{cg_id}
+            ]]>
+        </if>
+        <if test="start_time !=null">
+            <![CDATA[
+                and clar_award_datetime >= #{start_time}
+            ]]>
+        </if>
+        <if test="end_time !=null">
+            <![CDATA[
+                and clar_award_datetime <= #{end_time}
+            ]]>
+        </if>
+        <if test="group_by_id !=null">group by clar_cg_id</if>
+    </select>
+	
+	
+	<select id="sumAwardHoursOutding" resultType="com.cwn.wizbank.cpd.vo.CpdHourVO" parameterType="Map">
+        <![CDATA[
+            select 
+                sum(clar_award_core_hours) totle_award_core_hours,
+                sum(clar_award_non_core_hours) totle_award_non_core_hours
+             from 
+                cpdLrnAwardRecord,
+                 cpdGroupRegistration ,
+                 cpdGroupRegHours 
+             where 
+                cgr_cg_id = clar_cg_id
+                 and cgrh_cgr_id = cgr_id
+                 and cgr_usr_ent_id = clar_usr_ent_id
+                 and cgr_status = 'OK'
+                 and (cgrh_cal_start_date <= clar_award_datetime and clar_award_datetime <= cgrh_cal_end_date )
+                and (cgr_expiry_date is null or cgr_expiry_date>cgrh_cal_end_date)
+        ]]>
+        <if test="usr_ent_id !=null">
+            <![CDATA[
+                and clar_usr_ent_id = #{usr_ent_id}
+            ]]>
+        </if>
+        <if test="itm_id !=null">
+            <![CDATA[
+                and clar_itm_id = #{itm_id}
+            ]]>
+        </if>
+        <if test="cg_id !=null">
+            <![CDATA[
+                and clar_cg_id = #{cg_id}
+            ]]>
+        </if>
+        <if test="period !=null">
+            <![CDATA[
+                and cgrh_cgr_period = #{period}
+            ]]>
+        </if>
+        
+        <if test="group_by_id !=null">
+            group by clar_cg_id
+        </if>
+    </select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.CpdLrnAwardRecord">
+	    <![CDATA[
+	        update cpdLrnAwardRecord 
+	        set
+				clar_usr_ent_id = #{clar_usr_ent_id,jdbcType=INTEGER},
+				clar_itm_id = #{clar_itm_id,jdbcType=INTEGER},
+           		clar_app_id = #{clar_app_id,jdbcType=INTEGER},
+           		clar_manul_ind = #{clar_manul_ind,jdbcType=INTEGER},
+           		clar_ct_id = #{clar_ct_id,jdbcType=INTEGER},
+           		clar_cg_id = #{clar_cg_id,jdbcType=INTEGER},
+           		clar_acgi_id = #{clar_acgi_id,jdbcType=INTEGER},
+           		clar_award_core_hours = #{clar_award_core_hours,jdbcType=FLOAT},
+           		clar_award_non_core_hours = #{clar_award_non_core_hours,jdbcType=FLOAT},
+           		clar_award_datetime = #{clar_award_datetime,jdbcType=TIMESTAMP},
+           		clar_create_usr_ent_id = #{clar_create_usr_ent_id,jdbcType=INTEGER},
+           		clar_create_datetime = #{clar_create_datetime,jdbcType=TIMESTAMP},
+           		clar_update_usr_ent_id = #{clar_update_usr_ent_id,jdbcType=INTEGER},
+           		clar_update_datetime = #{clar_update_datetime,jdbcType=TIMESTAMP}
+	         where clar_id = #{clar_id,jdbcType=INTEGER}
+	    ]]>
+	</update>
+	
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.CpdLrnAwardRecord">
+	    <![CDATA[
+            insert into cpdLrnAwardRecord(
+            		clar_usr_ent_id,
+            		clar_itm_id,
+            		clar_app_id,
+            		clar_manul_ind,
+            		clar_ct_id,
+            		clar_cg_id,
+            		clar_acgi_id,
+            		clar_award_core_hours,
+            		clar_award_non_core_hours,
+            		clar_award_datetime,
+            		clar_create_usr_ent_id,
+            		clar_create_datetime,
+            		clar_update_usr_ent_id,
+            		clar_update_datetime
+            ) values (
+				#{clar_usr_ent_id,jdbcType=INTEGER},
+				#{clar_itm_id,jdbcType=INTEGER},
+           		#{clar_app_id,jdbcType=INTEGER},
+           		#{clar_manul_ind,jdbcType=INTEGER},
+           		#{clar_ct_id,jdbcType=INTEGER},
+           		#{clar_cg_id,jdbcType=INTEGER},
+           		#{clar_acgi_id,jdbcType=INTEGER},
+           		#{clar_award_core_hours,jdbcType=FLOAT},
+           		#{clar_award_non_core_hours,jdbcType=FLOAT},
+           		#{clar_award_datetime,jdbcType=TIMESTAMP},
+           		#{clar_create_usr_ent_id,jdbcType=INTEGER},
+           		#{clar_create_datetime,jdbcType=TIMESTAMP},
+           		#{clar_update_usr_ent_id,jdbcType=INTEGER},
+           		#{clar_update_datetime,jdbcType=TIMESTAMP}
+            )
+        ]]>
+	</insert>
+
+    <select id="getMaxCPDCoreHours" resultType="com.cwn.wizbank.entity.CpdLrnAwardRecord" parameterType="Map">
+      <![CDATA[ SELECT  
+				 clar_usr_ent_id,
+				 clar_itm_id,
+				 usr_display_bil,
+				 clar_award_core_hours
+				 FROM CpdLrnAwardRecord
+				left join RegUser u on u.usr_ent_id = clar_usr_ent_id
+      where clar_award_core_hours = ( ]]>
+		<choose>
+			<when test="_databaseId == 'SQLSERVER'">
+				  <![CDATA[
+					SELECT 
+						isnull(max(clar_award_core_hours),0)  as clar_award_core_hours
+					FROM 
+						CpdLrnAwardRecord
+					WHERE clar_cg_id = #{clar_cg_id}  and clar_itm_id = #{clar_itm_id}
+					]]>	
+			</when>
+			<when test="_databaseId == 'ORACLE'">
+			  	<![CDATA[
+					SELECT 
+						NVL(max(clar_award_core_hours),0)  as clar_award_core_hours
+					FROM 
+						CpdLrnAwardRecord
+					WHERE clar_cg_id = #{clar_cg_id}  and clar_itm_id = #{clar_itm_id}
+				]]>	
+			</when>
+			<otherwise>
+			  	<![CDATA[
+					SELECT 
+						IFNULL(max(clar_award_core_hours),0)  as clar_award_core_hours
+					FROM 
+						CpdLrnAwardRecord
+					WHERE clar_cg_id = #{clar_cg_id}  and clar_itm_id = #{clar_itm_id}
+				]]>	
+			</otherwise>
+		</choose>
+	  <![CDATA[ )  ]]>
+	</select>
+	
+	<select id="getMaxCPDNonCoreHours" resultType="com.cwn.wizbank.entity.CpdLrnAwardRecord" parameterType="Map">
+	    <![CDATA[ SELECT  
+				 clar_usr_ent_id,
+				 clar_itm_id,
+				 usr_display_bil,
+				 clar_award_non_core_hours
+				 FROM CpdLrnAwardRecord
+				left join RegUser u on u.usr_ent_id = clar_usr_ent_id
+      where clar_award_non_core_hours = ( ]]>
+	
+	  <![CDATA[
+		SELECT 
+		]]>	
+		 <choose>
+			<when test="_databaseId == 'ORACLE'">
+			    <![CDATA[  NVL(max(clar_award_non_core_hours),0) ]]>	
+			</when>
+			<when test="_databaseId == 'SQLSERVER'">
+				 <![CDATA[	ISNULL(max(clar_award_non_core_hours),0)  ]]>	
+			</when>
+			<when test="_databaseId == 'MYSQL'">
+				 <![CDATA[	IFNULL(max(clar_award_non_core_hours),0)  ]]>	
+			</when>
+		</choose>
+		<![CDATA[
+		  as clar_award_core_hours
+		FROM 
+			CpdLrnAwardRecord
+		WHERE clar_cg_id = #{clar_cg_id}  and clar_itm_id = #{clar_itm_id}
+		 )  ]]>
+	</select>
+	
+	<select id="getMaxCPDCoreHoursAwardRecord" resultType="CpdLrnAwardRecord" parameterType="Map">
+	    <![CDATA[
+			select 
+				clar_id ,
+				clar_usr_ent_id ,
+				clar_itm_id,
+				clar_app_id ,
+				clar_manul_ind,
+				clar_ct_id ,
+				clar_cg_id ,
+				clar_acgi_id ,
+				clar_award_core_hours ,
+				clar_award_non_core_hours ,
+				clar_award_datetime ,
+				clar_create_usr_ent_id ,
+				clar_create_datetime,
+				clar_update_usr_ent_id ,
+				clar_update_datetime
+	         from 
+	         	cpdLrnAwardRecord
+	         where 
+	         	1 = 1
+		]]>
+		<if test="clar_cg_id !=null">
+			<![CDATA[
+				and clar_cg_id = #{clar_cg_id}
+			]]>
+		</if>
+		<if test="clar_itm_id !=null">
+			<![CDATA[
+				and clar_itm_id = #{clar_itm_id}
+			]]>
+		</if>
+		order by #{order} asc
+	</select>
+	
+	<select id="searchAll" resultMap="cpdAwardRecord" parameterType="Page">
+		<![CDATA[
+			SELECT 
+				 distinct app_id as clar_app_id,
+				 app_ent_id as clar_usr_ent_id,
+				 app_itm_id as clar_itm_id,
+				 cov_complete_datetime as clar_award_datetime,
+				 usr_ste_usr_id,
+				 usr_display_bil,
+		]]>
+		<choose>
+			<when test="_databaseId == 'SQLSERVER'">
+			  <![CDATA[
+				 ISNULL (usg_display_bil , '--') as usg_name
+			]]>
+			</when>	 
+			<when test="_databaseId == 'ORACLE'">
+			  	<![CDATA[
+				 NVL (usg_display_bil , '--') as usg_name
+				]]>
+			</when>
+			<otherwise>
+			  	<![CDATA[
+				IFNULL(usg_display_bil , '--') as usg_name
+				]]>
+			</otherwise>
+		</choose>
+		<![CDATA[
+				FROM 
+					aeApplication 
+					left join cpdLrnAwardRecord on clar_app_id = app_id 
+					left join courseEvaluation on app_tkh_id = cov_tkh_id 
+					left join RegUser u on u.usr_ent_id = app_ent_id 
+					left join EntityRelation on  ern_child_ent_id = app_ent_id 
+					left join UserGroup on usg_ent_id =  ern_ancestor_ent_id  
+				WHERE 
+					ern_type = 'USR_PARENT_USG' 
+					and ern_parent_ind = 1
+		]]>
+		<if test="params.searchTxt !=null">
+			<![CDATA[
+			and (usr_ste_usr_id like N'%${params.searchTxt}%'  or usr_display_bil like N'%${params.searchTxt}%' )
+			]]>
+		</if>
+		<if test="params.itm_id !=null">
+			<![CDATA[
+			and app_itm_id = ${params.itm_id}
+			]]>
+		</if>
+		<if test="params.status !=null">
+			<![CDATA[
+			and cov_status = '${params.status}'
+			]]>
+		</if>
+		order by clar_usr_ent_id desc , clar_award_datetime desc
+	</select>
+	
+	<select id="getCpdLrnAward" resultType="CpdLrnAwardRecord" parameterType="Map">
+	        select clar_id,
+					clar_usr_ent_id,
+					clar_itm_id,
+					clar_ct_id,
+					clar_cg_id,
+					clar_acgi_id,
+					clar_app_id,
+					clar_award_core_hours,
+					clar_award_non_core_hours,
+					clar_manul_ind
+		    from cpdLrnAwardRecord
+			where clar_itm_id = #{itm_id}  and clar_usr_ent_id = #{usr_ent_id}	 and clar_app_id = #{app_id}
+    </select>
+    
+    
+    <select id="findCpdAwardUser" resultType="com.cwn.wizbank.entity.CpdLrnAwardRecord" parameterType="Map">
+		<![CDATA[
+			SELECT   
+				 clar_usr_ent_id,
+				 clar_itm_id,
+				 clar_award_datetime
+			FROM CpdLrnAwardRecord
+			WHERE 1=1
+		]]>
+		<if test="itmId !=null">
+			<![CDATA[
+			and clar_itm_id = ${itmId}
+			]]>
+		</if>
+		group by clar_usr_ent_id,clar_itm_id,clar_award_datetime
+		order by clar_award_datetime desc
+	</select>
+    
+    <resultMap type="CpdLrnAwardRecord" id="cpdAwardRecordList">
+	    <id column="clar_id" property="clar_id" />
+		<result column="clar_usr_ent_id" property="clar_usr_ent_id"></result>
+		<result column="clar_itm_id" property="clar_itm_id"></result>
+		<result column="clar_app_id" property="clar_app_id"></result>
+		<result column="clar_manul_ind" property="clar_manul_ind"></result>
+		<result column="clar_ct_id" property="clar_ct_id"></result>
+		<result column="clar_cg_id" property="clar_cg_id"></result>
+		<result column="clar_acgi_id" property="clar_acgi_id"></result>
+		<result column="clar_award_core_hours" property="clar_award_core_hours"></result>
+		<result column="clar_award_non_core_hours" property="clar_award_non_core_hours"></result>
+		<result column="clar_award_datetime" property="clar_award_datetime"></result>
+		<result column="clar_create_usr_ent_id" property="clar_create_usr_ent_id"></result>
+		<result column="clar_create_datetime" property="clar_create_datetime"></result>
+		<result column="clar_update_usr_ent_id" property="clar_update_usr_ent_id"></result>
+		<result column="clar_update_datetime" property="clar_update_datetime"></result>
+		<result column="usr_ste_usr_id" property="usr_ste_usr_id"></result>
+		<result column="usr_display_bil" property="usr_display_bil"></result>
+		<collection property="cpdLrnAwardRecordList"  column="{usr_ent_id = clar_usr_ent_id, itm_id=clar_itm_id, app_id=clar_app_id}" ofType="CpdLrnAwardRecord" select="getCpdLrnAward" />
+	</resultMap>
+	
+	<select id="searchAllByAppId" resultMap="cpdAwardRecordList" parameterType="Map">		
+		<![CDATA[
+			SELECT 
+				 distinct app_id as clar_app_id,
+			     clar_manul_ind, 
+			     clar_ct_id,
+	 			 clar_cg_id,
+	 			 clar_acgi_id,
+				 app_ent_id as clar_usr_ent_id,
+				 app_itm_id as clar_itm_id,
+				 cov_complete_datetime as clar_award_datetime,
+				 usr_ste_usr_id,
+				 usr_display_bil
+		]]>
+		
+		<![CDATA[
+				FROM 
+					aeApplication 
+					left join cpdLrnAwardRecord on clar_app_id = app_id 
+					left join courseEvaluation on app_tkh_id = cov_tkh_id 
+					left join RegUser u on u.usr_ent_id = app_ent_id 
+				WHERE 
+					1=1
+		]]>
+		<if test="usr_ent_id !=null">
+			<![CDATA[
+			and app_ent_id = ${usr_ent_id}
+			]]>
+		</if>
+		<if test="itm_id !=null">
+			<![CDATA[
+			and app_itm_id = ${itm_id}
+			]]>
+		</if>
+		<if test="status !=null">
+			<![CDATA[
+			and cov_status = '${status}'
+			]]>
+		</if>
+		<if test="app_id !=null">
+			<![CDATA[
+			and app_id = ${app_id}
+			]]>
+		</if>
+		order by clar_award_datetime desc
+	</select>
+	
+	<update id="updateById" parameterType="com.cwn.wizbank.entity.CpdLrnAwardRecord">
+	    <![CDATA[
+	        update cpdLrnAwardRecord 
+	        set
+	     ]]>
+	        <if test="clar_award_core_hours !=null">
+				<![CDATA[ clar_award_core_hours = #{clar_award_core_hours,jdbcType=FLOAT}, ]]>
+		    </if>
+		    <if test="clar_award_non_core_hours !=null">
+				<![CDATA[  clar_award_non_core_hours = #{clar_award_non_core_hours,jdbcType=FLOAT}, ]]>
+		     </if>
+		<![CDATA[		
+           		clar_manul_ind = #{clar_manul_ind,jdbcType=INTEGER},
+           		clar_update_usr_ent_id = #{clar_update_usr_ent_id,jdbcType=INTEGER},
+           		clar_update_datetime = #{clar_update_datetime,jdbcType=TIMESTAMP}
+	         where  1 = 1
+	     ]]>
+	     <if test="clar_id != null">
+				<![CDATA[ and clar_id  = #{clar_id,jdbcType=INTEGER} ]]>
+		 </if>
+		 <if test="clar_usr_ent_id != null and clar_itm_id != null and clar_app_id != null">
+				<![CDATA[ and clar_usr_ent_id  = #{clar_usr_ent_id,jdbcType=INTEGER} 
+				          and clar_itm_id  = #{clar_itm_id,jdbcType=INTEGER} 
+				          and clar_app_id  = #{clar_app_id,jdbcType=INTEGER} 
+				]]>
+		 </if>
+	</update>
+	
+	<resultMap id="cpdLrnAwardRecordreport" type="com.cwn.wizbank.entity.CpdLrnAwardRecord">
+       <id column="clar_id" property="clar_id" />
+       <result column="clar_usr_ent_id" property="clar_usr_ent_id"></result>
+       <result column="usr_display_bil" property="usr_display_bil"></result>
+       <result column="usg_name" property="usg_name"></result>
+       <result column="upt_title" property="upt_title"></result>
+       <result column="usr_ste_usr_id" property="usr_ste_usr_id"></result>
+       <result column="period" property="period"></result>
+       <collection property="cpdLrnAwardRecordList"  column="{usr_ent_id = clar_usr_ent_id, period = period}" ofType="CpdLrnAwardRecord" select="getCpdLrnAwardRecordListReport" />
+   </resultMap>
+   
+   <select id="getNowGroupRegHoursReport" resultMap="cpdLrnAwardRecordreport" parameterType="Map">
+      select distinct usr_ent_id as clar_usr_ent_id,usr_display_bil,usr_ste_usr_id,
+      <choose>
+			<when test="_databaseId == 'SQLSERVER'">
+			  <![CDATA[
+				 ISNULL (usg_display_bil , '--') as usg_name
+			]]>
+			</when>	 
+			<when test="_databaseId == 'ORACLE'">
+			  	<![CDATA[
+				 NVL (usg_display_bil , '--') as usg_name
+				]]>
+			</when>
+			<otherwise>
+			  	<![CDATA[
+				IFNULL(usg_display_bil , '--') as usg_name
+				]]>
+			</otherwise>
+		</choose>,upt_title,cgrh_cgr_period as period
+		 from  RegUser 
+		  left join EntityRelation on ern_child_ent_id = usr_ent_id and  ern_type = 'USR_PARENT_USG'  and ern_parent_ind = 1
+		  left join UserGroup on ern_ancestor_ent_id = usg_ent_id 
+		 
+		  left join UserPositionRelation on  upr_usr_ent_id = usr_ent_id
+          left join UserPosition on upt_id = upr_upt_id 
+          
+          inner join cpdGroupRegHours
+	       on cgrh_usr_ent_id = usr_ent_id and cgrh_cgr_period = ${period} 
+	       inner join cpdRegistration on cr_id = cgrh_cr_id 
+        and cr_status = 'OK'
+		   
+		   inner join cpdGroupRegistration on  cgrh_cgr_id = cgr_id 
+           and  ( cgr_expiry_date > cgrh_cal_end_date   or cgr_expiry_date is null ) 
+           and cgr_status = 'OK' 
+		   where 1 = 1
+          <!--大牌id  -->
+          <if test="exportCpdTypeIds != null and exportCpdTypeIds.size > 0">
+ 			and cr_ct_id in 
+ 			<foreach collection="exportCpdTypeIds" item="item" index="index" 
+				open="(" separator="," close=")">
+				${item}
+			</foreach>
+		 </if>
+		 <choose>
+         	<when test="exportUserIds != null and exportUserIds.size > 0">
+         		<!--用户id  -->
+	 			and usr_ent_id in 
+	 			<foreach collection="exportUserIds" item="item" index="index" 
+					open="(" separator="," close=")">
+					${item}
+				</foreach>
+         	</when>
+         	<when test="exportGroupIds != null and exportGroupIds.size > 0">
+         		<!--用户组id  -->
+         		and usr_ent_id in(
+	         		 select ern_child_ent_id from EntityRelation where ern_ancestor_ent_id in
+					    <foreach collection="exportGroupIds" item="item" index="index" 
+							open="(" separator="," close=")">
+							${item}
+						</foreach>
+				       and ern_type='USR_PARENT_USG')
+         	</when>
+         	<otherwise>
+         		and usr_ent_id in (
+                <choose>
+                   <when test="is_role_tc_ind !=null and is_role_tc_ind != true">
+                    <!-- 角色与培训中心无关 --> 
+                    select ern_child_ent_id from EntityRelation where ern_ancestor_ent_id in(
+						select tce_ent_id from tcTrainingCenterTargetEntity where tce_tcr_id = #{my_top_tc_id} ) and ern_type='USR_PARENT_USG'    
+                   </when>
+                   <otherwise>
+                    select ern_child_ent_id from EntityRelation where ern_ancestor_ent_id in(
+						select tce_ent_id from tcTrainingCenterTargetEntity,tcTrainingCenterOfficer where tce_tcr_id = tco_tcr_id 
+						and  tco_usr_ent_id = #{usr_ent_id}
+						and tco_rol_ext_id = #{current_role}
+						<!-- 二级培训中心是否独立 -->
+						<if test="tc_independent == true">
+							and ( tce_tcr_id in( select tcn_child_tcr_id from tcrelation where tcn_ancestor = #{my_top_tc_id} ) 
+						      or tce_tcr_id = #{my_top_tc_id})
+						</if>
+						)  and ern_type='USR_PARENT_USG'
+                   </otherwise>
+                </choose>
+				)
+         	</otherwise>
+         </choose>
+		order by ${sortOrderName}  ${sortOrderBy} 
+   </select>
+   
+    <select id="getCpdLrnAwardRecordListReport" resultType="CpdLrnAwardRecord" parameterType="Map">
+	       select clar_usr_ent_id,clar_cg_id,clar_ct_id,SUM(clar_award_core_hours) as clar_award_core_hours,SUM(clar_award_non_core_hours) as clar_award_non_core_hours
+		    from cpdLrnAwardRecord
+		    inner join cpdGroupRegHours
+		       on cgrh_usr_ent_id = clar_usr_ent_id and cgrh_cgr_period = #{period} 
+			   and cgrh_cgr_id in 
+			   (
+			   select cgr_id from cpdGroupRegistration where cgr_usr_ent_id = clar_usr_ent_id and cgr_cg_id = clar_cg_id and cgr_status = 'OK'  
+			    and  ( cgr_expiry_date > cgrh_cal_end_date   or cgr_expiry_date is null ) 
+			   )
+			   and clar_award_datetime BETWEEN cgrh_cal_start_date AND cgrh_cal_end_date
+			where  clar_usr_ent_id = #{usr_ent_id}	 
+			
+			group by   clar_usr_ent_id,clar_cg_id,clar_ct_id
+    </select>
+    
+    <resultMap type="com.cwn.wizbank.entity.CpdLrnAwardRecord" id="cpdAllLrnAward">
+	    <id column="clar_id" property="clar_id" />
+		<result column="clar_usr_ent_id" property="clar_usr_ent_id"></result>
+		<result column="clar_itm_id" property="clar_itm_id"></result>
+		<result column="clar_app_id" property="clar_app_id"></result>
+		<result column="clar_manul_ind" property="clar_manul_ind"></result>
+		<result column="clar_ct_id" property="clar_ct_id"></result>
+		<result column="clar_cg_id" property="clar_cg_id"></result>
+		<result column="clar_acgi_id" property="clar_acgi_id"></result>
+		<result column="clar_award_core_hours" property="clar_award_core_hours"></result>
+		<result column="clar_award_non_core_hours" property="clar_award_non_core_hours"></result>
+		<result column="clar_award_datetime" property="clar_award_datetime"></result>
+		<result column="clar_create_usr_ent_id" property="clar_create_usr_ent_id"></result>
+		<result column="clar_create_datetime" property="clar_create_datetime"></result>
+		<result column="clar_update_usr_ent_id" property="clar_update_usr_ent_id"></result>
+		<result column="clar_update_datetime" property="clar_update_datetime"></result>
+        <result property="usr_display_bil" column="usr_display_bil" />
+        <result property="usr_ste_usr_id" column="usr_ste_usr_id" />
+        <result column="usg_name" property="usg_name"/>
+		<collection property="cpdLrnAwardRecordList"  column="{usr_ent_id = clar_usr_ent_id, itm_id=clar_itm_id, app_id = clar_app_id}" ofType="CpdLrnAwardRecord" select="getCpdLrnAward" />
+	</resultMap>
+    
+   <resultMap type="com.cwn.wizbank.cpd.vo.IndividualReportVo" id="recordForIndividualReport">
+	    <id column="itm_id" property="itm_id" />
+	    <result column="itm_title" property="itm_title"></result>
+	    <result column="clar_ct_id" property="ct_id"></result>
+	    <result column="clar_usr_ent_id" property="usr_ent_id"></result>
+	    <result column="aci_accreditation_code" property="accreditation_code"></result>
+        <result column="clar_award_datetime" property="award_datetime"></result>
+        <result column="clar_app_id" property="app_id"></result>
+        <result column="period" property="period"></result>
+        <result column="cr_id" property="cr_id"></result>
+        <collection property="cpd_group_list"  
+        	column="{usr_ent_id = clar_usr_ent_id , ct_id = clar_ct_id, itm_id = itm_id  , app_id = clar_app_id ,period = period,cr_id=cr_id}" 
+        	ofType="com.cwn.wizbank.cpd.vo.CpdGroupSumVo" select="getCpdGroupSumList" />
+        	 
+	 </resultMap>
+    
+    
+    <select id="getRecordForIndividualReport" resultMap="recordForIndividualReport" parameterType="Map">
+			select 
+				distinct clar_app_id,
+				itm_id, 
+				CASE
+                  WHEN itm_type ='CLASSROOM' THEN 
+	                  <choose>
+						<when test="_databaseId == 'ORACLE'">
+						    <![CDATA[   p_itm_title || ' > ' ||itm_title ]]>	
+						</when>
+						<when test="_databaseId == 'SQLSERVER'">
+							 <![CDATA[	 p_itm_title + ' > ' + itm_title  ]]>	
+						</when>
+						<when test="_databaseId == 'MYSQL'">
+							 <![CDATA[	concat(p_itm_title,' > ',itm_title)  ]]>	
+						</when>
+					 </choose>
+				  ELSE itm_title 
+				END as itm_title,
+				clar_ct_id,
+				clar_usr_ent_id,
+				aci_accreditation_code,
+				clar_award_datetime,
+				clar_app_id,
+				#{period} as period,
+				#{cr_id}  as cr_id
+		   from cpdLrnAwardRecord
+			  left join aeItem on itm_id = clar_itm_id
+			  left join aeItemCPDItem on aci_itm_id = itm_id
+			  left join 
+					(select 
+						ire_child_itm_id, 
+					    itm_title as p_itm_title
+					from aeItem ,aeItemRelation 
+					where ire_parent_itm_id= itm_id 
+					) tmp
+				 on (itm_id = tmp.ire_child_itm_id)
+	         where 
+	         	clar_usr_ent_id = #{usr_ent_id}
+	         	and clar_ct_id = #{ct_id}
+		
+ 		<if test="orderAwardTime != null and orderAwardTime == 1">
+ 			<![CDATA[
+ 			order by clar_award_datetime asc
+ 			]]>
+ 		</if>
+ 		 <if test="orderTitle != null and orderTitle == 1">
+ 			<![CDATA[
+ 			order by itm_title asc
+ 			]]>
+ 		</if>
+		
+	</select>
+	
+	<resultMap type="com.cwn.wizbank.cpd.vo.CpdGroupSumVo" id="cpdGroupSumVo">
+	    <id column="cg_id" property="cg_id"/>
+		<result column="sum_award_core_hours" property="sum_award_core_hours" javaType="java.lang.Float" jdbcType="FLOAT"></result>
+		<result column="sum_award_non_core_hours" property="sum_award_non_core_hours" javaType="java.lang.Float" jdbcType="FLOAT"></result>
+	</resultMap>
+	
+	<select id="getCpdGroupSumList" resultMap="cpdGroupSumVo" parameterType="Map">
+	    <![CDATA[
+	      	select 
+	             clar_cg_id as cg_id,
+	             sum(clar_award_core_hours) as sum_award_core_hours ,
+	             sum(clar_award_non_core_hours) as sum_award_non_core_hours
+	        from cpdLrnAwardRecord,
+	             cpdGroupRegistration ,
+	             cpdGroupRegHours 
+	       where 
+	       		 cgr_cg_id = clar_cg_id
+         		 and cgrh_cgr_id = cgr_id
+         		 and cgr_usr_ent_id = clar_usr_ent_id
+    			 and cgr_status = 'OK'
+         		 and cgrh_cgr_period = #{period,jdbcType=INTEGER}
+		         and clar_usr_ent_id = #{usr_ent_id,jdbcType=INTEGER}
+		         and clar_ct_id = #{ct_id,jdbcType=INTEGER}
+		         and clar_itm_id = #{itm_id,jdbcType=INTEGER}
+		         and clar_app_id = #{app_id,jdbcType=INTEGER}
+		         and cgr_cr_id = #{cr_id,jdbcType=INTEGER}
+		         and (cgrh_cal_start_date <= clar_award_datetime and clar_award_datetime <= cgrh_cal_end_date )
+		   group by clar_cg_id
+		]]>
+ 		<if test="orderAwardTime != null and orderAwardTime == 1">
+ 			<![CDATA[
+ 			order by clar_award_datetime desc
+ 			]]>
+ 		</if>
+		
+	</select>
+	
+
+	
+	<select id="searchAllLrnAward" resultMap="cpdAllLrnAward" parameterType="Map">
+		<![CDATA[
+			SELECT 
+				 distinct app_id as clar_app_id,
+			     clar_manul_ind, 
+				 app_ent_id as clar_usr_ent_id,
+				 app_itm_id as clar_itm_id,
+				 cov_complete_datetime as clar_award_datetime,
+				 usr_ste_usr_id,
+				 usr_display_bil,
+		]]>
+		<choose>
+			<when test="_databaseId == 'SQLSERVER'">
+			  <![CDATA[
+				 ISNULL (usg_display_bil , '--') as usg_name
+			]]>
+			</when>	 
+			<when test="_databaseId == 'ORACLE'">
+			  	<![CDATA[
+				 NVL (usg_display_bil , '--') as usg_name
+				]]>
+			</when>
+			<otherwise>
+			  	<![CDATA[
+				IFNULL(usg_display_bil , '--') as usg_name
+				]]>
+			</otherwise>
+		</choose>
+		<![CDATA[
+				FROM 
+					aeApplication 
+					left join cpdLrnAwardRecord on clar_app_id = app_id 
+					left join courseEvaluation on app_tkh_id = cov_tkh_id 
+					left join RegUser u on u.usr_ent_id = app_ent_id 
+					left join EntityRelation on  ern_child_ent_id = app_ent_id 
+					left join UserGroup on usg_ent_id =  ern_ancestor_ent_id  
+				WHERE 
+					ern_type = 'USR_PARENT_USG' 
+					and ern_parent_ind = 1
+		]]>
+		<if test="searchTxt !=null and searchTxt !=''">
+			<![CDATA[
+			and (usr_ste_usr_id like N'%${searchTxt}%'  or usr_display_bil like N'%${searchTxt}%' )
+			]]>
+		</if>
+		<if test="itm_id !=null">
+			<![CDATA[
+			and app_itm_id = #{itm_id}
+			]]>
+		</if>
+		<if test="status !=null">
+			<![CDATA[
+			and cov_status = #{status}
+			]]>
+		</if>
+		order by clar_usr_ent_id desc , clar_award_datetime desc
+	</select>
+	
+
+</mapper>

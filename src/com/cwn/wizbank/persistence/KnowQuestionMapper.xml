@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.KnowQuestionMapper">
+	<select id="get" resultType="KnowQuestion" parameterType="java.lang.Long">
+			select 
+				que_id,
+				que_title,
+				que_answered_timestamp,
+				que_popular_ind,
+				que_popular_timestamp,
+				que_reward_credits,
+				que_status,
+				que_create_ent_id,
+				que_create_timestamp,
+				que_update_ent_id,
+				que_update_timestamp,
+				que_content,
+				que_type,
+				que_bounty,
+				que_ask_ent_ids
+			from KnowQuestion
+			where
+				 que_id = #{id}
+				 
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.KnowQuestion">
+        update KnowQuestion 
+        set 
+			<if test="que_status != null and que_status != ''">
+				que_status = #{que_status,jdbcType=VARCHAR},
+			</if>
+			<if test="que_content != null">
+				que_content = #{que_content,jdbcType=VARCHAR},
+			</if>
+			<if test="que_answered_timestamp != null and que_answered_timestamp != ''">
+				que_answered_timestamp = #{que_answered_timestamp,jdbcType=TIMESTAMP},
+			</if>
+			<if test="que_type != null and que_type != ''">
+				que_type = #{que_type,jdbcType=VARCHAR},
+			</if>
+			<if test="que_update_ent_id != null and que_update_ent_id > 0">
+				que_update_ent_id = #{que_update_ent_id,jdbcType=INTEGER},
+			</if>
+			que_update_timestamp = #{que_update_timestamp,jdbcType=TIMESTAMP}
+         where que_id = #{que_id,jdbcType=INTEGER}
+    </update>
+    
+    <update id="updateQuestion" parameterType="com.cwn.wizbank.entity.KnowQuestion">
+	        update KnowQuestion 
+	        set 
+				que_title = #{que_title,jdbcType=VARCHAR},
+				que_answered_timestamp = #{que_answered_timestamp,jdbcType=DATE},
+				que_popular_ind = #{que_popular_ind,jdbcType=INTEGER},
+				que_popular_timestamp = #{que_popular_timestamp,jdbcType=DATE},
+				que_reward_credits = #{que_reward_credits,jdbcType=INTEGER},
+				que_status = #{que_status,jdbcType=VARCHAR},
+				que_create_ent_id = #{que_create_ent_id,jdbcType=INTEGER},
+				que_create_timestamp = #{que_create_timestamp,jdbcType=DATE},
+				que_update_ent_id = #{que_update_ent_id,jdbcType=INTEGER},
+				que_update_timestamp = #{que_update_timestamp,jdbcType=DATE},
+				que_content = #{que_content,jdbcType=VARCHAR},
+				que_type = #{que_type,jdbcType=VARCHAR},
+				que_ask_ent_ids = #{que_ask_ent_ids,jdbcType=VARCHAR},
+				que_bounty = #{que_bounty,jdbcType=INTEGER}
+	         where que_id = #{que_id,jdbcType=INTEGER}
+    </update>  
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.KnowQuestion" keyProperty="que_id">
+		insert into KnowQuestion(
+			que_title,
+       		que_answered_timestamp,
+       		que_popular_ind,
+       		que_popular_timestamp,
+       		que_reward_credits,
+       		que_status,
+       		que_create_ent_id,
+       		que_create_timestamp,
+       		que_update_ent_id,
+       		que_update_timestamp,
+       		que_content,
+       		que_type,
+       		que_bounty,
+       		que_ask_ent_ids
+		) values (
+         	#{que_title,jdbcType=VARCHAR},
+         	#{que_answered_timestamp,jdbcType=TIMESTAMP},
+         	#{que_popular_ind,jdbcType=INTEGER},
+         	#{que_popular_timestamp,jdbcType=TIMESTAMP},
+         	#{que_reward_credits,jdbcType=INTEGER},
+         	#{que_status,jdbcType=VARCHAR},
+         	#{que_create_ent_id,jdbcType=INTEGER},
+         	#{que_create_timestamp,jdbcType=TIMESTAMP},
+         	#{que_update_ent_id,jdbcType=INTEGER},
+         	#{que_update_timestamp,jdbcType=TIMESTAMP},
+         	#{que_content,jdbcType=VARCHAR},
+         	#{que_type,jdbcType=VARCHAR},
+         	#{que_bounty,jdbcType=FLOAT},
+         	#{que_ask_ent_ids,jdbcType=VARCHAR}
+		)
+		<selectKey keyProperty="que_id" resultType="Long" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select knowQuestion_seq.currval from dual
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					select ident_current('KnowQuestion')
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					select last_insert_id()
+				</when>
+			</choose>
+		</selectKey>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from KnowQuestion where
+	        que_id = #{que_id}
+	    ]]>
+    </delete>	
+	<select id="selectAll" resultType="KnowQuestion">
+	    <![CDATA[
+	         select 
+				que_id,
+				que_title,
+				que_answered_timestamp,
+				que_popular_ind,
+				que_popular_timestamp,
+				que_reward_credits,
+				que_status,
+				que_create_ent_id,
+				que_create_timestamp,
+				que_update_ent_id,
+				que_update_timestamp,
+				que_content,
+				que_type,
+				que_ask_ent_ids
+			from KnowQuestion t 
+	    ]]>
+	</select>
+	<resultMap type="KnowQuestion" id="KnowQuestionFile" >  
+        <id column="que_id" property="que_id"/>  
+        <result column="que_title" property="que_title"></result>
+        <result column="ask_num" property="ask_num"></result>
+        <result column="que_create_timestamp" property="que_create_timestamp"></result>
+        <result column="que_type" property="que_type"></result>
+        <result column="que_create_ent_id" property="que_create_ent_id"></result>
+        <result column="que_content" property="que_content"></result>
+        <result column="que_bounty" property="que_bounty"></result>
+        <result column="que_ask_ent_ids" property="que_ask_ent_ids"></result>
+        <association property="user" column="que_create_ent_id" javaType="RegUser">
+            <result column="usr_ent_id" property="usr_ent_id"/>
+            <result column="usr_display_bil" property="usr_display_bil"/>
+        </association>
+        <association property="knowCatalog" column="s_cnt_target_id" javaType="KnowCatalog">
+            <result column="kca_id" property="kca_id"/>
+            <result column="kca_title" property="kca_title"/>
+        </association>
+        <collection property="fileList" column="que_id" ofType="ModuleTempFile" select="getFileList"/>
+    </resultMap>
+    <select id="getFileList" resultType="ModuleTempFile" parameterType="Long">
+	    	select 
+				mtf_id,
+				mtf_target_id,
+				mtf_module,
+				mtf_usr_id,
+				mtf_file_type,
+				mtf_type,
+				mtf_file_name,
+				mtf_file_rename,
+				mtf_file_size,
+				mtf_create_time,
+				mtf_url
+			from moduleTempFile 
+			where 
+			mtf_target_id  = #{que_id}
+			and mtf_module = 'KnowQuestion'
+	</select>	
+	<select id="selectKnowQuestionList" resultMap="KnowQuestionFile" parameterType="Page">
+		select 
+			kca_id as "kca_id",
+			kca_title as "kca_title", 
+			que_id, 
+			que_title, 
+			count(distinct ans_id) as ask_num, 
+			que_create_timestamp,
+			que_type,
+			que_create_ent_id,
+			que_content,
+			usr_ent_id as "usr_ent_id",
+			usr_display_bil as "usr_display_bil",
+			que_bounty,
+			que_ask_ent_ids
+		from knowQuestion
+		inner join knowCatalogRelation qpk on qpk.kcr_child_kca_id = que_id and qpk.kcr_type = 'QUE_PARENT_KCA' and qpk.kcr_parent_ind= 1
+		inner join knowCatalog on kca_id = qpk.kcr_ancestor_kca_id
+		left join knowAnswer on ans_que_id = que_id
+		left join regUser on usr_ent_id = que_create_ent_id
+		where 1 = 1 	
+
+        <if test="params.check_status == 'true' ">
+			 and kca_public_ind = 1
+		</if>
+		<if test="params.knowQuestion.knowCatalog != null and (params.knowQuestion.knowCatalog.kca_id > 0 or params.knowQuestion.knowCatalog.kca_id == -1)">
+			 and que_id in (select kcr_child_kca_id from knowCatalogRelation where kcr_type = 'QUE_PARENT_KCA' and  kcr_ancestor_kca_id= ${params.knowQuestion.knowCatalog.kca_id})
+		</if>
+		<choose>
+			<when test="params.knowQuestion.que_create_ent_id > 0">
+				and que_type != 'FAQ' and que_create_ent_id = ${params.knowQuestion.que_create_ent_id}
+			</when>
+			<when test="params.knowQuestion.knowAnswer != null and params.knowQuestion.knowAnswer.ans_create_ent_id > 0">
+				and que_type != 'FAQ' and ans_create_ent_id = ${params.knowQuestion.knowAnswer.ans_create_ent_id}
+			</when>
+			<otherwise>
+				<choose>
+					<when test="params.knowQuestion.que_type == 'POPULAR'">
+	                    and que_popular_ind = 1 and que_type='SOLVED'
+                    </when>
+					<when test="params.knowQuestion.que_type == 'all' or (params.knowQuestion != null and params.knowQuestion.que_ask_ent_ids > 0)">
+					</when>
+					<otherwise>
+						and que_type = '${params.knowQuestion.que_type}'
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="params.knowQuestion.knowCatalogRelation != null and params.knowQuestion.knowCatalogRelation.kcr_ancestor_kca_id > 0">
+						and qpk.kcr_ancestor_kca_id = ${params.knowQuestion.knowCatalogRelation.kcr_ancestor_kca_id} and que_id != '${params.knowQuestion.que_id}'
+					</when>
+					<when test="params.knowQuestion.que_id > 0">
+						and que_id = '${params.knowQuestion.que_id}'
+					</when>
+				</choose>
+			</otherwise>
+		</choose>
+		<if test="params.knowQuestion != null and params.knowQuestion.que_ask_ent_ids > 0">
+			and que_ask_ent_ids is  not  null 
+			and (
+					que_ask_ent_ids like '%,${params.knowQuestion.que_ask_ent_ids }'
+					or que_ask_ent_ids like '%,${params.knowQuestion.que_ask_ent_ids },%' 
+					or que_ask_ent_ids like '${params.knowQuestion.que_ask_ent_ids },%' 
+					or que_ask_ent_ids = '${params.knowQuestion.que_ask_ent_ids }' 
+				) 
+		</if>
+		<if test="params.knowQuestion.searchContent != null">
+			and lower(que_title) like lower(N'%${params.knowQuestion.searchContent}%')
+		</if>
+		<if test="params.knowQuestion.knowCatalog != null and params.knowQuestion.knowCatalog.kca_tcr_id > 0">
+			and kca_tcr_id = ${params.knowQuestion.knowCatalog.kca_tcr_id}
+		</if>
+		group by kca_id, kca_title, que_id, que_title, que_create_timestamp, que_type, que_create_ent_id, que_content, usr_ent_id, usr_display_bil,que_bounty,que_ask_ent_ids
+		order by que_create_timestamp desc
+	</select>
+	<select id="selectKnowSolveSituation" resultType="KnowQuestion" parameterType="KnowQuestion">
+		select 
+			que_type, 
+			count(1) as que_num 
+		from knowQuestion 
+		inner join knowCatalogRelation on kcr_child_kca_id = que_id and kcr_parent_ind = 1 and kcr_type = 'QUE_PARENT_KCA'
+		<if test="knowCatalog.kca_tcr_id > 0">
+			inner join knowCatalog on kca_id = kcr_ancestor_kca_id AND kca_tcr_id = #{knowCatalog.kca_tcr_id}
+		</if>
+		where que_type != 'FAQ'
+		<if test="que_create_ent_id > 0">
+			and que_create_ent_id = #{que_create_ent_id}
+		</if>
+		group by que_type
+		order by que_type
+	</select>
+	
+	<select id="getLatestQuestionList" resultType="KnowQuestion" parameterType="Page">
+	    
+	    select 
+	    	que_id,
+	    	que_title,
+	    	que_type,
+	    	que_update_timestamp
+	    from knowQuestion
+	    inner join knowCatalogRelation qpk on qpk.kcr_child_kca_id = que_id and qpk.kcr_parent_ind = 1 and qpk.kcr_type = 'QUE_PARENT_KCA'
+	    left join knowCatalog on kca_id = qpk.kcr_ancestor_kca_id
+ 	    where kca_tcr_id in (select athTc.tcr_id from V_usrTcRelation athTc where athTc.u_id = #{params.userEntId}
+			<if test="params.tcrId != null and params.tcrId &gt; 1">
+	  			and tcr_parent_tcr_id >0
+			</if>
+		)
+		
+	</select>
+	
+</mapper>

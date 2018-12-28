@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title>Document</title>
+<link rel="stylesheet" href="../../css/basic.css" />
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<!--[if lt IE 9]>
+<script src="../../js/lib/html5.js" type="text/jscript"></script>
+<![endif]-->
+</head>
+<body>
+
+<div class="wrap" id="wizwrap">
+<header class="header mm-background">
+    <a class="header-back" href="../index.html" title="返回"></a>
+    <span class="header-title">测验报告</span>
+</header> <!-- header End -->
+<div class="header-overlay"></div>
+
+<section class="content">
+
+    <!-- 测验次数start --><!-- 只有一次测验次数不显示这一块 --><!-- 默认显示历史最高分的次数 -->
+    <div style="padding:15px 10px 10px;margin:0;background:#fff;border:1px solid #eee;">
+         <div class="kaoshi-box-tit" id="attempt_nbr">共有5次测验报告</div>
+         <div id="attemptList">
+            <div style="padding:15px 0 0 0;" >
+                <a class="list-style-fang active" href="javascript:void(0)">1</a>
+                <a class="list-style-fang" href="javascript:void(0)">2</a>
+                <a class="list-style-fang" href="javascript:void(0)">3</a>
+                <a class="list-style-fang" href="javascript:void(0)">4</a>
+                <a class="list-style-fang" href="javascript:void(0)">5</a>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(".list-style-fang").click(function(){
+                $(this).addClass("active").siblings().removeClass("active");
+            })
+        </script>
+    </div>
+    <!-- 测验次数end -->
+    
+    <!-- 默认显示历史最高分的成绩 -->
+    <div class="panel-list-box">
+        <div class="teacher-start panel-title-7 icon-kaoshi-defen icon-kaoshi-defen-2">我的分数：100<em class="panel-num-5" style="line-height:38px;"><i class="panel-num-16">历史最高分</i></em></div>
+        <div class="panel-list-cont-10-top"></div>
+        <div class="teacher-start panel-title-7 icon-kaoshi-wodezhuangtai">我的状态：合格</div>
+        <div class="panel-list-cont-10-top"></div>
+        <div class="teacher-start panel-title-7 icon-kaoshi-exam">试卷总分：100</div>
+        <div class="panel-list-cont-10-top"></div>
+        <div class="teacher-start panel-title-7 icon-kaoshi-jige">及格分数：60（100*60%）</div>
+    </div>
+
+    <div>
+    </div>
+
+     <div class="panel" >
+        <div class="wdfx">我的答题分析</div>
+        <div class="panel-title-7 panel-add-01">
+            <div class="wiz-tool-2">
+                <div class="memu-box-6 memu-box-6-1 kaoshi-daduiti">答对题&nbsp;100</div>
+                <div class="memu-box-6 memu-box-6-1 kaoshi-dacuoti">答错题&nbsp;100</div>
+                <div class="memu-box-6 memu-box-6-1 kaoshi-shangweidefen">尚未评分题&nbsp;100</div>
+            </div>
+        </div>
+        <div class="panel-title-6-no" style="display:inline-block;padding:10px 0 0 10px;">
+            <a class="menu-box-green" href="javascript:goToQuestion(1)">1</a>
+            <a class="menu-box-green" href="javascript:goToQuestion(2)">2</a>
+            <a class="menu-box-green" href="javascript:goToQuestion(3)">3</a>
+            <a class="menu-box-green" href="javascript:goToQuestion(4)">4</a>
+            <a class="menu-box-green" href="javascript:goToQuestion(5)">5</a>
+            <a class="menu-box-green" href="javascript:goToQuestion(6)">6</a>
+            <a class="menu-box-green" href="javascript:goToQuestion(7)">7</a>
+            <a class="menu-box-green" href="javascript:goToQuestion(8)">8</a>
+            <a class="menu-box-red" href="javascript:goToQuestion(8)">9</a>
+            <a class="menu-box-red" href="javascript:goToQuestion(8)">10</a>
+            <a class="menu-box-green" href="javascript:goToQuestion(8)">11</a>
+            <a class="menu-box-green" href="javascript:goToQuestion(8)">12</a>
+            <a class="menu-box-blue" href="javascript:goToQuestion(8)">13</a>
+            <a class="menu-box-blue" href="javascript:goToQuestion(8)">14</a>
+            <a class="menu-box-green" href="javascript:goToQuestion(8)">15</a>
+            <a class="menu-box-blue kaoshi-dati-more" id="tika-more" href="javascript:void(0)">更多</a>
+            <span style="display:none;" id="tika-and">
+                <a class="menu-box-green" href="javascript:void(0)">16</a>
+                <a class="menu-box-green" href="javascript:void(0)">17</a>
+                <a class="menu-box-green" href="javascript:void(0)">18</a>
+                <a class="menu-box-green" href="javascript:void(0)">19</a>
+                <a class="menu-box-green" href="javascript:void(0)">20</a>
+            </span>
+            <a class="menu-box-blue kaoshi-dati-more" id="tika-shou" href="javascript:void(0)" style="display:none;">收起</a>
+            <script type="text/javascript">
+                $("#tika-more").click(function(){
+                    $("#tika-and").css("display","block");
+                    $(this).css("display","none");
+                    $("#tika-shou").css("display","block");
+                });
+                $("#tika-shou").click(function(){
+                    $(this).css("display","none");
+                    $("#tika-and").css("display","none");
+                    $("#tika-more").css("display","block");
+                })
+            </script>
+        </div>
+        <dl class="panel-title-6-no diaocha-list" style="padding:15px 10px 5px;" id="1">
+            <dt>1. <span class="diaocha-type">[单选题]</span>保险的社会功能，体现在很多方面，下列选项不属于保险的社会功能的是（ ）。</dt>
+            <dd>
+                <p class="diaocha-term"><span class="diaocha-term-select">A</span>社会保障管理</p>
+                <p class="diaocha-term diaocha-cur"><span class="diaocha-term-select">B</span>社会信用管理 <span class="ifcw">（你的答案错误  &nbsp;X）</span></p>
+                <p class="diaocha-term"><span class="diaocha-term-select">C</span>社会关系管理<span class="ifzq">（正确答案）</span></p>
+                <p class="diaocha-term"><span class="diaocha-term-select">D</span>社会风险管理</p>
+                <p class="diaocha-term"><span class="diaocha-term-select">E</span>社会资产管理</p>
+            </dd>
+            <p>解析：和顾客都发给扩大化的顾客和快递费更好地给客户的客户顾客的回复看顾客的规范化的卡号顾客的回复给客户的客户发给卡卡号给客户</p>
+        </dl>
+        <dl class="diaocha-list" style="padding:15px 10px 5px;" id="2">
+            <dt>2. <span class="diaocha-type">[配对题]</span>保险的社会功能，体现在很多方面，下列选项不属于保险的社会功能的是（ ）。</dt>
+            <dd>
+                <p class=""><span>（1）&nbsp;</span>A<span class="ifzq">（恭喜你答对了）</span></p>
+                <p class="">（2）&nbsp;<span>B</span><span class="ifcw">（正确答案是C）</span></p>
+                <p class="">（3）&nbsp;<span>C</span><span class="ifcw">（正确答案是B）</span></p>
+                <p class="">（4）&nbsp;<span>D</span><span class="ifzq">（恭喜你答对了）</span></p>
+             </dd>
+        </dl>
+        <dl class="diaocha-list" style="padding:15px 10px 5px;" id="3">
+            <dt>3. <span class="diaocha-type">[单选题]</span>保险的社会功能，体现在很多方面，下列选项不属于保险的社会功能的是（ ）。</dt>
+            <dd>
+                <p class="diaocha-term"><span class="diaocha-term-select">A</span>社会保障管理</p>
+                <p class="diaocha-term diaocha-cur"><span class="diaocha-term-select">B</span>社会信用管理 <span class="ifcw">（你的答案错误  &nbsp;X）</span></p>
+                <p class="diaocha-term"><span class="diaocha-term-select">C</span>社会关系管理<span class="ifzq">（正确答案）</span></p>
+                <p class="diaocha-term"><span class="diaocha-term-select">D</span>社会风险管理</p>
+                <p class="diaocha-term"><span class="diaocha-term-select">E</span>社会资产管理</p>
+             </dd>
+        </dl>
+        <dl class="diaocha-list" style="padding:15px 10px 5px;" id="4">
+            <dt>4. <span class="diaocha-type">[配对题]</span>保险的社会功能，体现在很多方面，下列选项不属于保险的社会功能的是（ ）。</dt>
+            <dd>
+                <p class=""><span>（1）&nbsp;</span>A<span class="ifzq">（恭喜你答对了）</span></p>
+                <p class="">（2）&nbsp;<span>B</span><span class="ifcw">（正确答案是C）</span></p>
+                <p class="">（3）&nbsp;<span>C</span><span class="ifcw">（正确答案是B）</span></p>
+                <p class="">（4）&nbsp;<span>D</span><span class="ifzq">（恭喜你答对了）</span></p>
+             </dd>
+        </dl>
+        <dl class="diaocha-list" style="padding:15px 10px 5px;" id="5">
+            <dt>5. <span class="diaocha-type">[单选题]</span>保险的社会功能，体现在很多方面，下列选项不属于保险的社会功能的是（ ）。</dt>
+            <dd>
+                <p class="diaocha-term"><span class="diaocha-term-select">A</span>社会保障管理</p>
+                <p class="diaocha-term diaocha-cur"><span class="diaocha-term-select">B</span>社会信用管理 <span class="ifcw">（你的答案错误  &nbsp;X）</span></p>
+                <p class="diaocha-term"><span class="diaocha-term-select">C</span>社会关系管理<span class="ifzq">（正确答案）</span></p>
+                <p class="diaocha-term"><span class="diaocha-term-select">D</span>社会风险管理</p>
+                <p class="diaocha-term"><span class="diaocha-term-select">E</span>社会资产管理</p>
+             </dd>
+        </dl>
+        <dl class="diaocha-list" style="padding:15px 10px 5px;" id="6">
+            <dt>6. <span class="diaocha-type">[配对题]</span>保险的社会功能，体现在很多方面，下列选项不属于保险的社会功能的是（ ）。</dt>
+            <dd>
+                <p class=""><span>（1）&nbsp;</span>A<span class="ifzq">（恭喜你答对了）</span></p>
+                <p class="">（2）&nbsp;<span>B</span><span class="ifcw">（正确答案是C）</span></p>
+                <p class="">（3）&nbsp;<span>C</span><span class="ifcw">（正确答案是B）</span></p>
+                <p class="">（4）&nbsp;<span>D</span><span class="ifzq">（恭喜你答对了）</span></p>
+             </dd>
+        </dl>
+        <dl class="diaocha-list" style="padding:15px 10px 5px;" id="7">
+            <dt>7. <span class="diaocha-type">[单选题]</span>保险的社会功能，体现在很多方面，下列选项不属于保险的社会功能的是（ ）。</dt>
+            <dd>
+                <p class="diaocha-term"><span class="diaocha-term-select">A</span>社会保障管理</p>
+                <p class="diaocha-term diaocha-cur"><span class="diaocha-term-select">B</span>社会信用管理 <span class="ifcw">（你的答案错误  &nbsp;X）</span></p>
+                <p class="diaocha-term"><span class="diaocha-term-select">C</span>社会关系管理<span class="ifzq">（正确答案）</span></p>
+                <p class="diaocha-term"><span class="diaocha-term-select">D</span>社会风险管理</p>
+                <p class="diaocha-term"><span class="diaocha-term-select">E</span>社会资产管理</p>
+             </dd>
+        </dl>
+        <dl class="diaocha-list" style="padding:15px 10px 5px;" id="8">
+            <dt>8. <span class="diaocha-type">[配对题]</span>保险的社会功能，体现在很多方面，下列选项不属于保险的社会功能的是（ ）。</dt>
+            <dd>
+                <p class=""><span>（1）&nbsp;</span>A<span class="ifzq">（恭喜你答对了）</span></p>
+                <p class="">（2）&nbsp;<span>B</span><span class="ifcw">（正确答案是C）</span></p>
+                <p class="">（3）&nbsp;<span>C</span><span class="ifcw">（正确答案是B）</span></p>
+                <p class="">（4）&nbsp;<span>D</span><span class="ifzq">（恭喜你答对了）</span></p>
+             </dd>
+        </dl>
+
+        <script type="text/javascript">
+            var goToQuestion = function(num){
+                 $("html,body").animate({scrollTop:$("#"+num+"").offset().top-46},1000);
+            }
+        </script>
+    </div>
+
+
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+</body>
+</html>

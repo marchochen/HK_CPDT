@@ -1,0 +1,38 @@
+<!doctype html>
+<html ng-app="setUp">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/SetUpController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="languageController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+
+<div class="wrap" id="wizwrap">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back();" title="back"></a>
+    <span class="header-title">{{ 'set_lan' | translate }}</span>
+    <a class="header-info" href="javascript:;" ng-click="changeLan()" title="save" translate="btn_save"></a>
+</header> <!-- header End -->
+
+<section class="content">
+
+<div class="panel-list-box" style="margin:0;">
+<ul class="panel-list-1-5">
+	<li ng-class="{cur:lanSelect=='zh-cn'}" ng-click="select('zh-cn')"><a  href="javascript:;" title="{{ 'set_lan_cn' | translate }}">{{ 'set_lan_cn' | translate }}<!--简体中文--></a></li>
+    <li ng-class="{cur:lanSelect=='zh-hk'}" ng-click="select('zh-hk')"><a  href="javascript:;" title="{{ 'set_lan_hk' | translate }}">{{ 'set_lan_hk' | translate }}<!--繁体中文--></a></li>
+    <li ng-class="{cur:lanSelect=='en-us'}" ng-click="select('en-us')"><a href="javascript:;" title="{{ 'set_lan_en' | translate }}">{{ 'set_lan_en' | translate }}<!--English--></a></li>
+</ul>
+</div>
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

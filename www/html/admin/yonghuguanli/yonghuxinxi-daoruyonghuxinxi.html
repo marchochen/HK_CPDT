@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>wizbank网站管理平台</title>
+<script type="text/javascript" src="../../../js/jquery.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/layer/skin/layer.css"/>
+<script type="text/javascript" src="../../../static/js/layer/layer.js"></script>
+<script type="text/javascript" src="../../../js/tree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="../../../js/tree/js/jquery.ztree.excheck.js"></script>
+<link rel="stylesheet" href="../../../js/tree/css/ztree.css" />
+<link rel="stylesheet" type="text/css" href="../../../static/css/thickbox.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/jquery-table/css/jquery-table-default.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/jquery-table/css/jquery-table-admin.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/admin/css/admin.css"/>
+<!--[if lt IE 9]>
+    <script type="text/javascript" src="bootstrap/js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+<style type="text/css">
+.mCSB_container .cur{ position: relative;}
+.mCSB_container .cur ul{ position: absolute; left: 220px; top: 0px; z-index: 99999999999999999999;}
+</style>
+
+<div class="wzb-body">
+<div class="wzb-top clearfix">
+     <a class="wzb-logo" href="###" title="wizbank"><img src="../../../static/images/wzb-logo.gif" alt="wizbank" /></a>
+     <div class="wzb-top-toggle"><i class="fa fa-bars"></i></div>
+     
+     <div class="wzb-tool">
+     <div class="wzb-menu">     
+          <ul class="clearfix">
+              <li><a class="wzb-menu-sup" href="###" title="信息"><i class="fa wzb-envelope-icon fa-envelope-o"></i> <span class="wzb-badge wzb-badge-purple">15</span></a></li>
+              <li>
+                  <a class="wzb-menu-sub" href="###" title="信息"><i class="fa wzb-envelope-icon fa-flag-o"></i> <span class="wzb-badge wzb-badge-pink">8</span></a>
+                  <ul>
+                      <li><a class="wzb-menu-son" href="###" title="报名审批"><i class="fa fa-check-circle-o"></i>报名审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="作业批改"><i class="fa fa-clipboard"></i>作业批改</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="试卷批改"><i class="fa fa-file-text-o"></i>试卷批改</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="知识审批"><i class="fa fa-life-ring"></i>知识审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="IDP审批"><i class="fa fa-level-up"></i>IDP审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="培训计划审批"><i class="fa fa-calendar"></i>培训计划审批</a></li>
+                 </ul>
+             </li>
+             <li>
+                 <a class="wzb-menu-sub" href="###" title="信息"><img class="wzb-user" src="../../../static/images/teacher02.png" alt="wizbank" />培训管理员<i class="fa wzb-caret-icon fa-caret-down"></i></a>
+                 <ul>
+                     <li><a class="wzb-menu-son" href="###" title="角色"><i class="fa fa-user"></i>角色</a>
+                         <dl>
+                             <dd><a href="###" title="学员">学员</a></dd>
+                             <dd><a href="###" title="培训管理员">培训管理员</a></dd>
+                             <dd><a href="###" title="系统管理员">系统管理员</a></dd>
+                             <dd><a href="###" title="考试监考员">考试监考员</a></dd>
+                         </dl>
+                     </li>
+                     <li><a class="wzb-menu-son" href="###" title="语言"><i class="fa fa-stack-exchange"></i>语言</a>
+                         <dl>
+                             <dd><a href="###" title="简体中文">简体中文</a></dd>
+                             <dd><a href="###" title="繁体中文">繁体中文</a></dd>
+                             <dd><a href="###" title="English">English</a></dd>
+                         </dl>
+                    </li>
+                    <li><a class="wzb-menu-son" href="###" title="我的档案"><i class="fa fa-instagram"></i>我的档案</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="修改密码"><i class="fa fa-key"></i>修改密码</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="我的喜好"><i class="fa fa-smile-o"></i>我的喜好</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="退出"><i class="fa fa-sign-out"></i>退出</a></li>
+                </ul>
+            </li>
+        </ul>
+      </div>  
+    </div>
+</div> <!-- wzb-top End-->
+
+<div class="wzb-sidebar">
+<div class="wzb-menu">
+<div class="mCustomScrollBox mCS-light">
+<div class="mCSB_container" style="position:relative; top:0;">
+    <ul>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-home"></i>&nbsp;首页</a></li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-globe"></i><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;资讯管理</a>
+            <ul>
+                <li><a href="###" title="">公告管理</a></li>
+                <li><a href="###" title="">资讯管理</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-cubes"></i><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;需求管理</a>
+            <ul>
+                <li><a href="###" title="">投票</a></li>
+                <li><a href="###" title="">公共调查问卷</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-list-alt"></i><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;计划管理</a>
+            <ul>
+                <li><a href="###" title="">计划实施</a></li>
+                <li><a href="###" title="">年度计划</a></li>
+                <li><a href="###" title="">编外计划</a></li>
+                <li><a href="###" title="">年度计划审批</a></li>
+                <li><a href="###" title="">编外计审批</a></li>
+                <li><a href="###" title="">年度设置</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-calendar"></i><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;培训管理</a>
+            <ul>
+                <li><a href="###" title="">课程目录管理</a></li>
+                <li><a href="###" title="">课程管理</a></li>
+                <li><a href="###" title="">公开课管理</a></li>
+                <li><a href="###" title="">专题培训</a></li>
+                <li><a href="###" title="">资源管理</a></li>
+                <li><a href="###" title="">课程评估问卷管理</a></li>
+                <li><a href="###" title="">证书管理</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-columns"></i>&nbsp;考试管理</a></li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-maxcdn"></i><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;学习地图</a>
+            <ul>
+                <li><a href="###" title="">职级发展学习地图管理</a></li>
+                <li><a href="###" title="">关键岗位学习地图管理</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-comments"></i><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;社区管理</a>
+            <ul>
+                <li><a href="###" title="">问答管理</a></li>
+                <li><a href="###" title="">群组管理</a></li>
+                <li><a href="###" title="">积分管理</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-life-ring"></i><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;知识管理</a>
+            <ul>
+                <li><a href="###" title="">知识库</a></li>
+                <li><a href="###" title="">知识目录</a></li>
+                <li><a href="###" title="">知识标签</a></li>
+                <li><a href="###" title="">知识审批</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-table"></i>&nbsp;培训报表</a></li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-child"></i><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;用户管理</a>
+            <ul>
+                <li><a href="###" title="">用户信息</a></li>
+                <li><a href="###" title="">注册审批</a></li>
+                <li><a href="###" title="">用户激活</a></li>
+                <li><a href="###" title="">岗位管理</a></li>
+                <li><a href="###" title="">职级管理</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-suitcase"></i><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;讲师管理</a>
+            <ul>
+                <li><a href="###" title="">内部讲师管理</a></li>
+                <li><a href="###" title="">外部讲师管理</a></li>
+                <li><a href="###" title="">供应商管理</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-wrench"></i><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;系统设置</a>
+            <ul>
+                <li><a href="###" title="">PC样式管理</a></li>
+                <li><a href="###" title="">移动样式管理</a></li>
+                <li><a href="###" title="">培训中心管理</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+</div>
+</div>    
+</div>  <!-- wzb-sibebar End-->
+
+<div class="wzb-wrapper">
+    <div class="wzb-main">
+        <div class="wzb-banner wzb-banner-bg01" style="opacity: 1; background:rgb(51, 102, 102);"><i class="fa wzb-banner-icon fa-child"></i>用户管理</div>
+        <ol class="breadcrumb wzb-breadcrumb">
+            <li><a href="#"><i class="fa wzb-breadcrumb-home fa-home"></i>首页</a></li>
+            <li><a href="#">用户信息</a></li>
+            <li class="active">导入用户信息</li>
+        </ol> <!-- wzb-breadcrumb End-->
+        <!-- 正文内容 statr -->
+        <div class="panel wzb-panel">
+            <div class="panel-heading">用户信息</div>
+            <div class="panel-body">
+                <div class="wzb-ui-desc-text">   
+                    <i style="color:#64BF0F;">提示：</i>在下面指定包含用户信息的文件。该文件必须符合指定的电子表格模板格式。<br />
+                </div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td class="wzb-form-label">
+                                <input name="" value="文件模板" type="button" class="btn wzb-btn-orange margin-right4">
+                                <input name="" value="模板说明" type="button" class="btn wzb-btn-orange margin-right4">
+                                <input  name="" value="查看记录" type="button" class="btn wzb-btn-orange">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table>
+                    <tbody>
+                        <tr>
+                            <td class="wzb-form-label" valign="top"></td>
+                            <td class="wzb-form-control">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="checkbox" name="" value="1">如果平台已存在同样的用户，导入记录作出错处理。</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="wzb-ui-desc-text">选中该项时：导入用户时，只能导入新用户；当在平台中找到同样登录账号记录时，导入的记录将作为出错记录处理。</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="wzb-form-label" valign="top"></td>
+                            <td class="wzb-form-control">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="checkbox" name="" value="1">是否更新用户的密码</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="wzb-ui-desc-text">选中该项时：导入用户时，对于旧用户，将会使用导入文件中指定的密码，更新现有用户的密码。当文件中密码列为空时，将不会更新用户的密码。</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table>
+                    <tbody>
+                        <tr>
+                            <td valign="top" class="wzb-form-label"><span class="wzb-form-star">*</span>文件位置：</td>
+                            <td class="wzb-form-control">
+                                <div style=" margin: 2px 0 0 0; height: 0;" class="file">
+                                    <input onchange="$(this).siblings('.file_txt').val(this.value);" type="file" name="src_filename_path" class="file_file" onfocus="" onblur="" onclick="" title="" value="" id=""><input value="没有选择文件" class="file_txt">
+                                    <div class="file_button-blue">浏览</div>
+                                </div>
+                                <br>
+                                <input name="src_filename" type="hidden">
+                                <lable><input value="true" type="checkbox" name="usr_pwd_need_change_ind">新用户第一次登录时必须修改密码</lable>
+                                <br>上载文件内的记录数目上限为1000。如要上载更多的记录，请分批上载。
+                                <br>注意：系统会在后台处理上载的请求。 当完成上载的请求后，系统会以电邮通知你。
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top" class="wzb-form-label">描述：</td>
+                            <td class="wzb-form-control">
+                                <textarea rows="4" style="width:400px;" name="upload_desc"></textarea>
+                                <br>(不超过2000个字符)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="wzb-form-label"></td>
+                            <td class="wzb-ui-module-text"><span class="wzb-form-star">*</span>为必填</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="wzb-bar">
+                    <input type="button" name="" value="下一步" class="btn wzb-btn-blue wzb-btn-big margin-right15">
+                    <input type="button" name="" value="取消" class="btn wzb-btn-blue wzb-btn-big">
+                </div>
+            </div>
+        </div>  <!-- wzb-panel End-->
+        <!-- 正文内容 end -->
+
+    </div>  <!-- wzb-main End-->   
+</div> <!-- wzb-wrapper End-->
+
+<div class="wzb-footer"><div class="wzb-footer-box">wizbank6.0 @ 汇思 Cyberwisdom 版权所有</div></div>
+</div> <!-- wzb-body End-->
+
+</body>
+</html> 

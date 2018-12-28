@@ -1,0 +1,590 @@
+<!doctype html>
+<html ng-app="course">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/CourseController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="detailController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>
+<!-- 讲师评分 -->
+<script id="views/instructor.html" type="text/ng-template">
+    <div class="panel-title-6" style="margin-top:5px;"><span class="panel-add-01 clearfix"><em class="panel-num-3">{{instructors.length}}{{'instructor_count'|translate}} </em>{{'instructor_name' | translate}}</span></div>
+	<div class="panel-title-6" style="margin-top:5px;">
+	     <span class="panel-teach clearfix">
+	          <ul>
+			  	 <li ng-repeat="item in instructors">
+				 	<a class="own-box-user" href="javascript:void(0)">
+                        <img ng-src="{{serverHost}}{{item.user.usr_photo}}">
+                    </a>
+                    <p>{{item.user.usr_display_bil}}</p>
+				 </li>
+	          </ul>
+	      </span>
+	 </div>
+
+    <div class="panel-title-6 panel-title-6-no"  ng-show="instructors && instructors.length > 0">
+		<a href="javascript:;" forward="{url:'instructorEvaluate.html',itmId:itmId,tkhId:tkhId} | appUrl">
+			<span class="panel-add-01 clearfix"><em class="panel-num-1" style="line-height:47px;">({{'instructor_max_score' | translate}}<!-- 满分为5分 -->) </em>{{'instructor_score' | translate}}</span>
+		</a>
+	</div>
+    <div class="xuan-cont" ng-show="instructors && instructors.length > 0" style="display: block;">
+         <div class="panel-list-cont-4">
+              <div class="panel-title-10"><div class="panel-add-01 clearfix">
+					<em class="panel-num-3" style="padding-top:10px;">
+						<ul class="xing" style="margin-top:0px;">
+							<li class="xing2 {{itc_style_score >= 4.5?'xing1':''}}" style="float:right;"></li>
+							<li class="xing2 {{itc_style_score >= 3.5?'xing1':''}}" style="float:right;"></li>
+							<li class="xing2 {{itc_style_score >= 2.5?'xing1':''}}" style="float:right;"></li>
+							<li class="xing2 {{itc_style_score >= 1.5?'xing1':''}}" style="float:right;"></li>
+							<li class="xing2 {{itc_style_score >= 0.5?'xing1':''}}" style="float:right;"></li>
+						</ul>
+					</em>{{'instructor_style' | translate}}<!--{{itc_style_score}} 授课风格 --></div></div>
+              <div class="panel-title-10"><div class="panel-add-01 clearfix">
+					<em class="panel-num-3" style="padding-top:10px;">
+						<ul class="xing" style="margin-top:0px;">
+							<li class="xing2 {{itc_quality_score >= 4.5?'xing1':''}}" style="float:right;"></li>
+							<li class="xing2 {{itc_quality_score >= 3.5?'xing1':''}}" style="float:right;"></li>
+							<li class="xing2 {{itc_quality_score >= 2.5?'xing1':''}}" style="float:right;"></li>
+							<li class="xing2 {{itc_quality_score >= 1.5?'xing1':''}}" style="float:right;"></li>
+							<li class="xing2 {{itc_quality_score >= 0.5?'xing1':''}}" style="float:right;"></li>
+						</ul>
+					</em>{{'instructor_quality' | translate}}<!-- 教学质量 --></div></div>
+              <div class="panel-title-10"><div class="panel-add-01 clearfix">
+					<em class="panel-num-3" style="padding-top:10px;">
+						<ul class="xing" style="margin-top:0px;">
+							<li class="xing2 {{itc_structure_score >= 4.5?'xing1':''}}" style="float:right;"></li>
+							<li class="xing2 {{itc_structure_score >= 3.5?'xing1':''}}" style="float:right;"></li>
+							<li class="xing2 {{itc_structure_score >= 2.5?'xing1':''}}" style="float:right;"></li>
+							<li class="xing2 {{itc_structure_score >= 1.5?'xing1':''}}" style="float:right;"></li>
+							<li class="xing2 {{itc_structure_score >= 0.5?'xing1':''}}" style="float:right;"></li>
+						</ul>
+					</em>{{'instructor_structure' | translate}}<!-- 内容结构 --></div></div>
+              <div class="panel-title-10"><div class="panel-add-01 clearfix">
+					<em class="panel-num-3" style="padding-top:10px;">
+						<ul class="xing" style="margin-top:0px;">
+							<li class="xing2 {{itc_interaction_score >= 4.5?'xing1':''}}" style="float:right;"></li>
+							<li class="xing2 {{itc_interaction_score >= 3.5?'xing1':''}}" style="float:right;"></li>
+							<li class="xing2 {{itc_interaction_score >= 2.5?'xing1':''}}" style="float:right;"></li>
+							<li class="xing2 {{itc_interaction_score >= 1.5?'xing1':''}}" style="float:right;"></li>
+							<li class="xing2 {{itc_interaction_score >= 0.5?'xing1':''}}" style="float:right;"></li>
+						</ul>
+					</em>{{'instructor_interaction' | translate}}<!-- 交流互动 --></div></div>
+              <div class="panel-title-10"><div class="panel-add-01 clearfix">
+					<em class="panel-num-3" style="padding-top:10px;">
+						<ul class="xing" style="margin-top:0px;">
+							<li class="xing2 {{itc_score >= 4.5?'xing1':''}}" style="float:right;"></li>
+							<li class="xing2 {{itc_score >= 3.5?'xing1':''}}" style="float:right;"></li>
+							<li class="xing2 {{itc_score >= 2.5?'xing1':''}}" style="float:right;"></li>
+							<li class="xing2 {{itc_score >= 1.5?'xing1':''}}" style="float:right;"></li>
+							<li class="xing2 {{itc_score >= 0.5?'xing1':''}}" style="float:right;"></li>
+						</ul>
+					</em>{{'instructor_avg_score' | translate}}<!-- 平均分 --></div></div>
+		 </div>
+   </div>
+</script>
+
+<div class="wrap">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back();" title="返回"></a>
+    <span class="header-title">{{course_type | translate}}</span>
+    <a class="header-xiaoxi" ng-show="isApp && messages != undefined && messages != ''" href="javascript:;" forward="{url:'message.html',itmId:course.itm_id, isExam : typeKinds=='exam' } | appUrl" title="公告"></a>
+</header> <!-- header End -->
+
+<div class="mm-ismenu wiz-tool">
+    <ul>
+        <!-- <li class="memu-box-8 border-right">
+            <a ng-if="!isClass" sns="like" href="javascript:void(0)" class="gps-zan">{{snsCount.s_cnt_like_count?snsCount.s_cnt_like_count:0}}</a>
+        </li> -->
+        <li class="memu-box-8">
+            <a ng-if="!isClass" sns="collect" href="javascript:void(0)" class="gps-shoucang">{{snsCount.s_cnt_collect_count?snsCount.s_cnt_collect_count:0}}</a>
+        </li>
+        <!-- <li class="memu-box-6" ng-hide="course.itm_type == 'CLASSROOM' && !isClass" style="float:{{(isClass ? 'right' : '')}}">
+            <a href="javascript:clicked('../comment/list.html?module=Course&id={{course.itm_id}}',true)" class="gps-pinglun">{{course.itm_comment_total_count}}</a>
+        </li> -->
+    </ul>
+</div>
+
+<section class="content-3">
+<div class="list-pic-1">
+     <img ng-src="{{serverHost}}{{course.itm_icon}}" alt=""/>
+</div>
+
+<div style="background:#fff;">
+	<div class="panel-title-9">
+	<i class="wzb-pc-icon"></i><i class="wzb-phone-icon" ng-show="course.itm_mobile_ind && course.itm_mobile_ind == 'yes'"></i>
+	<span>{{course.itm_title}}</span>
+          <div ng-if="!isOffline" style="overflow: hidden;padding: 2px 10px;line-height: 25px;float: right;">
+          	<div style="margin-top:10px;" ng-if="isDislable">
+	                    <a  ng-style="{'background': '#aaaaaa'}" class="btn-orange-center" ng-show="contentTipBtnText" href="javascript:void(0)" ng-bind="contentTipBtnText | translate"></a>
+	        </div>
+          	<div style="margin-top:10px;" ng-if="!isDislable">
+                    <div ng-if="isApplybtn">
+                    		<a class="btn-orange-center" ng-show="contentTipBtnText" href="javascript:void(0)" ng-click="contentTipBtnAction()" ng-bind="contentTipBtnText | translate"></a>
+					</div>
+					<div ng-if="!isApplybtn">
+							<a class="btn-orange-center" ng-show="contentTipBtnText" href="javascript:void(0)" ng-click="cancelEnrol()" ng-bind="contentTipBtnText | translate"></a>
+					</div>
+			</div>
+	    <span ng-if="isApplybtn">
+		    <span style="text-align:right;line-height:34px;" ng-if="canReStudy"><!-- 显示重新学习的按钮 -->
+	                 <a class="btn-orange-center" ng-click="contentTipBtnAction()" href="javascript:void(0)" ng-bind="'cos_content_once_again' | translate"></a>
+	         </span>
+	         <span style="text-align:right;" ng-if="canShowCancelBtn"><!-- 显示【我想放弃学习】的按钮 -->
+	              <a class="btn-orange-center" ng-click="cancelEnrol()" href="javascript:void(0)" ng-bind="(typeKinds + '_cancel_enroll') | translate"></a>
+	         </span>
+         </span>
+		</div>
+	</div>
+    <div id='show-hiden'  ng-if="course.itm_desc" class="panel-add-05 show-hidden" style="padding: 0px 15px 0 17px;position: relative;">
+   	 	<span id='active-show'>{{course.itm_desc }}</span>
+   	 	<a id='show-active' ng-click="showhide($event)" class="xuan-bar-xiangqing hide-show" title=""  style='display:none'></a>
+    </div>
+	<div class="header-guide-info" style="border:0;">
+	    <a ng-if="course && course.itd" href="javascript:void(0)" ng-class="{'wiz-bixiu':(course && course.itd && course.itd.itd_compulsory_ind == 1)}" style="padding-left:0;cursor: default;">{{course.itd.itd_compulsory_ind==1 ? ('cos_required'|translate) : ('cos_elective'|translate)}}</a>
+	    <a href="javascript:void(0)" title="" class="{{appStatus.cla}}" style="cursor: default;">{{appStatus.title | translate}}</a>
+	    <div ng-if="!isOffline" style="overflow: hidden;padding: 2px 10px;line-height: 25px;float: right;">
+	    	<span ng-show="courseLoaded" class="color-gray999">{{'learning_count_pre' | translate}}<em class="panel-num-8">{{course && course.cnt_app_count ? course.cnt_app_count : 0}}</em>{{'learning_count_suf' | translate}}</span>
+		</div>
+	</div>
+</div>
+     <div class="panel-title-6" ng-if="isClass && lessons && lessons.length > 0" style="border-bottom: 1px solid #d9d9d9;">
+		<a class="panel-add-01 panel-bg-richeng" style="padding:0 0 0 10px;" href="javascript:;" forward="{url:'lesson.html',itmId:course.itm_id} | appUrl" title="">
+			<em class="panel-num-1">&nbsp;</em><span translate="cos_class_lesson"></span>	<!-- 日程表 -->
+		</a>
+	</div>
+
+<div class="panel-list-nobg">
+<tabs css="{{tabs}}" ng-if="isSelfStudy || isClass || isIntegrated">
+
+	<!-- 进行中 -->
+	<pane title="{{'cos_contents' | translate}}" style="panel-tabcont-4"><!--内容-->
+		<div class="panel-tabcont-4 pub-tabcont">
+			<div ng-show="course.itm_mobile_ind == 'yes'">
+				<div ng-show="!contentPermitted" ng-if="contentTipDesc != ''" class="panel-list-boxdate" style="min-height:100px;padding:30px 0 0 0;text-align:center;">
+	 				 {{contentTipDesc | translate}}
+	            </div>
+				
+				<!-- <div ng-show="contentPermitted"> -->
+				<div>
+					<div class="slide-pane">
+					<!--  有目录的模块 -->
+					  <div dir-module></div>
+					<!--  没有目录的模块 -->
+					  <div cos-module></div>
+					</div>
+		
+					<div class="slide-pane" ng-if="isIntegrated">
+					  <!-- 必修选修条件 -->
+					  <div integrated-module></div>
+					</div>
+				</div>
+			</div>
+			
+			<div ng-show="!course.itm_mobile_ind || course.itm_mobile_ind == 'no'" class="header-guide-info" style="padding:16px 10px 10px;border:0;color:red;">
+                <i class="permission-warning"></i>
+                {{(typeKinds == 'exam' ? 'cos_content_mobile_ind_dex_exam' : 'cos_content_mobile_ind_dex') | translate}}
+            </div>
+			
+		</div> <!-- pub-tabcont End -->
+	</pane>
+
+	<!-- 详情 -->
+	<pane title="{{'cos_module_detail' | translate}}" style="margin:0;">
+		<div class="panel-tabcont-4 pub-tabcont" ng-if="isSelfStudy" >
+             <div class="cont-box">
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no">
+                       <div class="panel-add-04">{{typeKinds + '_code' | translate}}<!-- 课程编号 --></div>
+                       <div class="panel-add-05">{{course.itm_code }}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no">
+                       <div class="panel-add-04">{{typeKinds + '_type' | translate}}<!-- 课程类型 --></div>
+                       <div class="panel-add-05">{{ typeKinds == 'exam' ? 'exam_type_' + course.itm_type : 'cos_type_' + course.itm_type | lowercase | translate}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.tcr.tcr_title">
+                       <div class="panel-add-04">{{'training_center_name' | translate}}<!-- 培训中心 --></div>
+                       <div class="panel-add-05">{{course.tcr.tcr_title}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="catalogStr">
+                       <div class="panel-add-04">{{'catalog_kinds' | translate}}<!-- 目录分类 --></div>
+                       <div class="panel-add-05">{{catalogStr}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.itm_cfc_title">
+                       <div class="panel-add-04">{{'cos_cfc_title' | translate}}<!--  证书itm_cfc_id  --></div>
+                       <div class="panel-add-05">{{course.itm_cfc_title}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no">
+                       <div class="panel-add-04">{{'cos_is_approval' | translate}}</div>
+                       <div class="panel-add-05">{{course.itm_app_approval_type | translate}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.itm_appn_start_datetime">
+                       <div class="panel-add-04">{{'cos_enroll_duration' | translate}}</div>
+                       <div class="panel-add-05">{{'time_from' | translate}} {{course.itm_appn_start_datetime}} {{'time_to' | translate}}<!-- 至 -->  {{course.itm_appn_end_datetime | translate}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.itm_content_eff_start_time">
+                       <div class="panel-add-04">{{typeKinds + '_content_duration' | translate}}<!-- 	学习（考试）期限  --></div>
+                       <div class="panel-add-05">{{'time_from' | translate}} {{course.itm_content_eff_start_time}} {{'time_to' | translate}}<!-- 至 -->  {{course.itm_content_eff_end_time | translate}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.itm_capacity >0">
+                       <div class="panel-add-04">{{'cos_capacity' | translate}}<!--  名额限制  --></div>
+                       <div class="panel-add-05">{{course.itm_capacity | unlimit }}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.itm_fee >0">
+                       <div class="panel-add-04">{{'cos_fee' | translate}}<!--  报名费itm_fee  --></div>
+                       <div class="panel-add-05">{{ course.itm_fee }}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_credit>0">
+                       <div class="panel-add-04">{{'cos_credit' | translate}}<!--  学分ies_credit  --></div>
+                       <div class="panel-add-05">{{course.ies.ies_credit}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_objective">
+                       <div class="panel-add-04">{{'cos_objective' | translate}}<!--  目标 ies_objective  --></div>
+                       <div class="panel-add-05" ng-bind-html="course.ies.ies_objective | htmlDecode"></div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_contents">
+                       <div class="panel-add-04">{{'cos_contents' | translate}}<!--  内容 ies_contents  --></div>
+                       <div class="panel-add-05" ng-bind-html ="course.ies.ies_contents | htmlDecode"></div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_duration">
+                       <div class="panel-add-04">{{'cos_duration' | translate}}<!--  时长 ies_duration  --></div>
+                       <div class="panel-add-05" ng-bind-html ="course.ies.ies_duration | htmlDecode"></div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_audience">
+                       <div class="panel-add-04">{{'cos_audience' | translate}}<!--  对象ies_audience  --></div>
+                       <div class="panel-add-05" ng-bind-html ="course.ies.ies_audience | htmlDecode"></div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_prerequisites">
+                       <div class="panel-add-04">{{'cos_prerequisites' | translate}}<!--  必备基础知识 ies_prerequisites  --></div>
+                       <div class="panel-add-05"  ng-bind-html ="course.ies.ies_prerequisites | htmlDecode"></div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_exemptions">
+                       <div class="panel-add-04">{{'cos_exemptions' | translate}}<!--  免修条件ies_exemptions  --></div>
+                       <div class="panel-add-05" ng-bind-html ="course.ies.ies_exemptions | htmlDecode"></div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_remarks">
+                       <div class="panel-add-04">{{'cos_remarks' | translate}}<!--  备注ies_remarks  --></div>
+                       <div class="panel-add-05" ng-bind-html ="course.ies.ies_remarks | htmlDecode"></div>
+                  </div>
+
+             </div>
+
+		</div> <!-- pub-tabcont End -->
+		<div class="panel-tabcont-4 pub-tabcont" ng-if="isIntegrated">
+             <div class="cont-box">
+                  <div class="panel-list-cont-7">
+                       <div class="panel-add-04">{{typeKinds + '_name' | translate}}<!-- 课程名称 --></div>
+                       <div class="panel-add-05">{{course.itm_title}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no">
+                       <div class="panel-add-04">{{typeKinds + '_code' | translate}}<!-- 课程编号 --></div>
+                       <div class="panel-add-05">{{course.itm_code }}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no">
+                       <div class="panel-add-04">{{typeKinds + '_type' | translate}}<!-- 课程类型 --></div>
+                       <div class="panel-add-05">{{typeKinds == 'exam' ? 'exam_type_' + course.itm_type : 'cos_type_' + course.itm_type | lowercase | translate}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.tcr.tcr_title">
+                       <div class="panel-add-04">{{'training_center_name' | translate}}<!-- 培训中心 --></div>
+                       <div class="panel-add-05">{{course.tcr.tcr_title}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="catalogStr">
+                       <div class="panel-add-04">{{'catalog_kinds' | translate}}<!-- 目录分类 --></div>
+                       <div class="panel-add-05">{{catalogStr}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no">
+                       <div class="panel-add-04">{{'cos_is_approval' | translate}}</div>
+                       <div class="panel-add-05">{{course.itm_app_approval_type | translate}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.itm_appn_start_datetime">
+                       <div class="panel-add-04">{{'cos_enroll_duration' | translate}}</div>
+                       <div class="panel-add-05">{{'time_from' | translate}} {{course.itm_appn_start_datetime}} {{'time_to' | translate}}<!-- 至 -->  {{course.itm_appn_end_datetime | translate}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.itm_content_eff_start_time">
+                       <div class="panel-add-04">{{typeKinds + '_content_duration' | translate}}<!-- 学习（考试）期限 --></div>
+                       <div class="panel-add-05">{{'time_from' | translate}} {{course.itm_content_eff_start_time}} {{'time_to' | translate}}<!-- 至 -->  {{course.itm_content_eff_end_time | translate}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.itm_capacity > 0">
+                       <div class="panel-add-04">{{'cos_capacity' | translate}}<!-- 名额限制 --></div>
+                       <div class="panel-add-05">{{course.itm_capacity | unlimit }}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.itm_fee >0">
+                       <div class="panel-add-04">{{'cos_fee' | translate}}<!-- 报名费itm_fee --></div>
+                       <div class="panel-add-05">{{course.itm_fee}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_credit >0">
+                       <div class="panel-add-04">{{'cos_credit' | translate}}<!-- 学分ies_credit --></div>
+                       <div class="panel-add-05">{{course.ies.ies_credit}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_objective">
+                       <div class="panel-add-04">{{'cos_objective' | translate}}<!-- 目标 ies_objective --></div>
+                       <div class="panel-add-05">{{course.ies.ies_objective }}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_contents">
+                       <div class="panel-add-04">{{'cos_contents' | translate}}<!-- 内容 ies_contents --></div>
+                       <div class="panel-add-05">{{course.ies.ies_contents }}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_duration">
+                       <div class="panel-add-04">{{'cos_duration' | translate}}<!-- 时长 ies_duration --></div>
+                       <div class="panel-add-05">{{course.ies.ies_duration }}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_audience">
+                       <div class="panel-add-04">{{'cos_audience' | translate}}<!-- 对像ies_audience --></div>
+                       <div class="panel-add-05">{{course.ies.ies_audience }}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_prerequisites">
+                       <div class="panel-add-04">{{'cos_prerequisites' | translate}}<!-- 必备基础知识 ies_prerequisites --></div>
+                       <div class="panel-add-05">{{course.ies.ies_prerequisites }}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_exemptions">
+                       <div class="panel-add-04">{{'cos_exemptions' | translate}}<!-- 免修条件ies_exemptions --></div>
+                       <div class="panel-add-05">{{course.ies.ies_exemptions }}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_remarks">
+                       <div class="panel-add-04">{{'cos_remarks' | translate}}<!-- 备注ies_remarks --></div>
+                       <div class="panel-add-05">{{course.ies.ies_remarks }}</div>
+                  </div>
+             </div>
+		</div> <!-- pub-tabcont End -->
+		<div class="panel-tabcont-4 pub-tabcont" ng-if="isClass">
+             <div class="cont-box">
+                  <div class="panel-list-cont-7">
+                       <div class="panel-add-04">{{'cos_class_name' | translate}}<!-- 班级名称 --></div>
+                       <div class="panel-add-05">{{course.itm_title}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no">
+                       <div class="panel-add-04">{{'cos_class_code' | translate}}<!-- 班级编号 --></div>
+                       <div class="panel-add-05">{{course.itm_code }}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no">
+                       <div class="panel-add-04">{{typeKinds + '_type' | translate}}<!-- 类型 --></div>
+                       <div class="panel-add-05">{{( (typeKinds + '_type_') + (course.itm_type | lowercase) ) | translate}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.tcr.tcr_title">
+                       <div class="panel-add-04">{{'training_center_name' | translate}}<!-- 培训中心 --></div>
+                       <div class="panel-add-05">{{course.tcr.tcr_title}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no">
+                       <div class="panel-add-04">{{'cos_enroll_duration' | translate}}</div>
+                       <div class="panel-add-05">{{'time_from' | translate}} {{course.itm_appn_start_datetime}} {{'time_to' | translate}}<!-- 至 -->  {{course.itm_appn_end_datetime | translate}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no">
+                       <div class="panel-add-04">{{'mod_class_period' | translate}}<!-- 学习（考试）期限 --></div>
+                       <div class="panel-add-05">{{'time_from' | translate}} {{course.itm_content_eff_start_time}} {{'time_to' | translate}}<!-- 至 -->  {{course.itm_content_eff_end_time | translate}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.itm_fee >0">
+                       <div class="panel-add-04">{{'cos_fee' | translate}}<!-- 报名费itm_fee --></div>
+                       <div class="panel-add-05">{{course.itm_fee}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_credit >0">
+                       <div class="panel-add-04">{{'cos_credit' | translate}}<!-- 学分ies_credit --></div>
+                       <div class="panel-add-05">{{course.ies.ies_credit}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_schedule">
+                       <div class="panel-add-04">{{'cos_class_address' | translate}}<!-- 班级地点 --></div>
+                       <div class="panel-add-05">{{course.ies.ies_schedule }}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_remarks">
+                       <div class="panel-add-04">{{'cos_remarks' | translate}}</div>
+                       <div class="panel-add-05">{{course.ies.ies_remarks }}</div>
+                  </div>
+             </div>
+		</div> <!-- pub-tabcont End -->
+	</pane>
+
+    <!-- 我的状态 -->
+	<pane title="{{'cos_module_status' | translate}}" ng-if="showMyStatusTab">
+	<div class="panel-tabcont-4 pub-tabcont" >
+	
+		 <div class="panel-title-18 panel-title-18-no">
+			 <span style="width:100px;float:left" class="panel-add-01 clearfix ng-binding" id="enrollment_date" ng-bind="'cour_enroll_date' | translate"> <!--报名日期 --> </span>
+			 <span style="float:right" class="panel-num-5 ng-binding" id="progress_types" >{{att_create_timestamp | toDate}}</span>
+		 </div>
+		 
+	     <div class="panel-title-11 panel-title-11-no">
+	          <span class="panel-add-01 clearfix">
+	                <em class="panel-num-2">
+					    <span ng-show="appStatus.value == 'I'" class="chart green" style="width:80px; height:80px;" easypiechart options="options" percent="cov_progress" >
+	                        <span class="percent">{{cov_progress}}% </span>
+	                    </span>
+	                    {{ appStatus.title | lowercase | translate}}
+	                </em>
+	                {{'cos_inprogress_name' | translate}}<!-- 学习进度 -->
+	          </span>
+	     </div>
+	     <div class="panel-title-18 panel-title-18-no" ng-show="myScore && (myScore > 0)"><span class="panel-add-01 clearfix"><em class="panel-num-2" ng-show="myScore && (myScore > 0)"><i class="panel-num-4">{{myScore}}</i>{{'mod_points' | translate}}<!-- 分 --></em>{{'cos_score' | translate}}<!-- 分数 --></span></div>
+	     <div class="panel-title-18 panel-title-18-no"><span class="panel-add-01 clearfix"><em class="panel-num-5">{{ls_learn_duration }}</em>{{'cos_time_account' | translate}}<!-- 学习总时长 --></span></div>
+		 <div class="panel-title-18 panel-title-18-no"><span class="panel-add-01 clearfix"><em class="panel-num-5">{{rcov.cov_last_acc_datetime == undefined? '--' : rcov.cov_last_acc_datetime }}</em>{{'cos_last_acc_time' | translate}}<!-- 学习总时长 --></span></div>
+		 <div class="panel-title-18 panel-title-18-no"><span class="panel-add-01 clearfix"><em class="panel-num-5">{{rcov.cov_complete_datetime == undefined? '--' : rcov.cov_complete_datetime }}</em>{{'cos_complete_time' | translate}}<!-- 学习总时长 --></span></div>
+	</div> <!-- pub-tabcont End -->
+	</pane>
+<!-- 	讲师 -->
+	<pane title="{{'cos_class_teacher' | translate}}" ng-if="instructors && instructors.length > 0">
+		<!-- <div class="panel-tabcont-3 pub-tabcont">
+		     <comments module="Course" id="course.itm_id" show-title="false" ></comments>
+		</div> -->
+		 <!-- 讲师评分 --> 
+		 <ng-include src="'views/instructor.html'"></ng-include>
+	</pane>
+</tabs>
+</div>
+<!-- //面授课程 -->
+<div class="panel-list-nobg">
+<tabs css="1" ng-if="isOffline">
+	<!-- 详情 -->
+	<pane title="{{'cos_module_detail' | translate}}">
+		<div class="panel-tabcont-4 pub-tabcont">
+             <div class="cont-box">
+                  <div class="panel-list-cont-7">
+                       <div class="panel-add-04">{{typeKinds + '_name' | translate}}<!-- 课程名称 --></div>
+                       <div class="panel-add-05">{{course.itm_title}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no">
+                       <div class="panel-add-04">{{typeKinds + '_code' | translate}}<!-- 课程编号 --></div>
+                       <div class="panel-add-05">{{course.itm_code }}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no">
+                       <div class="panel-add-04">{{typeKinds + '_type' | translate}}<!-- 课程类型 --></div>
+                       <div class="panel-add-05">{{typeKinds == 'exam' ? 'exam_type_' +  course.itm_type : 'cos_type_' + course.itm_type | lowercase | translate}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="catalogStr">
+                       <div class="panel-add-04">{{'catalog_kinds' | translate}}<!-- 目录分类 --></div>
+                       <div class="panel-add-05">{{catalogStr}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.itm_cfc_title">
+                       <div class="panel-add-04">{{'cos_cfc_title' | translate}}<!-- 证书itm_cfc_id --></div>
+                       <div class="panel-add-05">{{course.itm_cfc_title}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.itm_app_approval_type">
+                       <div class="panel-add-04">{{'cos_is_approval' | translate}}<!-- 需要审批 --></div>
+                       <div class="panel-add-05">{{course.itm_app_approval_type | translate}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.itm_fee  >0">
+                       <div class="panel-add-04">{{'cos_fee' | translate}}<!-- 报名费itm_fee --></div>
+                       <div class="panel-add-05">{{course.itm_fee}}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_objective">
+                       <div class="panel-add-04">{{'cos_objective' | translate}}<!-- 目标 ies_objective --></div>
+                       <div class="panel-add-05">{{course.ies.ies_objective }}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_contents">
+                       <div class="panel-add-04">{{'cos_contents' | translate}}<!-- 内容 ies_contents --></div>
+                       <div class="panel-add-05">{{course.ies.ies_contents }}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_duration">
+                       <div class="panel-add-04">{{'cos_duration' | translate}}<!-- 时长 ies_duration --></div>
+                       <div class="panel-add-05">{{course.ies.ies_duration }}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_audience">
+                       <div class="panel-add-04">{{'cos_audience' | translate}}<!-- 对像ies_audience --></div>
+                       <div class="panel-add-05">{{course.ies.ies_audience }}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_prerequisites">
+                       <div class="panel-add-04">{{'cos_prerequisites' | translate}}<!-- 必备基础知识 ies_prerequisites --></div>
+                       <div class="panel-add-05">{{course.ies.ies_prerequisites }}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_exemptions">
+                       <div class="panel-add-04">{{'cos_exemptions' | translate}}<!-- 免修条件ies_exemptions --></div>
+                       <div class="panel-add-05">{{course.ies.ies_exemptions }}</div>
+                  </div>
+
+                  <div class="panel-list-cont-7 panel-list-cont-7-no" ng-if="course.ies.ies_remarks">
+                       <div class="panel-add-04">{{'cos_remarks' | translate}}<!-- 备注ies_remarks --></div>
+                       <div class="panel-add-05">{{course.ies.ies_remarks }}</div>
+                  </div>
+             </div>
+		</div> <!-- pub-tabcont End -->
+	</pane>
+	<!-- 班级 -->
+	<pane title="{{'cos_type_class' | translate}}">
+		<div class="panel-tabcont-4 pub-tabcont">
+			<ul class="panel-list-1-2 list-icon-answer">
+			    <li ng-repeat="item in classlist" forward="{tkhId:item.app_tkh_id, itmId: item.itm_id} | courseUrl" ng-show="item.itm_mobile_ind=='yes'" >
+			          <a class="panel-list-title-1" href="javascript:;" title="">
+                         <div class="panel-list-periodtitle">{{item.itm_title}}</div>
+			             <div class="panel-list-period clearfix"><em class="panel-list-periodtxt"><span class="panel-list-periodbox">{{'cos_class_short_code' | translate}}</span><!-- 编号 --><span class="panel-list-periodleft">：</span></em>{{item.itm_code}}</div>
+			             <div class="panel-list-period clearfix"><em class="panel-list-periodtxt"><span class="panel-list-periodbox">{{'cos_class_short_address' | translate}}</span><!-- 地点 --><span class="panel-list-periodleft">：</span></em>{{item.ies.ies_schedule?item.ies.ies_schedule:'--'}}</div>
+			             <div class="panel-list-period clearfix"><em class="panel-list-periodtxt"><span class="panel-list-periodbox">{{'cos_class_duration' | translate}}</span><!-- 期限 --><span class="panel-list-periodleft">：</span></em>{{'time_from' | translate}} {{item.itm_content_eff_start_time}} {{'time_to' | translate}}<!-- 至 -->  {{item.itm_content_eff_end_time | translate}}</div>
+                      </a>
+			    </li>
+			</ul>
+		</div> <!-- pub-tabcont End -->
+	</pane>
+</tabs>
+</div>
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+<script>
+	window.onload = function(){
+		if($('#active-show').height()>$('#show-hiden').height()){
+			$('#show-active').show()
+		}
+		$('#show-active').click(function(){
+			$(this).toggleClass('active')
+			$(this).parent().toggleClass('show-hidden')
+		})
+	}
+</script>
+</body>
+</html>

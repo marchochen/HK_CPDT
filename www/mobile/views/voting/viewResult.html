@@ -1,0 +1,84 @@
+<!doctype html>
+<html ng-app="voting">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link rel="stylesheet" href="../../css/basic.css" />
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../lib/jquery/Chart.min.js"></script>
+<script type="text/javascript" src="../../js/controllers/VotingController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="viewResultController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">
+{{alert.msg | translate}}
+</alert>
+<div class="wrap" id="wizwrap">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back();"></a>
+    <span class="header-title"><!-- 结果分析 -->{{'voting_result_analize' | translate}}</span>
+</header> <!-- header End -->
+
+<section class="content">
+
+	<div class="cont-box">
+	     <h1 class="cont-info-title-1">{{voting.vot_title}}</h1>
+	     <div class="cont-info-period"><!-- 截止时间 -->{{'voting_deadline' | translate}}：{{voting.vot_eff_date_to | date:'yyyy-MM-dd'}}</div>
+
+	     <div class="cont-info-desc">
+	          <p ng-bind-html="voting.vot_content"></p>
+	     </div>
+	</div>
+
+	<div class="panel-title-6 clearfix">
+		<div class="panel-add-01">
+			<span class="panel-num-5"><i class="panel-num-9">{{voting.responseCount ? voting.responseCount : 0}}</i></span><!-- 参与人数 -->
+			{{'voting_attendant_count' | translate}}
+		</div>
+	</div>
+
+	<div class="panel">
+		<div class="panel-tab-1 pub-tab">
+			<tabs css="1">
+				<pane title="{{'voting_pie_chart' | translate}}"><!-- 饼状图 -->
+					<div class="panel-tabcont-2 pub-tabcont">
+						<div class="chart-box clearfix">
+							<div class="panel-list-boxdate" ng-show="responseResult.length == 0">
+                                <div class="panel-list-nodate">{{'voting_nodate' | translate}}</div>
+                            </div>
+                            <div ng-hide="responseResult.length == 0">
+							     <div class="chart-responsive"><canvas id="pieChart" width="260" height="260"></canvas></div>
+							     <ul class="chart-legend clearfix">
+							        <li ng-repeat="vr in responseResult"><span><span>{{vr.count/vr.total*100 | number:2}}%</span> <i class="{{vr.cssClass1}}"></i></span> {{vr.label}}</li>
+								</ul>
+                            </div>
+						</div>
+					</div>
+				</pane>
+
+				<pane title="{{'voting_bar_chart' | translate}}"><!-- 条形图 -->
+					<div class="panel-tabcont-2 pub-tabcont">
+						<div class="panel-list-boxdate" ng-show="responseResult.length == 0">
+                            <div class="panel-list-nodate">{{'voting_nodate' | translate}}</div>
+                        </div>
+						<ul class="panel-list-1-14" style="padding:30px 10px 10px;" ng-hide="responseResult.length == 0">
+						    <li ng-repeat="vr in responseResult">
+						          <em class="vote-num" style="font-style:inherit;">{{$index+1}}</em>
+						          <div class="panel-list-cont-14">
+						               <p>{{vr.label}} <span class="margin-left15 color-gray999">{{vr.count + ('voting_attendant_unit'|translate)}}</span></p>
+						               <div class="progress margin-top10 progress-xs"><div style="width:{{vr.count/vr.total*100 | number:2}}%" class="{{vr.cssClass2}}"></div></div> <span class="color-gray999">{{vr.count/vr.total*100 | number:2}}%</span>
+						          </div>
+						    </li>
+						</ul>
+					</div> <!-- pub-tabcont End -->
+				</pane>
+			</tabs>
+		</div>
+	</div> <!-- panel-list-box End -->
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

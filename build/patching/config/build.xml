@@ -1,0 +1,84 @@
+<project name="Build wizBank Patch" basedir="." default="cleanupTempFiles">
+	<taskdef resource="net/sf/antcontrib/antlib.xml"/>
+	<description>Build wizBank Patch FIle</description>
+	<!-- set global properties for this build -->
+	<property environment="env"/>
+	<property name="svncmd" location="${env.SVNCMD}"/>
+	<property name="temp" location="${env.BUILD_HOME}\temp"/>
+	<property name="log" location="${env.BUILD_HOME}\log"/>
+	<property name="wb_lib" location="../../../www/WEB-INF/lib"/>
+	<property name="wb_lib_compile" location="../../lib_compile"/>
+	<property name="config" location="${env.BUILD_HOME}\config"/>
+	<property name="errorlog" location="${log}\error.log"/>
+	<property name="difftxt" location="${temp}\diff.txt"/>
+	<property name="exportxml" location="${temp}\export.xml"/>
+	<property name="svninfotxt" location="${temp}\svninfotxt.txt"/>
+	<property name="svnpropertytxt" location="${temp}\svnpropertytxt.txt"/>
+	<property name="project.path" location="../../../"/>
+	<property name="compress_dir" location="../tools/yuicompressor/build/yuicompressor.jar"/>
+	<property name="yes" value="yes"/>
+	<target name="init">
+		<!-- Get svn related parameters -->
+		<input message="Please enter 'from svn revision' (exclusive) below" addproperty="svn.from"/>
+		<input message="Please enter 'to svn revision' (inclusive) below" addproperty="svn.to"/>
+		<!-- Create the directory structure -->
+		<input message="Please enter output directory below" addproperty="export"/>
+		<mkdir dir="${temp}"/>
+		<mkdir dir="${log}"/>
+		<mkdir dir="${export}"/>
+		<delete includeemptydirs="true">
+			<fileset dir="${export}" includes="**/*"/>
+		</delete>
+	</target>
+	<target name="loadSvnProperty" depends="init" description="get the project's svn url">
+		<exec executable="${env.SVNCMD}" output="${svninfotxt}">
+			<arg line="info ${project.path}"/>
+		</exec>
+		<java classname="com.cw.wizbank.svnexport.SvnInfo" failonerror="true">
+			<arg value="${svninfotxt}"/>
+			<arg value="${svnpropertytxt}"/>
+			<arg value="${export}"/>
+			<arg value="${svn.to}"/>
+			<classpath>
+				<fileset dir="${wb_lib}">
+					<include name="**/*.jar"/>
+				</fileset>
+			</classpath>
+		</java>
+		<property file="${svnpropertytxt}"/>
+	</target>
+	<!-- svn.url is defined in ${svnpropertytxt} which was generated dynamically-->
+	<target name="diff" depends="loadSvnProperty" description="Generate svn diff file">
+		<echo message="Getting svn diff file from ${svn.from} to ${svn.to} ${svn.url}"/>
+		<exec executable="${env.SVNCMD}" output="${difftxt}" failonerror="true" error="${errorlog}">
+			<arg line="diff --non-interactive -r ${svn.from}:${svn.to} ${svn.url}"/>
+		</exec>
+	</target>
+	<target name="exportbuilder" depends="diff" description="Generate svn export build file">
+		<echo message="Marking svn export build file"/>
+		<java classname="com.cw.wizbank.svnexport.SvnExportBuilder" failonerror="true" error="${errorlog}">
+			<arg value="${difftxt}"/>
+			<arg value="${exportxml}"/>
+			<arg value="${project.path}"/>
+			<arg value="${export}"/>
+			<arg value="${compress_dir}"/>
+			<arg value="${svn.to}"/>
+			<classpath>
+				<fileset dir="${wb_lib}">
+					<include name="**/*.jar"/>
+				</fileset>
+				<fileset dir="${wb_lib_compile}">
+					<include name="**/*.jar"/>
+				</fileset>
+			</classpath>
+		</java>
+	</target>
+	<target name="exportDiff" depends="exportbuilder" description="Ant the generated svn export build file to start export">
+		<ant antfile="${exportxml}">
+			<target name="export"/>
+		</ant>
+	</target>
+	<target name="cleanupTempFiles" depends="exportDiff" description="Cleanup temp files">
+		<delete dir="${temp}" includeEmptyDirs="true"/>
+	</target>
+</project>

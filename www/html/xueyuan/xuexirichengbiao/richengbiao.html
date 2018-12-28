@@ -1,0 +1,353 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery节假日高亮显示万年历</title>
+
+<link rel="stylesheet" type="text/css" href="../../../static/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/css/learner.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/theme/blue/css/style.css"/>
+
+</head>
+<body>
+<div class="xyd-header">
+	<div class="xyd-header-box">
+	     <div class="xyd-logo"><a href="###" title="xydbank"><img src="images/xyd-logo.png" alt="xydbank"/></a></div>
+	     <div class="xyd-tool">
+	          <div class="xyd-welcome">欢迎来到e-Learning学习平台</div>
+	          <div class="xyd-email"><a href="xiaoxi.html" title="xydbank"><i class="fa xyd-email-icon fa-envelope"></i><span>5</span></a></div>
+	          <div class="xyd-people xyd-flag">
+	               <div class="xyd-menu">
+	                    <ul>
+	                         <li href="javascript:void(0)">
+	                             <a class="thickbox" id="tob" href="#TB_inline?height=460&width=400&inlineId=wzb-pop"><i class="fa xyd-flag-icon fa-flag-o"></i><span class="xyd-flag-number">12</span></a>
+	                             <ul>
+	                                   <div class="xyd-tip-box"><div class="xyd-tip-hd"><em class="arrow arrowT"><i></i></em></div></div>
+	                                   <li><a href="###" title="报名审批">报名审批（5）</a></li>
+	                                   <li><a href="###" title="进行中的课程">进行中的课程（8）</a></li>
+	                                   <li><a href="###" title="进行中的考试">进行中的考试（2）</a></li>
+	                                   <li><a href="###" title="未提交的调查问卷">未提交的调查问卷（9）</a></li>
+	                                   <li><a href="###" title="投票">投票（0）</a></li>
+	                              </ul>
+	                         </li>
+	                    </ul>
+	               </div>
+	          </div>
+	          <div class="xyd-people">
+	               <div class="xyd-menu">
+	                    <ul>
+	                         <li href="javascript:void(0)" class="cur">
+	                            <img src="../../static/images/teacher01.png" alt="" class="xyd-user-icon">
+	                             <ul>
+	                                  <div class="xyd-tip-box-2"></div>
+	                                  <li style="height:175px;background:rgba(255,255,255,0.9);" class="cur">
+	                                      <div style="padding:5px 10px;">
+	                                          <div class="xyd-user-box clearfix" style="background:none;">
+	                                              <div class="wzb-user wzb-user82">
+	                                                  <img src="../../static/images/teacher01.png" class="wzb-pic">
+	                                              </div>
+
+	                                              <div class="xyd-user-content">
+	                                                  <p class="wzb-link04" title="" style="line-height:20px;">Andy</p>
+	                                                  <p>技术部</p>
+	                                              </div>
+	                                          </div>
+	                                          <!-- usermess End-->
+
+	                                          <p><span class="color-gray666">上次登录：</span>2016-05-14 02:47</p>
+	                                          <p><span class="color-gray666">我的积分：</span><span><em class="wzb-link04">200.0</em></span>
+	                                          </p>
+	                                      </div>     
+	                                  </li>
+	                                  <li style="height:42px;"><a href="gerenzhongxin-dangan.html" title="我的主页" class="wDzye" style="height:42px;line-height:44px;">我的主页</a></li>
+	                                  <li><a href="xiashu-chakanbaobiao.html" title="我的下属" class="wDxshu">我的下属</a></li>
+	                                  <li><a href="###" title="角色" class="jSe">角色</a>
+	                                       <ul>
+	                                          <li><a href="###" title="学员">学员</a></li>
+	                                          <li><a href="###" title="培训管理员">培训管理员</a></li>
+	                                          <li><a href="###" title="系统管理员">系统管理员</a></li>
+	                                      </ul>
+	                                  </li>
+	                                  <li><a href="###" title="语言" class="yYan">语言</a>
+	                                    	<ul>
+	                                           <li><a href="###" title="简体中文">简体中文</a></li>
+	                                           <li><a href="###" title="繁体中文">繁体中文</a></li>
+	                                           <li><a href="###" title="English">English</a></li>
+	                                 		</ul>
+	                                  </li>
+	                                  <li><a href="###" title="帮助" class="Bzhu">帮助</a></li>
+	                                  <li style="height:42px;"><a href="###" title="退出" class="tChu" style="height:42px;line-height:44px;">退出</a></li>
+	                              </ul>
+	                         </li>
+	                    </ul>
+	               </div>
+	          </div>
+	     </div>
+	</div>     
+</div> <!-- xyd-header End-->
+
+
+<div class="xyd-fixbox">
+<div class="xyd-fixcut xyd-nav skin-bg">
+<div class="xyd-sub">
+     <div class="xyd-menu">
+          <ul>
+              <li class="cur"><a href="index.html" title="首 页">首 页</a></li>
+              <li><a href="javascript:void(0)" title="">资讯</a>
+                  <ul>
+                       <li class="top-1"><a href="gonggao.html" title="公告">公告</a></li>
+                       <li class="top-2"><a href="haowaizixun.html" title="号外资讯">号外资讯</a></li>
+                  </ul>
+             </li>
+             <li><a href="javascript:void(0)" title="">学习</a>
+                 <ul>
+                      <li class="top-1"><a href="xuexi-mulu.html" title="课程目录">课程目录</a></li>
+                      <li class="top-2"><a href="xuexi-tuijian.html" title="推荐课程">推荐课程</a></li>
+                      <li class="top-3"><a href="xuexi-yibaoming.html" title="已报名课程">已报名课程</a></li>
+                      <li class="top-4"><a href="gongkaike.html" title="公开课">公开课</a></li>
+                      <li class="top-5"><a href="xuexiricheng.html" title="学习日程">学习日程</a></li>
+                      <li class="top-6"><a href="gangweifazhanlujing.html" title="岗位发展路径图">岗位发展路径图</a></li>
+                 </ul>
+            </li>
+            <li><a href="exam.html" title="">考试</a>
+                <ul>
+                     <li class="top-1"><a href="kaoshi-mulu.html" title="考试目录">考试目录</a></li>
+                     <li class="top-2"><a href="kaoshi-tuijian.html" title="推荐考试">推荐考试</a></li>
+                     <li class="top-3"><a href="kaoshi-yibaoming.html" title="已报名考试">已报名考试</a></li>
+                </ul>
+            </li>
+            <li><a href="javascript:void(0)" title="">学习地图 </a>
+                <ul>
+                     <li class="top-1"><a href="qunzu-wodequnzu.html" title="群组">群组</a></li>
+                     <li class="top-2"><a href="wenda-quanbuwenti.html" title="在线问答">在线问答</a></li>
+                     <li class="top-3"><a href="zhishizhongxin.html" title="知识中心">知识中心</a></li>
+                     <li class="top-4"><a href="dongtai-suoyoudongtai.html" title="动态消息">动态消息</a></li>
+                     <li class="top-5"><a href="paihangbang-kecheng.html" title="课程排行榜">课程排行榜</a></li>
+                     <li class="top-6"><a href="paihangbang-jifen.html" title="积分排行榜">积分排行榜</a></li>
+                     <li class="top-7"><a href="paihangbang-xuexi.html" title="学习排行榜">学习排行榜</a></li>
+                </ul>
+            </li>
+         </ul> <!-- nav End-->
+     </div>
+    
+     <div class="xyd-search">
+          <form target="_blank" name="searchform" method="get" action="souso.html">
+                <input type="text" class="form-control xyd-search-text" name="mytext" placeholder="搜索课程、号外资讯......"/>
+		        <input type="submit" class="xyd-search-button" name="mybtn" value=""/>
+          </form>   
+     </div>
+</div>
+
+<script>
+    $(function(){
+        $(".xyd-sub .xyd-menu ul li").hover(
+                function(){
+                   console.log($(this).children("ul").children().children().css("height"))
+                    $(this).children("ul").css("height",$(this).children("ul").children().length*47+"px");
+                      $(this).addClass("cur");
+                    //$(this).children("ul").show()
+                },
+                function(){
+                     $(this).children("ul").css("height","0px");
+                    $(this).removeClass("cur");
+                });
+
+        $(".xyd-people .xyd-menu ul li").hover(
+            function (){
+                $(this).addClass("cur");
+                $(this).children("ul").show()
+            },
+            function (){
+                $(this).removeClass("cur");
+              $(this).children("ul").hide()
+            }
+        )
+    })
+</script>     
+</div>
+</div> <!-- xyd-menu End-->
+
+
+<div class="xyd-wrapper">
+    <div class="xyd-main-3 clearfix">
+    	<div class="wzb-model-14" style="width:1000px;margin:20px auto 0;">
+
+			<div class="aboluo-w">
+				<div class="aboluo-tools">
+					<a class="aboluo-month-a-perv" href="javascript:;"></a>
+					<div class="aboluo-calendar-select-year"></div>
+					<div class="aboluo-calendar-month"></div>
+					<a class="aboluo-month-a-next" href="javascript:;"></a>
+
+					<input type="button" class="aboluo-toToday" value="返回今天" />
+				</div>
+				<div class="aboluo-leftdiv">
+					<div class="aboluo-rilidiv">
+						<table class="aboluo-rilitable" cellspacing="0" cellpadding="0" >
+							<thead class="aboluo-rilithead">
+								<tr>
+									<th>一</th>
+									<th>二</th>
+									<th>三</th>
+									<th>四</th>
+									<th>五</th>
+									<th>六</th>
+									<th>日</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+				<div class="aboluo-rightdiv">
+					<div class="aboluo-rightdiv-top"></div>
+					<div class="aboluo-rightdiv-tap wzb-tab-8">
+						<ul class="nav-tabs">
+							<li class="tap-all tap-all-2 active"><span>全部课程</span></li>
+							<li class="tap-mianshou"><span style="display:none;">面授课程</span></li>
+							<li class="tap-wangshang"><span style="display:none;">网上课程</span></li>
+							<li class="tap-xiangmushi"><span style="display:none;">项目式课程</span></li>
+						</ul>
+					</div>
+					<div class="aboluo-rightdiv-content">
+						<div class="wzb-title-15">
+							<span class="tap-mianshou tap-mianshou-2 font-size16">面授课程</span>
+							<span style="float:right;" class="wzb-jiantou">3</span>
+						</div>
+						<div class="wzb-tuwen-list-1">
+							<a href="javascript(0);">
+								<div class="wzb-tuwen-list-1-pic"><img src="../../../static/images/adv91.jpg" alt="" width="87px"/><div class="wzb-tuwen-list-1-pic-shade">未完成</div></div>
+								<div class="margin-left97">
+									<div class="wzb-tuwen-list-1-title">新员工入职培训</div>
+									<div class="wzb-tuwen-list-1-subtitle">
+										<div>面授期间</div>
+										<div>2017-02-01至2017-02-12</div>
+									</div>
+								</div>
+							</a>
+						</div>
+						<div class="wzb-tuwen-list-1">
+							<a href="javascript(0);">
+								<div class="wzb-tuwen-list-1-pic"><img src="images/adv91.jpg" alt="" /><div class="wzb-tuwen-list-1-pic-shade">已完成</div></div>
+								<div class="margin-left97">
+									<div class="wzb-tuwen-list-1-title">新员工入职培训新员工入职培训新员工入职培训</div>
+									<div class="wzb-tuwen-list-1-subtitle">
+										<div>面授期间</div>
+										<div>2017-02-01至2017-02-12</div>
+									</div>
+								</div>
+							</a>
+						</div>
+						<div class="wzb-tuwen-list-1">
+							<a href="javascript(0);">
+								<div class="wzb-tuwen-list-1-pic"><img src="images/adv91.jpg" alt="" /><div class="wzb-tuwen-list-1-pic-shade">进行中</div></div>
+								<div class="margin-left97">
+									<div class="wzb-tuwen-list-1-title">新员工入职培训新员工入职培训新员工入职培训</div>
+									<div class="wzb-tuwen-list-1-subtitle">
+										<div>面授期间</div>
+										<div>2017-02-01至2017-02-12</div>
+									</div>
+								</div>
+							</a>
+						</div>
+						<div class="wzb-title-15">
+							<span class="tap-wangshang tap-wangshang-2">网上课程</span>
+							<span style="float:right;" class="wzb-jiantou">3</span>
+						</div>
+						<div class="wzb-tuwen-list-1">
+							<a href="javascript(0);">
+								<div class="wzb-tuwen-list-1-pic"><img src="images/adv91.jpg" alt="" /><div class="wzb-tuwen-list-1-pic-shade">In progress</div></div>
+								<div class="margin-left97">
+									<div class="wzb-tuwen-list-1-title">新员工入职培训</div>
+									<div class="wzb-tuwen-list-1-subtitle">
+										<div>内容期限</div>
+										<div>2017-02-01至2017-02-12</div>
+									</div>
+								</div>
+							</a>
+						</div>
+						<div class="wzb-tuwen-list-1">
+							<a href="javascript(0);">
+								<div class="wzb-tuwen-list-1-pic"><img src="images/adv91.jpg" alt="" /><div class="wzb-tuwen-list-1-pic-shade">Failed</div></div>
+								<div class="margin-left97">
+									<div class="wzb-tuwen-list-1-title">新员工入职培训新员工入职培训新员工入职培训</div>
+									<div class="wzb-tuwen-list-1-subtitle">
+										<div>内容期限</div>
+										<div>2017-02-01至2017-02-12</div>
+									</div>
+								</div>
+							</a>
+						</div>
+						<div class="wzb-tuwen-list-1">
+							<a href="javascript(0);">
+								<div class="wzb-tuwen-list-1-pic"><img src="images/adv91.jpg" alt="" /><div class="wzb-tuwen-list-1-pic-shade">Completed</div></div>
+								<div class="margin-left97">
+									<div class="wzb-tuwen-list-1-title">新员工入职培训新员工入职培训新员工入职培训</div>
+									<div class="wzb-tuwen-list-1-subtitle">
+										<div>内容期限</div>
+										<div>2017-02-01至2017-02-12</div>
+									</div>
+								</div>
+							</a>
+						</div>
+						<div class="wzb-title-15">
+							<span class="tap-xiangmushi tap-xiangmushi-2">项目式培训</span>
+							<span style="float:right;" class="wzb-jiantou">3</span>
+						</div>
+						<div class="wzb-tuwen-list-1">
+							<a href="javascript(0);">
+								<div class="wzb-tuwen-list-1-pic"><img src="images/adv91.jpg" alt="" /><div class="wzb-tuwen-list-1-pic-shade">进行中</div></div>
+								<div class="margin-left97">
+									<div class="wzb-tuwen-list-1-title">新员工入职培训</div>
+									<div class="wzb-tuwen-list-1-subtitle">
+										<div>内容期限</div>
+										<div>2017-02-01至2017-02-12</div>
+									</div>
+								</div>
+							</a>
+						</div>
+						<div class="wzb-tuwen-list-1">
+							<a href="javascript(0);">
+								<div class="wzb-tuwen-list-1-pic"><img src="images/adv91.jpg" alt="" /><div class="wzb-tuwen-list-1-pic-shade">进行中</div></div>
+								<div class="margin-left97">
+									<div class="wzb-tuwen-list-1-title">新员工入职培训新员工入职培训新员工入职培训</div>
+									<div class="wzb-tuwen-list-1-subtitle">
+										<div>内容期限</div>
+										<div>2017-02-01至2017-02-12</div>
+									</div>
+								</div>
+							</a>
+						</div>
+						<div class="wzb-tuwen-list-1">
+							<a href="javascript(0);">
+								<div class="wzb-tuwen-list-1-pic"><img src="images/adv91.jpg" alt="" /><div class="wzb-tuwen-list-1-pic-shade">进行中</div></div>
+								<div class="margin-left97">
+									<div class="wzb-tuwen-list-1-title">新员工入职培训新员工入职培训新员工入职培训</div>
+									<div class="wzb-tuwen-list-1-subtitle">
+										<div>内容期限</div>
+										<div>2017-02-01至2017-02-12</div>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="../../../static/js/jquery.js"></script>
+<script type="text/javascript" src="../../../static/js/richengbiao.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

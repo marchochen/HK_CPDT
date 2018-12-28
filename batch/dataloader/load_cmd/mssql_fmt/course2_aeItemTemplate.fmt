@@ -1,0 +1,7 @@
+8.0
+5
+1	SQLNCHAR	0	0	"\t\0"		1	itp_itm_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	itp_ttp_id	""
+3	SQLNCHAR	0	0	"\t\0"		3	itp_tpl_id	""
+4	SQLNCHAR	0	0	"\t\0"		4	itp_create_timestamp	""
+5	SQLNCHAR	0	0	"\r\0\n\0"	5	itp_create_usr_id	""

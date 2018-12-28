@@ -1,0 +1,347 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+<meta name="Keywords" content="wizMobile" />
+<meta name="Description" content="wizMobile" />
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="MobileOptimized" content="320" />
+<meta http-equiv="cleartype" content="on" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="white"/>
+<script LANGUAGE="JavaScript" TYPE="text/javascript" src="../js/urlparam.js"></script>
+<script LANGUAGE="JavaScript" TYPE="text/javascript" src="../js/wb_scormAdapter.js"></script>
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script LANGUAGE="JavaScript" TYPE="text/javascript" src="../mobile/lib/common.js"></script>
+<link href="../mobile/css/basic.css" rel="stylesheet" type="text/css"/>
+<style type="text/css">
+html{font-size:12px;width:100%;height:100%}
+body{width:100%;padding:0;margin:0;font-family:Microsoft Yahei,Arial; color:#333; min-width:320px;}
+#loading_text{ }
+</style>
+<title>Cyberwisdom wizBank</title>
+<script type="text/javascript">
+	var checkLoadInt=9527;
+	var checkSendInt=9527;
+	var my_aicc_url=getUrlParam('aicc_url');
+	var my_aicc_sid=getUrlParam('aicc_sid');
+	var my_web_launch=getUrlParam('web_launch');
+	var my_cos_url=getUrlParam('cos_url');
+	var play_style = getUrlParam('play_style');
+	
+	var hasSendInt=9572;
+	var IamHere=true;
+	
+	var had_sub=false;
+	var counti=0;
+	
+	var lmsInitCalled ;
+	var lmsFinishCalled ;
+	
+	var height;
+	var width;
+	
+	var emb;
+
+
+	$(window).resize(function() {
+		var newHeight = window.document.body.clientHeight;
+		newHeight = newHeight-42;
+		$("#scorm").height(newHeight);
+	});
+
+	function initTitle(){
+		var lang = getUrlParam('lang');
+		var title = "";
+		if('en-us' == lang){
+			title = "Click here to save and exit";
+		}else if('zh-hk' == lang){
+			title = "點這裏退出並保存學習記錄";
+		}else{
+			title = "点这里退出并保存学习记录";
+		}
+		
+		$("#title").text(title);
+	}
+	$(function(){
+         init() ;
+    })
+    var initHistoryLength = 0;//此处设置全局初始化访问时，【历史页数】默认为0
+	function init() {
+		
+		initTitle();
+		initHistoryLength = history.length;//当进入页面时，进行初始化访问的页数计算赋值；
+		if (my_aicc_url != "" && typeof (my_aicc_url) != "undefined" && my_aicc_sid != "" && typeof (my_aicc_sid) != "undefined") {
+			$.ajax({
+				type : 'POST',
+				dataType : 'text',
+				url : my_aicc_url,
+				data : {
+					command : 'GetParam',
+					version : '2.2',
+					session_id : my_aicc_sid,
+					AICC_Data : '',
+					AU_password : ''
+				}
+			}).done(function(data){
+				parseVar(data);
+			});
+		}
+		
+		window.addEventListener('orientationchange', function(event){
+            dyniframesize('content');
+        });
+	}
+	function parseVar(varStr) {
+		if (varStr.substring(0, 7) == "error=0") {
+			initSCORM_Var(varStr);
+			
+			var serverHost = window.location.protocol + "//" + window.location.host;
+			var screenOrientation;
+			if("many" === play_style){//横屏
+				screenOrientation = "landscape-primary";
+			}else{//竖屏
+				screenOrientation = "portrait-primary";
+			}
+			
+			$("#content").remove();
+			openCourse(my_cos_url);
+			lmsInitCalled = true;
+			
+			if(window.plus){
+
+				plus.screen.lockOrientation(screenOrientation);
+				changeBackButtion(function(){
+					scoPlayerSubmit();
+				});
+				
+			} else {
+				document.addEventListener('plusready',function(){
+					plus.screen.lockOrientation(screenOrientation);
+					changeBackButtion(function(){
+						scoPlayerSubmit();
+					});
+					
+				},false);
+			}
+		}
+	}
+	
+	
+	var time_spend=0;
+	function timeCount() {
+		time_spend = time_spend + 1;
+	}
+	
+	
+	function openCourse(course_url){
+	    var htm =
+            '<iframe id="content" src="'+ course_url+'"  style="display: none;" name="content" width="100%" scrolling="yes" frameborder="0" />'
+	    $("#sco_content").html(htm)
+	    dyniframesize('content')
+		window.setInterval("timeCount()", 1000);
+	}
+	function joinAiccData(){
+		var aiccDataVar="";
+		var NEWL = "\r\n";
+		aiccDataVar+="[core]" + NEWL;
+		aiccDataVar+="lesson_location=" +wiz_cmi_core_lesson_location+ NEWL;
+		aiccDataVar+="lesson_status=" +wiz_cmi_core_lesson_status+ NEWL;
+		aiccDataVar+="score=" +wiz_cmi_core_score_raw+","+wiz_cmi_core_score_max+","+wiz_cmi_core_score_min+ NEWL;
+		
+		aiccDataVar+="time=" +time_spend+ NEWL;
+	
+		aiccDataVar+="[core_lesson]" + NEWL;
+		aiccDataVar+=encodeURIComponent(wiz_cmi_suspend_data)+ NEWL;
+		return aiccDataVar;
+	}
+	
+	
+	function putToSendAdapter(){
+		var url = my_aicc_url ;
+		data_ = "command=PutParam&version=2.2&type=scorm&session_id="+my_aicc_sid+"&AU_password=&AICC_Data="+joinAiccData();
+		if (my_aicc_url != "" && typeof (my_aicc_url) != "undefined") {
+			$.ajax({
+				type : 'POST',
+				dataType : 'text',
+				url : my_aicc_url,
+				data : data_
+			}).done(function(data){
+			});
+		}
+	}
+	
+	function scoPlayerSubmit(){
+		
+		if("VIEWONLY" == my_aicc_sid){//预览的时候，直接返回
+			goBack();	
+			return;
+		}
+		if(had_sub){
+			return;
+		}
+		
+		var htm = 
+            '<iframe id="content" style="display: none;" src="loading.htm" name="content" width="100%" scrolling="yes" frameborder="0" />'
+		$("#sco_content").html(htm)
+		if(lmsInitCalled){
+			var url = my_aicc_url ;
+			data_ = "command=PutParam&version=2.2&type=scorm&session_id="+my_aicc_sid+"&AU_password=&AICC_Data="+joinAiccData();
+				had_sub = true;
+			if (my_aicc_url != "" && typeof (my_aicc_url) != "undefined") {
+				$.ajax({
+					type : 'POST',
+					dataType : 'text',
+					url : my_aicc_url,
+					data : data_
+				}).done(function(data){
+					goBack();
+					unlockOrientation();
+				});
+			}
+		}else{
+			goBack();
+			unlockOrientation();
+		}
+	}
+	
+	var goBack = function(){
+		var goBackHistoryLength = history.length;//设置访问页数变量
+		var goLenth = goBackHistoryLength - initHistoryLength;//开始计算返回的页数：当前历史页 - 初始化时的页数
+		initHistoryLength = 0;//初始化的数值使用完之后，首先将它重置回0;
+		if(window.plus){
+			if(plus.webview.currentWebview().opener()){
+				changeWebviewDetail(plus.webview.currentWebview().opener().id,function(){
+					var ws = plus.webview.currentWebview();
+					ws.close('auto',200);
+				});
+			}else{
+				var ws = plus.webview.currentWebview();
+				ws.close('auto',200);
+			}
+		}else if(goBackHistoryLength>1){
+			goLenth = parseInt(goLenth)+1;//因为需要返回到上一层页，所以要加一，正如 history.go(-1)
+			var realGoLenth = - goLenth; //赋为负数使用
+			realGoLenth = parseInt(realGoLenth);//转为数值类型
+			history.go(realGoLenth);//按照计算结果进行层级返回
+		}else{
+			w.close();
+		}
+	};
+	window.onresize=function(){
+		dyniframesize('content');
+    }
+	function dyniframesize(id) {
+		var ifm= document.getElementById(id);
+		if(!ifm){
+			return;
+		}
+		
+		var subWeb = document.frames ? document.frames[id].document : ifm.contentDocument; 
+		if(ifm != null && subWeb != null) { 
+			ifm.height = window.document.body.clientHeight - 46;
+			ifm.width = window.document.body.clientWidth;
+		} 
+	    //由于每次调用$("#sco_content").html(htm)， 这个对象都会被清空。所以不用再去删除。
+        // 所以只是在onresize的时候改对象是存在的，并且被置为隐藏。所以不会再多次出现，也不会创建
+	    if($("#loading_text") && $("#loading_text").length < 1) {
+            var lang = getUrlParam("lang");
+            if(lang == ""){
+                lang = 'en'
+            }
+            var wb_msg_loading_msg = "Loading... Please wait."
+            if(lang =='ch'){
+                wb_msg_loading_msg = "下載中，請稍候...";
+            }else if(lang =='gb'){
+                wb_msg_loading_msg = "装载中，请稍候...";
+            }
+	        $("#sco_content").append('<div id="loading_text">' + wb_msg_loading_msg + '</div>');
+        }
+        $('iframe#' + id).load(function(){
+            var ifm = document.getElementById(id);
+            if(!ifm){
+                return;
+            }
+            var subWeb = document.frames ? document.frames[id].document : ifm.contentDocument;
+            if(ifm != null && subWeb != null) {
+                ifm.height = window.document.body.clientHeight - 46;
+            }
+            $("#loading_text").hide();
+            $("#" + id).show();
+        })
+	}
+	
+	/*
+	* 递归获取页面的所有的iframe（包括iframe中还有iframe，即iframe嵌套）
+	*/
+	function getChildIframes(pIframe,allIframes){
+		
+		if(pIframe){
+			var childIframes = pIframe.frames;
+			if(childIframes && childIframes.length>0){
+				
+				for(var i=0;i<childIframes.length;i++){
+					var cIframe = childIframes[i];
+					allIframes.push(cIframe);
+					getChildIframes(cIframe,allIframes);
+				}
+				
+			}
+		}
+		
+	}
+	
+	/*
+	*获取页面的所有的iframe
+	*/
+	function getAllIframes(){
+		
+		var allIframes = [];
+		
+		getChildIframes(window,allIframes);
+		
+		return allIframes;
+	}
+	
+	
+	//app原生事件监听，app界面隐藏时触发
+	document.addEventListener('pause', function(){
+		
+		//递归获取页面的所有的iframe（包括iframe中还有iframe，即iframe嵌套）
+		var allIframes = getAllIframes();
+		
+		/*
+		* 循环页面所有iframe中的所有video（双重循环），依次停止video
+		*/
+		if(allIframes && allIframes.length>0){
+			for(var i=0;i<allIframes.length;i++){
+				var iframe = allIframes[i];
+				var iframeVideos = iframe.document.getElementsByTagName("video");
+				if(iframeVideos && iframeVideos.length>0){
+					for(var j=0;j<iframeVideos.length;j++){
+						var video = iframeVideos[j];
+						video.pause();
+					}
+				}
+			}
+		}
+		
+	});
+	
+	
+</script>
+</head>
+
+<body style="height:100%;background:#f4f4f4;" onLoad="javascript:init()">
+<header class="header mm-background" style="background: #f88600;" onclick="javascript:scoPlayerSubmit();">
+	<a href="javascript:void(0);" class="header-back header-back-2"></a>
+    <span id="title" class="header-title" style="text-align:left;"></span>
+</header>
+<div id="sco_content" style="padding-top: 46px">
+	<iframe id="content"  style="display: none;" src="loading.htm" name="content" onload="javascript:dyniframesize('content');" width="100%"
+            scrolling="yes" frameborder="0" />
+</div>
+</body>
+</html>
+
+

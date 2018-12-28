@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.UserFavoriteFunctionMapper">
+	
+	
+	<sql id="page_where">
+		<where>
+		</where>
+	</sql>
+	
+	<select id="getCount" resultType="java.lang.Integer" parameterType="Map">
+	    <![CDATA[
+	        select count(*) from userFavoriteFunction t 
+	    ]]>
+	    <include refid="page_where"/>
+	</select>
+
+	
+	<select id="get" resultType="UserFavoriteFunction" parameterType="Map">
+		<![CDATA[
+			select 
+				uff_usr_ent_id,
+				uff_role_ext_id,
+				uff_fun_id,
+				uff_create_datetime
+			from userFavoriteFunction t
+			where
+				 uff_usr_ent_id = #{userEntId}
+				 and uff_fun_id = #{funId}
+		]]>
+	</select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.UserFavoriteFunction">
+	    <![CDATA[
+	        update userFavoriteFunction
+	        set 
+				uff_usr_ent_id = #{uff_usr_ent_id,jdbcType=INTEGER},
+				uff_role_ext_id = #{uff_role_ext_id,jdbcType=VARCHAR},
+				uff_fun_id = #{uff_fun_id,jdbcType=INTEGER},
+				uff_create_datetime = #{uff_create_datetime,jdbcType=DATE}
+	         where t.uff_usr_ent_id = #{uff_usr_ent_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.UserFavoriteFunction">
+    	<![CDATA[
+            INSERT INTO userFavoriteFunction(
+            		uff_usr_ent_id,
+            		uff_fun_id,
+            		uff_role_ext_id,
+            		uff_create_datetime
+            ) VALUES (
+            	#{uff_usr_ent_id,jdbcType=INTEGER},
+            	#{uff_fun_id,jdbcType=INTEGER},
+            	#{uff_role_ext_id,jdbcType=VARCHAR},
+            	#{uff_create_datetime,jdbcType=DATE}
+            )
+        ]]>
+    </insert>
+    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	DELETE from userFavoriteFunction where
+	        uff_usr_ent_id = #{uff_usr_ent_id}
+	    ]]>
+    </delete>
+	
+	<select id="selectList" resultType="UserFavoriteFunction">
+	        SELECT 
+				uff_usr_ent_id,
+				uff_role_ext_id,
+				uff_fun_id,
+				uff_create_datetime,
+				ftn_id as "acFunction.ftn_id",
+				ftn_ext_id as "acFunction.ftn_ext_id"
+			FROM userFavoriteFunction
+			INNER JOIN acFunction on ftn_id = uff_fun_id
+			WHERE uff_usr_ent_id = #{userEntId}
+			AND uff_role_ext_id = #{roleExtId} 
+	</select>	
+	
+	<delete id="deleteFavorite" parameterType="Map">
+		DELETE FROM 
+			  UserFavoriteFunction 
+		WHERE uff_usr_ent_id = #{userEntId}
+			  AND uff_fun_id = #{funId} 
+	</delete>
+	
+</mapper>

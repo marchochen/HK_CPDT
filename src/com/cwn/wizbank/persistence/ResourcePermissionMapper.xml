@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.ResourcePermissionMapper">
+	
+	
+	<sql id="page_where">
+		<where>
+		</where>
+	</sql>
+	
+	<select id="getCount" resultType="java.lang.Integer" parameterType="Map">
+	    <![CDATA[
+	        select count(*) from ResourcePermission t 
+	    ]]>
+	    <include refid="page_where"/>
+	</select>
+
+	
+	<select id="get" resultType="ResourcePermission" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				rpm_res_id,
+				rpm_ent_id,
+				rpm_rol_ext_id,
+				rpm_read,
+				rpm_write,
+				rpm_execute
+			from ResourcePermission 
+			where
+		]]>
+	</select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.ResourcePermission">
+	    <![CDATA[
+	        update ResourcePermission
+	        set 
+				rpm_res_id = #{rpm_res_id,jdbcType=INTEGER},
+				rpm_ent_id = #{rpm_ent_id,jdbcType=INTEGER},
+				rpm_rol_ext_id = #{rpm_rol_ext_id,jdbcType=VARCHAR},
+				rpm_read = #{rpm_read,jdbcType=BOOLEAN},
+				rpm_write = #{rpm_write,jdbcType=BOOLEAN},
+				rpm_execute = #{rpm_execute,jdbcType=BOOLEAN}
+	    ]]>
+    </update>
+    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.ResourcePermission">
+    	<![CDATA[
+            insert into ResourcePermission(
+            		rpm_res_id,
+            		rpm_ent_id,
+            		rpm_rol_ext_id,
+            		rpm_read,
+            		rpm_write,
+            		rpm_execute
+            ) values (
+            	#{rpm_res_id,jdbcType=INTEGER},
+            	#{rpm_ent_id,jdbcType=INTEGER},
+            	#{rpm_rol_ext_id,jdbcType=VARCHAR},
+            	#{rpm_read,jdbcType=BOOLEAN},
+            	#{rpm_write,jdbcType=BOOLEAN},
+            	#{rpm_execute,jdbcType=BOOLEAN}
+            )
+        ]]>
+    </insert>
+    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from ResourcePermission where
+	    ]]>
+    </delete>
+	
+	<select id="selectAll" resultType="ResourcePermission">
+	    <![CDATA[
+	         select 
+				rpm_res_id,
+				rpm_ent_id,
+				rpm_rol_ext_id,
+				rpm_read,
+				rpm_write,
+				rpm_execute
+			from ResourcePermission 
+	    ]]>
+	</select>	
+	
+	<delete id="delAllByEntId" parameterType="Long">
+		DELETE From ResourcePermission WHERE rpm_ent_id = #{ent_id}
+	
+	</delete>
+	
+</mapper>

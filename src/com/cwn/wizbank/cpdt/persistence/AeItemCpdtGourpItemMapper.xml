@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.cpdt.persistence.AeItemCpdtGourpItemMapper">
+
+	<resultMap id="AeItemCpdtGourpItemVoMap" type="com.cwn.wizbank.cpdt.vo.AeItemCpdtGourpItemVo">
+	        <id column="acgi_id" property="acgi_id" />
+	        <result column="acgi_cg_id" property="acgi_cg_id"></result>
+	        <result column="acgi_aci_id" property="acgi_aci_id"></result>
+	        <result column="acgi_itm_id" property="acgi_itm_id"></result>
+	        <result column="acgi_award_core_hours" property="acgi_award_core_hours"></result>
+	        <result column="acgi_award_non_core_hours" property="acgi_award_non_core_hours"></result>
+	        <result column="acgi_create_usr_ent_id" property="acgi_create_usr_ent_id"></result>
+	        <result column="acgi_update_usr_ent_id" property="acgi_update_usr_ent_id"></result>
+	        <result column="acgi_create_datetime" property="acgi_create_datetime"  ></result>
+	        <result column="acgi_update_datetime" property="acgi_update_datetime"  ></result>
+	        <association property="aeItemCPDItem" javaType="com.cwn.wizbank.cpdt.entity.AeItemCpdtItem">
+	            <id property="aci_id" column="aci_id" />
+	            <result property="aci_accreditation_code" column="aci_accreditation_code" />
+	            <result column="aci_hours_end_date" property="aci_hours_end_date" javaType="java.util.Date" jdbcType="DATE"></result>
+	        </association>
+    </resultMap>
+
+	<!-- 增 -->
+	<insert id="insert" parameterType="com.cwn.wizbank.cpdt.entity.AeItemCpdtGourpItem">
+
+	</insert>
+	<!-- 删 -->
+	<update id="delete" parameterType="com.cwn.wizbank.cpdt.entity.AeItemCpdtGourpItem">
+
+	</update>
+	<!-- 改 -->
+	<update id="update" parameterType="com.cwn.wizbank.cpdt.entity.AeItemCpdtGourpItem">
+
+	</update>
+	<!-- 通过ID查询 -->
+	<select id="getAeItemCpdtGourpItemVo" resultType="com.cwn.wizbank.cpdt.vo.AeItemCpdtGourpItemVo" parameterType="java.util.Map">
+		SELECT
+			acgi_id,
+			acgi_cg_id,
+			acgi_aci_id,
+			acgi_itm_id,
+			acgi_award_core_hours,
+			acgi_award_non_core_hours,
+			acgi_create_usr_ent_id,
+			acgi_create_datetime,
+			acgi_update_usr_ent_id,
+			acgi_update_datetime,
+			aci_id,
+			aci_accreditation_code,
+			aci_hours_end_date
+		FROM
+			aeItemCPDGourpItem
+		INNER JOIN aeItemCPDItem ON (acgi_aci_id = aci_id)
+		WHERE
+			acgi_itm_id = #{itmId}
+		AND acgi_cg_id = #{cgId}
+	</select>
+	
+</mapper>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html ng-app="voting">
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+		<title translate="cwn_title"></title>
+		<link rel="stylesheet" href="../../css/basic.css" />
+		<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.load.js"></script>
+		<script type="text/javascript" src="../../js/controllers/VotingController.js"></script>
+		<script type="text/javascript" src="../../lib/common.js"></script>
+	</head>
+	<body ng-cloak class="ng-cloak" ng-controller="indexController">
+		<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">
+			{{alert.msg | translate}}
+		</alert>
+		<div class="wrap" id="wizwrap">
+			<header class="header mm-background">
+			    <a class="header-back" href="javascript:back();" title="back"></a>
+			    <span class="header-title" translate="voting_label"></span>
+			</header> <!-- header End -->
+
+			<wzm-docker rp="../../"></wzm-docker>
+
+			<section class="content-2">
+				<div class="panel-list-box">
+					<div class="panel-tab-1 pub-tab">
+						<tabs css="1">
+							<pane title="{{'voting_in_progress' | translate}}"><!-- 进行中 -->
+								<div class="panel-tabcont-2 pub-tabcont">
+									<ul class="panel-list-1-2 list-icon-toupiao" ng-show="ingList.items && ingList.items.length>0">
+									    <li class="{{item.voteResponse?'yitou-load':'weitou-load'}}" ng-repeat="item in ingList.items">
+									          <a href="javascript:void(0)" forward="item | votingUrl :'ing'" class="panel-list-title-1" href="gonggao-xiangqing.html" title="">
+									             {{item.vot_title}}
+									             <div class="panel-list-time">
+									             		<!-- 培训中心 -->{{'training_center_name' | translate}}：{{item.tcTrainingCenter.tcr_title}}
+									             </div>
+									             <div class="panel-list-time">
+									             	{{item.voteResponse ? ('mod_submit_time'|translate)+'：'+(item.voteResponse.vrp_respone_time | toDate:'yyyy-MM-dd') : ('voting_deadline'|translate)+'：'+(item.vot_eff_date_to | toDate:'yyyy-MM-dd')}}
+									             </div>
+									          </a>
+									    </li>
+									</ul>
+									<div loader="ingList"></div>
+								</div>
+							</pane>
+
+							<pane title="{{'voting_has_finished' | translate}}"><!-- 已结束 -->
+								<div class="panel-tabcont-2 pub-tabcont">
+									<ul class="panel-list-1-2 list-icon-toupiao" ng-show="edList.items && edList.items.length>0">
+									    <li class="{{item.voteResponse?'yitou-over':'weitou-over'}}" ng-repeat="item in edList.items">
+									          <a href="javascript:void(0)" forward="item | votingUrl :'ed'" class="panel-list-title-1" title="">
+									             {{item.vot_title}}
+									             <div class="panel-list-time">
+									             	 	{{'training_center_name' | translate}}<!-- 培训中心 -->：{{item.tcTrainingCenter.tcr_title}}
+									             </div>
+									             <div class="panel-list-time">
+									             		{{item.voteResponse ? ('mod_submit_time'|translate)+'：'+(item.voteResponse.vrp_respone_time | toDate:'yyyy-MM-dd') : ('voting_deadline'|translate)+'：'+(item.vot_eff_date_to | toDate:'yyyy-MM-dd')}}
+									             </div>
+									          </a>
+									    </li>
+									</ul>
+									<div loader="edList"></div>
+								</div>
+							</pane>
+						</tabs>
+					</div>
+				</div>
+			</section>
+		</div>
+	</body>
+</html>

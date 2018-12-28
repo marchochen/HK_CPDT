@@ -1,0 +1,130 @@
+<template_view>
+	<section id="1">
+		<title>
+			<desc lan="ISO-8859-1" name="General information"/>
+			<desc lan="Big5" name="基本資訊"/>
+			<desc lan="GB2312" name="基本信息"/>
+		</title>
+		<itm_type type="itm_type" paramname="itm_type">
+			<title>
+				<desc lan="ISO-8859-1" name="Type"/>
+				<desc lan="Big5" name="類型"/>
+				<desc lan="GB2312" name="类型"/>
+			</title>
+		</itm_type>
+		<field01>
+			<title>
+				<desc lan="ISO-8859-1" name="Code"/>
+				<desc lan="Big5" name="編號"/>
+				<desc lan="GB2312" name="编号"/>
+			</title>
+		</field01>
+		<field99 width="226" height="137">
+			<title>
+				<desc lan="ISO-8859-1" name="Icon"/>
+				<desc lan="Big5" name="圖示"/>
+				<desc lan="GB2312" name="图示"/>
+			</title>
+		</field99>		
+		<field02>
+			<title>
+				<desc lan="ISO-8859-1" name="Title"/>
+				<desc lan="Big5" name="名稱"/>
+				<desc lan="GB2312" name="名称"/>
+			</title>
+		</field02>
+		<training_center type="tcr_pickup" paramname="itm_tcr_id" required="yes" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Training center"/>
+				<desc lan="Big5" name="培訓中心"/>
+				<desc lan="GB2312" name="培训中心"/>
+			</title>
+		</training_center>
+		<catalog type="catalog_attachment" paramname="tnd_id_lst" required="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Categories"/>
+				<desc lan="Big5" name="目錄"/>
+				<desc lan="GB2312" name="目录"/>
+			</title>
+		</catalog>
+		<field04>
+			<title>
+				<desc lan="ISO-8859-1" name="Language medium"/>
+				<desc lan="Big5" name="語言"/>
+				<desc lan="GB2312" name="语言"/>
+			</title>
+		</field04>
+		<field41>
+			<title>
+				<desc lan="ISO-8859-1" name="URL"/>
+				<desc lan="Big5" name="URL"/>
+				<desc lan="GB2312" name="URL"/>
+			</title>
+		</field41>
+		<field42>
+			<title>
+				<desc lan="ISO-8859-1" name="Related URLs"/>
+				<desc lan="Big5" name="相關網址"/>
+				<desc lan="GB2312" name="相关网址"/>
+			</title>
+			<subfield_list>
+				<subfield id="1">
+					<title>
+						<desc lan="ISO-8859-1" name="URL 1"/>
+						<desc lan="Big5" name="URL 1"/>
+						<desc lan="GB2312" name="URL 1"/>
+					</title>
+				</subfield>
+				<subfield id="2">
+					<title>
+						<desc lan="ISO-8859-1" name="URL 2"/>
+						<desc lan="Big5" name="URL 2"/>
+						<desc lan="GB2312" name="URL 2"/>
+					</title>
+				</subfield>
+				<subfield id="3">
+					<title>
+						<desc lan="ISO-8859-1" name="URL 3"/>
+						<desc lan="Big5" name="URL 3"/>
+						<desc lan="GB2312" name="URL 3"/>
+					</title>
+				</subfield>
+				<subfield id="4">
+					<title>
+						<desc lan="ISO-8859-1" name="URL 4"/>
+						<desc lan="Big5" name="URL 4"/>
+						<desc lan="GB2312" name="URL 4"/>
+					</title>
+				</subfield>
+				<subfield id="5">
+					<title>
+						<desc lan="ISO-8859-1" name="URL 5"/>
+						<desc lan="Big5" name="URL 5"/>
+						<desc lan="GB2312" name="URL 5"/>
+					</title>
+				</subfield>
+			</subfield_list>
+		</field42>
+		<field06>
+			<title>
+				<desc lan="ISO-8859-1" name="Summary"/>
+				<desc lan="Big5" name="簡介"/>
+				<desc lan="GB2312" name="简介"/>
+			</title>
+		</field06>
+		<field07>
+			<title>
+				<desc lan="ISO-8859-1" name="Contents"/>
+				<desc lan="Big5" name="內容"/>
+				<desc lan="GB2312" name="内容"/>
+			</title>
+		</field07>
+		<field14>
+			<title>
+				<desc lan="ISO-8859-1" name="Remarks"/>
+				<desc lan="Big5" name="備註"/>
+				<desc lan="GB2312" name="备注"/>
+			</title>
+		</field14>
+	</section>
+</template_view>

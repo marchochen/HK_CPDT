@@ -1,0 +1,141 @@
+a.qtReportLink{
+	color: #F5FFFA;
+	font: 700 10pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-decoration: none;
+}
+
+a.qtReportLink:hover{
+	color: #FFA500;
+	font: 700 10pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-decoration: none;
+}
+
+body, div {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 12pt;
+}
+
+.fbQuestionText{
+}
+
+.mcQuestion, .fbQuestion {
+	height: 300px;
+	left: 15px;
+	position: absolute;
+	top: 100px;
+	visibility: hidden;
+	width: 575px;
+}
+
+.mcQuestionText{
+}
+
+.mtBorder{
+	border: #000000;
+}
+
+.mtControl{
+	border: solid 1px;
+	height: 15px;
+	left: 550px;
+	position: absolute;
+	top: 36px;
+	width: 50px;
+}
+
+.mtDD{
+}
+
+.mtLayer{
+	height: 456px;
+	left: 0px;
+	position: absolute;
+	top: 0px;
+	visibility: hidden;
+	width: 575px;
+}
+
+.mtLegend{
+	border: 1px none #000000;
+	clear: none;
+	height: 0px
+	z-index : 1;
+	left: -1000px;
+	position: absolute;
+	top: -1000px;
+	width: 0px;
+}
+
+.mtLegendText{
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+.mtMiddleBar{
+	background-color: #000000;
+	border: 1px none #000000;
+	left: 300px;
+	position: absolute;
+	top: 120px;
+	width: 1px;
+	z-index: 1;
+}
+
+.mtObject{
+}
+
+.mtQuestion{
+	height: 55px;
+	left: 4px;
+	overflow: auto;
+	position: absolute;
+	top: 55px;
+	width: 575px;
+}
+
+.mtSmall{
+	font-size: 12px;
+}
+
+.mtSource{
+	height: 0px;
+	left: 0px;
+	overflow: auto;
+	position: absolute;
+	top: 0px;
+	width: 0 px;
+}
+
+.qtBg, .mtQuestionBg {
+	background-color: #FFFFFF;
+}
+
+.qtHeadBg{
+	background-color: #A8384D;
+}
+
+.qtHeadText{
+	color: #FFFFFF;
+	font: bold 12px Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.qtReportHeadBg{
+	background: #D9929F;
+}
+
+.qtReportHeadText{
+	color: #FFFFFF;
+	font: bold 12px "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif";
+}
+
+.qtReportRowEven{
+	background: #F8ECEE;
+}
+
+.qtReportRowOdd{
+	background: #FFFFFF;
+}
+
+.qtReportText{
+	font: 12px Verdana, Geneva, Arial, Helvetica, sans-serif;
+}

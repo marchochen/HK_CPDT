@@ -1,0 +1,48 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Resources List
+suffix								   :reslst
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : reslst.css	
+version								: wizBank 3.1
+=======================================================================*/
+
+a.wbResLstLink,a.wbResLstLink:visited,a.wbResLstLink:active{
+	color: #000000;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+a.wbResLstLink:hover, .wbResSText {
+	color: #859334;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbResLstBg{
+	background-color: #F8F9DD;
+	scrollbar-3dlight-color: #F8F9DD;
+	scrollbar-arrow-color: #000000;
+	scrollbar-base-color: #A9BB31;
+	scrollbar-darkshadow-color: #859334;
+	scrollbar-face-color: #A9BB31;
+	scrollbar-highlight-color: #F8F9DD;
+	scrollbar-shadow-color: #859334;
+	scrollbar-track-color: #A9BB31;
+}
+
+.wbResLstHeadBarBg{
+	background-color: #859334;
+}
+
+.wbResLstHeadBarText{
+	color: #FFFFFF;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbResSTextBold{
+	color: #859334;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbResText{
+	color: #A9BB31;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}

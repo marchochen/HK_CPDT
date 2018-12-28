@@ -1,0 +1,37 @@
+<html>
+<head>
+	<title>Cyberwisdom wizBank</title>
+	<script language="JavaScript" src="../js/gen_utils.js" type="text/javascript"></script>
+	<script language="JavaScript" src="../js/wb_utils.js" type="text/javascript"></script>
+	<script language="JavaScript" src="../js/wb_message.js" type="text/javascript"></script>	
+	<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript">
+	var msg = new wbMessage
+	function init(){
+		
+		msg.notify_preview_exec(document.frmAction, window.opener.frmXml, window.opener.frmXml.msg_type.value)		
+	}
+	</SCRIPT>
+</head>
+<body onload="init()">
+<form name="frmAction" method="post">
+
+<input type="hidden" name="cmd" value="">
+<input type="hidden" name="module" value="">
+<input type="hidden" name="stylesheet" value="">
+<input type="hidden" name="url_success" value="">
+<input type="hidden" name="url_failure" value="">
+
+<input type="hidden" name="msg_type" value="">
+<input type="hidden" name="sender_id" value="">
+
+<input type="hidden" name="msg_subject" value="">
+<input type="hidden" name="msg_body" value="">
+<input type="hidden" name="msg_subtype" value="">
+
+<input type="hidden" name="url_cmd" value="">
+<input type="hidden" name="url_redirect" value="">
+<input type="hidden" name="id" value="">
+<input type="hidden" name="id_type" value="">
+</form>
+</body>
+</html>

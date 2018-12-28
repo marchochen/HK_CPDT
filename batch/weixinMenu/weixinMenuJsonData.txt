@@ -1,0 +1,30 @@
+{
+	"button":[
+		{
+			"name":"资讯",
+			"sub_button":[
+				{"type":"click","name":"公告","key":"1"},
+				{"type":"click","name":"行业资讯","key":"2"}
+			]			
+		},	
+		{
+			"name":"我的学习",
+			"sub_button":[
+				{"type":"click","name":"已报名课程","key":"3"},
+				{"type":"click","name":"已报名考试","key":"4"},
+				{"type":"click","name":"推荐课程","key":"5"},
+				{"type":"click","name":"公开课","key":"6"}
+			]			
+		},	
+		{
+			"name":"更多",
+			"sub_button":[
+				{"type":"click","name":"绑定学习平台","key":"11"},
+				{"type":"click","name":"进入到学习平台","key":"7"},
+				{"type":"click","name":"解除绑定","key":"8"},
+				{"type":"click","name":"我的积分","key":"9"},
+				{"type":"click","name":"学习概括","key":"10"}
+			]
+		}
+	]
+}

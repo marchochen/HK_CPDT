@@ -1,0 +1,32 @@
+<template_view>
+	<section id="1">
+		<field01>
+			<title>
+				<desc lan="ISO-8859-1" name="Code"/>
+				<desc lan="Big5" name="編號"/>
+				<desc lan="GB2312" name="编号"/>
+			</title>
+		</field01>
+		<field02>
+			<title>
+				<desc lan="ISO-8859-1" name="Title"/>
+				<desc lan="Big5" name="名稱"/>
+				<desc lan="GB2312" name="名称"/>
+			</title>
+		</field02>
+		<approval_ind type="approval_ind" paramname="approval_ind">
+			<title>
+				<desc lan="ISO-8859-1" name="Approval required"/>
+				<desc lan="Big5" name="需要審批"/>
+				<desc lan="GB2312" name="需要审批"/>
+			</title>
+		</approval_ind>
+		<field17>
+			<title>
+				<desc lan="ISO-8859-1" name="Enrollment confirmation remarks"/>
+				<desc lan="Big5" name="確認報名備註"/>
+				<desc lan="GB2312" name="确认报名备注"/>
+			</title>
+		</field17>
+	</section>
+</template_view>

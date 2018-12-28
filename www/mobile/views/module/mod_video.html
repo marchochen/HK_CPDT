@@ -1,0 +1,39 @@
+<!doctype html>
+<html ng-app="module">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link rel="stylesheet" href="../../css/module.css"/>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+<script type="text/javascript" src="../../js/i18n/zh-cn.js"></script>
+<script type="text/javascript" src="../../js/i18n/en-us.js"></script>
+<script type="text/javascript" src="../../js/i18n/zh-hk.js"></script>
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../lib/common.js" ></script>
+<script type="text/javascript" src="../../js/controllers/OfflineController.js"></script>
+</head>
+
+<body ng-cloak class="ng-cloak video_body" ng-controller="videoController">
+	<!--<div id="dcontent" style="width:100%;display:table;" onclick="toggleHead()">
+		<div style="display:table-cell;vertical-align:middle;">
+			<div id="vieoHead" class="video_head">
+				<div class="video_head_back" onclick="closeVideo()">返回</div>
+				<div id="mod_title" class="video_head_title"></div>
+			</div>
+			<video id="video" width="100%" autoplay controls="controls" onerror="videoError(event);"></video>
+		</div>
+	</div>-->
+	
+	<header class="header mm-background">
+	    <a class="header-back" href="javascript:;" onclick="closeVideo()"></a>
+	    <span id="mod_title" class="header-title"></span>
+	</header> <!-- header End -->
+	
+	<section class="content">
+		<video id="video" width="100%" autoplay controls="controls" onerror="videoError(event);"></video>
+	</section>
+</body>
+</html>

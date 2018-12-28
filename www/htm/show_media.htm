@@ -1,0 +1,63 @@
+
+<html>
+<head>
+<title>wizBank</title>
+<script><!--
+var URLString = window.location.search;
+var start = URLString.indexOf("?");
+var end = URLString.length;
+var file_name = URLString.substring(start+1,end);
+
+MEDIA_TYPE_GIF = "image/gif"
+MEDIA_TYPE_JPG = "image/jpg"
+MEDIA_TYPE_SWF = "application/x-shockwave-flash"
+MEDIA_TYPE_UNKNOWN ="unknown"
+
+
+function getMediaType(filename) {	
+
+	s = filename.lastIndexOf(".");
+	if (s == -1)
+		return MEDIA_TYPE_UNKNOWN;
+
+	l = filename.length;
+	suffx = filename.substr(s+1,l);
+
+	if (suffx == "gif")
+		return MEDIA_TYPE_GIF;
+	else if (suffx == "jpg" || suffx == "jpeg")
+		return MEDIA_TYPE_JPG;
+	else if (suffx == "swf")
+		return MEDIA_TYPE_SWF;
+	else
+		return MEDIA_TYPE_UNKNOWN;
+}
+
+function show_media_file() {
+	file_name = unescape(file_name);
+	if(getMediaType(file_name) == MEDIA_TYPE_GIF || getMediaType(file_name) == MEDIA_TYPE_JPG)
+		document.write('<img src="' + file_name + '" border="0" >')
+	else
+		if(getMediaType(file_name) == MEDIA_TYPE_SWF) {
+			document.write('<OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH=100% HEIGHT=100%>');
+			document.write('<PARAM NAME=movie VALUE="' + file_name + '">'); 
+			document.write('<PARAM NAME=quality VALUE=high>'); 			
+			document.write('<PARAM NAME=bgcolor VALUE=#FFFFFF>'); 
+			document.write('<EMBED src="' + file_name + '" quality=high bgcolor=#FFFFFF WIDTH=100% HEIGHT=100% TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash">');
+			document.write('</EMBED></OBJECT>');
+		}
+	return;	
+}
+//-->
+</script>
+</head>
+<body bgcolor="#ffffff">
+	<table width="360" border="0" cellspacing="0" height="300">
+		<tr>
+			<td height="270">
+<script>show_media_file()
+</script></td>
+		</tr>
+	</table>
+</body>
+</html>

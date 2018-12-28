@@ -1,0 +1,77 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Calendar
+suffix								   :calendar
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : calendar.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+a.wbCalSelText,a.wbCalSelText:hover,a.wbCalSelText:active,a.wbCalSelText:visited{
+	color: #FFFFFF;
+	font: 8pt  Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-decoration: none;
+}
+
+.wbCalBg{
+	background: #A9BB31;
+}
+
+.wbCalCurrentDay{
+	background: #A9BB31;
+	color: #000000;
+	font: bold 8pt Arial;
+}
+
+.wbCalDay{
+	background: #F8F9DD;
+	color: #000000;
+	font: 10px Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbCalDayLink{
+	color: #000000;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbCalTitleBg{
+	background: #C1CA88;
+}
+
+.wbCalTitleText{
+	color: #FFFFFF;
+	font: bolder 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbCalWeekDay{
+	background: #FFFFFF;
+	color: #859334;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbPopCalTitleText{
+	color : #FFFFFF;
+	font : bolder 9pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbPopCalWeekDay{
+	background : #FFFFFF;
+	color : #0000FF;
+	font : 9pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+a.wbPopCal,a.wbPopCal:hover,a.wbPopCal:active,a.wbPopCal:visited{
+	font : 9pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbPopCalDay{
+	color : #000000;	
+}
+
+.wbPopCalCurrentDay{
+	color : #FF0000;
+}
+
+.wbPopCalNextMonthDay{
+	color : gray;
+	font : 9pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.EntityRelationHistoryMapper">
+	
+	
+	<sql id="page_where">
+		<where>
+		</where>
+	</sql>
+	
+	<select id="getCount" resultType="java.lang.Integer" parameterType="Map">
+	    <![CDATA[
+	        select count(*) from EntityRelationHistory t 
+	    ]]>
+	    <include refid="page_where"/>
+	</select>
+
+	
+	<select id="get" resultType="EntityRelationHistory" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				erh_id,
+				erh_child_ent_id,
+				erh_ancestor_ent_id,
+				erh_order,
+				erh_type,
+				erh_parent_ind,
+				erh_start_timestamp,
+				erh_end_timestamp,
+				erh_create_timestamp,
+				erh_create_usr_id
+			from EntityRelationHistory 
+			where
+				 erh_id = #{id}
+		]]>
+	</select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.EntityRelationHistory">
+	    <![CDATA[
+	        update EntityRelationHistory
+	        set 
+				erh_id = #{erh_id,jdbcType=INTEGER},
+				erh_child_ent_id = #{erh_child_ent_id,jdbcType=INTEGER},
+				erh_ancestor_ent_id = #{erh_ancestor_ent_id,jdbcType=INTEGER},
+				erh_order = #{erh_order,jdbcType=INTEGER},
+				erh_type = #{erh_type,jdbcType=VARCHAR},
+				erh_parent_ind = #{erh_parent_ind,jdbcType=INTEGER},
+				erh_start_timestamp = #{erh_start_timestamp,jdbcType=DATE},
+				erh_end_timestamp = #{erh_end_timestamp,jdbcType=DATE},
+				erh_create_timestamp = #{erh_create_timestamp,jdbcType=DATE},
+				erh_create_usr_id = #{erh_create_usr_id,jdbcType=VARCHAR}
+	         where erh_id = #{erh_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.EntityRelationHistory">
+    	<![CDATA[
+            insert into EntityRelationHistory(
+            		erh_child_ent_id,
+            		erh_ancestor_ent_id,
+            		erh_order,
+            		erh_type,
+            		erh_parent_ind,
+            		erh_start_timestamp,
+            		erh_end_timestamp,
+            		erh_create_timestamp,
+            		erh_create_usr_id
+            ) values (
+            	#{erh_child_ent_id,jdbcType=INTEGER},
+            	#{erh_ancestor_ent_id,jdbcType=INTEGER},
+            	#{erh_order,jdbcType=INTEGER},
+            	#{erh_type,jdbcType=VARCHAR},
+            	#{erh_parent_ind,jdbcType=INTEGER},
+            	#{erh_start_timestamp,jdbcType=DATE},
+            	#{erh_end_timestamp,jdbcType=DATE},
+            	#{erh_create_timestamp,jdbcType=DATE},
+            	#{erh_create_usr_id,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>
+    
+    <insert id="insertHistory" parameterType="com.cwn.wizbank.entity.EntityRelation">
+    	<![CDATA[
+            insert into EntityRelationHistory(
+            		erh_child_ent_id,
+            		erh_ancestor_ent_id,
+            		erh_order,
+            		erh_type,
+            		erh_parent_ind,
+            		erh_start_timestamp,
+            		erh_end_timestamp,
+            		erh_create_timestamp,
+            		erh_create_usr_id
+            ) values (
+            	#{ern_child_ent_id,jdbcType=INTEGER},
+            	#{ern_ancestor_ent_id,jdbcType=INTEGER},
+            	#{ern_order,jdbcType=INTEGER},
+            	#{ern_type,jdbcType=VARCHAR},
+            	#{ern_parent_ind,jdbcType=INTEGER},
+            	#{ern_start_timestamp,jdbcType=DATE},
+            	#{ern_end_timestamp,jdbcType=DATE},
+            	#{ern_create_timestamp,jdbcType=DATE},
+            	#{ern_create_usr_id,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>
+    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from EntityRelationHistory where
+	        erh_id = #{erh_id}
+	    ]]>
+    </delete>
+	
+	<select id="selectAll" resultType="EntityRelationHistory">
+	    <![CDATA[
+	         select 
+				erh_id,
+				erh_child_ent_id,
+				erh_ancestor_ent_id,
+				erh_order,
+				erh_type,
+				erh_parent_ind,
+				erh_start_timestamp,
+				erh_end_timestamp,
+				erh_create_timestamp,
+				erh_create_usr_id
+			from EntityRelationHistory 
+	    ]]>
+	</select>	
+	
+	<delete id="deleteAll" parameterType="Map">
+		delete from entityRelationHistory where  erh_child_ent_id = #{erh_child_ent_id} and erh_type = #{erh_type}
+	</delete>
+	
+</mapper>

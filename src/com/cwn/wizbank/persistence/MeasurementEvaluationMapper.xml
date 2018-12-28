@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.MeasurementEvaluationMapper">
+	<select id="get" resultType="MeasurementEvaluation" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				mtv_cos_id,
+				mtv_ent_id,
+				mtv_cmt_id,
+				mtv_status,
+				mtv_score,
+				mtv_create_timestamp,
+				mtv_create_usr_id,
+				mtv_update_timestamp,
+				mtv_update_usr_id,
+				mtv_tkh_id
+			from MeasurementEvaluation t 
+			where
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.MeasurementEvaluation">
+	    <![CDATA[
+	        update MeasurementEvaluation t 
+	        set 
+				mtv_cos_id = #{mtv_cos_id,jdbcType=INTEGER},
+				mtv_ent_id = #{mtv_ent_id,jdbcType=INTEGER},
+				mtv_cmt_id = #{mtv_cmt_id,jdbcType=INTEGER},
+				mtv_status = #{mtv_status,jdbcType=VARCHAR},
+				mtv_score = #{mtv_score,jdbcType=DECIMAL},
+				mtv_create_timestamp = #{mtv_create_timestamp,jdbcType=TIMESTAMP},
+				mtv_create_usr_id = #{mtv_create_usr_id,jdbcType=VARCHAR},
+				mtv_update_timestamp = #{mtv_update_timestamp,jdbcType=TIMESTAMP},
+				mtv_update_usr_id = #{mtv_update_usr_id,jdbcType=VARCHAR},
+				mtv_tkh_id = #{mtv_tkh_id,jdbcType=INTEGER}
+	    ]]>
+    </update>    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.MeasurementEvaluation">
+    	<![CDATA[
+            insert into MeasurementEvaluation(
+            		mtv_cos_id,
+            		mtv_ent_id,
+            		mtv_cmt_id,
+            		mtv_status,
+            		mtv_score,
+            		mtv_create_timestamp,
+            		mtv_create_usr_id,
+            		mtv_update_timestamp,
+            		mtv_update_usr_id,
+            		mtv_tkh_id
+            ) values (
+            	#{mtv_cos_id,jdbcType=INTEGER},
+            	#{mtv_ent_id,jdbcType=INTEGER},
+            	#{mtv_cmt_id,jdbcType=INTEGER},
+            	#{mtv_status,jdbcType=VARCHAR},
+            	#{mtv_score,jdbcType=DECIMAL},
+            	#{mtv_create_timestamp,jdbcType=TIMESTAMP},
+            	#{mtv_create_usr_id,jdbcType=VARCHAR},
+            	#{mtv_update_timestamp,jdbcType=TIMESTAMP},
+            	#{mtv_update_usr_id,jdbcType=VARCHAR},
+            	#{mtv_tkh_id,jdbcType=INTEGER}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from MeasurementEvaluation where
+	    ]]>
+    </delete>	
+	<select id="selectAll" resultType="MeasurementEvaluation">
+	    <![CDATA[
+	         select 
+				mtv_cos_id,
+				mtv_ent_id,
+				mtv_cmt_id,
+				mtv_status,
+				mtv_score,
+				mtv_create_timestamp,
+				mtv_create_usr_id,
+				mtv_update_timestamp,
+				mtv_update_usr_id,
+				mtv_tkh_id
+			from MeasurementEvaluation t 
+	    ]]>
+	</select>	
+</mapper>

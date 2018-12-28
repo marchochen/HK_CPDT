@@ -1,0 +1,127 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :FAQ
+suffix								   :faq
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : faq.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+a.wbFaqHText:hover{
+	color: #99FFFF;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+a.wbFaqTLink:visited, .wbFaqQueText {
+	color: #006699;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+a.wbFaqTLink:hover{
+	color: #3366FF;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFaqAnsBg{
+	background: #DEEFED;
+}
+
+.wbFaqAnsHRBg{
+	border: 1px solid #306161;
+	color: #306161;
+}
+
+.wbFaqAnsText{
+	color: #306161;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFaqBarBg{
+	background: #00799F;
+}
+
+.wbFaqBg{
+	background: #DBEBF5;
+}
+
+.wbFaqComBg{
+	background: #ADD8E6;
+}
+
+.wbFaqComHRBg{
+	border: solid 1px #000000;
+	color: #000000;
+}
+
+.wbFaqComHText, .wbFaqComText, a.wbFaqTLink,a.wbFaqTLink:active, .wbFaqTText, .wbFaqQueHText, .wbFaqAnsHText {
+	color: #000000;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFaqComHTextBold, .wbFaqQueHTextBold, .wbFaqAnsHTextBold {
+	color: #000000;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFaqContentText{
+	color: #336699;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFaqCText{
+	color: #009999;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFaqDText{
+	color: #006699;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFaqFrm{
+	background: #F5FAFE;
+	border: 1px solid;
+	border-color: #A8D6E6;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	scrollbar-3dlight-color: #F5FAFE;
+	scrollbar-arrow-color: #000000;
+	scrollbar-base-color: #A8D6E6;
+	scrollbar-darkshadow-color: #46A8CB;
+	scrollbar-face-color: #A8D6E6;
+	scrollbar-highlight-color: #FFFFFF;
+	scrollbar-shadow-color: #46A8CB;
+	scrollbar-track-color: #A8D6E6;
+}
+
+.wbFaqHBg{
+	background: #00A9BC;
+}
+
+.wbFaqHText,a.wbFaqHText:visited,a.wbFaqHText:active,a.wbFaqHText{
+	color: #FFFFFF;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+/*==Question==========================================================*/
+.wbFaqQueBg{
+	background: #F0FFFF;
+}
+
+.wbFaqQueHRBg{
+	border: solid 1px #006699;
+	color: #006699;
+}
+
+.wbFaqSelFrmIE{
+	background: #F5FAFE;
+	color: #000000;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFaqSelFrmNN{
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFaqTitleText{
+	color: #336699;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}

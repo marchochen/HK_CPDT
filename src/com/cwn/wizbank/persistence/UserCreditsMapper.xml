@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.UserCreditsMapper">
+	<select id="get" resultType="UserCredits" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				uct_ent_id,
+				uct_total,
+				uct_update_timestamp,
+				uct_zd_total
+			from UserCredits 
+			where
+				 uct_ent_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.UserCredits">
+	    <![CDATA[
+	        update UserCredits 
+	        set 
+				uct_ent_id = #{uct_ent_id,jdbcType=INTEGER},
+				uct_total = #{uct_total,jdbcType=DOUBLE},
+				uct_update_timestamp = #{uct_update_timestamp,jdbcType=TIMESTAMP},
+				uct_zd_total = #{uct_zd_total,jdbcType=INTEGER}
+	         where uct_ent_id = #{uct_ent_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.UserCredits">
+    	<![CDATA[
+            insert into UserCredits(
+            		uct_total,
+            		uct_update_timestamp,
+            		uct_zd_total
+            ) values (
+            	#{uct_total,jdbcType=DOUBLE},
+            	#{uct_update_timestamp,jdbcType=TIMESTAMP},
+            	#{uct_zd_total,jdbcType=INTEGER}
+            )
+        ]]>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from UserCredits where
+	        uct_ent_id = #{uct_ent_id}
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="UserCredits">
+	    <![CDATA[
+	         select 
+				uct_ent_id,
+				uct_total,
+				uct_update_timestamp,
+				uct_zd_total
+			from UserCredits t 
+	    ]]>
+	</select>
+	<select id="selectRankList" resultType="UserCredits" parameterType="Page">
+        select 
+			distinct uct_ent_id,
+			uct_total,
+			uct_update_timestamp,
+			uct_zd_total,
+			usr_ste_usr_id AS "user.usr_ste_usr_id",
+			usg_display_bil AS "usg_name",
+			usr_ent_id as "user.usr_ent_id",
+			usr_display_bil AS "user.usr_display_bil",
+			urx_extra_43 AS "user.usr_photo"
+		from UserCredits 
+		inner join regUser on usr_ent_id = uct_ent_id and (usr_status = 'OK')
+		inner join regUserExtension on urx_usr_ent_id = usr_ent_id
+		<if test="params.tcrId > 0">
+			and usr_ent_id in (
+				select u_id from V_usrTcRelation where tcr_parent_tcr_id = ${params.tcrId} or tcr_id = ${params.tcrId}
+			)
+		</if>
+		inner join entityRelation on ern_child_ent_id = uct_ent_id and ern_type = 'USR_PARENT_USG' and ern_parent_ind = 1
+		inner join userGroup on usg_ent_id = ern_ancestor_ent_id
+		inner join acEntityRole on erl_ent_id = uct_ent_id
+		inner join acRole on rol_id = erl_rol_id
+		order by uct_total desc, uct_update_timestamp, uct_ent_id
+	</select>
+	<select id="selectUserCreditAndRank" resultType="UserCredits" parameterType="UserCredits">
+		select * from (
+			<if test="_databaseId == 'ORACLE'">
+				select row_.*, rownum from (
+			</if>
+					select 
+						<if test="_databaseId == 'MYSQL'">
+							@rownum:=@rownum+1 AS rownum , 
+						</if>
+						uct_ent_id,
+						uct_total,
+						uct_update_timestamp
+						<if test="_databaseId == 'SQLSERVER'">
+							, rank() over(order by uct_total desc, uct_update_timestamp, uct_ent_id) rownum
+						</if>
+						from 
+						<if test="_databaseId == 'MYSQL'">
+							(SELECT @rownum:=0) r, 
+						</if>
+						UserCredits 
+					inner join regUser on usr_ent_id = uct_ent_id and (usr_status = 'OK')
+					<if test="tcr_id > 0">
+						and usr_ent_id in (
+							select u_id from V_usrTcRelation where tcr_parent_tcr_id = ${tcr_id} or tcr_id = ${tcr_id}
+						)
+					</if>
+					inner join entityRelation on ern_child_ent_id = uct_ent_id and ern_type = 'USR_PARENT_USG' and ern_parent_ind = 1
+			<if test="_databaseId == 'ORACLE'">
+					order by uct_total desc, uct_update_timestamp, uct_ent_id
+				) row_
+			</if>
+			<if test="_databaseId == 'MYSQL'">
+					order by uct_total desc, uct_update_timestamp, uct_ent_id 
+			</if>
+		) detail where uct_ent_id = #{uct_ent_id}
+	</select>
+	<select id="selectUserCreditDetailList" resultType="UserCreditsDetailLog" parameterType="Page">
+		select 
+			cty_title as "creditsType.cty_title", 
+			cty_manual_ind as "creditsType.cty_manual_ind", 
+			itm_title as "aeItem.itm_title", 
+			ucl_point, 
+			cty_deduction_ind as "creditsType.cty_deduction_ind", 
+			ucl_relation_type, 
+			ucl_create_timestamp
+		from userCreditsDetailLog
+		left join creditsType on cty_id = ucl_bpt_id
+		left join aeApplication on app_id = ucl_app_id
+		left join aeItem on itm_id = app_itm_id
+		where ucl_usr_ent_id = #{params.usr_ent_id} ORDER BY ucl_create_timestamp desc
+	</select>
+	<select id="selectUserTotalCredits" resultType="UserCreditsDetailLog" parameterType="UserCreditsDetailLog">
+		select 
+			sum(ucd_total) as "total_credits" 
+		from userCreditsDetail
+		left join creditsType on cty_id = ucd_cty_id 
+		where ucd_ent_id = #{ucl_usr_ent_id}
+		<choose>
+			<when test="ucl_relation_type == 'activity'">
+				and (cty_relation_type != 'COS' OR cty_relation_type is NULL)
+			</when>
+			<when test="ucl_relation_type == 'train'">
+				and cty_relation_type = 'COS'
+			</when>
+		</choose>
+	</select>
+</mapper>

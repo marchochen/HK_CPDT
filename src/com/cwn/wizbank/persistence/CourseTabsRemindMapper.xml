@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.CourseTabsRemindMapper">
+
+	<select id="getDate" resultType="java.sql.Timestamp">
+		select
+		<if test="_databaseId == 'ORACLE'">
+			sysdate from dual
+		</if>
+		<if test="_databaseId == 'SQLSERVER'">
+			getdate()
+		</if>
+		<if test="_databaseId == 'MYSQL'">
+			sysdate()
+		</if>
+	</select>
+	
+	<select id="getRmdTargetLearner" parameterType="Long" resultType="Long">
+		<![CDATA[
+			select count(*) from aeItemTargetRule where itr_itm_id = #{itm_id}
+		]]>
+	</select>
+	<select id="getRmdOnlineContent" parameterType="Long" resultType="Long">
+		<![CDATA[
+			select count(res_id) from course, resourcecontent,resources where cos_res_id = rcn_res_id and rcn_res_id_content = res_id and  COS_ITM_ID = #{itm_id} and res_status = 'ON'
+		]]>
+	</select>
+	<select id="getRmdTimetable" parameterType="Long" resultType="Long">
+		<![CDATA[
+			select count(*) from aeItemLesson where ils_itm_id = #{itm_id}
+		]]>
+	</select>
+	<select id="getRmdClassManagement" parameterType="Long" resultType="Long">
+		<![CDATA[
+			select count(*) from aeItemRelation WHERE ire_parent_itm_id = #{itm_id}
+		]]>
+	</select>
+	<select id="getRmdCoursePackage" parameterType="Long" resultType="Long">
+		<![CDATA[
+			select count(*) 
+				from IntegRelationItem
+			  left join IntegCompleteCondition
+			    on icd_id = iri_icd_id
+			  left join IntegCourseCriteria
+			    on icd_icc_id = icc_id
+			   where icc_itm_id = #{itm_id}
+		]]>
+	</select>
+	<select id="getRmdCourseScoreSettings" parameterType="Long" resultType="Long">
+		<![CDATA[
+			SELECT count(*)
+			  FROM CourseCriteria
+			 INNER JOIN CourseMeasurement
+			    ON cmt_ccr_id = ccr_id
+			   and ccr_type = 'COMPLETION'
+			   and ccr_itm_id = #{itm_id}
+			   and cmt_delete_timestamp is null
+			   and cmt_is_contri_by_score = 1
+		]]>
+	</select>
+	<select id="getRmdCompletionCriteriaSettings" parameterType="Long" resultType="Long">
+		<![CDATA[
+		  select count(*)
+		    from CourseMeasurement, CourseModuleCriteria, Resources,CourseCriteria
+		   where cmt_cmr_id = cmr_id
+		     and cmr_ccr_id = cmt_ccr_id
+		     and cmr_res_id = res_id
+		     and cmr_ccr_id = ccr_id
+		     and ccr_itm_id = #{itm_id}
+		     and cmr_del_timestamp is null
+		     and cmt_delete_timestamp is null
+		     and ccr_type = 'COMPLETION'
+		     and cmr_status is not null
+		   
+		]]>
+	</select>
+	
+	<select id="getCourseCriteria" parameterType="Long" resultType="CourseCriteria">
+		<![CDATA[
+		  SELECT *
+            FROM CourseCriteria
+           WHERE ccr_itm_id = #{itm_id}
+           and ccr_type = 'COMPLETION'
+		]]>
+	</select>
+</mapper>

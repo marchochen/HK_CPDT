@@ -1,0 +1,13 @@
+8.0
+11
+1	SQLNCHAR	0	0	"\t\0"		1	res_id	""
+2	SQLNCHAR	0	0	"\t\0"		3	res_title	""
+3	SQLNCHAR	0	0	"\t\0"		4	res_type	""
+4	SQLNCHAR	0	0	"\t\0"		5	res_subtype	""
+5	SQLNCHAR	0	0	"\t\0"		7	res_difficulty	""
+6	SQLNCHAR	0	0	"\t\0"		9	res_privilege	""
+7	SQLNCHAR	0	0	"\t\0"		10	res_usr_id_owner	""
+8	SQLNCHAR	0	0	"\t\0"		14	res_status	""
+9	SQLNCHAR	0	0	"\t\0"		15	res_create_date	""
+10	SQLNCHAR	0	0	"\t\0"		16	res_upd_user	""
+11	SQLNCHAR	0	0	"\r\0\n\0"	17	res_upd_date	""

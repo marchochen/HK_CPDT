@@ -1,0 +1,48 @@
+/* 蓝色主系列 */
+.skin-bg{ background:#ea00ff;}
+.skin-bg-orange{ background:#ff8c00;}
+.skin-color{ color:#ea00ff;}
+
+/* xyd-people */
+.xyd-people .xyd-menu ul li.cur ul li a:link,.xyd-people .xyd-menu ul li.cur ul li a:visited,.xyd-people .xyd-menu ul li.cur ul li a:hover{ font-size:14px; color:#fff; background:#ea00ff;}
+.xyd-people .xyd-menu ul li.cur ul li.cur a:link,.xyd-people .xyd-menu ul li.cur ul li.cur a:visited,.xyd-people .xyd-menu ul li.cur ul li.cur a:hover{  font-size:14px; color:#fff; background:#3a044d;}
+.xyd-people .xyd-menu ul li.cur ul li.cur ul li a:link,.xyd-people .xyd-menu ul li.cur ul li.cur ul li a:visited,.xyd-people .xyd-menu ul li.cur ul li.cur ul li a:hover{ font-size:14px; color:#fff; background:#3a044d;}
+.xyd-people .xyd-menu ul li.cur ul li.cur ul li.cur a:link,.xyd-people .xyd-menu ul li.cur ul li.cur ul li.cur a:visited,.xyd-people .xyd-menu ul li.cur ul li.cur ul li.cur a:hover{ font-size:14px; color:#fff; background:#731d92;}
+
+/* xyd-flag */
+.xyd-flag .xyd-menu ul li.cur ul li a:link,.xyd-flag .xyd-menu ul li.cur ul li a:visited,.xyd-flag .xyd-menu ul li.cur ul li a:hover{ font-size:14px; color:#fff; background:#ea00ff;}
+.xyd-flag .xyd-menu ul li.cur ul li.cur a:link,.xyd-flag .xyd-menu ul li.cur ul li.cur a:visited,.xyd-flag .xyd-menu ul li.cur ul li.cur a:hover{ font-size:14px; color:#fff; background:#3a044d;}
+
+/* arrow */
+.arrow,.arrow i{ border-bottom-color:#aaa; border-bottom-style:solid; position:relative; display:block; font-size:0; line-height:0; width:0; height:0; border-color:transparent; border-style:dashed; border-width:10px;}
+.arrowT,.arrowT i{ border-bottom-color:#ea00ff; border-bottom-style:solid;}
+.arrowT i{ border-bottom-color:#ea00ff; position:absolute; left:-10px; top:-8px;}
+.arrowT:hover{ border-bottom-color:#ea00ff;}
+
+/* xyd-nav */
+.xyd-nav .xyd-menu ul li.cur a:link,.xyd-nav .xyd-menu ul li.cur a:visited{ color:#fff; background:#3a044d;}
+.xyd-nav .xyd-menu ul li.cur ul li a:link,.xyd-nav .xyd-menu ul li.cur ul li a:visited{ font-size:14px; color:#fff; background:#ea00ff;}
+.xyd-nav .xyd-menu ul li.cur ul li.cur a:link,.xyd-nav .xyd-menu ul li.cur ul li.cur a:visited{ font-size:14px; color:#fff; background:#731d92;}
+
+/* 链接形式四 */
+.wzb-link04,.wzb-link04:link,.wzb-link04:visited{ font-size:14px; color:#ea00ff; text-decoration:none;}
+.wzb-link04:hover{ color:#ea00ff; filter:alpha(opacity=70); opacity:0.7;}
+
+/* color-gray999 */
+.color-gray999:hover i{ color:#ea00ff;}
+
+/* wzb-tab-5 */
+.wzb-tab-5 .nav-tabs li.active{ background:#ea00ff;}
+
+/* wzb-list-4 */
+.wzb-list-4 dd a i.fa-circle{ color:#ea00ff;}
+
+/* wzb-list-15 */
+.wzb-list-15 li a.cur:link,.wzb-list-15 li a.cur:visited,.wzb-list-15 li a.cur:link i,.wzb-list-15 li a.cur:visited i{ color:#fff; background:#ea00ff;}
+.wzb-list-15 li a:hover{ color:#fff; background:#ea00ff;}
+
+.wzb-show:hover{ color:#fff; cursor:pointer; background:#ea00ff;}
+
+.xyd-toggle-title{ font-size:22px; color:#ea00ff;}
+
+.wzb-wenda-toggle{ color:#ea00ff;}

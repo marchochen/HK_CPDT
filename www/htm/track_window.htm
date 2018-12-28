@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<title>Cyberwisdom wizBank</title>
+		<script src="../js/wb_utils.js" language="JavaScript"></script>
+		<script src="../js/gen_utils.js" language="JavaScript"></script>
+		<script src="../js/urlparam.js" language="JavaScript"></script>
+		<script src="../js/wb_module.js" language="JavaScript"></script>
+		<script src="../js/wb_track.js" language="JavaScript"></script>
+		<script language="Javascript">
+			prog_track = new wbTrack;
+      module_lst = new wbModule;
+			ref_url = getUrlParam("ref_url");
+		</script>
+	</head>
+	<script language="javascript">
+
+		str = '<frameset rows="0,*" frameborder="NO" border="0" framespacing="0">'
+
+		str += '<frame name="track_period" scrolling="NO" noresize src="'
+		str += 'reload.htm'
+		str +='" marginwidth="0" marginheight="0">'			
+
+		str += '<frame name="main" src="'+ref_url+'" marginwidth="0" marginheight="0" scrolling="auto" frameborder="0" >';
+		str += '</frameset>';
+		document.write(str);
+	</script>
+</html>

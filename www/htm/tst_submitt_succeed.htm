@@ -1,0 +1,115 @@
+<html>
+<head>
+<title>Cyberwisdom wizBank</title>
+<link href="../cw/skin3/images/gb/css/wb_ui.css" type="text/css" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script language="JavaScript" type="text/javascript" src="../js/gen_utils.js"></script>
+<script language="JavaScript" type="text/javascript" src="../js/wb_utils.js"></script>
+<script language="JavaScript" type="text/javascript" src="../js/urlparam.js"></script>
+<script language="Javascript" type="text/javascript" src="../js/gb/wb_label.js"></script>
+<script language="javascript" type="text/javascript">		
+            lang = getUrlParam("lang");
+			if(lang == ""){
+				lang = 'en'
+			}
+
+			var wb_msg_success_msg = "Test submit successfully, please refer to REPORT for detail."
+			var wb_msg_ok = "OK"
+			var wb_msg_status = "Status"
+			
+			if(lang =='ch'){
+				wb_msg_success_msg = "測試提交成功，請從“測驗報告”中查看結果。"
+				wb_msg_ok = "確定"
+				wb_msg_status = "狀態"
+			}else if(lang =='gb'){
+				wb_msg_success_msg = "测试提交成功，请从“测验报告”中查看结果。"
+				wb_msg_ok = "确定"
+				wb_msg_status = "状态"
+			}
+	
+			function unloadHandler() {
+				var ua = navigator.userAgent.toLowerCase();
+				if(((ua.indexOf("android") > -1) || ((ua.match(/iphone/i)) || (ua.match(/ipod/i)) || (ua.match(/ipad/i))) || ua.match(/Windows Phone/i) || ua.match(/BlackBerry/i) || ua.match(/webOS/i))){
+					window.location.href = wb_utils_app_base + 'app/course/return/' + getUrlParam("tkh_id");
+				}
+				if (window.parent && window.parent.opener) {
+					var href = window.parent.opener.location.href;
+					if(href.indexOf("isCont=true") < 0){
+						if(href.indexOf("?") > 0){
+							href += '&isCont=true';
+						} else {
+							href += '?isCont=true';
+						}
+					}
+					window.parent.opener.location.href =  href;
+					parent.close();
+				}
+			}
+</script>
+</head>
+<body leftmargin="0" marginheight="0" marginwidth="0" topmargin="0" onunload="unloadHandler()" ">
+<form name="frmXml"return false;">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td colspan="3"><img src="../wb_image/tp.gif" width="1" height="10" border="0"></td>
+</tr>
+<tr>
+<td width="50"><img src="../wb_image/tp.gif" width="1" height="1" border="0"></td><td>
+<table cellspacing="0" width="100%" border="0" cellpadding="0">
+<tr>
+<td valign="bottom"><span class="Head">
+<script language="javascript" type="text/javascript">
+	document.write(wb_msg_status);
+</script>
+</span></td>
+</tr>
+</table>
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr class="Line">
+<td height="1"><img width="1" src="../wb_image/tp.gif" height="1" border="0"></td>
+</tr>
+</table>
+<table cellpadding="0" cellspacing="0" width="100%" border="0">
+<tr>
+<td width="1" class="Line"><img src="../wb_image/tp.gif" width="1" height="1" border="0"></td><td width="100%">
+<table cellpadding="15" cellspacing="0" width="100%" border="0">
+<tr>
+<td height="10"><img src="../wb_image/tp.gif" width="1" height="1" border="0"></td>
+</tr>
+<tr>
+<td><span class="TitleText">
+<script language="javascript" type="text/javascript">
+	document.write(wb_msg_success_msg);
+</script>
+</span></td>
+</tr>
+<tr>
+<td height="10"><img src="../wb_image/tp.gif" width="1" height="1" border="0"></td>
+</tr>
+</table>
+</td><td width="1" class="Line"><img src="../wb_image/tp.gif" width="1" height="1" border="0"></td>
+</tr>
+</table>
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr class="Line">
+<td height="1"><img width="1" src="../wb_image/tp.gif" height="1" border="0"></td>
+</tr>
+</table>
+<table cellpadding="3" cellspacing="0" width="100%" border="0">
+<tr>
+<td align="center">
+<script language="javascript" type="text/javascript">
+	document.write('<input onClick="javascript:unloadHandler();" class="Btn" value="&nbsp;');
+	document.write(wb_msg_ok);
+	document.write('&nbsp;" name="frmSubmitBtn" type="button">');
+</script>
+</td>
+</tr>
+</table>
+</td><td width="50"><img src="../wb_image/tp.gif" width="1" height="1" border="0"></td>
+</tr>
+</table>
+
+</form>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.ExamModuleResultStatisticMapper">
+
+	<select id="selectAeApplicationCount" parameterType="long" resultType="int">
+		select COUNT(*) from aeApplication 
+			where app_itm_id
+		      =
+		      (
+		      select cos_itm_id from Course 
+					where cos_res_id
+						  =
+						  (select rcn_res_id from ResourceContent where rcn_res_id_content = #{mod_id})
+		      )
+	</select>
+
+	<select id="selectCommitCountInfo" parameterType="long" resultType="java.util.Map">
+		select COUNT(*) "commit_count" ,COUNT(distinct(pgr_usr_id)) "commit_learner_count" from Progress where pgr_res_id = #{mod_id}
+	</select>
+	
+	<select id="selectModuleInfo" parameterType="long" resultType="java.util.Map">
+		select mod_max_score "mod_max_score", mod_pass_score "mod_pass_score" from Module where mod_res_id = #{mod_id}
+	</select>
+	
+	<select id="selectcommitInfoList" parameterType="long" resultType="java.util.Map">
+		select 
+			   <choose>
+					<when test="_databaseId == 'ORACLE'">
+						 TO_CHAR(p.pgr_complete_datetime,'yyyy-mm-dd hh24:mi:ss') "pgr_complete_datetime", 
+					</when>
+					<when test="_databaseId == 'SQLSERVER'">
+						 CONVERT(varchar,p.pgr_complete_datetime,20) "pgr_complete_datetime", 
+					</when>
+					<when test="_databaseId == 'MYSQL'">
+						 DATE_FORMAT(p.pgr_complete_datetime,'%Y-%c-%d %h:%i:%s') "pgr_complete_datetime", 
+					</when>
+				</choose>
+			   p.pgr_completion_status "pgr_completion_status", p.pgr_score "pgr_score",
+	    	   usr_max_score_map.max_pgr_score "max_pgr_score",
+	    	   u.usr_ste_usr_id "usr_ste_usr_id",u.usr_display_bil "usr_display_bil", u.usr_full_name_bil "usr_full_name_bil",
+	    	   ug.usg_ent_id "usg_ent_id"
+	    from Progress p
+			INNER JOIN RegUser u on u.usr_id = p.pgr_usr_id
+			INNER JOIN entityRelation usg ON (usg.ern_parent_ind = 1 AND usg.ern_type = 'USR_PARENT_USG' AND usg.ern_child_ent_id = usr_ent_id)
+			INNER JOIN userGroup ug ON (usg_ent_id = usg.ern_ancestor_ent_id)
+			INNER JOIN (select pgr_usr_id , MAX(pgr_score) max_pgr_score from Progress where pgr_res_id = #{mod_id} group by pgr_usr_id) usr_max_score_map on usr_max_score_map.pgr_usr_id = p.pgr_usr_id
+	    where p.pgr_res_id = #{mod_id}
+	</select>
+	
+	<select id="selectModuleTitle" parameterType="long" resultType="String">
+		select res_title "res_title" from Resources where res_id = #{mod_id}
+	</select>
+	
+	<select id="selectItemInfo" parameterType="long" resultType="java.util.Map">
+		select itm_id "itm_id",itm_title "itm_title",itm_run_ind "itm_run_ind" from aeItem 
+			where itm_id
+		      =
+		      (
+		      select cos_itm_id from Course 
+					where cos_res_id
+						  =
+						  (select rcn_res_id from ResourceContent where rcn_res_id_content = #{mod_id})
+		      )
+	</select>
+	
+	<select id="selectItemParentTitle" parameterType="long" resultType="String">
+		select itm_title "itm_title" from aeItem where itm_id = (
+			select ire_parent_itm_id from aeItemRelation where ire_child_itm_id = #{itm_id}
+		)
+	</select>
+	
+</mapper>

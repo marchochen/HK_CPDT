@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.AeAttendanceStatusMapper">
+	<select id="get" resultType="AeAttendanceStatus" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				ats_id,
+				ats_title_xml,
+				ats_type,
+				ats_attend_ind,
+				ats_default_ind,
+				ats_ent_id_root,
+				ats_cov_status
+			from AeAttendanceStatus t 
+			where
+				 t.ats_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.AeAttendanceStatus">
+	    <![CDATA[
+	        update AeAttendanceStatus t 
+	        set 
+				ats_id = #{ats_id,jdbcType=INTEGER},
+				ats_title_xml = #{ats_title_xml,jdbcType=VARCHAR},
+				ats_type = #{ats_type,jdbcType=VARCHAR},
+				ats_attend_ind = #{ats_attend_ind,jdbcType=BOOLEAN},
+				ats_default_ind = #{ats_default_ind,jdbcType=BOOLEAN},
+				ats_ent_id_root = #{ats_ent_id_root,jdbcType=INTEGER},
+				ats_cov_status = #{ats_cov_status,jdbcType=VARCHAR}
+	         where t.ats_id = #{ats_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.AeAttendanceStatus">
+    	<![CDATA[
+            insert into AeAttendanceStatus(
+            		ats_title_xml,
+            		ats_type,
+            		ats_attend_ind,
+            		ats_default_ind,
+            		ats_ent_id_root,
+            		ats_cov_status
+            ) values (
+            	#{ats_title_xml,jdbcType=VARCHAR},
+            	#{ats_type,jdbcType=VARCHAR},
+            	#{ats_attend_ind,jdbcType=BOOLEAN},
+            	#{ats_default_ind,jdbcType=BOOLEAN},
+            	#{ats_ent_id_root,jdbcType=INTEGER},
+            	#{ats_cov_status,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from AeAttendanceStatus where
+	        ats_id = #{ats_id}
+	    ]]>
+    </delete>	
+	<select id="selectAll" resultType="AeAttendanceStatus">
+	    <![CDATA[
+	         select 
+				ats_id,
+				ats_title_xml,
+				ats_type,
+				ats_attend_ind,
+				ats_default_ind,
+				ats_ent_id_root,
+				ats_cov_status
+			from AeAttendanceStatus t 
+	    ]]>
+	</select>	
+</mapper>

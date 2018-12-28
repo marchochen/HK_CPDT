@@ -1,0 +1,25 @@
+<template_view>
+	<section id="1">
+		<field31>
+			<title>
+				<desc lan="ISO-8859-1" name="Actors/speakers"/>
+				<desc lan="Big5" name="主演/主持"/>
+				<desc lan="GB2312" name="主演/主持"/>
+			</title>
+		</field31>
+		<field32>
+			<title>
+				<desc lan="ISO-8859-1" name="Production house"/>
+				<desc lan="Big5" name="製作公司"/>
+				<desc lan="GB2312" name="制作公司"/>
+			</title>
+		</field32>
+		<field25>
+			<title>
+				<desc lan="ISO-8859-1" name="Year"/>
+				<desc lan="Big5" name="出版日期"/>
+				<desc lan="GB2312" name="出版日期"/>
+			</title>
+		</field25>
+	</section>
+</template_view>

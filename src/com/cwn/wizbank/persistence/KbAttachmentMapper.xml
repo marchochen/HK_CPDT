@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cwn.wizbank.persistence.KbAttachmentMapper">
+	<sql id="page_where">
+		<where>
+		</where>
+	</sql>
+
+	<select id="get" resultType="KbAttachment" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				kba_id,
+				kba_filename,
+				kba_file,
+				kba_remark,
+				kba_url,
+				kba_create_datetime,
+				kba_create_user_id,
+				kba_update_datetime,
+				kba_update_user_id
+			from kb_attachment 
+			where
+				 kba_id = #{id}
+		]]>
+	</select>
+
+	<update id="update" parameterType="KbAttachment">
+	    <![CDATA[
+	        update kb_attachment 
+	        set 
+				kba_filename = #{kba_file,jdbcType=VARCHAR},
+				kba_file = #{kba_file,jdbcType=VARCHAR},
+				kba_remark = #{kba_remark,jdbcType=VARCHAR},
+				kba_url = #{kba_url,jdbcType=VARCHAR},
+				kba_update_datetime = #{kba_update_datetime,jdbcType=TIMESTAMP},
+				kba_update_user_id = #{kba_update_user_id,jdbcType=VARCHAR}
+	         where kba_id = #{kba_id,jdbcType=VARCHAR}
+	    ]]>
+	</update>
+	
+	<update id="updateUrl" parameterType="KbAttachment">
+	    <![CDATA[
+	        update kb_attachment 
+	        set 
+				kba_url = #{kba_url,jdbcType=VARCHAR}
+	         where kba_id = #{kba_id,jdbcType=VARCHAR}
+	    ]]>
+	</update>
+
+	<insert id="insert" parameterType="KbAttachment">
+    	<![CDATA[
+            insert into kb_attachment(
+           		kba_filename,
+           		kba_file,
+           		kba_remark,
+           		kba_create_datetime,
+           		kba_create_user_id
+            ) values (
+            	#{kba_filename,jdbcType=VARCHAR},
+            	#{kba_file,jdbcType=VARCHAR},
+            	#{kba_remark,jdbcType=VARCHAR},
+            	#{kba_create_datetime,jdbcType=TIMESTAMP},
+            	#{kba_create_user_id,jdbcType=VARCHAR}
+            )
+        ]]>
+		<selectKey keyProperty="kba_id" resultType="Long" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select kb_attachment_seq.currval as kba_id from dual
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					select ident_current('kb_attachment') as kba_id
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					select last_insert_id() as kba_id
+				</when>
+			</choose>
+		</selectKey>
+	</insert>
+
+	<delete id="delete" parameterType="KbAttachment">
+	    <![CDATA[
+	   	delete from kb_attachment where
+	        kba_id = #{kba_id,jdbcType=VARCHAR}
+	    ]]>
+	</delete>
+
+	<select id="getKbAttachmentsByKbItemId" resultType="KbAttachment" parameterType="java.lang.Long">
+	  	<![CDATA[
+		select
+			kba_id,
+			kba_filename,
+			kba_file,
+			kba_remark,
+			kba_url,
+			kba_create_datetime,
+			kba_create_user_id,
+			kba_update_datetime,
+			kba_update_user_id
+		from kb_attachment
+		where exists (select kia_kba_id from kb_item_attachment where kia_kbi_id = #{id} and kia_kba_id=kba_id) 
+		]]>
+	</select>
+	
+	<select id="getInvalidAttachment" resultType="KbAttachment">
+	  	<![CDATA[
+			select
+				kba_id,
+				kba_filename,
+				kba_file,
+				kba_remark,
+				kba_url,
+				kba_create_datetime,
+				kba_create_user_id,
+				kba_update_datetime,
+				kba_update_user_id
+			from kb_attachment
+			where not exists (select kia_kba_id from kb_item_attachment where kia_kba_id = kba_id
+			union
+			select
+			]]>
+			 <choose>
+			   <when test="_databaseId == 'MYSQL'">
+			     cast(kbi_image as signed)
+			   </when>
+			   <otherwise>
+			     cast(kbi_image as int)
+			   </otherwise>
+		    </choose>
+			 <![CDATA[
+			  kia_kba_id from kb_item where not exists (select kia_kbi_id from kb_item_attachment where kia_kbi_id=kbi_id)
+			) 
+		]]>
+	</select>
+	
+</mapper>

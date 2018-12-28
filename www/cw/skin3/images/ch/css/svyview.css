@@ -1,0 +1,35 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				:Survey View
+suffix								:svyview
+skin type						:cw (cyberwisdom)
+stylesheet name			: svyview.css	
+version							: wizBank 3.5
+=======================================================================*/
+
+.wbSVYAnswerBg{
+	background: #FFFFFF;
+}
+
+.wbSVYHeadBarBg{
+	background-color: #8CCAF0;
+	height: 20px;
+}
+
+.wbSVYHeadBarText{
+	color: #08426F;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbSVYQuestionBg{
+	background: #DCFAFF;
+}
+
+.wbSVYQuestionText, .wbSVYAnswerText {
+	color: #00799F;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbSVYRowHeadBarSText{
+	color: #08426F;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}

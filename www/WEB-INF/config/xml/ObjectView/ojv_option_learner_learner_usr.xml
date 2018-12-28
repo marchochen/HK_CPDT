@@ -1,0 +1,8 @@
+<object_view>
+	<attribute checked="no" sortable="yes" paramname="usr_ste_usr_id">usr_id</attribute>
+	<attribute checked="no" sortable="yes">usr_display_bil</attribute>
+	<attribute checked="no">USR_PARENT_USG</attribute>
+	<attribute checked="no">USR_CURRENT_UGR</attribute>
+	<attribute checked="no">usr_email</attribute>
+	<attribute checked="no">usr_tel_1</attribute>
+</object_view>

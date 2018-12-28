@@ -1,0 +1,5 @@
+8.0
+3
+1	SQLNCHAR	0	0	"\t\0"		1	oac_obj_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	oac_access_type	""
+3	SQLNCHAR	0	0	"\r\0\n\0"	3	oac_ent_id	""

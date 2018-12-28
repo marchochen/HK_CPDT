@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.CourseRecordMapper">
+	
+	<select id="getCourseRecord"  resultType = "CourseRecord"  parameterType = "CourseRecord">
+	SELECT * from PublicCourseRecord where pcr_usr_ent_id = #{pcr_usr_ent_id} 
+	and pcr_itm_id = #{pcr_itm_id}
+	and pcr_mod_id = #{pcr_mod_id}
+	</select>
+	<insert id="insertRecord" parameterType = "CourseRecord">
+	insert into PublicCourseRecord(pcr_usr_ent_id,pcr_itm_id,pcr_mod_id,pcr_duration,pcr_last_acc,pcr_note)
+	values
+	(
+	#{pcr_usr_ent_id,jdbcType=INTEGER},
+	#{pcr_itm_id,jdbcType=INTEGER},
+	#{pcr_mod_id,jdbcType=INTEGER},
+	#{pcr_duration,jdbcType=INTEGER},
+	#{pcr_last_acc,jdbcType=TIMESTAMP},
+	#{pcr_note,jdbcType=VARCHAR}
+	)
+	
+	</insert>
+	<select id="updateCourseRecord" parameterType = "CourseRecord">
+	update PublicCourseRecord set
+	<if test="pcr_duration">
+	pcr_duration = #{pcr_duration,jdbcType=INTEGER}
+	</if>
+	<if test="pcr_note">
+	pcr_note = #{pcr_note,jdbcType=VARCHAR}
+	</if>
+	where 
+	pcr_usr_ent_id = #{pcr_usr_ent_id,jdbcType=INTEGER} 
+	and pcr_itm_id = #{pcr_itm_id,jdbcType=INTEGER}
+	and pcr_mod_id = #{pcr_mod_id,jdbcType=INTEGER}
+	</select>
+</mapper>

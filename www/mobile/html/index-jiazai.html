@@ -1,0 +1,611 @@
+<!doctype html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+    <title>Document</title>
+    <link type="text/css" rel="stylesheet" href="../css/jquery.mmenu.css" />
+    <link rel="stylesheet" href="../css/basic.css" />
+    <script type="text/javascript" src="../lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../lib/jquery-1.11.1.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="../js/lib/html5.js" type="text/jscript"></script>
+    <![endif]-->
+    </head>
+
+<body>
+    <div class="wrap" id="wizwrap">
+
+        <header class="header mm-background">
+            <a class="header-sosuo-er" href="souso/souso.html" title="搜索"></a>
+            <span class="header-title">首页</span>
+            <a class="header-renwu" href="#" title="任务">
+                <em class="icon-memu-tip"></em>
+            </a>
+        </header> <!-- header End -->
+
+        <!-- 加载开始 -->
+        <div class="header-overlay" style="display:block;">
+            <div class="jiazai-mobile">
+                <div class="jiazai-wbload">
+                    <span style="width:30%;"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 加载结束 -->
+
+        <!-- gps start -->
+        <div class="cont-box gps">
+            <a href="xuexi/xuexi.html"><span class="gps-learn"></span><p>学习</p></a>
+            <a href="kaoshi/kaoshi-wode.html"><span class="gps-eaxm"></span><p>考试</p></a>
+            <a href="index.html"><span class="gps-index active"></span></a>
+            <a href="gerenzhuye/gerenzhuye.html"><span class="gps-user"></span><p>我的</p></a>
+            <a href="#nav"><span class="gps-more"></span><p style="line-height:35px;">更多</p></a>
+        </div><!-- gps end -->
+
+        <!-- content-2 start -->
+        <section class="content-2">
+            <!-- touchslider开始 -->
+            <div class="touchslider">
+                <div class="touchslider-viewport">
+                    <div class="touchslider-item"><img src="../images/banner01.jpg" alt=""/></div>
+                    <div class="touchslider-item"><img src="../images/banner02.jpg" alt=""/></div>
+                    <div class="touchslider-item"><img src="../images/banner03.jpg" alt=""/></div>
+                </div>
+                <div class="touchslider-navtag">
+                    <div class="touchslider-navbox">
+                        <span class="touchslider-nav-item touchslider-nav-item-current"></span>
+                        <span class="touchslider-nav-item "></span>
+                        <span class="touchslider-nav-item "></span>
+                    </div>
+                </div>
+
+                <script type="text/javascript" src="../lib/jquery/jquery.touchslider.min.js"></script>
+                <script type="text/javascript">
+                $(function($){
+                	$(window).resize(function(){
+                		var width=$('#wizwrap').width();
+                		$('.touchslider-item img').css('width',width);
+                		$('.touchslider-viewport').css('height',270*(width/640));
+                	}).resize();	
+                	$(".touchslider").touchSlider({mouseTouch:true, autoplay:true});
+                });
+                </script>	
+            </div> <!-- touchslider End -->
+
+            <!-- memu start -->
+            <div class="memu clearfix">
+                <a class="memu-box-4" href="xuexi/xuexi-mulu.html" title="选课中心">
+                    <span class="icon-memu-model icon-memu-model-two icon-memu-danlv">
+                        <i class="icon-memu-lesson"></i>
+                    </span>
+                    <div class="memu-box-title">选课中心</div>
+                </a>
+             
+                <a class="memu-box-4" href="xuexi/xuexi.html" title="最新课程">
+                    <span class="icon-memu-model icon-memu-model-two icon-memu-orange">
+                        <i class="icon-memu-new-course"></i>
+                    </span>
+                    <div class="memu-box-title">最新课程</div>
+                </a>
+             
+                <a class="memu-box-4" href="zhishizhongxin/zhishizhongxin.html" title="知识中心">
+                    <span class="icon-memu-model icon-memu-model-two icon-memu-pink">
+                        <i class="icon-memu-Knowledge"></i>
+                    </span>
+                    <div class="memu-box-title">知识中心</div>
+                </a>
+                
+                <a class="memu-box-4" href="gonggao/gonggao.html" title="公告">
+                    <span class="icon-memu-model icon-memu-model-two icon-memu-purple">
+                        <i class="icon-memu-post"></i>
+                        <em class="icon-memu-tip">2</em>
+                    </span>
+                    <div class="memu-box-title">公告</div>
+                </a>
+            </div> <!-- memu End -->
+
+            <!-- panel start -->
+            <div class="panel">
+                <!-- panel-tuijian start -->
+                <h3 class="panel-title-2" style="border-bottom:1px solid #eee;">
+                    <a class="panel-title-subject panel-tuijian panel-border-orange" href="xuexi/xuexi-tuijian.html" title="" style="color:#333;font-size:18px;">为你推荐我的必修课</a>
+                </h3>
+
+                <ul class="panel-list-1-1 clearfix">
+                    <li>
+                        <a class="panel-list-cont-1" href="xuexi/xuexi-peixunshi.html" title="">
+                            <div class="list-pic-1">
+                                <img src="../images/course01.jpg" alt=""/>
+                                <span class="list-tool-1-xiangmushi"></span>
+                                <div class="showin"></div>
+                            </div>
+                            <div class="list-title">新员工启程系列课程</div>
+                        </a>
+                        <div class="list-tool-1">
+                            <span id="ocl_1185" class="list-tool-1-laud ng-binding">1</span>
+                            <span id="occ_1185" class="list-tool-1-review ng-binding">0</span>
+                        </div>
+                    </li>
+               
+                    <li>
+                        <a class="panel-list-cont-1" href="xuexi/xuexi-peixunshi.html" title="">
+                            <div class="list-pic-1">
+                                <img src="../images/course02.jpg" alt=""/>
+                                <span class="list-tool-1-mianshou"></span>
+                                <div class="showin"></div>
+                            </div>
+                            <div class="list-title">团队沟通技巧实战篇团队沟通技巧实战篇团队沟通技巧实战篇</div>
+                        </a>
+                        <div class="list-tool-1">
+                            <span id="ocl_1185" class="list-tool-1-laud ng-binding">1</span>
+                            <span id="occ_1185" class="list-tool-1-review ng-binding">0</span>
+                        </div>
+                    </li>
+                </ul> <!-- panel-tuijian End -->
+
+
+            </div><!-- panel end -->
+
+            <!-- panel start -->
+            <div class="panel"><!-- panel-peixunzhuanti start -->
+                <h3 class="panel-title-2" style="border-bottom:1px solid #eee;">
+                    <a class="panel-title-subject panel-tuijian panel-border-blue" href="jingcaizhuanti/zhuanti.html" title="" style="color:#333;font-size:18px;">精彩专题</a>
+                </h3>
+
+                <ul class="panel-list-1-15 clearfix">
+                    <li>
+                        <a class="panel-list-cont-1" href="jingcaizhuanti/zhuanti-xiangqing.html" title="">
+                            <div class="panel-list-pic-15">
+                                <img src="../images/banner04.jpg" alt=""/>
+                                <div class="showin"></div>
+                            </div>
+                            <div class="list-title">新员工启程系列课程</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="panel-list-cont-1" href="jingcaizhuanti/zhuanti-xiangqing.html" title="">
+                            <div class="panel-list-pic-15">
+                                <img src="../images/banner05.jpg" alt=""/>
+                                <div class="showin"></div>
+                            </div>
+                            <div class="list-title">新员工启程系列课程</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="panel-list-cont-1" href="jingcaizhuanti/zhuanti-xiangqing.html" title="">
+                            <div class="panel-list-pic-15">
+                                <img src="../images/banner04.jpg" alt=""/>
+                                <div class="showin"></div>
+                            </div>
+                            <div class="list-title">新员工启程系列课程</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="panel-list-cont-1" href="jingcaizhuanti/zhuanti-xiangqing.html" title="">
+                            <div class="panel-list-pic-15">
+                                <img src="../images/banner04.jpg" alt=""/>
+                                <div class="showin"></div>
+                            </div>
+                            <div class="list-title">新员工启程系列课程</div>
+                        </a>
+                    </li>
+                    <li style="width:100%;">
+                        <a class="panel-list-cont-1" href="jingcaizhuanti/zhuanti-xiangqing.html" title="">
+                            <div class="panel-list-pic-15">
+                                <img src="../images/banner04.jpg" alt=""/>
+                                <div class="showin"></div>
+                            </div>
+                            <div class="list-title">新员工启程系列课程</div>
+                        </a>
+                    </li>
+                </ul>
+            </div><!-- panel-peixunzhuanti End -->
+
+            <!-- panel start -->
+            <div class="panel show list-pic-12">
+                <a href="wenzhang/wenzhang.html">
+                    <img src="../images/M_a01.jpg" width="100%" alt="">
+                    <div><i>职级</i>发展学习地图</div>
+                </a>
+                <div class="showin-2"></div>
+            </div><!-- panel end -->
+
+            <!-- panel start -->
+            <div class="panel show list-pic-12">
+                <a href="wenzhang/wenzhang.html">
+                    <img src="../images/M_b01.jpg" width="100%" alt="">
+                    <div>关键<i>岗位</i>学习地图</div>
+                </a>
+                <div class="showin-2"></div>
+            </div><!-- panel end -->
+
+            <!-- panel start --><!-- panel-jingpin start -->
+            <div class="panel">
+                <h3 class="panel-title-2" style="border-bottom:1px solid #eee;">
+                    <a class="panel-title-subject panel-jingpin panel-border-green" href="paihangbang/paihangbang-kecheng.html" title="" style="color:#333;font-size:18px;">精品课程</a>
+                </h3>
+
+                <div class="tuwen-list-1" style="border-top:none;">
+                    <a class="tuwen-list-1-box clearfix" href="###" title="">
+                        <div class="tuwen-list-1-pic">
+                            <img src="../images/course03.jpg" alt="">
+                            <span class="list-tool-1-wangshang"></span>
+                            <i class="no-permission">暂无权限</i>
+                        </div>   
+                        <div class="marginl">
+                            <div class="tuwen-list-1-tit-1">LPT活动 互联网+人才发展Coffee Time</div>
+                            <div class="tuwen-list-tool">
+                                <span class="list-tool-laud">214</span>
+                                2015-09-13
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="tuwen-list-1">
+                    <a class="tuwen-list-1-box clearfix" href="###" title="">
+                        <div class="tuwen-list-1-pic"><img src="../images/course04.jpg" alt="">
+                            <span class="list-tool-1-bixiu"></span>
+                            <span class="list-tool-1-xiangmushi"></span>
+                        </div>   
+                        <div class="marginl">
+                            <div class="tuwen-list-1-tit-1">12大颠覆性技术移动互联网居首</div>
+                            <div class="tuwen-list-tool">
+                                <span class="list-tool-laud">214</span>
+                                2015-04-21
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div><!-- panel-jingpin End -->
+
+            <!-- panel start -->
+            <div class="panel show">
+                <a href="wenzhang/wenzhang.html">
+                    <img src="../images/poster01.jpg" width="100%" alt="">
+                </a>
+                <div class="showin-2"></div>
+            </div><!-- panel end -->
+
+            <!-- panel gongkaike start -->
+            <div class="panel">
+                <h2 class="panel-title-1 panel-bg-open" style="border-bottom:none;">
+                    <a class="panel-class-open" href="gongkaike/gongkaike.html" title="">公开课</a>
+                </h2> 
+
+                <div class="tuwen-list-1">
+                    <a class="tuwen-list-1-box clearfix" href="###" title="">
+                        <div class="tuwen-list-1-pic">
+                            <img src="../images/course05.jpg" alt="">
+                        </div>   
+                       
+                        <div class="tuwen-list-1-tit-1">在线教育-屌丝学习的天堂-由浅入深的交流、线上线下的互动</div>
+                        <div class="list-tool-1">
+                            <span class="list-tool-1-laud">214</span>
+                            <span class="list-tool-1-review">331</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="tuwen-list-1">
+                    <a class="tuwen-list-1-box clearfix" href="###" title="">
+                        <div class="tuwen-list-1-pic">
+                            <img src="../images/course06.jpg" alt="">
+                        </div>   
+                        <div class="tuwen-list-1-tit-1">e-Learning平台知识管理与虚拟学习社区化趋势</div>
+                        <div class="list-tool-1">
+                            <span class="list-tool-1-laud">214</span>
+                            <span class="list-tool-1-review">331</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="tuwen-list-1">
+                    <a class="tuwen-list-1-box clearfix" href="###" title="">
+                        <div class="tuwen-list-1-pic">
+                            <img src="../images/course07.jpg" alt="">
+                        </div>   
+                        <div class="tuwen-list-1-tit-1">加大职业教育支持力度 鼓励行业企业深度参与</div>
+                        <div class="list-tool-1">
+                            <span class="list-tool-1-laud">214</span>
+                            <span class="list-tool-1-review">331</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- panel gongkaike end -->
+
+            <!-- panel dongtai start -->
+            <div class="panel show">
+                <a href="dongtai/dongtai.html">
+                    <img src="../images/poster02.jpg" width="100%" alt="">
+                </a>
+                <div class="showin-2"></div>
+            </div>
+            <!-- panel dongtai End -->
+
+            <!-- panel jiangshifengcai start -->
+            <div class="panel">
+                <h2 class="panel-title-1 panel-bg-teacher">
+                    <a class="panel-teacher" href="gongkaike/gongkaike.html" title="">讲师风采</a>
+                </h2> 
+
+                <div class="module-tuwen clearfix">
+                    <a href="###" class="module-tuwen-teacher">
+                        <div class="module-tuwen-bg module-tuwen-bg-green" style="margin:0 auto;">
+                            <img src="../images/teacher01.png" alt="">
+                            <p class="module-tuwen-tit-1">张立强</p>
+                            <p class="module-tuwen-tit-2">高级讲师</p>
+                            <div class="module-color-green teacher-start">
+                                <i class="start-w start-w-full"></i>
+                                <i class="start-w start-w-full"></i>
+                                <i class="start-w start-w-full"></i>
+                                <i class="start-w"></i>
+                                <i class="start-w"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="###" class="module-tuwen-teacher">
+                        <div class="module-tuwen-bg module-tuwen-bg-pink" style="margin:0 auto;">
+                            <img src="../images/teacher02.png" alt="">
+                            <p class="module-tuwen-tit-1">李雯雯</p>
+                            <p class="module-tuwen-tit-2">特聘讲师</p>
+                            <div class="module-color-pink teacher-start">
+                                <i class="start-w start-w-full"></i>
+                                <i class="start-w start-w-full"></i>
+                                <i class="start-w start-w-full"></i>
+                                <i class="start-w"></i>
+                                <i class="start-w"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="###" class="module-tuwen-teacher">
+                        <div class="module-tuwen-bg module-tuwen-bg-blue" style="margin:0 auto;">
+                            <img src="../images/teacher03.png" alt="">
+                            <p class="module-tuwen-tit-1">戴佳佳</p>
+                            <p class="module-tuwen-tit-2">中级讲师</p>
+                            <div class="module-color-blue teacher-start">
+                                <i class="start-w start-w-full"></i>
+                                <i class="start-w start-w-full"></i>
+                                <i class="start-w start-w-full"></i>
+                                <i class="start-w"></i>
+                                <i class="start-w"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- panel jiangshifengcai End -->
+
+            <!-- panel wenda start -->
+            <div class="panel">
+                <div class="show">
+                    <a href="wenda/wenda.html">
+                        <img src="../images/poster03.jpg" width="100%" alt="">
+                    </a>
+                    <div class="showin-2"></div>
+                </div> 
+
+                <div class="panel-title-21-box">
+                    <a href="###">
+                        <div class="panel-title-21">项目是培训有哪些新内容？</div>
+                        <div class="box-num-cont-2">
+                            <span class="box-num-cont-pink">待解决</span>
+                            <span class="wenda-list-info-4">2015-09-16</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="panel-title-21-box">
+                    <a href="###">
+                        <div class="panel-title-21">对移动课程的建议有哪些？</div>
+                        <div class="box-num-cont-2">
+                            <span class="box-num-cont-bluer">FAQ</span>
+                            <span class="wenda-list-info-4">2015-08-15</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="panel-title-21-box">
+                    <a href="###">
+                        <div class="panel-title-21">2015年新课程有哪些？</div>
+                        <div class="box-num-cont-2">
+                            <span class="box-num-cont-purple">精选</span>
+                            <span class="wenda-list-info-4">2015-08-14</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="panel-title-21-box">
+                    <a href="###">
+                        <div class="panel-title-21">2015年第一季度培训需求调查何时截止？</div>
+                        <div class="box-num-cont-2">
+                            <span class="box-num-cont-yellow">已解决</span>
+                            <span class="wenda-list-info-4">2015-06-11</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- panel wenda end -->
+
+            <!-- panel zhishizhongxin start -->
+            <div class="panel">
+                <h2 class="panel-title-1 panel-bg-Knowledge" style="border-bottom:none;">
+                    <a class="panel-class-open" href="zhishizhongxin/zhishizhongxin.html" title="">知识中心</a>
+                </h2> 
+
+                <div class="tuwen-list-1">
+                    <a class="tuwen-list-1-box clearfix" href="###" title="">
+                        <div class="tuwen-list-1-pic">
+                            <img src="../images/xls01.jpg" alt="">
+                            <span class="tuwen-list-1-xls">XLS</span>
+                        </div>   
+                        
+                        <div class="tuwen-list-1-tit-1">2015ATD年会亮点解析 | 不管是否赴会，都值得看的一篇文章</div>
+                        <div class="tuwen-list-1-tit-3">
+                            <span class="wenda-list-info-4">2015-10-03</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="tuwen-list-1">
+                    <a class="tuwen-list-1-box clearfix" href="###" title="">
+                        <div class="tuwen-list-1-pic">
+                            <img src="../images/ppt01.jpg" alt="">
+                            <span class="tuwen-list-1-ppt">PPT</span>
+                        </div>   
+                       
+                        <div class="tuwen-list-1-tit-1">行业协会、商会发展分析及应对在线教育市场机会探讨</div>
+                        <div class="tuwen-list-1-tit-3">
+                            <span class="wenda-list-info-4">2015-08-10</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="tuwen-list-1">
+                    <a class="tuwen-list-1-box clearfix" href="###" title="">
+                        <div class="tuwen-list-1-pic">
+                            <img src="../images/pdf01.jpg" alt="">
+                            <span class="tuwen-list-1-pdf">PDF</span>
+                        </div>   
+                      
+                        <div class="tuwen-list-1-tit-1">学习部门的新角色：组织变革的驱动者传统学习结果让人失望</div>
+                        <div class="tuwen-list-1-tit-3">
+                            <span class="wenda-list-info-4">2015-07-07</span>
+                        </div>
+                    </a>
+                </div>
+            </div><!-- panel zhishizhongxin end -->
+
+            <!-- panel start -->
+            <div class="panel clearfix">
+                <div class="panel-magic">
+                    <a href="zhishizhongxin/zhishizhongxin.html">
+                        <div class="magic-box" id="magic">
+                            <div class="other-box-tit-1">百宝箱</div>
+                            <p class="other-box-tit-2">知识库，各类型知识分享</p>
+                            <i class="magic-box-img">
+                                <img src="../images/magic-box.png" alt="">
+                            </i>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="magic-box-right">
+                    <div class="panel-group">
+                        <a href="qunzu/qunzu.html">
+                            <div class="other-box-tit-1">圈子</div>
+                            <p class="other-box-tit-2">群组交流，快来说两句</p>
+                            <i href="###" class="group-box-img">
+                                <img src="../images/group.png" alt="">
+                            </i>
+                        </a>
+                    </div>
+
+                    <div class="magic-box" id="magic">
+                        <a href="paihangbang/paihangbang.html">
+                            <div class="other-box-tit-1">排行榜</div>
+                            <p class="other-box-tit-2">课程、学习、积分、知识</p>
+                            <i href="###" class="group-box-img">
+                                <img src="../images/paihangbang.png" alt="">
+                            </i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- panel End -->
+
+        </section><!-- content-2 end -->
+
+        <!-- nav start -->
+        <nav id="nav">
+            <div>
+                <!-- list-pic-3 start -->
+                <div class="list-pic-3">
+                    <div class="own-box">
+                        <div class="own-box-area">
+                            <ul>
+                                <li class="nav-user clearfix">
+                                    <a class="nav-user-pic" href="gerenzhuye/gerenzhuye.html">
+                                        <div><img src="../images/user08.png" alt=""></div>
+                                    </a>
+                                    <a class="nav-user-title" href="gerenzhuye/gerenzhuye.html" style="color:#fff;">Randy</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <img class="list-pic-3-pic" alt="" src="../images/celan_a01.png">
+                </div><!-- list-pic-3 end -->
+            
+                <div class="cont-info-2" style="margin:-50px 0 0 0;position:relative;z-index:2;">
+                    <ul>
+                        <li class="nav-article nav-link border"><a href="wenzhang/wenzhang.html">最新资讯</a></li>
+                        <li class="nav-video nav-link border"><a href="gongkaike/gongkaike.html">公开课</a></li>
+                        <li class="nav-zhongxin nav-link border"><a href="zhishizhongxin/zhishizhongxin.html">知识中心</a></li>
+                        <li class="nav-border"></li>
+                    </ul>
+                </div>
+            
+                <div class="cont-info-2">
+                    <ul>
+                        <li class="nav-zhuanti nav-link border"><a href="jingcaizhuanti/zhuanti.html">精彩专题</a></li>
+                        <li class="nav-zhiji nav-link border"><a href="#">职级发展学习地图</a></li>
+                        <li class="nav-gangwei nav-link border"><a href="guanjiangangweixuexiditu/guanjiangangweixuexiditu.html">关键岗位学习地图</a></li>
+                        <li class="nav-border"></li>
+                    </ul>
+                </div>
+            
+                <div class="cont-info-2" style="position:relative;z-index:3;">
+                    <ul>
+                        <li class="nav-qun nav-link border"><a href="qunzu/qunzu.html">群组</a></li>
+                        <li class="nav-ask nav-link border"><a href="wenda/wenda.html">问答</a></li>
+                        <li class="nav-border"></li>
+                    </ul>
+                </div>
+              
+                <div class="cont-info-2" style="position:relative;z-index:2;">
+                    <ul>
+                        <li class="nav-teacher nav-link border"><a href="jiangshi/jiangshi.html">讲师风采</a></li>
+                        <li class="nav-border"></li>
+                    </ul>
+                </div>
+
+                <div class="cont-info-2 list-pic-4-pic">
+                    <a class="souso-tag-1" href="shezhi/shezhi.html" title="设置" style="margin:0;">
+                        <span class="icon-nav-model">
+                              <i class="icon-nav-set"></i>
+                        </span>
+                        <div class="nav-box-biao">设置</div>
+                     </a>
+                    <a class="souso-tag-1" href="###" title="签到" style="margin:0;">
+                        <span class="icon-nav-model">
+                              <i class="nav-lixian"></i>
+                        </span>
+                        <div class="nav-box-biao">签到</div>
+                     </a>
+                    <a class="souso-tag-1" href="###" title="退出" style="margin:0;">
+                        <span class="icon-nav-model">
+                              <i class="nav-quit"></i>
+                        </span>
+                        <div class="nav-box-biao">退出</div>
+                     </a>
+                </div>
+            </div>
+
+            <script type="text/javascript" src="../lib/jquery/jquery.mmenu.min.js"></script>
+            <script type="text/javascript">
+            $(function(){
+              $('nav#nav').mmenu({
+                slidingSubmenus: true
+              }); 
+            });
+            </script>     
+        </nav><!-- nav End -->
+
+    </div> <!-- wrap End -->
+
+</body>
+</html>

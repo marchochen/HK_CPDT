@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.TcTrainingCenterMapper">
+	<select id="get" resultType="TcTrainingCenter" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				tcr_id,
+				tcr_code,
+				tcr_title,
+				tcr_ste_ent_id,
+				tcr_status,
+				tcr_create_timestamp,
+				tcr_create_usr_id,
+				tcr_update_timestamp,
+				tcr_update_usr_id,
+				tcr_parent_tcr_id,
+				tcr_user_mgt_ind
+			from TcTrainingCenter t where t.tcr_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.TcTrainingCenter">
+	    <![CDATA[
+	        update TcTrainingCenter 
+	        set 
+				tcr_code = #{tcr_code,jdbcType=VARCHAR},
+				tcr_title = #{tcr_title,jdbcType=VARCHAR},
+				tcr_ste_ent_id = #{tcr_ste_ent_id,jdbcType=INTEGER},
+				tcr_status = #{tcr_status,jdbcType=VARCHAR},
+				tcr_create_timestamp = #{tcr_create_timestamp,jdbcType=TIMESTAMP},
+				tcr_create_usr_id = #{tcr_create_usr_id,jdbcType=VARCHAR},
+				tcr_update_timestamp = #{tcr_update_timestamp,jdbcType=TIMESTAMP},
+				tcr_update_usr_id = #{tcr_update_usr_id,jdbcType=VARCHAR},
+				tcr_parent_tcr_id = #{tcr_parent_tcr_id,jdbcType=INTEGER},
+				tcr_user_mgt_ind = #{tcr_user_mgt_ind,jdbcType=INTEGER}
+	         where tcr_id = #{tcr_id,jdbcType=INTEGER}
+	    ]]>
+	</update>
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.TcTrainingCenter" keyProperty="tcr_id">
+            insert into TcTrainingCenter(
+            		tcr_code,
+            		tcr_title,
+            		tcr_ste_ent_id,
+            		tcr_status,
+            		tcr_create_timestamp,
+            		tcr_create_usr_id,
+            		tcr_update_timestamp,
+            		tcr_update_usr_id,
+            		tcr_parent_tcr_id,
+            		tcr_user_mgt_ind
+            ) values (
+            	#{tcr_code,jdbcType=VARCHAR},
+            	#{tcr_title,jdbcType=VARCHAR},
+            	#{tcr_ste_ent_id,jdbcType=INTEGER},
+            	#{tcr_status,jdbcType=VARCHAR},
+            	#{tcr_create_timestamp,jdbcType=TIMESTAMP},
+            	#{tcr_create_usr_id,jdbcType=VARCHAR},
+            	#{tcr_update_timestamp,jdbcType=TIMESTAMP},
+            	#{tcr_update_usr_id,jdbcType=VARCHAR},
+            	#{tcr_parent_tcr_id,jdbcType=INTEGER},
+            	#{tcr_user_mgt_ind,jdbcType=INTEGER}
+            )
+        <selectKey keyProperty="tcr_id" resultType="Long" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select TcTrainingCenter_seq.Currval from dual
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					select ident_current('TcTrainingCenter')
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					select last_insert_id()
+				</when>
+			</choose>
+		</selectKey>
+            
+	</insert>
+	<delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from TcTrainingCenter  where tcr_id = #{tcr_id}
+	    ]]>
+	</delete>
+	<select id="selectAll" resultType="TcTrainingCenter">
+	    <![CDATA[
+	         select 
+				tcr_id,
+				tcr_code,
+				tcr_title,
+				tcr_ste_ent_id,
+				tcr_status,
+				tcr_create_timestamp,
+				tcr_create_usr_id,
+				tcr_update_timestamp,
+				tcr_update_usr_id,
+				tcr_parent_tcr_id,
+				tcr_user_mgt_ind
+			from TcTrainingCenter t 
+	    ]]>
+	</select>
+
+	<!-- 获取用户培训中心 -->
+	<select id="getUserTrainingCenter" resultType="TcTrainingCenter" parameterType="Map">
+		select distinct tcr_id,
+		tcr_title,
+		tcr_ste_ent_id,
+		tcr_status,
+		tcr_create_timestamp,
+		tcr_create_usr_id,
+		tcr_update_usr_id,
+		tcr_update_timestamp,
+		tcr_parent_tcr_id,
+		ern_order AS "entityRelation.ern_order"
+		from
+		EntityRelation, tcTrainingCenterTargetEntity, tcTrainingCenter
+		where ern_ancestor_ent_id = tce_ent_id
+		and ern_child_ent_id = #{usr_ent_id}
+		and ern_type = 'USR_PARENT_USG'
+		and tce_tcr_id = tcr_id
+		order by ern_order desc, tcr_title
+	</select>
+
+	<select id="selectTcrIdList" resultType="TcTrainingCenter" parameterType="TcTrainingCenter">
+		select
+		distinct
+		tcr_id,
+		tcr_title
+		from tcTrainingCenter
+		left join tcTrainingCenterTargetEntity on tce_tcr_id = tcr_id
+		left join entityRelation on ern_type = 'USR_PARENT_USG' and ern_ancestor_ent_id = tce_ent_id
+		where
+		ern_child_ent_id = #{entityRelation.ern_child_ent_id} and tcr_id >= #{tcr_id}
+	</select>
+
+	<!-- 获得顶级培训中心 信息 -->
+	<select id="getRootTrainingCenter" resultType="TcTrainingCenter">
+		select
+		distinct
+		tcr_id,
+		tcr_code,
+		tcr_title,
+		tcr_ste_ent_id,
+		tcr_status,
+		tcr_create_timestamp,
+		tcr_create_usr_id,
+		tcr_update_timestamp,
+		tcr_update_usr_id,
+		tcr_parent_tcr_id,
+		tcr_user_mgt_ind
+		from tcTrainingCenter
+		where tcr_ste_ent_id = '1'
+		and tcr_status = 'OK'
+		and tcr_parent_tcr_id is null
+	</select>
+
+	<select id="getMyTrainingCenter" resultType="TcTrainingCenter" parameterType="Map">
+		select
+		distinct tcr_id,
+		tcr_title,
+		tcr_ste_ent_id,
+		tcr_status,
+		tcr_create_timestamp,
+		tcr_create_usr_id,
+		tcr_update_usr_id,
+		tcr_update_timestamp,
+		tcr_parent_tcr_id
+		from EntityRelation, tcTrainingCenterTargetEntity, tcTrainingCenter
+		where ern_ancestor_ent_id = tce_ent_id
+		and ern_child_ent_id = #{userEntId}
+		and
+		ern_type = 'USR_PARENT_USG'
+		and tce_tcr_id = tcr_id
+		<if test="isTcIndependent">
+			and tcr_parent_tcr_id > 0
+		</if>
+		order by tcr_id
+	</select>
+
+	<select id="getTrainingCenterTree" resultType="com.cw.wizbank.tree.TreeNode">
+		select tcr_id as id, tcr_code as code, tcr_title as name, tcr_parent_tcr_id as pId,
+		case when children > 0 then 1 else 0 end isParent
+		from (
+		select * from tcTrainingCenter
+		<if test="tcr_id &gt; 0">
+			where tcr_parent_tcr_id = #{tcr_id}
+		</if>
+		<if test="tcr_id &lt; 1">
+			where tcr_parent_tcr_id = 0 or tcr_parent_tcr_id is null
+		</if>
+		) t1 left join (
+		select tcr_parent_tcr_id t_parent_id, count(tcr_id) as children
+		from tcTrainingCenter group by tcr_parent_tcr_id
+		) t2 on (t1.tcr_id = t2.t_parent_id)
+		order by t1.tcr_code, t1.tcr_title
+	</select>
+	
+	<select id="getTrainingCenterTreeByOfficer" resultType="com.cw.wizbank.tree.TreeNode" parameterType="Map">
+			select tcr_id as id, tcr_code as code, tcr_title as name,case when tcr_parent_tcr_id > 0 then 1 else 0 end pId,
+			case when children > 0 then 1 else 0 end isParent
+	         from  tcTrainingCenter tcr 	         
+	         left join (select tcr_parent_tcr_id t_parent_id, count(tcr_id) as children
+				from tcTrainingCenter group by tcr_parent_tcr_id) tcr2 on tcr.tcr_id = tcr2.t_parent_id
+			 <choose>
+			 	<when test="current_role != null and current_role == 'AMD_1'">
+			 		where tcr_id = #{ent_id}
+			 	</when>
+			 	<otherwise>
+					 inner join  tcTrainingCenterOfficer tco on tco_tcr_id = tcr_id 
+					 left join  tcRelation  on tcn_ancestor = tcr_id
+			         where tco_usr_ent_id = #{ent_id}
+		         	<if test="current_role != null and current_role != ''">
+			         		and tco_rol_ext_id = #{current_role} 
+			         </if>
+			 	</otherwise>
+			 </choose>
+	         and tcr_status = 'OK'
+	         and (tcr_parent_tcr_id not in (
+				select tco_tcr_id from tcTrainingCenterOfficer where tco_usr_ent_id = #{ent_id}
+				) or tcr_parent_tcr_id is null)
+			 and tcr_id = case when 1 in (
+				select tco_tcr_id from tcTrainingCenterOfficer where tco_usr_ent_id = #{ent_id}
+				) then 1 else tcr_id end
+	         group by tcr_id , tcr_code , tcr_title,children,tcr_parent_tcr_id
+	</select>
+	
+	<select id="getSubTrainingCenterTree" resultType="com.cw.wizbank.tree.TreeNode" parameterType="Map">
+		<![CDATA[
+			select tcr_id as id, tcr_code as code, tcr_title as name, tcr_parent_tcr_id as pId,
+			case when children > 0 then 1 else 0 end isParent
+			from tcTrainingCenter tcr 
+			left join (select tcr_parent_tcr_id t_parent_id, count(tcr_id) as children
+			from tcTrainingCenter group by tcr_parent_tcr_id) tcr2 on tcr.tcr_id = tcr2.t_parent_id
+			where tcr.tcr_parent_tcr_id=#{tcr_id}
+	         and tcr.tcr_status = 'OK'
+         ]]>
+	</select>
+	
+	
+	<select id="getTrainingCenterIdByOfficer" resultType="Long" parameterType="Map">
+ 		 select tcr_id
+         from tcTrainingCenterOfficer, tcTrainingCenter 
+         where tco_usr_ent_id = #{userEntId} 
+         and tco_rol_ext_id = #{rolExtId}
+         and tcr_status = 'OK'
+         and tco_tcr_id = tcr_id 
+         order by tcr_title 
+	</select>
+	
+	<select id="getTrainingCenterGroupCount" resultType="Long" parameterType="Long">
+		select COUNT(tce_ent_id) from tcTrainingCenterTargetEntity where tce_tcr_id = #{tcrId}
+	</select>
+	
+	<select id="getMyTrainingCenter2" resultType="TcTrainingCenter" parameterType="Map">
+		select tc.* 
+		from tcTrainingCenterOfficer tco , tcRelation tr ,tcTrainingCenter tc
+		where 
+			tco.tco_tcr_id = tr.tcn_ancestor
+			or tco.tco_tcr_id in (select tcn_child_tcr_id from tcRelation  where tcn_ancestor = tco.tco_tcr_id )
+			and tc.tcr_id = tco.tco_tcr_id 
+			and tco.tco_usr_ent_id = #{userEntId} 
+			and tco.tco_rol_ext_id = #{rolExtId}
+		
+			and (
+					tc.tcr_id in(
+								select tcn_child_tcr_id from tcrelation where tcn_ancestor= 1
+					) 
+					or tc.tcr_id  = 1
+			)
+		order by tcr_id
+	</select>
+	
+	<select id="getTopTwoTrainingCenterBytcrId" resultType="TcTrainingCenter" parameterType="Long">
+			select tcr_id from tcRelation,tcTrainingCenter where tcn_ancestor = tcr_id  and tcn_child_tcr_id = #{tcrId} and tcr_parent_tcr_id > 0 order by tcr_id
+	</select>
+	
+</mapper>

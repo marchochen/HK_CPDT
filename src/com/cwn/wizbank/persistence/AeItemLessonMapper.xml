@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.AeItemLessonMapper">
+	<select id="get" resultType="AeItemLesson" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				ils_id,
+				ils_itm_id,
+				ils_title,
+				ils_day,
+				ils_start_time,
+				ils_end_time,
+				ils_create_timestamp,
+				ils_create_usr_id,
+				ils_update_timestamp,
+				ils_update_usr_id,
+				ils_place
+			from AeItemLesson t 
+			where
+				 t.ils_id = #{id}
+		]]>
+	</select>	
+	<update id="update" parameterType="com.cwn.wizbank.entity.AeItemLesson">
+	    <![CDATA[
+	        update AeItemLesson t 
+	        set 
+				ils_id = #{ils_id,jdbcType=INTEGER},
+				ils_itm_id = #{ils_itm_id,jdbcType=INTEGER},
+				ils_title = #{ils_title,jdbcType=VARCHAR},
+				ils_day = #{ils_day,jdbcType=INTEGER},
+				ils_start_time = #{ils_start_time,jdbcType=DATE},
+				ils_end_time = #{ils_end_time,jdbcType=DATE},
+				ils_create_timestamp = #{ils_create_timestamp,jdbcType=DATE},
+				ils_create_usr_id = #{ils_create_usr_id,jdbcType=VARCHAR},
+				ils_update_timestamp = #{ils_update_timestamp,jdbcType=DATE},
+				ils_update_usr_id = #{ils_update_usr_id,jdbcType=VARCHAR},
+				ils_place = #{ils_place,jdbcType=VARCHAR}
+	         where t.ils_id = #{ils_id,jdbcType=INTEGER}
+	    ]]>
+    </update>    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.AeItemLesson">
+    	<![CDATA[
+            insert into AeItemLesson(
+            		ils_itm_id,
+            		ils_title,
+            		ils_day,
+            		ils_start_time,
+            		ils_end_time,
+            		ils_create_timestamp,
+            		ils_create_usr_id,
+            		ils_update_timestamp,
+            		ils_update_usr_id,
+            		ils_place
+            ) values (
+            	#{ils_itm_id,jdbcType=INTEGER},
+            	#{ils_title,jdbcType=VARCHAR},
+            	#{ils_day,jdbcType=INTEGER},
+            	#{ils_start_time,jdbcType=DATE},
+            	#{ils_end_time,jdbcType=DATE},
+            	#{ils_create_timestamp,jdbcType=DATE},
+            	#{ils_create_usr_id,jdbcType=VARCHAR},
+            	#{ils_update_timestamp,jdbcType=DATE},
+            	#{ils_update_usr_id,jdbcType=VARCHAR},
+            	#{ils_place,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from AeItemLesson where
+	        ils_id = #{ils_id}
+	    ]]>
+    </delete>    
+    <resultMap type="AeItemLesson" id="AeItemLessonUser">
+		<result column="ils_id" property="ils_id"></result>
+		<result column="ils_itm_id" property="ils_itm_id"></result>
+		<result column="ils_title" property="ils_title"></result>
+		<result column="ils_day" property="ils_day"></result>
+		<result column="ils_start_time" property="ils_start_time"></result>
+		<result column="ils_create_timestamp" property="ils_create_timestamp"></result>
+		<result column="ils_create_usr_id" property="ils_create_usr_id"></result>
+		<result column="ils_update_timestamp" property="ils_update_timestamp"></result>
+		<result column="ils_update_usr_id" property="ils_update_usr_id"></result>
+		<result column="ils_place" property="ils_place"></result>
+        <collection property="userList" column="ils_id" ofType="RegUser" select="getInstructorList"/>
+    </resultMap>    
+    <select id="getInstructorList" resultType="RegUser" parameterType="java.lang.Long">
+        select usr_display_bil
+        from 
+		aeItemLessonInstructor 
+		inner join RegUser on usr_ent_id = ili_usr_ent_id
+		where ili_ils_id = #{id}
+		
+		union
+		 	
+		select 	    
+			iti_name AS "usr_display_bil"	
+		from 
+			aeItemLessonInstructor  
+			inner join InstructorInf on ili_usr_ent_id = iti_ent_id
+		where ili_ils_id = #{id} and iti_type_mark = 'EXT'
+		
+    </select>	
+	<select id="getList" resultMap="AeItemLessonUser"  parameterType="java.lang.Long">
+         select 
+			ils_id,
+			ils_itm_id,
+			ils_title,
+			ils_day,
+			ils_start_time,
+			ils_end_time,
+			ils_create_timestamp,
+			ils_create_usr_id,
+			ils_update_timestamp,
+			ils_update_usr_id,
+			ils_place
+<!-- 			, -->
+<!-- 			usr_display_bil AS "user.usr_display_bil" -->
+		from AeItemLesson 
+<!-- 		left join aeItemLessonInstructor on ils_id = ili_ils_id -->
+<!--  		left join RegUser on usr_ent_id = ili_usr_ent_id -->
+ 		where ils_itm_id = #{id}
+ 		order by ils_start_time asc
+	</select>	
+</mapper>

@@ -1,0 +1,8 @@
+8.0
+6
+1	SQLNCHAR	0	0	"\t\0"		1	fto_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	fto_res_id	""
+3	SQLNCHAR	0	0	"\t\0"		3	fto_title	""
+4	SQLNCHAR	0	0	"\t\0"		4	fto_usr_id	""
+5	SQLNCHAR	0	0	"\t\0"		5	fto_create_datetime	""
+6	SQLNCHAR	0	0	"\r\0\n\0"	6	fto_last_post_datetime	""

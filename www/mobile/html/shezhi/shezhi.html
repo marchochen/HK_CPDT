@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title>Document</title>
+<link rel="stylesheet" href="../../css/basic.css" />
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<!--[if lt IE 9]>
+<script src="../../js/lib/html5.js" type="text/jscript"></script>
+<![endif]-->
+</head>
+<body>
+
+<div class="wrap" id="wizwrap">
+<header class="header mm-background">
+    <a class="header-back" href="../index.html" title="返回"></a>
+    <span class="header-title">设置</span>
+    
+    <div class="header-tip" style="display:none;">
+         <div class="header-tip-info">你要删除该问题？</div>
+         <div class="header-tip-form">
+              <a class="header-tip-queding" href="###" title="">确定</a>
+              <a class="header-tip-quxiao" href="###" title="">取消</a>
+         </div>
+    </div>
+    
+	<script type="text/javascript">
+    (function($){         
+         $(".header-pop").click(function(){
+              $(".header-tip").slideToggle();
+              $(".header-overlay").toggleClass("show");
+         });
+    })(jQuery);
+	</script>
+</header> <!-- header End -->
+<div class="header-overlay"></div>
+
+<section class="content">
+<div class="list-pic-3">
+<div class="own-box">
+<div class="own-box-area">
+     <div class="own-box-pic">
+          <a class="own-box-user" href="###" title="">
+             <img src="../../images/user01.jpg" alt=""/>
+          </a>
+     </div>
+
+     <div class="own-box-tit-1">陈思杰</div>
+     <div class="own-box-tit-2">平台部 技术工程师</div>
+</div>     
+</div>
+
+<img class="list-pic-3-pic" alt="" src="../../images/banner51.jpg">
+<div class="list-pic-3-bg"></div>
+</div> <!-- list-pic-3 End -->
+
+<div class="panel-list-box">
+<ul class="panel-list-1-6">
+    <li>
+          <a class="panel-add-01 wiz-mima" href="xiugaimima.html" title=""><em class="panel-num-1">&nbsp;</em>修改密码</a>
+    </li>
+    <li>
+          <a class="panel-add-01 wiz-yinsi" href="yinsi.html" title=""><em class="panel-num-1">&nbsp;</em>隐私设置</a>
+    </li>
+    <li>
+          <a class="panel-add-01 wiz-yuyan" href="yuyan.html" title=""><em class="panel-num-1">&nbsp;</em>语言</a>
+    </li>
+    <li>
+          <a class="panel-add-01 wiz-guanyu" href="guanyu.html" title=""><em class="panel-num-1">&nbsp;</em>关于</a>
+    </li>
+    
+    <li>
+          <a class="panel-add-01 wiz-tuichu" href="javascript:void(0);" title="">退出</a>
+    </li>
+</ul>
+
+</div>
+
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<label_reference_data_list>
+	<label name="lab_g_create_ls">创建课程</label>
+	<label name="lab_g_select_ls">请选择</label>
+	<label name="lab_g_ls">课程类型</label>
+	<label name="lab_g_select_enrol_wf">请选择</label>
+	<label name="lab_g_enrol_wf">报名工作流</label>
+	<label name="lab_g_none">没有</label>
+	<label name="lab_g_form_btn_next_step">下一步</label>
+	<label name="lab_g_form_btn_cancel">取消</label>
+	<label name="lab_g_item_type">
+		<element id="CLASSROOMCTAM">
+			<title>Classroom Training(CTAM)</title>
+			<description/>
+		</element>
+		<element id="CLASSROOM">
+			<title>离线课堂</title>
+			<description/>
+		</element>		
+		<element id="SELFSTUDY">
+			<title>网上课程</title>
+			<description/>
+		</element>
+		<element id="SELFSTUDY_PAYMENT">
+			<title>Online Learning</title>
+			<description/>
+		</element>
+		<element id="MOBILE">
+			<title>移动课程</title>
+			<description/>
+		</element>
+		<element id="AUDIOVIDEO">
+			<title>影音</title>
+			<description/>
+		</element>
+		<element id="BOOK">
+			<title>书</title>
+			<description/>
+		</element>
+		<element id="WEBSITE">
+			<title>网站</title>
+			<description/>
+		</element>
+	</label>
+	<label name="lab_g_template_workflow">
+		<element id="15">
+			<title id="1">无需经过审批</title>
+			<description id="1"></description>
+			<title id="2">需经过以下审批:</title>
+			<description id="2"></description>
+			<title id="3">领导审批</title>
+			<description id="3"></description>
+			<title id="4">只需直属领导审批</title>
+			<description id="4">如果需要直属领导参与审批，申请者个人资料中的“直属领导”属性必须先被设定。</description>
+			<title id="5">先通过直属领导审批，再由用户组领导审批</title>
+			<description id="5">如果需要用户组领导参与审批，申请者个人资料中的“最高报名审批用户组”属性必须先被设定。</description>
+			<title id="6">培训管理员审批</title>
+			<description id="6"></description>
+		</element>
+	</label>
+</label_reference_data_list>

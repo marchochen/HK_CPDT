@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.CpdGroupRegistrationMapper">
+    <resultMap id="CpdGroupRegistration" type="CpdGroupRegistration">
+		<id column="cgr_id" property="cgr_id" />
+		<result column="cgr_usr_ent_id" property="cgr_usr_ent_id"></result>
+		<result column="cgr_cr_id" property="cgr_cr_id"></result>
+		<result column="cgr_initial_date" property="cgr_initial_date"  javaType="java.util.Date" jdbcType="DATE"></result>
+		<result column="cgr_expiry_date" property="cgr_expiry_date"  javaType="java.util.Date" jdbcType="DATE"></result>
+		<result column="cgr_first_ind" property="cgr_first_ind"></result>
+		<result column="cgr_actual_date" property="cgr_actual_date"  javaType="java.util.Date" jdbcType="DATE"></result>
+		<result column="cgr_create_usr_ent_id" property="cgr_create_usr_ent_id"></result>
+		<result column="cgr_create_datetime" property="cgr_create_datetime"></result>
+		<result column="cgr_update_usr_ent_id" property="cgr_update_usr_ent_id"></result>
+		<result column="cgr_update_datetime" property="cgr_update_datetime"></result>
+		<result column="cgr_status" property="cgr_status"></result>
+		<result column="cgr_cg_id" property="cgr_cg_id"></result>
+		<association property="cpdGroup" column="cgr_cg_id" javaType="com.cwn.wizbank.entity.CpdGroup">
+            <result column="cg_id" property="cg_id"/>
+            <result column="cg_code" property="cg_code"></result>
+		    <result column="cg_alias" property="cg_alias"></result>
+            <result column="cg_contain_non_core_ind" property="cg_contain_non_core_ind"></result>
+            <result column="cg_display_in_report_ind" property="cg_display_in_report_ind"></result>
+        </association>
+        <association property="cpdGroupRegHours" column="cgr_id" javaType="com.cwn.wizbank.entity.CpdGroupRegHours">
+            <result column="cgrh_cgr_id" property="cgrh_cgr_id"/>
+            <result column="cgrh_id" property="cgrh_id"></result>
+            <result column="cgrh_execute_core_hours" property="cgrh_execute_core_hours"></result>
+		    <result column="cgrh_execute_non_core_hours" property="cgrh_execute_non_core_hours"></result>
+		    <result column="cgrh_manul_ind" property="cgrh_manul_ind"></result>
+            <result column="cgrh_cal_start_date" property="cgrh_cal_start_date"  javaType="java.util.Date" jdbcType="DATE"></result>
+            <result column="cgrh_cal_end_date" property="cgrh_cal_end_date"  javaType="java.util.Date" jdbcType="DATE"></result>
+            <result column="cgrh_create_datetime" property="cgrh_create_datetime"  javaType="java.util.Date" jdbcType="DATE"></result>
+        </association>
+	</resultMap>
+
+	<select id="getCpdGroupRegBeforeTime" resultMap="CpdGroupRegistration" parameterType="Map">
+		<![CDATA[
+			select 
+				cgr_id,
+				cgr_usr_ent_id,
+				cgr_cr_id,
+				cgr_initial_date,
+				cgr_expiry_date,
+				cgr_first_ind,
+				cgr_actual_date,
+				cgr_create_usr_ent_id,
+				cgr_create_datetime,
+				cgr_update_usr_ent_id,
+				cgr_update_datetime,
+				cgr_cg_id,
+				cgr_status
+			from 
+				cpdGroupRegistration 
+			where 
+				cgr_usr_ent_id = #{usr_ent_id}
+				and cgr_cg_id = #{cgr_cg_id}
+				and cgr_initial_date < #{initial_date} 
+				and cgr_initial_date is not null
+				and cgr_status = 'OK'
+			order by cgr_expiry_date desc
+		]]>
+	</select>
+	
+	   <select id="getPreGroupRegistrationNoId" resultMap="CpdGroupRegistration" parameterType="Map">
+        <![CDATA[
+            select 
+                cgr_id,
+                cgr_usr_ent_id,
+                cgr_cr_id,
+                cgr_initial_date,
+                cgr_expiry_date,
+                cgr_first_ind,
+                cgr_actual_date,
+                cgr_create_usr_ent_id,
+                cgr_create_datetime,
+                cgr_update_usr_ent_id,
+                cgr_update_datetime,
+                cgr_cg_id,
+                cgr_status
+            from 
+                cpdGroupRegistration 
+            where 
+                cgr_usr_ent_id = #{usr_ent_id}
+                and cgr_cg_id = #{cgr_cg_id}
+                and cgr_initial_date < #{initial_date} 
+                and cgr_initial_date is not null
+                and cgr_status = 'OK'
+                and cgr_id != #{cgr_id}
+            order by cgr_expiry_date desc
+        ]]>
+    </select>
+	
+	<select id="getCpdGroupReg" resultMap="CpdGroupRegistration" parameterType="Map">
+		<![CDATA[
+			select 
+				cgr_id,
+				cgr_usr_ent_id,
+				cgr_cr_id,
+				cgr_initial_date,
+				cgr_expiry_date,
+				cgr_first_ind,
+				cgr_actual_date,
+				cgr_create_usr_ent_id,
+				cgr_create_datetime,
+				cgr_update_usr_ent_id,
+				cgr_update_datetime,
+				cgr_cg_id,
+				cgr_status
+			from 
+				cpdGroupRegistration 
+			where 
+				1=1
+		]]>
+		<if test="usr_ent_id !=null">
+			<![CDATA[
+				and cgr_usr_ent_id = #{usr_ent_id}
+			]]>
+		</if>
+		<if test="cgr_cg_id !=null">
+			<![CDATA[
+				and cgr_cg_id = #{cgr_cg_id}
+			]]>
+		</if>
+		<if test="cgr_cr_id !=null">
+			<![CDATA[
+				and cgr_cr_id = #{cgr_cr_id}
+			]]>
+		</if>
+		<if test="end_time !=null">
+			<![CDATA[
+				and ( cgr_expiry_date > #{end_time}  or cgr_expiry_date is null )
+			]]>
+		</if>
+		and cgr_status = 'OK'
+		order by cgr_expiry_date desc
+	</select>
+	
+	   
+    <select id="getCpdGroupRegNotPast" resultMap="CpdGroupRegistration" parameterType="Map">
+        <![CDATA[
+            select 
+                cgr_id,
+                cgr_usr_ent_id,
+                cgr_cr_id,
+                cgr_initial_date,
+                cgr_expiry_date,
+                cgr_first_ind,
+                cgr_actual_date,
+                cgr_create_usr_ent_id,
+                cgr_create_datetime,
+                cgr_update_usr_ent_id,
+                cgr_update_datetime,
+                cgr_cg_id,
+                cgr_status
+            from 
+                cpdGroupRegistration  inner join cpdGroupRegHours on cgrh_cgr_id = cgr_id 
+            where 
+                1=1
+        ]]>
+        <if test="period !=null">
+            <![CDATA[
+                and cgrh_cgr_period = #{period}
+            ]]>
+        </if>
+        <if test="usr_ent_id !=null">
+            <![CDATA[
+                and cgr_usr_ent_id = #{usr_ent_id}
+                and cgrh_usr_ent_id = #{usr_ent_id}
+            ]]>
+        </if>
+        <if test="cgr_cg_id !=null">
+            <![CDATA[
+                and cgr_cg_id = #{cgr_cg_id}
+            ]]>
+        </if>
+        <if test="cgr_cr_id !=null">
+            <![CDATA[
+                and cgr_cr_id = #{cgr_cr_id}
+            ]]>
+        </if>
+        and ( cgr_expiry_date > cgrh_cal_end_date  or cgr_expiry_date is null )
+        and cgr_status = 'OK'
+        order by cgr_expiry_date desc
+    </select>
+    
+       <select id="getCpdRegHoursNotPast" resultMap="CpdGroupRegistration" parameterType="Map">
+        <![CDATA[
+        select CpdGroupRegistration.*  
+        from   CpdGroupRegistration 
+        inner join cpdGroupRegHours on cgr_id= cgrh_cgr_id
+        where 
+        1=1
+        and (cgrh_create_datetime < cgrh_cal_end_date)  
+        ]]>
+        <if test="period !=null">
+            <![CDATA[
+                and cgrh_cgr_period = #{period}
+            ]]>
+        </if>
+        <if test="usr_ent_id !=null">
+            <![CDATA[
+                and cgr_usr_ent_id = #{usr_ent_id}
+                and cgrh_usr_ent_id = #{usr_ent_id}
+            ]]>
+        </if>
+        <if test="cgr_cg_id !=null">
+            <![CDATA[
+                and cgr_cg_id = #{cgr_cg_id}
+            ]]>
+        </if>
+        <if test="cgr_cr_id !=null">
+            <![CDATA[
+                and cgr_cr_id = #{cgr_cr_id}
+            ]]>
+        </if>
+        and ( cgr_expiry_date > cgrh_cal_end_date  or cgr_expiry_date is null )
+        and cgr_status = 'OK'
+        order by cgr_expiry_date desc
+    </select>
+	
+    <select id="getByNowDate"  resultMap="CpdGroupRegistration" parameterType="Map">
+		<![CDATA[
+			select 
+				cgr_id,
+				cgr_usr_ent_id,
+				cgr_cr_id,
+				cgr_initial_date,
+				cgr_expiry_date,
+				cgr_first_ind,
+				cgr_actual_date,
+				cgr_create_usr_ent_id,
+				cgr_create_datetime,
+				cgr_update_usr_ent_id,
+				cgr_update_datetime,
+				cgr_cg_id
+			from CpdGroupRegistration 
+			where  1=1 
+			and cgr_status = 'OK'
+		]]>
+		 <if test="now_datetime != null and now_datetime != ''">
+			  and 
+			  (
+			     ( cgr_initial_date &lt;= #{now_datetime}  and cgr_expiry_date &gt;=  #{now_datetime})
+                			  or
+                 ( cgr_initial_date &lt;= #{now_datetime}  and cgr_expiry_date is null)
+               )
+		</if> 
+	</select>
+    
+    <select id="getByUsrEntIdAndCrId" resultMap="CpdGroupRegistration" parameterType="Page">
+		<![CDATA[
+			select 
+				cgr_id,
+				cgr_usr_ent_id,
+				cgr_cr_id,
+				cgr_initial_date,
+				cgr_expiry_date,
+				cgr_first_ind,
+				cgr_actual_date,
+				cgr_create_usr_ent_id,
+				cgr_create_datetime,
+				cgr_update_usr_ent_id,
+				cgr_update_datetime,
+				cg_contain_non_core_ind,
+				cgr_cg_id,
+				cgr_status,
+				cg_code ,cg_alias ,cgrh_execute_core_hours,cgrh_execute_non_core_hours,cgrh_manul_ind,cgrh_id,cg_display_order
+			from 
+				cpdGroupRegistration 
+			inner join cpdGroup  on cg_id  = cgr_cg_id
+            left join cpdGroupRegHours  on cgrh_cgr_id = cgr_id	and cgrh_cgr_period = #{params.period}
+			where 
+				cgr_usr_ent_id = #{params.usr_ent_id}
+				and cgr_cr_id = #{params.cgr_cr_id}
+				and cgr_initial_date is not null
+				and cgr_status = #{params.status}
+			order by cg_display_order
+		]]>
+	</select>
+	
+	 <select id="getCountByCgID" resultType="java.lang.Integer" parameterType="java.lang.Long">
+		<![CDATA[
+			select count(*)
+			from cpdGroupRegistration  
+			where  cgr_cg_id = #{cg_id}  and cgr_status = 'OK'
+			]]>
+	</select>
+	
+
+	 <select id="getHoursDate" resultMap="CpdGroupRegistration" parameterType="Map">
+        <![CDATA[
+            select cgrh_execute_core_hours,cgrh_execute_non_core_hours,cgrh_cal_start_date,cgrh_cal_end_date,cg_contain_non_core_ind,cg_display_in_report_ind,cgrh_create_datetime
+            from  cpdGroupRegistration left join  cpdGroupRegHours on cgr_id = cgrh_cgr_id
+            left join cpdGroup on cg_id = cgr_cg_id where  
+            cgr_status = 'OK' 
+            and cgrh_usr_ent_id = #{usr_ent_id}
+            and cgrh_cgr_period = #{period}
+            and cgr_cg_id = #{cg_id}
+            and  ( cgr_expiry_date > cgrh_cal_end_date   or cgr_expiry_date is null )
+        ]]>
+    </select>
+    
+      <select id="getHoursDateHistory" resultMap="CpdGroupRegistration" parameterType="Map">
+        <![CDATA[
+            select cghi_execute_core_hours as cgrh_execute_core_hours,
+            cghi_execute_non_core_hours as cgrh_execute_non_core_hours,
+            cghi_cal_start_date as cgrh_cal_start_date,
+            cghi_cal_end_date as cgrh_cal_end_date,
+            cg_contain_non_core_ind,
+            cg_display_in_report_ind 
+            from  cpdGroupRegistration left join  cpdGroupRegHoursHistory on cgr_id = cghi_cgr_id
+            left join cpdGroup on cg_id = cgr_cg_id where  
+            cgr_status = 'OK' 
+            and cghi_usr_ent_id = #{usr_ent_id}
+            and cghi_period = #{period}
+            and cgr_cg_id = #{cg_id}
+            and (cghi_expiry_date is null or cghi_expiry_date> cghi_cal_end_date)
+        ]]>
+    </select>
+    
+       <select id="getUserHours" resultMap="CpdGroupRegistration" parameterType="Map">
+        <![CDATA[
+             select cgr_usr_ent_id,cgrh_execute_core_hours,cgrh_cal_start_date,cgrh_cal_end_date,cg_contain_non_core_ind,cgr_cg_id
+            from  cpdGroupRegistration left join  cpdGroupRegHours on cgr_id = cgrh_cgr_id
+            left join cpdGroup on cg_id = cgr_cg_id where  
+            cgr_status = 'OK' 
+            and cgrh_cgr_period = #{period}
+            and cg_ct_id = #{cg_ct_id}
+        ]]>
+    </select>
+    
+	
+
+    <select id="getCpdGroupRegistration" resultMap="CpdGroupRegistration" parameterType="Map">
+		<![CDATA[
+			select 
+				cgr_id,
+				cgr_usr_ent_id,
+				cgr_cr_id,
+				cgr_initial_date,
+				cgr_expiry_date,
+				cgr_first_ind,
+				cgr_actual_date,
+				cgr_create_usr_ent_id,
+				cgr_create_datetime,
+				cgr_update_usr_ent_id,
+				cgr_update_datetime,
+				cgr_cg_id,
+				cgr_status,
+				cg_code ,cg_alias ,cgrh_execute_core_hours,cgrh_execute_non_core_hours,cgrh_manul_ind,cgrh_id
+			from 
+				cpdGroupRegistration 
+			inner join cpdGroup  on cg_id  = cgr_cg_id
+            inner join cpdGroupRegHours  on cgrh_cgr_id = cgr_id	
+          ]]>  
+         	 <if test="period != null and period != 0">
+            	 and cgrh_cgr_period = #{period}
+           	</if>
+          
+			where  (cgr_expiry_date is null or cgr_expiry_date > cgrh_cal_end_date)
+				<if test="usr_ent_id != null and usr_ent_id != 0">
+					and cgr_usr_ent_id = #{usr_ent_id}
+				</if>
+				<if test="cr_id != null and cr_id != 0">
+					and cgr_cr_id = #{cr_id}
+				</if>
+				<if test="cg_id != null and cg_id != 0">
+					and cgr_cg_id = #{cg_id}
+				</if>
+				and cgr_initial_date is not null
+				<if test="status != null and status != ''">
+					and cgr_status = #{status}
+				</if>
+			order by cgr_expiry_date desc
+		 
+	</select>
+	
+	
+     <select id="getCpdCrGroupExist" resultMap="CpdGroupRegistration" parameterType="Map">
+        <![CDATA[
+            select cgr_id,cg_alias from cpdGroupRegistration left join cpdGroup on cg_id = cgr_cg_id where 
+            cgr_status = 'OK'
+            and  cgr_cr_id = #{cgr_cr_id}  
+        ]]>
+    </select>
+    
+       <select id="isRegisterCpdgroupForImport" resultType="com.cwn.wizbank.entity.CpdGroupRegistration" parameterType="CpdGroupRegistration">
+        <![CDATA[
+            select *
+             from CpdGroupRegistration 
+            where cgr_status = 'OK'
+            and cgr_usr_ent_id=#{cgr_usr_ent_id,jdbcType=INTEGER}
+            and cgr_cg_id=#{cgr_cg_id,jdbcType=INTEGER}
+            and cgr_expiry_date is null
+        ]]>
+    </select>
+    
+ 	<select id="getGroupRegistration" resultType="com.cwn.wizbank.entity.CpdRegistration" parameterType="Map">
+		select cr_id from cpdRegistration where cr_status = 'OK' and  cr_reg_datetime =#{reg_date} and cr_usr_ent_id = (select usr_ent_id from reguser where usr_ste_usr_id = #{usr_ste_usr_id}) and cr_ct_id = (select ct_id from cpdType where   ct_status = 'OK'  and   ct_license_type = #{License_type})
+	</select>	   
+    
+
+	<select id="getGroupId" resultType="Long" parameterType="Map">
+		select cg_id from cpdGroup where cg_code = #{CPD_group_code} and cg_ct_id = (select ct_id from cpdType where  ct_status = 'OK'  and   ct_license_type = #{License_type})
+	</select>	
+
+	<select id="getCpdTypeId" resultType="Long" parameterType="Map">
+		select cr_id from cpdRegistration
+		inner join reguser on(cr_usr_ent_id=usr_ent_id)
+		inner join cpdType on(cr_ct_id=ct_id)
+		where usr_ste_usr_id=#{usr_ste_usr_id} and ct_license_type = #{License_type} and ct_status = 'OK'  and  cr_status = 'OK'
+	</select>	
+
+</mapper>

@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.AcRoleMapper">
+	
+	
+	<sql id="page_where">
+		<where>
+		</where>
+	</sql>
+	
+	<select id="getCount" resultType="java.lang.Integer" parameterType="Map">
+	    <![CDATA[
+	        select count(*) from acRole t 
+	    ]]>
+	    <include refid="page_where"/>
+	</select>
+
+	
+	<select id="get" resultType="AcRole" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				rol_id,
+				rol_ext_id,
+				rol_seq_id,
+				rol_ste_ent_id,
+				rol_url_home,
+				rol_xml,
+				rol_ste_default_ind,
+				rol_report_ind,
+				rol_skin_root,
+				rol_status,
+				rol_ste_uid,
+				rol_target_ent_type,
+				rol_auth_level,
+				rol_tc_ind,
+				rol_title,
+				rol_type,
+				rol_create_usr_id,
+				rol_update_timestamp,
+				rol_update_usr_id,
+				rol_create_timestamp
+			from acRole t
+			where
+				 t.rol_id = #{id}
+		]]>
+	</select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.AcRole">
+	    <![CDATA[
+	        update acRole
+	        set 
+				rol_id = #{rol_id,jdbcType=INTEGER},
+				rol_ext_id = #{rol_ext_id,jdbcType=VARCHAR},
+				rol_seq_id = #{rol_seq_id,jdbcType=INTEGER},
+				rol_ste_ent_id = #{rol_ste_ent_id,jdbcType=INTEGER},
+				rol_url_home = #{rol_url_home,jdbcType=VARCHAR},
+				rol_xml = #{rol_xml,jdbcType=VARCHAR},
+				rol_ste_default_ind = #{rol_ste_default_ind,jdbcType=BOOLEAN},
+				rol_report_ind = #{rol_report_ind,jdbcType=BOOLEAN},
+				rol_skin_root = #{rol_skin_root,jdbcType=VARCHAR},
+				rol_status = #{rol_status,jdbcType=VARCHAR},
+				rol_ste_uid = #{rol_ste_uid,jdbcType=VARCHAR},
+				rol_target_ent_type = #{rol_target_ent_type,jdbcType=VARCHAR},
+				rol_auth_level = #{rol_auth_level,jdbcType=INTEGER},
+				rol_tc_ind = #{rol_tc_ind,jdbcType=INTEGER},
+				rol_title = #{rol_title,jdbcType=VARCHAR},
+				rol_type = #{rol_type,jdbcType=VARCHAR},
+				rol_create_usr_id = #{rol_create_usr_id,jdbcType=VARCHAR},
+				rol_update_timestamp = #{rol_update_timestamp,jdbcType=DATE},
+				rol_update_usr_id = #{rol_update_usr_id,jdbcType=VARCHAR},
+				rol_create_timestamp = #{rol_create_timestamp,jdbcType=DATE}
+	         where t.rol_id = #{rol_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.AcRole">
+    	<![CDATA[
+            insert into acRole(
+            		rol_ext_id,
+            		rol_seq_id,
+            		rol_ste_ent_id,
+            		rol_url_home,
+            		rol_xml,
+            		rol_ste_default_ind,
+            		rol_report_ind,
+            		rol_skin_root,
+            		rol_status,
+            		rol_ste_uid,
+            		rol_target_ent_type,
+            		rol_auth_level,
+            		rol_tc_ind,
+            		rol_title,
+            		rol_type,
+            		rol_create_usr_id,
+            		rol_update_timestamp,
+            		rol_update_usr_id,
+            		rol_create_timestamp
+            ) values (
+            	#{rol_ext_id,jdbcType=VARCHAR},
+            	#{rol_seq_id,jdbcType=INTEGER},
+            	#{rol_ste_ent_id,jdbcType=INTEGER},
+            	#{rol_url_home,jdbcType=VARCHAR},
+            	#{rol_xml,jdbcType=VARCHAR},
+            	#{rol_ste_default_ind,jdbcType=BOOLEAN},
+            	#{rol_report_ind,jdbcType=BOOLEAN},
+            	#{rol_skin_root,jdbcType=VARCHAR},
+            	#{rol_status,jdbcType=VARCHAR},
+            	#{rol_ste_uid,jdbcType=VARCHAR},
+            	#{rol_target_ent_type,jdbcType=VARCHAR},
+            	#{rol_auth_level,jdbcType=INTEGER},
+            	#{rol_tc_ind,jdbcType=INTEGER},
+            	#{rol_title,jdbcType=VARCHAR},
+            	#{rol_type,jdbcType=VARCHAR},
+            	#{rol_create_usr_id,jdbcType=VARCHAR},
+            	#{rol_update_timestamp,jdbcType=DATE},
+            	#{rol_update_usr_id,jdbcType=VARCHAR},
+            	#{rol_create_timestamp,jdbcType=DATE}
+            )
+        ]]>
+    </insert>
+    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from acRole where
+	        rol_id = #{rol_id}
+	    ]]>
+    </delete>
+	
+	<select id="selectAll" resultType="AcRole">
+	    <![CDATA[
+	         select 
+				rol_id,
+				rol_ext_id,
+				rol_seq_id,
+				rol_ste_ent_id,
+				rol_url_home,
+				rol_xml,
+				rol_ste_default_ind,
+				rol_report_ind,
+				rol_skin_root,
+				rol_status,
+				rol_ste_uid,
+				rol_target_ent_type,
+				rol_auth_level,
+				rol_tc_ind,
+				rol_title,
+				rol_type,
+				rol_create_usr_id,
+				rol_update_timestamp,
+				rol_update_usr_id,
+				rol_create_timestamp
+			from acRole t 
+	    ]]>
+	</select>	
+	
+	<select id="getUserRoles" resultType="AcRole" parameterType="Map">
+	      Select rol_id,rol_ext_id,rol_title 
+	      From acEntityRole, acRole 
+ 				Where erl_ent_id = #{userEntId}
+		       AND erl_eff_start_datetime &lt;= #{curDate}
+		         AND erl_eff_end_datetime &gt;= #{curDate}
+		        And rol_id = erl_rol_id
+		  		Order By rol_seq_id
+	</select>
+	
+	<select id="hasRole" resultType="Integer" parameterType="Map">
+	      Select count(distinct(rol_id)) cnt
+	      From acEntityRole, acRole 
+ 				Where erl_ent_id = #{userEntId}
+		       AND erl_eff_start_datetime &lt;= #{curDate}
+		         AND erl_eff_end_datetime &gt;= #{curDate}
+		         AND rol_ext_id = #{rolExtId}
+		        And rol_id = erl_rol_id
+		  		
+	</select>
+	
+	<select id="getByExtId" resultType="AcRole" parameterType="java.lang.String">
+		<![CDATA[
+			select 
+				rol_id,
+				rol_ext_id,
+				rol_seq_id,
+				rol_ste_ent_id,
+				rol_url_home,
+				rol_xml,
+				rol_ste_default_ind,
+				rol_report_ind,
+				rol_skin_root,
+				rol_status,
+				rol_ste_uid,
+				rol_target_ent_type,
+				rol_auth_level,
+				rol_tc_ind,
+				rol_title,
+				rol_type,
+				rol_create_usr_id,
+				rol_update_timestamp,
+				rol_update_usr_id,
+				rol_create_timestamp
+			from acRole 
+			where
+				 rol_ext_id = #{string}
+		]]>
+	</select>
+	<!-- 管理员端角色管理列表 -->
+	
+	<select id="selectRole" resultType="AcRole" parameterType="Page">
+		select ac.rol_id, 
+			   ac.rol_ext_id, 
+			   ac.rol_ste_uid,
+			   ac.rol_type,
+			   ac.rol_create_timestamp, 
+			   ac.rol_tc_ind,
+			   ac.rol_title,
+			   ac.rol_create_usr_id,
+			   ac.rol_update_timestamp, 
+			   reg.usr_display_bil AS "user.usr_display_bil",
+			   (case when refRoleUserCount is null then 0 else 1 end) AS "isRefByUser"
+			from acRole ac
+			inner join regUser reg on reg.usr_id = ac.rol_create_usr_id
+			left join
+					(
+					  select erl_rol_id,count(erl_ent_id) refRoleUserCount from acEntityRole group by erl_rol_id
+					) t_roleUserCount on t_roleUserCount.erl_rol_id = rol_id <!-- 查看角色被用户的引用数 -->
+			where rol_ste_ent_id = #{params.root_ent_id} and rol_status = 'OK'
+	</select>
+	
+	<!-- 查询role表最大的ID值 -->
+	<select id="getMaxRoleId" resultType="Long">
+	
+		select max(rol_id) from acRole
+	</select>
+	<insert id="add" parameterType="com.cwn.wizbank.entity.AcRole">
+	
+		INSERT INTO acRole(rol_ext_id, 
+							rol_seq_id, 
+							rol_ste_ent_id, 
+							rol_url_home, 
+							rol_create_timestamp, 
+							rol_xml, 
+							rol_ste_default_ind,
+							rol_report_ind, 
+							rol_skin_root, 
+							rol_status, 
+							rol_ste_uid,
+							rol_target_ent_type,
+							rol_auth_level,
+							rol_tc_ind, 
+							rol_title, 
+							rol_type, 
+							rol_create_usr_id, 
+							rol_update_timestamp, 
+							rol_update_usr_id)
+					values(#{rol_ext_id,jdbcType=VARCHAR},
+			            	#{rol_seq_id,jdbcType=INTEGER},
+			            	#{rol_ste_ent_id,jdbcType=INTEGER},
+			            	#{rol_url_home,jdbcType=VARCHAR},
+			            	#{rol_create_timestamp,jdbcType=TIMESTAMP},
+			            	#{rol_xml,jdbcType=VARCHAR},
+			            	#{rol_ste_default_ind,jdbcType=BOOLEAN},
+			            	#{rol_report_ind,jdbcType=BOOLEAN},
+			            	#{rol_skin_root,jdbcType=VARCHAR},
+			            	#{rol_status,jdbcType=VARCHAR},
+			            	#{rol_ste_uid,jdbcType=VARCHAR},
+			            	#{rol_target_ent_type,jdbcType=VARCHAR},
+			            	#{rol_auth_level,jdbcType=INTEGER},
+			            	#{rol_tc_ind,jdbcType=INTEGER},
+			            	#{rol_title,jdbcType=VARCHAR},
+			            	#{rol_type,jdbcType=VARCHAR},
+			            	#{rol_create_usr_id,jdbcType=VARCHAR},
+			            	#{rol_update_timestamp,jdbcType=TIMESTAMP},
+			            	#{rol_update_usr_id,jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- 添加角色功能权限表 -->
+	<insert id="addRoleFunction" parameterType="com.cwn.wizbank.entity.AcRole">
+		insert into acRoleFunction(rfn_rol_id,
+									rfn_ftn_id,
+									rfn_create_timestamp,
+									rfn_create_usr_id,
+									rfn_ftn_order,
+									rfn_ftn_parent_id) 
+									values(#{rol_id,jdbcType=INTEGER},
+											#{acFunction.ftn_id,jdbcType=INTEGER},
+											#{rol_create_timestamp,jdbcType=TIMESTAMP},
+											#{rol_create_usr_id,jdbcType=VARCHAR},
+											#{acFunction.ftn_order,jdbcType=INTEGER},
+											#{acFunction.ftn_parent_id,jdbcType=INTEGER}
+											)
+	</insert>
+	
+	<!-- 添加homepage表
+	<insert id="insAcHomePageFtn" parameterType="com.cwn.wizbank.entity.AcRole">
+		insert into acHomePage(Ac_Hom_Rol_Ext_Id,Ac_Hom_Ftn_Ext_Id,ac_hom_create_usr_id,Ac_Hom_Create_Timestamp) 
+    		select rol_ext_id,ftn_ext_id,rfn_create_usr_id,rfn_create_timestamp from acFunction,acRole,acRoleFunction 
+    		where rfn_ftn_id = ftn_id and rfn_rol_id = rol_id and rol_ext_id = ? and ftn_type = ?
+	</insert> -->
+	
+	<!-- 查询funtion 功能相关报表 -->
+	<select id="hasRoleFunction" resultType="Long">
+		Select count(*) from acRole, acFunction, acRoleFunction 
+						where rol_ext_id = #{rol_ext_id} 
+						and ftn_ext_id = 'RPT_LINK' 
+						and rfn_ftn_id = ftn_id 
+						and rol_id = rfn_rol_id
+	</select>
+	
+	<!-- 角色功能报表 
+	<insert id="insReportForRole" parameterType="com.cwn.wizbank.entity.AcRole">
+		insert into acreporttemplate (ac_rte_id,
+										ac_rte_rol_ext_id,
+										ac_rte_ftn_ext_id,
+										ac_rte_owner_ind,
+										ac_rte_create_usr_id,
+										ac_rte_create_timestamp) 
+							values (#{rol_id,jdbcType=INTEGER},
+									#{rol_id,jdbcType=INTEGER},
+									#{rol_id,jdbcType=INTEGER},
+									#{rol_id,jdbcType=INTEGER},
+									#{rol_id,jdbcType=INTEGER},
+									#{rol_id,jdbcType=INTEGER})
+	</insert>-->
+	
+	<!-- 管理员端删除角色关联的表 -->
+	<delete id="delRoleHomepageFunction" parameterType="Long">
+		delete from acHomePage where ac_hom_rol_ext_id = (select rol_ext_id from acRole where rol_id = #{role_id})
+	</delete>
+	<delete id="delRoleRelationTrainningCentre" parameterType="Long">
+		delete from tcTrainingCenterOfficer where exists (select rol_id from acrole where rol_ext_id = tco_rol_ext_id and rol_id = #{role_id})
+	</delete>
+	<delete id="delOtherFunction" parameterType="Long">
+		delete from acreporttemplate where ac_rte_rol_ext_id = #{role_id}
+	</delete>
+	<update id="updateAcRole" parameterType="AcRole">
+		update acRole set 
+					rol_title = #{rol_title,jdbcType=VARCHAR},
+					rol_tc_ind = #{rol_tc_ind,jdbcType=INTEGER},
+					rol_update_usr_id = #{rol_update_usr_id,jdbcType=VARCHAR},
+					rol_update_timestamp = #{rol_update_timestamp,jdbcType=TIMESTAMP}
+					where rol_id = #{rol_id,jdbcType=INTEGER}
+	</update>
+	
+	<select id="getRole" parameterType="Map" resultType="String">
+	   Select rol_ext_id
+        From acRole 
+        WHERE rol_ste_ent_id = #{usr_ste_ent_id} 
+        AND rol_status = 'OK'
+        AND rol_ste_uid = #{rol_ste_uid} 
+	</select>
+	
+	<select id="findByTitle" parameterType="string" resultType="Integer">
+		select count(*) from acRole where rol_title =#{title}
+	</select>	
+	
+	<select id="getEntSysUser" parameterType="Map" resultType="Long">
+		select MIN(usr_ent_id) from RegUser, acEntityRole, acRole
+			where usr_ent_id = erl_ent_id
+			and erl_rol_id = rol_id
+			and rol_ext_id = 'TADM_1'
+			and usr_status = 'SYS' 
+	</select>
+	
+	<select id="isExistForRolTitle" resultType="Integer"
+		parameterType="com.cwn.wizbank.entity.AcRole">
+			select count(*)
+	         from acRole 
+	         where rol_title =#{rol_title}
+		<if test="rol_id !=null and rol_id !=''">
+				and rol_id != #{rol_id}
+		</if>
+	</select>
+	
+</mapper>

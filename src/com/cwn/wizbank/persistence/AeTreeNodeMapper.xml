@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.AeTreeNodeMapper">
+	<select id="get" resultType="AeTreeNode" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				tnd_id,
+				tnd_title,
+				tnd_status,
+				tnd_type,
+				tnd_itm_cnt,
+				tnd_on_itm_cnt,
+				tnd_cat_id,
+				tnd_parent_tnd_id,
+				tnd_link_tnd_id,
+				tnd_itm_id,
+				tnd_create_timestamp,
+				tnd_create_usr_id,
+				tnd_upd_timestamp,
+				tnd_upd_usr_id,
+				tnd_ext1,
+				tnd_ext2,
+				tnd_ext3,
+				tnd_ext4,
+				tnd_ext5,
+				tnd_desc,
+				tnd_order,
+				tnd_owner_ent_id,
+				tnd_code,
+				tnd_syn_timestamp
+			from AeTreeNode t 
+			where
+				 t.tnd_id = #{id}
+			order by tnd_title
+		]]>
+	</select>	
+	<update id="update" parameterType="com.cwn.wizbank.entity.AeTreeNode">
+	    <![CDATA[
+	        update AeTreeNode t 
+	        set 
+				tnd_id = #{tnd_id,jdbcType=INTEGER},
+				tnd_title = #{tnd_title,jdbcType=VARCHAR},
+				tnd_status = #{tnd_status,jdbcType=VARCHAR},
+				tnd_type = #{tnd_type,jdbcType=VARCHAR},
+				tnd_itm_cnt = #{tnd_itm_cnt,jdbcType=INTEGER},
+				tnd_on_itm_cnt = #{tnd_on_itm_cnt,jdbcType=INTEGER},
+				tnd_cat_id = #{tnd_cat_id,jdbcType=INTEGER},
+				tnd_parent_tnd_id = #{tnd_parent_tnd_id,jdbcType=INTEGER},
+				tnd_link_tnd_id = #{tnd_link_tnd_id,jdbcType=INTEGER},
+				tnd_itm_id = #{tnd_itm_id,jdbcType=INTEGER},
+				tnd_create_timestamp = #{tnd_create_timestamp,jdbcType=TIMESTAMP},
+				tnd_create_usr_id = #{tnd_create_usr_id,jdbcType=VARCHAR},
+				tnd_upd_timestamp = #{tnd_upd_timestamp,jdbcType=TIMESTAMP},
+				tnd_upd_usr_id = #{tnd_upd_usr_id,jdbcType=VARCHAR},
+				tnd_ext1 = #{tnd_ext1,jdbcType=VARCHAR},
+				tnd_ext2 = #{tnd_ext2,jdbcType=VARCHAR},
+				tnd_ext3 = #{tnd_ext3,jdbcType=VARCHAR},
+				tnd_ext4 = #{tnd_ext4,jdbcType=VARCHAR},
+				tnd_ext5 = #{tnd_ext5,jdbcType=VARCHAR},
+				tnd_desc = #{tnd_desc,jdbcType=VARCHAR},
+				tnd_order = #{tnd_order,jdbcType=INTEGER},
+				tnd_owner_ent_id = #{tnd_owner_ent_id,jdbcType=INTEGER},
+				tnd_code = #{tnd_code,jdbcType=VARCHAR},
+				tnd_syn_timestamp = #{tnd_syn_timestamp,jdbcType=TIMESTAMP}
+	         where t.tnd_id = #{tnd_id,jdbcType=INTEGER}
+	    ]]>
+    </update>    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.AeTreeNode">
+    	<![CDATA[
+            insert into AeTreeNode(
+            		tnd_title,
+            		tnd_status,
+            		tnd_type,
+            		tnd_itm_cnt,
+            		tnd_on_itm_cnt,
+            		tnd_cat_id,
+            		tnd_parent_tnd_id,
+            		tnd_link_tnd_id,
+            		tnd_itm_id,
+            		tnd_create_timestamp,
+            		tnd_create_usr_id,
+            		tnd_upd_timestamp,
+            		tnd_upd_usr_id,
+            		tnd_ext1,
+            		tnd_ext2,
+            		tnd_ext3,
+            		tnd_ext4,
+            		tnd_ext5,
+            		tnd_desc,
+            		tnd_order,
+            		tnd_owner_ent_id,
+            		tnd_code,
+            		tnd_syn_timestamp
+            ) values (
+            	#{tnd_title,jdbcType=VARCHAR},
+            	#{tnd_status,jdbcType=VARCHAR},
+            	#{tnd_type,jdbcType=VARCHAR},
+            	#{tnd_itm_cnt,jdbcType=INTEGER},
+            	#{tnd_on_itm_cnt,jdbcType=INTEGER},
+            	#{tnd_cat_id,jdbcType=INTEGER},
+            	#{tnd_parent_tnd_id,jdbcType=INTEGER},
+            	#{tnd_link_tnd_id,jdbcType=INTEGER},
+            	#{tnd_itm_id,jdbcType=INTEGER},
+            	#{tnd_create_timestamp,jdbcType=TIMESTAMP},
+            	#{tnd_create_usr_id,jdbcType=VARCHAR},
+            	#{tnd_upd_timestamp,jdbcType=TIMESTAMP},
+            	#{tnd_upd_usr_id,jdbcType=VARCHAR},
+            	#{tnd_ext1,jdbcType=VARCHAR},
+            	#{tnd_ext2,jdbcType=VARCHAR},
+            	#{tnd_ext3,jdbcType=VARCHAR},
+            	#{tnd_ext4,jdbcType=VARCHAR},
+            	#{tnd_ext5,jdbcType=VARCHAR},
+            	#{tnd_desc,jdbcType=VARCHAR},
+            	#{tnd_order,jdbcType=INTEGER},
+            	#{tnd_owner_ent_id,jdbcType=INTEGER},
+            	#{tnd_code,jdbcType=VARCHAR},
+            	#{tnd_syn_timestamp,jdbcType=TIMESTAMP}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from AeTreeNode where
+	        tnd_id = #{tnd_id}
+	    ]]>
+    </delete>	
+	<select id="selectAll" resultType="AeTreeNode">
+	    <![CDATA[
+	         select 
+				tnd_id,
+				tnd_title,
+				tnd_status,
+				tnd_type,
+				tnd_itm_cnt,
+				tnd_on_itm_cnt,
+				tnd_cat_id,
+				tnd_parent_tnd_id,
+				tnd_link_tnd_id,
+				tnd_itm_id,
+				tnd_create_timestamp,
+				tnd_create_usr_id,
+				tnd_upd_timestamp,
+				tnd_upd_usr_id,
+				tnd_ext1,
+				tnd_ext2,
+				tnd_ext3,
+				tnd_ext4,
+				tnd_ext5,
+				tnd_desc,
+				tnd_order,
+				tnd_owner_ent_id,
+				tnd_code,
+				tnd_syn_timestamp
+			from AeTreeNode t 
+	    ]]>
+	</select>	
+	<!-- 获取培训中心的目录 -->
+	<select id="getTraingCenterCatalog" resultType="com.cwn.wizbank.entity.vo.AeTreeNodeVo" parameterType="Map">
+		select 
+			tnd_id AS "id", 
+			tnd_title AS "name",
+			0 AS "isParent",
+			max(tnr_ancestor_tnd_id) AS "pId",
+			1 AS "hasChild",
+			tnd_type
+			
+		from aeTreeNode
+		inner join aeCatalog on tnd_cat_id = cat_id 
+		left join aeTreeNodeRelation on tnr_child_tnd_id = tnd_id
+		where 
+			cat_tcr_id  in(select athTc.tcr_id from V_usrTcRelation athTc where athTc.u_id = #{userEntId} 
+			<if test="tcr_id != null and tcr_id &gt; 1">
+			    and athTc.tcr_id >1
+			</if>
+<!-- 		是否可以访问该培训中心下的课程 -->
+<!-- 		如果是二级培训中心独立还有加上以下条件 -->
+<!-- 			<if test="tcr_id != null and tcr_id &gt; 0">
+			  and tcr_parent_tcr_id > 0
+			</if> -->
+			<if test="selectedTcrId != null and selectedTcrId &gt; 0">
+				and cat_tcr_id = #{selectedTcrId}	
+			</if>
+			)
+		and cat_status = 'ON'
+		and (tnd_status = 'ON' or tnd_status is null)
+		and tnd_id in
+		(select tnr_ancestor_tnd_id from aeTreeNodeRelation ,aeItem ,aeTreeNode
+			where tnr_child_tnd_id = tnd_id 
+			and tnd_itm_id = itm_id 
+			and (tnd_status = 'NO' or tnd_status is null)
+			and tnr_type = 'ITEM_PARENT_TND' 
+			and itm_status = 'ON'
+			<if test="cos_type != null">
+				<choose>
+					<when test="cos_type == 'course'">
+						and itm_exam_ind = 0 and itm_ref_ind = 0 
+						
+						<!-- 如果学习不有权限看到这个目录下的所有课程，那么就不把这个目录显示出来给学中看，
+						但这句可能会导致性能问题，到项目中如果发现进入选择课程中心慢，建议去掉这个判官  -->
+							and itm_id in (
+								<include refid="com.cwn.wizbank.persistence.BaseMapper.courseAuthority"/>
+							)
+					</when>
+					<when test="cos_type == 'exam'">
+						and itm_exam_ind = 1 and itm_ref_ind = 0 
+							<!-- 如果学习不有权限看到这个目录下的所有课程，那么就不把这个目录显示出来给学中看，
+						但这句可能会导致性能问题，到项目中如果发现进入选择课程中心慢，建议去掉这个判官  -->
+							and itm_id in (
+								<include refid="com.cwn.wizbank.persistence.BaseMapper.courseAuthority"/>
+							)
+					</when>
+					<when test="cos_type == 'public'">
+						and  itm_ref_ind = 1
+					</when>
+				</choose>
+			</if>
+			)
+<!-- 			and cat_status = #{cat_status}  -->
+		and tnd_type != #{tnd_type}
+		group by tnd_id,tnd_title,tnd_type
+		order by tnd_title
+	</select>	
+	<select id="getSubCatalog" resultType="AeTreeNode" parameterType="Map">
+		select 
+			tnd_id,
+			tnd_title,
+			tnd_type
+		from aeTreeNode
+		inner join aeCatalog on tnd_cat_id = cat_id 
+		left join aeTreeNodeRelation on tnr_child_tnd_id = tnd_id
+		where 
+		<choose>
+			<when test="tndId == null or tndId &lt; 1">
+
+				<choose>
+					<when test="onlySecond">
+						tnr_ancestor_tnd_id is not null
+						<!--与第二级别相关的目录-->
+						and tnr_order = 1
+						<!--在与第二级别相关的目录当中，是最近层级的(tnr_parent_ind=1)就是第二级别的目录-->
+						and tnr_parent_ind = 1
+					</when>
+					<otherwise>
+						tnr_ancestor_tnd_id is null
+					</otherwise>
+				</choose>
+
+				and cat_tcr_id in(select athTc.tcr_id from V_usrTcRelation athTc where athTc.u_id = #{userEntId}
+
+	<!-- 		是否可以访问该培训中心下的课程 -->
+	<!-- 		如果是二级培训中心独立还有加上以下条件 -->
+				<if test="tcrId != null and tcrId &gt; 1">
+				  and tcr_parent_tcr_id > 0
+				</if>
+				)
+			</when>
+			<otherwise>
+				tnr_ancestor_tnd_id  = #{tndId} and tnr_parent_ind = 1
+			</otherwise>
+		</choose>
+		and tnd_type != #{tndType}
+        and cat_status = 'ON'
+ 		and tnd_id in
+		(select tnr_ancestor_tnd_id from aeTreeNodeRelation ,aeItem ,aeTreeNode
+			where tnr_child_tnd_id = tnd_id 
+			and tnd_itm_id = itm_id and 
+			tnr_type = 'ITEM_PARENT_TND' 
+			and itm_status = 'ON'
+			<if test="cos_type != null">
+				<choose>
+					<when test="cos_type == 'course'">
+						and itm_exam_ind = 0 and itm_ref_ind = 0 
+						<!-- 如果学习不有权限看到这个目录下的所有课程，那么就不把这个目录显示出来给学中看，
+						但这句可能会导致性能问题，到项目中如果发现进入选择课程中心慢，建议去掉这个判官  -->
+							and itm_id in (
+								<include refid="com.cwn.wizbank.persistence.BaseMapper.courseAuthority"/>
+							)
+					</when>
+					<when test="cos_type == 'exam'">
+						and itm_exam_ind = 1 and itm_ref_ind = 0 
+						<!-- 如果学习不有权限看到这个目录下的所有课程，那么就不把这个目录显示出来给学中看，
+						但这句可能会导致性能问题，到项目中如果发现进入选择课程中心慢，建议去掉这个判官  -->
+							and itm_id in (
+								<include refid="com.cwn.wizbank.persistence.BaseMapper.courseAuthority"/>
+							)
+					</when>
+					<when test="cos_type == 'public'">
+						and  itm_ref_ind = 1
+					</when>
+				</choose>
+			</if>
+			)
+		order by tnd_title
+	</select>	
+	<select id="getItemCatalog" resultType="AeTreeNode" parameterType="Long">
+	select  node.tnd_title tnd_title
+    from aetreenode itemNode, aetreenode node
+    where itemNode.tnd_itm_id = #{itm_id} 
+    and node.tnd_id = itemNode.tnd_parent_tnd_id
+	</select>
+	
+	
+	<select id="getAdminTraingCenterCatalog" resultType="com.cwn.wizbank.entity.vo.AeTreeNodeVo" parameterType="Map">
+		select 
+			tnd_id AS "id", 
+			tnd_title AS "name",
+			0 AS "isParent",
+			max(tnr_ancestor_tnd_id) AS "pId",
+			1 AS "hasChild",	
+			tnd_type
+			
+		from aeTreeNode
+		inner join aeCatalog on tnd_cat_id = cat_id 
+		left join aeTreeNodeRelation on tnr_child_tnd_id = tnd_id
+		
+		where  (cat_tcr_id  in (
+			select child.tcn_child_tcr_id
+		    from tcTrainingCenterOfficer, tcTrainingCenter parent, tcRelation child
+		    where tco_tcr_id = parent.tcr_id
+		    and parent.tcr_status = 'OK'
+		    and parent.tcr_id = child.tcn_ancestor
+		    <if test="isRoleTcInd != null and isRoleTcInd == true"> 
+		    and tco_usr_ent_id = #{userEntId}
+		    </if>
+		    )
+	    	or cat_tcr_id in(
+	    	select tco_tcr_id from tcTrainingCenterOfficer , tcTrainingCenter 
+	    	where  tco_tcr_id = tcr_id 
+	     <if test="isRoleTcInd != null and isRoleTcInd == true"> 
+	    	and tco_usr_ent_id = #{userEntId}
+	     </if>	
+	    	)
+	   	)
+		and tnd_type != #{tnd_type}
+		
+		and tnd_id in
+		(select tnr_ancestor_tnd_id from aeTreeNodeRelation ,aeItem ,aeTreeNode
+			where tnr_child_tnd_id = tnd_id 
+			and tnd_itm_id = itm_id and 
+			tnr_type = 'ITEM_PARENT_TND'
+			
+			
+			<if test="cosType != null">
+				<choose>
+					<when test="cosType == 'course'">
+						and itm_exam_ind = 0 and itm_ref_ind = 0 
+					</when>
+					<when test="cosType == 'exam'">
+						and itm_exam_ind = 1 and itm_ref_ind = 0 
+					</when>
+					<when test="cosType == 'open'">
+						and  itm_ref_ind = 1
+					</when>
+				</choose>
+			</if>
+		)
+		<if test="tcrId != null and tcrId &gt; 1">
+			and cat_tcr_id  = #{tcrId}
+		</if>
+		group by tnd_id,tnd_title,tnd_type
+		order by tnd_title
+	</select>	
+	<select id="getGradeTree" resultType="com.cwn.wizbank.entity.vo.TreeNodeVo" parameterType="Map">
+    
+SELECT  ug1.ugr_ent_id as "pid", ug2.ugr_display_bil as "name", ern_child_ent_id as "id" from 
+UserGrade ug1, EntityRelation, UserGrade ug2 
+WHERE ug1.ugr_ent_id=ern_ancestor_ent_id  and ug2.ugr_ent_id=ern_child_ent_id AND ug1.ugr_default_ind=0
+                    <choose>
+					<when test="ugr_ent_id != null and ugr_ent_id !=0 ">
+						 and ug1.ugr_ent_id=#{ugr_ent_id}
+					</when>
+                     <otherwise>
+                      and ug1.ugr_type='ROOT'    
+                     </otherwise>
+                      </choose>                     
+ AND ug2.ugr_default_ind=0 AND ug1.ugr_ent_id_root = 1 AND ug2.ugr_ent_id_root = 1 AND ern_type='UGR_PARENT_UGR'
+AND ern_parent_ind=1  
+    <if test="top_tcr_id != null and top_tcr_id !='' ">         
+            and (ug2.ugr_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{top_tcr_id} ) or ug2.ugr_tcr_id = #{top_tcr_id})
+         </if>  
+         order by ug2.ugr_seq_no, ug1.ugr_ent_id 
+    </select>
+    <select id="getGradeTreeHasChild" resultType="INTEGER" parameterType="Map">
+    
+SELECT count(ug1.ugr_ent_id) from 
+UserGrade ug1, EntityRelation, UserGrade ug2 
+WHERE ug1.ugr_ent_id=ern_ancestor_ent_id  and ug2.ugr_ent_id=ern_child_ent_id AND ug1.ugr_default_ind=0
+                    and ug1.ugr_ent_id=#{ugr_ent_id}
+ AND ug2.ugr_default_ind=0 AND ug1.ugr_ent_id_root = 1 AND ug2.ugr_ent_id_root = 1 AND ern_type='UGR_PARENT_UGR'
+AND ern_parent_ind=1  
+    <if test="top_tcr_id != null and top_tcr_id !='' ">         
+            and (ug1.ugr_tcr_id in ( select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{top_tcr_id} ) or ug1.ugr_tcr_id = #{top_tcr_id})
+         </if>  
+    </select>    
+    
+    <select id="getAdminTraingCenterCourse" resultType="com.cwn.wizbank.entity.vo.AeTreeNodeVo" parameterType="Map">
+		select 
+			tnd_id AS "id", 
+			tnd_title AS "name",
+			0 AS "isParent",
+			max(tnr_ancestor_tnd_id) AS "pId",
+			1 AS "hasChild",
+			tnd_type
+			
+		from aeTreeNode
+		inner join aeCatalog on tnd_cat_id = cat_id 
+		left join aeTreeNodeRelation on tnr_child_tnd_id = tnd_id
+		
+		where  (cat_tcr_id  in (
+			select child.tcn_child_tcr_id
+		    from tcTrainingCenterOfficer, tcTrainingCenter parent, tcRelation child
+		    where tco_tcr_id = parent.tcr_id
+		    and parent.tcr_status = 'OK'
+		    and parent.tcr_id = child.tcn_ancestor
+		    <if test="isRoleTcInd != null and isRoleTcInd == true"> 
+		    and tco_usr_ent_id = #{userEntId}
+		    </if>
+		    )
+	    	or cat_tcr_id in(
+	    	select tco_tcr_id from tcTrainingCenterOfficer , tcTrainingCenter 
+	    	where  tco_tcr_id = tcr_id 
+	     <if test="isRoleTcInd != null and isRoleTcInd == true"> 
+	    	and tco_usr_ent_id = #{userEntId}
+	     </if>	
+	    	)
+	   	)
+		and tnd_type != #{tnd_type}
+		
+		and tnd_id in
+		(select tnr_ancestor_tnd_id from aeTreeNodeRelation ,aeItem ,aeTreeNode
+			where tnr_child_tnd_id = tnd_id 
+			and tnd_itm_id = itm_id 
+			
+			and tnr_type = 'ITEM_PARENT_TND' 
+		
+			<if test="cosType != null">
+				<choose>
+					<when test="cosType == 'course'">
+						and itm_exam_ind = 0 and itm_ref_ind = 0 
+					</when>
+					<when test="cosType == 'exam'">
+						and itm_exam_ind = 1 and itm_ref_ind = 0 
+					</when>
+					<when test="cosType == 'open'">
+						and  itm_ref_ind = 1
+					</when>
+					<when test="cosType == 'course_and_exam'">
+						and itm_ref_ind = 0 
+					</when>
+				</choose>
+			</if>
+		)
+		<if test="tcrId != null and tcrId &gt; 1">
+			and cat_tcr_id  = #{tcrId}
+		</if>
+		group by tnd_id,tnd_title,tnd_type
+	</select>
+    
+</mapper>

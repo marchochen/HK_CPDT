@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>项目模板</title>
+<link rel="stylesheet" type="text/css" href="../static/js/bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="../static/js/font-awesome/css/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="../static/js/jquery-table/css/jquery-table-default.css"/>
+<link rel="stylesheet" type="text/css" href="../static/js/jquery-table/css/jquery-table-learner.css"/>
+<link rel="stylesheet" type="text/css" href="../static/css/thickbox.css"/>
+<link rel="stylesheet" type="text/css" href="../static/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="../static/css/learner.css"/>
+<link rel="stylesheet" type="text/css" href="../static/theme/blue/css/style.css"/>
+<link rel="stylesheet" type="text/css" href="../js/tree/css/ztree.css"/>
+<script type="text/javascript" src="../static/js/jquery.js"></script>
+<script type="text/javascript" src="../static/js/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/tree/js/jquery.ztree.core.js"></script>
+<!--[if lt IE 9]>
+    <script type="text/javascript" src="bootstrap/js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<style type="text/css">
+    *{ font:14px/28px "Microsoft YaHei UI","Microsoft YaHei",DengXian,SimSun,"Segoe UI",Tahoma,Helvetica,sans-serif;padding:0;margin:0;}
+    input[type="button"], input[type="submit"], input[type="reset"] {-webkit-appearance:none;}
+    .demo-box-title{width:100%;height:130px;padding:10px 0;background:url(../static/images/demo/Slider1.jpg) no-repeat 50% 80%;background-size:100%;position:fixed;left:0;top:0;z-index:10001;}
+    .demo-box-yi{width:40%;float:left;padding:20px 0 0 0;}
+    .demo-box-yi-words-1{color:#fff;font-size:20px;text-align:right;}
+    .demo-box-yi-words-2{color:#fff;font-size:12px;text-align:right;line-height:20px;margin:0;}
+    .demo-box-er{margin:10px 0 0 50px;display:table;float:left;}
+    .demo-box-er-span{display:inline-block;width:60px;height:60px;background:#fff;border-radius:50%;}
+    .demo-box-er-span-i-1{display:block;width:40px;height:40px;background:url(../mobile/images/wizper.png) no-repeat 3px -1248px; background-size:38px;margin:8px auto 0;}
+    .demo-box-er-span-i-2{display:block;width:40px;height:40px;background:url(../mobile/images/wzb-pc-icon.png) no-repeat -1px -346px; background-size:43px;margin:8px auto 0;}
+    .demo-box-er-span-i-3{display:block;width:40px;height:40px;background:url(../mobile/images/wzb-phone-icon.png) no-repeat 1px -207px; background-size:40px;margin:10px auto 0;}
+    .demo-box-er-span-i-4{display:block;width:40px;height:40px;background:url(../mobile/images/wiztool.png) no-repeat 4px -590px; background-size:40px;margin:10px auto 0;}
+    .demo-box-er a:hover .demo-box-er-span,.demo-box-er a.cur .demo-box-er-span{ background:#02cf97;}
+    .demo-box-er a:hover .demo-box-er-span-i-1,.demo-box-er a.cur .demo-box-er-span-i-1{ background-position:3px -1937px;}
+    .demo-box-er a:hover .demo-box-er-span-i-2,.demo-box-er a.cur .demo-box-er-span-i-2{ background-position:-1px -302px;}
+    .demo-box-er a:hover .demo-box-er-span-i-3,.demo-box-er a.cur .demo-box-er-span-i-3{ background-position:0 -158px;}
+    .demo-box-er a:hover .demo-box-er-span-i-4,.demo-box-er a.cur .demo-box-er-span-i-4{ background-position:4px -552px;}
+    .demo-sidebar{background:#999;}
+    .demo-sidebar .wzb-list-15 li a.cur:link,.demo-sidebar .wzb-list-15 li a.cur:visited,.demo-sidebar .wzb-list-15 li a.cur:link i,.demo-sidebar .wzb-list-15 li a.cur:visited i{background:#666;}
+    .demo-sidebar .wzb-list-15 li a{color:#fff;}
+    .demo-sidebar .wzb-list-15 li a:hover{color:#fff; background:#666;}
+    .demo-wzb-title{ width:100%; height:44px; line-height:44px; background:#00aeef; color:#fff; padding:0 20px 0 20px; font-size:18px;}
+    .demo-wenhao{float:right; width:30px; height:30px; background:url(../static/images/wehao.png) no-repeat; background-size:26px; margin:2px 0 0 0; cursor:pointer; position:relative;}
+    .demo-wzb-content-1{ width:300px; line-height:20px; background:rgba(0, 0, 0, 0.9); color:#fff; position:absolute; right:0; top:26px; font-size:14px; font-weight:normal; padding:10px 15px; z-index:100;}
+    .demo-wzb-content-1 div{line-height:20px;}
+    .wzb-user68{z-index:105}
+</style>
+<body>
+    <div class="demo-box-title">
+        <div class="demo-box-yi">
+            <p class="demo-box-yi-words-1">平台部产品设计与开发样式规范及说明</p>        
+            <p class="demo-box-yi-words-2">本规范适用ui、前端、开发的样式,请大家遵循</p>
+            <p class="demo-box-yi-words-2">如有疑问及修改请联系与isa/mabel沟通</p>
+        </div>
+        <div  class="demo-box-er">
+            <a href="learner.html" style="float:left;margin:0 50px 0 0;">
+                <span class="demo-box-er-span"><i class="demo-box-er-span-i-1"></i></span>
+                <p style="color:#fff;text-align:center;">学员端</p>
+            </a>
+            <a href="admin.html" style="float:left;margin:0 50px 0 0;">
+                <span class="demo-box-er-span"><i class="demo-box-er-span-i-2"></i></span>
+                <p style="color:#fff;text-align:center;">管理端</p>
+            </a>
+            <a href="../mobile/mobile.html" style="float:left;margin:0 50px 0 0;">
+                <span class="demo-box-er-span"><i class="demo-box-er-span-i-3"></i></span>
+                <p style="color:#fff;text-align:center;">移动端</p>
+            </a>
+            <a href="xiangmu.html" style="float:left;margin:0 50px 0 0;" class="cur">
+                <span class="demo-box-er-span"><i class="demo-box-er-span-i-4"></i></span>
+                <p style="color:#fff;text-align:center;">项目</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="xyd-wrapper" style="margin:130px 0 0 0;overflow-x:auto;min-width:1400px;">
+
+        <div style="width:100%;height:3200px;background:url(../static/images/demo/xiangmupeizhi_00.jpg) no-repeat;background-size:100%;"></div>
+
+        <!-- <div style="">
+            <div style="width:100%;height:65px;background:#fff url(../static/images/demo/xiangmupeizhi_02.png) no-repeat;background-size:100%;"></div>
+        </div>
+        <div>
+            <div style="width:100%;height:996px;background:#fff url(../static/images/demo/xiangmupeizhi_03.png) no-repeat;background-size:100%;"></div>
+            <div style="width:100%;height:1725px;background:#fff url(../static/images/demo/xiangmupeizhi_04.png) no-repeat;background-size:100%;"></div>
+            <div style="width:100%;height:440px;background:#fff url(../static/images/demo/xiangmupeizhi_05.png) no-repeat;background-size:100%;"></div>
+            
+        </div> -->
+
+        
+
+
+
+    </div>
+
+</body>
+</html> 

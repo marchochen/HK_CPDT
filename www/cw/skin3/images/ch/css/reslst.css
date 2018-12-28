@@ -1,0 +1,53 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Resources List
+suffix								   :reslst
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : reslst.css	
+version								: wizBank 3.1
+=======================================================================*/
+
+a.wbResLstLink,a.wbResLstLink:visited,a.wbResLstLink:active{
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+a.wbResLstLink:hover{
+	color: #D36E02;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbResLstBg{
+	background-color: #FAEBA5;
+	scrollbar-3dlight-color: #FAEBA5;
+	scrollbar-arrow-color: #000000;
+	scrollbar-base-color: #E49810;
+	scrollbar-darkshadow-color: #D36E02;
+	scrollbar-face-color: #E49810;
+	scrollbar-highlight-color: #FAEBA5;
+	scrollbar-shadow-color: #D36E02;
+	scrollbar-track-color: #E49810;
+}
+
+.wbResLstHeadBarBg{
+	background-color: #D36E02;
+}
+
+.wbResLstHeadBarText{
+	color: #FFFFFF;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbResSText{
+	color: #E49810;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbResSTextBold{
+	color: #9E5200;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbResText{
+	color: #9E5200;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}

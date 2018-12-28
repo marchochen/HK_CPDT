@@ -1,0 +1,11 @@
+8.0
+9
+1 SQLNCHAR 0 0 "\t\0" 1 ans_id ""
+2 SQLNCHAR 0 0 "\t\0" 2 ans_que_id ""
+3 SQLNCHAR 0 0 "\t\0" 3 ans_content ""
+4 SQLNCHAR 0 0 "\t\0" 5 ans_right_ind ""
+5 SQLNCHAR 0 0 "\t\0" 12 ans_status ""
+6 SQLNCHAR 0 0 "\t\0" 13 ans_create_ent_id ""
+7 SQLNCHAR 0 0 "\t\0" 14 ans_create_timestamp ""
+8 SQLNCHAR 0 0 "\t\0" 15 ans_update_ent_id ""
+9 SQLNCHAR 0 0 "\r\0\n\0" 16 ans_update_timestamp ""

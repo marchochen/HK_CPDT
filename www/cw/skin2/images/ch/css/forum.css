@@ -1,0 +1,116 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :FORUM
+suffix								   :f
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : forumcss	
+version								: wizBank 3.5
+=======================================================================*/
+
+a.wbFDText:visited{
+	color: #999999;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+a.wbFDText:hover{
+	color: #C75602;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+a.wbFHText:hover{
+	color: #E6E6E6;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+a.wbFTLink,a.wbFTLink:active{
+	color: #973002;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+a.wbFTLink:visited{
+	color: #999999;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+a.wbFTLink:hover{
+	color: #C75602;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbFBarBg{
+	background: #859334;
+}
+
+.wbFBg{
+	background: #FFFFFF;
+}
+
+.wbFCText{
+	color: #B9C26C;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbFDText,a.wbFDText{
+	color: #973002;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbFFrm{
+	background: #E8EEBE;
+	border: 1px solid;
+	border-color: #B9C26C;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+	scrollbar-3dlight-color: #B9C26C;
+	scrollbar-arrow-color: #000000;
+	scrollbar-base-color: #B9C26C;
+	scrollbar-darkshadow-color: #E8EEBE;
+	scrollbar-face-color: #B9C26C;
+	scrollbar-highlight-color: #FFFFFF;
+	scrollbar-shadow-color: #E8EEBE;
+	scrollbar-track-color: #B9C26C;
+}
+
+.wbFHBBg{
+	background: #A9BB31;
+}
+
+.wbFHBg{
+	background: #9DAE3B;
+}
+
+.wbFHBText, .wbFTTextBold, .wbFPTitleText, .wbFSTitleText {
+	color: #97A222;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbFHText,a.wbFHText:visited,a.wbFHText:active,a.wbFHText{
+	color: #FFFFFF;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbFPContentText, .wbFRLink, .wbFRTextBold, .wbFRDText {
+	color: #97A222;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbFRBg{
+}
+
+.wbFRText, .wbFTText {
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbFSContentText{
+	color: #545913;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbFSelFrmIE{
+	background: #FFFFFF;
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbFSelFrmNN{
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}

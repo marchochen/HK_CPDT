@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.KbCatalogMapper">
+	<resultMap id="KbCatalogWithTcr" type="KbCatalog">
+		<id column="kbc_id" property="kbc_id" />
+		<result column="kbc_title" property="kbc_title"></result>
+		<result column="kbc_desc" property="kbc_desc"></result>
+		<result column="kbc_status" property="kbc_status"></result>
+		<result column="kbc_type" property="kbc_type"></result>
+		<result column="isChecked" property="isChecked"></result>
+		<result column="kbc_create_datetime" property="kbc_create_datetime"></result>
+		<result column="kbc_create_user_id" property="kbc_create_user_id"></result>
+		<result column="kbc_update_datetime" property="kbc_update_datetime"></result>
+		<result column="kbc_update_user_id" property="kbc_update_user_id"></result>
+		<result column="kbc_knowledge_number" property="kbc_knowledge_number"></result>
+		<association property="tcTrainingCenter" javaType="TcTrainingCenter">
+			<id property="tcr_id" column="tcr_id" />
+			<result property="tcr_title" column="tcr_title" />
+		</association>
+	</resultMap>
+	<sql id="page_where">
+		<where>
+		</where>
+	</sql>
+
+	<select id="getDate" resultType="java.sql.Timestamp">
+		select
+		<if test="_databaseId == 'ORACLE'">
+			sysdate from dual
+		</if>
+		<if test="_databaseId == 'SQLSERVER'">
+			getdate()
+		</if>
+		<if test="_databaseId == 'MYSQL'">
+			sysdate()
+		</if>
+	</select>
+
+	<select id="getCount" resultType="java.lang.Integer"
+		parameterType="Map">
+	    <![CDATA[
+	        select count(*) from Kb_Catalog t 
+	    ]]>
+		<include refid="page_where" />
+	</select>
+
+	<select id="get" resultMap="KbCatalogWithTcr" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				kbc.kbc_id,
+				kbc.kbc_title,
+				kbc.kbc_desc,
+				kbc.kbc_status,
+				tcr.tcr_id,
+				tcr.tcr_title,
+				kbc.kbc_type,
+				kbc.kbc_create_datetime,
+				kbc.kbc_create_user_id,
+				kbc.kbc_update_datetime,
+				kbc.kbc_update_user_id,
+				kic.kbc_knowledge_number
+			from Kb_Catalog kbc left join TcTrainingCenter tcr on kbc.kbc_tcr_id = tcr.tcr_id
+			left join (select kic_kbc_id,count(*) kbc_knowledge_number from kb_item_cat 
+			inner join kb_item on kic_kbi_id = kbi_id and kbi_app_status = 'APPROVED' group by kic_kbc_id
+			) kic on kbc.kbc_id = kic.kic_kbc_id
+			where
+				 kbc.kbc_id = #{id}
+		]]>
+	</select>
+
+	<update id="update" parameterType="com.cwn.wizbank.entity.KbCatalog">
+	    <![CDATA[
+	        update Kb_Catalog 
+	        set 
+				kbc_title = #{kbc_title,jdbcType=VARCHAR},
+				kbc_desc = #{kbc_desc,jdbcType=VARCHAR},
+				kbc_tcr_id = #{tcTrainingCenter.tcr_id,jdbcType=VARCHAR},
+				kbc_update_datetime = #{kbc_update_datetime,jdbcType=TIMESTAMP},
+				kbc_update_user_id = #{kbc_update_user_id,jdbcType=VARCHAR}
+	         where kbc_id = #{kbc_id,jdbcType=VARCHAR}
+	    ]]>
+	</update>
+
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.KbCatalog">
+    	<![CDATA[
+            insert into Kb_Catalog(
+            		kbc_title,
+            		kbc_desc,
+            		kbc_status,
+            		kbc_tcr_id,
+            		kbc_type,
+            		kbc_create_datetime,
+            		kbc_create_user_id
+            ) values (
+            	#{kbc_title,jdbcType=VARCHAR},
+            	#{kbc_desc,jdbcType=VARCHAR},
+            	#{kbc_status,jdbcType=VARCHAR},
+            	#{tcTrainingCenter.tcr_id,jdbcType=VARCHAR},
+            	#{kbc_type,jdbcType=VARCHAR},
+            	#{kbc_create_datetime,jdbcType=TIMESTAMP},
+            	#{kbc_create_user_id,jdbcType=VARCHAR}
+            )
+        ]]>
+		<selectKey keyProperty="kbc_id" resultType="Long" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select kb_catalog_seq.currval as kbc_id from dual
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					select ident_current('kb_catalog') as kbc_id
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					select last_insert_id() as kbc_id
+				</when>
+			</choose>
+		</selectKey>
+	</insert>
+
+	<delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from Kb_Catalog where
+	        kbc_id = #{kbc_id,jdbcType=VARCHAR}
+	    ]]>
+	</delete>
+
+
+	<select id="selectPage" resultMap="KbCatalogWithTcr"
+		parameterType="Page">
+		<![CDATA[
+			select kbc.kbc_id,kbc.kbc_title,kbc.kbc_type,kbc.kbc_desc,kbc.kbc_status,tcr.tcr_id,tcr.tcr_title,
+			kbc.kbc_create_datetime,kbc.kbc_create_user_id,kbc.kbc_update_datetime,kbc.kbc_update_user_id,
+			kic.kbc_knowledge_number from Kb_Catalog kbc left join TcTrainingCenter tcr
+			on kbc.kbc_tcr_id = tcr.tcr_id left join
+			(select kic_kbc_id,count(*) kbc_knowledge_number from kb_item_cat 
+			inner join kb_item on kic_kbi_id = kbi_id and kbi_app_status = 'APPROVED' group by kic_kbc_id
+			) kic on kbc.kbc_id = kic.kic_kbc_id where exists
+			(select t.tcr_id from tcTrainingCenter t
+		     where exists ( select * from tcTrainingCenter ancestor 
+		      ]]>
+		   <if test="params.current_role != null and params.current_role != '' and params.current_role != 'ADM_1'"> 
+			     inner join tcTrainingCenterOfficer on (tco_tcr_id = ancestor.tcr_id)  
+			     left join tcRelation on (tcn_ancestor = ancestor.tcr_id) 
+			     inner join tcTrainingCenter child on (child.tcr_id = tcn_child_tcr_id or child.tcr_id = ancestor.tcr_id) 
+			     where tco_usr_ent_id =  #{params.usr_ent_id} 
+			     and child.tcr_id = t.tcr_id
+     		</if>
+		 <![CDATA[ 
+		     ) and t.tcr_status = 'OK' and t.tcr_id = kbc.kbc_tcr_id)
+		]]>
+		<if test="params.kbc_title != null and params.kbc_title !=''">
+			<![CDATA[
+				and kbc.kbc_title like N'%${params.kbc_title}%'
+			]]>
+		</if>
+		<if test="params.kbc_status != null and params.kbc_status !=''">
+			<![CDATA[
+				and kbc.kbc_status = #{params.kbc_status}
+			]]>
+		</if>
+		<if
+			test="params.tcr_id != null and params.tcr_id != '' and params.tcr_id != 0">
+			<![CDATA[
+				and kbc.kbc_tcr_id = #{params.tcr_id}
+			]]>
+		</if>
+		<choose>
+			<when test="_databaseId == 'ORACLE'">
+				order by kbc.kbc_type desc
+			</when>
+			<when test="_databaseId == 'SQLSERVER'">
+				order by kbc.kbc_type
+			</when>
+			<when test="_databaseId == 'MYSQL'">
+				order by kbc.kbc_type desc
+			</when>
+		</choose>
+	</select>
+
+	<select id="jsonList" resultType="java.util.Map" parameterType="java.lang.String">
+		<![CDATA[
+			select kbc_id as id, kbc_title as title, kbc_tcr_id
+			from kb_catalog kbc where kbc_type is null and exists
+			(select t.tcr_id from tcTrainingCenter t
+		     where exists ( select * from tcTrainingCenter ancestor  
+		      ]]>
+		   <if test="current_role != null and current_role != '' and current_role != 'ADM_1'">
+		     inner join tcTrainingCenterOfficer on (tco_tcr_id = ancestor.tcr_id)  
+		     left join tcRelation on (tcn_ancestor = ancestor.tcr_id) 
+		     inner join tcTrainingCenter child on (child.tcr_id = tcn_child_tcr_id or child.tcr_id = ancestor.tcr_id) 
+		     where tco_usr_ent_id =  #{usr_ent_id} 
+		     and child.tcr_id = t.tcr_id
+		     </if>
+		 <![CDATA[ 
+		     ) and t.tcr_status = 'OK' and t.tcr_id = kbc.kbc_tcr_id)
+		]]>
+		<if test="filter != null and filter != ''">
+			<![CDATA[
+				and kbc_title like #{filter}
+			]]>
+		</if>
+	</select>
+
+	<select id="selectCatByTcr" resultType="com.cwn.wizbank.entity.KbCatalog"
+		parameterType="java.util.Map">
+		<![CDATA[
+			select kbc.*,case when children > 0 then 1 else 0 end isChecked from kb_catalog kbc 
+			left join 
+			(select kic_kbc_id,COUNT(*) as children from kb_item_cat where kic_kbi_id=#{kbi_id} group by kic_kbc_id) kic 
+			on kbc.kbc_id = kic.kic_kbc_id
+			where kbc_type is null and
+			 EXISTS (SELECT DISTINCT tcr_id
+					FROM EntityRelation, tcTrainingCenterTargetEntity, tcTrainingCenter
+					WHERE ern_ancestor_ent_id = tce_ent_id
+						and ern_child_ent_id = #{usr_ent_id}
+						AND ern_type = 'USR_PARENT_USG'
+						]]>
+		<if test="tc_independent == true">
+			and  (tcr_id = #{tcr_id} or tcr_parent_tcr_id > 0 )
+		</if> 
+		<![CDATA[
+						AND tce_tcr_id = tcr_id
+						AND tcr_id = kbc.kbc_tcr_id)
+		]]>
+		<if test="kbc_status !=null and kbc_status !=''">
+			<![CDATA[
+				and kbc.kbc_status = #{kbc_status}
+			]]>
+		</if>
+		order by kbc_title
+	</select>
+
+	<update id="publish" parameterType="com.cwn.wizbank.entity.KbCatalog">
+		<![CDATA[
+			update Kb_catalog set
+			kbc_status = #{kbc_status,jdbcType=VARCHAR},
+			kbc_update_datetime = #{kbc_update_datetime,jdbcType=TIMESTAMP},
+			kbc_update_user_id = #{kbc_update_user_id,jdbcType=VARCHAR}
+			where kbc_id = #{kbc_id,jdbcType=VARCHAR}
+		 ]]>
+	</update>
+
+	<select id="isExist" resultType="java.lang.Boolean"
+		parameterType="com.cwn.wizbank.entity.KbCatalog">
+		<![CDATA[
+			select count(*)
+	         from Kb_Catalog 
+	         where kbc_title = N'${kbc_title}'
+		]]>
+		<if test="kbc_id !=null and kbc_id !=''">
+			<![CDATA[
+				and kbc_id != #{kbc_id}
+			]]>
+		</if>
+	</select>
+
+	<select id="getTmpCatalogByTopTcr" resultType="java.lang.Long"
+		parameterType="java.lang.Long">
+		<![CDATA[
+			select kbc_id
+	         from Kb_Catalog 
+	         where kbc_tcr_id = #{my_top_tc_id} and kbc_type = 'TEMP'
+		]]>
+	</select>
+	
+	<select id="hasApprovedKb" resultType="java.lang.Boolean" parameterType="com.cwn.wizbank.entity.KbCatalog">
+		select count(*) from kb_Catalog
+       		inner join kb_item_cat on kbc_id = kic_kbc_id 
+       		inner join kb_item on kbi_id = kic_kbi_id 
+       		where kic_kbc_id = #{kbc_id} and kbi_app_status = 'APPROVED'
+	</select>
+</mapper>

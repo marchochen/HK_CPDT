@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.KbItemAttachmentMapper">
+
+	<select id="getDate" resultType="java.sql.Timestamp">
+		select
+		<if test="_databaseId == 'ORACLE'">
+			sysdate from dual
+		</if>
+		<if test="_databaseId == 'SQLSERVER'">
+			getdate()
+		</if>
+		<if test="_databaseId == 'SQLSERVER'">
+			sysdate()
+		</if>
+	</select>
+	
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.KbItemAttachment">
+    	<![CDATA[
+            insert into kb_item_Attachment(
+            		kia_kbi_id,
+            		kia_kba_id,
+            		kia_create_datetime,
+            		kia_create_user_id
+            ) values (
+            	#{kbItem.kbi_id,jdbcType=VARCHAR},
+            	#{kbAttachment.kba_id,jdbcType=VARCHAR},
+            	#{kia_create_datetime,jdbcType=TIMESTAMP},
+            	#{kia_create_user_id,jdbcType=VARCHAR}
+            )
+        ]]>
+	</insert>
+
+	<delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from kb_item_Attachment where
+	        kia_kbi_id = #{id,jdbcType=VARCHAR}
+	    ]]>
+	</delete>
+</mapper>

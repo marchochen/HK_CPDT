@@ -1,0 +1,6 @@
+8.0
+4
+1	SQLNCHAR	0	0	"\t\0"		1	iac_itm_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	iac_ent_id	""
+3	SQLNCHAR	0	0	"\t\0"		3	iac_access_type	""
+4	SQLNCHAR	0	0	"\r\0\n\0"	4	iac_access_id	""

@@ -1,0 +1,22 @@
+<label_reference_data_list>
+	<label name="lab_upd_work_flow">Workflow</label>
+	<label name="lab_g_select_enrol_wf">Please select</label>
+	<label name="lab_g_form_btn_ok">OK</label>
+	<label name="lab_g_form_btn_cancel">Cancel</label>
+	<label name="lab_g_template_workflow">
+		<element id="15">
+			<title id="1">No approval required</title>
+			<description id="1"/>
+			<title id="2">The following approvals are required:</title>
+			<description id="2"/>
+			<title id="3">Supervisor approval</title>
+			<description id="3"/>
+			<title id="4">Direct supervisor only</title>
+			<description id="4">For direct supervisor approval to take effect in a course application, the "Direct supervisors" attribute of the applicant's user profile must have been set.</description>
+			<title id="5">First by direct supervisor, then by group supervisor(s)</title>
+			<description id="5">For group supervisor approval to take effect in a course application, the "Highest approval group" attribute of the applicant's user profile must have been set.</description>
+			<title id="6">Training administrator approval</title>
+			<description id="6"/>
+		</element>
+	</label>
+</label_reference_data_list>

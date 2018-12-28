@@ -1,0 +1,13 @@
+8.0
+11
+1	SQLNCHAR	0	0	"\t\0"		1	app_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	app_ent_id	""
+3	SQLNCHAR	0	0	"\t\0"		3	app_itm_id	""
+4	SQLNCHAR	0	0	"\t\0"		4	app_status	""
+5	SQLNCHAR	0	0	"\t\0"		5	app_process_status	""
+6	SQLNCHAR	0	0	"\t\0"		6	app_process_xml	""
+7	SQLNCHAR	0	0	"\t\0"		8	app_create_timestamp	""
+8	SQLNCHAR	0	0	"\t\0"		9	app_create_usr_id	""
+9	SQLNCHAR	0	0	"\t\0"		10	app_upd_timestamp	""
+10	SQLNCHAR	0	0	"\t\0"		11	app_upd_usr_id	""
+11	SQLNCHAR	0	0	"\r\0\n\0"	21	app_tkh_id	""

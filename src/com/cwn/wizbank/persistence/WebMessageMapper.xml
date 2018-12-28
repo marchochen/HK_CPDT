@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.WebMessageMapper">
+	<select id="get" resultType="WebMessage" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				wmsg_id,
+				wmsg_mtp_id,
+				wmsg_send_ent_id,
+				su.usr_ent_id as "sendUser.usr_ent_id",
+				su.usr_display_bil as "sendUser.usr_display_bil",
+				ru.usr_ent_id as "recUser.usr_ent_id",
+				ru.usr_display_bil as "recUser.usr_display_bil",
+				wmsg_rec_ent_id,
+				wmsg_subject,
+				wmsg_content_pc,
+				wmsg_admin_content_pc,
+				wmsg_content_mobile,
+				wmsg_target_datetime,
+				wmsg_type,
+				wmsg_create_ent_id,
+				wmsg_create_timestamp
+			from WebMessage t
+			left join RegUser su on wmsg_send_ent_id = su.usr_ent_id
+			left join RegUser ru on wmsg_rec_ent_id = ru.usr_ent_id
+			where
+				 t.wmsg_id = #{id}
+		]]>
+		<![CDATA[  and (wmsg_target_datetime <  ]]>
+	   <choose>
+			<when test="_databaseId == 'ORACLE'">
+				(select sysdate from dual)
+			</when>
+			<when test="_databaseId == 'SQLSERVER'">
+				getdate()
+			</when>
+			<when test="_databaseId == 'MYSQL'">
+				sysdate()
+			</when>
+		</choose>
+		    or wmsg_target_datetime is null)
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.WebMessage">
+	    <![CDATA[
+	        update WebMessage
+	        set 
+				wmsg_id = #{wmsg_id,jdbcType=INTEGER},
+				wmsg_mtp_id = #{wmsg_mtp_id,jdbcType=INTEGER},
+				wmsg_send_ent_id = #{wmsg_send_ent_id,jdbcType=INTEGER},
+				wmsg_rec_ent_id = #{wmsg_rec_ent_id,jdbcType=INTEGER},
+				wmsg_subject = #{wmsg_subject,jdbcType=VARCHAR},
+				wmsg_content_pc = #{wmsg_content_pc,jdbcType=VARCHAR},
+				wmsg_admin_content_pc = #{wmsg_admin_content_pc,jdbcType=VARCHAR},
+				wmsg_content_mobile = #{wmsg_content_mobile,jdbcType=VARCHAR},
+				wmsg_target_datetime = #{wmsg_target_datetime,jdbcType=DATE},
+				wmsg_type = #{wmsg_type,jdbcType=VARCHAR},
+				wmsg_create_ent_id = #{wmsg_create_ent_id,jdbcType=INTEGER},
+				wmsg_create_timestamp = #{wmsg_create_timestamp,jdbcType=DATE}
+	         where t.wmsg_id = #{wmsg_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.WebMessage" keyProperty="wmsg_id">
+   		insert into WebMessage(
+        	wmsg_send_ent_id,
+       		wmsg_rec_ent_id,
+       		wmsg_subject,
+         	wmsg_content_pc,
+         	wmsg_admin_content_pc,
+           	wmsg_content_mobile,
+          	wmsg_type,
+          	wmsg_create_ent_id,
+         	wmsg_create_timestamp
+     	) values (
+        	#{wmsg_send_ent_id,jdbcType=INTEGER},
+           	#{wmsg_rec_ent_id,jdbcType=INTEGER},
+           	#{wmsg_subject,jdbcType=VARCHAR},
+           	#{wmsg_content_pc,jdbcType=VARCHAR},
+           	#{wmsg_admin_content_pc,jdbcType=VARCHAR},
+           	#{wmsg_content_mobile,jdbcType=VARCHAR},
+           	#{wmsg_type,jdbcType=VARCHAR},
+           	#{wmsg_create_ent_id,jdbcType=INTEGER},
+           	#{wmsg_create_timestamp,jdbcType=TIMESTAMP}
+     	)
+     	<selectKey keyProperty="wmsg_id" resultType="String" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select webmessage_seq.currval from dual
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					select ident_current('webMessage')
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					select last_insert_id()
+				</when>
+			</choose>
+		</selectKey>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from WebMessage where
+	        wmsg_id = #{wmsg_id}
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="com.cwn.wizbank.entity.WebMessage">
+	    <![CDATA[
+	         select 
+				wmsg_id,
+				wmsg_mtp_id,
+				wmsg_send_ent_id,
+				wmsg_rec_ent_id,
+				wmsg_subject,
+				wmsg_content_pc,
+				wmsg_admin_content_pc,
+				wmsg_content_mobile,
+				wmsg_target_datetime,
+				wmsg_type,
+				wmsg_create_ent_id,
+				wmsg_create_timestamp
+			from WebMessage t 
+	    ]]>
+	    <![CDATA[  where (wmsg_target_datetime <  ]]>
+	   <choose>
+			<when test="_databaseId == 'ORACLE'">
+				(select sysdate from dual)
+			</when>
+			<when test="_databaseId == 'SQLSERVER'">
+				getdate()
+			</when>
+			<when test="_databaseId == 'MYSQL'">
+				sysdate()
+			</when>
+		</choose>
+		    or wmsg_target_datetime is null)
+	</select>
+	<select id="selectWebMessageList" resultType="com.cwn.wizbank.entity.WebMessage" parameterType="Page">
+	    select 
+			wmsg_id,
+			wmsg_subject,
+			wmsg_type,
+			wmsg_create_ent_id,
+			wmsg_create_timestamp,
+			su.usr_ent_id as "sendUser.usr_ent_id",
+			su.usr_display_bil as "sendUser.usr_display_bil",
+			ru.usr_ent_id as "recUser.usr_ent_id",
+			ru.usr_display_bil as "recUser.usr_display_bil",
+			wmrh_status as "readHistory.wmrh_status"
+		from webMessage		
+		left join WebMsgReadHistory on wmrh_wmsg_id = wmsg_id
+		left join RegUser su on wmsg_send_ent_id = su.usr_ent_id
+		left join RegUser ru on wmsg_rec_ent_id = ru.usr_ent_id 
+		where wmsg_rec_ent_id = ${params.usr_ent_id}  and wmsg_rec_type is not null  
+		<if test="params.type == 'SYS'">
+			and wmsg_type = '${params.type}'
+			
+		</if>
+		<if test="params.type == 'PERSON'">
+			and wmsg_type = '${params.type}'
+		</if>
+		<if test="params.type == 'MY'">
+			and wmrh_status is null
+		</if>
+		
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					and (to_date('${params.now}','yyyy-mm-dd hh24:mi:ss') >= wmsg_target_datetime or wmsg_target_datetime is null)
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					and ('${params.now}' >= wmsg_target_datetime or wmsg_target_datetime is null)
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					and (str_to_date('${params.now}','%Y-%m-%d %H:%i:%s') >= wmsg_target_datetime or wmsg_target_datetime is null)
+				</when>
+			</choose>
+		
+		<![CDATA[  and (wmsg_target_datetime <  ]]>
+	   <choose>
+			<when test="_databaseId == 'ORACLE'">
+				(select sysdate from dual)
+			</when>
+			<when test="_databaseId == 'SQLSERVER'">
+				getdate()
+			</when>
+			<when test="_databaseId == 'MYSQL'">
+				sysdate()
+			</when>
+		</choose>
+		    or wmsg_target_datetime is null)
+		
+		order by wmsg_create_timestamp desc
+	</select>
+	
+	<select id="selectMessageList" resultType="com.cwn.wizbank.entity.WebMessage" parameterType="Page">
+		select 
+			wmsg_id,
+			wmsg_subject,
+			wmsg_type,
+			wmsg_create_ent_id,
+			wmsg_create_timestamp,
+			wmsg_rec_ent_id,
+			su.usr_ent_id as "sendUser.usr_ent_id",
+			su.usr_display_bil as "sendUser.usr_display_bil",
+			ru.usr_ent_id as "recUser.usr_ent_id",
+			ru.usr_display_bil as "recUser.usr_display_bil",
+			wmrh_status as "readHistory.wmrh_status"
+		from webMessage		
+		left join WebMsgReadHistory on wmrh_wmsg_id = wmsg_id
+		left join RegUser su on wmsg_send_ent_id = su.usr_ent_id
+		left join RegUser ru on wmsg_rec_ent_id = ru.usr_ent_id 
+		where wmsg_rec_ent_id = ${params.usr_ent_id} and wmsg_rec_type = 'REC' 
+		<![CDATA[  and (wmsg_target_datetime <  ]]>
+	   <choose>
+			<when test="_databaseId == 'ORACLE'">
+				(select sysdate from dual)
+			</when>
+			<when test="_databaseId == 'SQLSERVER'">
+				getdate()
+			</when>
+			<when test="_databaseId == 'MYSQL'">
+				sysdate()
+			</when>
+		</choose>
+		    or wmsg_target_datetime is null)
+		    <if test="params.wmsgIdValue != null and params.wmsgIdValue  != '' and params.wmsgIdValue > 0">
+		    	<![CDATA[ and wmsg_id <  ${params.wmsgIdValue} ]]>
+		    </if>
+		order by wmsg_create_timestamp desc
+	</select>
+	
+	<select id="getWebMessageCount" resultType="Integer" parameterType="Long">
+		select 
+		count(wmsg_id)
+		from webMessage
+		left join WebMsgReadHistory on wmrh_wmsg_id = wmsg_id
+		where wmsg_rec_ent_id = #{userEntId} 
+		and wmrh_status is null
+		<![CDATA[  and (wmsg_target_datetime <  ]]>
+	   <choose>
+			<when test="_databaseId == 'ORACLE'">
+				(select sysdate from dual)
+			</when>
+			<when test="_databaseId == 'SQLSERVER'">
+				getdate()
+			</when>
+			<when test="_databaseId == 'MYSQL'">
+				sysdate()
+			</when>
+		</choose>
+		    or wmsg_target_datetime is null)
+	</select>
+	
+	<select id="getWebMessageTypeCount" resultType="com.cwn.wizbank.entity.WebMessage" parameterType="Long">
+		select wmsg_type,COUNT(wmsg_id) as "wmsg_type_total" 
+			from webMessage where wmsg_rec_ent_id = #{userEntId} and wmsg_rec_type = 'REC' 
+			<![CDATA[  and (wmsg_target_datetime <  ]]>
+	   <choose>
+			<when test="_databaseId == 'ORACLE'">
+				(select sysdate from dual)
+			</when>
+			<when test="_databaseId == 'SQLSERVER'">
+				getdate()
+			</when>
+			<when test="_databaseId == 'MYSQL'">
+				sysdate()
+			</when>
+		</choose>
+		    or wmsg_target_datetime is null)
+			group by wmsg_type
+	</select>
+	
+	<select id="selectSendMessageList" resultType="com.cwn.wizbank.entity.WebMessage" parameterType="Page">
+		<![CDATA[
+		select wmsg_id,
+			   wmsg_subject,
+			   wmsg_type,
+			   wmsg_create_ent_id,
+			   wmsg_create_timestamp,
+			   wmsg_rec_ent_id,
+			   su.usr_ent_id as "sendUser.usr_ent_id",
+				su.usr_display_bil as "sendUser.usr_display_bil",
+				ru.usr_ent_id as "recUser.usr_ent_id",
+				ru.usr_display_bil as "recUser.usr_display_bil"
+		from webMessage
+		left join RegUser su on wmsg_send_ent_id = su.usr_ent_id
+		left join RegUser ru on wmsg_rec_ent_id = ru.usr_ent_id
+		where wmsg_send_ent_id = ${params.usr_ent_id} 
+		and wmsg_type <> 'SYS'
+		and wmsg_send_type = 'SEND'
+		]]>
+		<![CDATA[  and (wmsg_target_datetime <  ]]>
+	   <choose>
+			<when test="_databaseId == 'ORACLE'">
+				(select sysdate from dual)
+			</when>
+			<when test="_databaseId == 'SQLSERVER'">
+				getdate()
+			</when>
+			<when test="_databaseId == 'MYSQL'">
+				sysdate()
+			</when>
+		</choose>
+		    or wmsg_target_datetime is null)
+		    <if test="params.wmsgIdValue != null and params.wmsgIdValue  != '' and params.wmsgIdValue > 0">
+		    	<![CDATA[ and wmsg_id <  ${params.wmsgIdValue} ]]>
+		    </if>
+		order by wmsg_create_timestamp desc
+	</select>
+	<delete id="delReadHistory" parameterType="Long">
+		delete from WebMsgReadHistory where wmrh_wmsg_id = #{id}
+	</delete>
+	<update id="updateSendMessage" parameterType="Long">
+		update webMessage set wmsg_send_type = null where wmsg_id = #{id}
+	</update>
+	<update id="updateRecMessage" parameterType="Long">
+		update webMessage set wmsg_rec_type = null where wmsg_id = #{id}
+	</update>
+	
+	<select id="isExistFormMessage" parameterType="Map" resultType="Long">
+		select count(msg_id) from Message
+		where 1=1
+		<if test="title != null and title !=''">
+			 and   msg_title= N'${title}' 
+		</if>
+		<if test="id != null and id !=''">	 
+				and msg_id != '${id}'
+		</if>
+		 
+		 <if test="msg_tcr_id != null and msg_tcr_id !='' ">		 
+			and msg_tcr_id  = #{msg_tcr_id} 
+		</if>
+	</select>
+	
+</mapper>

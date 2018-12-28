@@ -1,0 +1,1821 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.RegUserMapper">
+	<select id="get" resultType="RegUser" parameterType="java.lang.Long">
+			select 
+				usr_id,
+				usr_ent_id,
+				usr_pwd,
+				usr_email,
+				usr_email_2,
+				usr_full_name_bil,
+				usr_initial_name_bil,
+				usr_last_name_bil,
+				usr_first_name_bil,
+				usr_display_bil,
+				usr_gender,
+				usr_bday,
+				usr_hkid,
+				usr_other_id_no,
+				usr_other_id_type,
+				usr_tel_1,
+				usr_tel_2,
+				usr_fax_1,
+				usr_country_bil,
+				usr_postal_code_bil,
+				usr_state_bil,
+				usr_address_bil,
+				usr_class,
+				usr_class_number,
+				usr_signup_date,
+				usr_last_login_role,
+				usr_last_login_date,
+				usr_status,
+				usr_upd_date,
+				usr_ste_ent_id,
+				usr_ste_usr_id,
+				usr_extra_1,
+				usr_cost_center,
+				usr_login_trial,
+				usr_login_status,
+				usr_remark_xml,
+				usr_extra_2,
+				usr_extra_3,
+				usr_extra_4,
+				usr_extra_5,
+				usr_extra_6,
+				usr_extra_7,
+				usr_extra_8,
+				usr_extra_9,
+				usr_extra_10,
+				usr_approve_usr_id,
+				usr_approve_timestamp,
+				usr_approve_reason,
+				usr_pwd_need_change_ind,
+				usr_pwd_upd_timestamp,
+				usr_syn_rol_ind,
+				usr_not_syn_gpm_type,
+				usr_join_datetime,
+				usr_job_title,
+				usr_app_approval_usg_ent_id,
+				usr_source,
+				usr_nickname,
+				usr_choice_tcr_id,
+				usr_weixin_id,
+				urx_extra_43 as "usr_photo",
+				<!-- 用户组名称 -->
+				usg_display_bil,
+				<!-- 职务名称 -->
+				ugr_display_bil
+			from RegUser
+			left join regUserExtension on urx_usr_ent_id = usr_ent_id
+			left join EntityRelation usg on usg.ern_child_ent_id = usr_ent_id and usg.ern_type = 'USR_PARENT_USG' and usg.ern_parent_ind = 1
+			left join UserGroup on usg_ent_id = usg.ern_ancestor_ent_id
+			left join EntityRelation ugr on ugr.ern_child_ent_id = usr_ent_id and ugr.ern_type = 'USR_CURRENT_UGR' and ugr.ern_parent_ind = 1
+			left join UserGrade on ugr_ent_id = ugr.ern_ancestor_ent_id
+			where usr_ent_id = #{id}
+	</select>
+
+	<insert id="insertUserRelationHistory" parameterType="Map">
+		insert into EntityRelationHistory (erh_child_ent_id, erh_ancestor_ent_id, erh_order, erh_type, erh_parent_ind, erh_start_timestamp, erh_end_timestamp, erh_create_timestamp, erh_create_usr_id)
+		select ern_child_ent_id, ern_ancestor_ent_id, ern_order, ern_type, ern_parent_ind, ern_create_timestamp, #{ent_delete_timestamp}, #{ent_delete_timestamp}, #{usr_id} from EntityRelation where ern_child_ent_id = #{usr_ent_id}
+	</insert>
+	
+	<select id="getByLoginId" resultType="RegUser" parameterType="java.lang.String">
+			select 
+				usr_id,
+				usr_ent_id,
+				usr_pwd,
+				usr_email,
+				usr_email_2,
+				usr_full_name_bil,
+				usr_initial_name_bil,
+				usr_last_name_bil,
+				usr_first_name_bil,
+				usr_display_bil,
+				usr_gender,
+				usr_bday,
+				usr_hkid,
+				usr_other_id_no,
+				usr_other_id_type,
+				usr_tel_1,
+				usr_tel_2,
+				usr_fax_1,
+				usr_country_bil,
+				usr_postal_code_bil,
+				usr_state_bil,
+				usr_address_bil,
+				usr_class,
+				usr_class_number,
+				usr_signup_date,
+				usr_last_login_role,
+				usr_last_login_date,
+				usr_status,
+				usr_upd_date,
+				usr_ste_ent_id,
+				usr_ste_usr_id,
+				usr_extra_1,
+				usr_cost_center,
+				usr_login_trial,
+				usr_login_status,
+				usr_remark_xml,
+				usr_extra_2,
+				usr_extra_3,
+				usr_extra_4,
+				usr_extra_5,
+				usr_extra_6,
+				usr_extra_7,
+				usr_extra_8,
+				usr_extra_9,
+				usr_extra_10,
+				usr_approve_usr_id,
+				usr_approve_timestamp,
+				usr_approve_reason,
+				usr_pwd_need_change_ind,
+				usr_pwd_upd_timestamp,
+				usr_syn_rol_ind,
+				usr_not_syn_gpm_type,
+				usr_join_datetime,
+				usr_job_title,
+				usr_app_approval_usg_ent_id,
+				usr_source,
+				usr_nickname,
+				usr_choice_tcr_id,
+				usr_weixin_id,
+				urx_extra_43 as "usr_photo",
+				<!-- 用户组名称 -->
+				usg_display_bil,
+				<!-- 职务名称 -->
+				ugr_display_bil
+			from RegUser
+			left join regUserExtension on urx_usr_ent_id = usr_ent_id
+			left join EntityRelation usg on usg.ern_child_ent_id = usr_ent_id and usg.ern_type = 'USR_PARENT_USG' and usg.ern_parent_ind = 1
+			left join UserGroup on usg_ent_id = usg.ern_ancestor_ent_id
+			left join EntityRelation ugr on ugr.ern_child_ent_id = usr_ent_id and ugr.ern_type = 'USR_CURRENT_UGR' and ugr.ern_parent_ind = 1
+			left join UserGrade on ugr_ent_id = ugr.ern_ancestor_ent_id
+			where usr_ste_usr_id = #{_parameter}
+	</select>
+	
+	
+	<select id="getByUsrId" resultType="RegUser" parameterType="java.lang.String">
+			select 
+				usr_id,
+				usr_ent_id,
+				usr_pwd,
+				usr_email,
+				usr_email_2,
+				usr_full_name_bil,
+				usr_initial_name_bil,
+				usr_last_name_bil,
+				usr_first_name_bil,
+				usr_display_bil,
+				usr_gender,
+				usr_bday,
+				usr_hkid,
+				usr_other_id_no,
+				usr_other_id_type,
+				usr_tel_1,
+				usr_tel_2,
+				usr_fax_1,
+				usr_country_bil,
+				usr_postal_code_bil,
+				usr_state_bil,
+				usr_address_bil,
+				usr_class,
+				usr_class_number,
+				usr_signup_date,
+				usr_last_login_role,
+				usr_last_login_date,
+				usr_status,
+				usr_upd_date,
+				usr_ste_ent_id,
+				usr_ste_usr_id,
+				usr_extra_1,
+				usr_cost_center,
+				usr_login_trial,
+				usr_login_status,
+				usr_remark_xml,
+				usr_extra_2,
+				usr_extra_3,
+				usr_extra_4,
+				usr_extra_5,
+				usr_extra_6,
+				usr_extra_7,
+				usr_extra_8,
+				usr_extra_9,
+				usr_extra_10,
+				usr_approve_usr_id,
+				usr_approve_timestamp,
+				usr_approve_reason,
+				usr_pwd_need_change_ind,
+				usr_pwd_upd_timestamp,
+				usr_syn_rol_ind,
+				usr_not_syn_gpm_type,
+				usr_join_datetime,
+				usr_job_title,
+				usr_app_approval_usg_ent_id,
+				usr_source,
+				usr_nickname,
+				usr_choice_tcr_id,
+				usr_weixin_id,
+				urx_extra_43 as "usr_photo",
+				<!-- 用户组名称 -->
+				usg_display_bil,
+				<!-- 职务名称 -->
+				ugr_display_bil
+			from RegUser
+			left join regUserExtension on urx_usr_ent_id = usr_ent_id
+			left join EntityRelation usg on usg.ern_child_ent_id = usr_ent_id and usg.ern_type = 'USR_PARENT_USG' and usg.ern_parent_ind = 1
+			left join UserGroup on usg_ent_id = usg.ern_ancestor_ent_id
+			left join EntityRelation ugr on ugr.ern_child_ent_id = usr_ent_id and ugr.ern_type = 'USR_CURRENT_UGR' and ugr.ern_parent_ind = 1
+			left join UserGrade on ugr_ent_id = ugr.ern_ancestor_ent_id
+			where usr_id = #{id}
+	</select>
+	
+	<select id="getByUsrSteUsrId" resultType="RegUser" parameterType="java.lang.String">
+			select 
+				usr_id,
+				usr_ent_id,
+				usr_pwd,
+				usr_email,
+				usr_email_2,
+				usr_full_name_bil,
+				usr_initial_name_bil,
+				usr_last_name_bil,
+				usr_first_name_bil,
+				usr_display_bil,
+				usr_gender,
+				usr_bday,
+				usr_hkid,
+				usr_other_id_no,
+				usr_other_id_type,
+				usr_tel_1,
+				usr_tel_2,
+				usr_fax_1,
+				usr_country_bil,
+				usr_postal_code_bil,
+				usr_state_bil,
+				usr_address_bil,
+				usr_class,
+				usr_class_number,
+				usr_signup_date,
+				usr_last_login_role,
+				usr_last_login_date,
+				usr_status,
+				usr_upd_date,
+				usr_ste_ent_id,
+				usr_ste_usr_id,
+				usr_extra_1,
+				usr_cost_center,
+				usr_login_trial,
+				usr_login_status,
+				usr_remark_xml,
+				usr_extra_2,
+				usr_extra_3,
+				usr_extra_4,
+				usr_extra_5,
+				usr_extra_6,
+				usr_extra_7,
+				usr_extra_8,
+				usr_extra_9,
+				usr_extra_10,
+				usr_approve_usr_id,
+				usr_approve_timestamp,
+				usr_approve_reason,
+				usr_pwd_need_change_ind,
+				usr_pwd_upd_timestamp,
+				usr_syn_rol_ind,
+				usr_not_syn_gpm_type,
+				usr_join_datetime,
+				usr_job_title,
+				usr_app_approval_usg_ent_id,
+				usr_source,
+				usr_nickname,
+				usr_choice_tcr_id,
+				usr_weixin_id,
+				urx_extra_43 as "usr_photo",
+				<!-- 用户组名称 -->
+				usg_display_bil,
+				<!-- 职务名称 -->
+				ugr_display_bil
+			from RegUser
+			left join regUserExtension on urx_usr_ent_id = usr_ent_id
+			left join EntityRelation usg on usg.ern_child_ent_id = usr_ent_id and usg.ern_type = 'USR_PARENT_USG' and usg.ern_parent_ind = 1
+			left join UserGroup on usg_ent_id = usg.ern_ancestor_ent_id
+			left join EntityRelation ugr on ugr.ern_child_ent_id = usr_ent_id and ugr.ern_type = 'USR_CURRENT_UGR' and ugr.ern_parent_ind = 1
+			left join UserGrade on ugr_ent_id = ugr.ern_ancestor_ent_id
+			where usr_ste_usr_id = #{usr_ste_id}
+	</select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.RegUser">
+        update RegUser 
+        set 
+        	<if test="usr_pwd != null and usr_pwd != ''">
+				usr_pwd = #{usr_pwd,jdbcType=VARCHAR},
+				usr_pwd_upd_timestamp = #{usr_pwd_upd_timestamp,jdbcType=TIMESTAMP},
+				usr_pwd_need_change_ind = #{usr_pwd_need_change_ind,jdbcType=INTEGER},
+			</if>
+			usr_email = #{usr_email,jdbcType=VARCHAR},
+			usr_display_bil = #{usr_display_bil,jdbcType=VARCHAR},
+			usr_nickname = #{usr_nickname,jdbcType=VARCHAR},
+			usr_gender = #{usr_gender,jdbcType=VARCHAR},
+			usr_bday = #{usr_bday,jdbcType=DATE},
+			usr_tel_1 = #{usr_tel_1,jdbcType=VARCHAR},
+			usr_fax_1 = #{usr_fax_1,jdbcType=VARCHAR},
+			usr_extra_2 = #{usr_extra_2,jdbcType=VARCHAR},
+			usr_upd_date = #{usr_upd_date,jdbcType=TIMESTAMP},
+			usr_join_datetime = #{usr_join_datetime,jdbcType=TIMESTAMP},
+			usr_job_title = #{usr_job_title,jdbcType=VARCHAR}
+         where usr_ent_id = #{usr_ent_id,jdbcType=INTEGER}
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.RegUser">
+    	<![CDATA[
+            insert into RegUser(
+            		usr_id,
+            		usr_ent_id,
+            		usr_pwd,
+            		usr_email,
+            		usr_email_2,
+            		usr_full_name_bil,
+            		usr_initial_name_bil,
+            		usr_last_name_bil,
+            		usr_first_name_bil,
+            		usr_display_bil,
+            		usr_gender,
+            		usr_bday,
+            		usr_hkid,
+            		usr_other_id_no,
+            		usr_other_id_type,
+            		usr_tel_1,
+            		usr_tel_2,
+            		usr_fax_1,
+            		usr_country_bil,
+            		usr_postal_code_bil,
+            		usr_state_bil,
+            		usr_address_bil,
+            		usr_class,
+            		usr_class_number,
+            		usr_signup_date,
+            		usr_last_login_role,
+            		usr_last_login_date,
+            		usr_status,
+            		usr_upd_date,
+            		usr_ste_ent_id,
+            		usr_ste_usr_id,
+            		usr_extra_1,
+            		usr_cost_center,
+            		usr_login_trial,
+            		usr_login_status,
+            		usr_remark_xml,
+            		usr_extra_2,
+            		usr_extra_3,
+            		usr_extra_4,
+            		usr_extra_5,
+            		usr_extra_6,
+            		usr_extra_7,
+            		usr_extra_8,
+            		usr_extra_9,
+            		usr_extra_10,
+            		usr_approve_usr_id,
+            		usr_approve_timestamp,
+            		usr_approve_reason,
+            		usr_pwd_need_change_ind,
+            		usr_pwd_upd_timestamp,
+            		usr_syn_rol_ind,
+            		usr_not_syn_gpm_type,
+            		usr_join_datetime,
+            		usr_job_title,
+            		usr_app_approval_usg_ent_id,
+            		usr_source,
+            		usr_nickname,
+            		usr_choice_tcr_id,
+            		usr_weixin_id
+            ) values (
+                #{usr_id,jdbcType=VARCHAR},
+            	#{usr_ent_id,jdbcType=INTEGER},
+            	#{usr_pwd,jdbcType=VARCHAR},
+            	#{usr_email,jdbcType=VARCHAR},
+            	#{usr_email_2,jdbcType=VARCHAR},
+            	#{usr_full_name_bil,jdbcType=VARCHAR},
+            	#{usr_initial_name_bil,jdbcType=VARCHAR},
+            	#{usr_last_name_bil,jdbcType=VARCHAR},
+            	#{usr_first_name_bil,jdbcType=VARCHAR},
+            	#{usr_display_bil,jdbcType=VARCHAR},
+            	#{usr_gender,jdbcType=VARCHAR},
+            	#{usr_bday,jdbcType=DATE},
+            	#{usr_hkid,jdbcType=VARCHAR},
+            	#{usr_other_id_no,jdbcType=VARCHAR},
+            	#{usr_other_id_type,jdbcType=VARCHAR},
+            	#{usr_tel_1,jdbcType=VARCHAR},
+            	#{usr_tel_2,jdbcType=VARCHAR},
+            	#{usr_fax_1,jdbcType=VARCHAR},
+            	#{usr_country_bil,jdbcType=VARCHAR},
+            	#{usr_postal_code_bil,jdbcType=VARCHAR},
+            	#{usr_state_bil,jdbcType=VARCHAR},
+            	#{usr_address_bil,jdbcType=VARCHAR},
+            	#{usr_class,jdbcType=VARCHAR},
+            	#{usr_class_number,jdbcType=VARCHAR},
+            	#{usr_signup_date,jdbcType=DATE},
+            	#{usr_last_login_role,jdbcType=VARCHAR},
+            	#{usr_last_login_date,jdbcType=DATE},
+            	#{usr_status,jdbcType=VARCHAR},
+            	#{usr_upd_date,jdbcType=DATE},
+            	#{usr_ste_ent_id,jdbcType=INTEGER},
+            	#{usr_ste_usr_id,jdbcType=VARCHAR},
+            	#{usr_extra_1,jdbcType=VARCHAR},
+            	#{usr_cost_center,jdbcType=VARCHAR},
+            	#{usr_login_trial,jdbcType=INTEGER},
+            	#{usr_login_status,jdbcType=VARCHAR},
+            	#{usr_remark_xml,jdbcType=VARCHAR},
+            	#{usr_extra_2,jdbcType=VARCHAR},
+            	#{usr_extra_3,jdbcType=VARCHAR},
+            	#{usr_extra_4,jdbcType=VARCHAR},
+            	#{usr_extra_5,jdbcType=VARCHAR},
+            	#{usr_extra_6,jdbcType=VARCHAR},
+            	#{usr_extra_7,jdbcType=VARCHAR},
+            	#{usr_extra_8,jdbcType=VARCHAR},
+            	#{usr_extra_9,jdbcType=VARCHAR},
+            	#{usr_extra_10,jdbcType=VARCHAR},
+            	#{usr_approve_usr_id,jdbcType=VARCHAR},
+            	#{usr_approve_timestamp,jdbcType=DATE},
+            	#{usr_approve_reason,jdbcType=VARCHAR},
+            	#{usr_pwd_need_change_ind,jdbcType=INTEGER},
+            	#{usr_pwd_upd_timestamp,jdbcType=DATE},
+            	#{usr_syn_rol_ind,jdbcType=INTEGER},
+            	#{usr_not_syn_gpm_type,jdbcType=VARCHAR},
+            	#{usr_join_datetime,jdbcType=DATE},
+            	#{usr_job_title,jdbcType=VARCHAR},
+            	#{usr_app_approval_usg_ent_id,jdbcType=INTEGER},
+            	#{usr_source,jdbcType=VARCHAR},
+            	#{usr_nickname,jdbcType=VARCHAR},
+            	#{usr_choice_tcr_id,jdbcType=INTEGER},
+            	#{usr_weixin_id,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>
+    <insert id="register" parameterType="RegUser">
+    	insert into RegUser(
+    		usr_id,
+      		usr_ent_id,
+      		usr_pwd,
+      		usr_email,
+      		usr_display_bil,
+      		usr_gender,
+      		usr_bday,
+      		usr_tel_1,
+      		usr_signup_date,
+      		usr_last_login_date,
+      		usr_status,
+      		usr_upd_date,
+      		usr_ste_ent_id,
+      		usr_ste_usr_id,
+      		usr_approve_timestamp,
+      		usr_pwd_upd_timestamp,
+      		usr_syn_rol_ind,
+      		usr_join_datetime,
+      		usr_source,
+      		usr_choice_tcr_id
+       ) values (
+       		#{usr_id,jdbcType=VARCHAR},
+	       	#{usr_ent_id,jdbcType=INTEGER},
+	       	#{usr_pwd,jdbcType=VARCHAR},
+	       	#{usr_email,jdbcType=VARCHAR},
+	       	#{usr_display_bil,jdbcType=VARCHAR},
+	       	#{usr_gender,jdbcType=VARCHAR},
+	       	#{usr_bday,jdbcType=TIMESTAMP},
+	       	#{usr_tel_1,jdbcType=VARCHAR},
+	       	#{usr_signup_date,jdbcType=TIMESTAMP},
+	       	#{usr_last_login_date,jdbcType=TIMESTAMP},
+	       	#{usr_status,jdbcType=VARCHAR},
+	       	#{usr_upd_date,jdbcType=TIMESTAMP},
+	       	#{usr_ste_ent_id,jdbcType=INTEGER},
+	       	#{usr_ste_usr_id,jdbcType=VARCHAR},
+	       	#{usr_approve_timestamp,jdbcType=TIMESTAMP},
+	       	#{usr_pwd_upd_timestamp,jdbcType=TIMESTAMP},
+	       	#{usr_syn_rol_ind,jdbcType=INTEGER},
+	       	#{usr_join_datetime,jdbcType=TIMESTAMP},
+	       	#{usr_source,jdbcType=VARCHAR},
+	       	#{usr_choice_tcr_id,jdbcType=INTEGER}
+       )
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from RegUser  where usr_id = #{usr_id}
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="RegUser">
+	    <![CDATA[
+	         select 
+				usr_id,
+				usr_ent_id,
+				usr_pwd,
+				usr_email,
+				usr_email_2,
+				usr_full_name_bil,
+				usr_initial_name_bil,
+				usr_last_name_bil,
+				usr_first_name_bil,
+				usr_display_bil,
+				usr_gender,
+				usr_bday,
+				usr_hkid,
+				usr_other_id_no,
+				usr_other_id_type,
+				usr_tel_1,
+				usr_tel_2,
+				usr_fax_1,
+				usr_country_bil,
+				usr_postal_code_bil,
+				usr_state_bil,
+				usr_address_bil,
+				usr_class,
+				usr_class_number,
+				usr_signup_date,
+				usr_last_login_role,
+				usr_last_login_date,
+				usr_status,
+				usr_upd_date,
+				usr_ste_ent_id,
+				usr_ste_usr_id,
+				usr_extra_1,
+				usr_cost_center,
+				usr_login_trial,
+				usr_login_status,
+				usr_remark_xml,
+				usr_extra_2,
+				usr_extra_3,
+				usr_extra_4,
+				usr_extra_5,
+				usr_extra_6,
+				usr_extra_7,
+				usr_extra_8,
+				usr_extra_9,
+				usr_extra_10,
+				usr_approve_usr_id,
+				usr_approve_timestamp,
+				usr_approve_reason,
+				usr_pwd_need_change_ind,
+				usr_pwd_upd_timestamp,
+				usr_syn_rol_ind,
+				usr_not_syn_gpm_type,
+				usr_join_datetime,
+				usr_job_title,
+				usr_app_approval_usg_ent_id,
+				usr_source,
+				usr_nickname,
+				usr_choice_tcr_id,
+				usr_weixin_id
+			from RegUser t 
+	    ]]>
+	</select>
+	<select id="selectUserDetail" resultType="RegUser" parameterType="RegUser">
+		select 
+			usr_id,
+			usr_ent_id,
+			usr_pwd,
+			<!-- 电子邮件  -->
+			usr_email,
+			usr_email_2,
+			usr_full_name_bil,
+			usr_initial_name_bil,
+			usr_last_name_bil,
+			usr_first_name_bil,
+			usr_display_bil,
+			<!-- 性别  -->
+			usr_gender,
+			usr_bday,
+			usr_hkid,
+			usr_other_id_no,
+			usr_other_id_type,
+			<!-- 电话  -->
+			usr_tel_1,
+			usr_tel_2,
+			<!-- 传真  -->
+			usr_fax_1,
+			usr_country_bil,
+			usr_postal_code_bil,
+			usr_state_bil,
+			usr_address_bil,
+			usr_class,
+			usr_class_number,
+			usr_signup_date,
+			usr_last_login_role,
+			usr_last_login_date,
+			usr_status,
+			usr_upd_date,
+			usr_ste_ent_id,
+			usr_ste_usr_id,
+			usr_extra_1,
+			usr_cost_center,
+			usr_login_trial,
+			usr_login_status,
+			usr_remark_xml,
+			usr_extra_2,
+			usr_extra_3,
+			usr_extra_4,
+			usr_extra_5,
+			usr_extra_6,
+			usr_extra_7,
+			usr_extra_8,
+			usr_extra_9,
+			usr_extra_10,
+			usr_approve_usr_id,
+			usr_approve_timestamp,
+			usr_approve_reason,
+			usr_pwd_need_change_ind,
+			usr_pwd_upd_timestamp,
+			usr_syn_rol_ind,
+			usr_not_syn_gpm_type,
+			<!-- 加入公司日期  -->
+			usr_join_datetime,
+			<!-- 职称  -->
+			usr_job_title,
+			usr_app_approval_usg_ent_id,
+			usr_source,
+			usr_nickname,
+			usr_choice_tcr_id,
+			usr_weixin_id,
+			<!-- 用户组名称 -->
+			usg_display_bil,
+			<!-- 职务名称 -->
+			ugr_display_bil,
+			<!-- QQ -->
+			urx_extra_41 as "userExt.urx_extra_41",
+			<!-- Weixin  -->
+			urx_extra_42 as "userExt.urx_extra_42",
+			<!-- 个性头像  -->
+			urx_extra_43 as "usr_photo",
+			urx_extra_43 as "userExt.urx_extra_43",
+			<!-- 个人描述  -->
+			urx_extra_44 as "userExt.urx_extra_44",
+			<!-- 兴趣  -->
+			urx_extra_45 as "userExt.urx_extra_45"
+			<if test="snsAttention != null">
+				,(case when my_att.s_att_source_uid is null then 0 else my_att.s_att_source_uid end) as "snsAttention.s_att_source_uid",
+				(case when he_att.s_att_target_uid is null then 0 else he_att.s_att_target_uid end) as "snsAttention.s_att_target_uid"
+			</if>
+		from regUser
+		left join regUserExtension on urx_usr_ent_id = usr_ent_id
+		left join EntityRelation usg on usg.ern_child_ent_id = usr_ent_id and usg.ern_type = 'USR_PARENT_USG' and usg.ern_parent_ind = 1
+		left join UserGroup on usg_ent_id = usg.ern_ancestor_ent_id
+		left join EntityRelation ugr on ugr.ern_child_ent_id = usr_ent_id and ugr.ern_type = 'USR_CURRENT_UGR' and ugr.ern_parent_ind = 1
+		left join UserGrade on ugr_ent_id = ugr.ern_ancestor_ent_id
+		<!-- 关注情况 -->
+		<if test="snsAttention != null">
+			left join sns_attention my_att on my_att.s_att_source_uid = #{snsAttention.s_att_source_uid} and my_att.s_att_target_uid = #{snsAttention.s_att_target_uid}
+			left join sns_attention he_att on he_att.s_att_source_uid = #{snsAttention.s_att_target_uid} and he_att.s_att_target_uid = #{snsAttention.s_att_source_uid}
+		</if>
+		where usr_ent_id = ${usr_ent_id}
+		<if test="usr_pwd != null and usr_pwd != ''">
+			and usr_pwd = #{usr_pwd}
+		</if>
+	</select>
+	<select id="checkUserExist" resultType="RegUser" parameterType="RegUser">
+		select 
+			usr_ste_usr_id
+		from regUser
+		where usr_ste_usr_id = #{usr_ste_usr_id}
+	</select>
+	<select id="checkUserNameCount" resultType="Long" parameterType="RegUser">
+		SELECT count(*) FROM Reguser
+    						  WHERE lower(usr_ste_usr_id) =  #{usr_ste_usr_id}
+	</select>
+	
+	<select id="isUserExist" resultType="Boolean" parameterType="String">
+		select 
+			count(usr_ent_id)
+		from regUser
+		where usr_ste_usr_id = #{_parameter} and (usr_status = 'OK' or usr_status = 'SYS')
+	</select>
+	
+	<select id="selectLastLoginTime" resultType="java.sql.Timestamp" parameterType="Long">
+		SELECT usr_last_login_date FROM RegUser 
+            WHERE usr_ent_id = #{userEntId}
+	</select>
+	
+	<select id="getLoginId" resultType="String" parameterType="Long">
+		SELECT usr_ste_usr_id FROM RegUser 
+            WHERE usr_ent_id = #{userEntId}
+	</select>
+	
+	<resultMap type="com.cwn.wizbank.entity.vo.UserVo" id="UserVo">
+		<result column="usr_ent_id" property="usr_ent_id"/>
+		<result column="usr_ste_usr_id" property="usr_login_id"/>
+		<result column="usr_display_bil" property="usr_name"/>
+		<result column="usr_pwd" property="usr_pwd"/>
+		<result column="urx_extra_41" property="usr_qq"/>
+		<result column="usr_email" property="usr_email"/>
+		<result column="usr_tel_1" property="usr_phone"/>
+		<result column="usr_gender" property="usr_sex"/>
+		<result column="usr_status" property="usr_del_ind"/>
+		<result column="usg_ent_id" property="usg_ent_id"/>
+	</resultMap>
+	
+	<select id="getUserList" parameterType="Params" resultMap="UserVo">
+		SELECT 
+		DISTINCT(usr_ent_id)
+		,usr_ste_usr_id
+		,usr_display_bil
+		,usr_pwd
+		,urx_extra_41
+		,usr_email
+		,usr_tel_1
+		,usr_gender
+		,(case when usr_status = 'DELETED' then 'Y' else 'N' end ) usr_status
+		,usg_ent_id 
+		FROM regUser
+			INNER JOIN RegUserExtension on urx_usr_ent_id = usr_ent_id 
+			INNER JOIN entity on ent_id = usr_ent_id 
+			INNER JOIN EntityRelation on ent_id = ern_child_ent_id and ern_type = 'USR_PARENT_USG'
+			INNER JOIN UserGroup on usg_ent_id = ern_ancestor_ent_id
+		<if test="params.eip_code != null and params.eip_code != ''">
+			INNER JOIN tcTrainingCenterTargetEntity on tce_ent_id = usg_ent_id
+			INNER JOIN EnterpriseInfoPortal on tce_tcr_id = eip_tcr_id
+		</if>
+		where usr_status != 'PENDING'
+		<if test="params.eip_code != null and params.eip_code != ''">
+			and eip_code = #{params.eip_code}
+		</if>
+		<if test="params.last_update != null">AND usr_upd_date &gt; #{params.last_update}</if>
+	</select>
+	
+	<select id="selectUserGroups" resultType="UserGroup" parameterType="Long">SELECT 
+			usg_ent_id
+		FROM regUser 
+			INNER JOIN RegUserExtension on urx_usr_ent_id = usr_ent_id 
+			INNER JOIN entity on ent_id = usr_ent_id 
+			INNER JOIN EntityRelation on ent_id = ern_child_ent_id and ern_type = 'USR_PARENT_USG'
+			INNER JOIN UserGroup on usg_ent_id = ern_ancestor_ent_id
+			where usr_ent_id = #{usr_ent_id}
+	</select>
+	
+	<insert id="insertUserVo" parameterType="com.cwn.wizbank.entity.vo.UserVo">
+    	<![CDATA[
+            insert into RegUser(
+            		usr_ent_id,
+            		usr_pwd,
+            		usr_email,
+            		usr_email_2,
+            		usr_full_name_bil,
+            		usr_initial_name_bil,
+            		usr_last_name_bil,
+            		usr_first_name_bil,
+            		usr_display_bil,
+            		usr_gender,
+            		usr_bday,
+            		usr_hkid,
+            		usr_other_id_no,
+            		usr_other_id_type,
+            		usr_tel_1,
+            		usr_tel_2,
+            		usr_fax_1,
+            		usr_country_bil,
+            		usr_postal_code_bil,
+            		usr_state_bil,
+            		usr_address_bil,
+            		usr_class,
+            		usr_class_number,
+            		usr_signup_date,
+            		usr_last_login_role,
+            		usr_last_login_date,
+            		usr_status,
+            		usr_upd_date,
+            		usr_ste_ent_id,
+            		usr_ste_usr_id,
+            		usr_extra_1,
+            		usr_cost_center,
+            		usr_login_trial,
+            		usr_login_status,
+            		usr_remark_xml,
+            		usr_extra_2,
+            		usr_extra_3,
+            		usr_extra_4,
+            		usr_extra_5,
+            		usr_extra_6,
+            		usr_extra_7,
+            		usr_extra_8,
+            		usr_extra_9,
+            		usr_extra_10,
+            		usr_approve_usr_id,
+            		usr_approve_timestamp,
+            		usr_approve_reason,
+            		usr_pwd_need_change_ind,
+            		usr_pwd_upd_timestamp,
+            		usr_syn_rol_ind,
+            		usr_not_syn_gpm_type,
+            		usr_join_datetime,
+            		usr_job_title,
+            		usr_app_approval_usg_ent_id,
+            		usr_source,
+            		usr_nickname,
+            		usr_choice_tcr_id,
+            		usr_weixin_id
+            ) values (
+            	#{usr_ent_id,jdbcType=INTEGER},
+            	#{usr_pwd,jdbcType=VARCHAR},
+            	#{usr_email,jdbcType=VARCHAR},
+            	#{usr_email_2,jdbcType=VARCHAR},
+            	#{usr_full_name_bil,jdbcType=VARCHAR},
+            	#{usr_initial_name_bil,jdbcType=VARCHAR},
+            	#{usr_last_name_bil,jdbcType=VARCHAR},
+            	#{usr_first_name_bil,jdbcType=VARCHAR},
+            	#{usr_display_bil,jdbcType=VARCHAR},
+            	#{usr_gender,jdbcType=VARCHAR},
+            	#{usr_bday,jdbcType=DATE},
+            	#{usr_hkid,jdbcType=VARCHAR},
+            	#{usr_other_id_no,jdbcType=VARCHAR},
+            	#{usr_other_id_type,jdbcType=VARCHAR},
+            	#{usr_tel_1,jdbcType=VARCHAR},
+            	#{usr_tel_2,jdbcType=VARCHAR},
+            	#{usr_fax_1,jdbcType=VARCHAR},
+            	#{usr_country_bil,jdbcType=VARCHAR},
+            	#{usr_postal_code_bil,jdbcType=VARCHAR},
+            	#{usr_state_bil,jdbcType=VARCHAR},
+            	#{usr_address_bil,jdbcType=VARCHAR},
+            	#{usr_class,jdbcType=VARCHAR},
+            	#{usr_class_number,jdbcType=VARCHAR},
+            	#{usr_signup_date,jdbcType=DATE},
+            	#{usr_last_login_role,jdbcType=VARCHAR},
+            	#{usr_last_login_date,jdbcType=DATE},
+            	#{usr_status,jdbcType=VARCHAR},
+            	#{usr_upd_date,jdbcType=DATE},
+            	#{usr_ste_ent_id,jdbcType=INTEGER},
+            	#{usr_ste_usr_id,jdbcType=VARCHAR},
+            	#{usr_extra_1,jdbcType=VARCHAR},
+            	#{usr_cost_center,jdbcType=VARCHAR},
+            	#{usr_login_trial,jdbcType=INTEGER},
+            	#{usr_login_status,jdbcType=VARCHAR},
+            	#{usr_remark_xml,jdbcType=VARCHAR},
+            	#{usr_extra_2,jdbcType=VARCHAR},
+            	#{usr_extra_3,jdbcType=VARCHAR},
+            	#{usr_extra_4,jdbcType=VARCHAR},
+            	#{usr_extra_5,jdbcType=VARCHAR},
+            	#{usr_extra_6,jdbcType=VARCHAR},
+            	#{usr_extra_7,jdbcType=VARCHAR},
+            	#{usr_extra_8,jdbcType=VARCHAR},
+            	#{usr_extra_9,jdbcType=VARCHAR},
+            	#{usr_extra_10,jdbcType=VARCHAR},
+            	#{usr_approve_usr_id,jdbcType=VARCHAR},
+            	#{usr_approve_timestamp,jdbcType=DATE},
+            	#{usr_approve_reason,jdbcType=VARCHAR},
+            	#{usr_pwd_need_change_ind,jdbcType=INTEGER},
+            	#{usr_pwd_upd_timestamp,jdbcType=DATE},
+            	#{usr_syn_rol_ind,jdbcType=INTEGER},
+            	#{usr_not_syn_gpm_type,jdbcType=VARCHAR},
+            	#{usr_join_datetime,jdbcType=DATE},
+            	#{usr_job_title,jdbcType=VARCHAR},
+            	#{usr_app_approval_usg_ent_id,jdbcType=INTEGER},
+            	#{usr_source,jdbcType=VARCHAR},
+            	#{usr_nickname,jdbcType=VARCHAR},
+            	#{usr_choice_tcr_id,jdbcType=INTEGER},
+            	#{usr_weixin_id,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>
+    
+	<update id="delByLoginId" parameterType="String">
+		update regUser set usr_status = 'DELETED' where usr_ste_usr_id = #{_parameter}
+	</update>
+	
+	
+	<select id="getInstructors"  parameterType="Page" resultType="RegUser">
+		select 
+			distinct usr_ent_id,
+			usg_display_bil,
+			usr_display_bil,
+			ugr_display_bil,
+			urx_extra_43 as "usr_photo",
+			<if test="params.instrOnly != null and params.instrOnly == true">
+				iti_level,
+			</if>
+			t.score as "iti_score"
+		from tcTrainingCenter
+		inner join tcTrainingCenterTargetEntity on (tce_tcr_id = tcr_id)
+		left join EntityRelation gpg on gpg.ern_ancestor_ent_id = tce_ent_id and gpg.ern_type = 'USG_PARENT_USG'
+		left join EntityRelation usg on (usg.ern_ancestor_ent_id = tce_ent_id or usg.ern_ancestor_ent_id = gpg.ern_child_ent_id) and usg.ern_type = 'USR_PARENT_USG' and usg.ern_parent_ind = 1
+		left join UserGroup on usg_ent_id = usg.ern_ancestor_ent_id
+		left join RegUser on usr_ent_id = usg.ern_child_ent_id and usr_status = 'OK' 
+		left join EntityRelation ugr on ugr.ern_child_ent_id = usr_ent_id and ugr.ern_type = 'USR_CURRENT_UGR' and ugr.ern_parent_ind = 1
+		left join UserGrade on ugr_ent_id = ugr.ern_ancestor_ent_id
+		left join RegUserExtension on urx_usr_ent_id = usr_ent_id
+		<if test="params.instrOnly != null and params.instrOnly == true">
+			inner join InstructorInf on iti_ent_id = usr_ent_id
+		</if>
+		left join (select itc_ent_id, AVG(itc_interaction_score + itc_quality_score + itc_structure_score + itc_style_score) score from InstructorComment group by itc_ent_id) t on t.itc_ent_id = usr_ent_id
+		where 1=1 and usr_ent_id is not null 
+		<if test="params.tcrId != null and params.tcrId > 0">
+			and tcr_id = #{params.tcrId}
+		</if>
+		<if test="params.searchContent != null and params.searchContent != ''">
+			and (
+				lower(usr_display_bil) like lower(N'%${params.searchContent}%') 
+				or lower(usr_ste_usr_id) like lower(N'%${params.searchContent}%') 
+				or lower(usg_display_bil) like lower(N'%${params.searchContent}%') 
+				or lower(ugr_display_bil) like lower(N'%${params.searchContent}%')
+			)
+		</if>
+	</select>
+	
+	<select id="getUserByIds" resultType="RegUser" >
+        select 
+			usr_ent_id,
+			usr_display_bil
+		from RegUser
+		where usr_ent_id in
+		<foreach collection="list" item="entId" index="index"
+            open="(" close=")" separator=",">
+            #{entId}
+        </foreach> 
+	</select>
+	
+	   <select id="getUserBySteId" resultType="RegUser" parameterType="String">
+        select 
+            *
+        from RegUser
+        where usr_ste_usr_id = #{_parameter} and (usr_status = 'OK' or usr_status = 'SYS')
+    </select>
+	
+
+	<select id="getActiveUserCount" resultType="Long">
+		select COUNT(cau_usr_ent_id) cnt from CurrentActiveUser
+	</select>
+	
+	<select id="getAllUserCount" resultType="Long">
+		select COUNT(usr_ent_id) cnt from regUser
+	</select>
+
+	<select id="findUserList" resultType="RegUser" parameterType="Page">
+	    select usr_ent_id , usr_display_bil , usg_display_bil , ugr_display_bil, urx_extra_43 as "usr_photo"
+	    
+		from regUser usr
+		
+		left join RegUserExtension usrX on usrX.urx_usr_ent_id = usr.usr_ent_id
+		left join EntityRelation userGroupRelation on usr_ent_id = userGroupRelation.ern_child_ent_id and userGroupRelation.ern_type = 'USR_PARENT_USG' and userGroupRelation.ern_parent_ind = 1
+		left join UserGroup grup on grup.usg_ent_id = userGroupRelation.ern_ancestor_ent_id
+		left join EntityRelation userGradeRelation on userGradeRelation.ern_child_ent_id = usr.usr_ent_id and userGradeRelation.ern_type = 'USR_CURRENT_UGR' and userGradeRelation.ern_parent_ind = 1
+		left join UserGrade grade on userGradeRelation.ern_ancestor_ent_id = grade.ugr_ent_id
+		where usr_status = 'OK' 
+		<if test="params.cfgTcEnabled != null and params.cfgTcEnabled == true">
+			and grup.usg_ent_id in 
+				(
+				 select ern_child_ent_id from EntityRelation usg_id where ern_type = 'USG_PARENT_USG'
+				 	and usg_id.ern_ancestor_ent_id in (select tce_ent_id from tcTrainingCenterTargetEntity tcte1 
+				 	where tcte1.tce_tcr_id = ${params.tcp_id})
+				 union (select tce_ent_id ern_child_ent_id from tcTrainingCenterTargetEntity tcte2 
+				 	where tcte2.tce_tcr_id = ${params.tcp_id})
+				 )
+		</if>
+		<if test="params.search_name != null and params.search_name != ''">
+			and  
+			(
+				lower(usr_display_bil) like #{params.search_name}
+				or lower(usr_ste_usr_id) like #{params.search_name}
+				or lower(usg_display_bil) like #{params.search_name}
+				or lower(ugr_display_bil) like #{params.search_name}
+			)
+		</if>
+		
+	</select>
+
+	<update id="changeStatus" parameterType="Map">
+		UPDATE RegUser SET 
+             usr_status = #{usr_status} ,
+             usr_upd_date = #{usr_upd_date}
+             WHERE usr_ent_id = #{usr_ent_id}
+	</update>
+	
+	<update id="updateForDel" parameterType="Map">
+		Update Entity set ent_delete_usr_id = #{usr_id}, 
+		ent_delete_timestamp = #{ent_delete_timestamp}
+		where ent_id = #{usr_ent_id}
+	</update>
+	
+	<select id="getRegUserCountByTcrId" resultType="Long" parameterType="Map">
+		select COUNT(*) from RegUser
+ 					where usr_status = 'OK' 
+ 					and usr_ent_id in
+				  (
+					select ern_child_ent_id from EntityRelation where ern_type = 'USR_PARENT_USG'
+					and ern_ancestor_ent_id in
+					                        (
+												select tce_ent_id from tcTrainingCenterTargetEntity where tce_tcr_id in
+																			(
+																				select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{tcrId}
+																			)or
+																			tce_tcr_id = #{tcrId}
+					                        )
+				  )
+				  <if test="type != null"><!-- 如果不为空，则选择使用APP或者微信的用户，需要连接APIToken -->
+				  	and usr_ent_id in (select atk_usr_ent_id from APIToken where atk_developer_id = #{type})
+				  </if>
+		
+	</select>
+	
+	<select id="getDelUptAffectUsr" parameterType="Map" resultType="RegUser">
+		select usr_ste_usr_id,usr_display_bil,usg_display_bil from UserPosition 
+					inner join UserPositionRelation on upr_upt_id = upt_id 
+					 inner join reguser on usr_ent_id = upr_usr_ent_id 
+				 inner join entityrelation on ern_child_ent_id = usr_ent_id and ern_type = 'USR_PARENT_USG' and ern_parent_ind = 1 
+				  inner join UserGroup  on usg_ent_id = ern_ancestor_ent_id
+				where upt_id in (${ids})
+	</select>
+	
+	<select id="getLastLoginDate" parameterType="Long" resultType="java.sql.Timestamp" >
+		SELECT usr_last_login_date FROM RegUser WHERE usr_ent_id = #{usr_ent_id}
+	</select>
+	
+	<select id="selectUsrPwdNeedChangeInd" parameterType="Long" resultType="Boolean">
+		SELECT usr_pwd_need_change_ind FROM RegUser WHERE usr_ent_id = #{usr_ent_id}
+	</select>
+	
+	<select id="selectUsrPwdUpdTimestamp" parameterType="Long" resultType="java.sql.Timestamp">
+		SELECT usr_pwd_upd_timestamp FROM RegUser WHERE usr_ent_id = #{usr_ent_id}
+	</select>
+	
+	<select id="getPageUserByGroupId" resultType="RegUser" parameterType="Page">
+		SELECT 
+			u.usr_ent_id , u.usr_ste_usr_id , g.usg_display_bil , g.usg_ent_id , u.usr_display_bil 
+		from 
+			RegUser u , 
+			UserGroup g ,
+			EntityRelation ern 
+		where       
+			ern.ern_type = 'USR_PARENT_USG' 
+			and u.usr_ent_id = ern.ern_child_ent_id
+			and g.usg_ent_id = ern.ern_ancestor_ent_id 
+			and u.usr_status = 'OK'
+			<choose>
+			  <when test="params.selGroupId != null and params.selGroupId != 0 ">
+			     and (g.usg_ent_id = ${params.selGroupId} 
+			 	 or (
+			 		g.usg_ent_id in 
+			 			(select ern_child_ent_id from EntityRelation where ern_ancestor_ent_id = ${params.selGroupId} and ern_type = 'USG_PARENT_USG')
+				 	)
+				)and ern_parent_ind = 1
+			  </when>
+			  <otherwise>
+			     and g.usg_ent_id  in( 
+			      <choose>
+	                 <when test="params.is_role_tc_ind !=null and params.is_role_tc_ind != true">
+	                    <!-- 角色与培训中心无关 --> 
+	                    select ern_child_ent_id from EntityRelation where ern_ancestor_ent_id in(
+							select tce_ent_id from tcTrainingCenterTargetEntity where tce_tcr_id = #{params.my_top_tc_id} ) and ern.ern_parent_ind = 1 and ern_type='USG_PARENT_USG'    
+	                   </when>
+	                   <otherwise>
+	                    select ern_child_ent_id from EntityRelation where (ern_ancestor_ent_id in(
+							select tce_ent_id from tcTrainingCenterTargetEntity,tcTrainingCenterOfficer where tce_tcr_id = tco_tcr_id 
+							and  tco_usr_ent_id = #{params.usr_ent_id}
+							and tco_rol_ext_id = #{params.current_role}
+							<!-- 二级培训中心是否独立 -->
+							<if test="params.tc_independent == true">
+								and ( tce_tcr_id in( select tcn_child_tcr_id from tcrelation where tcn_ancestor = #{params.my_top_tc_id} ) 
+							      or tce_tcr_id = #{params.my_top_tc_id})
+							</if>
+							)
+							<!-- 包含当前一级目录 -->
+							or ern_child_ent_id  in (
+							  select tce_ent_id from tcTrainingCenterTargetEntity,tcTrainingCenterOfficer where tce_tcr_id = tco_tcr_id 
+								and  tco_usr_ent_id = #{params.usr_ent_id}
+								and tco_rol_ext_id = #{params.current_role}
+								<!-- 二级培训中心是否独立 -->
+								<if test="params.tc_independent == true">
+									and ( tce_tcr_id in( select tcn_child_tcr_id from tcrelation where tcn_ancestor = #{params.my_top_tc_id} ) 
+								      or tce_tcr_id = #{params.my_top_tc_id})
+								</if>
+							) 
+							
+							)and ern.ern_parent_ind = 1 and ern_type='USG_PARENT_USG'
+	                   </otherwise>
+	                </choose>
+			     )
+			  </otherwise>
+			</choose>
+			<if test="params.showSubordinateInd != null and params.showSubordinateInd == true">
+			 and u.usr_ent_id in (
+	               select 
+	                  supervise.ern_child_ent_id
+	               from 
+	                  superviseTargetEntity 
+	                  inner join EntityRelation supervise on supervise.ern_ancestor_ent_id = spt_target_ent_id 
+	                  and spt_type = 'SUPERVISE'
+	                  and supervise.ern_type = 'USR_PARENT_USG'
+	                  and spt_source_usr_ent_id =  #{params.usr_ent_id}
+	                  
+					union 
+		               select 
+		                  spt_target_ent_id
+		               from 
+		                  superviseTargetEntity 
+		               where 
+		               	  spt_type = 'DIRECT_SUPERVISE'
+		                  and spt_source_usr_ent_id =  #{params.usr_ent_id}
+			)
+			and u.usr_ent_id != #{params.usr_ent_id}
+			</if>  
+			<if test="params.search_name != null and params.search_name != '' ">
+			and lower(usr_ste_usr_id) like lower(N'%${params.search_name}%')
+			</if>
+	</select>
+		
+	<select id="getUserInfoByGroupOrUserId"  resultMap="getUserOtherInfo">
+	 select usr_ent_id,usr_ste_usr_id,usr_pwd,usr_display_bil,usr_nickname,usr_gender,usr_bday,usr_email,usr_tel_1,
+        usr_fax_1,usr_extra_2,urx_extra_41,usr_weixin_id,usr_job_title,usr_join_datetime,urx_extra_datetime_11,
+        urx_extra_44 ,urx_extra_45 ,upt_code,
+        en.ent_ste_uid as usr_app_approval_usg_code
+	 from regUser
+	 inner join RegUserExtension  on urx_usr_ent_id = usr_ent_id
+	 left join UserPositionRelation on upr_usr_ent_id = usr_ent_id
+	 left join  UserPosition on upt_id = upr_upt_id
+	 left join Entity  en
+	   on en.ent_type = 'USG' and en.ent_id = usr_app_approval_usg_ent_id
+	 where usr_status = 'OK' and (
+	      <choose>
+            <when test="(usrlist!=null and  usrlist.size!=0) and (usglist==null or usglist.size==0)">
+                 usr_ent_id in 
+			     <foreach collection="usrlist" item="usrEntId" index="index"
+		            open="(" close=")" separator=",">
+		            #{usrEntId}
+		         </foreach>  
+            </when>	      
+	        <when test="(usglist!=null and  usglist.size!=0) and (usrlist==null or usrlist.size==0)">
+	           usr_ent_id in ( 
+	             select ern_child_ent_id from EntityRelation where ern_ancestor_ent_id in
+			    <foreach collection="usglist" item="usgEntId" index="index"
+		            open="(" close=")" separator=",">
+		            #{usgEntId}
+		        </foreach>
+		       and ern_type='USR_PARENT_USG')
+	        </when>
+	        <when test="(usrlist!=null and  usrlist.size!=0) and (usglist!=null and  usglist.size!=0)">
+	            usr_ent_id in 
+			     <foreach collection="usrlist" item="usrEntId" index="index"
+		            open="(" close=")" separator=",">
+		            #{usrEntId}
+		         </foreach>
+		         
+		         or(
+		          
+		        usr_ent_id in ( 
+	             select ern_child_ent_id from EntityRelation where ern_ancestor_ent_id in
+			    <foreach collection="usglist" item="usgEntId" index="index"
+		            open="(" close=")" separator=",">
+		            #{usgEntId}
+		        </foreach>
+		         and ern_type='USR_PARENT_USG') )
+	        </when>
+	        <otherwise>
+	           usr_ent_id in (
+	                <choose>
+	                   <when test="is_role_tc_ind !=null and is_role_tc_ind != true">
+	                    <!-- 角色与培训中心无关 --> 
+	                    select ern_child_ent_id from EntityRelation where ern_ancestor_ent_id in(
+							select tce_ent_id from tcTrainingCenterTargetEntity where tce_tcr_id = #{my_top_tc_id} ) and ern_type='USR_PARENT_USG'    
+	                   </when>
+	                   <otherwise>
+	                    select ern_child_ent_id from EntityRelation where ern_ancestor_ent_id in(
+							select tce_ent_id from tcTrainingCenterTargetEntity,tcTrainingCenterOfficer where tce_tcr_id = tco_tcr_id 
+							and  tco_usr_ent_id = #{usr_ent_id}
+							and tco_rol_ext_id = #{current_role}
+							<!-- 二级培训中心是否独立 -->
+							<if test="tc_independent == true">
+								and ( tce_tcr_id in( select tcn_child_tcr_id from tcrelation where tcn_ancestor = #{my_top_tc_id} ) 
+							      or tce_tcr_id = #{my_top_tc_id})
+							</if>
+							)  and ern_type='USR_PARENT_USG'
+	                   </otherwise>
+	                </choose>
+					)
+           </otherwise>
+	      </choose>
+        )
+	 
+	</select>
+	
+	<resultMap id="getUserOtherInfo" type="RegUser">
+	    <id column="usr_ent_id" property="usr_ent_id"/>
+		<collection property="acRole" column="{id = usr_ent_id }" ofType="AcFunction" select="getUserRole"/>
+		<collection property="regUser" column="{id = usr_ent_id }" ofType="RegUser" select="getUserDirectSupervisors"/>
+		<collection property="userGroup" column="{id = usr_ent_id }" ofType="UserGroup" select="getUserSupervisedGroups"/>
+	</resultMap>
+	
+	<select id="getUserRole" resultType="AcRole" parameterType="Map">
+	   select rol_ste_uid from acRole where  rol_id in (select erl_rol_id from acEntityRole where erl_ent_id = #{id}) and rol_ste_uid is not null and rol_status = 'OK'
+	</select>
+	
+	<select id="getUserDirectSupervisors" resultType="RegUser" parameterType="Map">
+	    select usr_ste_usr_id from RegUser where usr_ent_id in
+       (select spt_source_usr_ent_id from SuperviseTargetEntity where spt_type = 'DIRECT_SUPERVISE' and spt_target_ent_id = #{id})
+	</select>
+	
+	<select id="getUserSupervisedGroups" resultType="UserGroup" parameterType="Map">
+	   select ent_ste_uid as usg_code from Entity where ent_type = 'USG' and ent_id in 
+       (select spt_target_ent_id from SuperviseTargetEntity where spt_type = 'SUPERVISE' and spt_source_usr_ent_id = #{id})
+	</select>
+	
+	<select id="getUgrAndUsgByUsrId" resultType="java.util.HashMap">
+	   select 
+           ugr_code as CODE,ERN_CHILD_ENT_ID,'UGR' as TYPE 
+        from EntityRelation ,usergrade 
+           where  ern_ancestor_ent_id = ugr_ent_id and ern_type = 'USR_CURRENT_UGR' and   ern_parent_ind = 1
+        group by ugr_code,ern_child_ent_id
+           union 
+        select 
+           ent_ste_uid as CODE,ERN_CHILD_ENT_ID ,'USG' as TYPE 
+        from EntityRelation,Entity 
+           where  ern_ancestor_ent_id = ent_id and ern_type = 'USR_PARENT_USG' and ern_parent_ind = 1 
+        group by ent_ste_uid,ern_child_ent_id
+	</select>
+	
+    <select id="findUserListForCpdExcel" resultType="RegUser" parameterType="Map">
+        SELECT 
+            u.usr_ent_id , u.usr_ste_usr_id , g.usg_display_bil , g.usg_ent_id , u.usr_display_bil ,upt_title as ugr_display_bil 
+        from 
+            RegUser u 
+            inner join EntityRelation ern on u.usr_ent_id = ern.ern_child_ent_id
+            inner join UserGroup g on g.usg_ent_id = ern.ern_ancestor_ent_id 
+            <if test="ct_id != null ">
+            inner join cpdRegistration cr on cr.cr_usr_ent_id = u.usr_ent_id  and cr.cr_ct_id = #{ct_id} and cr.cr_status = 'OK' 
+             <!--and cr.cr_reg_datetime  BETWEEN  #{period_start_time} and #{period_end_time}-->
+            </if>
+            left join userPositionRelation on  upr_usr_ent_id = usr_ent_id
+            left join userPosition on upt_id =  upr_upt_id  
+        where			 	      
+            ern.ern_type = 'USR_PARENT_USG' 
+            and ern_parent_ind = 1
+            and u.usr_status = 'OK'
+            <if test="ct_id != null ">
+            and (
+                 select count(1) from cpdGroupRegistration cgr inner join cpdGroupRegHours on cgrh_cgr_id = cgr_id 
+                where cgr_cr_id = cr.cr_id and cgrh_cgr_period = #{period} 
+                and cgr_status = 'OK'
+                <if test="period_end_time != null"> 
+                     and  ( cgr_expiry_date >  #{period_end_time}   or cgr_expiry_date is null )
+                </if>
+             )  >0
+            </if>
+            and g.usg_ent_id  in( 
+                  <choose>
+                     <when test="is_role_tc_ind !=null and is_role_tc_ind != true">
+                        <!-- 角色与培训中心无关 --> 
+                        select ern_child_ent_id from EntityRelation where ern_ancestor_ent_id in(
+                            select tce_ent_id from tcTrainingCenterTargetEntity where tce_tcr_id = #{my_top_tc_id} ) and ern.ern_parent_ind = 1 and ern_type='USG_PARENT_USG'    
+                       </when>
+                       <otherwise>
+                        select ern_child_ent_id from EntityRelation where (ern_ancestor_ent_id in(
+                            select tce_ent_id from tcTrainingCenterTargetEntity,tcTrainingCenterOfficer where tce_tcr_id = tco_tcr_id 
+                            and  tco_usr_ent_id = #{usr_ent_id}
+                            and tco_rol_ext_id = #{current_role}
+                            <!-- 二级培训中心是否独立 -->
+                            <if test="tc_independent == true">
+                                and ( tce_tcr_id in( select tcn_child_tcr_id from tcrelation where tcn_ancestor = #{my_top_tc_id} ) 
+                                  or tce_tcr_id = #{my_top_tc_id})
+                            </if>
+                            )
+                            <!-- 包含当前一级目录 -->
+                            or ern_child_ent_id  in (
+                              select tce_ent_id from tcTrainingCenterTargetEntity,tcTrainingCenterOfficer where tce_tcr_id = tco_tcr_id 
+                                and  tco_usr_ent_id = #{usr_ent_id}
+                                and tco_rol_ext_id = #{current_role}
+                                <!-- 二级培训中心是否独立 -->
+                                <if test="tc_independent == true">
+                                    and ( tce_tcr_id in( select tcn_child_tcr_id from tcrelation where tcn_ancestor = #{my_top_tc_id} ) 
+                                      or tce_tcr_id = #{my_top_tc_id})
+                                </if>
+                            ) 
+                            
+                            )and ern.ern_parent_ind = 1 and ern_type='USG_PARENT_USG'
+                       </otherwise>
+                    </choose>
+                 )
+
+             
+             and u.usr_ent_id in (
+             <choose>
+                     <when test="supervise !=null "><!-- 查询所有下属 -->
+                   select 
+                      supervise.ern_child_ent_id
+                   from 
+                      superviseTargetEntity 
+                      inner join EntityRelation supervise on supervise.ern_ancestor_ent_id = spt_target_ent_id 
+                      and spt_type = 'SUPERVISE'
+                      and supervise.ern_type = 'USR_PARENT_USG'
+                      and spt_source_usr_ent_id =  #{usr_ent_id}
+                      union
+                      select 
+                          spt_target_ent_id
+                       from 
+                          superviseTargetEntity 
+                       where 
+                          spt_type = 'DIRECT_SUPERVISE'
+                          and spt_source_usr_ent_id =  #{usr_ent_id}
+                       union
+                       select usr_ent_id from RegUser where usr_ent_id = #{usr_ent_id}
+                      </when>
+                       <otherwise><!-- 只查询直属下属 -->
+                       select 
+                          spt_target_ent_id
+                       from 
+                          superviseTargetEntity 
+                       where 
+                          spt_type = 'DIRECT_SUPERVISE'
+                          and spt_source_usr_ent_id =  #{usr_ent_id}
+                       union
+                       select usr_ent_id from RegUser where usr_ent_id = #{usr_ent_id}
+                    </otherwise>
+                    </choose>                    
+            )
+            <!--and u.usr_ent_id !=  #{usr_ent_id}-->
+        
+        	Order by usr_ent_id asc
+    </select>
+    
+    
+     <select id="findUserListForCpdExcelHistory" resultType="RegUser" parameterType="Map">
+        SELECT 
+            u.usr_ent_id , u.usr_ste_usr_id , g.usg_display_bil , g.usg_ent_id , u.usr_display_bil ,upt_title as ugr_display_bil 
+        from 
+            RegUser u 
+            inner join EntityRelation ern on u.usr_ent_id = ern.ern_child_ent_id
+            inner join UserGroup g on g.usg_ent_id = ern.ern_ancestor_ent_id 
+            <if test="ct_id != null ">
+            inner join cpdGroupRegHoursHistory cghi on cghi.cghi_usr_ent_id = u.usr_ent_id  and cghi.cghi_ct_id = #{ct_id}
+            </if>
+            left join userPositionRelation on  upr_usr_ent_id = usr_ent_id
+            left join userPosition on upt_id =  upr_upt_id  
+        where                     
+            ern.ern_type = 'USR_PARENT_USG' 
+            and ern_parent_ind = 1
+            and u.usr_status = 'OK'
+            <if test="ct_id != null ">
+            and (
+                 select count(1) from cpdGroupRegistration cgr inner join cpdGroupRegHours on cgrh_cgr_id = cgr_id 
+                where cgr_cg_id = cghi.cghi_cg_id and  cgr_usr_ent_id = cghi.cghi_usr_ent_id  and cgrh_cgr_period = #{period}  
+                and cgr_status = 'OK'
+                <if test="period_end_time != null"> 
+                     and  ( cgr_expiry_date >  #{period_end_time}   or cgr_expiry_date is null )
+                </if>
+             )  >0
+            </if>
+            and g.usg_ent_id  in( 
+                  <choose>
+                     <when test="is_role_tc_ind !=null and is_role_tc_ind != true">
+                        <!-- 角色与培训中心无关 --> 
+                        select ern_child_ent_id from EntityRelation where ern_ancestor_ent_id in(
+                            select tce_ent_id from tcTrainingCenterTargetEntity where tce_tcr_id = #{my_top_tc_id} ) and ern.ern_parent_ind = 1 and ern_type='USG_PARENT_USG'    
+                       </when>
+                       <otherwise>
+                        select ern_child_ent_id from EntityRelation where (ern_ancestor_ent_id in(
+                            select tce_ent_id from tcTrainingCenterTargetEntity,tcTrainingCenterOfficer where tce_tcr_id = tco_tcr_id 
+                            and  tco_usr_ent_id = #{usr_ent_id}
+                            and tco_rol_ext_id = #{current_role}
+                            <!-- 二级培训中心是否独立 -->
+                            <if test="tc_independent == true">
+                                and ( tce_tcr_id in( select tcn_child_tcr_id from tcrelation where tcn_ancestor = #{my_top_tc_id} ) 
+                                  or tce_tcr_id = #{my_top_tc_id})
+                            </if>
+                            )
+                            <!-- 包含当前一级目录 -->
+                            or ern_child_ent_id  in (
+                              select tce_ent_id from tcTrainingCenterTargetEntity,tcTrainingCenterOfficer where tce_tcr_id = tco_tcr_id 
+                                and  tco_usr_ent_id = #{usr_ent_id}
+                                and tco_rol_ext_id = #{current_role}
+                                <!-- 二级培训中心是否独立 -->
+                                <if test="tc_independent == true">
+                                    and ( tce_tcr_id in( select tcn_child_tcr_id from tcrelation where tcn_ancestor = #{my_top_tc_id} ) 
+                                      or tce_tcr_id = #{my_top_tc_id})
+                                </if>
+                            ) 
+                            
+                            )and ern.ern_parent_ind = 1 and ern_type='USG_PARENT_USG'
+                       </otherwise>
+                    </choose>
+                 )
+
+             
+             and u.usr_ent_id in (
+             <choose>
+                     <when test="supervise !=null "><!-- 查询所有下属 -->
+                   select 
+                      supervise.ern_child_ent_id
+                   from 
+                      superviseTargetEntity 
+                      inner join EntityRelation supervise on supervise.ern_ancestor_ent_id = spt_target_ent_id 
+                      and spt_type = 'SUPERVISE'
+                      and supervise.ern_type = 'USR_PARENT_USG'
+                      and spt_source_usr_ent_id =  #{usr_ent_id}
+                      union
+                      select 
+                          spt_target_ent_id
+                       from 
+                          superviseTargetEntity 
+                       where 
+                          spt_type = 'DIRECT_SUPERVISE'
+                          and spt_source_usr_ent_id =  #{usr_ent_id}
+                       union
+                       select usr_ent_id from RegUser where usr_ent_id = #{usr_ent_id}
+                      </when>
+                       <otherwise><!-- 只查询直属下属 -->
+                       select 
+                          spt_target_ent_id
+                       from 
+                          superviseTargetEntity 
+                       where 
+                          spt_type = 'DIRECT_SUPERVISE'
+                          and spt_source_usr_ent_id =  #{usr_ent_id}
+                       union
+                       select usr_ent_id from RegUser where usr_ent_id = #{usr_ent_id}
+                    </otherwise>
+                    </choose>                    
+            )
+            <!--and u.usr_ent_id !=  #{usr_ent_id}-->
+        
+            Order by usr_ent_id asc
+    </select>
+    
+    
+    <select id="findUserListForCpdExcelTa" resultType="RegUser" parameterType="Map">
+        select * from RegUser where 
+             usr_status = 'OK'
+             and usr_ent_id in(
+                    <choose>
+                         <when test="exportUser == 0 "><!-- 全部用户-->
+                                    select ern_child_ent_id 
+                                    from EntityRelation 
+                                    where 
+                                        ern_ancestor_ent_id in(
+                                        select tce_ent_id 
+                                        from  
+                                            tcTrainingCenterOfficer ,
+                                            tcTrainingCenterTargetEntity  
+                                        where 1 = 1
+                                            and tco_tcr_id = tce_tcr_id
+                                            and tco_usr_ent_id =#{usr_ent_id}
+                                            and tco_rol_ext_id =#{current_role}
+                                            and (
+                                                    tce_tcr_id in( select tcn_child_tcr_id from tcrelation where tcn_ancestor= #{my_top_tc_id} ) 
+                                                    or tce_tcr_id = #{my_top_tc_id}
+                                                )
+                                        )
+                
+                         </when>
+                         <otherwise><!-- 指定用户组 -->
+                             select ern_child_ent_id
+                                from 
+                                    UserGroup , EntityRelation  
+                                where 
+                                    (usg_ent_id = ern_ancestor_ent_id or usg_ent_id = ern_child_ent_id)
+                                    And ern_type = 'USR_PARENT_USG'
+                                    AND usg_ent_id in 
+                                    <foreach collection="exportGroupIds" item="item" index="index" 
+                                        open="(" separator="," close=")">
+                                        ${item}
+                                    </foreach>
+                        </otherwise>
+                    </choose>            
+          )              
+    </select>
+    
+    <select id="findUserListByIds" resultType="RegUser" parameterType="Map">
+        SELECT 
+            u.usr_ent_id , u.usr_ste_usr_id , g.usg_display_bil , g.usg_ent_id , u.usr_display_bil ,upt_title as ugr_display_bil 
+        from 
+            RegUser u 
+            inner join EntityRelation ern on u.usr_ent_id = ern.ern_child_ent_id
+            inner join UserGroup g on g.usg_ent_id = ern.ern_ancestor_ent_id 
+            inner join cpdRegistration cr on cr.cr_usr_ent_id = u.usr_ent_id  and cr.cr_status = 'OK' 
+            <if test="ct_id != null">
+             and cr.cr_usr_ent_id = u.usr_ent_id  and cr.cr_ct_id = #{ct_id} 
+             <!--and cr.cr_reg_datetime BETWEEN  #{period_start_time} and #{period_end_time}-->
+            </if>
+            left join userPositionRelation on  upr_usr_ent_id = usr_ent_id
+            left join userPosition on upt_id =  upr_upt_id  
+        where       
+            ern.ern_type = 'USR_PARENT_USG' 
+            and ern_parent_ind =1
+            and u.usr_status = 'OK'
+            
+            <if test="ct_id != null ">
+            and (
+                 select count(1) from cpdGroupRegistration cgr inner join cpdGroupRegHours on cgrh_cgr_id = cgr_id 
+                where cgr_cr_id = cr.cr_id and cgrh_cgr_period = #{period} 
+                and cgr_status = 'OK'
+                <if test="period_end_time != null"> 
+                     and  ( cgr_expiry_date >  #{period_end_time}   or cgr_expiry_date is null )
+                </if>
+             )  >0
+            </if>
+            <if test="(usrlist!=null and  usrlist.size!=0)">
+               and  usr_ent_id in 
+			     <foreach collection="usrlist" item="item" index="index"
+		            open="(" close=")" separator=",">
+		            #{item}
+		         </foreach>  
+            </if>	    
+        	Order by usr_ent_id asc
+    </select>
+    
+        <select id="findUserListByIdsHistory" resultType="RegUser" parameterType="Map">
+        SELECT 
+            u.usr_ent_id , u.usr_ste_usr_id , g.usg_display_bil , g.usg_ent_id , u.usr_display_bil ,upt_title as ugr_display_bil 
+        from 
+            RegUser u 
+            inner join EntityRelation ern on u.usr_ent_id = ern.ern_child_ent_id
+            inner join UserGroup g on g.usg_ent_id = ern.ern_ancestor_ent_id 
+            inner join cpdGroupRegHoursHistory cghi on cghi.cghi_usr_ent_id = u.usr_ent_id
+            <if test="ct_id != null">
+             and cghi.cghi_ct_id = #{ct_id}
+            </if>
+            left join userPositionRelation on  upr_usr_ent_id = usr_ent_id
+            left join userPosition on upt_id =  upr_upt_id  
+        where       
+            ern.ern_type = 'USR_PARENT_USG' 
+            and ern_parent_ind =1
+            and u.usr_status = 'OK'
+            <if test="ct_id != null ">
+            and (
+                 select count(1) from cpdGroupRegistration cgr inner join cpdGroupRegHours on cgrh_cgr_id = cgr_id 
+                where cgr_cg_id = cghi.cghi_cg_id and  cgr_usr_ent_id = cghi.cghi_usr_ent_id  and cgrh_cgr_period = #{period}  
+                and cgr_status = 'OK'
+                <if test="period_end_time != null"> 
+                     and  ( cgr_expiry_date >  #{period_end_time}   or cgr_expiry_date is null )
+                </if>
+             )  >0
+            </if>
+            <if test="(usrlist!=null and  usrlist.size!=0)">
+               and  usr_ent_id in 
+                 <foreach collection="usrlist" item="item" index="index"
+                    open="(" close=")" separator=",">
+                    #{item}
+                 </foreach>  
+            </if>       
+            Order by usr_ent_id asc
+    </select>
+    
+    <select id="findUserCpdRegListById" resultType="RegUser" parameterType="Map">
+         SELECT 
+            u.usr_ent_id , u.usr_ste_usr_id ,  u.usr_display_bil 
+        from 
+            RegUser u 
+            inner join cpdRegistration cr on cr.cr_usr_ent_id = u.usr_ent_id  and cr.cr_status = 'OK' 
+            and cr.cr_ct_id = #{ct_id} 
+        where       
+            u.usr_status = 'OK'
+            and (
+                 select count(1) from cpdGroupRegistration cgr inner join cpdGroupRegHours on cgrh_cgr_id = cgr_id 
+                where cgr_cr_id = cr.cr_id and cgrh_cgr_period =#{period} 
+                and cgr_status = 'OK'
+                     and  ( cgr_expiry_date > #{period_end_time}   or cgr_expiry_date is null )
+             )  >0
+             and  usr_ent_id = #{usr_ent_id} 
+    </select>
+    
+      <select id="findUserCpdRegListByIdHistory" resultType="RegUser" parameterType="Map">
+         SELECT 
+            u.usr_ent_id , u.usr_ste_usr_id ,  u.usr_display_bil 
+        from 
+            RegUser u 
+            inner join cpdGroupRegHoursHistory cghi on cghi.cghi_usr_ent_id = u.usr_ent_id  and cghi.cghi_ct_id = #{ct_id}
+        where       
+            u.usr_status = 'OK'
+            and (
+                 select count(1) from cpdGroupRegistration cgr inner join cpdGroupRegHours on cgrh_cgr_id = cgr_id 
+                where  cgr_cg_id = cghi.cghi_cg_id and  cgr_usr_ent_id = cghi.cghi_usr_ent_id  and cgrh_cgr_period = #{period}  
+                and cgr_status = 'OK'
+                     and  ( cgr_expiry_date > #{period_end_time}   or cgr_expiry_date is null )
+             )  >0
+             and  usr_ent_id = #{usr_ent_id} 
+    </select>
+    
+    <select id="findUserListForCpdTa" resultType="RegUser" parameterType="Map">
+        select 
+        	distinct u.usr_ent_id , u.usr_ste_usr_id , g.usg_display_bil , g.usg_ent_id , u.usr_display_bil ,upt_title as ugr_display_bil  
+        from 
+        	RegUser u
+     	    inner join EntityRelation ern on u.usr_ent_id = ern.ern_child_ent_id
+            inner join UserGroup g on g.usg_ent_id = ern.ern_ancestor_ent_id 
+            left join userPositionRelation on  upr_usr_ent_id = usr_ent_id
+            left join userPosition on upt_id =  upr_upt_id  
+            inner join cpdRegistration cr on cr.cr_usr_ent_id = u.usr_ent_id
+        where 
+             usr_status = 'OK'
+             and ern_parent_ind =1
+             and cr.cr_ct_id = #{ctId}
+             and cr_status = 'OK'  
+             and (
+            	 select count(1) from cpdGroupRegistration cgr inner join cpdGroupRegHours on cgrh_cgr_id = cgr_id 
+             	where cgr_cr_id = cr.cr_id and cgrh_cgr_period = #{period} 
+             	and cgr_status = 'OK'
+             	<if test="cpdEndTime != null"> 
+             		 and  ( cgr_expiry_date >  #{cpdEndTime}   or cgr_expiry_date is null )
+             	</if>
+             )  >0
+             and 
+                  <choose>
+                  	<when test="exportUser == 1 "><!-- 指定用户-->
+                  		usr_ent_id in
+					     <foreach collection="usrIds" item="item" index="index"
+				            open="(" close=")" separator=",">
+				            #{item}
+				         </foreach>  
+                  	</when>
+                      <when test="exportUser == 2 "><!-- 用户组-->
+                      	usr_ent_id in(
+                        	select ern_child_ent_id
+                           from 
+                               UserGroup , EntityRelation  
+                           where 
+                               (usg_ent_id = ern_ancestor_ent_id or usg_ent_id = ern_child_ent_id)
+                               And ern_type = 'USR_PARENT_USG'
+                               AND usg_ent_id in 
+                               <foreach collection="groupIds" item="item" index="index" 
+                                   open="(" separator="," close=")">
+                                   ${item}
+                               </foreach>
+              			)
+                       </when>
+                       <otherwise><!-- 全部用户 -->
+                       	usr_ent_id in(
+							select ern_child_ent_id 
+							from EntityRelation 
+							where 
+								ern_ancestor_ent_id in(
+								select tce_ent_id 
+								from  
+								<if test="isRoleTcInd != null and isRoleTcInd == true">
+									tcTrainingCenterOfficer ,
+								</if>
+									tcTrainingCenterTargetEntity  
+								where 1 = 1
+								<if test="isRoleTcInd != null and isRoleTcInd == true">
+									and tco_tcr_id = tce_tcr_id
+									and tco_usr_ent_id = #{userEntId}
+									and tco_rol_ext_id = #{userRole}
+								</if>
+								<if test="myTopTcId != null"> 
+									and (
+										tce_tcr_id in(
+												select tcn_child_tcr_id from tcrelation where tcn_ancestor= #{myTopTcId}
+										) 
+										or tce_tcr_id = #{myTopTcId}
+									)
+								</if>  
+								)
+						)
+                      </otherwise>
+                  </choose>            
+                  order by usr_ste_usr_id  asc    
+    </select>
+
+        <select id="findsuperviseForCpdExcel" resultType="RegUser" parameterType="Map">
+        SELECT 
+            u.usr_ent_id , u.usr_ste_usr_id , g.usg_display_bil , g.usg_ent_id , u.usr_display_bil ,upt_title as ugr_display_bil 
+        from 
+            RegUser u 
+            inner join EntityRelation ern on u.usr_ent_id = ern.ern_child_ent_id
+            inner join UserGroup g on g.usg_ent_id = ern.ern_ancestor_ent_id 
+            left join userPositionRelation on  upr_usr_ent_id = usr_ent_id
+            left join userPosition on upt_id =  upr_upt_id  
+        where       
+            ern.ern_type = 'USR_PARENT_USG' 
+            and u.usr_status = 'OK'
+            and g.usg_ent_id  in( 
+                  <choose>
+                     <when test="is_role_tc_ind !=null and is_role_tc_ind != true">
+                        <!-- 角色与培训中心无关 --> 
+                        select ern_child_ent_id from EntityRelation where ern_ancestor_ent_id in(
+                            select tce_ent_id from tcTrainingCenterTargetEntity where tce_tcr_id = #{my_top_tc_id} ) and ern.ern_parent_ind = 1 and ern_type='USG_PARENT_USG'    
+                       </when>
+                       <otherwise>
+                        select ern_child_ent_id from EntityRelation where (ern_ancestor_ent_id in(
+                            select tce_ent_id from tcTrainingCenterTargetEntity,tcTrainingCenterOfficer where tce_tcr_id = tco_tcr_id 
+                            and  tco_usr_ent_id = #{usr_ent_id}
+                            and tco_rol_ext_id = #{current_role}
+                            <!-- 二级培训中心是否独立 -->
+                            <if test="tc_independent == true">
+                                and ( tce_tcr_id in( select tcn_child_tcr_id from tcrelation where tcn_ancestor = #{my_top_tc_id} ) 
+                                  or tce_tcr_id = #{my_top_tc_id})
+                            </if>
+                            )
+                            <!-- 包含当前一级目录 -->
+                            or ern_child_ent_id  in (
+                              select tce_ent_id from tcTrainingCenterTargetEntity,tcTrainingCenterOfficer where tce_tcr_id = tco_tcr_id 
+                                and  tco_usr_ent_id = #{usr_ent_id}
+                                and tco_rol_ext_id = #{current_role}
+                                <!-- 二级培训中心是否独立 -->
+                                <if test="tc_independent == true">
+                                    and ( tce_tcr_id in( select tcn_child_tcr_id from tcrelation where tcn_ancestor = #{my_top_tc_id} ) 
+                                      or tce_tcr_id = #{my_top_tc_id})
+                                </if>
+                            ) 
+                            
+                            )and ern.ern_parent_ind = 1 and ern_type='USG_PARENT_USG'
+                       </otherwise>
+                    </choose>
+                 )
+
+             
+             and u.usr_ent_id in (
+                       select 
+                          spt_target_ent_id
+                       from 
+                          superviseTargetEntity 
+                       where 
+                          spt_type = 'DIRECT_SUPERVISE'
+                          and spt_source_usr_ent_id =  #{usr_ent_id}
+                           
+            )
+            <choose>
+                         <when test="usrIdArray!= null  and  usrIdArray.length>0">
+                             and 
+                             <foreach collection="usrIdArray" item="item" open="(" separator="or" close=")">
+                               u.usr_ent_id   =   #{item}
+                             </foreach>
+                         </when>
+                         <otherwise>
+                              and u.usr_ent_id = null;
+                        </otherwise>
+            </choose>
+            and u.usr_ent_id !=  #{usr_ent_id}
+        
+            Order by usr_ent_id asc
+    </select>
+    
+    <select id="findUserListForCpdHistoryTa" resultType="RegUser" parameterType="Map">
+        select 
+        	distinct u.usr_ent_id , u.usr_ste_usr_id , g.usg_display_bil , g.usg_ent_id , u.usr_display_bil ,upt_title as ugr_display_bil  
+        from 
+        	RegUser u
+     	    inner join EntityRelation ern on u.usr_ent_id = ern.ern_child_ent_id
+            inner join UserGroup g on g.usg_ent_id = ern.ern_ancestor_ent_id 
+            left join userPositionRelation on  upr_usr_ent_id = usr_ent_id
+            left join userPosition on upt_id =  upr_upt_id  
+            inner join cpdGroupRegHoursHistory cghi on cghi.cghi_usr_ent_id = u.usr_ent_id
+        where 
+             usr_status = 'OK'
+             and ern_parent_ind =1
+             and cghi.cghi_ct_id = #{ctId}
+             and (
+            	 select count(1) from cpdGroupRegistration cgr inner join cpdGroupRegHours on cgrh_cgr_id = cgr_id 
+             	where cgr_cg_id = cghi.cghi_cg_id and  cgr_usr_ent_id = cghi.cghi_usr_ent_id  and cgrh_cgr_period = #{period}  
+             	and cgr_status = 'OK'  
+             	<if test="cpdEndTime != null"> 
+             		 and  ( cgr_expiry_date >  #{cpdEndTime}   or cgr_expiry_date is null )
+             	</if>
+             )  >0
+             and 
+                  <choose>
+                  	<when test="exportUser == 1 "><!-- 指定用户-->
+                  		usr_ent_id in
+					     <foreach collection="usrIds" item="item" index="index"
+				            open="(" close=")" separator=",">
+				            #{item}
+				         </foreach>  
+                  	</when>
+                      <when test="exportUser == 2 "><!-- 用户组-->
+                      	usr_ent_id in(
+                        	select ern_child_ent_id
+                           from 
+                               UserGroup , EntityRelation  
+                           where 
+                               (usg_ent_id = ern_ancestor_ent_id or usg_ent_id = ern_child_ent_id)
+                               And ern_type = 'USR_PARENT_USG'
+                               AND usg_ent_id in 
+                               <foreach collection="groupIds" item="item" index="index" 
+                                   open="(" separator="," close=")">
+                                   ${item}
+                               </foreach>
+              			)
+                       </when>
+                       <otherwise><!-- 全部用户 -->
+                       	usr_ent_id in(
+							select ern_child_ent_id 
+							from EntityRelation 
+							where 
+								ern_ancestor_ent_id in(
+								select tce_ent_id 
+								from  
+								<if test="isRoleTcInd != null and isRoleTcInd == true">
+									tcTrainingCenterOfficer ,
+								</if>
+									tcTrainingCenterTargetEntity  
+								where 1 = 1
+								<if test="isRoleTcInd != null and isRoleTcInd == true">
+									and tco_tcr_id = tce_tcr_id
+									and tco_usr_ent_id = #{userEntId}
+									and tco_rol_ext_id = #{userRole}
+								</if>
+								<if test="myTopTcId != null"> 
+									and (
+										tce_tcr_id in(
+												select tcn_child_tcr_id from tcrelation where tcn_ancestor= #{myTopTcId}
+										) 
+										or tce_tcr_id = #{myTopTcId}
+									)
+								</if>  
+								)
+						)
+                      </otherwise>
+                  </choose>            
+                  order by usr_ste_usr_id  asc    
+    </select>
+
+</mapper>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html ng-app="KeyPositionModule">
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+		<title translate="cwn_title"></title>
+		<link rel="stylesheet" href="../../css/basic.css" />
+		<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.load.js"></script>
+		<script type="text/javascript" src="../../js/controllers/KeyPositionController/KeyPositionController.js"></script>
+		<script type="text/javascript" src="../../lib/common.js"></script>
+	</head>
+
+	<body ng-cloak class="ng-cloak" ng-controller="listController">
+	  <alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>
+	  <!-- wrap start -->
+	  <div class="wrap mm-page">
+	  
+	  	<!-- header start -->
+		 <header class="header mm-background">
+            <a class="header-back" href="javascript:back()"></a>
+            <span class="header-title" ng-bind="'map_position_learning' | translate"></span>
+        </header>
+	    <!-- header end -->
+		 
+		 <wzm-docker rp="../../"></wzm-docker>
+		 
+		 <!-- section start -->
+		 <section class="content-2">
+		 	 <!-- 上方banner start -->
+		 	 <div class="list-pic-8">
+                <img src="../../images/bg04.jpg" alt="" class="list-pic-8-img">
+                <div class="number-1" style="float:left;">
+                    <span class="s-border-1"></span>
+                    <span class="s-border-2"></span>
+                    <span class="s-border-3"></span>
+                    <span class="s-border-4"></span>
+                    <i class="number-1-1">{{keyPositionCount}}<i class="number-1-2">个</i></i>
+                </div>
+
+                <div class="bg-5">
+                    <img src="../../images/t101.png" alt="">
+                </div>
+                <div class="bg-6">
+                    <img src="../../images/t102.png" alt="">
+                </div>
+
+                <img src="../../images/bg11.png" alt="" class="list-pic-8-er">
+             </div>
+             <!-- 上方banner end -->	
+             
+             <!-- 当前用户岗位介绍 start -->
+             <div class="bg-8">
+                <div class="tuwen-list-5 clearfix">
+                    <a class="tuwen-list-5-pic" href="JavaScript:void(0)">
+                        <img alt="" ng-src="{{serverHost}}{{user.usr_photo}}">
+                    </a>
+                    <div class="tuwen-list-5-box">
+                        <p style="font-size:16px;" ng-bind="user.usr_display_bil" ng-style="{'line-height':(myPosition ? '28px' : '54px')}"></p>
+                        <p class="wenzi-3" ng-bind="myPosition"></p>
+                    </div>
+                </div>
+             </div>
+             <!-- 当前用户岗位介绍 end -->
+             
+             <!-- 系数较高的岗位列表 start -->
+             <ul class="panel-list-1-13 clearfix" ng-show="positionList && positionList.length > 0">
+                <li ng-repeat="p in positionList" ng-click="toDetail(p.enc_upc_id,p.enc_upt_id)">
+                    <a class="panel-list-1-13-cont" href="javascript:void(0)" title="">
+                        <div class="list-pic-13">
+                            <img ng-src="{{serverHost + p.abs_img}}" alt="">
+                            <div class="bg-9">
+                                <i ng-bind="p.upt_title"></i>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+             </ul>
+             <!-- 系数较高的岗位列表 end -->
+             
+             <!-- 岗位类型列表 start -->
+             <ul class="panel-title-23 clearfix" ng-show="positionCatalogList && positionCatalogList.length > 0">
+                <li ng-repeat="c in positionCatalogList" ng-click="toDetail(c.enc_upc_id)">
+                	<p ng-bind="c.upc_title"></p><em></em>
+                </li>
+             </ul>
+             <!-- 岗位类型列表 end -->
+             		    
+		 </section>
+		 <!-- section end -->
+		 
+	  </div>
+	  <!-- wrap end -->
+	</body>
+</html>

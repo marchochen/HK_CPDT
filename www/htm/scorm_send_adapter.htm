@@ -1,0 +1,75 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Pragma" contect="no-cache">
+<title>Cyberwisdom wizBank</title>
+<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
+function CheckSendVar(){
+	window.parent.doSCORMInit();
+}
+
+
+
+//------------------------------------------------------------------
+function getURlPair(varName,urlStr){
+	if(varName!=""&&varName!=null&&typeof(varName)!="undefined"&&urlStr!=""&&urlStr!=null&&typeof(urlStr)!="undefined"){
+		var idx1=varName.length;
+		varName=varName+"=";
+		var idx2=urlStr.indexOf(varName);
+		if(idx2>=0&&(idx2+idx1)<urlStr.length){
+		    var valueStr="";
+			var idx3=urlStr.indexOf("&",idx2+idx1);
+			if(idx3>=0){
+				valueStr=urlStr.substring(idx2+idx1+1,idx3);
+			}else{
+				valueStr=urlStr.substring(idx2+idx1+1);
+			}
+			return unescape(valueStr);
+		}else{
+			return "";
+		}
+	}else{
+		return "";
+	}
+}
+function putSubmitDate(){
+alert("putSubmitDate")
+	//document.getElementById("scorm_Adapter_form").submit();
+}
+function submitRecord(){
+	//debug info:alert("submit recode："+window.frames["sendAdapter"].document.getElementById("AICC_Data").value)
+	if(document.getElementById("AICC_Data").value!=""){
+		setTimeout("putSubmitDate()",2000); 
+	}else{
+		alert("AICC_Data= null")
+	}
+}
+
+function doSCORMInit(){
+	document.getElementById("command").value="PutParam";
+	document.getElementById("version").value="2.2";
+	document.getElementById("session_id").value=window.parent.my_aicc_sid;
+	document.getElementById("AU_password").value="";
+	document.getElementById("scorm_Adapter_form").action=window.parent.my_aicc_url;
+	window.parent.putToSendAdapter();
+}
+
+
+
+</SCRIPT>
+</head>
+<body onLoad="javascript:doSCORMInit()">
+<form name="scorm_Adapter_form" id="scorm_Adapter_form" method="post" action="" style="height:auto">
+  <p>
+    <label>
+      <input name="command" type="text" id="command"/>
+      <input type="text" name="version" id="version"/>
+      <input type="text" name="session_id" id="session_id"/>
+      <textarea name="AICC_Data" rows="8" id="AICC_Data"></textarea>
+      <input type="text" name="AU_password" id="AU_password"/>
+      <input type="text" name="type" id="type" value="scorm"/>
+    </label>
+  </p>
+</form>
+</body>
+</html>

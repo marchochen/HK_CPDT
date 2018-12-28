@@ -1,0 +1,173 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Browser Configuration Check</title>
+<script language="JavaScript" src="../../../js/deployJava.js"></script>
+<script language="JavaScript" src="../utils.js"></script>
+<script language="JavaScript" src="../../../js/urlparam.js"></script>
+<script type="text/javascript" language="Javascript">
+	
+var cekItem = getUrlParam('cekItem');
+	
+var MsgOK = '<font color="green"><b>OK!</b></font>';
+var MsgNG = '<font color="red"><b>Failed!</b></font>';
+
+var Msg = new Array(
+    new Array(
+        MsgNG + ' You are not using a supported browser. '
+        ,''
+        ,MsgOK + ' You are using a supported browser.'
+    )
+    ,
+    new Array(
+        ''
+        ,''
+        ,MsgOK + ' Your browser allows Javascript.'
+    )
+    ,
+    new Array(
+        MsgNG + ' Your browser does not allow Cookies. '
+        ,''
+        ,MsgOK + ' Your browser allows Cookies.'
+    )
+    ,
+    new Array(
+        MsgNG + ' Your browser does not allow Popup windows. '
+        ,''
+        ,MsgOK + ' Your browser allows Popup windows.'
+    )
+    ,
+    new Array(
+        MsgNG + ' You need to install a Flash Player. '
+        ,MsgNG + ' You need to update your Flash Player.'
+        ,MsgOK + ' Your browser is using a supported Flash Player.'
+    )
+    ,
+    new Array(
+        MsgNG + ' You need to install a Java Plug-in.'
+        ,MsgNG + ' You need to update your Java Plug-in.'
+        ,MsgOK + ' Your browser is using a suppported Java Plug-in.'
+    )
+)
+</script>
+</head>
+
+<body onload="showEachClientCheckResult(cekItem)">
+	<table width="100%">
+		<tr>
+			<td><h3>Browser Configuration Check</h3></td>
+			<td align="right">
+				<b>English</b>&nbsp;
+				<a href="../zh-cn/index.htm"><font size="-1">简体中文</font></a>
+				<a href="../zh-hk/index.htm"><font size="-1">繁體中文</font></a>
+			</td>
+		</tr>
+	</table>
+	<table border="1" cellpadding="5" width="100%">
+		<tr>
+			<td>
+				<br/>
+				<!--   check list -->
+				<table>
+					<tr style="display:none" id="browser_"><td width="20"></td><td>Browser: </td><td><span id="browser_check">Checking...</span></td></tr>
+					<noscript><tr id="js_"><td width="20"></td><td>Javascript: </td><td><span id="js_check">Checking...</span><font color="red"><b>Failed!</b></font> You browser does not allow Javascript. </td></tr></noscript>
+					<tr style="display:none" id="cookies_"><td width="20"></td><td>Cookies: </td><td><span id="cookie_check">Checking...</span></td></tr>
+					<tr style="display:none" id="popup_"><td width="20"></td><td>Popup Windows: </td><td><span id="popup_check">Checking...</span></td></tr>
+					<tr style="display:none" id="flash_"><td width="20"></td><td>Flash Player: </td><td><span id="flash_check">Checking...</span></td></tr>
+					<tr style="display:none" id="jre_"><td width="20"></td><td>Java Plug-in: </td><td><span id="flash_check">Checking...</span></td></tr>
+					<tr style="display:none" id="all_ok"><td>Check <font color="green"><b>OK!</b></font> You can go ahead and enjoy the e-Learning system.</td></tr>
+				</table>
+				<table>
+					<!-- browser -->
+					<tr style="display:none" id="browser_detail">
+						<td width="20"></td>
+						<td>
+							Please use Internet Explorer 6.0 or later, to visit the e-Learning system.<br>If you are using an old version of Internet Explorer, please go to <a href="http://windowsupdate.microsoft.com/" target="_blank">Windows Update</a> to update.
+							<br/><br/>
+							<a href="index.htm">Check again</a>
+							<br/>
+						</td>
+					</tr>
+					<!-- js -->
+					<noscript>
+						<tr id="js_detail">
+							<td width="20"></td>
+							<td>
+								<ol>
+									<li>In the browser, go to Tools &gt; Internet Options &gt; Security &gt; Internet &gt; Custom Level</li>
+									<li>Go to the section "Scripting" as shown below<br><img src="01.gif"></li>
+									<li>Make sure "Enable" of "Active scripting" is checked</li>
+								</ol>
+								<br/><a href="index.htm">Check again</a><br/><br/>
+							</td>
+						</tr>
+					</noscript>
+					<!-- cookies -->
+					<tr style="display:none" id="cookies_detail">
+						<td width="20"></td>
+						<td>
+							<ol>
+								<li>In the browser, go to Tools &gt; Internet Options &gt; Privacy &gt; Advanced</li>
+								<li>Make sure "Override automatic cookie handling" is unchecked as shown below<br><img src="02.gif"></li>
+							</ol>
+							<br/><a href="index.htm">Check again</a><br/><br/>
+						</td>
+					</tr>
+					<!-- pop window -->
+					<tr style="display:none" id="popup_detail">
+						<td width="20"></td>
+						<td>
+							If your browser is preventing any popup windows, please disable it. Or if you have installed any tool to block popup windows, please disable it in the tool as well. E.g., if you are using Google Toolbar, click the button below<br><img src="03.gif"><br>If you see the following, that means it will allow popup windows<br><img src="04.gif">
+							<br/><br/>
+							<a href="index.htm">Check again</a><br/><br/>
+						</td>
+					</tr>
+					<!-- flash -->
+					<tr style="display:none" id="flash_detail">
+						<td width="20"></td>
+						<td>
+							Please use Flash Player 7 or later, to visit the e-Learning system.<br/>Please <a href="../install_flash_player_ax.exe" target="_blank">download Flash Player</a> and install.
+							<br/><br/>
+							<a href="index.htm">Check again</a><br/><br/>
+						</td>
+					</tr>
+					<!-- jre -->
+					<tr style="display:none" id="jre_detail">
+						<td width="20"></td>
+						<td>
+							<a name="javaplugin_install">Install Java Plug-in
+							    <ol type="a">
+							    <li>First, check to see if you have installed Java Plug-in:
+							        <ol type="i">
+							        <li>In the browser, go to Tools &gt; Internet Options &gt; Advanced</li>
+							        <li>Check to see if the section "Java (Sun)" is found as shown below<br><img src="05.gif"></li>
+							        <li>If the section is not found, follow step <b><i>b.</i></b> below to install Java Plug-in</li>
+							        <li>If the checkbox under "Java (Sun)" is not checked as shown above, please check it and restart your browser. Enter the e-Learning system again to see if you need to update the Java Plug-in</li>
+							        </ol>
+							    </li>
+							    <li>Follow the steps below to install:<br><i>(please note that you need to have administrative permissions of the operating system in order to perform the installation)</i>
+							        <ol type="i">
+							        <li><a href="../jre-1_5_0_02-windows-i586-p.exe">Download the Java Plug-in (15.2MB)</a></li>
+							        <li>Install the Java Plug-in</li>
+							        <li>Restart your browser and enter the e-Learning system again</li>
+							        </ol>
+							    </li>
+							    </ol>
+							<br/><a href="index.htm">Check again</a><br/><br/>
+							<a name="javaplugin_update">Update Java Plug-in<br>If you are using an old version of Java Plug-in, follow the steps below to update:<br><i>(please note that you need to have administrative permissions of the operating system in order to perform the installation)</i>
+							    <ol type="a">
+							    <li><a href="../jre-1_5_0_02-windows-i586-p.exe">Download the new Java Plug-in (15.2MB)</a></li>
+							    <li>In Control Panel &gt; Add/Remove Programs, remove the program "Java 2 Runtime Environment" or "J2SE Runtime Environment"</li>
+							    <li>Install the new Java Plug-in</li>
+							    <li>Restart your browser and enter the e-Learning system again</li>
+							    </ol>
+							<br/><a href="index.htm">Check again</a><br/><br/>
+						</td>
+					</tr>
+				</table>
+				<br/>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

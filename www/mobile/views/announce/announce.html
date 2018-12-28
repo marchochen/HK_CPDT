@@ -1,0 +1,54 @@
+<!doctype html>
+<html ng-app="announce">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/AnnounceController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="annController" style="background:#fff;">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+
+<div class="wrap" id="wizwrap">
+<header class="header mm-background">
+     <a class="header-back" href="javascript:;" ng-click="back();"></a>
+     <span class="header-title">{{'announce' | translate}}</span>
+     <a ng-show="!showDetail" class="header-sosuo-er" href="{{{url:'../search/search.html'} | appUrl}}" title="search"></a>
+</header> <!-- header End -->
+<wzm-docker rp="../../" ng-show="showList"></wzm-docker>
+<section class="content-2" ng-show="showList">
+<!-- <a class="panel-sou" href="{{{url:'../search/search.html'} | appUrl}}" title="search"><span class="sou-icon" translate="btn_search"></span>搜索</a> -->
+
+<div class="cont-info-title-6" style="padding: 4px 0 4px 13px;">{{"ann_result_count" | translate: {value : annList.totalRecord} }}</div>
+
+<div class="panel-list-box" style="margin-top:0;">
+<ul class="panel-list-1-2 list-icon-info">
+    <li ng-repeat="ann in annList.items" ng-click="lookDetail(ann.msg_id,ann.tcenter,ann)">
+          <a class="panel-list-title-1" href="javascript:;" title="">
+             <span class="{{!ann.curUserIsRead ? 'mcolor-font-size ': ''}}">{{ann.msg_title}}</span>
+             <div class="panel-list-time" >{{ann.msg_begin_date | toDate : 'yyyy-MM-dd HH:mm'}}</div>
+          </a>
+    </li>
+</ul>
+</div>
+<div loader="annList"></div>
+</section> <!-- content End -->
+
+<section class="content" ng-show="showDetail">
+<div class="cont-info" style="margin-top:0px;">
+	<h1 class="cont-info-title-1">{{annDetail.msg_title}}</h1>
+	<div class="cont-info-period"><span class="cont-info-right">{{annDetail.tcenter.tcr_title}}</span> {{annDetail.msg_begin_date | toDate : 'yyyy-MM-dd HH:mm'}}</div>     
+	<div class="cont-info-desc"  ng-swipe-left="showNear('next')" ng-swipe-right="showNear('prev')" ng-bind-html="annDetail.msg_body | htmlDecode"></div>     
+	<div class="panel-list-cont-12" style="padding-bottom: 10px;">
+	<a id="readBtn" class="{{isReceipted?'panel-box-btn-05':'panel-box-btn-02'}}  ng-scope" href="javascript:;" ng-click="insReceipt(isReceipted,annDetail.msg_id)" translate="ann_readed"  ng-if="annDetail.msg_receipt" ></a></div>
+</div>
+</section>
+</div> <!-- wrap End -->
+
+</body>
+</html>

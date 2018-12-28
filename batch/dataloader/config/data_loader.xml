@@ -1,0 +1,1208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data_loader xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="data_loader.xsd">
+	<param name="cur_time" value="2008-01-02 00:00:00"/>
+	<param name="min_time" value="1753-01-01 00:00:00"/>
+	<param name="max_time" value="9999-12-31 23:59:59"/>
+	<param name="ste_ent_id" value="1"/>
+	<param name="admin_usr_id" value="s1u3"/>
+	<param name="admin_usr_ent_id" value="3"/>
+	<param name="sys_usr_id" value="s1u4"/>
+	<param name="sys_usr_ent_id" value="4"/>
+	<param name="root_tcr_id" value="1"/>
+	<table_group name="usergroup" enabled="true" count="10">
+		<table name="Entity" identity="ent_id">
+			<column name="ent_id" order="1" start_value="8"/>
+			<column name="ent_type" order="2" value="USG"/>
+			<column name="ent_upd_date" order="3" type="date" value="$cur_time"/>
+			<column name="ent_ste_uid" order="5">
+				<part value="Group"/>
+				<part value="$ent_id"/>
+			</column>
+			<column name="ent_syn_ind" order="6" value="1"/>
+		</table>
+		<table name="UserGroup" has_foreign_key="true">
+			<column name="usg_ent_id" order="1" value="$ent_id"/>
+			<column name="usg_display_bil" order="4" value="$ent_ste_uid"/>
+			<column name="usg_ent_id_root" order="8" value="$ste_ent_id"/>
+		</table>
+		<table name="EntityRelation" has_foreign_key="true">
+			<column name="ern_child_ent_id" order="1" value="$ent_id"/>
+			<column name="ern_ancestor_ent_id" order="2" value="$ste_ent_id"/>
+			<column name="ern_order" order="3" value="1"/>
+			<column name="ern_type" order="4" value="USG_PARENT_USG"/>
+			<column name="ern_parent_ind" order="5" value="1"/>
+			<column name="ern_syn_timestamp" order="6" type="date" value="$cur_time"/>
+			<column name="ern_remain_on_syn" order="7" value="0"/>
+			<column name="ern_create_timestamp" order="8" type="date" value="$cur_time"/>
+			<column name="ern_create_usr_id" order="9" value="$admin_usr_id"/>
+		</table>
+	</table_group>
+	<table_group name="user" enabled="true" count="10000">
+		<table name="Entity" identity="ent_id">
+			<column name="ent_id" order="1" start_value="18"/>
+			<column name="ent_type" order="2" value="USR"/>
+			<column name="ent_upd_date" order="3" type="date" value="$cur_time"/>
+			<column name="ent_syn_ind" order="6" value="1"/>
+		</table>
+		<table name="RegUser" has_foreign_key="true">
+			<column name="usr_id" order="1">
+				<part value="s"/>
+				<part value="$ste_ent_id"/>
+				<part value="u"/>
+				<part value="$ent_id"/>
+			</column>
+			<column name="usr_ent_id" order="2" value="$ent_id"/>
+			<column name="usr_pwd" order="3" value="123"/>
+			<column name="usr_display_bil" order="10">
+				<part value="usr"/>
+				<part value="$ent_id"/>
+			</column>
+			<column name="usr_signup_date" order="25" type="date" value="$cur_time"/>
+			<column name="usr_last_login_date" order="27" type="date" value="$cur_time"/>
+			<column name="usr_status" order="28" value="OK"/>
+			<column name="usr_upd_date" order="29" type="date" value="$cur_time"/>
+			<column name="usr_ste_ent_id" order="30" value="$ste_ent_id"/>
+			<column name="usr_ste_usr_id" order="31">
+				<part value="usr"/>
+				<part value="$ent_id"/>
+			</column>
+			<column name="usr_approve_timestamp" order="47" type="date" value="$cur_time"/>
+			<column name="usr_pwd_upd_timestamp" order="50" type="date" value="$cur_time"/>
+			<column name="usr_syn_rol_ind" order="51" value="1"/>
+			<column name="usr_source" order="56" value="wizBank"/>
+			<column name="usr_nickname" order="57">
+				<part value="nickname"/>
+				<part value="$ent_id"/>
+			</column>
+		</table>
+		<table name="RegUserExtension" has_foreign_key="true">
+			<column name="urx_usr_ent_id" order="1" value="$ent_id"/>
+		</table>
+		<table name="acEntityRole" has_foreign_key="true">
+			<column name="erl_ent_id" order="1" value="$ent_id"/>
+			<column name="erl_rol_id" order="2" value="5"/>
+			<column name="erl_creation_timestamp" order="3" type="date" value="$cur_time"/>
+			<column name="erl_eff_start_datetime" order="5" type="date" value="$min_time"/>
+			<column name="erl_eff_end_datetime" order="6" type="date" value="$max_time"/>
+		</table>
+		<table name="EntityRelation" has_foreign_key="true">
+			<column name="ern_child_ent_id" order="1" value="$ent_id"/>
+			<column name="ern_ancestor_ent_id" order="2" value="$ste_ent_id"/>
+			<column name="ern_order" order="3" value="1"/>
+			<column name="ern_type" order="4" value="USR_PARENT_USG"/>
+			<column name="ern_parent_ind" order="5" value="0"/>
+			<column name="ern_syn_timestamp" order="6" type="date" value="$cur_time"/>
+			<column name="ern_remain_on_syn" order="7" value="0"/>
+			<column name="ern_create_timestamp" order="8" type="date" value="$cur_time"/>
+			<column name="ern_create_usr_id" order="9" value="$admin_usr_id"/>
+		</table>
+		<table name="EntityRelation" has_foreign_key="true">
+			<column name="ern_child_ent_id" order="1" value="$ent_id"/>
+			<column name="ern_ancestor_ent_id" order="2" start_value="8" next="1000"/>
+			<column name="ern_order" order="3" value="2"/>
+			<column name="ern_type" order="4" value="USR_PARENT_USG"/>
+			<column name="ern_parent_ind" order="5" value="1"/>
+			<column name="ern_syn_timestamp" order="6" type="date" value="$cur_time"/>
+			<column name="ern_remain_on_syn" order="7" value="0"/>
+			<column name="ern_create_timestamp" order="8" type="date" value="$cur_time"/>
+			<column name="ern_create_usr_id" order="9" value="$admin_usr_id"/>
+		</table>
+		<table name="EntityRelation" has_foreign_key="true">
+			<column name="ern_child_ent_id" order="1" value="$ent_id"/>
+			<column name="ern_ancestor_ent_id" order="2" value="5"/>
+			<column name="ern_order" order="3" value="1"/>
+			<column name="ern_type" order="4" value="USR_CURRENT_UGR"/>
+			<column name="ern_parent_ind" order="5" value="0"/>
+			<column name="ern_syn_timestamp" order="6" type="date" value="$cur_time"/>
+			<column name="ern_remain_on_syn" order="7" value="0"/>
+			<column name="ern_create_timestamp" order="8" type="date" value="$cur_time"/>
+			<column name="ern_create_usr_id" order="9" value="$admin_usr_id"/>
+		</table>
+		<table name="EntityRelation" has_foreign_key="true">
+			<column name="ern_child_ent_id" order="1" value="$ent_id"/>
+			<column name="ern_ancestor_ent_id" order="2" value="7"/>
+			<column name="ern_order" order="3" value="2"/>
+			<column name="ern_type" order="4" value="USR_CURRENT_UGR"/>
+			<column name="ern_parent_ind" order="5" value="1"/>
+			<column name="ern_syn_timestamp" order="6" type="date" value="$cur_time"/>
+			<column name="ern_remain_on_syn" order="7" value="0"/>
+			<column name="ern_create_timestamp" order="8" type="date" value="$cur_time"/>
+			<column name="ern_create_usr_id" order="9" value="$admin_usr_id"/>
+		</table>
+	</table_group>
+	<table_group name="resfolder" enabled="true" count="10">
+		<table name="Objective" has_foreign_key="true">
+			<column name="obj_id" order="1" start_value="1"/>
+			<column name="obj_syl_id" order="2" value="1"/>
+			<column name="obj_type" order="3" value="SYB"/>
+			<column name="obj_desc" order="4">
+				<part value="Folder"/>
+				<part value="$obj_id"/>
+			</column>
+			<column name="obj_status" order="10" value="OK"/>
+			<column name="obj_tcr_id" order="11" value="$root_tcr_id"/>
+		</table>
+		<table name="ObjectiveAccess" has_foreign_key="true">
+			<column name="oac_obj_id" order="1" value="$obj_id"/>
+			<column name="oac_access_type" order="2" value="OWNER"/>
+			<column name="oac_ent_id" order="3" value="$admin_usr_ent_id"/>
+		</table>
+	</table_group>
+	<table_group name="question" enabled="true" count="10000">
+		<table name="Resources" identity="res_id" has_foreign_key="true">
+			<column name="res_id" order="1" start_value="1"/>
+			<column name="res_title" order="3">
+				<part value="Que"/>
+				<part value="$res_id"/>
+			</column>
+			<column name="res_type" order="4" value="QUE"/>
+			<column name="res_subtype" order="5" value="MC"/>
+			<column name="res_difficulty" order="7" value="2"/>
+			<column name="res_privilege" order="9" value="CW"/>
+			<column name="res_usr_id_owner" order="10" value="$admin_usr_id"/>
+			<column name="res_status" order="14" value="ON"/>
+			<column name="res_create_date" order="15" type="date" value="$cur_time"/>
+			<column name="res_upd_user" order="16" value="$admin_usr_id"/>
+			<column name="res_upd_date" order="17" type="date" value="$cur_time"/>
+		</table>
+		<table name="ResourceObjective" has_foreign_key="true">
+			<column name="rob_res_id" order="1" value="$res_id"/>
+			<column name="rob_obj_id" order="2" start_value="1" next="1000"/>
+		</table>
+		<table name="Question" has_foreign_key="true">
+			<column name="que_res_id " order="1" value="$res_id"/>
+			<column name="que_xml" order="2" value="&lt;body>Question Body.&lt;interaction order=&quot;1&quot; type=&quot;MC&quot; score=&quot;1&quot; shuffle=&quot;N&quot; logic=&quot;SINGLE&quot;>&lt;option id=&quot;1&quot;>Option1&lt;/option>&lt;option id=&quot;2&quot;>Option2&lt;/option>&lt;option id=&quot;3&quot;>Option3&lt;/option>&lt;/interaction>&lt;/body>"/>
+			<column name="que_score" order="3" value="1"/>
+			<column name="que_type" order="4" value="MC"/>
+			<column name="que_int_count" order="5" value="1"/>
+			<column name="que_media_ind" order="7" value="0"/>
+			<column name="que_submit_file_ind" order="8" value="0"/>
+		</table>
+		<table name="Interaction" has_foreign_key="true">
+			<column name="int_res_id" order="1" value="$res_id"/>
+			<column name="int_order" order="2" value="1"/>
+			<column name="int_xml_outcome" order="4" value="&lt;outcome order=&quot;1&quot; type=&quot;MC&quot; score=&quot;1&quot; logic=&quot;SINGLE&quot;>&lt;feedback condition=&quot;1&quot; score=&quot;1&quot;/>&lt;feedback condition=&quot;2&quot;/>&lt;feedback condition=&quot;3&quot;/>&lt;/outcome>"/>
+			<column name="int_xml_explain" order="5" value="&lt;explanation order=&quot;1&quot; type=&quot;MC&quot;>&lt;rationale id=&quot;1&quot;>&lt;/rationale>&lt;rationale id=&quot;2&quot;>&lt;/rationale>&lt;rationale id=&quot;3&quot;>&lt;/rationale>&lt;/explanation>"/>
+		</table>
+	</table_group>
+	<!--培训:顶层目录-->
+	<table_group name="catalog" enabled="true" count="10">
+		<table name="aeCatalog" identity="cat_id" has_foreign_key="true">
+			<column name="cat_id" order="1" start_value="1"/>
+			<column name="cat_title" order="2">
+				<part value="catalogTitle"/>
+				<part value="$cat_id"/>
+			</column>
+			<column name="cat_public_ind" order="3" value="0"/>
+			<column name="cat_status" order="4" value="ON"/>
+			<column name="cat_owner_ent_id" order="5" value="$ste_ent_id"/>
+			<column name="cat_create_timestamp" order="6" type="date" value="$cur_time"/>
+			<column name="cat_create_usr_id" order="7" value="$admin_usr_id"/>
+			<column name="cat_update_timestamp" order="8" type="date" value="$cur_time"/>
+			<column name="cat_update_usr_id" order="9" value="$admin_usr_id"/>
+			<column name="cat_tcr_id" order="11" value="$root_tcr_id"/>
+		</table>
+		<table name="aeTreeNode" identity="tnd_id" has_foreign_key="true">
+			<column name="tnd_id" order="1" start_value="1"/>
+			<column name="tnd_title" order="2" value="$cat_title"/>
+			<column name="tnd_type" order="4" value="CATALOG"/>
+			<column name="tnd_itm_cnt" order="5" value="0"/>
+			<column name="tnd_on_itm_cnt" order="6" value="10"/>
+			<column name="tnd_cat_id" order="7" value="$cat_id"/>
+			<column name="tnd_create_timestamp" order="11" type="date" value="$cur_time"/>
+			<column name="tnd_create_usr_id" order="12" value="$admin_usr_id"/>
+			<column name="tnd_update_timestamp" order="13" type="date" value="$cur_time"/>
+			<column name="tnd_update_usr_id" order="14" value="$admin_usr_id"/>
+			<column name="tnd_desc" order="20">
+				<part value="tndDesc"/>
+				<part value="$tnd_id"/>
+			</column>
+			<column name="tnd_order" order="21" value="$cat_id"/>
+			<column name="tnd_owner_ent_id" order="22" value="$ste_ent_id"/>
+		</table>
+		<table name="aeCatalogAccess" identity="cac_id" has_foreign_key="true">
+			<column name="cac_ent_id" order="1" value="$ste_ent_id"/>
+			<column name="cac_cat_id" order="2" value="$cat_id"/>
+			<column name="cac_create_timestamp" order="3" type="date" value="$cur_time"/>
+			<column name="cac_create_usr_id" order="4" value="$admin_usr_id"/>
+			<column name="cac_id" order="5" start_value="1"/>
+		</table>
+		<table name="aeCatalogAccess" identity="cac_id" has_foreign_key="true">
+			<column name="cac_ent_id" order="1" value="$admin_usr_ent_id"/>
+			<column name="cac_cat_id" order="2" value="$cat_id"/>
+			<column name="cac_create_timestamp" order="3" type="date" value="$cur_time"/>
+			<column name="cac_create_usr_id" order="4" value="$admin_usr_id"/>
+			<column name="cac_id" order="5" start_value="11"/>
+		</table>
+	</table_group>
+	<!--培训:一级子目录(一个顶层目录下10子目录)-->
+	<table_group name="treenode" enabled="true" count="100">
+		<table name="aeTreeNode" identity="tnd_id" has_foreign_key="true">
+			<column name="tnd_id" order="1" start_value="11"/>
+			<column name="tnd_title" order="2">
+				<part value="tndTitle"/>
+				<part value="$tnd_id"/>
+			</column>
+			<column name="tnd_status" order="3" value="ON"/>
+			<column name="tnd_type" order="4" value="NORMAL"/>
+			<column name="tnd_itm_cnt" order="5" value="0"/>
+			<column name="tnd_on_itm_cnt" order="6" value="0"/>
+			<column name="tnd_cat_id" order="7" start_value="1" next="10"/><!-- from table_group catalog -->
+			<column name="tnd_parent_tnd_id" order="8" start_value="1" next="10"/>
+			<column name="tnd_create_timestamp" order="11" type="date" value="$cur_time"/>
+			<column name="tnd_create_usr_id" order="12" value="$admin_usr_id"/>
+			<column name="tnd_update_timestamp" order="13" type="date" value="$cur_time"/>
+			<column name="tnd_update_usr_id" order="14" value="$admin_usr_id"/>
+			<column name="tnd_owner_ent_id" order="22" value="$ste_ent_id"/>
+		</table>
+		<table name="aeTreeNodeRelation" has_foreign_key="true">
+			<column name="tnr_child_tnd_id" order="1" value="$tnd_id"/>
+			<column name="tnr_ancestor_tnd_id" order="2" start_value="1" next="10"/>
+			<column name="tnr_type" order="3" value="TND_PARENT_TND"/>
+			<column name="tnr_order" order="4" value="1"/>
+			<column name="tnr_parent_ind" order="5" value="1"/>
+			<column name="tnr_remain_on_syn" order="6" value="0"/>
+			<column name="tnr_create_timestamp" order="7" type="date" value="$cur_time"/>
+			<column name="tnr_create_usr_id" order="8" value="$admin_usr_id"/>
+		</table>
+	</table_group>
+	<!--培训:课程-->
+	<table_group name="course" enabled="true" count="1000">
+		<table name="aeItem" identity="itm_id" has_foreign_key="true">
+			<column name="itm_id" order="1" start_value="1"/>
+			<column name="itm_title" order="2">
+				<part value="Course"/>
+				<part value="$itm_id"/>
+			</column>
+			<column name="itm_code" order="3">
+				<part value="course"/>
+				<part value="$itm_id"/>
+			</column>
+			<column name="itm_type" order="5" value="SELFSTUDY"/>
+			<column name="itm_appn_start_datetime" order="11" type="date" value="$cur_time"/>
+			<column name="itm_appn_end_datetime" order="12" type="date" value="$max_time"/>
+			<column name="itm_xml" order="15" type="xml">
+				<part value="&lt;detail>&lt;field01>"/>
+				<part value="$itm_code"/>
+				<part value="&lt;/field01>&lt;field02>"/>
+				<part value="$itm_title"/>
+				<part value="&lt;/field02>&lt;field03>&lt;subfield_list>&lt;subfield id=&quot;1&quot;>2008-03-19 00:00:00.000&lt;/subfield>&lt;subfield id=&quot;2&quot;>9999-12-31 23:59:59.000&lt;/subfield>&lt;/subfield_list>&lt;/field03>&lt;field19>&lt;/field19>&lt;field04>&lt;/field04>&lt;field05>&lt;/field05>&lt;field06>&lt;/field06>&lt;field07>&lt;/field07>&lt;field08>&lt;/field08>&lt;field09>&lt;/field09>&lt;field10>&lt;/field10>&lt;field11>&lt;/field11>&lt;field12>&lt;subfield_list>&lt;subfield id=&quot;1&quot;>&lt;/subfield>&lt;subfield id=&quot;2&quot;>&lt;/subfield>&lt;subfield id=&quot;3&quot;>&lt;/subfield>&lt;subfield id=&quot;4&quot;>&lt;/subfield>&lt;subfield id=&quot;5&quot;>&lt;/subfield>&lt;/subfield_list>&lt;/field12>&lt;field13>&lt;subfield_list>&lt;subfield id=&quot;1&quot;>&lt;/subfield>&lt;subfield id=&quot;2&quot;>&lt;/subfield>&lt;subfield id=&quot;3&quot;>&lt;/subfield>&lt;subfield id=&quot;4&quot;>&lt;/subfield>&lt;subfield id=&quot;5&quot;>&lt;/subfield>&lt;/subfield_list>&lt;/field13>&lt;field14>&lt;/field14>&lt;field15>&lt;/field15>&lt;field16>&lt;field16 id=&quot;1&quot;>true&lt;/field16>&lt;/field16>&lt;field21>&lt;field21 id=&quot;1&quot;>true&lt;/field21>&lt;/field21>&lt;field17>&lt;/field17>&lt;field18>&lt;subfield_list>&lt;subfield id=&quot;1&quot;>&lt;/subfield>&lt;subfield id=&quot;2&quot;>&lt;/subfield>&lt;subfield id=&quot;3&quot;>&lt;/subfield>&lt;subfield id=&quot;4&quot;>&lt;/subfield>&lt;subfield id=&quot;5&quot;>&lt;/subfield>&lt;subfield id=&quot;6&quot;>&lt;/subfield>&lt;subfield id=&quot;7&quot;>&lt;/subfield>&lt;subfield id=&quot;8&quot;>&lt;/subfield>&lt;subfield id=&quot;9&quot;>&lt;/subfield>&lt;subfield id=&quot;10&quot;>&lt;/subfield>&lt;/subfield_list>&lt;/field18>&lt;field22>&lt;/field22>&lt;/detail>"/>
+			</column>
+			<column name="itm_status" order="16" value="ON"/>
+			<column name="itm_owner_ent_id" order="17" value="1"/>
+			<column name="itm_create_timestamp" order="18" type="date" value="$cur_time"/>
+			<column name="itm_create_usr_id" order="19" value="$admin_usr_id"/>
+			<column name="itm_upd_timestamp" order="20" type="date" value="$cur_time"/>
+			<column name="itm_upd_usr_id" order="21" value="$admin_usr_id"/>
+			<column name="itm_create_run_ind" order="23" value="0"/>
+			<column name="itm_run_ind" order="24" value="0"/>
+			<column name="itm_apply_ind" order="25" value="1"/>
+			<column name="itm_deprecated_ind" order="26" value="0"/>
+			<column name="itm_qdb_ind" order="27" value="1"/>
+			<column name="itm_auto_enrol_qdb_ind" order="28" value="0"/>
+			<column name="itm_create_session_ind" order="38" value="0"/>
+			<column name="itm_session_ind" order="39" value="0"/>
+			<column name="itm_has_attendance_ind" order="40" value="1"/>
+			<column name="itm_ji_ind" order="41" value="0"/>
+			<column name="itm_completion_criteria_ind" order="42" value="1"/>
+			<column name="itm_retake_ind" order="49" value="1"/>
+			<column name="itm_tcr_id" order="58" value="$root_tcr_id"/>
+			<column name="itm_access_type" order="63" value="ALL"/>
+			<column name="itm_srh_content" order="73">
+				<part value="$itm_title"/>
+				<part value="  "/>
+				<part value="$itm_code"/>
+			</column>
+			<column name="itm_exam_ind" order="77" value="0"/>
+			<column name="itm_blend_ind" order="78" value="0"/>
+			<column name="itm_ref_ind" order="79" value="0"/>
+		</table>
+		<table name="aeItemTemplate" has_foreign_key="true">
+			<column name="itp_itm_id" order="1" value="$itm_id"/>
+			<column name="itp_ttp_id" order="2" value="1"/>
+			<column name="itp_tpl_id" order="3" value="15"/>
+			<column name="itp_create_timestamp" order="4" type="date" value="$cur_time"/>
+			<column name="itp_create_usr_id" order="5" value="$admin_usr_id"/>
+		</table>
+		<table name="aeItemTemplate" has_foreign_key="true">
+			<column name="itp_itm_id" order="1" value="$itm_id"/>
+			<column name="itp_ttp_id" order="2" value="2"/>
+			<column name="itp_tpl_id" order="3" value="3"/>
+			<column name="itp_create_timestamp" order="4" type="date" value="$cur_time"/>
+			<column name="itp_create_usr_id" order="5" value="$admin_usr_id"/>
+		</table>
+		<table name="aeItemTemplate" has_foreign_key="true">
+			<column name="itp_itm_id" order="1" value="$itm_id"/>
+			<column name="itp_ttp_id" order="2" value="3"/>
+			<column name="itp_tpl_id" order="3" value="9"/>
+			<column name="itp_create_timestamp" order="4" type="date" value="$cur_time"/>
+			<column name="itp_create_usr_id" order="5" value="$admin_usr_id"/>
+		</table>
+		<table name="CourseCriteria" has_foreign_key="true">
+			<column name="ccr_pass_score" order="2" value="0"/>
+			<column name="ccr_duration" order="3" value="0"/>
+			<column name="ccr_pass_ind" order="4" value="0"/>
+			<column name="ccr_all_cond_ind" order="5" value="1"/>
+			<column name="ccr_create_timestamp" order="6" type="date" value="$cur_time"/>
+			<column name="ccr_create_usr_id" order="7" value="$admin_usr_id"/>
+			<column name="ccr_upd_timestamp" order="8" type="date" value="$cur_time"/>
+			<column name="ccr_upd_usr_id" order="9" value="$admin_usr_id"/>
+			<column name="ccr_type" order="10" value="COMPLETION"/>
+			<column name="ccr_upd_method" order="11" value="AUTO"/>
+			<column name="ccr_itm_id" order="12" value="$itm_id"/>
+		</table>
+		<table name="Resources" identity="res_id" has_foreign_key="true">
+			<column name="res_id" order="1" start_value="10001"/>
+			<column name="res_lan" order="2" value="GB2312"/>
+			<column name="res_title" order="3" value="$itm_title"/>
+			<column name="res_type" order="4" value="COS"/>
+			<column name="res_usr_id_owner" order="10" value="$admin_usr_id"/>
+			<column name="res_status" order="14" value="ON"/>
+			<column name="res_create_date" order="15" type="date" value="$cur_time"/>
+			<column name="res_upd_user" order="16" value="$admin_usr_id"/>
+			<column name="res_upd_date" order="17" type="date" value="$cur_time"/>
+		</table>
+		<table name="Course" has_foreign_key="true">
+			<column name="cos_res_id" order="1" value="$res_id"/>
+			<column name="cos_itm_id" order="2" value="$itm_id"/>
+		</table>
+		<table name="ResourcePermission" has_foreign_key="true">
+			<column name="rpm_res_id" order="1" value="$res_id"/>
+			<column name="rpm_ent_id" order="2" value="$admin_usr_ent_id"/>
+			<column name="rpm_rol_ext_id" order="3">
+				<part value="TADM_"/>
+				<part value="$ste_ent_id"/>
+			</column>
+			<column name="rpm_read" order="4" value="1"/>
+			<column name="rpm_write" order="5" value="1"/>
+			<column name="rpm_execute" order="6" value="0"/>
+		</table>
+		<table name="aeItemAccess" has_foreign_key="true">
+			<column name="iac_itm_id" order="1" value="$itm_id"/>
+			<column name="iac_ent_id" order="2" value="$admin_usr_ent_id"/>
+			<column name="iac_access_type" order="3" value="ROLE"/>
+			<column name="iac_access_id" order="4">
+				<part value="TADM_"/>
+				<part value="$ste_ent_id"/>
+			</column>
+		</table>
+		<!--一个子目录下放100课程-->
+		<table name="aeTreeNode" identity="tnd_id" has_foreign_key="true">
+			<column name="tnd_id" order="1" start_value="111"/>
+			<column name="tnd_title" order="2" value="$itm_title"/>
+			<column name="tnd_type" order="4" value="ITEM"/>
+			<column name="tnd_itm_cnt" order="5" value="0"/>
+			<column name="tnd_on_itm_cnt" order="6" value="0"/>
+			<column name="tnd_cat_id" order="7" start_value="1" next="100"/>
+			<column name="tnd_parent_tnd_id" order="8" start_value="11" next="10"/>
+			<column name="tnd_itm_id" order="10" value="$itm_id"/>
+			<column name="tnd_create_timestamp" order="11" type="date" value="$cur_time"/>
+			<column name="tnd_create_usr_id" order="12" value="$admin_usr_id"/>
+			<column name="tnd_update_timestamp" order="13" type="date" value="$cur_time"/>
+			<column name="tnd_update_usr_id" order="14" value="$admin_usr_id"/>
+			<column name="tnd_owner_ent_id" order="22" value="$ste_ent_id"/>
+		</table>
+		<table name="aeTreeNodeRelation" has_foreign_key="true">
+			<column name="tnr_child_tnd_id" order="1" value="$tnd_id"/>
+			<column name="tnr_ancestor_tnd_id" order="2" start_value="1" next="100"/>
+			<column name="tnr_type" order="3" value="ITEM_PARENT_TND"/>
+			<column name="tnr_order" order="4" value="1"/>
+			<column name="tnr_parent_ind" order="5" value="0"/>
+			<column name="tnr_remain_on_syn" order="6" value="0"/>
+			<column name="tnr_create_timestamp" order="7" type="date" value="$cur_time"/>
+			<column name="tnr_create_usr_id" order="8" value="$admin_usr_id"/>
+		</table>
+		<table name="aeTreeNodeRelation" has_foreign_key="true">
+			<column name="tnr_child_tnd_id" order="1" value="$tnd_id"/>
+			<column name="tnr_ancestor_tnd_id" order="2" start_value="11" next="10"/>
+			<column name="tnr_type" order="3" value="ITEM_PARENT_TND"/>
+			<column name="tnr_order" order="4" value="2"/>
+			<column name="tnr_parent_ind" order="5" value="1"/>
+			<column name="tnr_remain_on_syn" order="6" value="0"/>
+			<column name="tnr_create_timestamp" order="7" type="date" value="$cur_time"/>
+			<column name="tnr_create_usr_id" order="8" value="$admin_usr_id"/>
+		</table>
+		<!--目标学员(适合我的培训)-->
+		<table name="aeItemTargetRule" identity="itr_id" has_foreign_key="true">
+			<column name="itr_id" order="1" start_value="1"/>
+			<column name="itr_itm_id" order="2" value="$itm_id"/>
+			<column name="itr_group_id" order="3" start_value="8" next="100"/>
+			<column name="itr_grade_id" order="4" value="5"/>
+			<column name="itr_type" order="5" value="TARGET_LEARNER"/>
+			<column name="itr_create_usr_id" order="6" value="$admin_usr_id"/>
+			<column name="itr_create_timestamp" order="7" type="date" value="$cur_time"/>
+			<column name="itr_update_usr_id" order="8" value="$admin_usr_id"/>
+			<column name="itr_update_timestamp" order="9" type="date" value="$cur_time"/>
+		</table>
+		<table name="aeItemTargetRuleDetail" has_foreign_key="true">
+			<column name="ird_itm_id" order="1" value="$itm_id"/>
+			<column name="ird_itr_id" order="2" value="$itr_id"/>
+			<column name="ird_group_id" order="3" start_value="8" next="100"/>
+			<column name="ird_grade_id" order="4" value="5"/>
+			<column name="ird_type" order="5" value="TARGET_LEARNER"/>
+			<column name="ird_create_usr_id" order="6" value="$admin_usr_id"/>
+			<column name="ird_create_timestamp" order="7" type="date" value="$cur_time"/>
+			<column name="ird_update_usr_id" order="8" value="$admin_usr_id"/>
+			<column name="ird_update_timestamp" order="9" type="date" value="$cur_time"/>
+		</table>
+		<!--我的学习计划(前20个学员,每人50门课程)-->
+		<table name="aeLearningSoln" has_foreign_key="true">
+			<column name="lsn_ent_id" order="1" start_value="18" next="50"/>
+			<column name="lsn_itm_id" order="2" value="$itm_id"/>
+			<column name="lsn_ent_id_lst" order="4" value="7"/>
+			<column name="lsn_create_usr_id" order="5" value="$admin_usr_id"/>
+			<column name="lsn_create_timestamp" order="6" type="date" value="$cur_time"/>
+			<column name="lsn_type" order="9" value="LEARNING_PLAN"/>
+			<column name="lsn_status_ind" order="10" value="1"/>
+		</table>
+	</table_group>
+	<!--培训:考试-->
+	<table_group name="exam" enabled="true" count="1000">
+		<table name="aeItem" identity="itm_id" has_foreign_key="true">
+			<column name="itm_id" order="1" start_value="1001"/>
+			<column name="itm_title" order="2">
+				<part value="Course"/>
+				<part value="$itm_id"/>
+			</column>
+			<column name="itm_code" order="3">
+				<part value="course"/>
+				<part value="$itm_id"/>
+			</column>
+			<column name="itm_type" order="5" value="SELFSTUDY"/>
+			<column name="itm_appn_start_datetime" order="11" type="date" value="$cur_time"/>
+			<column name="itm_appn_end_datetime" order="12" type="date" value="$max_time"/>
+			<column name="itm_xml" order="15" type="xml">
+				<part value="&lt;detail>&lt;field01>"/>
+				<part value="$itm_code"/>
+				<part value="&lt;/field01>&lt;field02>"/>
+				<part value="$itm_title"/>
+				<part value="&lt;/field02>&lt;field03>&lt;subfield_list>&lt;subfield id=&quot;1&quot;>2008-03-19 00:00:00.000&lt;/subfield>&lt;subfield id=&quot;2&quot;>9999-12-31 23:59:59.000&lt;/subfield>&lt;/subfield_list>&lt;/field03>&lt;field19>&lt;/field19>&lt;field04>&lt;/field04>&lt;field05>&lt;/field05>&lt;field06>&lt;/field06>&lt;field07>&lt;/field07>&lt;field08>&lt;/field08>&lt;field09>&lt;/field09>&lt;field10>&lt;/field10>&lt;field11>&lt;/field11>&lt;field12>&lt;subfield_list>&lt;subfield id=&quot;1&quot;>&lt;/subfield>&lt;subfield id=&quot;2&quot;>&lt;/subfield>&lt;subfield id=&quot;3&quot;>&lt;/subfield>&lt;subfield id=&quot;4&quot;>&lt;/subfield>&lt;subfield id=&quot;5&quot;>&lt;/subfield>&lt;/subfield_list>&lt;/field12>&lt;field13>&lt;subfield_list>&lt;subfield id=&quot;1&quot;>&lt;/subfield>&lt;subfield id=&quot;2&quot;>&lt;/subfield>&lt;subfield id=&quot;3&quot;>&lt;/subfield>&lt;subfield id=&quot;4&quot;>&lt;/subfield>&lt;subfield id=&quot;5&quot;>&lt;/subfield>&lt;/subfield_list>&lt;/field13>&lt;field14>&lt;/field14>&lt;field15>&lt;/field15>&lt;field16>&lt;field16 id=&quot;1&quot;>true&lt;/field16>&lt;/field16>&lt;field21>&lt;field21 id=&quot;1&quot;>true&lt;/field21>&lt;/field21>&lt;field17>&lt;/field17>&lt;field18>&lt;subfield_list>&lt;subfield id=&quot;1&quot;>&lt;/subfield>&lt;subfield id=&quot;2&quot;>&lt;/subfield>&lt;subfield id=&quot;3&quot;>&lt;/subfield>&lt;subfield id=&quot;4&quot;>&lt;/subfield>&lt;subfield id=&quot;5&quot;>&lt;/subfield>&lt;subfield id=&quot;6&quot;>&lt;/subfield>&lt;subfield id=&quot;7&quot;>&lt;/subfield>&lt;subfield id=&quot;8&quot;>&lt;/subfield>&lt;subfield id=&quot;9&quot;>&lt;/subfield>&lt;subfield id=&quot;10&quot;>&lt;/subfield>&lt;/subfield_list>&lt;/field18>&lt;field22>&lt;/field22>&lt;/detail>"/>
+			</column>
+			<column name="itm_status" order="16" value="ON"/>
+			<column name="itm_owner_ent_id" order="17" value="1"/>
+			<column name="itm_create_timestamp" order="18" type="date" value="$cur_time"/>
+			<column name="itm_create_usr_id" order="19" value="$admin_usr_id"/>
+			<column name="itm_upd_timestamp" order="20" type="date" value="$cur_time"/>
+			<column name="itm_upd_usr_id" order="21" value="$admin_usr_id"/>
+			<column name="itm_create_run_ind" order="23" value="0"/>
+			<column name="itm_run_ind" order="24" value="0"/>
+			<column name="itm_apply_ind" order="25" value="1"/>
+			<column name="itm_deprecated_ind" order="26" value="0"/>
+			<column name="itm_qdb_ind" order="27" value="1"/>
+			<column name="itm_auto_enrol_qdb_ind" order="28" value="0"/>
+			<column name="itm_create_session_ind" order="38" value="0"/>
+			<column name="itm_session_ind" order="39" value="0"/>
+			<column name="itm_has_attendance_ind" order="40" value="1"/>
+			<column name="itm_ji_ind" order="41" value="0"/>
+			<column name="itm_completion_criteria_ind" order="42" value="1"/>
+			<column name="itm_retake_ind" order="49" value="1"/>
+			<column name="itm_tcr_id" order="58" value="$root_tcr_id"/>
+			<column name="itm_access_type" order="63" value="ALL"/>
+			<column name="itm_srh_content" order="73">
+				<part value="$itm_title"/>
+				<part value="  "/>
+				<part value="$itm_code"/>
+			</column>
+			<column name="itm_exam_ind" order="77" value="1"/>
+			<column name="itm_blend_ind" order="78" value="0"/>
+			<column name="itm_ref_ind" order="79" value="0"/>
+		</table>
+		<table name="aeItemTemplate" has_foreign_key="true">
+			<column name="itp_itm_id" order="1" value="$itm_id"/>
+			<column name="itp_ttp_id" order="2" value="1"/>
+			<column name="itp_tpl_id" order="3" value="15"/>
+			<column name="itp_create_timestamp" order="4" type="date" value="$cur_time"/>
+			<column name="itp_create_usr_id" order="5" value="$admin_usr_id"/>
+		</table>
+		<table name="aeItemTemplate" has_foreign_key="true">
+			<column name="itp_itm_id" order="1" value="$itm_id"/>
+			<column name="itp_ttp_id" order="2" value="2"/>
+			<column name="itp_tpl_id" order="3" value="3"/>
+			<column name="itp_create_timestamp" order="4" type="date" value="$cur_time"/>
+			<column name="itp_create_usr_id" order="5" value="$admin_usr_id"/>
+		</table>
+		<table name="aeItemTemplate" has_foreign_key="true">
+			<column name="itp_itm_id" order="1" value="$itm_id"/>
+			<column name="itp_ttp_id" order="2" value="3"/>
+			<column name="itp_tpl_id" order="3" value="9"/>
+			<column name="itp_create_timestamp" order="4" type="date" value="$cur_time"/>
+			<column name="itp_create_usr_id" order="5" value="$admin_usr_id"/>
+		</table>
+		<table name="CourseCriteria" has_foreign_key="true">
+			<column name="ccr_pass_score" order="2" value="0"/>
+			<column name="ccr_duration" order="3" value="0"/>
+			<column name="ccr_pass_ind" order="4" value="0"/>
+			<column name="ccr_all_cond_ind" order="5" value="1"/>
+			<column name="ccr_create_timestamp" order="6" type="date" value="$cur_time"/>
+			<column name="ccr_create_usr_id" order="7" value="$admin_usr_id"/>
+			<column name="ccr_upd_timestamp" order="8" type="date" value="$cur_time"/>
+			<column name="ccr_upd_usr_id" order="9" value="$admin_usr_id"/>
+			<column name="ccr_type" order="10" value="COMPLETION"/>
+			<column name="ccr_upd_method" order="11" value="AUTO"/>
+			<column name="ccr_itm_id" order="12" value="$itm_id"/>
+		</table>
+		<table name="Resources" identity="res_id" has_foreign_key="true">
+			<column name="res_id" order="1" start_value="11001"/>
+			<column name="res_lan" order="2" value="GB2312"/>
+			<column name="res_title" order="3" value="$itm_title"/>
+			<column name="res_type" order="4" value="COS"/>
+			<column name="res_usr_id_owner" order="10" value="$admin_usr_id"/>
+			<column name="res_status" order="14" value="ON"/>
+			<column name="res_create_date" order="15" type="date" value="$cur_time"/>
+			<column name="res_upd_user" order="16" value="$admin_usr_id"/>
+			<column name="res_upd_date" order="17" type="date" value="$cur_time"/>
+		</table>
+		<table name="Course" has_foreign_key="true">
+			<column name="cos_res_id" order="1" value="$res_id"/>
+			<column name="cos_itm_id" order="2" value="$itm_id"/>
+		</table>
+		<table name="ResourcePermission" has_foreign_key="true">
+			<column name="rpm_res_id" order="1" value="$res_id"/>
+			<column name="rpm_ent_id" order="2" value="$admin_usr_ent_id"/>
+			<column name="rpm_rol_ext_id" order="3">
+				<part value="TADM_"/>
+				<part value="$ste_ent_id"/>
+			</column>
+			<column name="rpm_read" order="4" value="1"/>
+			<column name="rpm_write" order="5" value="1"/>
+			<column name="rpm_execute" order="6" value="0"/>
+		</table>
+		<table name="aeItemAccess" has_foreign_key="true">
+			<column name="iac_itm_id" order="1" value="$itm_id"/>
+			<column name="iac_ent_id" order="2" value="$admin_usr_ent_id"/>
+			<column name="iac_access_type" order="3" value="ROLE"/>
+			<column name="iac_access_id" order="4">
+				<part value="TADM_"/>
+				<part value="$ste_ent_id"/>
+			</column>
+		</table>
+		<!--一个子目录下放100考试-->
+		<table name="aeTreeNode" identity="tnd_id" has_foreign_key="true">
+			<column name="tnd_id" order="1" start_value="1111"/>
+			<column name="tnd_title" order="2" value="$itm_title"/>
+			<column name="tnd_type" order="4" value="ITEM"/>
+			<column name="tnd_itm_cnt" order="5" value="0"/>
+			<column name="tnd_on_itm_cnt" order="6" value="0"/>
+			<column name="tnd_cat_id" order="7" start_value="1" next="100"/>
+			<column name="tnd_parent_tnd_id" order="8" start_value="11" next="10"/>
+			<column name="tnd_itm_id" order="10" value="$itm_id"/>
+			<column name="tnd_create_timestamp" order="11" type="date" value="$cur_time"/>
+			<column name="tnd_create_usr_id" order="12" value="$admin_usr_id"/>
+			<column name="tnd_update_timestamp" order="13" type="date" value="$cur_time"/>
+			<column name="tnd_update_usr_id" order="14" value="$admin_usr_id"/>
+			<column name="tnd_owner_ent_id" order="22" value="$ste_ent_id"/>
+		</table>
+		<table name="aeTreeNodeRelation" has_foreign_key="true">
+			<column name="tnr_child_tnd_id" order="1" value="$tnd_id"/>
+			<column name="tnr_ancestor_tnd_id" order="2" start_value="1" next="100"/>
+			<column name="tnr_type" order="3" value="ITEM_PARENT_TND"/>
+			<column name="tnr_order" order="4" value="1"/>
+			<column name="tnr_parent_ind" order="5" value="0"/>
+			<column name="tnr_remain_on_syn" order="6" value="0"/>
+			<column name="tnr_create_timestamp" order="7" type="date" value="$cur_time"/>
+			<column name="tnr_create_usr_id" order="8" value="$admin_usr_id"/>
+		</table>
+		<table name="aeTreeNodeRelation" has_foreign_key="true">
+			<column name="tnr_child_tnd_id" order="1" value="$tnd_id"/>
+			<column name="tnr_ancestor_tnd_id" order="2" start_value="11" next="10"/>
+			<column name="tnr_type" order="3" value="ITEM_PARENT_TND"/>
+			<column name="tnr_order" order="4" value="2"/>
+			<column name="tnr_parent_ind" order="5" value="1"/>
+			<column name="tnr_remain_on_syn" order="6" value="0"/>
+			<column name="tnr_create_timestamp" order="7" type="date" value="$cur_time"/>
+			<column name="tnr_create_usr_id" order="8" value="$admin_usr_id"/>
+		</table>
+		<!--目标学员(适合我的培训)-->
+		<table name="aeItemTargetRule" identity="itr_id" has_foreign_key="true">
+			<column name="itr_id" order="1" start_value="1001"/>
+			<column name="itr_itm_id" order="2" value="$itm_id"/>
+			<column name="itr_group_id" order="3" start_value="8" next="100"/>
+			<column name="itr_grade_id" order="4" value="5"/>
+			<column name="itr_type" order="5" value="TARGET_LEARNER"/>
+			<column name="itr_create_usr_id" order="6" value="$admin_usr_id"/>
+			<column name="itr_create_timestamp" order="7" type="date" value="$cur_time"/>
+			<column name="itr_update_usr_id" order="8" value="$admin_usr_id"/>
+			<column name="itr_update_timestamp" order="9" type="date" value="$cur_time"/>
+		</table>
+		<table name="aeItemTargetRuleDetail" has_foreign_key="true">
+			<column name="ird_itm_id" order="1" value="$itm_id"/>
+			<column name="ird_itr_id" order="2" value="$itr_id"/>
+			<column name="ird_group_id" order="3" start_value="8" next="100"/>
+			<column name="ird_grade_id" order="4" value="5"/>
+			<column name="ird_type" order="5" value="TARGET_LEARNER"/>
+			<column name="ird_create_usr_id" order="6" value="$admin_usr_id"/>
+			<column name="ird_create_timestamp" order="7" type="date" value="$cur_time"/>
+			<column name="ird_update_usr_id" order="8" value="$admin_usr_id"/>
+			<column name="ird_update_timestamp" order="9" type="date" value="$cur_time"/>
+		</table>
+		<!--我的学习计划(每人50门考试)-->
+		<table name="aeLearningSoln" has_foreign_key="true">
+			<column name="lsn_ent_id" order="1" start_value="18" next="50"/>
+			<column name="lsn_itm_id" order="2" value="$itm_id"/>
+			<column name="lsn_ent_id_lst" order="4" value="7"/>
+			<column name="lsn_create_usr_id" order="5" value="$admin_usr_id"/>
+			<column name="lsn_create_timestamp" order="6" type="date" value="$cur_time"/>
+			<column name="lsn_type" order="9" value="LEARNING_PLAN"/>
+			<column name="lsn_status_ind" order="10" value="1"/>
+		</table>
+	</table_group>
+	<!--报名:审批中（下一审批者是培训管理员）-->
+	<!--
+	<table_group name="applicationpendingtadm" enabled="true" count="500">
+		<table name="aeApplication" identity="app_id" has_foreign_key="true">
+			<column name="app_id" order="1" start_value="1"/>
+			<column name="app_ent_id" order="2" start_value="18" next="10"/>
+			<column name="app_itm_id" order="3" start_value="1"/>
+			<column name="app_status" order="4" value="Pending"/>
+			<column name="app_process_status" order="5" value="等待审批"/>
+			<column name="app_process_xml" order="6" type="xml" value="&lt;application_process>&lt;process id=&quot;1&quot; name=&quot;Application&quot;>&lt;status id=&quot;1&quot; name=&quot;等待审批&quot;/>&lt;/process>&lt;/application_process>"/>
+			<column name="app_create_timestamp" order="8" type="date" value="$cur_time"/>
+			<column name="app_create_usr_id" order="9" value="$admin_usr_id"/>
+			<column name="app_upd_timestamp" order="10" type="date" value="$cur_time"/>
+			<column name="app_upd_usr_id" order="11" value="$admin_usr_id"/>
+		</table>
+		<table name="aeAppnApprovalList" identity="aal_id" has_foreign_key="true">
+			<column name="aal_id" order="1" start_value="1"/>
+			<column name="aal_usr_ent_id" order="2" value="$admin_usr_ent_id"/>
+			<column name="aal_app_id" order="3" value="$app_id"/>
+			<column name="aal_app_ent_id" order="4" value="$app_ent_id"/>
+			<column name="aal_approval_role" order="5" value="TADM"/>
+			<column name="aal_status" order="7" value="PENDING"/>
+			<column name="aal_create_timestamp" order="8" type="date" value="$cur_time"/>
+		</table>
+		<table name="aeAppnActnHistory" identity="aah_id" has_foreign_key="true">
+			<column name="aah_id" order="1" start_value="1"/>
+			<column name="aah_app_id" order="2" value="$app_id"/>
+			<column name="aah_process_id" order="3" value="0"/>
+			<column name="aah_to" order="5" value="Applied"/>
+			<column name="aah_verb" order="6" value="Applied"/>
+			<column name="aah_action_id" order="9" value="0"/>
+			<column name="aah_create_usr_id" order="10" value="$admin_usr_id"/>
+			<column name="aah_create_timestamp" order="11" type="date" value="$cur_time"/>
+			<column name="aah_upd_usr_id" order="12" value="$admin_usr_id"/>
+			<column name="aah_upd_timestamp" order="13" type="date" value="$cur_time"/>
+		</table>
+		<table name="aeAppnActnHistory" identity="aah_id" has_foreign_key="true">
+			<column name="aah_id" order="1" start_value="501"/>
+			<column name="aah_app_id" order="2" value="$app_id"/>
+			<column name="aah_process_id" order="3" value="1"/>
+			<column name="aah_fr" order="4" value="等待审批"/>
+			<column name="aah_to" order="5" value="等待审批"/>
+			<column name="aah_verb" order="6" value="检查剩余名额（通过）"/>
+			<column name="aah_action_id" order="9" value="5"/>
+			<column name="aah_create_usr_id" order="10" value="$sys_usr_id"/>
+			<column name="aah_create_timestamp" order="11" type="date" value="$cur_time"/>
+			<column name="aah_upd_usr_id" order="12" value="$sys_usr_id"/>
+			<column name="aah_upd_timestamp" order="13" type="date" value="$cur_time"/>
+		</table>
+	</table_group>
+	-->
+	<!--报名:审批中（下一审批者是用户组领导）:课程-->
+	<table_group name="applicationpendingcourse" enabled="true" count="500">
+		<table name="aeApplication" identity="app_id" has_foreign_key="true">
+			<column name="app_id" order="1" start_value="1"/>
+			<column name="app_ent_id" order="2" start_value="18" next="10"/>
+			<column name="app_itm_id" order="3" start_value="1"/>
+			<column name="app_status" order="4" value="Pending"/>
+			<column name="app_process_status" order="5" value="等待审批"/>
+			<column name="app_process_xml" order="6" type="xml" value="&lt;application_process>&lt;process id=&quot;1&quot; name=&quot;Application&quot;>&lt;status id=&quot;1&quot; name=&quot;等待审批&quot;/>&lt;/process>&lt;/application_process>"/>
+			<column name="app_create_timestamp" order="8" type="date" value="$cur_time"/>
+			<column name="app_create_usr_id" order="9" value="$admin_usr_id"/>
+			<column name="app_upd_timestamp" order="10" type="date" value="$cur_time"/>
+			<column name="app_upd_usr_id" order="11" value="$admin_usr_id"/>
+		</table>
+		<table name="aeAppnApprovalList" identity="aal_id" has_foreign_key="true">
+			<column name="aal_id" order="1" start_value="1"/>
+			<column name="aal_usr_ent_id" order="2" start_value="18" next="25"/>
+			<column name="aal_app_id" order="3" value="$app_id"/>
+			<column name="aal_app_ent_id" order="4" value="$app_ent_id"/>
+			<column name="aal_approval_role" order="5" value="SUPERVISE"/>
+			<column name="aal_status" order="7" value="PENDING"/>
+			<column name="aal_create_timestamp" order="8" type="date" value="$cur_time"/>
+		</table>
+		<table name="aeAppnActnHistory" identity="aah_id" has_foreign_key="true">
+			<column name="aah_id" order="1" start_value="1"/>
+			<column name="aah_app_id" order="2" value="$app_id"/>
+			<column name="aah_process_id" order="3" value="0"/>
+			<column name="aah_to" order="5" value="Applied"/>
+			<column name="aah_verb" order="6" value="Applied"/>
+			<column name="aah_action_id" order="9" value="0"/>
+			<column name="aah_create_usr_id" order="10" value="$admin_usr_id"/>
+			<column name="aah_create_timestamp" order="11" type="date" value="$cur_time"/>
+			<column name="aah_upd_usr_id" order="12" value="$admin_usr_id"/>
+			<column name="aah_upd_timestamp" order="13" type="date" value="$cur_time"/>
+		</table>
+		<table name="aeAppnActnHistory" identity="aah_id" has_foreign_key="true">
+			<column name="aah_id" order="1" start_value="501"/>
+			<column name="aah_app_id" order="2" value="$app_id"/>
+			<column name="aah_process_id" order="3" value="1"/>
+			<column name="aah_fr" order="4" value="等待审批"/>
+			<column name="aah_to" order="5" value="等待审批"/>
+			<column name="aah_verb" order="6" value="检查剩余名额（通过）"/>
+			<column name="aah_action_id" order="9" value="5"/>
+			<column name="aah_create_usr_id" order="10" value="$sys_usr_id"/>
+			<column name="aah_create_timestamp" order="11" type="date" value="$cur_time"/>
+			<column name="aah_upd_usr_id" order="12" value="$sys_usr_id"/>
+			<column name="aah_upd_timestamp" order="13" type="date" value="$cur_time"/>
+		</table>
+	</table_group>
+	<!--报名:审批中（下一审批者是用户组领导）:考试-->
+	<table_group name="applicationpendingexam" enabled="true" count="500">
+		<table name="aeApplication" identity="app_id" has_foreign_key="true">
+			<column name="app_id" order="1" start_value="501"/>
+			<column name="app_ent_id" order="2" start_value="18" next="10"/>
+			<column name="app_itm_id" order="3" start_value="1001"/>
+			<column name="app_status" order="4" value="Pending"/>
+			<column name="app_process_status" order="5" value="等待审批"/>
+			<column name="app_process_xml" order="6" type="xml" value="&lt;application_process>&lt;process id=&quot;1&quot; name=&quot;Application&quot;>&lt;status id=&quot;1&quot; name=&quot;等待审批&quot;/>&lt;/process>&lt;/application_process>"/>
+			<column name="app_create_timestamp" order="8" type="date" value="$cur_time"/>
+			<column name="app_create_usr_id" order="9" value="$admin_usr_id"/>
+			<column name="app_upd_timestamp" order="10" type="date" value="$cur_time"/>
+			<column name="app_upd_usr_id" order="11" value="$admin_usr_id"/>
+		</table>
+		<table name="aeAppnApprovalList" identity="aal_id" has_foreign_key="true">
+			<column name="aal_id" order="1" start_value="501"/>
+			<column name="aal_usr_ent_id" order="2" start_value="18" next="25"/>
+			<column name="aal_app_id" order="3" value="$app_id"/>
+			<column name="aal_app_ent_id" order="4" value="$app_ent_id"/>
+			<column name="aal_approval_role" order="5" value="SUPERVISE"/>
+			<column name="aal_status" order="7" value="PENDING"/>
+			<column name="aal_create_timestamp" order="8" type="date" value="$cur_time"/>
+		</table>
+		<table name="aeAppnActnHistory" identity="aah_id" has_foreign_key="true">
+			<column name="aah_id" order="1" start_value="1001"/>
+			<column name="aah_app_id" order="2" value="$app_id"/>
+			<column name="aah_process_id" order="3" value="0"/>
+			<column name="aah_to" order="5" value="Applied"/>
+			<column name="aah_verb" order="6" value="Applied"/>
+			<column name="aah_action_id" order="9" value="0"/>
+			<column name="aah_create_usr_id" order="10" value="$admin_usr_id"/>
+			<column name="aah_create_timestamp" order="11" type="date" value="$cur_time"/>
+			<column name="aah_upd_usr_id" order="12" value="$admin_usr_id"/>
+			<column name="aah_upd_timestamp" order="13" type="date" value="$cur_time"/>
+		</table>
+		<table name="aeAppnActnHistory" identity="aah_id" has_foreign_key="true">
+			<column name="aah_id" order="1" start_value="1501"/>
+			<column name="aah_app_id" order="2" value="$app_id"/>
+			<column name="aah_process_id" order="3" value="1"/>
+			<column name="aah_fr" order="4" value="等待审批"/>
+			<column name="aah_to" order="5" value="等待审批"/>
+			<column name="aah_verb" order="6" value="检查剩余名额（通过）"/>
+			<column name="aah_action_id" order="9" value="5"/>
+			<column name="aah_create_usr_id" order="10" value="$sys_usr_id"/>
+			<column name="aah_create_timestamp" order="11" type="date" value="$cur_time"/>
+			<column name="aah_upd_usr_id" order="12" value="$sys_usr_id"/>
+			<column name="aah_upd_timestamp" order="13" type="date" value="$cur_time"/>
+		</table>
+	</table_group>
+	<!--报名:学习中:课程-->
+	<table_group name="applicationstudycourse" enabled="true" count="500">
+		<table name="aeApplication" identity="app_id" has_foreign_key="true">
+			<column name="app_id" order="1" start_value="1001"/>
+			<column name="app_ent_id" order="2" start_value="18" next="10"/>
+			<column name="app_itm_id" order="3" start_value="501"/>
+			<column name="app_status" order="4" value="Admitted"/>
+			<column name="app_process_status" order="5" value="已报名"/>
+			<column name="app_process_xml" order="6" type="xml" value="&lt;application_process>&lt;process id=&quot;1&quot; name=&quot;Application&quot;>&lt;status id=&quot;3&quot; name=&quot;已报名&quot;/>&lt;/process>&lt;/application_process>"/>
+			<column name="app_create_timestamp" order="8" type="date" value="$cur_time"/>
+			<column name="app_create_usr_id" order="9" value="$admin_usr_id"/>
+			<column name="app_upd_timestamp" order="10" type="date" value="$cur_time"/>
+			<column name="app_upd_usr_id" order="11" value="$admin_usr_id"/>
+			<column name="app_tkh_id" order="21" start_value="1"/>
+		</table>
+		<table name="trackingHistory" identity="tkh_id" has_foreign_key="true">
+			<column name="tkh_id" order="1" start_value="1"/>
+			<column name="tkh_type" order="2" value="APP"/>
+			<column name="tkh_usr_ent_id" order="3" value="$app_ent_id"/>
+			<column name="tkh_cos_res_id" order="4" start_value="10501"/>
+			<column name="tkh_create_timestamp" order="5" type="date" value="$cur_time"/>
+		</table>
+		<table name="aeAttendance" has_foreign_key="true">
+			<column name="att_app_id" order="1" value="$app_id"/>
+			<column name="att_ats_id" order="2" value="2"/>
+			<column name="att_create_usr_id" order="4" value="$admin_usr_id"/>
+			<column name="att_create_timestamp" order="5" type="date" value="$cur_time"/>
+			<column name="att_itm_id" order="9" value="$app_itm_id"/>
+		</table>
+		<table name="courseEvaluation" has_foreign_key="true">
+			<column name="cov_cos_id" order="1" value="$tkh_cos_res_id"/>
+			<column name="cov_ent_id" order="2" value="$app_ent_id"/>
+			<column name="cov_status" order="6" value="I"/>
+			<column name="cov_status_ovrdn_ind" order="7" value="0"/>
+			<column name="cov_final_ind" order="11" value="0"/>
+			<column name="cov_update_timestamp" order="13" type="date" value="$cur_time"/>
+			<column name="cov_tkh_id" order="14" value="$tkh_id"/>
+		</table>
+		<table name="aeAppnActnHistory" identity="aah_id" has_foreign_key="true">
+			<column name="aah_id" order="1" start_value="2001"/>
+			<column name="aah_app_id" order="2" value="$app_id"/>
+			<column name="aah_process_id" order="3" value="0"/>
+			<column name="aah_to" order="5" value="Applied"/>
+			<column name="aah_verb" order="6" value="Applied"/>
+			<column name="aah_action_id" order="9" value="0"/>
+			<column name="aah_create_usr_id" order="10" value="$admin_usr_id"/>
+			<column name="aah_create_timestamp" order="11" type="date" value="$cur_time"/>
+			<column name="aah_upd_usr_id" order="12" value="$admin_usr_id"/>
+			<column name="aah_upd_timestamp" order="13" type="date" value="$cur_time"/>
+		</table>
+		<table name="aeAppnActnHistory" identity="aah_id" has_foreign_key="true">
+			<column name="aah_id" order="1" start_value="2501"/>
+			<column name="aah_app_id" order="2" value="$app_id"/>
+			<column name="aah_process_id" order="3" value="1"/>
+			<column name="aah_fr" order="4" value="等待审批"/>
+			<column name="aah_to" order="5" value="已报名"/>
+			<column name="aah_verb" order="6" value="录取"/>
+			<column name="aah_action_id" order="9" value="7"/>
+			<column name="aah_create_usr_id" order="10" value="$admin_usr_id"/>
+			<column name="aah_create_timestamp" order="11" type="date" value="$cur_time"/>
+			<column name="aah_upd_usr_id" order="12" value="$admin_usr_id"/>
+			<column name="aah_upd_timestamp" order="13" type="date" value="$cur_time"/>
+		</table>
+	</table_group>
+	<!--报名:学习中:考试-->
+	<table_group name="applicationstudyexam" enabled="true" count="500">
+		<table name="aeApplication" identity="app_id" has_foreign_key="true">
+			<column name="app_id" order="1" start_value="1501"/>
+			<column name="app_ent_id" order="2" start_value="18" next="10"/>
+			<column name="app_itm_id" order="3" start_value="1501"/>
+			<column name="app_status" order="4" value="Admitted"/>
+			<column name="app_process_status" order="5" value="已报名"/>
+			<column name="app_process_xml" order="6" type="xml" value="&lt;application_process>&lt;process id=&quot;1&quot; name=&quot;Application&quot;>&lt;status id=&quot;3&quot; name=&quot;已报名&quot;/>&lt;/process>&lt;/application_process>"/>
+			<column name="app_create_timestamp" order="8" type="date" value="$cur_time"/>
+			<column name="app_create_usr_id" order="9" value="$admin_usr_id"/>
+			<column name="app_upd_timestamp" order="10" type="date" value="$cur_time"/>
+			<column name="app_upd_usr_id" order="11" value="$admin_usr_id"/>
+			<column name="app_tkh_id" order="21" start_value="1"/>
+		</table>
+		<table name="trackingHistory" identity="tkh_id" has_foreign_key="true">
+			<column name="tkh_id" order="1" start_value="501"/>
+			<column name="tkh_type" order="2" value="APP"/>
+			<column name="tkh_usr_ent_id" order="3" value="$app_ent_id"/>
+			<column name="tkh_cos_res_id" order="4" start_value="10501"/>
+			<column name="tkh_create_timestamp" order="5" type="date" value="$cur_time"/>
+		</table>
+		<table name="aeAttendance" has_foreign_key="true">
+			<column name="att_app_id" order="1" value="$app_id"/>
+			<column name="att_ats_id" order="2" value="2"/>
+			<column name="att_create_usr_id" order="4" value="$admin_usr_id"/>
+			<column name="att_create_timestamp" order="5" type="date" value="$cur_time"/>
+			<column name="att_itm_id" order="9" value="$app_itm_id"/>
+		</table>
+		<table name="courseEvaluation" has_foreign_key="true">
+			<column name="cov_cos_id" order="1" value="$tkh_cos_res_id"/>
+			<column name="cov_ent_id" order="2" value="$app_ent_id"/>
+			<column name="cov_status" order="6" value="I"/>
+			<column name="cov_status_ovrdn_ind" order="7" value="0"/>
+			<column name="cov_final_ind" order="11" value="0"/>
+			<column name="cov_update_timestamp" order="13" type="date" value="$cur_time"/>
+			<column name="cov_tkh_id" order="14" value="$tkh_id"/>
+		</table>
+		<table name="aeAppnActnHistory" identity="aah_id" has_foreign_key="true">
+			<column name="aah_id" order="1" start_value="3001"/>
+			<column name="aah_app_id" order="2" value="$app_id"/>
+			<column name="aah_process_id" order="3" value="0"/>
+			<column name="aah_to" order="5" value="Applied"/>
+			<column name="aah_verb" order="6" value="Applied"/>
+			<column name="aah_action_id" order="9" value="0"/>
+			<column name="aah_create_usr_id" order="10" value="$admin_usr_id"/>
+			<column name="aah_create_timestamp" order="11" type="date" value="$cur_time"/>
+			<column name="aah_upd_usr_id" order="12" value="$admin_usr_id"/>
+			<column name="aah_upd_timestamp" order="13" type="date" value="$cur_time"/>
+		</table>
+		<table name="aeAppnActnHistory" identity="aah_id" has_foreign_key="true">
+			<column name="aah_id" order="1" start_value="3501"/>
+			<column name="aah_app_id" order="2" value="$app_id"/>
+			<column name="aah_process_id" order="3" value="1"/>
+			<column name="aah_fr" order="4" value="等待审批"/>
+			<column name="aah_to" order="5" value="已报名"/>
+			<column name="aah_verb" order="6" value="录取"/>
+			<column name="aah_action_id" order="9" value="7"/>
+			<column name="aah_create_usr_id" order="10" value="$admin_usr_id"/>
+			<column name="aah_create_timestamp" order="11" type="date" value="$cur_time"/>
+			<column name="aah_upd_usr_id" order="12" value="$admin_usr_id"/>
+			<column name="aah_upd_timestamp" order="13" type="date" value="$cur_time"/>
+		</table>
+	</table_group>
+	<!--学习小组-->
+	<table_group name="studygroup" enabled="true" count="10000">
+		<table name="studyGroup" identity="sgp_id" has_foreign_key="true">
+			<column name="sgp_id" order="1" start_value="1"/>
+			<column name="sgp_tcr_id" order="2" value="$root_tcr_id"/>
+			<column name="sgp_title" order="3">
+				<part value="sgpTitle_"/>
+				<part value="$sgp_id"/>
+			</column>
+			<column name="sgp_desc" order="4">
+				<part value="sgpDesc_"/>
+				<part value="$sgp_id"/>
+			</column>
+			<column name="sgp_public_type" order="5" value="1"/>
+			<column name="sgp_create_usr_id" order="6" value="$admin_usr_id"/>
+			<column name="sgp_create_timestamp" order="7" type="date" value="$cur_time"/>
+			<column name="sgp_upd_timestamp" order="8" type="date" value="$cur_time"/>
+		</table>
+		<!--组长-->
+		<table name="studyGroupRelation" has_foreign_key="true">
+			<column name="sgr_sgp_id" order="1" value="$sgp_id"/>
+			<column name="sgr_ent_id" order="2" start_value="18" next="20"/>
+			<column name="sgr_type" order="3" value="SGP_MANAGER"/>
+			<column name="sgr_create_timestamp" order="4" type="date" value="$cur_time"/>
+			<column name="sgr_create_usr_id" order="5" value="$admin_usr_id"/>
+		</table>
+		<!--讨论区-->
+		<table name="Resources" identity="res_id" has_foreign_key="true">
+			<column name="res_id" order="1" start_value="12001"/>
+			<column name="res_title" order="3" value="$sgp_title"/>
+			<column name="res_type" order="4" value="MOD"/>
+			<column name="res_subtype" order="5" value="DIS"/>
+			<column name="res_difficulty" order="7" value="2"/>
+			<column name="res_status" order="14" value="ON"/>
+			<column name="res_create_date" order="15" type="date" value="$cur_time"/>
+			<column name="res_upd_date" order="17" type="date" value="$cur_time"/>
+		</table>
+		<table name="Module" has_foreign_key="true">
+			<column name="mod_res_id" order="1" value="$res_id"/>
+			<column name="mod_type" order="2" value="FOR"/>
+			<column name="mod_has_rate_q" order="22" value="0"/>
+			<column name="mod_is_public" order="23" value="1"/>
+			<column name="mod_show_answer_ind" order="26" value="-1"/>
+			<column name="mod_sub_after_passed_ind" order="27" value="-1"/>
+			<column name="mod_sgp_ind" order="30" value="1"/>
+		</table>
+		<table name="studyGroupRelation" has_foreign_key="true">
+			<column name="sgr_sgp_id" order="1" value="$sgp_id"/>
+			<column name="sgr_ent_id" order="2" value="$res_id"/>
+			<column name="sgr_type" order="3" value="SGP_DISCUSS"/>
+			<column name="sgr_create_timestamp" order="4" type="date" value="$cur_time"/>
+			<column name="sgr_create_usr_id" order="5" value="$admin_usr_id"/>
+		</table>
+	</table_group>
+	<!--学习小组：目标成员-->
+	<table_group name="studygroupmember" enabled="true" count="1000">
+		<!--课程-->
+		<table name="studyGroupMember" identity="sgm_id" has_foreign_key="true">
+			<column name="sgm_id" order="1" start_value="1"/>
+			<column name="sgm_sgp_id" order="2" start_value="1"/>
+			<column name="sgm_ent_id" order="3" start_value="1"/>
+			<column name="sgm_type" order="4" value="ITM"/>
+			<column name="sgm_status" order="5" value="ADMITTED"/>
+			<column name="sgm_create_timestamp" order="6" type="date" value="$cur_time"/>
+			<column name="sgm_create_usr_id" order="7" value="$admin_usr_id"/>
+			<column name="sgm_update_timestamp" order="8" type="date" value="$cur_time"/>
+			<column name="sgm_update_usr_id" order="9" value="$admin_usr_id"/>
+		</table>
+		<!--用户组-->
+		<table name="studyGroupMember" identity="sgm_id" has_foreign_key="true">
+			<column name="sgm_id" order="1" start_value="10001"/>
+			<column name="sgm_sgp_id" order="2" start_value="1"/>
+			<column name="sgm_ent_id" order="3" start_value="8" next="100"/>
+			<column name="sgm_type" order="4" value="USG"/>
+			<column name="sgm_status" order="5" value="ADMITTED"/>
+			<column name="sgm_create_timestamp" order="6" type="date" value="$cur_time"/>
+			<column name="sgm_create_usr_id" order="7" value="$admin_usr_id"/>
+			<column name="sgm_update_timestamp" order="8" type="date" value="$cur_time"/>
+			<column name="sgm_update_usr_id" order="9" value="$admin_usr_id"/>
+		</table>
+	</table_group>
+	<!--学习小组：资源-->
+	<table_group name="studygroupresource" enabled="true" count="100000">
+		<table name="studyGroupResources" identity="sgs_id" has_foreign_key="true">
+			<column name="sgs_id" order="1" start_value="1"/>
+			<column name="sgs_title" order="2">
+				<part value="sgsTitle"/>
+				<part value="$sgs_id"/>
+			</column>
+			<column name="sgs_type" order="3" value="LINK"/>
+			<column name="sgs_content" order="4" value="http://www.hao123.com"/>
+			<column name="sgs_desc" order="5">
+				<part value="sgsDesc"/>
+				<part value="$sgs_id"/>
+			</column>
+			<column name="sgs_create_timestamp" order="6" type="date" value="$cur_time"/>
+			<column name="sgs_create_usr_id" order="7" value="$admin_usr_id"/>
+			<column name="sgs_update_timestamp" order="8" type="date" value="$cur_time"/>
+			<column name="sgs_update_usr_id" order="9" value="$admin_usr_id"/>
+		</table>
+		<table name="studyGroupRelation" has_foreign_key="true">
+			<column name="sgr_sgp_id" order="1" start_value="1" next="10"/>
+			<column name="sgr_ent_id" order="2" value="$sgs_id"/>
+			<column name="sgr_type" order="3" value="SGP_RESOURCE"/>
+			<column name="sgr_create_timestamp" order="4" type="date" value="$cur_time"/>
+			<column name="sgr_create_usr_id" order="5" value="$admin_usr_id"/>
+		</table>
+	</table_group>
+	<!--知道:目录-->
+	<table_group name="knowcatalog" enabled="true" count="10">
+		<table name="knowCatalog" identity="kca_id" has_foreign_key="true">
+			<column name="kca_id" order="1" start_value="1"/>
+			<column name="kca_tcr_id" order="2" value="$root_tcr_id"/>
+			<column name="kca_code" order="3">
+				<part value="kcaCode_"/>
+				<part value="$kca_id"/>
+			</column>
+			<column name="kca_title" order="4">
+				<part value="kcaTitle_"/>
+				<part value="$kca_id"/>
+			</column>
+			<column name="kca_type" order="5" value="CATALOG"/>
+			<column name="kca_public_ind" order="6" value="1"/>
+			<column name="kca_que_count" order="7" value="100"/>
+			<column name="kca_create_usr_id" order="8" value="$admin_usr_id"/>
+			<column name="kca_create_timestamp" order="9" type="date" value="$cur_time"/>
+			<column name="kca_update_usr_id" order="10" value="$admin_usr_id"/>
+			<column name="kca_update_timestamp" order="11" type="date" value="$cur_time"/>
+		</table>
+	</table_group>
+	<!--知道:问题-->
+	<table_group name="knowquestion" enabled="true" count="1000">
+		<table name="knowQuestion" identity="que_id" has_foreign_key="true">
+			<column name="que_id" order="1" start_value="1"/>
+			<column name="que_kca_id" order="2" start_value="1" next="10"/>
+			<column name="que_title" order="3">
+				<part value="queTitle_"/>
+				<part value="$que_id"/>
+			</column>
+			<column name="que_content" order="4">
+				<part value="queContent_"/>
+				<part value="$que_id"/>
+			</column>
+			<column name="que_type" order="5" value="UNSOLVED"/>
+			<column name="que_popular_ind" order="7" value="0"/>
+			<column name="que_reward_credits" order="9" value="10"/>
+			<column name="que_status" order="10" value="OK"/>
+			<column name="que_create_ent_id" order="11" value="$admin_usr_ent_id"/>
+			<column name="que_create_timestamp" order="12" type="date" value="$cur_time"/>
+			<column name="que_update_ent_id" order="13" value="$admin_usr_ent_id"/>
+			<column name="que_update_timestamp" order="14" type="date" value="$cur_time"/>
+		</table>
+		<table name="knowCatalogRelation" has_foreign_key="true">
+			<column name="kcr_child_kca_id" order="1" value="$que_id"/>
+			<column name="kcr_ancestor_kca_id" order="2" start_value="1" next="100"/>
+			<column name="kcr_type" order="3" value="QUE_PARENT_KCA"/>
+			<column name="kcr_order" order="4" value="1"/>
+			<column name="kcr_parent_ind" order="5" value="1"/>
+			<column name="kcr_create_usr_id" order="8" value="$admin_usr_id"/>
+			<column name="kcr_create_timestamp" order="9" type="date" value="$cur_time"/>
+		</table>
+	</table_group>
+	<!--知道:回答-->
+	<table_group name="knowanswer" enabled="true" count="100000">
+		<table name="knowAnswer" identity="ans_id" has_foreign_key="true">
+			<column name="ans_id" order="1" start_value="1"/>
+			<column name="ans_que_id" order="2" start_value="1" next="100"/>
+			<column name="ans_content" order="3">
+				<part value="ansContent_"/>
+				<part value="$ans_id"/>
+			</column>
+			<column name="ans_right_ind" order="5" value="0"/>
+			<column name="ans_status" order="12" value="OK"/>
+			<column name="ans_create_ent_id" order="13" value="$admin_usr_ent_id"/>
+			<column name="ans_create_timestamp" order="14" type="date" value="$cur_time"/>
+			<column name="ans_update_ent_id" order="15" value="$admin_usr_ent_id"/>
+			<column name="ans_update_timestamp" order="16" type="date" value="$cur_time"/>
+		</table>
+	</table_group>
+	<!--论坛-->
+	<table_group name="forum" enabled="true" count="100">
+		<table name="Resources" identity="res_id" has_foreign_key="true">
+			<column name="res_id" order="1" start_value="22001"/>
+			<column name="res_title" order="3">
+				<part value="ForumTitle"/>
+				<part value="$res_id"/>
+			</column>
+			<column name="res_type" order="4" value="MOD"/>
+			<column name="res_subtype" order="5" value="FOR"/>
+			<column name="res_difficulty" order="7" value="0"/>
+			<column name="res_usr_id_owner" order="10" value="$admin_usr_id"/>
+			<column name="res_status" order="14" value="ON"/>
+			<column name="res_create_date" order="15" type="date" value="$cur_time"/>
+			<column name="res_upd_user" order="16" value="$admin_usr_id"/>
+			<column name="res_upd_date" order="17" type="date" value="$cur_time"/>
+		</table>
+		<table name="Module" has_foreign_key="true">
+			<column name="mod_res_id" order="1" value="$res_id"/>
+			<column name="mod_type" order="2" value="FOR"/>
+			<column name="mod_score_ind" order="8" value="1"/>
+			<column name="mod_eff_start_datetime" order="11" type="date" value="$cur_time"/>
+			<column name="mod_eff_end_datetime" order="12" type="date" value="$max_time"/>
+			<column name="mod_has_rate_q" order="22" value="0"/>
+			<column name="mod_is_public" order="23" value="1"/>
+			<column name="mod_show_answer_ind" order="26" value="-1"/>
+			<column name="mod_sub_after_passed_ind" order="27" value="-1"/>
+			<column name="mod_auto_save_ind" order="29" value="-1"/>
+			<column name="mod_sgp_ind" order="30" value="0"/>
+		</table>
+		<table name="ResourcePermission" has_foreign_key="true">
+			<column name="rpm_res_id" order="1" value="$res_id"/>
+			<column name="rpm_ent_id" order="2" value="$ste_ent_id"/>
+			<column name="rpm_read" order="4" value="1"/>
+			<column name="rpm_write" order="5" value="0"/>
+			<column name="rpm_execute" order="6" value="1"/>
+		</table>
+		<table name="ResourcePermission" has_foreign_key="true">
+			<column name="rpm_res_id" order="1" value="$res_id"/>
+			<column name="rpm_ent_id" order="2" value="$admin_usr_ent_id"/>
+			<column name="rpm_rol_ext_id" order="3" value="TADM_1"/>
+			<column name="rpm_read" order="4" value="1"/>
+			<column name="rpm_write" order="5" value="1"/>
+			<column name="rpm_execute" order="6" value="0"/>
+		</table>
+	</table_group>
+	<!--论坛:论题-->
+	<table_group name="forumtopic" enabled="true" count="1000">
+		<table name="forumTopic" identity="fto_id" has_foreign_key="true">
+			<column name="fto_id" order="1" start_value="1"/>
+			<column name="fto_res_id" order="2" start_value="21001" next="10"/>
+			<column name="fto_title" order="3">
+				<part value="ForumTopicTitle"/>
+				<part value="$fto_id"/>
+			</column>
+			<column name="fto_usr_id" order="4" value="$admin_usr_id"/>
+			<column name="fto_create_datetime" order="5" type="date" value="$cur_time"/>
+			<column name="fto_last_post_datetime" order="6" type="date" value="$cur_time"/>
+		</table>
+	</table_group>
+	<!--论坛:文章-->
+	<table_group name="forummessage" enabled="true" count="10000">
+		<table name="forumMessage" identity="fmg_id" has_foreign_key="true">
+			<column name="fmg_id" order="1" start_value="1"/>
+			<column name="fmg_fto_id" order="2" start_value="1" next="10"/>
+			<column name="fmg_fto_res_id" order="3" start_value="21001" next="100"/>
+			<column name="fmg_msg" order="4">
+				<part value="ForumMessage"/>
+				<part value="$fmg_id"/>
+			</column>
+			<column name="fmg_image" order="5" value="forum_icon1"/>
+			<column name="fmg_usr_id" order="6" value="$admin_usr_id"/>
+			<column name="fmg_create_datetime" order="10" type="date" value="$cur_time"/>
+			<column name="fmg_msg" order="12">
+				<part value="ForumMessage"/>
+				<part value="$fmg_id"/>
+			</column>
+			<column name="fmg_msg_searchable_content" order="13" value="$fmg_msg"/>
+		</table>
+	</table_group>
+	<!--公告-->
+	<table_group name="message" enabled="true" count="1000">
+		<table name="Message" identity="msg_id" has_foreign_key="true">
+			<column name="msg_id" order="1" start_value="1"/>
+			<column name="msg_usr_id" order="2" value="$admin_usr_id"/>
+			<column name="msg_type" order="3" value="SYS"/>
+			<column name="msg_title" order="4">
+				<part value="messageTitle"/>
+				<part value="$msg_id"/>
+			</column>
+			<column name="msg_body" order="5">
+				<part value="messageBody"/>
+				<part value="$msg_id"/>
+			</column>
+			<column name="msg_begin_date" order="6" type="date" value="$cur_time"/>
+			<column name="msg_end_date" order="7" type="date" value="$max_time"/>
+			<column name="msg_status" order="8" value="ON"/>
+			<column name="msg_res_id" order="9" value="0"/>
+			<column name="msg_root_ent_id" order="10" value="$ste_ent_id"/>
+			<column name="msg_upd_date" order="11" type="date" value="$cur_time"/>
+			<column name="msg_tcr_id" order="13" value="$root_tcr_id"/>
+		</table>
+	</table_group>
+</data_loader>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.CpdGroupHoursMapper">
+	<resultMap id="CpdGroupHours" type="CpdGroupHours">
+		<id column="cgh_id" property="cgh_id" />
+		<result column="cgh_cgp_id" property="cgh_cgp_id"></result>
+		<result column="cgh_declare_month" property="cgh_declare_month"></result>
+		<result column="cgh_core_hours" property="cgh_core_hours"></result>
+		<result column="cgh_non_core_hours" property="cgh_non_core_hours"></result>
+		<result column="cgh_create_usr_ent_id" property="cgh_create_usr_ent_id"></result>
+		<result column="cgh_create_datetime" property="cgh_create_datetime"></result>
+		<result column="cgh_update_usr_ent_id" property="cgh_update_usr_ent_id"></result>
+		<result column="cgh_update_datetime" property="cgh_update_datetime"></result>
+		<result column="cgh_status" property="cgh_status"></result>
+	</resultMap>
+	
+	<select id="getHoursByPeriod" resultType="com.cwn.wizbank.entity.CpdGroupPeriod" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				cgh_id ,
+				cgh_cgp_id ,
+				cgh_declare_month,
+				cgh_core_hours ,
+				cgh_non_core_hours ,
+				cgh_create_usr_ent_id ,
+				cgh_create_datetime ,
+				cgh_update_usr_ent_id ,
+				cgh_update_datetime ,
+				cgh_status
+			from 
+				cpdGroupHours 
+			where
+				cgh_status = 'OK'
+		]]>
+		<if test="cgp_id !=null and cgp_id !=''">
+			and cgh_cgp_id = #{cgp_id} 
+		</if>
+		order by cgh_declare_month desc
+	</select>	
+	
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.CpdGroupHours">
+	    <![CDATA[
+            insert into CpdGroupHours(
+            		cgh_cgp_id,
+            		cgh_declare_month,
+            		cgh_core_hours,
+            		cgh_non_core_hours,
+            		cgh_create_usr_ent_id,
+            		cgh_create_datetime,
+            		cgh_status
+            ) values (
+            	#{cgh_cgp_id,jdbcType=INTEGER},
+            	#{cgh_declare_month,jdbcType=INTEGER},
+            	#{cgh_core_hours,jdbcType=FLOAT},
+            	#{cgh_non_core_hours,jdbcType=FLOAT},
+            	#{cgh_create_usr_ent_id,jdbcType=INTEGER},
+            	#{cgh_create_datetime,jdbcType=TIMESTAMP},
+            	#{cgh_status,jdbcType=VARCHAR}
+            )
+        ]]>
+	</insert>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.CpdGroupHours">
+	    <![CDATA[
+	        update CpdGroupHours 
+	        set
+				cgh_core_hours = #{cgh_core_hours,jdbcType=FLOAT},
+           		cgh_non_core_hours = #{cgh_non_core_hours,jdbcType=FLOAT},
+           		cgh_update_usr_ent_id = #{cgh_update_usr_ent_id,jdbcType=INTEGER},
+           		cgh_update_datetime = #{cgh_update_datetime,jdbcType=TIMESTAMP}
+	         where cgh_id = #{cgh_id,jdbcType=INTEGER}
+	    ]]>
+	</update>
+	
+	<update id="delete" parameterType="com.cwn.wizbank.entity.CpdGroupHours">
+	    <![CDATA[
+	        update CpdGroupHours 
+	        set
+				cgh_status = #{cgh_status,jdbcType=VARCHAR},
+           		cgh_update_usr_ent_id = #{cgh_update_usr_ent_id,jdbcType=INTEGER},
+           		cgh_update_datetime = #{cgh_update_datetime,jdbcType=TIMESTAMP}
+	         where cgh_cgp_id = #{cgh_cgp_id,jdbcType=INTEGER}
+	    ]]>
+	</update>
+	
+	<update id="deleteByCgpId" parameterType="com.cwn.wizbank.entity.CpdGroupHours">
+	    <![CDATA[
+	        update CpdGroupHours 
+	        set
+				cgh_status = #{cgh_status,jdbcType=VARCHAR},
+           		cgh_update_usr_ent_id = #{cgh_update_usr_ent_id,jdbcType=INTEGER},
+           		cgh_update_datetime = #{cgh_update_datetime,jdbcType=TIMESTAMP}
+	         where cgh_cgp_id = #{cgh_cgp_id,jdbcType=INTEGER}
+	    ]]>
+	</update>
+	
+	<select id="getByCghCgpID" resultMap="CpdGroupHours" parameterType="java.lang.Long">
+	    <![CDATA[
+	        select CpdGroupHours.*
+	         from CpdGroupHours 
+	         where cgh_cgp_id = #{id}  and cgh_status = 'OK'
+	         order by cgh_declare_month desc
+	    ]]>
+	</select>
+	
+</mapper>

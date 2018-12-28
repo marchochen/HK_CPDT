@@ -1,0 +1,176 @@
+<!doctype html>
+<html ng-app="instructorModule">
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+		<title translate="cwn_title"></title>
+		<link rel="stylesheet" href="../../css/basic.css" />
+		<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.load.js"></script>
+		<script type="text/javascript" src="../../js/controllers/instructor/InstructorController.js"></script>
+		<script type="text/javascript" src="../../lib/common.js"></script>
+	</head>
+
+	<body ng-cloak class="ng-cloak" ng-controller="detailController">
+	  <alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>
+	  <!-- wrap start -->
+	  <div class="wrap">
+	  
+	  	<!-- header start -->
+	  	 <header class="header mm-background">
+		    <a class="header-back" href="javascript:back()"></a>
+		    <span class="header-title" ng-bind="'instructor_detail' | translate"></span>
+		 </header>
+		 <!-- header end -->
+		 
+		 <!-- section start -->
+		 <section class="content">
+		 	<!-- 封面 start -->
+		 	<div class="list-pic-3-teacher">
+		        <div class="own-box">
+		            <div class="own-box-area">
+		                <div class="own-box-pic">
+		                    <div class="own-box-user">
+		                        <img ng-src="{{serverHost + instructroDetail.iti_img}}" alt="">
+		                        <a ng-if="instructroDetail.iti_recommend" href="javascript:void(0)" class="own-box-follow own-box-tuijian" style="{{globalLang=='en-us'?'right:-127px':''}}" ng-bind="'instructor_recommend' | translate"></a>
+		                    </div>
+		                </div>
+		                <div class="own-box-tit-1" ng-bind="instructroDetail.iti_name"></div>
+		                <div class="own-box-tit-6">
+		                	<i ng-repeat="star in instructroDetail.iti_score_star_2" class="{{star.star}}"></i>
+		                    <!-- <i class="start-g start-g-full" ng-repeat="s in instructroDetail.solidStarArr"></i>
+				            <i class="start-g" ng-repeat="s in instructroDetail.hollowStarArr"></i> -->
+		                </div>
+		                <div class="own-box-info" style="line-height:30px;">
+		                    <div class="own-box-info-bar" ng-bind="instructroDetail.iti_level"></div> 
+		                    <div class="own-box-info-bar">{{'instructor_open_course' | translate}}<span class="panel-num-21" ng-bind="courseListLoader.items.length"></span></div>
+		                </div>
+		            </div>     
+		        </div>
+		        <img class="list-pic-3-teacher-pic" alt="" src="../../images/banner52.jpg">
+		    </div>
+		    <!-- 封面 end -->
+		    
+		    <!-- 讲师介绍start -->
+		    <div style="background:#fff;padding:10px;border-bottom:1px solid #ddd;" ng-if="instructroDetail.iti_introduction != null && instructroDetail.iti_introduction != ''">
+		        <p class="wenzi-2" ng-bind="'instructor_about' | translate"></p>
+		        <p class="panel-add-10" ng-bind="instructroDetail.iti_introduction"></p>
+		    </div>
+		    <!-- 讲师介绍end -->
+		    
+		    <!-- 擅长领域start -->
+		    <div style="background:#fff;padding:10px;border-bottom:1px solid #ddd;" ng-if="instructroDetail.iti_expertise_areas != null && instructroDetail.iti_expertise_areas != ''">
+		      <span style="font-size:16px;" ng-bind="'instructor_area_expertise' | translate"></span><p style="color:#666;" ng-bind="instructroDetail.iti_expertise_areas"></p>
+		    </div>
+		    <!-- 擅长领域end -->
+		    
+		    <!-- 擅长行业start -->
+		    <div style="background:#fff;padding:10px;border-bottom:1px solid #ddd;" ng-if="instructroDetail.iti_good_industry != null && instructroDetail.iti_good_industry != ''">
+		      <span style="font-size:16px;" ng-bind="'instructor_industry_expertise' | translate"></span><p style="color:#666;" ng-bind="instructroDetail.iti_good_industry"></p>
+		    </div>
+		    <!-- 擅长行业end -->
+		    
+		    <!-- tabs start -->
+		    <div class="panel-list-nobg">
+		    	<tabs css="1">
+		    		<!-- 个人详情 tab start -->
+		    		<pane title="{{'instructor_personal_detail' | translate}}">
+						<div class="panel-tabcont-3 pub-tabcont" style="display: block;">
+			                <div class="cont-box">
+			                    <div class="panel-title-19">
+			                        <a class="panel-add-06 clearfix" href="javascript:void(0)">
+			                            <i class="icon-quanming"></i>
+			                            <em class="panel-num-18" style="line-height:32px;margin-right:0;" ng-bind="instructroDetail.iti_name"></em>
+			                            		{{'personal_files_fullName'|translate}}<!--全名-->
+			                        </a>
+			                    </div>
+			                      
+			                    <div class="panel-title-19 panel-title-19-no">
+			                        <a class="panel-add-06 clearfix" href="javascript:void(0)"> 
+			                            <i class="icon-xingbie"></i>
+			                           <em class="panel-num-18" style="line-height:32px;margin-right:0;" ng-bind="instructroDetail.iti_gender"></em>{{'personal_files_sex'|translate}}<!--性别-->
+			                        </a>
+			                    </div>
+			                      
+			                    <div class="panel-title-19 panel-title-19-no"  ng-if="instructroDetail.iti_bday != '--'">
+			                        <a class="panel-add-06 clearfix" href="javascript:void(0)"> 
+			                            <i class="icon-shengri"></i>
+			                           <em class="panel-num-18" style="line-height:32px;margin-right:0;" ng-bind="instructroDetail.iti_bday"></em>{{'personal_files_birthday'|translate}}<!--生日-->
+			                        </a>
+			                    </div>
+			
+			                    <div class="panel-title-19 panel-title-19-no" ng-if="instructroDetail.iti_mobile != '--'">
+			                        <a class="panel-add-06 clearfix" href="javascript:void(0)">
+			                            <i class="icon-dianhua"></i>
+			                            <em class="panel-num-18" style="line-height:32px;margin-right:0;" ng-bind="instructroDetail.iti_mobile"></em>{{'personal_files_phone'|translate}}<!--电话-->
+			                        </a>
+			                    </div>
+			
+			                    <div class="panel-title-19 panel-title-19-no" ng-if="instructroDetail.iti_email != '--'">
+			                        <a class="panel-add-06 clearfix" href="javascript:void(0)">
+			                            <i class="icon-youjian"></i>
+			                            <em class="panel-num-18" style="line-height:32px;margin-right:0;" ng-bind="instructroDetail.iti_email"></em>{{'personal_files_email'|translate}}<!--电子邮件-->
+			                        </a>
+			                    </div>
+			                 </div>
+			                 
+			                 <div class="cont-info">
+			                      <div class="panel-list-cont-7">            
+			                           <div class="panel-add-04" ng-bind="'instructor_level' | translate"></div>
+			                           <div class="panel-add-05" ng-bind="instructroDetail.iti_level | limitTo : 2"></div>
+			                      </div>
+			                      
+			                      <div class="panel-list-cont-7 panel-list-cont-7-no">            
+			                           <div class="panel-add-04" ng-bind="'instructor_course_category' | translate"></div>
+			                           <div class="panel-add-05" ng-bind="instructroDetail.iti_cos_type"></div>
+			                      </div>
+			                      
+			                      <div class="panel-list-cont-7 panel-list-cont-7-no">            
+			                           <div class="panel-add-04" ng-bind="'instructor_course_main' | translate"></div>
+			                           <div class="panel-add-05" ng-bind="instructroDetail.iti_main_course"></div>
+			                      </div>
+			                      
+			                      <div class="panel-list-cont-7 panel-list-cont-7-no">            
+			                           <div class="panel-add-04" ng-bind="'instructor_source' | translate"></div>
+			                           <div class="panel-add-05" ng-if="instructroDetail.iti_type_mark == 'IN'" ng-bind="'instructor_source_internal' | translate"></div>
+			                           <div class="panel-add-05" ng-if="instructroDetail.iti_type_mark == 'EXT'" ng-bind="'instructor_source_External' | translate"></div>
+			                      </div>
+			                 </div>
+			            </div>
+					</pane>
+					<!-- 个人详情 tab end -->
+					
+					<!-- 开课列表 tab start -->
+					<pane title="{{'instructor_course_list' | translate}}">
+						<div style="background:#fff;">
+			                <ul class="panel-list-1-1 clearfix" ng-show="courseListLoader.items && courseListLoader.items.length > 0">
+			                    <li ng-repeat="c in courseListLoader.items">
+			                        <a class="panel-list-cont-1" href="javascript:clicked('../course/detail.html?itmId={{c.encItmId}}',true)" title="">
+			                            <div class="list-pic-1">
+			                                <img ng-src="{{serverHost + c.itm_icon}}" alt="">
+			                                <span class="{{c.cla}}"></span>
+			                                <div class="showin"></div>
+			                            </div>
+			                            <div class="list-title"><i class="wzb-pc-icon"></i><i class="wzb-phone-icon" ng-show="c.itm_mobile_ind && c.itm_mobile_ind == 'yes'"></i>{{c.itm_title}}</div>
+			                        </a>
+			                        <div class="list-tool-1">
+			                            <span id="ocl_1185" class="list-tool-1-laud ng-binding" ng-bind="c.snsCount.s_cnt_like_count?c.snsCount.s_cnt_like_count:0"></span>
+			                            <!-- <span id="occ_1185" class="list-tool-1-review ng-binding" ng-bind="c.cnt_comment_count"></span> -->
+			                        </div>
+			                    </li>
+			                </ul>
+							<div loader="courseListLoader"></div>
+			            </div>
+					</pane>
+					<!-- 开课列表tab start -->
+		    	</tabs>
+		    </div>
+		    <!-- tabs end -->
+		    
+		 </section>
+		 <!-- section end -->
+		 
+	  </div>
+	  <!-- wrap end -->
+	</body>
+</html>

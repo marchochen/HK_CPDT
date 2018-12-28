@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.SnsShareMapper">
+	<select id="get" resultType="SnsShare" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				s_sha_id,
+				s_sha_title,
+				s_sha_url,
+				s_sha_create_datetime,
+				s_sha_uid,
+				s_sha_module,
+				s_sha_target_id
+			from sns_share t where t.s_sha_id = #{id}
+		]]>
+	</select>
+	<select id="getByUserId" resultType="SnsShare" parameterType="Map" >
+	    	select 
+				s_sha_id,
+				s_sha_title,
+				s_sha_url,
+				s_sha_create_datetime,
+				s_sha_uid,
+				s_sha_module,
+				s_sha_target_id
+			from sns_share where s_sha_target_id = #{targetId}
+			and s_sha_uid = #{userEntId}
+			and s_sha_module = #{module}
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.SnsShare">
+	    <![CDATA[
+	        update sns_share t 
+	        set 
+				s_sha_id = #{s_sha_id,jdbcType=INTEGER},
+				s_sha_title = #{s_sha_title,jdbcType=VARCHAR},
+				s_sha_url = #{s_sha_url,jdbcType=VARCHAR},
+				s_sha_create_datetime = #{s_sha_create_datetime,jdbcType=TIMESTAMP},
+				s_sha_uid = #{s_sha_uid,jdbcType=INTEGER},
+				s_sha_module = #{s_sha_module,jdbcType=VARCHAR},
+				s_sha_target_id = #{s_sha_target_id,jdbcType=INTEGER}
+	         where t.s_sha_id = #{s_sha_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.SnsShare" keyProperty="s_sha_id">
+            insert into sns_share(
+            		s_sha_title,
+            		s_sha_url,
+            		s_sha_create_datetime,
+            		s_sha_uid,
+            		s_sha_module,
+            		s_sha_target_id
+            ) values (
+            	#{s_sha_title,jdbcType=VARCHAR},
+            	#{s_sha_url,jdbcType=VARCHAR},
+            	#{s_sha_create_datetime,jdbcType=TIMESTAMP},
+            	#{s_sha_uid,jdbcType=INTEGER},
+            	#{s_sha_module,jdbcType=VARCHAR},
+            	#{s_sha_target_id,jdbcType=INTEGER}
+            )
+	    	<selectKey keyProperty="s_sha_id" resultType="Long" order="AFTER">
+				<choose>
+					<when test="_databaseId == 'ORACLE'">
+						select sns_share_seq.currval from dual
+					</when>
+					<when test="_databaseId == 'SQLSERVER'">
+						select ident_current('sns_share')
+					</when>
+					<when test="_databaseId == 'MYSQL'">
+						select last_insert_id()
+					</when>
+				</choose>
+			</selectKey>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from sns_share  where s_sha_id = #{s_sha_id}
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="SnsShare">
+	    <![CDATA[
+	         select 
+				s_sha_id,
+				s_sha_title,
+				s_sha_url,
+				s_sha_create_datetime,
+				s_sha_uid,
+				s_sha_module,
+				s_sha_target_id
+			from sns_share t 
+	    ]]>
+	</select>
+	<delete id="delByTargetIdAndModule" parameterType="SnsShare">
+	    <![CDATA[
+	        delete from sns_share  where s_sha_module = #{s_sha_module} and s_sha_target_id = #{s_sha_module}
+	    ]]>
+    </delete>
+    
+    
+    <delete id="delErrorData"  parameterType="Map" >
+    	<!-- 重复的错误数据会导致程序出错，在错误发生成调用该方法删除重复的数据 -->
+    	delete from sns_share where s_sha_id not in(
+ 				 select max(s_sha_id) from sns_share 
+       			 group by s_sha_uid,s_sha_target_id,s_sha_module 
+		) 	
+	</delete>
+</mapper>

@@ -1,0 +1,9 @@
+8.0
+7
+1	SQLNCHAR	0	0	"\t\0"		1	que_res_id 	""
+2	SQLNCHAR	0	0	"\t\0"		2	que_xml	""
+3	SQLNCHAR	0	0	"\t\0"		3	que_score	""
+4	SQLNCHAR	0	0	"\t\0"		4	que_type	""
+5	SQLNCHAR	0	0	"\t\0"		5	que_int_count	""
+6	SQLNCHAR	0	0	"\t\0"		7	que_media_ind	""
+7	SQLNCHAR	0	0	"\r\0\n\0"	8	que_submit_file_ind	""

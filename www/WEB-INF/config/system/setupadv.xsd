@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:simpleType name="encodingType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="UTF-8" />
+			<xsd:enumeration value="Big5" />
+			<xsd:enumeration value="GB2312" />
+			<xsd:enumeration value="ISO-8859-1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="userStatusType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="OK" />
+			<xsd:enumeration value="PENDING" />
+			<xsd:enumeration value="NG" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="separatorType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="/" />
+			<xsd:enumeration value="~" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="posIntType">
+		<xsd:restriction base="xsd:int">
+			<xsd:minInclusive value="1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="nonNullStringType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="redirectStringType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="0" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="nonNullUriType">
+		<xsd:restriction base="xsd:anyURI">
+			<xsd:minLength value="1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="learningSolutionType">
+		<xsd:sequence>
+			<xsd:element name="catalog_show_only_targeted_ls" type="xsd:boolean" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="dirType">
+		<xsd:attribute name="name" type="nonNullStringType" />
+		<xsd:attribute name="relative" type="xsd:boolean" />
+		<xsd:attribute name="url" type="nonNullStringType" />
+	</xsd:complexType>
+	<xsd:complexType name="fileUploadType">
+		<xsd:sequence>
+			<xsd:element name="max_upload_size" type="posIntType" />
+			<xsd:element name="res_dir" type="dirType" />
+			<xsd:element name="sgpRes_dir" type="dirType" />
+			<xsd:element name="itm_dir" type="dirType" />
+			<xsd:element name="msg_dir" type="dirType" />
+			<xsd:element name="fac_dir" type="dirType" />
+			<xsd:element name="obj_dir" type="dirType" />
+			<xsd:element name="tmp_dir" type="dirType" />
+			<xsd:element name="content_dir" type="dirType" />
+			<xsd:element name="usr_dir" type="dirType" />
+			<xsd:element name="usr_icon" type="dirType" />
+			<xsd:element name="article_dir" type="dirType" />
+			<xsd:element name="ann_dir" type="dirType" />
+			<xsd:element name="editor_dir" type="dirType" />
+			<xsd:element name="poster_dir" type="dirType" />
+			<xsd:element name="supplier_dir" type="dirType" />
+			<xsd:element name="cert_dir" type="dirType" />
+			<xsd:element name="group_dir" type="dirType" />
+			<xsd:element name="attachment_dir" type="dirType" />
+			<xsd:element name="position_dir" type="dirType" />
+			<xsd:element name="live_dir" type="dirType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="loginType">
+		<xsd:sequence>
+			<xsd:element name="relogin_url" type="nonNullUriType" />
+			<xsd:element name="login_failure_url" type="nonNullUriType" />
+			<xsd:element name="session_time_out" type="nonNullUriType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="maintenanceType">
+		<xsd:sequence>
+			<xsd:element name="password" type="nonNullStringType" />
+			<xsd:element name="redirect_url" type="nonNullUriType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="wizcaseType">
+		<xsd:sequence>
+			<xsd:element name="xml_home_dir" type="dirType" />
+			<xsd:element name="temp_dir" type="dirType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="assEmailTemplateType">
+		<xsd:sequence>
+			<xsd:element name="success_template_en_us" type="nonNullStringType" />
+			<xsd:element name="success_template_zh_hk" type="nonNullStringType" />
+			<xsd:element name="success_template_zh_cn" type="nonNullStringType" />
+			<xsd:element name="submit_teacher_template_en_us" type="nonNullStringType" />
+			<xsd:element name="submit_teacher_template_zh_hk" type="nonNullStringType" />
+			<xsd:element name="submit_teacher_template_zh_cn" type="nonNullStringType" />
+			<xsd:element name="grade_template_en_us" type="nonNullStringType" />
+			<xsd:element name="grade_template_zh_hk" type="nonNullStringType" />
+			<xsd:element name="grade_template_zh_cn" type="nonNullStringType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="onlinePaymentType">
+		<xsd:sequence>
+			<xsd:element name="cono" type="nonNullStringType" />
+			<xsd:element name="check_key" type="xsd:boolean" />
+			<xsd:element name="key_file" type="nonNullStringType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="forumType">
+		<xsd:sequence>
+			<xsd:element name="mark_msg" type="xsd:boolean" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="securityFileServletType">
+		<xsd:sequence>
+			<xsd:element name="enabled" type="xsd:boolean" />
+			<xsd:element name="ignore_mime" type="nonNullStringType" />
+			<xsd:element name="media_server_license" type="nonNullStringType" />
+			<xsd:element name="login_required_folder" type="nonNullStringType" />
+			<xsd:element name="hidden_folder" type="nonNullStringType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="itemPrerequisiteThreadType">
+		<xsd:sequence>
+			<xsd:element name="enabled" type="xsd:boolean" />
+			<xsd:element name="interval" type="posIntType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="itemTreenotePathThreadType">
+		<xsd:sequence>
+			<xsd:element name="enabled" type="xsd:boolean" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="enterpriseManagerType">
+		<xsd:sequence>
+			<xsd:element name="sysadmin_id" type="nonNullStringType" />
+			<xsd:element name="sysadmin_pass" type="nonNullStringType" />
+			<xsd:element name="default_grade_id" type="posIntType" />
+			<xsd:element name="default_site_id" type="posIntType" />
+			<xsd:element name="import_role_list" type="nonNullStringType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="userBatchUploadType">
+		<xsd:sequence>
+			<xsd:element name="generate_password" type="xsd:boolean" />
+			<xsd:element name="check_distinct_user" type="xsd:boolean" />
+			<xsd:element name="default_user_status" type="userStatusType" />
+			<xsd:element name="max_upload_count" type="posIntType" />
+			<xsd:element name="spawn_threshold" type="posIntType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="resBatchUploadType">
+		<xsd:sequence>
+			<xsd:element name="max_upload_count" type="posIntType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="kmSubscriptionNotifyThreadType">
+		<xsd:sequence>
+			<xsd:element name="enabled" type="xsd:boolean" />
+			<xsd:element name="interval" type="posIntType" />
+			<xsd:element name="daily_mail_send_time" type="posIntType" />
+			<xsd:element name="weekly_mail_send_time" type="posIntType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="kmIndexingThreadType">
+		<xsd:sequence>
+			<xsd:element name="enabled" type="xsd:boolean" />
+			<xsd:element name="interval" type="posIntType" />
+			<xsd:element name="search_db_dir" type="dirType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="kmLibraryType">
+		<xsd:sequence>
+			<xsd:element name="borrow_limit" type="posIntType" />
+			<xsd:element name="overdue_limit" type="posIntType" />
+			<xsd:element name="renew_limit" type="posIntType" />
+			<xsd:element name="due_day" type="posIntType" />
+			<xsd:element name="enabled" type="xsd:boolean" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="organizationType">
+		<xsd:sequence>
+			<xsd:element name="multiple" type="xsd:boolean" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="lcmsType">
+		<xsd:sequence>
+			<xsd:element name="enabled" type="xsd:boolean" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="netgLogType">
+		<xsd:sequence>
+			<xsd:element name="log_enabled" type="xsd:boolean" />
+			<xsd:element name="log_file" type="nonNullStringType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="enrollmentBatchUploadType">
+		<xsd:sequence>
+			<xsd:element name="max_upload_count" type="posIntType" />
+			<xsd:element name="spawn_threshold" type="posIntType" />
+			<xsd:element name="preview_size" type="posIntType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="yearInt">
+		<xsd:restriction base="xsd:int">
+			<xsd:minInclusive value="1900" />
+			<xsd:maxInclusive value="9999" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="imgInt">
+		<xsd:restriction base="xsd:int">
+			<xsd:minInclusive value="1" />
+			<xsd:maxInclusive value="934" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="imageSizeType">
+		<xsd:sequence>
+			<xsd:element name="width" type="imgInt" />
+			<xsd:element name="height" type="imgInt" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="imageType">
+		<xsd:sequence>
+			<xsd:element name="itm_img" type="imageSizeType" />
+			<xsd:element name="usr_img" type="imageSizeType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="tcStyleType">
+		<xsd:sequence>
+			<xsd:element name="css_dir" type="nonNullStringType" />
+			<xsd:element name="css_file" type="nonNullStringType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="vhallLiveType">
+		<xsd:sequence>
+			<xsd:element name="live_account" type="nonNullStringType" />
+			<xsd:element name="live_password" type="nonNullStringType" />
+			<xsd:element name="live_publish"  type="xsd:boolean"  />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="qcloudLiveType">
+		<xsd:sequence>
+			<xsd:element name="secret_id" type="nonNullStringType" />
+			<xsd:element name="secret_key" type="nonNullStringType" />
+			<xsd:element name="request_method" type="nonNullStringType" />
+			<xsd:element name="region" type="nonNullStringType" />
+			<xsd:element name="live_publish"  type="xsd:boolean"  />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="genseeLiveType">
+		<xsd:sequence>
+			<xsd:element name="live_account" type="nonNullStringType" />
+			<xsd:element name="live_password" type="nonNullStringType" />
+			<xsd:element name="live_gensee_url" type="nonNullStringType" />
+			<xsd:element name="live_publish"  type="xsd:boolean"  />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="liveType">
+		<xsd:sequence>
+			<xsd:element name="vhall" type="vhallLiveType" />
+			<xsd:element name="qcloud" type="qcloudLiveType" />
+			<xsd:element name="gensee" type="genseeLiveType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="redirectType">
+		<xsd:sequence>
+			<xsd:element name="redirect" type="redirectStringType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="setupadv">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element name="debug" type="xsd:boolean" />
+				<xsd:element name="encoding" type="encodingType" />
+				<xsd:element name="skin_home" type="nonNullStringType" />
+				<xsd:element name="log_dir" type="dirType" />
+				<xsd:element name="file_upload" type="fileUploadType" />
+				<xsd:element name="login" type="loginType" />
+				<xsd:element name="maintenance" type="maintenanceType" />
+				<xsd:element name="wizcase" type="wizcaseType" />
+				<xsd:element name="ass_email_template" type="assEmailTemplateType" />
+				<xsd:element name="online_payment" type="onlinePaymentType" />
+				<xsd:element name="forum" type="forumType" />
+				<xsd:element name="security_file_servlet" type="securityFileServletType" />
+				<xsd:element name="item_prerequisite_thread" type="itemPrerequisiteThreadType" />
+				<xsd:element name="item_treenote_path_thread" type="itemTreenotePathThreadType" />
+				<xsd:element name="enterprise_manager" type="enterpriseManagerType" />
+				<xsd:element name="user_batch_upload" type="userBatchUploadType" />
+				<xsd:element name="res_batch_upload" type="resBatchUploadType" />
+				<xsd:element name="km_subscription_notify_thread" type="kmSubscriptionNotifyThreadType" />
+				<xsd:element name="km_indexing_thread" type="kmIndexingThreadType" />
+				<xsd:element name="km_library" type="kmLibraryType" />
+				<xsd:element name="group_member_full_path_separator" type="separatorType" />
+				<xsd:element name="des_key" type="xsd:long" />
+				<xsd:element name="organization" type="organizationType" />
+				<xsd:element name="lcms" type="lcmsType" />
+				<xsd:element name="netg_log" type="netgLogType" />
+				<xsd:element name="learning_solution" type="learningSolutionType" />
+				<xsd:element name="rpt_process_unit" type="posIntType" />
+				<xsd:element name="enrollment_batch_upload" type="enrollmentBatchUploadType" />
+				<xsd:element name="enable_applet_tree" type="xsd:boolean" />
+				<xsd:element name="tc_enabled" type="xsd:boolean" />
+				<xsd:element name="sns_enabled" type="xsd:boolean" />
+				<xsd:element name="lrn_show_header_tc" type="xsd:boolean" />
+				<xsd:element name="tc_independent" type="xsd:boolean" />
+				<xsd:element name="lrn_show_share_training" type="xsd:boolean" />
+				<xsd:element name="is_realTime_view_rpt" type="xsd:boolean" />
+				<xsd:element name="check_email" type="xsd:boolean" />
+				<xsd:element name="updxml_file" type="nonNullStringType" />
+				<xsd:element name="filter_words_file" type="nonNullStringType" />
+				<xsd:element name="zd_vote_duration" type="posIntType" />
+				<xsd:element name="tra_plan_year" type="yearInt" />
+				<xsd:element name="image_size" type="imageType" />
+				<xsd:element name="newest_duration" type="posIntType" />
+				<xsd:element name="tc_style" type="tcStyleType" />
+				<xsd:element name="default_ta_id" type="posIntType" />
+				<xsd:element name="live" type="liveType" />
+				<xsd:element name="open_redirect_white_list" type="redirectType" />
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

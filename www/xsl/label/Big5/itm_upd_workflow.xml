@@ -1,0 +1,22 @@
+<label_reference_data_list>
+	<label name="lab_upd_work_flow">報名工作流</label>
+	<label name="lab_g_select_enrol_wf">請選擇報名流程</label>
+	<label name="lab_g_form_btn_ok">確定</label>
+	<label name="lab_g_form_btn_cancel">取消</label>
+	<label name="lab_g_template_workflow">
+		<element id="15">
+			<title id="1">無需經過審批</title>
+			<description id="1"/>
+			<title id="2">需經過以下審批：</title>
+			<description id="2"/>
+			<title id="3">上司審批：</title>
+			<description id="3"/>
+			<title id="4">只需直屬上司審批</title>
+			<description id="4">如果需要直屬上司參與審批﹐申請者個人資料中的“直屬上司”屬性必須先被設定。</description>
+			<title id="5">先通過直屬上司審批﹐再由用戶組上司審批</title>
+			<description id="5">如果需要用戶組上司參與審批﹐申請者個人資料中的“最高報名審批用戶組”屬性必須先被設定。</description>
+			<title id="6">培訓管理員審批</title>
+			<description id="6"/>
+		</element>
+	</label>
+</label_reference_data_list>

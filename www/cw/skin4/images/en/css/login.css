@@ -1,0 +1,26 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Loign Page
+suffix								   :login
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : login.css	
+version								: wizBank 3.5
+Before Add , Edit ,Delete Selector , please
+check css_spec.xls for more information
+=======================================================================*/
+
+.wbLoginBgT{
+	background: #0876B2;
+}
+
+.wbLoginFailText{
+	color: #FF0000;
+}
+
+.wbLoginNotAuthBarBg{
+	background-color: #00799F;
+}
+
+.wbLoginNotAuthBarText{
+	color: #00799F;
+	font: 10pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}

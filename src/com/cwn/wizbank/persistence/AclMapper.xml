@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.AclMapper">
+	<select id="hasPermission" resultType="java.lang.Boolean"
+		parameterType="java.lang.String">
+		select count(rol_ext_id) from acRole,acFunction,acRoleFunction
+		where rfn_rol_id = rol_id and rfn_ftn_id = ftn_id 
+		<if test="rol_ext_id != null and rol_ext_id != ''">
+		and rol_ext_id = #{rol_ext_id}
+		</if>
+		and ftn_ext_id = #{ftn_ext_id}
+		<if test="rol_id != null and rol_id > 0">
+			and rol_id = #{rol_id}
+		</if>
+	</select>
+	
+	
+	
+	<select id="hasUserPermission" resultType="java.lang.Boolean"
+		parameterType="Map">
+		select COUNT(erl_rol_id) cnt 
+		from acEntityRole inner join acRoleFunction on erl_rol_id = rfn_rol_id
+		inner join acFunction on rfn_ftn_id = ftn_id
+		where erl_ent_id = #{userEntId} and ftn_ext_id = #{ftnExtId}
+	</select>
+	
+	
+	<select id="hasCPDFunction" resultType="java.lang.String" parameterType="Map">
+	    select ftn_status from acFunction	where ftn_ext_id = #{code}
+	</select>
+</mapper>

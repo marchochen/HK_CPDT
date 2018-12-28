@@ -1,0 +1,156 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :ui
+stylesheet name			   : forumcss	
+Place Internet Explorer ONLY CSS here
+this stylesheet auto imported by wb_ui.css
+=======================================================================*/
+
+a.Nav,.Nav{
+	color: #828282;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif !important;
+	text-decoration: none;
+}
+
+a.Nav:hover{
+	background-color: #F6E3CD;
+	color: #634D35;
+	font: normal 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-decoration: none;
+}
+
+body{
+	scrollbar-base-color: #f6f6f6;
+	text-align: -moz-center; /* FF */
+	text-align: -webkit-center;
+	text-align: -ms-center;
+	text-align: -o-center;
+	#text-align: center; /* IE */
+}
+input.Btn{
+	background-color: #FCEEDE;
+	border: 1px outset #7f7f7f;
+	color: #634D35;
+	cursor: hand;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+textarea.InputFrm, input.InputFrm{
+	background: #FCEEDE;
+	border: 1px solid;
+	border-color: #adadad;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	scrollbar-base-color: #ebebeb;
+}
+
+.Box{
+	background: #F6EEE5;
+	border: 1px solid;
+	border-color: #CFAB84;
+}
+
+.Desc{
+	color: #000000;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	margin-left: 18px;
+	margin-right: 18px;
+	text-decoration: none;
+}
+
+.Head{
+	background-color: #b9b9b9;
+	border: 0px;
+	border-left-color: #b9b9b9;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-right-color: #b9b9b9;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-top-color: #b9b9b9;
+	border-top-style: solid;
+	border-top-width: 1px;
+	color: #FFFFFF;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	height: 16px;
+	padding-left: 10px  ! important;
+	padding-right: 10px  ! important;
+}
+
+.Select{
+	background: #FCEEDE;
+	color: #000000;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.SmallText {
+	color: #06446C;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.SmallTitleText {
+	color: #000000;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.SubTitle{
+	color: #000000;
+	font: bold 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.TextBold {
+	color: #06446C;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.TextBtn{
+	background-color: #eeeeee;
+	border-bottom-color: #7f7f7f;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-left-color: #F5FAFE;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-right-color: #7f7f7f;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-top-color: #F5FAFE;
+	border-top-style: solid;
+	border-top-width: 1px;
+	color: #634D35;
+	cursor: hand;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif ! important;
+	height: 16px;
+	margin: 2px;
+	padding: 2px;
+	padding-left: 4px;
+	padding-right: 4px;
+	text-decoration: none;
+}
+
+.TextBtn:hover {
+	background-color: #adadad;
+	border: 1px inset #F5FAFE;
+	cursor: hand;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	height: 16px;
+	margin: 2px;
+	padding: 2px;
+	padding-left: 4px;
+	padding-right: 4px;
+	text-decoration: none;
+}
+
+.Title{
+	color: #000000;
+	font: bold 13pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.TitleTextBold{
+	color: #000000;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.TopText {
+	color: #000000;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif !important;
+	text-decoration: none;
+}

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.CertificateMapper">
+	<select id="get" resultType="Certificate" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				cfc_id,
+				cfc_title,
+				cfc_img,
+				cfc_tcr_id,
+				cfc_status,
+				cfc_create_datetime,
+				cfc_create_user_id,
+				cfc_update_datetime,
+				cfc_update_user_id,
+				cfc_delete_datetime,
+				cfc_delete_user_id,
+				cfc_code,
+				cfc_end_date
+			from Certificate t where t.cfc_id = #{id}
+		]]>
+	</select>	
+	<update id="update" parameterType="com.cwn.wizbank.entity.Certificate">
+	    <![CDATA[
+	        update Certificate t 
+	        set 
+				cfc_id = #{cfc_id,jdbcType=INTEGER},
+				cfc_title = #{cfc_title,jdbcType=VARCHAR},
+				cfc_img = #{cfc_img,jdbcType=VARCHAR},
+				cfc_tcr_id = #{cfc_tcr_id,jdbcType=INTEGER},
+				cfc_status = #{cfc_status,jdbcType=VARCHAR},
+				cfc_create_datetime = #{cfc_create_datetime,jdbcType=TIMESTAMP},
+				cfc_create_user_id = #{cfc_create_user_id,jdbcType=VARCHAR},
+				cfc_update_datetime = #{cfc_update_datetime,jdbcType=TIMESTAMP},
+				cfc_update_user_id = #{cfc_update_user_id,jdbcType=VARCHAR},
+				cfc_delete_datetime = #{cfc_delete_datetime,jdbcType=TIMESTAMP},
+				cfc_delete_user_id = #{cfc_delete_user_id,jdbcType=VARCHAR},
+				cfc_code = #{cfc_code,jdbcType=VARCHAR},
+				cfc_end_date = #{cfc_end_date,jdbcType=TIMESTAMP}
+	         where t.cfc_id = #{cfc_id,jdbcType=INTEGER}
+	    ]]>
+    </update>    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.Certificate">
+    	<![CDATA[
+            insert into Certificate(
+            		cfc_title,
+            		cfc_img,
+            		cfc_tcr_id,
+            		cfc_status,
+            		cfc_create_datetime,
+            		cfc_create_user_id,
+            		cfc_update_datetime,
+            		cfc_update_user_id,
+            		cfc_delete_datetime,
+            		cfc_delete_user_id,
+            		cfc_code,
+            		cfc_end_date
+            ) values (
+            	#{cfc_title,jdbcType=VARCHAR},
+            	#{cfc_img,jdbcType=VARCHAR},
+            	#{cfc_tcr_id,jdbcType=INTEGER},
+            	#{cfc_status,jdbcType=VARCHAR},
+            	#{cfc_create_datetime,jdbcType=TIMESTAMP},
+            	#{cfc_create_user_id,jdbcType=VARCHAR},
+            	#{cfc_update_datetime,jdbcType=TIMESTAMP},
+            	#{cfc_update_user_id,jdbcType=VARCHAR},
+            	#{cfc_delete_datetime,jdbcType=TIMESTAMP},
+            	#{cfc_delete_user_id,jdbcType=VARCHAR},
+            	#{cfc_code,jdbcType=VARCHAR},
+            	#{cfc_end_date,jdbcType=TIMESTAMP}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from Certificate  where cfc_id = #{cfc_id}
+	    ]]>
+    </delete>	
+	<select id="list" resultType="Certificate" parameterType="Map">
+	    <![CDATA[
+	         select 
+				cfc_id,
+				cfc_title,
+				cfc_img,
+				cfc_tcr_id,
+				cfc_status,
+				cfc_create_datetime,
+				cfc_create_user_id,
+				cfc_update_datetime,
+				cfc_update_user_id,
+				cfc_delete_datetime,
+				cfc_delete_user_id,
+				cfc_code,
+				cfc_end_date
+			from Certificate t where cfc_itm
+	    ]]>
+	</select>
+	<select id="selectCertificateList" resultType="Certificate" parameterType="Page">
+		select 
+			cfc_id,
+			cfc_title,
+			cfc_end_date,
+			itm_id as "aeItem.itm_id",
+			itm_title as "aeItem.itm_title",
+			app_tkh_id
+		from aeApplication
+		inner join courseEvaluation on cov_tkh_id = app_tkh_id and cov_status = 'C'
+		left join aeItemRelation on ire_child_itm_id = app_itm_id
+		left join aeItem on itm_id = ire_parent_itm_id or itm_id = app_itm_id
+		inner join certificate on cfc_id = itm_cfc_id
+		where app_status = 'Admitted' and app_ent_id = ${params.usr_ent_id} 
+		and ((itm_run_ind = 1 and itm_type = 'CLASSROOM') or itm_type = 'SELFSTUDY' or itm_type = 'INTEGRATED') 
+		order by cfc_end_date desc
+	</select>
+</mapper>

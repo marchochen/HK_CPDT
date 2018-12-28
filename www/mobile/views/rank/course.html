@@ -1,0 +1,119 @@
+<!doctype html>
+<html ng-app="rank">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link rel="stylesheet" href="../../css/basic.css" />
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/RankController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak"  ng-controller="courseController">
+
+	<div class="wrap">
+		<header class="header mm-background">
+		    <a class="header-back" href="javascript:back();" title="back"></a>
+		    <span class="header-title" translate="cos_the_new"><!--课程排行榜--></span>
+		</header> <!-- header End -->
+
+		<wzm-docker rp="../../"></wzm-docker>
+
+		<section class="content-2">
+    		<div class="panel-list-box" style="margin:0;">
+	    		<ul class="panel-list-1-11">
+		            <li ng-repeat="course in newsCourseList.items">
+		                <div class="tuwen-list-1 box-frame-new" style="{{$index == 0?'border-top:0;':''}}">
+		                    <span class="{{$index == 0 ? 'box-num-1' : $index==1?'box-num-3': $index==2?'box-num-4':'box-num-2'}}" ng-bind="$index+1"></span>
+		                    <a class="tuwen-list-1-box clearfix" forward="{itmId : course.encItmId, examInd : 'true' } | courseUrl" title="">
+		                        <div class="tuwen-list-1-pic">
+		                        	<img ng-src="{{serverHost + course.itm_icon}}" alt="">
+		                        	<span class="{{course.cla}}"></span>
+		                        </div>
+		                        <div class="tuwen-list-1-tit-1" ng-bind="course.itm_title"></div>
+		                        <span class="tuwen-list-1-tit-3" ng-bind="course.itm_publish_timestamp | toDate"></span>
+		                    </a>
+		                </div>
+		            </li>
+		         </ul>
+		         <div loader="newsCourseList"></div>
+    		
+        	<!-- <tabs css="1">
+            	<pane title="{{'rank_course_type_like' | translate}}" select="showLikeCourse">
+                    <div class="panel-tabcont-2 pub-tabcont">
+                        <ul class="panel-list-1-11">
+                            <li ng-repeat="course in likeCourseList.items">
+                                <div class="tuwen-list-1 box-frame-new" style="{{$index == 0?'border-top:0;':''}}">
+                                    <span class="{{$index == 0 ? 'box-num-1' : $index==1?'box-num-3': $index==2?'box-num-4':'box-num-2'}}" ng-bind="$index+1"></span>
+                                    <a class="tuwen-list-1-box clearfix" forward="{itmId : course.encItmId, examInd : 'true' } | courseUrl" title="">
+                                        <div class="tuwen-list-1-pic">
+                                        	<img ng-src="{{serverHost + course.itm_icon}}" alt="">
+                                        	<span class="{{course.cla}}"></span>
+                                        </div>
+                                        <div class="tuwen-list-1-tit-1" ng-bind="course.itm_title"></div>
+                                        <p class="list-tool-1-good tuwen-list-1-tit-3">
+                                        	<em class="{{$index>2 ? 'box-num-cont-blue' : 'box-num-cont-orange'}}" ng-bind="course.s_cnt_like_count"></em>
+                                        </p>
+                                    </a>
+                                </div>
+                            </li>
+                       </ul>
+                    </div>
+                <div loader="likeCourseList"></div>
+            </pane>
+            
+            <pane title="{{'rank_course_type_news' | translate}}" select="showNewCourse">
+            	panel-tabcont-2 start
+                <div class="panel-tabcont-2 pub-tabcont">
+                    <ul class="panel-list-1-11">
+                        <li ng-repeat="course in newsCourseList.items">
+                            <div class="tuwen-list-1 box-frame-new" style="{{$index == 0?'border-top:0;':''}}">
+                                <span class="{{$index == 0 ? 'box-num-1' : $index==1?'box-num-3': $index==2?'box-num-4':'box-num-2'}}" ng-bind="$index+1"></span>
+                                <a class="tuwen-list-1-box clearfix" forward="{itmId : course.encItmId, examInd : 'true' } | courseUrl" title="">
+                                    <div class="tuwen-list-1-pic">
+                                    	<img ng-src="{{serverHost + course.itm_icon}}" alt="">
+                                    	<span class="{{course.cla}}"></span>
+                                    </div>
+                                    <div class="tuwen-list-1-tit-1" ng-bind="course.itm_title"></div>
+                                    <span class="tuwen-list-1-tit-3" ng-bind="course.itm_publish_timestamp | toDate"></span>
+                                </a>
+                            </div>
+                        </li>
+                     </ul>
+                  </div>
+                <div loader="newsCourseList"></div>
+            </pane>
+            
+            <pane title="{{'rank_course_type_studyNum' | translate}}" select="showLearingCourse">
+            	<div class="panel-tabcont-2 pub-tabcont">
+                   <ul class="panel-list-1-11">
+                       <li ng-repeat="course in learningCourseList.items">
+                           <div class="tuwen-list-1 box-frame-new" style="{{$index == 0?'border-top:0;':''}}">
+                               <span class="{{$index == 0 ? 'box-num-1' : $index==1?'box-num-3': $index==2?'box-num-4':'box-num-2'}}" ng-bind="$index+1"></span>
+                               <a class="tuwen-list-1-box clearfix" forward="{itmId : course.encItmId, examInd : 'true' } | courseUrl" title="">
+                                   <div class="tuwen-list-1-pic">
+	                                   	<img ng-src="{{serverHost + course.itm_icon}}" alt="">
+	                                   	<span class="{{course.cla}}"></span>
+                                   </div>
+                                   <div class="tuwen-list-1-tit-1" ng-bind="course.itm_title"></div>
+                                   <p class="tuwen-list-1-tit-3" >
+                                   <em class="{{$index>2 ? 'box-num-cont-blue' : 'box-num-cont-orange'}}"  ng-bind="course.app.app_total"></em>
+                                   <span translate="rank_course_on_study"></span>
+                                   </p>
+                               </a>
+                           </div>
+                       </li>
+                     </ul>
+                  </div>
+                <div loader="learningCourseList"></div>
+            </pane>
+            
+        </tabs>  -->           
+    </div> <!-- panel-list-box End -->
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

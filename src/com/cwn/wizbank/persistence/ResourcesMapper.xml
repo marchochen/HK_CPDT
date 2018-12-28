@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.ResourcesMapper">
+	<select id="get" resultType="Resources" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				res_id,
+				res_lan,
+				res_title,
+				res_type,
+				res_subtype,
+				res_format,
+				res_difficulty,
+				res_duration,
+				res_privilege,
+				res_usr_id_owner,
+				res_tpl_name,
+				res_res_id_root,
+				res_mod_res_id_test,
+				res_status,
+				res_create_date,
+				res_upd_user,
+				res_upd_date,
+				res_src_type,
+				res_src_link,
+				res_code,
+				res_instructor_name,
+				res_instructor_organization,
+				res_annotation,
+				res_long_desc,
+				res_desc,
+				res_sco_version,
+				res_vod_duration,
+				res_img_link,
+				res_vod_main,
+				res_scor_identifier,
+				res_first_res_id
+			from Resources t 
+			where
+				 t.res_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.Resources">
+		<![CDATA[
+	        update Resources t 
+	        set 
+				res_id = #{res_id,jdbcType=INTEGER},
+				res_lan = #{res_lan,jdbcType=VARCHAR},
+				res_title = #{res_title,jdbcType=VARCHAR},
+				res_type = #{res_type,jdbcType=VARCHAR},
+				res_subtype = #{res_subtype,jdbcType=VARCHAR},
+				res_format = #{res_format,jdbcType=VARCHAR},
+				res_difficulty = #{res_difficulty,jdbcType=INTEGER},
+				res_duration = #{res_duration,jdbcType=DOUBLE},
+				res_privilege = #{res_privilege,jdbcType=VARCHAR},
+				res_usr_id_owner = #{res_usr_id_owner,jdbcType=VARCHAR},
+				res_tpl_name = #{res_tpl_name,jdbcType=VARCHAR},
+				res_res_id_root = #{res_res_id_root,jdbcType=INTEGER},
+				res_mod_res_id_test = #{res_mod_res_id_test,jdbcType=INTEGER},
+				res_status = #{res_status,jdbcType=VARCHAR},
+				res_create_date = #{res_create_date,jdbcType=TIMESTAMP},
+				res_upd_user = #{res_upd_user,jdbcType=VARCHAR},
+				res_upd_date = #{res_upd_date,jdbcType=TIMESTAMP},
+				res_src_type = #{res_src_type,jdbcType=VARCHAR},
+				res_src_link = #{res_src_link,jdbcType=VARCHAR},
+				res_code = #{res_code,jdbcType=VARCHAR},
+				res_instructor_name = #{res_instructor_name,jdbcType=VARCHAR},
+				res_instructor_organization = #{res_instructor_organization,jdbcType=VARCHAR},
+				res_annotation = #{res_annotation,jdbcType=VARCHAR},
+				res_long_desc = #{res_long_desc,jdbcType=VARCHAR},
+				res_desc = #{res_desc,jdbcType=VARCHAR},
+				res_sco_version = #{res_sco_version,jdbcType=VARCHAR},
+				res_vod_duration = #{res_vod_duration,jdbcType=INTEGER},
+				res_img_link = #{res_img_link,jdbcType=VARCHAR},
+				res_vod_main = #{res_vod_main,jdbcType=VARCHAR},
+				res_scor_identifier = #{res_scor_identifier,jdbcType=VARCHAR},
+				res_first_res_id = #{res_first_res_id,jdbcType=INTEGER}
+	         where t.res_id = #{res_id,jdbcType=INTEGER}
+		]]>
+	</update>
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.Resources">
+		<![CDATA[
+            insert into Resources(
+            		res_lan,
+            		res_title,
+            		res_type,
+            		res_subtype,
+            		res_format,
+            		res_difficulty,
+            		res_duration,
+            		res_privilege,
+            		res_usr_id_owner,
+            		res_tpl_name,
+            		res_res_id_root,
+            		res_mod_res_id_test,
+            		res_status,
+            		res_create_date,
+            		res_upd_user,
+            		res_upd_date,
+            		res_src_type,
+            		res_src_link,
+            		res_code,
+            		res_instructor_name,
+            		res_instructor_organization,
+            		res_annotation,
+            		res_long_desc,
+            		res_desc,
+            		res_sco_version,
+            		res_vod_duration,
+            		res_img_link,
+            		res_vod_main,
+            		res_scor_identifier,
+            		res_first_res_id) values (
+            	#{res_lan,jdbcType=VARCHAR},
+            	#{res_title,jdbcType=VARCHAR},
+            	#{res_type,jdbcType=VARCHAR},
+            	#{res_subtype,jdbcType=VARCHAR},
+            	#{res_format,jdbcType=VARCHAR},
+            	#{res_difficulty,jdbcType=INTEGER},
+            	#{res_duration,jdbcType=DOUBLE},
+            	#{res_privilege,jdbcType=VARCHAR},
+            	#{res_usr_id_owner,jdbcType=VARCHAR},
+            	#{res_tpl_name,jdbcType=VARCHAR},
+            	#{res_res_id_root,jdbcType=INTEGER},
+            	#{res_mod_res_id_test,jdbcType=INTEGER},
+            	#{res_status,jdbcType=VARCHAR},
+            	#{res_create_date,jdbcType=TIMESTAMP},
+            	#{res_upd_user,jdbcType=VARCHAR},
+            	#{res_upd_date,jdbcType=TIMESTAMP},
+            	#{res_src_type,jdbcType=VARCHAR},
+            	#{res_src_link,jdbcType=VARCHAR},
+            	#{res_code,jdbcType=VARCHAR},
+            	#{res_instructor_name,jdbcType=VARCHAR},
+            	#{res_instructor_organization,jdbcType=VARCHAR},
+            	#{res_annotation,jdbcType=VARCHAR},
+            	#{res_long_desc,jdbcType=VARCHAR},
+            	#{res_desc,jdbcType=VARCHAR},
+            	#{res_sco_version,jdbcType=VARCHAR},
+            	#{res_vod_duration,jdbcType=INTEGER},
+            	#{res_img_link,jdbcType=VARCHAR},
+            	#{res_vod_main,jdbcType=VARCHAR},
+            	#{res_scor_identifier,jdbcType=VARCHAR},
+            	#{res_first_res_id,jdbcType=INTEGER}
+            )
+		]]>
+	</insert>
+	<delete id="delete" parameterType="java.lang.Long">
+		<![CDATA[
+	   	delete from Resources where
+	        res_id = #{res_id}
+		]]>
+	</delete>
+	<select id="selectAll" resultType="Resources">
+		<![CDATA[
+	         select 
+				res_id,
+				res_lan,
+				res_title,
+				res_type,
+				res_subtype,
+				res_format,
+				res_difficulty,
+				res_duration,
+				res_privilege,
+				res_usr_id_owner,
+				res_tpl_name,
+				res_res_id_root,
+				res_mod_res_id_test,
+				res_status,
+				res_create_date,
+				res_upd_user,
+				res_upd_date,
+				res_src_type,
+				res_src_link,
+				res_code,
+				res_instructor_name,
+				res_instructor_organization,
+				res_annotation,
+				res_long_desc,
+				res_desc,
+				res_sco_version,
+				res_vod_duration,
+				res_img_link,
+				res_vod_main,
+				res_scor_identifier,
+				res_first_res_id
+			from Resources t 
+		]]>
+	</select>
+	<select id="getCosContent" resultType="Resources" parameterType="Map">
+		SELECT res.res_id , 
+	     	 res.res_type , 
+	    	 res.res_subtype , 
+	    	 rcn_sub_nbr ,
+	    	 rcn_order , 
+	     	 rcn_score_multiplier , 
+             res.res_privilege , 
+	    	 res.res_status , 
+	         res.res_usr_id_owner , 
+             res.res_lan , 
+             res.res_upd_date , 
+	     	 res.res_title ,  
+             res.res_difficulty , 
+	     	 res.res_duration ,
+	     	 res.res_desc, 
+             res.res_instructor_name , 
+	     	 res.res_instructor_organization ,  
+             res.res_src_type ,
+	     	 res.res_src_link , 
+             res.res_tpl_name , 
+             res.res_sco_version , 
+             res.res_img_link,
+             res.res_src_online_link,
+             mod_max_usr_attempt AS "mod.mod_max_usr_attempt", 
+             mod_eff_start_datetime  AS "mod.mod_eff_start_datetime",
+             mod_test_style AS "mod.mod_test_style",
+	    	 mod_eff_end_datetime  AS "mod.mod_eff_end_datetime", 
+             mod_max_score  AS "mod.mod_max_score", 
+	    	 mod_pass_score  AS "mod.mod_pass_score", 
+	   		 mod_instruct AS "mod.mod_instruct", 
+             mod_web_launch AS "mod.mod_web_launch", 
+ 	     	 mod_vendor  AS "mod.mod_vendor",  
+	         mod_download_ind AS "mod.mod_download_ind", 
+	         mod_required_time  AS "mod.mod_required_time"
+         FROM Resources res 
+         INNER JOIN ResourceContent   On( res.res_id = rcn_res_id_content ) 
+         INNER JOIN Module On ( rcn_res_id_content = mod_res_id ) 
+         WHERE  rcn_res_id = #{cos_res_id}
+		<if test="mod_mobile_ind > 0">and mod_mobile_ind = 1</if> 
+		and res_status = 'ON' order by rcn_order
+	</select>
+	<select id="getCosContentWithLrn" resultType="Resources" parameterType="Map">
+		SELECT res.res_id , 
+			res.res_type , 
+	    	res.res_subtype , 
+	    	rcn_sub_nbr ,
+			rcn_order , 
+	     	rcn_score_multiplier , 
+            res.res_privilege , 
+	    	res.res_status , 
+	        res.res_usr_id_owner , 
+            res.res_lan , 
+            res.res_upd_date , 
+			res.res_title ,  
+            res.res_difficulty , 
+	     	res.res_duration ,
+	     	res.res_desc, 
+            res.res_instructor_name , 
+	     	res.res_instructor_organization ,  
+            res.res_src_type ,
+	     	res.res_src_link , 
+            res.res_tpl_name , 
+            res.res_sco_version , 
+            res.res_img_link,
+            preRes.res_subtype AS "mod.mod_type",
+			mod_max_usr_attempt AS "mod.mod_max_usr_attempt", 
+			mod_test_style AS "mod.mod_test_style",
+            mod_eff_start_datetime  AS "mod.mod_eff_start_datetime", 
+	    	mod_eff_end_datetime  AS "mod.mod_eff_end_datetime", 
+            mod_max_score  AS "mod.mod_max_score", 
+	    	mod_pass_score  AS "mod.mod_pass_score", 
+	   		mod_instruct AS "mod.mod_instruct", 
+			mod_web_launch AS "mod.mod_web_launch", 
+ 	     	mod_vendor  AS "mod.mod_vendor",  
+ 	     	mod_sub_after_passed_ind AS "mod.mod_sub_after_passed_ind",
+            mov.mov_score AS "mov.mov_score",  
+ 	     	mov.mov_ent_id AS "mov.mov_ent_id",  
+	     	mov.mov_mod_id AS "mov.mov_mod_id",   
+            mov.mov_last_acc_datetime AS "mov.mov_last_acc_datetime",    
+	     	mov.mov_update_timestamp AS "mov.mov_update_timestamp",    
+            mov.mov_total_time AS "mov.mov_total_time",   
+ 	     	mov.mov_total_attempt AS "mov.mov_total_attempt",    
+	    	mov.mov_cos_id AS "mov.mov_cos_id",    
+            mov.mov_status AS "mov.mov_status",   
+			mov.mov_ele_loc AS "mov.mov_ele_loc",    
+            ass_due_date_day AS "mod.ass_due_date_day", 
+			ass_due_datetime AS "mod.ass_due_datetime",  
+            rrq_req_res_id AS "mod.rrq_req_res_id", 
+			preRes.res_title  AS "mod.pre_res_title", 
+			preRes.res_type AS "mod.rrq_res_type",
+	     	rrq_status AS "mod.rrq_status", 
+	     	preMov.mov_status AS "mod.pre_mod_mov_status", 
+            tpl_stylesheet AS "mod.tpl_stylesheet", 
+	        mod_download_ind AS "mod.mod_download_ind", 
+	        mod_required_time  AS "mod.mod_required_time",
+	        pgr_attempt_nbr, pgr_status, pgr_completion_status, 
+	        (case when att.submit_num is null then atm.submit_num else att.submit_num end) as submit_num
+		FROM Resources res 
+        INNER JOIN ResourceContent   On( res.res_id = rcn_res_id_content ) 
+		INNER JOIN Module On ( rcn_res_id_content = mod_res_id ) 
+        LEFT JOIN ModuleEvaluation mov  ON (mod_res_id = mov.mov_mod_id and mov.mov_tkh_id = #{tkh_id} ) 
+        LEFT JOIN Assignment ON ( res.res_id = ass_res_id ) 
+        LEFT JOIN ResourceRequirement ON ( res.res_id = rrq_res_id ) 
+        Left join Resources preRes on(rrq_req_res_id = preRes.res_id) 
+        LEFT JOIN ModuleEvaluation preMov ON ( rrq_req_res_id = preMov.mov_mod_id and preMov.mov_tkh_id = #{tkh_id} ) 
+        LEFT JOIN Template ON (res.res_tpl_name = tpl_name and tpl_lan = #{label_lan} ) 
+        LEFT JOIN (
+			select pat_prg_res_id, count(pat_att_id) as submit_num from ProgressAttachment
+            where pat_tkh_id = #{tkh_id}
+            group by pat_prg_res_id
+		) att on att.pat_prg_res_id = res.res_id
+		left join (
+			select atm_pgr_res_id, max(atm_pgr_attempt_nbr) as submit_num from ProgressAttempt
+			where atm_tkh_id = #{tkh_id}
+			group by atm_pgr_res_id
+		) atm on atm.atm_pgr_res_id = res.res_id
+		left join Progress p1 ON (res.res_id = p1.pgr_res_id  and p1.pgr_tkh_id = #{tkh_id} and p1.pgr_usr_id = #{usr_id, jdbcType=VARCHAR}) 
+		
+		WHERE  rcn_res_id = #{cos_res_id}
+		<if test="mod_mobile_ind > 0">and mod_mobile_ind = 1</if>
+		and res.res_status = 'ON' order by rcn_order
+	</select>
+	
+	<select id="selectMyEvaluation" resultType="Resources" parameterType="Page">
+		select
+			distinct
+			res_id,
+			res_title,
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					(case when mod_eff_end_datetime &lt; #{params.curTime} and mov_status is null then 'F' else to_char(mov_status) end) as "mov.mov_status",
+				</when>
+				<otherwise>
+					(case when mod_eff_end_datetime &lt; #{params.curTime} and mov_status is null then 'F' else mov_status end) as "mov.mov_status",
+				</otherwise>
+			</choose>
+			mov_create_timestamp as "mov.mov_create_timestamp",
+			mod_eff_end_datetime as "mod.mod_eff_end_datetime",
+			(select tcr_title from tcTrainingCenter,moduleTrainingCenter where tcr_id = mtc_tcr_id and mtc_mod_id = res_id) as "tcr.tcr_title"
+		from resources
+		inner join module on mod_res_id = res_id
+		inner join evalAccess on eac_res_id = res_id
+		left join entityRelation on ern_ancestor_ent_id = eac_target_ent_id and ern_type = 'USR_PARENT_USG'	
+		left join moduleEvaluation on mov_mod_id = res_id 	and (mov_ent_id = eac_target_ent_id or mov_ent_id = ern_child_ent_id)						
+		where mod_eff_start_datetime &lt; #{params.curTime}
+		and (eac_target_ent_id = #{params.usr_ent_id} or ern_child_ent_id = #{params.usr_ent_id})
+		and res_status = 'ON'
+		<choose>
+			<when test="params.status!=null and params.status==1">
+				and mov_status='C'		
+			</when>
+			<when test="params.status!=null and params.status!=1">
+				and (mov_status is null or mov_status!='C')	and mod_eff_end_datetime &gt; #{params.curTime}	
+			</when>
+		</choose>
+		<if test="params.isMobile!=null">
+			and mod_mobile_ind =  ${params.isMobile}
+		</if>
+		order by "mov.mov_create_timestamp", "mod.mod_eff_end_datetime"
+	</select>
+	
+	<select id="selectMyEvaluationCount" parameterType="Map" resultType="Integer">
+		select count(distinct res_id) ct from 
+		(select
+			res_id
+		from resources
+		inner join module on mod_res_id = res_id
+		inner join evalAccess on eac_res_id = res_id
+		left join moduleEvaluation on mov_mod_id = res_id 	and (mov_ent_id = eac_target_ent_id)						
+		where mod_eff_start_datetime &lt; #{curTime}
+		and (eac_target_ent_id = #{usr_ent_id})
+		and res_status = 'ON'
+		and (mov_status is null or mov_status!='C')	and mod_eff_end_datetime &gt; #{curTime}	
+		<if test="isMobile != null and isMobile == 1">
+			and mod_mobile_ind =  ${isMobile}
+		</if>
+		union
+		select
+			res_id
+		from resources
+		inner join module on mod_res_id = res_id
+		inner join evalAccess on eac_res_id = res_id
+		inner join entityRelation on ern_ancestor_ent_id = eac_target_ent_id and ern_type = 'USR_PARENT_USG' and ern_child_ent_id = #{usr_ent_id}	
+		left join moduleEvaluation on mov_mod_id = res_id 	and (mov_ent_id = ern_child_ent_id)						
+		where mod_eff_start_datetime &lt; #{curTime}
+		and res_status = 'ON'
+		and (mov_status is null or mov_status!='C')	and mod_eff_end_datetime &gt; #{curTime}	
+		<if test="isMobile != null and isMobile == 1">
+			and mod_mobile_ind =  ${isMobile}
+		</if>
+		) myEva
+	</select>
+
+	<select id="selectModuleList" parameterType="Map" resultType="Resources">
+  		SELECT 
+  		distinct(res.res_id),
+		res.res_subtype ,
+		res.res_title ,
+		mov.mov_ent_id AS "mov.mov_ent_id",
+		mov.mov_mod_id AS "mov.mov_mod_id",
+		mov.mov_last_acc_datetime AS "mov.mov_last_acc_datetime",
+		mov.mov_update_timestamp,
+		mov.mov_update_timestamp AS "mov.mov_update_timestamp",
+		mov.mov_total_time AS "mov.mov_total_time",
+		mov.mov_total_attempt AS "mov.mov_total_attempt",
+		mov.mov_cos_id AS "mov.mov_cos_id",
+		mov.mov_status AS "mov.mov_status",
+		mov.mov_ele_loc AS "mov.mov_ele_loc",
+		mov.mov_tkh_id AS "mov.mov_tkh_id",
+		usr_display_bil AS "user.usr_display_bil",
+		usr_ent_id AS "user.usr_ent_id",
+		itm_title AS "itm.itm_title",
+		itm_id AS "itm.itm_id",
+		pgr.pgr_complete_datetime 
+		FROM Resources res
+		INNER JOIN Module On ( res.res_id = mod_res_id )
+		INNER JOIN ModuleEvaluation mov ON (mod_res_id = mov_mod_id )
+		INNER JOIN Progress pgr on(pgr.pgr_res_id = mov.mov_mod_id and mov_tkh_id = pgr_tkh_id and pgr_status = 'NOT GRADED')		
+		INNER JOIN aeApplication on mov_tkh_id = app_tkh_id
+		INNER JOIN regUser on usr_ent_id = app_ent_id
+		INNER JOIN AeItem on itm_id = app_itm_id
+		INNER join V_usrTcRelation vtc on app_ent_id = vtc.u_id
+		WHERE
+		<choose>
+			<when test="params.acRole != null and params.acRole == 'INSTR_1'">
+				itm_id in (select iac_itm_id from aeItemAccess 
+				where iac_access_type = 'ROLE' and iac_access_id = '${params.acRole}' and iac_ent_id = ${params.userEntId} ) 
+			</when>
+			<otherwise>
+				(
+					vtc.tcr_id in (	select child.tcn_child_tcr_id
+					    from tcTrainingCenterOfficer, tcTrainingCenter parent, tcRelation child
+					    where tco_tcr_id = parent.tcr_id
+					    and parent.tcr_status = 'OK'
+					    and parent.tcr_id = child.tcn_ancestor
+					    and tco_usr_ent_id = ${params.userEntId}
+				    )
+					or vtc.tcr_id in(
+			    		select tco_tcr_id from tcTrainingCenterOfficer , tcTrainingCenter 
+			    		where  tco_tcr_id = tcr_id and tco_usr_ent_id = ${params.userEntId}
+			    	)
+				)
+			</otherwise>
+		</choose>
+		<if test="params.resSubTypes != null and params.resSubTypes.size > 0">
+ 			and res_subType in 
+ 			<foreach collection="_parameter['params']['resSubTypes']" item="item" index="index" 
+				open="(" separator="," close=")">
+				'${item}'
+			</foreach>
+		</if>
+	</select>
+	
+	<select id="getSubmitNum" resultType="Resources" parameterType="Map">
+	    SELECT res.res_id,(case when att.submit_num is null then atm.submit_num else att.submit_num end) as submit_num
+		 from 
+		Resources res
+		left join (select pat_prg_res_id, count(pat_att_id) as submit_num from ProgressAttachment
+		            where pat_tkh_id = #{tkh_id}  
+		            group by pat_prg_res_id ) att  on att.pat_prg_res_id = res.res_id
+		                    
+		left join( select atm_pgr_res_id, max(atm_pgr_attempt_nbr) as submit_num  from ProgressAttempt 
+		       where atm_tkh_id = #{tkh_id} 
+		       group by atm_pgr_res_id ) atm  on atm.atm_pgr_res_id = res.res_id
+	    where res.res_id = #{res_id} 
+	</select>
+	
+</mapper>

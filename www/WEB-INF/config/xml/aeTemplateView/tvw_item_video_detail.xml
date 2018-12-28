@@ -1,0 +1,98 @@
+<template_view>
+	<section id="1">
+		<title>
+			<desc lan="ISO-8859-1" name="General information"/>
+			<desc lan="Big5" name="基本資訊"/>
+			<desc lan="GB2312" name="基本信息"/>
+		</title>
+		<itm_type type="itm_type" paramname="itm_type">
+			<title>
+				<desc lan="ISO-8859-1" name="Type"/>
+				<desc lan="Big5" name="類型"/>
+				<desc lan="GB2312" name="类型"/>
+			</title>
+		</itm_type>
+		<field01>
+			<title>
+				<desc lan="ISO-8859-1" name="Code"/>
+				<desc lan="Big5" name="編號"/>
+				<desc lan="GB2312" name="编号"/>
+			</title>
+		</field01>
+		<field02>
+			<title>
+				<desc lan="ISO-8859-1" name="Title"/>
+				<desc lan="Big5" name="名稱"/>
+				<desc lan="GB2312" name="名称"/>
+			</title>
+		</field02>
+		<training_center type="tcr_pickup" paramname="itm_tcr_id" required="yes" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Training center"/>
+				<desc lan="Big5" name="培訓中心"/>
+				<desc lan="GB2312" name="培训中心"/>
+			</title>
+		</training_center>
+		<catalog type="catalog_attachment" paramname="tnd_id_lst" required="yes" dependant="training_center">
+			<title>
+				<desc lan="ISO-8859-1" name="Catalog"/>
+				<desc lan="Big5" name="目錄"/>
+				<desc lan="GB2312" name="目录"/>
+			</title>
+		</catalog>
+		<item_access type="item_access_pickup" paramname="iac_id_lst" id="TADM" dependant="training_center">
+			<title>
+				<desc lan="ISO-8859-1" name="Training administrator"/>
+				<desc lan="Big5" name="培訓管理員"/>
+				<desc lan="GB2312" name="培训管理员"/>
+			</title>
+		</item_access>
+		<field99 width="226" height="137">
+			<title>
+				<desc lan="ISO-8859-1" name="Icon"/>
+				<desc lan="Big5" name="圖示"/>
+				<desc lan="GB2312" name="图示"/>
+			</title>
+		</field99>	
+		<field06>
+			<title>
+				<desc lan="ISO-8859-1" name="Description"/>
+				<desc lan="Big5" name="簡介"/>
+				<desc lan="GB2312" name="简介"/>
+			</title>
+		</field06>
+	</section>
+	<section id="2">
+		
+		<!-- not appear in edit mode -->
+		<create_date type="read_datetime" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Created"/>
+				<desc lan="Big5" name="創建日期"/>
+				<desc lan="GB2312" name="创建日期"/>
+			</title>
+		</create_date>
+		<created_by type="read" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Created by"/>
+				<desc lan="Big5" name="創建者"/>
+				<desc lan="GB2312" name="创建者"/>
+			</title>
+		</created_by>
+		<update_date type="read_datetime" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Modifed"/>
+				<desc lan="Big5" name="修改日期"/>
+				<desc lan="GB2312" name="修改日期"/>
+			</title>
+		</update_date>
+		<updated_by type="read" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Modified by"/>
+				<desc lan="Big5" name="修改者"/>
+				<desc lan="GB2312" name="修改者"/>
+			</title>
+		</updated_by>
+	</section>
+	
+</template_view>

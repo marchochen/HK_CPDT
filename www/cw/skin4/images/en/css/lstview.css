@@ -1,0 +1,113 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :List View
+suffix								   :lstview
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : lstview.css	
+version								: wizBank 3.1
+=======================================================================*/
+
+a.wbRowHeadBarLink:hover{
+	color: #0066FF;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	vertical-align: top;
+}
+
+a.wbRowHeadBarSorLink {
+	color: #000000;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	vertical-align: top;
+}
+
+a.wbRowHeadBarSorSLink, a.wbRowHeadBarSorSLink:hover {
+	color: #F0DCDC;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	vertical-align: top;
+}
+
+a.wbRowText:hover{
+	color: #3366FF;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbRowCountFrm{
+	background-color: #F0DCDC;
+	border: 0px none;
+	color: #761113;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbRowDescText, .wbRowText, .wbRowDescText, a.wbRowText {
+	color: #000000;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbRowHeadBarBg{
+	background-color: #fcfcfc;
+	height: 20px;
+}
+
+.wbRowHeadBarSText, .wbRowHeadBarSLink, a.wbRowHeadBarSLink, a.wbRowHeadBarSLink:hover {
+	color: #000000;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	vertical-align: top;
+}
+
+.wbRowHeadBarText, a.wbRowHeadBarLink {
+	color: #000000;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	vertical-align: top;
+}
+
+.wbRowHeadSelBarBg{
+	background-color: #EEEEEE;
+	height: 24px;
+}
+
+.wbRowHeadSelBarText{
+	color: #000000;
+	font: bold 9pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbRowRefText{
+	color: #000000;
+	font: italic 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbRowRefText{
+	color: #992121;
+	font: italic 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbRowsEven{
+	background: #fcfcfc;
+}
+
+.wbRowsHL{
+	background: #C68F8F;
+	border-bottom: 1px;
+	border-bottom-color: #992121;
+	border-bottom-style: solid;
+	border-top-color: #F0DCDC;
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+
+.wbRowsOdd, .wbRowRefBg {
+	background: #fcfcfc;
+}
+
+.wbRowSText{
+	color: #000000;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbRowTextBold{
+	color: #000000;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbRowTextIt{
+	color: #000000;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-style: italic;
+}

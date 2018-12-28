@@ -1,0 +1,11 @@
+8.0
+9
+1 SQLNCHAR 0 0 "\t\0" 1 sgm_id ""
+2 SQLNCHAR 0 0 "\t\0" 2 sgm_sgp_id ""
+3 SQLNCHAR 0 0 "\t\0" 3 sgm_ent_id ""
+4 SQLNCHAR 0 0 "\t\0" 4 sgm_type ""
+5 SQLNCHAR 0 0 "\t\0" 5 sgm_status ""
+6 SQLNCHAR 0 0 "\t\0" 6 sgm_create_timestamp ""
+7 SQLNCHAR 0 0 "\t\0" 7 sgm_create_usr_id ""
+8 SQLNCHAR 0 0 "\t\0" 8 sgm_update_timestamp ""
+9 SQLNCHAR 0 0 "\r\0\n\0" 9 sgm_update_usr_id ""

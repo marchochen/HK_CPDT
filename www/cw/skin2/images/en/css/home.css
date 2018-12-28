@@ -1,0 +1,109 @@
+/*= wizbank  CSS =========================================================
+stylesheet type:Home
+suffix:Home
+skin type:cw (cyberwisdom)
+stylesheet name:home.css	
+version:wizBank 3.5
+=======================================================================*/
+
+a.wbHomeLeftText:hover, a.wbHomeLeftTextBold:hover {
+	color: #859334;
+	font: bold 8pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+	text-decoration: none;
+}
+
+a.wbHomeMidText,a.wbHomeMidText:active,a.wbHomeMidText:visited{
+	color: #008CB8;
+	font: 8pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+a.wbHomeRightText:hover, .wbHomeMidText, .wbHomeRightText, a.wbHomeMidText:hover, a.wbHomeRightText,a.wbHomeRightText:active,a.wbHomeRightText:visited {
+	color: #000000;
+	font: 8pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+a.wbHomeRightTextBold:hover{
+	color: #08335D;
+	font: Bold 8pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+td{
+	font: 8pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.wbHomeFootBg{
+	background: #477DA3;
+}
+
+.wbHomeLeftBg{
+}
+
+.wbHomeLeftSText, a.wbHomeLeftSText,a.wbHomeLeftSText:active,a.wbHomeLeftSText:visited, a.wbHomeLeftSText:hover {
+	color: #000000;
+	font: 7pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+	text-decoration: none;
+}
+
+.wbHomeLeftText{
+	color: #000000;
+	font: 8pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+	text-decoration: none;
+}
+
+.wbHomeLeftTextBold, a.wbHomeLeftText,a.wbHomeLeftText:active,a.wbHomeLeftText:visited, a.wbHomeLeftTextBold,a.wbHomeLeftTextBold:active,a.wbHomeLeftTextBold:visited {
+	color: #000000;
+	font: bold 8pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+	text-decoration: none;
+}
+
+.wbHomeMidBarBg{
+	background: #217ABC;
+}
+
+.wbHomeMidBg{
+}
+
+.wbHomeMidBoxBg{
+	background: #D2E3ED;
+}
+
+.wbHomeMidHeadBg{
+	background: #BACFE0;
+}
+
+.wbHomeMidHeadSText{
+	color: #000000;
+	font: 7pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.wbHomeMidHeadText{
+	color: #859334;
+	font: bold 14px Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.wbHomeMidSubHeadText{
+	color: #A3B63F;
+	font: bold 12pxVerdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.wbHomeRightBg{
+	background: #C1D3DF;
+}
+
+.wbHomeRightBoxBg, .wbHomeBg, .wbHomeMidHeadBarBg {
+	background: #81A3BC;
+}
+
+.wbHomeRightHeadBg{
+	background: #174B70;
+}
+
+.wbHomeRightHeadText{
+	color: #FFFFFF;
+	font: Bold 8pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+.wbHomeRightTextBold, a.wbHomeRightTextBold,a.wbHomeRightTextBold:active,a.wbHomeRightTextBold:visited, .wbHomeMidTextBold {
+	color: #000000;
+	font: Bold 8pt Verdana,Geneva,Arial,Helvetica,sans-serif;
+}

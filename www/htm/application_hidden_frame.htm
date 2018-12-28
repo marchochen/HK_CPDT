@@ -1,0 +1,241 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+   <head>
+      <title>Cyberwisdom wizBank</title>
+		<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+		<script src="../js/wb_utils.js" type="text/javascript"></script>
+		<script src="../js/gen_utils.js" type="text/javascript"></script>
+		<script src="../js/urlparam.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			param = null;
+			submitAvailable = false;
+			total = 0;
+			current = 0;
+			winName = '';
+						
+			var functionName = getParentUrlParam('functionName');
+			var processEndFunction = getParentUrlParam('processEndFunction');
+					
+			if (functionName == null || functionName == "" || functionName == 'undefined'){
+				functionName = 'doFeedParam'		
+			}
+			if (processEndFunction == null || processEndFunction == "" || processEndFunction == 'undefined'){
+				processEndFunction = 'location.reload'		
+			}
+			
+			function feedParam(){
+				param = eval('parent.opener.' + functionName + '()');
+				itm_id = getUrlParam('itm_id');
+				run_id = getUrlParam('run_id');
+				lang = getUrlParam('lang');
+				process_id = getUrlParam('process_id');
+				status_id = getUrlParam('status_id');
+				auto_enroll_ind = getUrlParam('auto_enroll_ind');
+				fromCourseApprove = false;
+				if(getUrlParam('action_id') == '')
+					fromCourseApprove = true;
+				
+				//alert("getUrlParam('from_course_approve')" + getUrlParam('from_course_approve'))
+				//alert("getUrlParam('action_id')" + getUrlParam('action_id'))
+				if(fromCourseApprove != true){
+					action_id = getUrlParam('action_id');
+					fr = parent.opener.frmAction.fr.value;
+					to = parent.opener.frmAction.to.value;
+					verb = parent.opener.frmAction.verb.value;
+					//alert('fromCourseApprove is not true')
+				}
+				else{
+					//alert('fromCourseApprove is true')
+					fr = getUrlParam('fr');
+				}
+				
+				setTimeout('available()',500);				
+				setTimeout('doSubmitFrm()',1000);
+				
+			}
+			
+			function available(){
+				current = 1;
+				submitAvailable = true;
+			}
+			
+			function doSubmitFrm(){
+				var frm = document.frmAction;
+				if(current<1)
+					return;
+				for(i=0;i<param.length;i++){
+					tmpObj = eval("document.frmAction."+param[i][0]);
+					//alert(param[i][0] + tmpObj)
+					//|| param[i][0] == "action_id" 
+					if(param[i][0]=="assessee_ent_id" || param[i][0]=="assessor_ent_id_lst" || param[i][0]=="assessor_type_lst" || param[i][0]=="ent_id_lst" || param[i][0]=="ent_nm_lst" || param[i][0]=="app_id_lst" || param[i][0]=="app_nm_lst" || param[i][0]=="app_upd_timestamp_lst" || param[i][0]=="usr_ent_id" || param[i][0]=="usr_timestamp" || param[i][0]=="usr_ent_id_lst" || param[i][0]=="usr_timestamp_lst" || param[i][0]=="period_id" || (param[i][0]=="itm_id"&&(run_id==""||run_id==null)) || param[i][0] == "mov_last_upd_timestamp" || param[i][0] == "tkh_id" || param[i][0] == "pgr_score" || param[i][0] == "pgr_grade" || param[i][0] == "app_priority_lst" || param[i][0] == "action_id" || param[i][0] == "to" || param[i][0] == "verb" || param[i][0]=="ent_id")
+{
+						total = param[i][1].length;
+						tmpObj.value = param[i][1][current-1];
+
+						if(param[i][0]=="ent_nm_lst" || param[i][0]=="app_nm_lst"){
+							wb_utils_set_cookie("appn_usr_name",tmpObj.value);
+						}
+					}else{
+						if(param[i][0]=='winName')
+							winName = param[i][1];
+						else
+							tmpObj.value = param[i][1];
+					}
+				}
+				wb_utils_set_cookie("current",current);
+				wb_utils_set_cookie("total",total);
+				if(run_id!=null && run_id!=""){
+					frm.itm_id.value = run_id;
+				}
+				frm.process_id.value = process_id;
+				frm.status_id.value = status_id;
+				if(fromCourseApprove != true){
+					frm.action_id.value = action_id;
+					frm.to.value = to;
+					frm.verb.value = verb;
+				}
+				
+				frm.fr.value = fr;
+				frm.auto_enroll_ind.value = auto_enroll_ind;
+				frm.url_success.value = '../htm/application_submit_frame.htm?lang='+lang;
+				frm.url_failure.value = '../htm/application_submit_frame.htm?lang='+lang;
+				frm.url_failure1.value = wb_utils_invoke_ae_servlet('cmd', 'appn_conflict', 'stylesheet', 'appn_conflict.xsl')
+				if(frm.cmd.value=="ins_assessment" ) {
+					frm.action = wb_utils_disp_servlet_url;
+					frm.module.value = "competency.CompetencyModule";
+				}else if(frm.cmd.value=="upd_multi_att_rate"){
+					frm.action = wb_utils_disp_servlet_url;
+				}else if(frm.cmd.value=="del_usr" || frm.cmd.value=="trash_usr" || frm.cmd.value=="chg_user_mov_status" || 		frm.cmd.value=="mod_eas_mass_update_one") {
+					frm.action = wb_utils_servlet_url + "?isExcludes=true";
+				} else {
+					frm.action = wb_utils_ae_servlet_url +"?isExcludes=true";;
+				}
+				frm.method = 'post';
+				frm.pgr_usr_id.value = frm.usr_ent_id.value
+				if(current>total){
+					wb_utils_set_cookie("type","");
+					try{
+						if(parent.opener != '' && parent.opener.opener != ''){
+							if(winName==''){
+								submitEndAction('parent.opener.opener')
+								if(parent.opener != '') {parent.opener.close();}
+							}else if(parent.opener != ''){
+								submitEndAction('parent.opener')
+							}
+							parent.close();
+						}else if(parent.opener != ''){
+							submitEndAction('parent.opener')
+							parent.close();
+						}
+					}catch (e){
+						if(parent.opener != ''){
+							try{
+								submitEndAction('parent.opener');
+								parent.close();
+							}catch(e){
+								parent.close();
+							}
+							
+							
+						}
+					}
+					if(frm.cmd.value=="ins_assessment" ) {
+						var url = wb_utils_invoke_disp_servlet("module","competency.CompetencyModule","cmd","refresh_ass_list","prepared","true","collected","true","notified","true","resolved","true","pagesize","10","cur_page","1","sort_by","DESC","order_by","asm_eff_start_datetime","stylesheet","comp_ass_get_list.xsl"); 
+						parent.opener.location.href = url;
+					}
+				}else{					
+					current++;
+					frm.method = 'post'	
+					
+					
+					//alert("frm.itm_id.value:" + frm.itm_id.value);
+					/*
+					alert("frm.action_id.value:" + frm.action_id.value);
+					
+					alert("frm.app_priority.value:" + frm.app_priority_lst.value);
+					*/
+					frm.submit();
+				frm.back_confirm.value = 'false';
+				}
+			}
+			
+			function submitEndAction(winTarget){
+				my_function = new Function("parentURL", winTarget+"." + processEndFunction + "(parentURL)")
+				parentUrl = eval(winTarget+'.'+'location.href')
+				parentUrl = parentUrl.replace(/cur_page=\d*/,'cur_page=1');
+				if (processEndFunction == 'location.reload') {
+					my_function();
+				} else {
+					my_function(parentUrl);
+				}
+			}
+			
+		</script>
+   </head>
+   <body onload="feedParam()">
+	<form name="frmAction" target="bottom_frame">
+			<input type="hidden" name="cmd"/>
+			<input type="hidden" name="itm_id" value=""/>
+			<input type="hidden" name="period_id" value=""/>
+			<input type="hidden" name="ent_id_lst" value=""/>
+			<input type="hidden" name="ent_nm_lst" value=""/>
+			<input type="hidden" name="app_id_lst" value=""/>
+			<input type="hidden" name="app_nm_lst" value=""/>
+			<input type="hidden" name="app_upd_timestamp_lst" value=""/>
+			<input type="hidden" name="app_priority_lst" value=""/>
+			<input type="hidden" name="process_id" value=""/>
+			<input type="hidden" name="status_id" value=""/>
+			<input type="hidden" name="action_id" value=""/>
+			<input type="hidden" name="fr" value=""/>
+			<input type="hidden" name="to" value=""/>
+			<input type="hidden" name="verb" value=""/>
+			<input type="hidden" name="att_status" value=""/>
+			<input type="hidden" name="content" value=""/>
+			<input type="hidden" name="url_success"/>
+			<input type="hidden" name="url_failure"/>
+			<input type="hidden" name="url_failure1"/>				
+			<input type="hidden" name="usr_ent_id" value=""/>
+			<input type="hidden" name="usr_ent_id_lst" value=""/>
+			<input type="hidden" name="ent_id_parent" value=""/>
+			<input type="hidden" name="usr_timestamp" value=""/>
+			<input type="hidden" name="usr_timestamp_lst" value=""/>
+			<input type="hidden" name="mov_last_upd_timestamp" value=""/>
+			<input type="hidden" name="tkh_id" value=""/>
+			<input type="hidden" name="mov_mod_id" value=""/>
+			<input type="hidden" name="mov_status" value=""/>
+			<input type="hidden" name="multi_del" value=""/>
+			
+			<input type="hidden" name="pgr_usr_id" value=""/>
+			<input type="hidden" name="pgr_score" value=""/>
+			<input type="hidden" name="pgr_grade" value=""/>
+			<input type="hidden" name="mod_id" value=""/>
+			<input type="hidden" name="mod_max_score" value=""/>
+			<input type="hidden" name="mod_pass_score" value=""/>
+
+			<input type="hidden" name="assessee_ent_id" value=""/>
+			<input type="hidden" name="module" value=""/>
+			<input type="hidden" name="assessor_ent_id_lst" value=""/>
+			<input type="hidden" name="assessor_type_lst" value=""/>
+			<input type="hidden" name="multi_ins" value=""/>
+			<input type="hidden" name="sks_title" value=""/>
+			<input type="hidden" name="asm_notify_date" value=""/>
+			<input type="hidden" name="asm_due_date" value=""/>
+			<input type="hidden" name="sks_id" value=""/>
+			<input type="hidden" name="auto_resolved_ind" value=""/>
+			<input type="hidden" name="notify_msg_subject" value=""/>
+			<input type="hidden" name="collect_msg_subject" value=""/>
+			<input type="hidden" name="review_start" value=""/>
+			<input type="hidden" name="review_end" value=""/>
+			<input type="hidden" name="aua_type_lst" value=""/>
+			<input type="hidden" name="aua_notify_date_lst" value=""/>
+			<input type="hidden" name="aua_due_date_lst" value=""/>
+			<input type="hidden" name="ent_id" value=""/>
+			<input type="hidden" name="auto_enroll_ind" value=""/>
+			<input type="hidden" name="attd_rate" value=""/>
+			<input type="hidden" name="attd_remark" value=""/>
+			<input type="hidden" name="back_confirm" value=""/>
+			
+			
+	</form>
+   </body>
+</html>

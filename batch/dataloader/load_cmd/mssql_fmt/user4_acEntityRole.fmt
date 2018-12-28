@@ -1,0 +1,7 @@
+8.0
+5
+1	SQLNCHAR	0	0	"\t\0"		1	erl_ent_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	erl_rol_id	""
+3	SQLNCHAR	0	0	"\t\0"		3	erl_creation_timestamp	""
+4	SQLNCHAR	0	0	"\t\0"		5	erl_eff_start_datetime	""
+5	SQLNCHAR	0	0	"\r\0\n\0"	6	erl_eff_end_datetime	""

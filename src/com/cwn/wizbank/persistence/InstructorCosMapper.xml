@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.InstructorCosMapper">
+	
+	
+	<sql id="page_where">
+		<where>
+		</where>
+	</sql>
+	
+	<select id="getCount" resultType="java.lang.Integer" parameterType="Map">
+	    <![CDATA[
+	        select count(*) from InstructorCos t 
+	    ]]>
+	    <include refid="page_where"/>
+	</select>
+
+	
+	<select id="get" resultType="InstructorCos" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				ics_id,
+				ics_iti_ent_id,
+				ics_title,
+				ics_fee,
+				ics_hours,
+				ics_target,
+				ics_content
+			from InstructorCos 
+			where
+				 ics_id = #{id}
+		]]>
+	</select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.InstructorCos">
+	    <![CDATA[
+	        update InstructorCos
+	        set 
+				ics_id = #{ics_id,jdbcType=INTEGER},
+				ics_iti_ent_id = #{ics_iti_ent_id,jdbcType=INTEGER},
+				ics_title = #{ics_title,jdbcType=VARCHAR},
+				ics_fee = #{ics_fee,jdbcType=DOUBLE},
+				ics_hours = #{ics_hours,jdbcType=DOUBLE},
+				ics_target = #{ics_target,jdbcType=VARCHAR},
+				ics_content = #{ics_content,jdbcType=VARCHAR}
+	         where ics_id = #{ics_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.InstructorCos">
+    	<![CDATA[
+            insert into InstructorCos(
+            		ics_iti_ent_id,
+            		ics_title,
+            		ics_fee,
+            		ics_hours,
+            		ics_target,
+            		ics_content
+            ) values (
+            	#{ics_iti_ent_id,jdbcType=INTEGER},
+            	#{ics_title,jdbcType=VARCHAR},
+            	#{ics_fee,jdbcType=DOUBLE},
+            	#{ics_hours,jdbcType=DOUBLE},
+            	#{ics_target,jdbcType=VARCHAR},
+            	#{ics_content,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>
+    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from InstructorCos where
+	        ics_id = #{ics_id}
+	    ]]>
+    </delete>
+	
+	<select id="getCosList" resultType="InstructorCos">
+	         select 
+				ics_id,
+				ics_iti_ent_id,
+				ics_title,
+				ics_fee,
+				ics_hours,
+				ics_target,
+				ics_content
+			from InstructorCos 
+			where ics_iti_ent_id = #{id}
+	</select>
+	
+	<select id="pageCos" resultType="InstructorCos" parameterType="Page">
+	         select 
+				ics_id,
+				ics_iti_ent_id,
+				ics_title,
+				ics_fee,
+				ics_hours,
+				ics_target,
+				ics_content
+			from InstructorCos 
+			where ics_iti_ent_id = #{params.instrId}
+	</select>	
+
+</mapper>

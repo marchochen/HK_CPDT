@@ -1,0 +1,76 @@
+<!doctype html>
+<html ng-app="specialTopicModule">
+    <head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+		<title translate="cwn_title"></title>
+		<link rel="stylesheet" href="../../css/swiper.min.css">
+    	<link rel="stylesheet" href="../../css/basic.css" />
+		<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.load.js"></script>
+		<script type="text/javascript" src="../../js/controllers/specialTopic/specialTopicController.js"></script>
+		<script type="text/javascript" src="../../lib/common.js"></script>
+    	<script type="text/javascript" src="../../js/swiper.min.js"></script>
+	</head>
+
+	<body ng-cloak class="ng-cloak" ng-controller="listController">
+		<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>
+		
+		<!-- wrap start -->
+	    <div class="wrap">
+	        
+	        <!-- header start -->
+		  	 <header class="header mm-background">
+			    <a class="header-back" href="javascript:back()"></a>
+			    <span class="header-title" ng-bind="'map_special_topic' | translate"></span>
+			 </header>
+			 <!-- header end -->
+	
+			<wzm-docker rp="../../"></wzm-docker>
+	
+	        <!-- content-2 start -->
+	        <section class="content-2">    
+	            
+	            <!-- 页面上方轮播模块 start -->
+	            <div ng-if="!(specialListForIndex.length == 1 && specialListLoader.totalRecord == 1)" class="panel-list-box {{specialListForIndex.length > 0?'list-pic-9':''}}"> 
+	
+					<!-- 轮播图 start-->
+					<wzm-swiper ng-if="specialListForIndex.length > 1" options="{slideToClickedSlide: false , effect: 'coverflow',grabCursor: true,centeredSlides: true,autoplay : 2000,autoplayDisableOnInteraction : false,loop : true, loopedSlides : 13, coverflow: {rotate: 50,stretch:0,depth: 300,modifier: 1,slideShadows : true} }">
+	                	<wzm-slide ng-repeat="s in specialListForIndex">
+	                		<img class="swiper-slide" ng-src="{{serverHost + s.abs_img}}" forward="'specialTopic/specialTopicDetail.html?ust_id='+s.enc_ust_id"/>
+	                	</wzm-slide>
+	                </wzm-swiper>
+	                <img ng-if="specialListForIndex.length == 1" class="swiper-slide" style="width:100%;height:100%;" ng-src="{{serverHost + special.abs_img}}" forward="'specialTopic/specialTopicDetail.html?ust_id='+special.enc_ust_id"/>
+	                <!-- 轮播图 end-->
+					
+					<!-- 专题个数 start -->
+	                <div class="list-pic-9-tit" ng-show="specialListLoader.totalRecord >= 3">
+	                    <i class="panel-num-4" ng-bind="specialListLoader.totalRecord"></i>{{'map_special_topic_amount_of_topic'|translate}}
+	                </div>
+	                <!-- 专题个数 end -->
+	
+	            </div>
+	            <!-- 页面上方轮播模块 end -->
+	            
+	            <!-- 专题列表 start -->
+	            <div class="panel-list-box list-pic-10" ng-show="specialListLoader.items.length > 0" ng-repeat="s in specialListLoader.items" ng-click="toDetail(s.enc_ust_id)">
+	                <img ng-src="{{serverHost + s.abs_img}}" />
+	               <!--  <i class="list-pic-10-hot" ng-if="$first"></i> --><!-- 热标识 -->
+	                <span class="tuwen-list-1-tit-1" style="font-size:16px;" ng-bind="s.ust_title"></span>
+	                <span class="tuwen-list-1-tit-1" style="color:#999;" ng-bind="s.ust_summary"></span>
+	                <p>
+	                    <a class="list-tool-2-dian" href="javascript:void(0)" title="" ng-bind="s.ust_hits"></a>
+	                    <i class="list-tool-2-you"></i>
+	                </p>
+	            </div>
+	            <div loader="specialListLoader"></div>
+	            <!-- 专题列表 end -->
+	            
+	        </section>
+	        <!-- content-2 End -->
+	
+	    </div>
+		<!-- wrap End -->
+		
+	</body>
+</html>

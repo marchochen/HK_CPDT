@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.CourseEvaluationMapper">
+
+    <resultMap id="CourseEvaluationMap" type="CourseEvaluation">
+        <result column="cov_cos_id" property="cov_cos_id"></result>
+        <result column="cov_ent_id" property="cov_ent_id"></result>
+        <result column="cov_commence_datetime" property="cov_commence_datetime"></result>
+        <result column="cov_total_time" property="cov_total_time"></result>
+        <result column="cov_status" property="cov_status"></result>
+        <result column="cov_status_ovrdn_ind" property="cov_status_ovrdn_ind"></result>
+        <result column="cov_score" property="cov_score"></result>
+        <result column="cov_max_score" property="cov_max_score" ></result>
+        <result column="cov_comment" property="cov_comment" ></result>
+        <result column="cov_final_ind" property="cov_final_ind" ></result>
+        <result column="cov_complete_datetime" property="cov_complete_datetime" ></result>
+        <result column="cov_update_timestamp" property="cov_update_timestamp" ></result>
+        <result column="cov_tkh_id" property="cov_tkh_id" ></result>
+        <result column="cov_progress" property="cov_progress" ></result>
+        <association property="aeApplication" javaType="AeApplication">
+            <id property="app_id" column="app_id" />
+            <result property="app_ent_id" column="app_ent_id" />
+        </association>
+ 		<association property="att" javaType="AeAttendance">
+            <result property="att_timestamp" column="att_timestamp" />
+        </association>
+    </resultMap>
+
+
+	<select id="get" resultType="CourseEvaluation" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				cov_cos_id,
+				cov_ent_id,
+				cov_commence_datetime,
+				cov_last_acc_datetime,
+				cov_total_time,
+				cov_status,
+				cov_status_ovrdn_ind,
+				cov_score,
+				cov_max_score,
+				cov_comment,
+				cov_final_ind,
+				cov_complete_datetime,
+				cov_update_timestamp,
+				cov_tkh_id,
+				cov_progress
+			from CourseEvaluation t 
+			where
+				 t.cov_cos_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.CourseEvaluation">
+	    <![CDATA[
+	        update CourseEvaluation t 
+	        set 
+				cov_cos_id = #{cov_cos_id,jdbcType=INTEGER},
+				cov_ent_id = #{cov_ent_id,jdbcType=INTEGER},
+				cov_commence_datetime = #{cov_commence_datetime,jdbcType=TIMESTAMP},
+				cov_last_acc_datetime = #{cov_last_acc_datetime,jdbcType=TIMESTAMP},
+				cov_total_time = #{cov_total_time,jdbcType=DOUBLE},
+				cov_status = #{cov_status,jdbcType=VARCHAR},
+				cov_status_ovrdn_ind = #{cov_status_ovrdn_ind,jdbcType=BOOLEAN},
+				cov_score = #{cov_score,jdbcType=DECIMAL},
+				cov_max_score = #{cov_max_score,jdbcType=DECIMAL},
+				cov_comment = #{cov_comment,jdbcType=VARCHAR},
+				cov_final_ind = #{cov_final_ind,jdbcType=BOOLEAN},
+				cov_complete_datetime = #{cov_complete_datetime,jdbcType=TIMESTAMP},
+				cov_update_timestamp = #{cov_update_timestamp,jdbcType=TIMESTAMP},
+				cov_tkh_id = #{cov_tkh_id,jdbcType=INTEGER},
+				cov_progress = #{cov_progress,jdbcType=DECIMAL}
+	         where t.cov_cos_id = #{cov_cos_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    
+    <update id="completeCourse" parameterType="com.cwn.wizbank.entity.CourseEvaluation">
+        <![CDATA[
+            update CourseEvaluation set 
+                cov_status = #{cov_status,jdbcType=VARCHAR},
+                cov_progress = #{cov_progress,jdbcType=DECIMAL},
+                cov_commence_datetime = #{cov_commence_datetime,jdbcType=TIMESTAMP},
+                cov_complete_datetime = #{cov_complete_datetime,jdbcType=TIMESTAMP}
+             where cov_cos_id = #{cov_cos_id,jdbcType=INTEGER}
+        ]]>
+    </update>
+    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.CourseEvaluation">
+    	<![CDATA[
+            insert into CourseEvaluation(
+                    cov_cos_id,
+                    cov_ent_id,
+                    cov_tkh_id,
+            		cov_commence_datetime,
+            		cov_last_acc_datetime,
+            		cov_total_time,
+            		cov_status,
+            		cov_status_ovrdn_ind,
+            		cov_score,
+            		cov_max_score,
+            		cov_comment,
+            		cov_final_ind,
+            		cov_complete_datetime,
+            		cov_update_timestamp,
+            		cov_progress
+            ) values (
+                #{cov_cos_id,jdbcType=INTEGER},
+                #{cov_ent_id,jdbcType=INTEGER},
+                #{cov_tkh_id,jdbcType=INTEGER},
+            	#{cov_commence_datetime,jdbcType=TIMESTAMP},
+            	#{cov_last_acc_datetime,jdbcType=TIMESTAMP},
+            	#{cov_total_time,jdbcType=DOUBLE},
+            	#{cov_status,jdbcType=VARCHAR},
+            	#{cov_status_ovrdn_ind,jdbcType=BOOLEAN},
+            	#{cov_score,jdbcType=DECIMAL},
+            	#{cov_max_score,jdbcType=DECIMAL},
+            	#{cov_comment,jdbcType=VARCHAR},
+            	#{cov_final_ind,jdbcType=BOOLEAN},
+            	#{cov_complete_datetime,jdbcType=TIMESTAMP},
+            	#{cov_update_timestamp,jdbcType=TIMESTAMP},
+            	#{cov_progress,jdbcType=DECIMAL}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from CourseEvaluation where
+	        cov_cos_id = #{cov_cos_id}
+	    ]]>
+    </delete>	
+	<select id="selectAll" resultType="CourseEvaluation">
+	    <![CDATA[
+	         select 
+				cov_cos_id,
+				cov_ent_id,
+				cov_commence_datetime,
+				cov_last_acc_datetime,
+				cov_total_time,
+				cov_status,
+				cov_status_ovrdn_ind,
+				cov_score,
+				cov_max_score,
+				cov_comment,
+				cov_final_ind,
+				cov_complete_datetime,
+				cov_update_timestamp,
+				cov_tkh_id,
+				cov_progress
+			from CourseEvaluation t 
+	    ]]>
+	</select>	
+	<select id="getCourseEvaluationStatus" resultType="java.lang.String" parameterType="Map">
+	    	select 
+				cov_cos_id,
+				cov_ent_id,
+				cov_commence_datetime,
+				cov_last_acc_datetime,
+				cov_total_time,
+				cov_status,
+				cov_status_ovrdn_ind,
+				cov_score,
+				cov_max_score,
+				cov_comment,
+				cov_final_ind,
+				cov_complete_datetime,
+				cov_update_timestamp,
+				cov_tkh_id,
+				cov_progress
+			from CourseEvaluation t 
+			where
+			cov_tkh_id = #{thkId}
+			and cov_ent_id = #{userEntId}
+	</select>	
+	<select id="getCourseEvaluationByThkId" resultType="CourseEvaluation" parameterType="Long">
+		select 				
+		    cov_cos_id,
+			cov_ent_id,
+			cov_commence_datetime,
+			cov_last_acc_datetime,
+			cov_total_time,
+			cov_status,
+			cov_status_ovrdn_ind,
+			cov_score,
+			cov_max_score,
+			cov_comment,
+			cov_final_ind,
+			cov_complete_datetime,
+			cov_update_timestamp,
+			cov_tkh_id,
+			cov_progress,
+			att_rate AS "att.att_rate",
+			att_timestamp  AS "att.att_timestamp",
+			att_create_timestamp  AS "att.att_create_timestamp"
+		from CourseEvaluation,aeApplication,aeAttendance where cov_tkh_id = app_tkh_id and app_id=att_app_id and cov_tkh_id = #{tkhId}
+	</select>	
+	<update id="updateCommenceTime" parameterType="CourseEvaluation">
+		UPDATE CourseEvaluation SET
+             cov_commence_datetime = #{cov_commence_datetime}
+             WHERE 
+             cov_cos_id = #{cov_cos_id} 
+             AND cov_ent_id = #{cov_ent_id} 
+             AND cov_tkh_id = #{cov_tkh_id} and (cov_commence_datetime is null or cov_commence_datetime > #{cov_commence_datetime})
+	</update>	
+	<update id="updateLastAccessTime" parameterType="CourseEvaluation">
+        UPDATE CourseEvaluation SET
+           cov_last_acc_datetime = #{cov_last_acc_datetime}
+           WHERE 
+           cov_cos_id = #{cov_cos_id}
+           AND cov_ent_id = #{cov_ent_id}
+           AND cov_tkh_id = #{cov_tkh_id}
+	</update>
+	<select id="getCourseEvaluationByApp" resultMap="CourseEvaluationMap" parameterType="Map">
+	    	select 
+				cov_cos_id,
+				cov_ent_id,
+				cov_commence_datetime,
+				cov_last_acc_datetime,
+				cov_total_time,
+				cov_status,
+				cov_status_ovrdn_ind,
+				cov_score,
+				cov_max_score,
+				cov_comment,
+				cov_final_ind,
+				cov_complete_datetime,
+				cov_update_timestamp,
+				cov_tkh_id,
+				cov_progress,
+				app_id,
+				att_timestamp
+			from 
+				CourseEvaluation ce 
+					left join aeApplication ae on ce.cov_tkh_id = ae.app_tkh_id
+					left join aeAttendance	att on att.att_app_id = ae.app_id			
+			where
+				1=1
+				<if test="itmId != null">
+					and ae.app_itm_id = #{itmId}
+				</if>
+				<if test="userEntId != null">
+					and ae.app_ent_id = #{userEntId}
+				</if>
+				<if test="appId != null">
+					and ae.app_id = #{appId}
+				</if>
+				<if test="covStatus != null">
+					and cov_status = #{covStatus}
+				</if>
+			order by cov_complete_datetime asc
+				
+	</select>
+</mapper>

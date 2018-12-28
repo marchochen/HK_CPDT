@@ -1,0 +1,40 @@
+.clear{ clear: both; }
+/* datatable */
+.datatable{ width:auto; border:0px solid silver; display:block; margin:0; padding:0; overflow:hidden;}
+.datatable .datatable-toolbar{ position:relative; border-bottom: 1px solid #ddd; overflow:hidden; padding:3px; text-align:right;}
+.datatable .datatable-toolbar button{ float:left;}
+.datatable .datatable-toolbar-separator{ float:left; height:20px; border-left:1px solid #ddd; border-right:1px solid #fff; margin:0 3px;}
+.datatable .datatable-body{ overflow:hidden;}
+.datatable .datatable-body .datatable-table-grid-contrainer{ width:100%; display:block;}
+.datatable .datatable-body .datatable-table-grid{ width:25%; *width:24.9%; display:inline-block; zoom:1; float:left; overflow: hidden;}
+.datatable .datatable-body .datatable-table-grid-content{ padding:0; margin-bottom:0;}
+.datatable table.datatable-table{ width:100%; border:0; margin:0 auto; border-collapse:collapse;}
+.datatable table.datatable-table thead.datatable-table-thead th.datatable-table-column-header{ border-bottom:1px solid #EEE; padding:10px 4px;}
+.datatable table.datatable-table thead.datatable-table-thead th.datatable-table-column-header-hover{ border-bottom:1px solid orange; cursor: pointer;}
+/* .datatable table.datatable-table thead.datatable-table-thead th.datatable-table-column-header.sortasc{ background:url("../images/up.png") no-repeat scroll center top transparent;}要取消注释找Mabel
+.datatable table.datatable-table thead.datatable-table-thead th.datatable-table-column-header.sortdesc{ background:url("../images/dn.png") no-repeat scroll center top transparent;} */
+.datatable table.datatable-table tbody.datatable-table-tbody tr.datatable-table-row.datatable-table-row-last td.datatable-table-column{ border-bottom:0;}
+.datatable .datatable-stat{ padding:10px; text-align:center;}
+.datatable .datatable-pager{ border-top:1px solid #EEE; overflow:hidden; text-align:center; padding:5px 0;}
+.datatable .datatable-pager .datatable-pager-separator{ width:1px; height:30px; border-left:1px solid #EEE; border-right:1px solid #FFF; display:inline-block; *display:inline; margin:0 3px; vertical-align:middle;}
+.datatable .datatable-pager .datatable-pager-btn{ padding:0 6px; border:1px solid rgba(255,255,255,0); cursor:pointer;}
+.datatable .datatable-pager .datatable-pager-btn,.datatable .datatable-pager .datatable-pager-text{ height:25px; line-height:25px; text-align:center; margin:0; padding:0 6px; display:inline-block; vertical-align:middle; color:#00aeef;}
+.datatable .datatable-pager .datatable-pager-btn:hover,.datatable .datatable-pager .datatable-pager-btn.active{ border:1px solid #ddd; color:#00aeef;}
+.datatable .datatable-pager .datatable-pager-btn-first{width:22px;height:22px; background:url(../images/first.gif) no-repeat center;}
+.datatable .datatable-pager .datatable-pager-btn-prev{width:22px;height:22px; background:url(../images/prev.gif) no-repeat center;}
+.datatable .datatable-pager .datatable-pager-btn-next{width:22px;height:22px; background:url(../images/next.gif) no-repeat center;}
+.datatable .datatable-pager .datatable-pager-btn-last{width:22px;height:22px; background:url(../images/last.gif) no-repeat center;}
+.datatable .datatable-pager .datatable-pager-btn-reload{ background:url(../images/load.png) no-repeat center;}
+.datatable .datatable-pager .datatable-pager-btn-reload-loading{ background:url(../images/load.gif) no-repeat center;}
+.datatable .datatable-pager .datatable-pager-switch{ width:41px; height:36px; background:url(../images/switch.png) no-repeat; display:block; cursor:pointer; display:inline-block; vertical-align:middle;}
+.datatable .datatable-pager .datatable-pager-switch-list{ background-position:0px 0;}
+.datatable .datatable-pager .datatable-pager-switch-list.active,.datatable .datatable-pager .datatable-pager-switch-list:hover{ background-position:0px -36px;}
+.datatable .datatable-pager .datatable-pager-switch-grid{ background-position:-41px 0;}
+.datatable .datatable-pager .datatable-pager-switch-grid.active,.datatable .datatable-pager .datatable-pager-switch-grid:hover{ background-position:-41px -36px;}
+.datatable table.datatable-table tbody.datatable-table-tbody tr.datatable-table-row td.datatable-table-column{ border-bottom:1px dotted #ddd; background:#FFF; padding:10px 4px; vertical-align:top;}
+.datatable table.datatable-table tbody.datatable-table-tbody tr.datatable-table-row:nth-last-of-type(1) td.datatable-table-column{border-bottom:0;}
+
+/* datatable */
+table.datatable{ width:100%; border-collapse:collapse;}
+table.datatable tr.head td.column{ border-bottom:1px solid silver; padding:8px 5px;}
+table.datatable tr.row td.column{ border-bottom:1px dotted silver; padding:5px;}

@@ -1,0 +1,106 @@
+<!doctype html>
+<html ng-app="openCourse">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/OpenCourseController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak"  ng-controller="openCourseController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>
+
+<div class="wrap">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back();" title="返回"></a>
+    <span class="header-title">{{'openCourse' | translate}}</span>
+    <a class="header-sort" href="javascript:;" ng-click="toggleDir();" title="catalog"></a>
+    <a class="header-sosuo" style="width:46px;" href="{{{url:'../search/search.html'} | appUrl}}" title="search"></a>
+    
+</header> <!-- header End -->
+<wzm-docker rp="../../"></wzm-docker>
+<section class="content-2" id="main">
+
+<div class="header-guide-box" style="display:none; margin:0 0 10px 0;">
+     <div class="header-guide-title header-guide-lei"><a class="header-guide-prev" href="javascript:;" title="prv">&lt;&nbsp;{{'catalog_prev' | translate}}</a>
+       {{'catalog_kinds' | translate}}</div>
+     <div catalog-list select-callback="selectCatalogCallback" type="public"></div>
+</div>
+
+<div class="panel-list-box" style="margin:0;">
+<tabs css="1" selected-callback="selectedTabsCallback">
+    <pane title="{{'cos_hot' | translate}}" style="panel-tabcont-2 pub-tabcont">
+        <ul class="panel-list-1-1 clearfix" ng-show="openListHot && openListHot.items && openListHot.items.length>0">
+            <li ng-repeat="openHot in openListHot.items">
+                <a class="panel-list-cont-1" href="javascript:;" forward="{itmId : openHot.encItmId} | openCourseUrl" title="">
+                <div class="list-pic-1">
+                    <img ng-src="{{serverHost}}{{openHot.itm_icon}}" alt=""/>
+                    <div class="sub-filter-1"><div class="sub-info-1">{{openHot.itm_title}}</div></div>
+                </div>
+                </a>
+                <div class="list-tool-1">
+                     <!--<span id="fcl_{{openHot.itm_id}}" class="list-tool-1-laud">
+                        {{openHot.snsCount && openHot.snsCount.s_cnt_like_count ? openHot.snsCount.s_cnt_like_count : '0'}}
+                    </span>
+                    <span id="fcc_{{openHot.itm_id}}" class="list-tool-1-review">
+                        {{openHot.cnt_comment_count}}
+                    </span> -->
+                </div>
+            </li>
+        </ul>
+        <div loader="openListHot"></div>
+    </pane>
+    <pane title="{{'cos_new' | translate}}" style="panel-tabcont-2 pub-tabcont">
+        <ul class="panel-list-1-1 clearfix" ng-show="openListNew && openListNew.items && openListNew.items.length>0">
+            <li ng-repeat="openNew in openListNew.items">
+                <a class="panel-list-cont-1" href="javascript:;"  forward="{itmId : openNew.encItmId} | openCourseUrl"  title="">
+                <div class="list-pic-1">
+                    <img ng-src="{{serverHost}}{{openNew.itm_icon}}" alt=""/>
+                    <div class="sub-filter-1"><div class="sub-info-1">{{openNew.itm_title}}</div></div>
+                </div>
+                </a>
+                <!-- <div class="list-tool-1">
+                    <span id="scl_{{openNew.itm_id}}" class="list-tool-1-laud">
+                        {{openNew.snsCount && openNew.snsCount.s_cnt_like_count ? openNew.snsCount.s_cnt_like_count : '0'}}
+                    </span>
+                    <span id="scc_{{openNew.itm_id}}" class="list-tool-1-review">
+                        {{openNew.cnt_comment_count}}
+                    </span>
+                </div> -->
+            </li>
+        </ul>
+        <div loader="openListNew"></div>
+    </pane>
+    <!-- <pane title="{{'cos_popularity' | translate}}" style="panel-tabcont-2 pub-tabcont">
+       <ul class="panel-list-1-1 clearfix" ng-show="openListPopularity && openListPopularity.items && openListPopularity.items.length>0">
+            <li ng-repeat="openPopularity in openListPopularity.items">
+                <a class="panel-list-cont-1" href="javascript:;" forward="{itmId : openPopularity.encItmId} | openCourseUrl"  title="">
+                <div class="list-pic-1">
+                    <img ng-src="{{serverHost}}{{openPopularity.itm_icon}}" alt=""/>
+                    <div class="sub-filter-1"><div class="sub-info-1">{{openPopularity.itm_title}}</div></div>
+                </div>
+                </a>
+                <div class="list-tool-1">
+                    <span id="tcl_{{openPopularity.itm_id}}" class="list-tool-1-laud">
+                        {{openPopularity.snsCount && openPopularity.snsCount.s_cnt_like_count ? openPopularity.snsCount.s_cnt_like_count : '0'}}
+                    </span>
+                    <span id="tcc_{{openPopularity.itm_id}}" class="list-tool-1-review">
+                        {{openPopularity.cnt_comment_count}}
+                    </span>
+                </div>
+            </li>
+        </ul>
+        <div loader="openListPopularity"></div>
+    </pane> -->
+</tabs>
+</div> <!-- panel-list-box End -->
+
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

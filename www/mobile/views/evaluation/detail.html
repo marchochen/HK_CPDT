@@ -1,0 +1,134 @@
+<!doctype html>
+<html ng-app="evaluation">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/EvaluationController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="detailController">
+
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">
+{{alert.msg | translate}}
+</alert>  
+
+<div class="wrap" id="wizwrap">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back();"></a>
+    <span class="header-title">{{'evaluations' | translate}}</span>
+    <a class="header-info header-pop" href="javascript:;" ng-click="submit();" title="submit">{{'eva_submit' | translate}}<!--提交--></a>
+    
+    <div class="header-tip" style="display:none;">
+         <div class="header-tip-info">
+         <img src="../../images/proper.png" alt=""/>{{'eva_submit_success' | translate}}
+         </div>
+         <div class="header-tip-desc">{{'eva_thanks' | translate}}</div>
+    </div>
+</header> <!-- header End -->
+<div class="header-overlay"></div>
+
+<section class="content">
+<div class="list-pic-3">
+<div class="own-box">
+<div class="own-box-area">
+     <div class="own-box-pic">
+          <a class="own-box-user" href="javascript:;" title="">
+          	 <div>
+             	<img id="user_photo_{{user.usr_ent_id}}" ng-src="{{serverHost}}{{user.usr_photo}}" alt=""/>
+             </div>
+          </a>
+     </div>
+
+     <div class="own-box-tit-1">{{user.usr_display_bil}}</div>
+     <div class="own-box-tit-2">{{user.usg_display_bil}} {{user.ugr_display_bil != 'Unspecified' ? user.ugr_display_bil : ''}}</div>
+</div>     
+</div>
+
+<img class="list-pic-3-pic" alt="" src="../../images/banner51.jpg">
+<div class="list-pic-3-bg"></div>
+</div> <!-- list-pic-3 End -->
+
+<div class="cont-info-notop">
+<div class="fixbox">
+<div class="fix_nav">
+     <h1 class="fixed-title">{{evaluation.title}}</h1>
+    
+     <div class="cont-info-tit-02" ng-if="itmTitle && itmTitle!='null'"><span translate="mod_belong_course"></span>：{{itmTitle}}</div>
+    
+     <div class="jifen-info clearfix">
+          <div class="jifen-info-orange jifen-info-line">
+               <span class="jifen-desc">{{anwsered}}</span><span class="jifen-desc">{{'eva_que_anwser' | translate}}</span>
+          </div> 
+          <div class="jifen-info-orange">
+               <span class="jifen-desc">{{noanwser}}</span><span class="jifen-desc">{{'eva_que_noanwser' | translate}}</span>
+          </div>
+     </div>
+</div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+	$('.fix_nav').parents('.fixbox').height()
+	if($(".fixbox").offset() !== undefined){
+		
+		var on_scroll = function(){
+			var v_modTop = $(".fixbox").offset().top;
+			
+			var top = $(document).scrollTop();
+			if(top == 0){
+				top = document.documentElement.scrollTop;
+			}
+		
+			if(top > v_modTop) {
+				if('undefined' == typeof(document.body.style.maxHeight)) {   //兼容iE6
+					$('.fix_nav').css('top',$(window).scrollTop());
+				} else {
+					$('.fix_nav').addClass('fixed');
+				}
+			} else {
+				$('.fix_nav').removeClass('fixed');
+			}
+		}
+		//$(window).scroll(on_scroll);
+		//on_scroll();
+	}
+});
+</script>
+
+<div class="cont-info-diaocha">
+    <ul>              
+        <li ng-repeat="question in evaluation.questions">
+            <div class="diaocha-box clearfix">
+                 <span class="diaocha-num">{{$index+1}}</span>
+                 <dl>
+                    <dt >
+                        <span class="diaocha-type">
+                        [{{question.queType=='FB'? 'eva_que_type_fb' : question.type == 'SINGLE' ?  'eva_que_type_mc_sin' : 'eva_que_type_mc' | translate}}]
+                        </span>                 
+                        <span ng-bind-html="question.body | htmlDecode"></span> 
+                    </dt>
+                    <dd ng-if="question.queType=='MC'">                        
+                        <p ng-click="select(question.id,option.id)" ng-repeat="option in question.options" 
+                        class="diaocha-radio {{option.select? 'diaocha-select':''}}" >
+                            <span ng-bind-html="option.body | htmlDecode"></span>
+                        </p>                        
+                    </dd>                    
+                    <dd ng-if="question.queType=='FB'">
+                        <textarea ng-model="question.value" class="pure-form-txt-6"></textarea>
+                    </dd>                    
+                 </dl>
+            </div>
+        </li>                 
+    </ul>
+</div>
+</div>
+
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+</body>
+</html>

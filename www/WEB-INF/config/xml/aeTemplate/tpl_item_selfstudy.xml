@@ -1,0 +1,92 @@
+<template>
+	<field01 name="Code" type="text" size="20" required="yes" paramname="itm_code" addSrhContent="true"/>
+	<field02 name="Title" type="text" size="200" required="yes" paramname="itm_title" addSrhContent="true"/>
+	<field03 name="Enrollment period" required="yes">
+		<subfield_list>
+			<subfield id="1" name="From" type="datetime" def_date="current" def_time="00:00:00" required="yes" paramname="itm_appn_start_datetime" dependant="2"/>
+			<subfield id="2" name="To" type="datetime_unlimited" def_time="23:59:59" required="yes" paramname="itm_appn_end_datetime"/>
+		</subfield_list>
+	</field03>
+	<field04 name="Language medium" type="text" size="500" required="no" addSrhContent="true" paramname="ies_lang"/>
+	<field05 name="Objective" type="textarea" size="4000" required="no" addSrhContent="true" paramname="ies_objective"/>
+	<field06 name="Summary" type="textarea" size="2000" required="yes" addSrhContent="true" paramname="itm_desc"/>
+	<field07 name="Contents" type="textarea" size="4000" required="no" addSrhContent="true" paramname="ies_contents"/>
+	<field08 name="Duration" type="textarea" size="4000" required="no" addSrhContent="true" paramname="ies_duration"/>
+	<field09 name="Target audience" type="textarea" size="4000" required="no" addSrhContent="true" paramname="ies_audience"/>
+	<field10 name="Prerequisites" type="textarea" size="4000" required="no" addSrhContent="true" paramname="ies_prerequisites"/>
+	<field11 name="Exemptions" type="textarea" size="4000" required="no" addSrhContent="true" paramname="ies_exemptions"/>
+	<field12 name="Reference materials" required="no">
+		<subfield_list>
+			<subfield id="1" name="File 1" type="file" required="no" paramname="file1"/>
+			<subfield id="2" name="File 2" type="file" required="no" paramname="file2"/>
+			<subfield id="3" name="File 3" type="file" required="no" paramname="file3"/>
+			<subfield id="4" name="File 4" type="file" required="no" paramname="file4"/>
+			<subfield id="5" name="File 5" type="file" required="no" paramname="file5"/>
+		</subfield_list>
+	</field12>
+	<field13 name="Reference URLs" required="no" addSrhContent="true">
+		<subfield_list>
+			<subfield id="1" name="URL 1" type="url" size="500" required="no" paramname="url1"/>
+			<subfield id="2" name="URL 2" type="url" size="500" required="no" paramname="url2"/>
+			<subfield id="3" name="URL 3" type="url" size="500" required="no" paramname="url3"/>
+			<subfield id="4" name="URL 4" type="url" size="500" required="no" paramname="url4"/>
+			<subfield id="5" name="URL 5" type="url" size="500" required="no" paramname="url5"/>
+		</subfield_list>
+	</field13>
+	<field14 name="Remarks" type="textarea" size="4000" required="no" addSrhContent="true" paramname="ies_remarks"/>
+	<field15 name="Quota" type="pos_int_unlimited" required="yes" paramname="itm_capacity"/>
+	<field16 name="Retake" type="radio" required="yes" paramname="itm_retake_ind" value="true">
+		<field16 name="Allowed" id="1" value="true"/>
+		<field16 name="Not allowed" id="2" value="false"/>
+	</field16>
+	<!-- remove "確認報名備注" in course edit page  -->
+	<!-- <field17 name="Enrollment confirmation remarks" type="textarea" size="4000" required="no" paramname="ies_enroll_confirm_remarks"/> -->
+	<field18 name="Related materials" required="no">
+		<subfield_list>
+			<subfield id="1" name="File 1" type="file" required="no" paramname="file001"/>
+			<subfield id="2" name="File 2" type="file" required="no" paramname="file002"/>
+			<subfield id="3" name="File 3" type="file" required="no" paramname="file003"/>
+			<subfield id="4" name="File 4" type="file" required="no" paramname="file004"/>
+			<subfield id="5" name="File 5" type="file" required="no" paramname="file005"/>
+			<subfield id="6" name="File 6" type="file" required="no" paramname="file006"/>
+			<subfield id="7" name="File 7" type="file" required="no" paramname="file007"/>
+			<subfield id="8" name="File 8" type="file" required="no" paramname="file008"/>
+			<subfield id="9" name="File 9" type="file" required="no" paramname="file009"/>
+			<subfield id="10" name="File 10" type="file" required="no" paramname="file010"/>
+		</subfield_list>
+	</field18>
+	<field19 name="Fee" type="pos_amount_optional" required="yes" paramname="itm_fee"/>
+	<field20 name="Accessible users" type="radio" required="yes" paramname="itm_access_type" value="ALL">
+		<field20 name="All learners" id="1" value="ALL"/>
+		<field20 name="Target learners only" id="2" value="TARGETED_LEARNER"/>
+	</field20>
+	<field21 name="Send enrollment notifcation email" type="radio" required="yes" paramname="itm_send_enroll_email_ind" value="true">
+		<field21 id="1" value="1"/>
+		<field21 id="2" value="2"/>
+		<field21 id="3" value="0"/>
+	</field21>
+	<field22 name="buffer_day" type="pos_int" required="no" paramname="itm_mark_buffer_day" size="3"/>
+	<field23 name="notify_email_limited" type="notify_email_limited" required="no" paramname="itm_notify_days"/>
+	<field24 name="notify_support_email" type="notify_support_email" required="no" paramname="itm_notify_email"/>
+	<field25 name="Activate Point Calculation" type="radio_bonus" required="yes" paramname="itm_bonus_ind" value="false">
+		<field25 name="Yes" id="1" value="true"/>
+		<field25 name="No" id="2" value="false"/>
+	</field25>
+	<field26 name="Difficulty factor" type="pos_amount_bonus" required="yes" paramname="itm_diff_factor"/>
+	<field99 name="Icon" type="image" required="no" paramname="itm_icon"/>
+	<field98 name="Plan Code" type="text" size="50" required="no" paramname="itm_plan_code"/>
+	<field111 name="Certificate_of_completion" type="radio" required="yes" paramname="itm_cfc_ind" value="false">
+		<field111 id="1" value="false"/>
+		<field111 id="2" value="true"/>
+	</field111>
+	<field160 name="inst_set" type="radio" required="no" paramname="itm_inst_type" value="IN">
+		<field160 id="1" value="IN"/>
+		<field160 id="2" value="EXT"/>
+	</field160>
+	<field112 name="Top" type="radio" required="yes" paramname="ies_top_ind" value="false">
+		<field112 name="No" id="1" value="false"/>
+		<field112 name="Yes" id="2" value="true"/>
+	</field112>
+	<field113 name="Top Icon" type="image" required="no" paramname="ies_top_icon"/>
+	<field114 name="credit" type="pos_amount" required="no" paramname="ies_credit"/>
+</template>

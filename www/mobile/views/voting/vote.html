@@ -1,0 +1,110 @@
+<!doctype html>
+<html ng-app="voting">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link rel="stylesheet" href="../../css/basic.css" />
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../lib/jquery/Chart.min.js"></script>
+<script type="text/javascript" src="../../js/controllers/VotingController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="voteController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">
+{{alert.msg | translate}}
+</alert>
+<div class="wrap" id="wizwrap">
+<form name="voteForm" method="POST" action="/app/voting/vote">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back();" title="back"></a>
+    <span class="header-title"><!-- 投票 -->{{'voting_label' | translate}}</span>
+   <!--  <a ng-click="formSubmit()" title="submit" href="javascript:void(0)" class="header-info header-pop">提交{{'btn_submit' | translate}}</a> -->
+
+	<div class="header-overlay"></div>
+    <div class="header-tip" style="display:none;">
+         <div class="header-tip-info"><img src="../../images/proper.png" alt=""/><!-- 您已提交成功 -->{{'voting_has_submit_success' | translate}}</div>
+         <div class="header-tip-desc"><!-- 感谢你的参与 -->{{'voting_thanks_for_attending' | translate}}</div>
+         <div align="center"><button style="border-radius:5px;background:#f7a901;color:black;" ><a class="panel-title-24" href="javascript:location.replace('viewResult.html?vot_id={{voting.enc_vot_id}}')"><!-- 点击查看结果 -->{{'voting_click_view_result' | translate}}</a></button></div>
+    </div>
+
+</header> <!-- header End -->
+
+<section class="content">
+<div class="cont-box">
+     <h1 class="cont-info-title-1">{{voting.vot_title}}</h1>
+     <div class="cont-info-period"><span class="cont-info-right"><!-- 参与人数 -->{{'voting_attendant_count' | translate}}：{{voting.responseCount ? voting.responseCount : 0}}</span><!-- 截止时间 -->{{'voting_deadline' | translate}}：{{voting.vot_eff_date_to | date:'yyyy-MM-dd'}}</div>
+
+     <div class="cont-info-desc">
+          <p ng-bind-html="voting.vot_content"></p>
+          <div>
+              <p ng-repeat="o in voteOptions">
+              	<label for="fenlei-0{{$index+1}}" class="wzb-form-checkbox">
+              		<input style="margin:-2px 3px 0 5px;" ng-click="check(this)" ng-model="answers" name="answers" type="{{voting.voteQuestion.vtq_type=='MC_S' ? 'radio':'checkbox'}}" value="{{o.vto_id}}" id="fenlei-0{{$index+1}}" name="fenlei">{{o.vto_desc}}
+              	</label>
+              </p>
+          </div>
+     </div>
+     
+     <div class="panel-list-cont-12">
+		<!-- 提交 -->
+		<a class="panel-box-btn-02 ng-scope" href="javascript:;" ng-click="formSubmit()" title="" translate="btn_submit"></a>
+	</div>
+</div>
+
+	<div class="panel panel-list-cont-11">
+		{{'voting_result_analize' | translate}}
+	</div>
+	<!-- <div class="panel-title-6 clearfix">
+		<div class="panel-add-01">
+			<em class="panel-num-5"><i class="panel-num-9">{{result_voting.responseCount ? result_voting.responseCount : 0}}</i></em>参与人数
+			{{'voting_attendant_count' | translate}}
+		</div>
+	</div> -->
+
+	<div class="panel">
+		<div class="panel-tab-1 pub-tab">
+			<tabs css="1">
+				<pane title="{{'voting_pie_chart' | translate}}"><!-- 饼状图 -->
+					<div class="panel-tabcont-2 pub-tabcont">
+						<div class="chart-box clearfix">
+							<div class="panel-list-boxdate" ng-show="responseResult.length == 0">
+                                <div class="panel-list-nodate">{{'voting_nodate' | translate}}</div>
+                            </div>
+                            <div ng-hide="responseResult.length == 0">
+							     <div class="chart-responsive"><canvas id="pieChart" width="260" height="260"></canvas></div>
+							     <ul class="chart-legend clearfix">
+							        <li ng-repeat="vr in responseResult"><em><span>{{vr.count/vr.total*100 | number:2}}%</span> <i class="{{vr.cssClass1}}"></i></em> {{vr.label}}</li>
+								</ul>
+                            </div>
+						</div>
+					</div>
+				</pane>
+
+				<pane title="{{'voting_bar_chart' | translate}}"><!-- 条形图 -->
+					<div class="panel-tabcont-2 pub-tabcont">
+						<div class="panel-list-boxdate" ng-show="responseResult.length == 0">
+                            <div class="panel-list-nodate">{{'voting_nodate' | translate}}</div>
+                        </div>
+						<ul class="panel-list-1-14" style="padding:30px 10px 10px;" ng-hide="responseResult.length == 0">
+						    <li ng-repeat="vr in responseResult">
+						          <em class="vote-num">{{$index+1}}</em>
+						          <div class="panel-list-cont-14">
+						               <p>{{vr.label}} <span class="margin-left15 color-gray999">{{vr.count + ('voting_attendant_unit'|translate)}}</span></p>
+						               <div class="progress margin-top10 progress-xs"><div style="width:{{vr.count/vr.total*100 | number:2}}%" class="{{vr.cssClass2}}"></div></div> <span class="color-gray999">{{vr.count/vr.total*100 | number:2}}%</span>
+						          </div>
+						    </li>
+						</ul>
+					</div> <!-- pub-tabcont End -->
+				</pane>
+			</tabs>
+		</div>
+	</div> <!-- panel-list-box End -->
+
+</section> <!-- content End -->
+</form>
+</div> <!-- wrap End -->
+
+</body>
+</html>

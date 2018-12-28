@@ -1,0 +1,10 @@
+8.0
+8
+1	SQLNCHAR	0	0	"\t\0"	1	sgp_id	""
+2	SQLNCHAR	0	0	"\t\0"	2	sgp_tcr_id	""
+3	SQLNCHAR	0	0	"\t\0"	3	sgp_title	""
+4	SQLNCHAR	0	0	"\t\0"	4	sgp_desc	""
+5	SQLNCHAR	0	0	"\t\0"	5	sgp_public_type	""
+6	SQLNCHAR	0	0	"\t\0"	6	sgp_create_usr_id	""
+7	SQLNCHAR	0	0	"\t\0"	7	sgp_create_timestamp	""
+8	SQLNCHAR	0	0	"\r\0\n\0"	8	sgp_upd_timestamp	""

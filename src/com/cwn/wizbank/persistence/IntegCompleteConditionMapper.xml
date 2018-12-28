@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.IntegCompleteConditionMapper">
+	<select id="get" resultType="IntegCompleteCondition" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				icd_id,
+				icd_icc_id,
+				icd_completed_item_count,
+				icd_type,
+				icd_create_timestamp,
+				icd_create_usr_id,
+				icd_update_timestamp,
+				icd_update_usr_id
+			from IntegCompleteCondition t 
+			where
+				 t.icd_id = #{id}
+		]]>
+	</select>	
+	<update id="update" parameterType="com.cwn.wizbank.entity.IntegCompleteCondition">
+	    <![CDATA[
+	        update IntegCompleteCondition t 
+	        set 
+				icd_id = #{icd_id,jdbcType=INTEGER},
+				icd_icc_id = #{icd_icc_id,jdbcType=INTEGER},
+				icd_completed_item_count = #{icd_completed_item_count,jdbcType=INTEGER},
+				icd_type = #{icd_type,jdbcType=VARCHAR},
+				icd_create_timestamp = #{icd_create_timestamp,jdbcType=TIMESTAMP},
+				icd_create_usr_id = #{icd_create_usr_id,jdbcType=VARCHAR},
+				icd_update_timestamp = #{icd_update_timestamp,jdbcType=TIMESTAMP},
+				icd_update_usr_id = #{icd_update_usr_id,jdbcType=VARCHAR}
+	         where t.icd_id = #{icd_id,jdbcType=INTEGER}
+	    ]]>
+    </update>    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.IntegCompleteCondition">
+    	<![CDATA[
+            insert into IntegCompleteCondition(
+            		icd_icc_id,
+            		icd_completed_item_count,
+            		icd_type,
+            		icd_create_timestamp,
+            		icd_create_usr_id,
+            		icd_update_timestamp,
+            		icd_update_usr_id
+            ) values (
+            	#{icd_icc_id,jdbcType=INTEGER},
+            	#{icd_completed_item_count,jdbcType=INTEGER},
+            	#{icd_type,jdbcType=VARCHAR},
+            	#{icd_create_timestamp,jdbcType=TIMESTAMP},
+            	#{icd_create_usr_id,jdbcType=VARCHAR},
+            	#{icd_update_timestamp,jdbcType=TIMESTAMP},
+            	#{icd_update_usr_id,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from IntegCompleteCondition where
+	        icd_id = #{icd_id}
+	    ]]>
+    </delete>	
+	<select id="selectAll" resultType="IntegCompleteCondition">
+	    <![CDATA[
+	         select 
+				icd_id,
+				icd_icc_id,
+				icd_completed_item_count,
+				icd_type,
+				icd_create_timestamp,
+				icd_create_usr_id,
+				icd_update_timestamp,
+				icd_update_usr_id
+			from IntegCompleteCondition t 
+	    ]]>
+	</select>	
+</mapper>

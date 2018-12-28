@@ -1,0 +1,46 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Child List
+suffix								   :ChildLst
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : childlst.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+a.wbChildLstSText{
+	color : #000000;
+	font : 9pt "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+a.wbChildLstSText:hover{
+	color : #761113;
+	font : 9pt "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbChildLstBg{
+	background-color : #F0DCDC;
+}
+
+.wbChildLstCountText{
+	color : #000000;
+	font : 9pt "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbChildLstLink,.wbChildLstLink:visited,.wbChildLstLink:active{
+	color : #761113;
+	font : 9pt "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbChildLstLink:hover{
+	color : #000000;
+	font : 9pt "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbChildLstSText{
+	color : #000000;
+	font : 9pt "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbChildLstText{
+	color : #000000;
+	font : 9pt "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}

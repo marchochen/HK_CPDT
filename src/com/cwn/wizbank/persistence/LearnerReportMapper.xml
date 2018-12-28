@@ -1,0 +1,871 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.LearnerReportMapper">
+
+	<resultMap type="com.cwn.wizbank.entity.vo.LearnerDetailReportVo" id="learnerDetailReportMap">
+		<id column="usr_ent_id" property="userEntId" />
+		<result column="usr_display_bil" property="userFullName"></result>
+		<result column="usr_ste_usr_id" property="userDispalyName"></result>
+		<result column="cov_total_time" property="covTotalTime"></result>
+		<result column="cov_status" property="covStatus"></result>
+		<result column="cov_score" property="covScore"></result>
+		<result column="cov_max_score" property="covMaxScore"></result>
+		<result column="att_rate" property="attRate"></result>
+		<result column="itm_code" property="itmCode"></result>
+		<result column="itm_title" property="itmTitle"></result>
+		<result column="itm_run_ind" property="itmRunInd"></result>
+		<result column="itm_apply_ind" property="itmApplyInd"></result>
+		<result column="itm_integrated_ind" property="itmIntegratedInd"></result>
+		<result column="itm_exam_ind" property="itmExamInd"></result>
+		<result column="itm_create_run_ind" property="itmCreateRunInd"></result>
+		<result column="p_itm_id" property="p_itm_id"></result>
+		<result column="p_itm_title" property="p_itm_title"></result>
+		<result column="p_itm_code" property="p_itm_code"></result>
+		<result column="p_itm_tcr_title" property="tcrTitle"></result>
+		<result column="app_id" property="appId"></result>
+		<result column="app_status" property="appStatus"></result>
+		<result column="usr_email" property="userEmail"></result>
+		<result column="usr_tel_1" property="userTel"></result>
+		<result column="app_create_timestamp" property="appCreateTime"></result>
+		<result column="att_timestamp" property="attTime"></result>
+		<result column="cov_commence_datetime" property="covCommenceDatetime"></result>
+		<result column="cov_last_acc_datetime" property="covLastAccDatetime"></result>
+		<result column="cov_tkh_id" property="cov_tkh_id"></result>
+		<result column="itm_id" property="itmId"></result>
+		<result column="usr_status" property="usrStatus"></result>
+		<result column="usr_extra_2" property="staffNo"></result>
+        <result column="ies_credit" property="iesCredit"></result>
+	</resultMap>
+	
+	<resultMap type="com.cwn.wizbank.entity.vo.CatalogTreeVo" id="catalogTreeVoMap">
+		<id column="tndItmId" property="tndItmId" />
+		<result column="tnrOrder" property="tnrOrder"></result>
+		<result column="tndId" property="tndId"></result>
+		<result column="parentTndId" property="parentTndId"></result>
+		<result column="tndTitle" property="tndTitle"></result>
+	</resultMap>
+	
+	<select id="getLearnerReportByUser" resultMap="learnerDetailReportMap" parameterType="com.cwn.wizbank.entity.vo.LearnerReportParamVo">
+	select 
+		usr_ent_id ,
+		usr_ste_usr_id,
+		usr_display_bil ,
+		usr_status,
+		cov_total_time , 
+		cov_status, 
+		cov_score , 
+		cov_max_score, 
+		att_rate,
+		itm_id,
+		itm_code , 
+		itm_title ,
+		itm_run_ind ,
+		itm_apply_ind ,
+		itm_integrated_ind,
+		itm_exam_ind ,
+		itm_create_run_ind,
+		p_itm_id,
+		p_itm_title, 
+		p_itm_code ,
+		p_itm_tcr_title,
+		app_id,
+		app_status,
+		usr_email,
+		usr_tel_1,
+		app_create_timestamp ,
+		att_timestamp,
+		cov_commence_datetime ,
+		cov_last_acc_datetime,
+		cov_complete_datetime,
+		cov_tkh_id,
+		usr_extra_2,
+		cov_tkh_id,
+		cov_tkh_id,
+		ies_credit
+	from 
+		RegUser 
+		<choose>
+			<when test="includeNoDataUser != null and includeNoDataUser == true">
+				left join
+			</when>
+			<otherwise>
+				inner join
+			</otherwise>
+		</choose>
+		(
+			select 
+				app_ent_id,
+				cov_total_time , 
+				cov_status, 
+				cov_score , 
+				cov_max_score, 
+				att_rate,
+				itm_id,
+				itm_code , 
+				itm_title ,
+				itm_run_ind ,
+				itm_apply_ind ,
+				itm_integrated_ind,
+				itm_exam_ind ,
+				itm_create_run_ind,
+				p_itm_id,
+				p_itm_title, 
+				p_itm_code ,
+				app_id,
+				app_status,
+				app_create_timestamp ,
+				att_timestamp,
+				cov_commence_datetime ,
+				cov_last_acc_datetime,
+				cov_complete_datetime,
+				cov_tkh_id,
+				CASE
+					WHEN itm_type ='CLASSROOM' THEN p_itm_tcr_title 
+					ELSE tcr_title 
+				END as p_itm_tcr_title,
+				CASE
+                   WHEN itm_type = 'CLASSROOM' THEN
+                    p_itm_id 
+                   ELSE
+                    itm_id
+                 END as itm_id_filter,
+                 ies_credit
+			from aeItem
+		  		left join aeApplication on (app_itm_id = itm_id)
+				left join CourseEvaluation on( app_tkh_id = cov_tkh_id)
+				left join aeAttendance on (att_app_id = app_id)
+				left join tcTrainingCenter tc on(itm_tcr_id = tcr_id)
+				left join aeItemExtension ies on (itm_id = ies_itm_id)
+				left join 
+					(select 
+						ire_child_itm_id, 
+						itm_id as p_itm_id,
+					    itm_title as p_itm_title, 
+						itm_code as p_itm_code ,
+						tcr_title as p_itm_tcr_title
+					from aeItem ,aeItemRelation ,tcTrainingCenter
+					where ire_parent_itm_id= itm_id and itm_tcr_id = tcr_id
+					) tmp
+				 on (app_itm_id = tmp.ire_child_itm_id)
+	
+	   where 1=1
+		<!-- 指定课程目录 -->
+		<if test="exportCourse == 2">
+			<if test="exportCatalogIds != null and exportCatalogIds.size > 0">
+			and itm_id in (
+					select DISTINCT aetreenode.tnd_itm_id
+					from 
+						aeTreeNodeRelation  , aetreenode 
+					where 
+						tnr_child_tnd_id = tnd_id 
+						and tnr_type = 'ITEM_PARENT_TND'
+						and tnr_ancestor_tnd_id in
+			 			<foreach collection="exportCatalogIds" item="item" index="index" 
+							open="(" separator="," close=")">
+							${item}
+						</foreach>
+			)
+			</if>
+		</if>
+		and itm_ref_ind = 0
+		<if test="courseTypeCondition != null and courseTypeCondition.size > 0">
+		and (
+			<foreach collection="courseTypeCondition" item="item" index="index" separator=" or "  >
+				 ${item}
+			</foreach>
+		)
+		</if>
+		<!-- 报名时间 -->
+		<if test="appnStartDatetime != null"> 
+		and ( app_create_timestamp &gt; #{appnStartDatetime} or app_create_timestamp =  #{appnStartDatetime} )
+		</if>
+		<if test="appnEndDatetime != null">
+		and ( app_create_timestamp &lt; #{appnEndDatetime} or app_create_timestamp = #{appnEndDatetime} )
+		</if>
+		<!-- 结训时间 -->
+		<if test="attStartTime != null and attEndTime != null">
+		and att_timestamp  between #{attStartTime}  and #{attEndTime}  
+		</if>
+		<if test="attStartTime != null and attEndTime == null">
+		and ( att_timestamp &gt; #{attStartTime} or att_timestamp = #{attStartTime} )
+		</if>
+		<if test="attStartTime == null and attEndTime != null">
+		and ( att_timestamp &lt;  #{attEndTime} or att_timestamp = #{attEndTime}  ) 
+		</if>
+		<!-- 课程状态 -->
+		and (
+		<choose>
+			<when test="(courseStatus != null and courseStatus.size != 0) and (appStatus != null and appStatus.size != 0) ">
+			    cov_status in		 			
+				<foreach collection="courseStatus" item="item" index="index" 
+						open="(" separator="," close=")">
+						'${item}'
+				</foreach>
+				or app_status in		 			
+				<foreach collection="appStatus" item="item" index="index" 
+						open="(" separator="," close=")">
+						'${item}'
+				</foreach>
+				
+			</when>
+			<when test="(courseStatus != null and courseStatus.size != 0) and (appStatus == null or appStatus.size == 0)">
+			  cov_status in		 			
+				<foreach collection="courseStatus" item="item" index="index" 
+						open="(" separator="," close=")">
+						'${item}'
+				</foreach>
+			</when>
+			<when test="(courseStatus == null or courseStatus.size == 0) and (appStatus != null and appStatus.size != 0)">
+			   app_status in		 			
+				<foreach collection="appStatus" item="item" index="index" 
+						open="(" separator="," close=")">
+						'${item}'
+				</foreach>
+			</when>
+			<otherwise> 1 = 1 </otherwise>
+		</choose>
+		)
+	) tmp1 on (usr_ent_id = app_ent_id)
+	where 1 = 1
+		<!-- 全部用户 -->
+		<if test="exportUser == 0">
+		 and usr_ent_id in( 
+		 
+			select ern_child_ent_id 
+			from EntityRelation 
+			where 
+				ern_ancestor_ent_id in(
+				select tce_ent_id 
+				from  
+				<if test="isRoleTcInd != null and isRoleTcInd == true">
+					tcTrainingCenterOfficer ,
+				</if>
+					tcTrainingCenterTargetEntity  
+				where 1 = 1
+				<if test="isRoleTcInd != null and isRoleTcInd == true">
+					and tco_tcr_id = tce_tcr_id
+					and tco_usr_ent_id = #{userEntId}
+					and tco_rol_ext_id = #{userRole}
+				</if>
+				<if test="myTopTcId != null"> 
+					and (
+						tce_tcr_id in(
+								select tcn_child_tcr_id from tcrelation where tcn_ancestor= #{myTopTcId}
+						) 
+						or tce_tcr_id = #{myTopTcId}
+					)
+				</if>  
+				)
+			<!-- 是否包含已删除用户 -->
+			<if test="includeDelUser != null and includeDelUser == true">
+			UNION
+			
+			select 
+				erh_child_ent_id 
+			from 
+				EntityRelationHistory , reguser 
+			where 
+				erh_child_ent_id = usr_ent_id 
+				and
+				erh_ancestor_ent_id in(
+				select tce_ent_id 
+				from 
+				<if test="isRoleTcInd != null and isRoleTcInd == true">
+					tcTrainingCenterOfficer ,
+				</if>
+					tcTrainingCenterTargetEntity  
+				where 1=1
+				<if test="isRoleTcInd != null and isRoleTcInd == true">
+					and tco_tcr_id = tce_tcr_id
+					and tco_usr_ent_id = #{userEntId}
+					and tco_rol_ext_id = #{userRole}
+				</if>
+				and usr_status = 'DELETED'
+				<if test="myTopTcId != null"> 
+					and (
+						tce_tcr_id in(
+								select tcn_child_tcr_id from tcrelation where tcn_ancestor= #{myTopTcId}
+						) 
+						or tce_tcr_id = #{myTopTcId}
+					)
+				</if>  
+			)
+			</if>
+		)
+		</if>
+		<!-- 指定用户 -->
+		<if test="exportUser == 1">
+			<if test="exportUserIds != null and exportUserIds.size > 0">
+	 			and usr_ent_id in 
+	 			<foreach collection="exportUserIds" item="item" index="index" 
+					open="(" separator="," close=")">
+					${item}
+				</foreach>
+			</if>
+		</if>
+		<!-- 指定用户组 -->
+		<if test="exportUser == 2">
+			<if test="exportGroupIds != null and exportGroupIds.size > 0">
+			and usr_ent_id in (
+				select ern_child_ent_id
+				from 
+					UserGroup , EntityRelation  
+				where 
+					(usg_ent_id = ern_ancestor_ent_id or usg_ent_id = ern_child_ent_id)
+					And ern_type = 'USR_PARENT_USG'
+					AND usg_ent_id in 
+		 			<foreach collection="exportGroupIds" item="item" index="index" 
+						open="(" separator="," close=")">
+						${item}
+					</foreach>
+				
+			)
+			</if>
+		</if>
+		<!-- 指定课程 -->
+		<if test="exportCourse == 1">
+			<if test="exportCourseIds != null and exportCourseIds.size > 0">
+			and itm_id_filter in		 			
+				<foreach collection="exportCourseIds" item="item" index="index" 
+						open="(" separator="," close=")">
+						${item}
+				</foreach>
+				
+			</if>
+		</if>
+		order by usr_ste_usr_id,cov_complete_datetime
+	</select>
+
+	<select id="getUserGroupData" resultType="Map" parameterType="Map">
+		SELECT 
+			usr_ent_id as "usrId",usg_display_bil as "usgTitle" , usg_ent_id as "usgEntId", 'OK' as "usrStatus"
+		FROM
+			RegUser , EntityRelation , UserGroup 
+		WHERE
+			usr_ent_id = ern_child_ent_id 
+			and usg_ent_id = ern_ancestor_ent_id
+			and ern_parent_ind = 1 
+			and ern_type='USR_PARENT_USG'
+			GROUP BY usr_ent_id , usg_display_bil,usg_ent_id
+		<if test="includeDelUser != null and includeDelUser = true">
+		UNION
+		
+		SELECT 
+			usr_ent_id  as "usrId" , usg_display_bil as "usgTitle", usg_ent_id as "usgEntId", 'DELETED' as "usrStatus"
+		FROM
+			RegUser , EntityRelationHistory , UserGroup
+		WHERE
+			usr_ent_id = erh_child_ent_id 
+			and usg_ent_id = erh_ancestor_ent_id
+			and erh_parent_ind = 1 
+			and erh_type='USR_PARENT_USG'
+			and usr_ent_id not in (SELECT 
+						usr_ent_id 
+					FROM
+						RegUser , EntityRelation , UserGroup 
+					WHERE
+						usr_ent_id = ern_child_ent_id 
+						and usg_ent_id = ern_ancestor_ent_id
+						and ern_parent_ind = 1 
+						and ern_type='USR_PARENT_USG'
+						GROUP BY usr_ent_id)
+		GROUP BY usr_ent_id , usg_display_bil,usg_ent_id
+		</if>
+	</select>
+	
+	<select id="getUserGradeData" resultType="Map" parameterType="Map">
+		SELECT 
+			usr_ent_id as "usrId",ugr_display_bil as "ugrTitle" 
+		FROM
+			RegUser , EntityRelation , UserGrade 
+		WHERE
+			usr_ent_id = ern_child_ent_id 
+			and ugr_ent_id = ern_ancestor_ent_id
+			and ern_parent_ind = 1 
+			and ern_type='USR_CURRENT_UGR'
+		GROUP BY usr_ent_id , ugr_display_bil
+		<if test="includeDelUser != null and includeDelUser = true">
+		UNION
+		
+		SELECT 
+			usr_ent_id as "usrId",ugr_display_bil as "ugrTitle" 
+		FROM
+			RegUser , EntityRelationHistory , UserGrade
+		WHERE
+			usr_ent_id = erh_child_ent_id 
+			and ugr_ent_id = erh_ancestor_ent_id
+			and erh_parent_ind = 1 
+			and erh_type='USR_CURRENT_UGR'
+			and usr_ent_id not in (SELECT
+			usr_ent_id
+			FROM
+			RegUser , EntityRelation , UserGrade
+			WHERE
+			usr_ent_id = ern_child_ent_id
+			and ugr_ent_id = ern_ancestor_ent_id
+			and ern_parent_ind = 1
+			and ern_type='USR_CURRENT_UGR'
+			GROUP BY usr_ent_id)
+		GROUP BY usr_ent_id , ugr_display_bil
+		</if>
+	</select>
+	
+	<select id="getAttemptCount" resultType="Map" parameterType="Map">
+		select mov_tkh_id as "tkhId", sum(mov_total_attempt) as "attemptCount" from moduleEvaluation group by mov_tkh_id
+	</select>
+
+	<select id="getLearnerReportByCourse" resultMap="learnerDetailReportMap" parameterType="com.cwn.wizbank.entity.vo.LearnerReportParamVo">
+	<!-- 查询除了设有班级的课程 -->
+	select * from (
+		select 
+			CASE
+				WHEN itm_type ='CLASSROOM' THEN parent_itm_id 
+				ELSE itm_id 
+			END as itm_id,
+			usr_ent_id ,
+			usr_status,
+			usr_ste_usr_id,
+			usr_display_bil ,
+			cov_total_time , 
+			cov_status, 
+			cov_score , 
+			cov_max_score, 
+			att_rate,
+			child.itm_code ,
+			child.itm_title,
+			CASE
+				WHEN itm_type ='CLASSROOM' THEN p_itm_run_ind 
+				ELSE child.itm_run_ind 
+			END as itm_run_ind,
+			
+			CASE
+				WHEN itm_type ='CLASSROOM' THEN p_itm_apply_ind 
+				ELSE child.itm_apply_ind 
+			END as itm_apply_ind,
+			
+			CASE
+				WHEN itm_type ='CLASSROOM' THEN p_itm_integrated_ind 
+				ELSE child.itm_integrated_ind 
+			END as itm_integrated_ind,
+			
+			CASE
+				WHEN itm_type ='CLASSROOM' THEN p_itm_exam_ind
+				ELSE child.itm_exam_ind 
+			END as itm_exam_ind,
+			
+			CASE
+				WHEN itm_type ='CLASSROOM' THEN p_itm_create_run_ind
+				ELSE child.itm_create_run_ind 
+			END as itm_create_run_ind,
+			
+			CASE
+				WHEN itm_type ='CLASSROOM' THEN p_itm_ref_ind
+				ELSE child.itm_ref_ind 
+			END as itm_ref_ind,
+			
+			child.itm_appn_start_datetime,
+			child.itm_appn_end_datetime,
+			p_itm_title, 
+			p_itm_code ,
+			tcr_title as p_itm_tcr_title,
+			app_id,
+			app_status,
+			usr_email,
+			usr_tel_1,
+			app_create_timestamp ,
+			att_timestamp,
+			cov_commence_datetime ,
+			cov_last_acc_datetime,
+			cov_tkh_id,
+			usr_extra_2,
+			ies_credit
+		FROM 
+			aeitem child
+		LEFT JOIN tcTrainingCenter on (child.itm_tcr_id = tcr_id)
+		left join aeItemExtension ies on (child.itm_id = ies_itm_id)
+		left join (
+			select 
+				itm_id as parent_itm_id, 
+				itm_title as p_itm_title ,
+				itm_code as p_itm_code, 
+                itm_run_ind as p_itm_run_ind,
+                itm_apply_ind as p_itm_apply_ind,
+                itm_integrated_ind as p_itm_integrated_ind ,
+                itm_exam_ind as p_itm_exam_ind,
+                itm_create_run_ind as p_itm_create_run_ind ,
+                itm_ref_ind as p_itm_ref_ind,
+				ire_child_itm_id 
+			from aeItemRelation, aeItem 
+			where itm_id = ire_parent_itm_id
+		) parent on (child.itm_id = parent.ire_child_itm_id)
+		<choose>
+			<when test="includeNoDataCourse != null and includeNoDataCourse == true">
+				left join
+			</when>
+			<otherwise>
+				inner join
+			</otherwise>
+		</choose>
+		(
+			select 
+				usr_ent_id ,
+				usr_extra_2,				
+				usr_ste_usr_id,
+				usr_display_bil ,
+				usr_status,
+				cov_total_time , 
+				cov_status, 
+				cov_score , 
+				cov_max_score, 
+				att_rate,
+				app_id,
+				app_status,
+				usr_email,
+				usr_tel_1,
+				app_create_timestamp ,
+				att_timestamp,
+				cov_commence_datetime ,
+				cov_last_acc_datetime,
+				cov_tkh_id,
+				app_itm_id
+ 			from  
+	 			aeApplication 
+	  			inner join RegUser on (app_ent_id = usr_ent_id)
+				left join CourseEvaluation on( app_tkh_id = cov_tkh_id)
+				left join aeAttendance on (att_app_id = app_id)
+   			where 1=1
+   			<!-- 全部用户 -->
+   			<if test="exportUser == 0">
+	   			<if test="includeDelUser != null and includeDelUser == false">
+	   				and usr_status in ('OK','SYS')
+	   			</if>
+   			</if>
+			<!-- 指定用户 -->
+			<if test="exportUser == 1">
+				<if test="exportUserIds != null and exportUserIds.size > 0">
+		 			and usr_ent_id in 
+		 			<foreach collection="exportUserIds" item="item" index="index" 
+						open="(" separator="," close=")">
+						${item}
+					</foreach>
+				</if>
+			</if>
+			<!-- 指定用户组 -->
+			<if test="exportUser == 2">
+				<if test="exportGroupIds != null and exportGroupIds.size > 0">
+				and usr_ent_id in (
+					select ern_child_ent_id
+					from 
+						UserGroup , EntityRelation  
+					where 
+						(usg_ent_id = ern_ancestor_ent_id or usg_ent_id = ern_child_ent_id)
+						And ern_type = 'USR_PARENT_USG'
+						AND usg_ent_id in 
+			 			<foreach collection="exportGroupIds" item="item" index="index" 
+							open="(" separator="," close=")">
+							${item}
+						</foreach>
+					
+				)
+				</if>
+			</if>
+			<!-- 报名时间 -->
+			<if test="appnStartDatetime != null"> 
+			and ( app_create_timestamp &gt; #{appnStartDatetime} or app_create_timestamp =  #{appnStartDatetime} )
+			</if>
+			<if test="appnEndDatetime != null">
+			and ( app_create_timestamp &lt; #{appnEndDatetime} or app_create_timestamp = #{appnEndDatetime} )
+			</if>
+			<!-- 结训时间 -->
+			<if test="attStartTime != null and attEndTime != null">
+			and att_timestamp  between #{attStartTime}  and #{attEndTime}  
+			</if>
+			<if test="attStartTime != null and attEndTime == null">
+			and ( att_timestamp &gt; #{attStartTime} or att_timestamp = #{attStartTime} )
+			</if>
+			<if test="attStartTime == null and attEndTime != null">
+			and ( att_timestamp &lt;  #{attEndTime} or att_timestamp = #{attEndTime}  ) 
+			</if>
+			<!-- 课程状态 -->
+			and (
+			<choose>
+				<when test="(courseStatus != null and courseStatus.size != 0) and (appStatus != null and appStatus.size != 0) ">
+				    cov_status in		 			
+					<foreach collection="courseStatus" item="item" index="index" 
+							open="(" separator="," close=")">
+							'${item}'
+					</foreach>
+					or app_status in		 			
+					<foreach collection="appStatus" item="item" index="index" 
+							open="(" separator="," close=")">
+							'${item}'
+					</foreach>
+					
+				</when>
+				<when test="(courseStatus != null and courseStatus.size != 0) and (appStatus == null or appStatus.size == 0)">
+				  cov_status in		 			
+					<foreach collection="courseStatus" item="item" index="index" 
+							open="(" separator="," close=")">
+							'${item}'
+					</foreach>
+				</when>
+				<when test="(courseStatus == null or courseStatus.size == 0) and (appStatus != null and appStatus.size != 0)">
+				   app_status in		 			
+					<foreach collection="appStatus" item="item" index="index" 
+							open="(" separator="," close=")">
+							'${item}'
+					</foreach>
+				</when>
+				<otherwise> 1 = 1 </otherwise>
+			</choose>
+			)
+		) tmp1 on (app_itm_id = itm_id)
+		
+		where itm_type !='CLASSROOM'
+		<!-- 拼接设有班级的一些课程的数据。原因：由于拥有班级的课程有多一张关联表要去关联 -->
+		union
+		select 
+			CASE 
+			WHEN itm_type ='CLASSROOM'
+			THEN parent_itm_id 
+			ELSE child.itm_id 
+			END as itm_id,
+			usr_ent_id ,
+			usr_status, 
+			usr_ste_usr_id, 
+			usr_display_bil , 
+			cov_total_time , 
+			cov_status, cov_score ,
+			cov_max_score, 
+			att_rate, 
+			child.itm_code , 
+			child.itm_title, 
+		CASE WHEN itm_type ='CLASSROOM' 
+			 THEN p_itm_run_ind 
+			 ELSE child.itm_run_ind 
+			 END as itm_run_ind, 
+		CASE WHEN itm_type ='CLASSROOM' THEN p_itm_apply_ind ELSE child.itm_apply_ind END as itm_apply_ind, 
+		CASE WHEN itm_type ='CLASSROOM' THEN p_itm_integrated_ind ELSE child.itm_integrated_ind END as itm_integrated_ind,
+		CASE WHEN itm_type ='CLASSROOM' THEN p_itm_exam_ind ELSE child.itm_exam_ind END as itm_exam_ind,
+		CASE WHEN itm_type ='CLASSROOM' THEN p_itm_create_run_ind ELSE child.itm_create_run_ind END as itm_create_run_ind,
+		CASE WHEN itm_type ='CLASSROOM' THEN p_itm_ref_ind ELSE child.itm_ref_ind END as itm_ref_ind,
+		child.itm_appn_start_datetime, child.itm_appn_end_datetime, p_itm_title, p_itm_code , tcr_title as p_itm_tcr_title, 
+		app_id, app_status, usr_email, usr_tel_1, app_create_timestamp , att_timestamp, cov_commence_datetime , cov_last_acc_datetime, cov_tkh_id,usr_extra_2,ies_credit
+		FROM 
+		(
+			 select itm_id as parent_itm_id, itm_title as p_itm_title , itm_code as p_itm_code, itm_run_ind as p_itm_run_ind, itm_apply_ind as p_itm_apply_ind, itm_integrated_ind as p_itm_integrated_ind , itm_exam_ind as p_itm_exam_ind, itm_create_run_ind as p_itm_create_run_ind , itm_ref_ind as p_itm_ref_ind, ire_child_itm_id from aeItemRelation, aeItem where itm_id = ire_parent_itm_id 	 
+		) parent	 
+		left join aeitem child  on (child.itm_id = parent.ire_child_itm_id) 
+		left join aeItemExtension ies on (parent.parent_itm_id = ies_itm_id)	 
+		<choose>
+			<when test="includeNoDataCourse != null and includeNoDataCourse == true">
+				left join
+			</when>
+			<otherwise>
+				inner join
+			</otherwise>
+		</choose>
+		(
+			select 
+				usr_ent_id ,
+				usr_extra_2,
+				usr_ste_usr_id,
+				usr_display_bil ,
+				usr_status,
+				cov_total_time , 
+				cov_status, 
+				cov_score , 
+				cov_max_score, 
+				att_rate,
+				app_id,
+				app_status,
+				usr_email,
+				usr_tel_1,
+				app_create_timestamp ,
+				att_timestamp,
+				cov_commence_datetime ,
+				cov_last_acc_datetime,
+				cov_tkh_id,
+				app_itm_id
+ 			from  
+	 			aeApplication 
+	  			inner join RegUser on (app_ent_id = usr_ent_id)
+				left join CourseEvaluation on( app_tkh_id = cov_tkh_id)
+				left join aeAttendance on (att_app_id = app_id)
+   			where 1=1
+   			<if test="exportUser == 0">
+	   			<if test="includeDelUser != null and includeDelUser == false">
+	   				and usr_status in ('OK','SYS')
+	   			</if>
+   			</if>
+			<if test="exportUser == 1">
+				<if test="exportUserIds != null and exportUserIds.size > 0">
+		 			and usr_ent_id in 
+		 			<foreach collection="exportUserIds" item="item" index="index" 
+						open="(" separator="," close=")">
+						${item}
+					</foreach>
+				</if>
+			</if>
+			<if test="exportUser == 2">
+				<if test="exportGroupIds != null and exportGroupIds.size > 0">
+				and usr_ent_id in (
+					select ern_child_ent_id
+					from 
+						UserGroup , EntityRelation  
+					where 
+						(usg_ent_id = ern_ancestor_ent_id or usg_ent_id = ern_child_ent_id)
+						And ern_type = 'USR_PARENT_USG'
+						AND usg_ent_id in 
+			 			<foreach collection="exportGroupIds" item="item" index="index" 
+							open="(" separator="," close=")">
+							${item}
+						</foreach>
+					
+				)
+				</if>
+			</if>
+			<if test="appnStartDatetime != null"> 
+			and ( app_create_timestamp &gt; #{appnStartDatetime} or app_create_timestamp =  #{appnStartDatetime} )
+			</if>
+			<if test="appnEndDatetime != null">
+			and ( app_create_timestamp &lt; #{appnEndDatetime} or app_create_timestamp = #{appnEndDatetime} )
+			</if>
+			<if test="attStartTime != null and attEndTime != null">
+			and att_timestamp  between #{attStartTime}  and #{attEndTime}  
+			</if>
+			<if test="attStartTime != null and attEndTime == null">
+			and ( att_timestamp &gt; #{attStartTime} or att_timestamp = #{attStartTime} )
+			</if>
+			<if test="attStartTime == null and attEndTime != null">
+			and ( att_timestamp &lt;  #{attEndTime} or att_timestamp = #{attEndTime}  ) 
+			</if>
+			and (
+			<choose>
+				<when test="(courseStatus != null and courseStatus.size != 0) and (appStatus != null and appStatus.size != 0) ">
+				    cov_status in		 			
+					<foreach collection="courseStatus" item="item" index="index" 
+							open="(" separator="," close=")">
+							'${item}'
+					</foreach>
+					or app_status in		 			
+					<foreach collection="appStatus" item="item" index="index" 
+							open="(" separator="," close=")">
+							'${item}'
+					</foreach>
+					
+				</when>
+				<when test="(courseStatus != null and courseStatus.size != 0) and (appStatus == null or appStatus.size == 0)">
+				  cov_status in		 			
+					<foreach collection="courseStatus" item="item" index="index" 
+							open="(" separator="," close=")">
+							'${item}'
+					</foreach>
+				</when>
+				<when test="(courseStatus == null or courseStatus.size == 0) and (appStatus != null and appStatus.size != 0)">
+				   app_status in		 			
+					<foreach collection="appStatus" item="item" index="index" 
+							open="(" separator="," close=")">
+							'${item}'
+					</foreach>
+				</when>
+				<otherwise> 1 = 1 </otherwise>
+			</choose>
+			)
+		) tmp1 on (app_itm_id = itm_id)
+		
+		
+		left join (select itm_id ,itm_tcr_id from aeitem) child2 on  child2.itm_id=parent.parent_itm_id
+			   
+		LEFT JOIN tcTrainingCenter on (child2.itm_tcr_id = tcr_id ) 
+	
+		
+		
+		
+	)  tmp
+	where 1=1
+	<!-- 全部课程  2016-12-26修改-->
+	<choose>
+		<!-- 全部课程 -->
+		<when test="exportCourse == 0">
+		and	itm_id in (
+				<choose>
+					<when test="isRoleTcInd != null and isRoleTcInd == true">
+					select itm_id from aeItem where itm_tcr_id in(
+						select tco_tcr_id from tcTrainingCenterOfficer where itm_tcr_id = tco_tcr_id and tco_usr_ent_id = #{userEntId} and tco_rol_ext_id = #{userRole}
+					)
+					or itm_tcr_id in(
+						select tcn_child_tcr_id from tcRelation where  
+						tcn_ancestor in(
+							select tco_tcr_id from tcTrainingCenterOfficer where tco_usr_ent_id = #{userEntId}  and tco_rol_ext_id = #{userRole}
+						)
+					)
+					</when>
+					<otherwise>
+					select itm_id from aeItem where itm_tcr_id = #{myTopTcId}
+					or itm_tcr_id in(
+						select tcn_child_tcr_id from tcRelation where  
+						tcn_ancestor = #{myTopTcId}
+					)
+					</otherwise>
+				</choose>
+			)
+		</when>
+		<!-- 指定课程 -->
+		<when test="exportCourse == 1">
+			<if test="exportCourseIds != null and exportCourseIds.size > 0">
+			and itm_id in		 			
+				<foreach collection="exportCourseIds" item="item" index="index" 
+						open="(" separator="," close=")">
+						${item}
+				</foreach>
+				
+			</if>
+		</when>
+		<!-- 指定目录 -->
+		<when test="exportCourse == 2">
+			<if test="exportCatalogIds != null and exportCatalogIds.size > 0">
+			and itm_id in (
+				select DISTINCT aetreenode.tnd_itm_id
+				from 
+					aeTreeNodeRelation  , aetreenode 
+				where 
+					tnr_child_tnd_id = tnd_id 
+					and tnr_type = 'ITEM_PARENT_TND'
+					and tnr_ancestor_tnd_id in
+		 			<foreach collection="exportCatalogIds" item="item" index="index" 
+						open="(" separator="," close=")">
+						${item}
+					</foreach>
+			)
+			</if>
+		</when>
+	</choose>
+	and itm_ref_ind = 0
+	<if test="courseTypeCondition != null and courseTypeCondition.size > 0">
+	and (
+		<foreach collection="courseTypeCondition" item="item" index="index" separator=" or "  >
+			 ${item}
+		</foreach>
+	)
+	</if>
+	order by itm_code,usr_ste_usr_id
+	</select>
+	
+	<select id="getCourseCatalogs" resultMap="catalogTreeVoMap" >
+		select 
+			itm_node.tnd_itm_id as "tndItmId" , 
+			tnr_order as "tnrOrder" ,
+			cat_node.tnd_title as "tndTitle" ,
+			cat_node.tnd_id as "tndId" , 
+			cat_node.tnd_parent_tnd_id   as "parentTndId"
+		from 
+			Aetreenoderelation , aetreenode cat_node, aetreenode itm_node
+		where 
+			tnr_type = 'ITEM_PARENT_TND' 
+			and tnr_ancestor_tnd_id = cat_node.tnd_id  
+			and tnr_child_tnd_id = itm_node.tnd_id
+		order by itm_node.tnd_itm_id , tnr_order  asc
+	</select>
+	
+</mapper>

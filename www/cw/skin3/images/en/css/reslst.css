@@ -1,0 +1,53 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Resources List
+suffix								   :reslst
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : reslst.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+a.wbResLstLink,a.wbResLstLink:visited,a.wbResLstLink:active{
+	color: #000000;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+a.wbResLstLink:hover{
+	color: #D36E02;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbResLstBg{
+	background-color: #FAEBA5;
+	scrollbar-3dlight-color: #FAEBA5;
+	scrollbar-arrow-color: #000000;
+	scrollbar-base-color: #E49810;
+	scrollbar-darkshadow-color: #D36E02;
+	scrollbar-face-color: #E49810;
+	scrollbar-highlight-color: #FAEBA5;
+	scrollbar-shadow-color: #D36E02;
+	scrollbar-track-color: #E49810;
+}
+
+.wbResLstHeadBarBg{
+	background-color: #D36E02;
+}
+
+.wbResLstHeadBarText{
+	color: #FFFFFF;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbResSText{
+	color: #E49810;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbResSTextBold{
+	color: #9E5200;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbResText{
+	color: #9E5200;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}

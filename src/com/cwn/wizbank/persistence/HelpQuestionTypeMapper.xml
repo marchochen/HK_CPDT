@@ -1,0 +1,110 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.HelpQuestionTypeMapper">
+
+	<resultMap type="com.cwn.wizbank.entity.vo.HelpQuestionTypeVo" id="HelpQuestionTypeVo">
+		<result column="hqt_id" property="id"/>
+		<result column="hqt_type_name" property="type_name"/>
+		<result column="hqt_pid" property="pid"/>
+		<result column="hqt_top_index" property="top_index"/>
+		<result column="hqt_is_publish" property="is_publish"/>
+		<result column="hqt_create_timestamp" property="create_timestamp"/>
+		<result column="hqt_language" property="language"/>
+	</resultMap>
+
+	<select id="getQuestionTypeList" parameterType="Params" resultMap="HelpQuestionTypeVo">
+		SELECT 
+		hqt_id
+		,hqt_type_name
+		,hqt_pid
+		,hqt_top_index
+		,hqt_is_publish
+		,hqt_create_timestamp
+		,hqt_language
+		FROM helpQuestionType
+		where 1=1
+		<if test="params.hqt_is_publish != null and params.hqt_is_publish != ''">
+			and hqt_is_publish = #{params.hqt_is_publish}
+		</if>
+		<if test="params.hqt_pid != null and params.hqt_pid != ''">
+			and hqt_pid = #{params.hqt_pid}
+		</if>
+		<if test="params.hqt_language != null and params.hqt_language != ''">
+			and hqt_language = #{params.hqt_language}
+		</if>
+		order by hqt_top_index desc
+	</select>
+	
+	<select id="getHelpQuestionType" resultMap="HelpQuestionTypeVo" parameterType="java.lang.Integer">
+		<![CDATA[
+		SELECT 
+			hqt_id
+			,hqt_type_name
+			,hqt_pid
+			,hqt_top_index
+			,hqt_is_publish
+			,hqt_create_timestamp
+			,hqt_language
+		FROM 
+			helpQuestionType
+		where
+			hqt_id = #{id}
+		]]>
+	</select>
+	
+	
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.HelpQuestionType">
+    	<![CDATA[
+            insert into helpQuestionType (
+            		hqt_type_name,
+            		hqt_pid,
+            		hqt_top_index,
+            		hqt_is_publish,
+            		hqt_language,
+            		hqt_create_timestamp
+            ) values (
+            	#{hqt_type_name,jdbcType=VARCHAR},
+            	#{hqt_pid,jdbcType=INTEGER},
+            	#{hqt_top_index,jdbcType=INTEGER},
+            	#{hqt_is_publish,jdbcType=TINYINT},
+            	#{hqt_language,jdbcType=VARCHAR},
+            	#{hqt_create_timestamp,jdbcType=TIMESTAMP}
+            )
+        ]]>
+
+	</insert>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.HelpQuestionType">
+	    <![CDATA[
+	        update 
+	        	helpQuestionType
+	        set 
+				hqt_type_name = #{hqt_type_name,jdbcType=VARCHAR},
+				hqt_top_index = #{hqt_top_index,jdbcType=INTEGER},
+				hqt_is_publish = #{hqt_is_publish,jdbcType=TINYINT},
+				hqt_language = 	#{hqt_language,jdbcType=VARCHAR}
+	         where 
+	         	hqt_id =  #{hqt_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    
+    <delete id="delHelpQuestionType" parameterType="java.lang.Integer">
+	    <![CDATA[
+	   	delete from helpQuestionType where
+	        hqt_id = #{id}
+	    ]]>
+    </delete>
+	
+	<select id="getTypeList"  parameterType="Page" resultMap="HelpQuestionTypeVo">
+	  SELECT 
+		hqt_id
+		,hqt_type_name
+		,hqt_pid
+		,hqt_top_index
+		,hqt_is_publish
+		,hqt_create_timestamp
+		,hqt_language
+		FROM helpQuestionType
+		order by hqt_top_index desc
+	</select>
+	
+</mapper>

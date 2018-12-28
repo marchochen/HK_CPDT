@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.VoteResponseMapper">
+
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into voteresponse(vrp_usr_ent_id,vrp_vot_id,vrp_vtq_id,vrp_vto_id,vrp_respone_time)
+    	<choose>
+				<when test="_databaseId == 'ORACLE'">
+					<foreach collection="list" item="item"  separator="union all">
+        				(select #{item.vrp_usr_ent_id},#{item.vrp_vot_id},#{item.vrp_vtq_id},#{item.vrp_vto_id},#{item.vrp_respone_time} from dual)
+    				</foreach>
+				</when>
+				<otherwise>
+					values
+					<foreach collection="list" item="item"  separator=",">
+        				(#{item.vrp_usr_ent_id},#{item.vrp_vot_id},#{item.vrp_vtq_id},#{item.vrp_vto_id},#{item.vrp_respone_time})
+    				</foreach>
+				</otherwise>
+		</choose>
+
+	</insert>
+
+	<select id="selectByUserId" parameterType="java.lang.Long" resultType="com.cwn.wizbank.entity.VoteResponse">
+		select * from voteresponse where vrp_usr_ent_id = #{userId}
+	</select>
+
+	<select id="selectByUserIdAndVotId" parameterType="java.util.Map" resultType="com.cwn.wizbank.entity.VoteResponse">
+		select * from voteresponse where vrp_usr_ent_id = #{userId} and vrp_vot_id = #{votId}
+	</select>
+
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.VoteResponse">
+		insert into voteresponse(vrp_usr_ent_id,vrp_vot_id,vrp_vtq_id,vrp_vto_id,vrp_respone_time)
+		values
+		(#{vrp_usr_ent_id},#{vrp_vot_id},#{vrp_vtq_id},#{vrp_vto_id},#{vrp_respone_time})
+	</insert>
+</mapper>

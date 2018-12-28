@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+	
+		<link rel="stylesheet" href="../../static/css/photoSwipe/photoswipe.css"> 
+		<link rel="stylesheet" href="../../static/css/photoSwipe/default-skin/default-skin.css">
+		<script src="../../static/js/photoSwipe/photoswipe.min.js"></script> 
+		<script src="../../static/js/photoSwipe/photoswipe-ui-default.js"></script> 
+	
+		
+		<style type="text/css">
+		
+			 .pswp__button--arrow--right:before {
+				background: url(../../wb_image/jiantou2.png) no-repeat 0px 0px;
+				width: 45px;
+				height: 80px;
+				top:0;
+			}
+			
+			.pswp__button--arrow--left:before{
+				background: url(../../wb_image/jiantou2.png) no-repeat 0px -80px;
+				width: 50px;
+				height: 80px;
+				top:0;
+			}
+			
+			.pswp__button--fs {
+			    background-size: 432px;
+    			background-position: -19px -12px;
+			}
+			
+			.pswp--fs .pswp__button--fs {
+			    background-position: -88px -11px;
+			    background-size: 432px;
+			}
+			
+			
+			.pswp--zoom-allowed .pswp__button--zoom {
+			    background-size: 432px;
+			    background-position: -164px -12px;
+			}
+			
+			.pswp--zoomed-in .pswp__button--zoom {
+			    background-size: 432px;
+			    background-position: -236px -12px;
+			}
+			
+			.pswp__counter {
+				font-size:18px
+			}
+		
+		</style>
+		
+	</head>
+	
+	<body>
+
+		<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+		
+		    <div class="pswp__bg"></div>
+		    
+		    <div class="pswp__scroll-wrap">
+		
+		        <div class="pswp__container">
+		            <div class="pswp__item"></div>
+		            <div class="pswp__item"></div>
+		            <div class="pswp__item"></div>
+		        </div>
+		
+		        <div class="pswp__ui pswp__ui--hidden">
+		
+		            <div class="pswp__top-bar">
+		
+		                <div class="pswp__counter"></div>
+		
+		                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+		
+		                <button class="pswp__button pswp__button--share" title="Share"></button>
+		
+		                <button class="pswp__button pswp__button--fs"></button>
+		
+		                <button class="pswp__button pswp__button--zoom"></button>
+		
+		                <div class="pswp__preloader">
+		                    <div class="pswp__preloader__icn">
+		                      <div class="pswp__preloader__cut">
+		                        <div class="pswp__preloader__donut"></div>
+		                      </div>
+		                    </div>
+		                </div>
+		            </div>
+		
+		            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+		                <div class="pswp__share-tooltip"></div> 
+		            </div>
+		
+		            <button class="pswp__button pswp__button--arrow--left">
+		            </button>
+		
+		            <button class="pswp__button pswp__button--arrow--right">
+		            </button>
+		
+		            <div class="pswp__caption">
+		                <div class="pswp__caption__center"></div>
+		            </div>
+		
+		       </div>
+		
+		    </div>
+		
+		</div>
+	
+	</body>
+	
+	<script type="text/javascript">
+	
+		var openPhotoSwipe = function() {
+			var items = JSON.parse(sessionStorage.getItem("photoItems"));
+			var pswpElement = document.querySelectorAll('.pswp')[0];
+			var options = {
+		        history: false,
+		        focus: false,
+		        showAnimationDuration: 0,
+		        hideAnimationDuration: 0,
+		        loop:true,
+				closeOnScroll : false,
+				closeOnVerticalDrag : false,
+				pinchToClose : false,
+				escKey: false,
+				arrowKeys: false,
+				barsSize: {top:46, bottom:'auto'},
+				shareEl : false,
+				closeEl: false,
+				tapToToggleControls : false,
+				closeElClasses: [],
+				clickToCloseNonZoomable: false
+		    };
+			
+			var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+			
+			gallery.init();
+			
+		};
+	
+		openPhotoSwipe();
+		
+	</script>
+	
+</html>

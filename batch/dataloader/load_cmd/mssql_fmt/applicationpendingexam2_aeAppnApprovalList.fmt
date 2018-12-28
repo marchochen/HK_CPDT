@@ -1,0 +1,9 @@
+8.0
+7
+1	SQLNCHAR	0	0	"\t\0"		1	aal_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	aal_usr_ent_id	""
+3	SQLNCHAR	0	0	"\t\0"		3	aal_app_id	""
+4	SQLNCHAR	0	0	"\t\0"		4	aal_app_ent_id	""
+5	SQLNCHAR	0	0	"\t\0"		5	aal_approval_role	""
+6	SQLNCHAR	0	0	"\t\0"		7	aal_status	""
+7	SQLNCHAR	0	0	"\r\0\n\0"	8	aal_create_timestamp	""

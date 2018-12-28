@@ -1,0 +1,17 @@
+<data_list>
+	<data name="ent_id" value="1"/>
+	<data name="all_user_ind" value="1"/>
+	<data name="ats_id" value="1"/>
+	<data name="ats_id" value="3"/>
+	<data name="ats_id" value="4"/>
+	<data name="usr_content_lst" value="usr_display_bil"/>
+	<data name="usr_content_lst" value="USR_PARENT_USG"/>
+	<data name="itm_content_lst" value="field02"/>
+	<data name="itm_content_lst" value="itm_type"/>
+	<data name="content_lst" value="att_create_timestamp"/>
+	<data name="content_lst" value="att_status"/>
+	<data name="content_lst" value="att_timestamp"/>
+	<data name="content_lst" value="cov_last_acc_datetime"/>
+	<data name="content_lst" value="cov_total_time"/>
+	<data name="datetime_restriction" value="att_create_timestamp"/>
+</data_list>

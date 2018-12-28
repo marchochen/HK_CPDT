@@ -1,0 +1,20 @@
+<label_reference_data_list>
+	<label name="lab_g_select_enrol_wf">請選擇報名工作流</label>
+	<label name="lab_g_enrol_wf">報名工作流</label>
+	<label name="lab_g_form_btn_next_step">下一步</label>
+	<label name="lab_g_form_btn_cancel">取消</label>
+	<label name="lab_g_template_workflow">
+		<element id="7">
+			<title>無須經審批的工作流</title>
+			<description></description>
+		</element>
+		<element id="15">
+			<title>須經審批的工作流</title>
+			<description></description>
+		</element>
+		<element id="18">
+			<title>自動收費報名工作流</title>
+			<description></description>
+		</element>
+	</label>
+</label_reference_data_list>

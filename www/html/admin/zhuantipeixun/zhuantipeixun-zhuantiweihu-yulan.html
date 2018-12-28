@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>wizbank网站管理平台</title>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/jquery.qtip/jquery.qtip.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/css/jquery.mmenu.css" />
+<link rel="stylesheet" type="text/css" href="../../../static/css/swiper.min.css">
+<link rel="stylesheet" type="text/css" href="../../../static/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/jquery-table/css/jquery-table-default.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/jquery-table/css/jquery-table-admin.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/admin/css/admin.css"/>
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../../../static/js/jquery.qtip/jquery.qtip.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../static/js/jQuery-jcMarquee.js"></script>
+<script type="text/javascript" src="../../../static/js/swiper.min.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<!--[if lt IE 9]>
+    <script type="text/javascript" src="bootstrap/js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+<div class="wzb-body">
+<div class="wzb-top clearfix">
+     <a class="wzb-logo" href="###" title="wizbank"><img src="images/wzb-logo.png" alt="wizbank" /></a>
+     <div class="wzb-top-toggle"><i class="fa fa-bars"></i></div>
+     
+     <div class="wzb-tool">
+     <div class="wzb-menu">     
+          <ul class="clearfix">
+              <li><a class="wzb-menu-sup" href="###" title="信息"><i class="fa wzb-envelope-icon fa-envelope-o"></i> <span class="wzb-badge wzb-badge-purple">15</span></a></li>
+              <li>
+                  <a class="wzb-menu-sub" href="###" title="信息"><i class="fa wzb-envelope-icon fa-flag-o"></i> <span class="wzb-badge wzb-badge-pink">8</span></a>
+                  <ul>
+                      <li><a class="wzb-menu-son" href="###" title="报名审批"><i class="fa fa-check-circle-o"></i>报名审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="作业批改"><i class="fa fa-clipboard"></i>作业批改</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="试卷批改"><i class="fa fa-file-text-o"></i>试卷批改</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="知识审批"><i class="fa fa-life-ring"></i>知识审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="IDP审批"><i class="fa fa-level-up"></i>IDP审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="培训计划审批"><i class="fa fa-calendar"></i>培训计划审批</a></li>
+                 </ul>
+             </li>
+             <li>
+                 <a class="wzb-menu-sub" href="###" title="信息"><img class="wzb-user" src="images/wzb-user.jpg" alt="wizbank" />培训管理员<i class="fa wzb-caret-icon fa-caret-down"></i></a>
+                 <ul>
+                     <li><a class="wzb-menu-son" href="###" title="角色"><i class="fa fa-user"></i>角色</a>
+                         <dl>
+                             <dd><a href="###" title="学员">学员</a></dd>
+                             <dd><a href="###" title="培训管理员">培训管理员</a></dd>
+                             <dd><a href="###" title="系统管理员">系统管理员</a></dd>
+                             <dd><a href="###" title="考试监考员">考试监考员</a></dd>
+                         </dl>
+                     </li>
+                     <li><a class="wzb-menu-son" href="###" title="语言"><i class="fa fa-stack-exchange"></i>语言</a>
+                         <dl>
+                             <dd><a href="###" title="简体中文">简体中文</a></dd>
+                             <dd><a href="###" title="繁体中文">繁体中文</a></dd>
+                             <dd><a href="###" title="English">English</a></dd>
+                         </dl>
+                    </li>
+                    <li><a class="wzb-menu-son" href="###" title="我的档案"><i class="fa fa-instagram"></i>我的档案</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="修改密码"><i class="fa fa-key"></i>修改密码</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="我的喜好"><i class="fa fa-smile-o"></i>我的喜好</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="退出"><i class="fa fa-sign-out"></i>退出</a></li>
+                </ul>
+            </li>
+        </ul>
+      </div>  
+    </div>
+</div> <!-- wzb-top End-->
+
+<div class="wzb-sidebar">
+<div class="wzb-menu">
+    <ul>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-home"></i>首页</a></li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-globe"></i>资讯管理</a>
+            <ul>
+                <li><a href="###" title="">公告</a></li>
+                <li><a href="###" title="">资讯</a></li>
+                <li><a href="###" title="">常用工具</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-cubes"></i>需求管理</a>
+            <ul>
+                <li><a href="###" title="">投票</a></li>
+                <li><a href="###" title="">公共调查问卷</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-list-alt"></i>计划管理</a>
+            <ul>
+                <li><a href="###" title="">计划实施</a></li>
+                <li><a href="###" title="">年度计划</a></li>
+                <li><a href="###" title="">编外计划</a></li>
+                <li><a href="###" title="">年度计划审批</a></li>
+                <li><a href="###" title="">编外计审批</a></li>
+                <li><a href="###" title="">年度设置</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-maxcdn"></i>学习地图</a>
+            <ul>
+                <li><a href="###" title="">岗位发展路径</a></li>
+                <li><a href="###" title="">岗位</a></li>
+                <li><a href="###" title="">能力标签</a></li>
+                <li><a href="###" title="">能力测评模板</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-calendar"></i>培训管理</a>
+            <ul>
+                <li><a href="###" title="">网上课程</a></li>
+                <li><a href="###" title="">面授课程</a></li>
+                <li><a href="###" title="">项目式培训</a></li>
+                <li><a href="###" title="">证书</a></li>
+                <li><a href="###" title="">课程目录</a></li>
+                <li><a href="###" title="">公开课</a></li>
+                <li><a href="###" title="">教学资源</a></li>
+                <li><a href="###" title="">课程评估问卷</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-columns"></i>考试管理</a>
+            <ul>
+                <li><a href="###" title="">网上考试</a></li>
+                <li><a href="###" title="">离线考试</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-comments"></i>社区管理</a>
+            <ul>
+                <li><a href="###" title="">问答</a></li>
+                <li><a href="###" title="">群组</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-life-ring"></i>知识管理</a>
+            <ul>
+                <li><a href="###" title="">知识库</a></li>
+                <li><a href="###" title="">知识目录</a></li>
+                <li><a href="###" title="">知识标签</a></li>
+                <li><a href="###" title="">知识审批</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-table"></i>培训报表</a>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-child"></i>用户管理</a>
+            <ul>
+                <li><a href="###" title="">用户信息</a></li>
+                <li><a href="###" title="">职级</a></li>
+                <li><a href="###" title="">注册审批</a></li>
+                <li><a href="###" title="">用户激活</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-suitcase"></i>基础数据管理</a>
+            <ul>
+                <li><a href="###" title="">积分</a></li>
+                <li><a href="###" title="">内部讲题</a></li>
+                <li><a href="###" title="">外部讲题</a></li>
+                <li><a href="###" title="">供应商</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-wrench"></i>系统设置</a>
+            <ul>
+                <li><a href="###" title="">PC样式管理</a></li>
+                <li><a href="###" title="">移动管理</a></li>
+                <li><a href="###" title="">培训中心管理</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>    
+</div>  <!-- wzb-sibebar End-->
+
+<div class="wzb-wrapper">
+<div class="wzb-main">
+<div class="wzb-banner wzb-banner-bg01" style="opacity: 1; background: rgb(153, 102, 153);"><i class="fa wzb-banner-icon fa-maxcdn"></i> 学习地图</div>
+
+<ol class="breadcrumb wzb-breadcrumb">
+  <li><a href="#"><i class="fa wzb-breadcrumb-home fa-home"></i>首页</a></li>
+  <li class="active">专题培训</li>
+</ol> <!-- wzb-breadcrumb End-->
+
+<div class="panel wzb-panel">
+<div class="panel-heading">专题培训</div>
+    <!-- 内容添加开始 -->
+    <div class="panel-body">
+        <div class="wzb-item-main">
+            <ul role="tablist" class="nav nav-tabs page-tabs">
+                <li class="active" role="presentation">
+                    <a href="#basic" data-toggle="tab" role="tab" aria-controls="basic">学员端预览</a>
+                </li>
+                <li role="presentation" class="">
+                    <a href="#senior" data-toggle="tab" role="tab" aria-controls="senior">移动端预览</a>
+                </li>
+            </ul>
+
+            <!--tab-content start-->
+            <div class="tab-content" style="padding:28px 0 0 0;">
+                <!-- tab-pane start -->
+                <div id="basic" class="tab-pane active" role="tabpanel" style="background:#f2f2f2;width:984px;">                                
+                    <!-- wzb-model-10 start -->
+                    <div style="width:100%;background:#fff;">
+                        <img src="../../../static/images/ta01.png" width="984px" alt="" style="display:block;margin:0 auto;">
+                    </div>
+                    <div class="wzb-model-10">
+                        <div class="tuwen-title-1">
+                            <h3>互联网+人才发展</h3>
+                            <p>点赞，是空间小伙伴间最常用的互动表达方式。大家通过点赞表达赞同，喜欢和祝福。
+                                现在，就让我们用官方大数据来告诉你QQ空间点赞的那些事儿点赞，是空间小伙伴间最常用的互动表达方式。大家通过点赞表达赞同，喜欢和祝福。
+                                现在，就让我们用官方大数据来告诉你QQ空间点赞的那些事儿~</p>
+                        </div>
+                        <div class="tuwen-pic-1"><img src="../../../static/images/banner04.jpg" alt=""></div>
+                        <div style="border-top:2px dotted #eee;margin:20px 0;"></div>
+                        <div>
+                            <h4 class="tool-content-show" id="shou">精彩活动回顾</h4>
+                            <p>2016-03-28</p>
+                            <div id="shouqi">
+                                <p>点赞，是空间小伙伴间最常用的互动表达方式。大家通过点赞表达赞同，喜欢和祝福。
+                                现在，就让我们用官方大数据来告诉你QQ空间点赞的那些事儿点赞，是空间小伙伴间最常用的互动表达方式。大家通过点赞表达赞同，喜欢和祝福。
+                                现在，就让我们用官方大数据来告诉你QQ空间点赞的那些事儿</p>
+                            </div>
+                            <script type="text/javascript">
+                                $("#shou").click(function(){
+                                    $("#shouqi").slideToggle();
+                                    if($(this).hasClass("tool-content-hide")){
+                                      $(this).removeClass("tool-content-hide");
+                                    }else{
+                                      $(this).addClass("tool-content-hide");
+                                    };
+                                })
+                            </script>
+                        </div>
+                    </div>
+                    <!-- wzb-model-10 end -->
+
+                    <div class="bg-8-x">
+                        <span class="bg-9-x">栏目专家</span>
+                                    
+                        <div class="module-tuwen clearfix" id="Marquee_x">
+                            <ul>
+                              <li>
+                                  <a href="#" class="module-tuwen-teacher">
+                                      <div class="module-tuwen-bg module-tuwen-bg-green"><!-- 这个颜色有4个循环的 -->
+                                          <img src="../../../static/images/teacher01.png" alt="">
+                                          <p class="module-tuwen-tit-1">张立强</p>
+                                          <p class="module-tuwen-tit-2">高级讲师</p>
+                                          <div class="module-color-green"><!-- 和上面的颜色对应 -->
+                                              <span class="module-teach-pingfen">
+                                                  <i>评分</i>
+                                                  <i>90.1</i>
+                                              </span>
+                                          </div>
+                                      </div>
+                                  </a>
+                                  <a href="#" class="module-tuwen-teacher">
+                                      <div class="module-tuwen-bg module-tuwen-bg-pink">
+                                          <img src="../../../static/images/teacher01.png" alt="">
+                                          <p class="module-tuwen-tit-1">张立强</p>
+                                          <p class="module-tuwen-tit-2">高级讲师</p>
+                                          <div class="module-color-pink">
+                                              <span class="module-teach-pingfen">
+                                                  <i>评分</i>
+                                                  <i>90.1</i>
+                                              </span>
+                                          </div>
+                                      </div>
+                                  </a>
+                                  <a href="#" class="module-tuwen-teacher">
+                                      <div class="module-tuwen-bg module-tuwen-bg-blue">
+                                          <img src="../../../static/images/teacher01.png" alt="">
+                                          <p class="module-tuwen-tit-1">张立强</p>
+                                          <p class="module-tuwen-tit-2">高级讲师</p>
+                                          <div class="module-color-blue">
+                                              <span class="module-teach-pingfen">
+                                                  <i>评分</i>
+                                                  <i>90.1</i>
+                                              </span>
+                                          </div>
+                                      </div>
+                                  </a>
+                                  <a href="#" class="module-tuwen-teacher">
+                                      <div class="module-tuwen-bg module-tuwen-bg-gold">
+                                          <img src="../../../static/images/teacher01.png" alt="">
+                                          <p class="module-tuwen-tit-1">张立强</p>
+                                          <p class="module-tuwen-tit-2">高级讲师</p>
+                                          <div class="module-color-gold">
+                                              <span class="module-teach-pingfen">
+                                                  <i>评分</i>
+                                                  <i>90.1</i>
+                                              </span>
+                                          </div>
+                                      </div>
+                                  </a>
+                                  <a href="#" class="module-tuwen-teacher">
+                                      <div class="module-tuwen-bg module-tuwen-bg-green">
+                                          <img src="../../../static/images/teacher01.png" alt="">
+                                          <p class="module-tuwen-tit-1">张立强</p>
+                                          <p class="module-tuwen-tit-2">高级讲师</p>
+                                          <div class="module-color-green">
+                                              <span class="module-teach-pingfen">
+                                                  <i>评分</i>
+                                                  <i>90.1</i>
+                                              </span>
+                                          </div>
+                                      </div>
+                                  </a>
+                              </li>
+                            </ul>
+                        </div>
+                        
+                        <script>
+                        $(function(){
+                            $('#Marquee_x').jcMarquee({ 'marquee':'x','margin_right':'10px','speed':20 });
+                          // DIVCSS5提示：10px代表间距，第二个20代表滚动速度
+                        });
+                        </script>
+                    </div>
+
+                    <!-- wzb-model-10 start -->
+                    <div class="wzb-model-10">
+                        <div class="wzb-tab-2">
+                            <!-- nav-tabs start -->
+                            <ul class="nav nav-tabs">
+                                <span style="color:#333;">专题课程</span>
+                              
+                                <li class="active">
+                                    <a href="#">
+                                        发布日期
+                                        <i class="fa fa-caret-up"></i>
+                                    </a>
+                                </li>
+                              
+                                <li class="">
+                                    <a href="#">
+                                        标题
+                                        <i class="fa fa-caret-down"></i>
+                                    </a>
+                                </li>
+                            </ul><!-- nav-tabs end -->
+                            
+                            <!-- tab-content start -->
+                            <div class="tab-content">
+                                <div class="wbtabcont datatable datatable-x" style="width: 100%;">
+                                    <div class="datatable-body">
+                                        <table cellpadding="0" cellspacing="0" class="datatable-table">
+                                            <tbody class="datatable-table-tbody">
+                                                <tr class="datatable-table-row">
+                                                    <td class="datatable-table-column">
+                                                        <dl class="wzb-list-6">
+                                                            <dd>
+                                                               <a class="fwim" href="#">
+                                                                  <div class="main_img">
+                                                                   <img class="fwpic" src="../../../static/images/a01.jpg">
+                                                                   <div class="show">
+                                                                      <span class="imgArea">
+                                                                          <em>点击学习</em>
+                                                                      </span>
+                                                                   </div>
+                                                                  </div>
+                                                                  
+                                                               </a>
+                                                            </dd>
+                                                            <dt>
+                                                               <p><a class="wzb-link01" href="#" title="我的第一个面授课程测试">我的第一个面授课程测试</a></p>
+                                                               <div class="offheight clearfix"><div class="offwidth"><span class="color-gray999">课程类型：</span>面授课程</div></div>
+                                                               <div class="offheight clearfix"><span class="color-gray999">发布日期：</span>2016-03-22</div>
+                                                               <p>
+                                                                 <span class="color-gray999">课程简介：</span>
+                                                               <span data="我的第一个面授课程测试">我的第一个面授课程测试我的第一个面授课程测试我的第一个面授课程测试我的第一个面授课程测试我的第一个面授课程测试我的第一</span>
+                                                               <a class="wzb-show skin-color open_desc" style="display:block;">
+                                                                 <span>展开</span>
+                                                                 <i class="fa fa-angle-down"></i>
+                                                               </a>
+                                                              </p>
+                                                            </dt>
+                                                        </dl>
+                                                    </td>
+                                                </tr>
+                                                <tr class="datatable-table-row">
+                                                    <td class="datatable-table-column">
+                                                        <dl class="wzb-list-6">
+                                                            <dd>
+                                                               <a class="fwim" href="#">
+                                                                  <div class="main_img">
+                                                                   <img class="fwpic" src="../../../static/images/a01.jpg">
+                                                                   <div class="show">
+                                                                      <span class="imgArea">
+                                                                          <em>点击学习</em>
+                                                                      </span>
+                                                                   </div>
+                                                                  </div>
+                                                                  
+                                                               </a>
+                                                            </dd>
+                                                            <dt>
+                                                               <p><a class="wzb-link01" href="#" title="我的第一个面授课程测试">我的第一个面授课程测试</a></p>
+                                                               <div class="offheight clearfix"><div class="offwidth"><span class="color-gray999">课程类型：</span>面授课程</div></div>
+                                                               <div class="offheight clearfix"><span class="color-gray999">发布日期：</span>2016-03-22</div>
+                                                               <p>
+                                                                 <span class="color-gray999">课程简介：</span>
+                                                               <span data="我的第一个面授课程测试">我的第一个面授课程测试</span>
+                                                               <a class="wzb-show skin-color open_desc" style="display:none">
+                                                                 <span>展开</span>
+                                                                 <i class="fa fa-angle-down"></i>
+                                                               </a>
+                                                              </p>
+                                                            </dt>
+                                                        </dl>
+                                                    </td>
+                                                </tr>
+                                                <tr class="datatable-table-row">
+                                                    <td class="datatable-table-column">
+                                                        <dl class="wzb-list-6" style="border:0;">
+                                                            <dd>
+                                                               <a class="fwim" href="#">
+                                                                  <div class="main_img">
+                                                                   <img class="fwpic" src="../../../static/images/a01.jpg">
+                                                                   <div class="show">
+                                                                      <span class="imgArea">
+                                                                          <em>点击学习</em>
+                                                                      </span>
+                                                                   </div>
+                                                                  </div>
+                                                                  
+                                                               </a>
+                                                            </dd>
+                                                            <dt>
+                                                               <p><a class="wzb-link01" href="#" title="我的第一个面授课程测试">我的第一个面授课程测试</a></p>
+                                                               <div class="offheight clearfix"><div class="offwidth"><span class="color-gray999">课程类型：</span>面授课程</div></div>
+                                                               <div class="offheight clearfix"><span class="color-gray999">发布日期：</span>2016-03-22</div>
+                                                               <p>
+                                                                 <span class="color-gray999">课程简介：</span>
+                                                               <span data="我的第一个面授课程测试">我的第一个面授课程测试</span>
+                                                               <a class="wzb-show skin-color open_desc" style="display:none">
+                                                                 <span>展开</span>
+                                                                 <i class="fa fa-angle-down"></i>
+                                                               </a>
+                                                              </p>
+                                                            </dt>
+                                                        </dl>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="datatable-pager"> 
+                                        <a class="datatable-pager-btn datatable-pager-btn-first"></a>  
+                                        <a class="datatable-pager-btn datatable-pager-btn-prev"></a>
+                                        <a num="1" class="datatable-pager-btn datatable-pager-btn-num active">1</a> 
+                                        <a num="2" class="datatable-pager-btn datatable-pager-btn-num ">2</a> 
+                                        <a num="3" class="datatable-pager-btn datatable-pager-btn-num ">3</a> 
+                                        <a num="4" class="datatable-pager-btn datatable-pager-btn-num ">4</a> 
+                                        <a num="5" class="datatable-pager-btn datatable-pager-btn-num ">5</a> 
+                                        <a num="6" class="datatable-pager-btn datatable-pager-btn-num ">6</a> 
+                                        <a class="datatable-pager-btn datatable-pager-btn-next"></a>  
+                                        <a class="datatable-pager-btn datatable-pager-btn-last"></a>
+                                    </div>
+                                </div><!-- wbtabcont end -->
+                            </div><!-- tab-content end -->
+                        </div>
+                    </div>
+                    <!-- wzb-model-10 end -->
+                </div>
+                <!-- tab-pane end -->
+                <!-- tab-pane start -->
+                <div id="senior" class="tab-pane" role="tabpanel" style="background:#f2f2f2;width:414px;">
+                    <!-- 图片 start-->
+                    <div class="list-pic-11">
+                        <img src="../../../static/images/banner05.jpg" alt="" class="img">
+                        <div class="sub-area-3"><img src="../../../static/images/ta03.png" alt=""></div>
+                    </div>
+                    <!-- 图片 end-->
+                    <!-- 标题 start-->
+                    <div class="panel-list-box" style="padding:10px;">
+                        <h1 class="tuwen-list-1-tit-1" style="font-size:16px;">圣诞特别版实操课圣诞特别版实操课圣诞特别版实操课圣诞特别版实操课圣诞特别版实操课圣诞特别版实操课</h1>
+                        <div class="tuwen-list-1-tit-1" style="color:#999;margin-top:5px;">越来越多的员工通过手机获取信息并解决问题越来越多的员工通过手机获取信息并解决问题越来越多的员工通过手机获取信息并解决问题越来越多的员工通过手机获取信息并解决问题</div>
+                    </div>
+                    <!-- 标题 end-->
+                    <!-- 详细介绍 start-->
+                    <div class="panel tool-square" style="padding:10px;margin-bottom:0;">
+                        <span class="tool-square-1"></span>
+                        <span class="tool-square-2"></span>
+                        <p class="list-tool-2-show" style="font-size:16px;" id="shou">LPT精彩活动回顾</p>
+                        <p>2016-03-28</p>
+                        <div id="shouqi">越来越多的员工通过手机获取信息并解决问题越来越多的员工通过手机获取信息并解决问题越来越多的员工通过手机获取信息并解决问题越来越多的员工通过手机获取信息并解决问题</div>
+                    </div>
+                    <script type="text/javascript">
+                        $("#shou").click(function(){
+                            $("#shouqi").slideToggle();
+                            if($(this).hasClass("list-tool-2-hide")){
+                              $(this).removeClass("list-tool-2-hide");
+                            }else{
+                              $(this).addClass("list-tool-2-hide");
+                            };
+                        })
+                    </script>
+                    <!-- 详细介绍 end-->
+                    <!-- 讲师风采 start -->
+                    <div class="bg-10-m">
+                        <span class="bg-11-m">栏目专家</span>
+                        <!-- swiper-container start -->
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide module-tuwen-bg-m" style="margin-right:10px;">
+                                    <a href="#">
+                                        <div class="module-tuwen-bg-m module-tuwen-bg-green-m">
+                                            <img src="../../../static/images/teacher01.png" alt="">
+                                            <p class="module-tuwen-tit-1-m">张立强</p>
+                                            <p class="module-tuwen-tit-2-m">高级讲师</p>
+                                            <div class="module-color-green-m">
+                                                <ul class="module-teach-pingfen-m">
+                                                    <li>评分</li>
+                                                    <li>90.1</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide module-tuwen-bg-m" style="margin-right:10px;">
+                                    <a href="#">
+                                        <div class="module-tuwen-bg-m module-tuwen-bg-blue-m">
+                                            <img src="../../../static/images/teacher02.png" alt="">
+                                            <p class="module-tuwen-tit-1-m">戴佳佳</p>
+                                            <p class="module-tuwen-tit-2-m">中级讲师</p>
+                                            <div class="module-color-blue-m">
+                                                <ul class="module-teach-pingfen-m">
+                                                    <li>评分</li>
+                                                    <li>80.5</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide module-tuwen-bg-m" style="margin-right:10px;">
+                                    <a href="#">
+                                        <div class="module-tuwen-bg-m module-tuwen-bg-pink-m">
+                                            <img src="../../../static/images/teacher02.png" alt="">
+                                            <p class="module-tuwen-tit-1-m">李雯雯</p>
+                                            <p class="module-tuwen-tit-2-m">特聘讲师</p>
+                                            <div class="module-color-pink-m">
+                                                <ul class="module-teach-pingfen-m">
+                                                    <li>评分</li>
+                                                    <li>87.6</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide module-tuwen-bg-m" style="margin-right:10px;">
+                                    <a href="#">
+                                        <div class="module-tuwen-bg-m module-tuwen-bg-gold-m">
+                                            <img src="../../../static/images/teacher02.png" alt="">
+                                            <p class="module-tuwen-tit-1-m">李雯雯</p>
+                                            <p class="module-tuwen-tit-2-m">特聘讲师</p>
+                                            <div class="module-color-gold-m">
+                                                <ul class="module-teach-pingfen-m">
+                                                    <li>评分</li>
+                                                    <li>87.6</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide module-tuwen-bg-m" style="margin-right:10px;">
+                                    <a href="#">
+                                        <div class="module-tuwen-bg-m module-tuwen-bg-green-m">
+                                            <img src="../../../static/images/teacher01.png" alt="">
+                                            <p class="module-tuwen-tit-1-m">张立强</p>
+                                            <p class="module-tuwen-tit-2-m">高级讲师</p>
+                                            <div class="module-color-green-m">
+                                                <ul class="module-teach-pingfen-m">
+                                                    <li>评分</li>
+                                                    <li>90.1</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide module-tuwen-bg-m" style="margin-right:10px;">
+                                    <a href="#">
+                                        <div class="module-tuwen-bg-m module-tuwen-bg-green-m">
+                                            <img src="../../../static/images/teacher01.png" alt="">
+                                            <p class="module-tuwen-tit-1-m">张立强</p>
+                                            <p class="module-tuwen-tit-2-m">高级讲师</p>
+                                            <div class="module-color-green-m">
+                                                <ul class="module-teach-pingfen-m">
+                                                    <li>评分</li>
+                                                    <li>90.1</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Add Scrollbar -->
+                            <div style="display:none;" class="swiper-scrollbar"></div>
+                            <script type="text/javascript">
+                                var mySwiper = new Swiper('.swiper-container',{
+                                    scrollbar: '.swiper-scrollbar',
+                                    slidesPerView: 'auto',
+                                    slidesPerGroup : 1,
+                                    centeredSlides : true,
+                                    freeMode : true,
+                                    autoplay : 2000,
+                                    speed:300,
+                                    autoplayDisableOnInteraction : false,
+                                    loop : true,
+                                    spaceBetween: 20,
+                                    freeModeSticky : true,
+                                    slideToClickedSlide:true,
+                                })
+                            </script>
+                        </div>
+                        <!-- swiper-container end -->
+                    </div>
+                    <!-- 讲师风采 end -->
+
+                    <!-- 专题课程 start -->
+                    <div class="panel">
+                        <h2 class="panel-title-1 panel-bg-learn" style="border-bottom:none;margin:0;">
+                            <a class="panel-class-open" href="###" title="">专题课程</a>
+                        </h2> 
+
+                        <div class="tuwen-list-1">
+                            <a class="tuwen-list-1-box clearfix" href="###" title="">
+                                <div class="tuwen-list-1-pic">
+                                    <img src="../../../static/images/course05.jpg" alt="">
+                                </div>   
+                               
+                                <div class="tuwen-list-1-tit-1">在线教育-屌丝学习的天堂-由浅入深的交流、线上线下的互动</div>
+                                <div class="list-tool-1">
+                                    <span class="list-tool-1-laud">214</span>
+                                    <span class="list-tool-1-review">331</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="tuwen-list-1">
+                            <a class="tuwen-list-1-box clearfix" href="###" title="">
+                                <div class="tuwen-list-1-pic">
+                                    <img src="../../../static/images/course05.jpg" alt="">
+                                </div>   
+                                <div class="tuwen-list-1-tit-1">e-Learning平台知识管理与虚拟学习社区化趋势</div>
+                                <div class="list-tool-1">
+                                    <span class="list-tool-1-laud">214</span>
+                                    <span class="list-tool-1-review">331</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="tuwen-list-1">
+                            <a class="tuwen-list-1-box clearfix" href="###" title="">
+                                <div class="tuwen-list-1-pic">
+                                    <img src="../../../static/images/course05.jpg" alt="">
+                                </div>   
+                                <div class="tuwen-list-1-tit-1">加大职业教育支持力度 鼓励行业企业深度参与</div>
+                                <div class="list-tool-1">
+                                    <span class="list-tool-1-laud">214</span>
+                                    <span class="list-tool-1-review">331</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- 专题课程 end -->                   
+                </div>
+                <!-- tab-pane end -->
+            </div>
+            <!--tab-content end-->
+
+
+        </div>
+
+
+    </div>
+    <!-- 内容添加结束 -->
+
+</div>  <!-- wzb-panel End-->
+
+</div>  <!-- wzb-main End-->   
+
+</div> <!-- wzb-wrapper End-->
+
+<div class="wzb-footer"><div class="wzb-footer-box">wizbank6.0 @ 汇思 Cyberwisdom 版权所有</div></div>
+</div> <!-- wzb-body End-->
+<!-- 提示已有模板 --><!-- 提示开始 -->
+    <div id="qtip-noticeTip" class="qtip qtip-default wzb-qtip qtip-pos-c qtip-modal qtip-focus" tracking="false" role="alert" aria-live="polite" aria-atomic="false" aria-describedby="qtip-noticeTip-content" aria-hidden="false" data-qtip-id="noticeTip" style="z-index: 14801; top: 364px; left: 771.5px; display:none;">
+        <div class="qtip-tip">
+            <canvas></canvas>
+        </div>
+        <div class="qtip-titlebar">
+            <div id="qtip-noticeTip-title" class="qtip-title" aria-atomic="true">提示<i class="pop-up-sanjiao"></i></div>
+        </div>
+        <div class="qtip-content" id="qtip-noticeTip-content" aria-atomic="true">
+            <div style="display: block; visibility: visible;">
+                <div class="pop-up-word">专题被删除后，专题下的所有数据将会被彻底删除。<br/>你确定要删除吗</div>
+                <div class="wzb-bar">
+                    <button id="true" class="btn wzb-btn-blue margin-right10 wzb-btn-big">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="qtip-overlay" class="blurs" style="opacity: 1; z-index: 14800; display:none;"><div></div></div>
+<!-- 提示结束 -->
+<script type="text/javascript">
+    $(function(){
+        $(".shanchu").click(function(){
+            $("#qtip-noticeTip").show();
+            $("#qtip-overlay").show();
+        })
+        $("#true").click(function(){
+            $("#qtip-noticeTip").hide();
+            $("#qtip-overlay").hide();
+        })
+        $("#qtip-overlay").click(function(){
+            $("#qtip-noticeTip").hide();
+            $("#qtip-overlay").hide();
+        })
+    })
+</script>
+</body>
+</html> 

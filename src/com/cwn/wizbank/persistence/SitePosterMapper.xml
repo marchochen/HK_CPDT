@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.SitePosterMapper">
+	<select id="get" resultType="SitePoster" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				sp_ste_id,
+				sp_media_file,
+				sp_url,
+				sp_status,
+				sp_media_file1,
+				sp_url1,
+				sp_status1,
+				sp_media_file2,
+				sp_url2,
+				sp_status2,
+				sp_media_file3,
+				sp_url3,
+				sp_status3,
+				sp_media_file4,
+				sp_url4,
+				sp_status4,
+				sp_tcr_id,
+				sp_upd_usr_id,
+				sp_upd_timestamp,
+				SP_MOBILE_IND,
+				sp_logo_file_cn,
+				sp_logo_file_hk,
+				sp_logo_file_us,
+				guide_file1,
+				guide_file2,
+				guide_file3,
+				sp_welcome_word,
+				mb_welcome_word
+			from SitePoster t
+			where
+				 t.sp_ste_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.SitePoster">
+	    <![CDATA[
+	        update SitePoster
+	        set 
+				sp_ste_id = #{sp_ste_id,jdbcType=INTEGER},
+				sp_media_file = #{sp_media_file,jdbcType=VARCHAR},
+				sp_url = #{sp_url,jdbcType=VARCHAR},
+				sp_status = #{sp_status,jdbcType=VARCHAR},
+				sp_media_file1 = #{sp_media_file1,jdbcType=VARCHAR},
+				sp_url1 = #{sp_url1,jdbcType=VARCHAR},
+				sp_status1 = #{sp_status1,jdbcType=VARCHAR},
+				sp_media_file2 = #{sp_media_file2,jdbcType=VARCHAR},
+				sp_url2 = #{sp_url2,jdbcType=VARCHAR},
+				sp_status2 = #{sp_status2,jdbcType=VARCHAR},
+				sp_media_file3 = #{sp_media_file3,jdbcType=VARCHAR},
+				sp_url3 = #{sp_url3,jdbcType=VARCHAR},
+				sp_status3 = #{sp_status3,jdbcType=VARCHAR},
+				sp_media_file4 = #{sp_media_file4,jdbcType=VARCHAR},
+				sp_url4 = #{sp_url4,jdbcType=VARCHAR},
+				sp_status4 = #{sp_status4,jdbcType=VARCHAR},
+				sp_tcr_id = #{sp_tcr_id,jdbcType=INTEGER},
+				sp_upd_usr_id = #{sp_upd_usr_id,jdbcType=VARCHAR},
+				sp_upd_timestamp = #{sp_upd_timestamp,jdbcType=DATE},
+				SP_MOBILE_IND = #{sp_mobile_ind,jdbcType=INTEGER},
+				sp_logo_file_cn = #{sp_logo_file_cn,jdbcType=VARCHAR},
+				sp_logo_file_hk = #{sp_logo_file_hk,jdbcType=VARCHAR},
+				sp_logo_file_us = #{sp_logo_file_us,jdbcType=VARCHAR},
+				guide_file1 =  #{guide_file1,jdbcType=VARCHAR},
+				guide_file2 =  #{guide_file2,jdbcType=VARCHAR},
+				guide_file3 = #{guide_file3,jdbcType=VARCHAR},
+				sp_welcome_word = #{sp_welcome_word,jdbcType=VARCHAR}
+				mb_welcome_word = #{mb_welcome_word,jdbcType=VARCHAR}
+	         where t.sp_ste_id = #{sp_ste_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.SitePoster">
+    	<![CDATA[
+            insert into SitePoster(
+            		sp_media_file,
+            		sp_url,
+            		sp_status,
+            		sp_media_file1,
+            		sp_url1,
+            		sp_status1,
+            		sp_media_file2,
+            		sp_url2,
+            		sp_status2,
+            		sp_media_file3,
+            		sp_url3,
+            		sp_status3,
+            		sp_media_file4,
+            		sp_url4,
+            		sp_status4,
+            		sp_tcr_id,
+            		sp_upd_usr_id,
+            		sp_upd_timestamp,
+            		sp_logo_file_cn,
+            		sp_logo_file_hk,
+            		sp_logo_file_us,
+            		guide_file1,
+					guide_file2,
+					guide_file3,
+					sp_welcome_word,
+					mb_welcome_word
+            ) values (
+            	#{sp_media_file,jdbcType=VARCHAR},
+            	#{sp_url,jdbcType=VARCHAR},
+            	#{sp_status,jdbcType=VARCHAR},
+            	#{sp_media_file1,jdbcType=VARCHAR},
+            	#{sp_url1,jdbcType=VARCHAR},
+            	#{sp_status1,jdbcType=VARCHAR},
+            	#{sp_media_file2,jdbcType=VARCHAR},
+            	#{sp_url2,jdbcType=VARCHAR},
+            	#{sp_status2,jdbcType=VARCHAR},
+            	#{sp_media_file3,jdbcType=VARCHAR},
+            	#{sp_url3,jdbcType=VARCHAR},
+            	#{sp_status3,jdbcType=VARCHAR},
+            	#{sp_media_file4,jdbcType=VARCHAR},
+            	#{sp_url4,jdbcType=VARCHAR},
+            	#{sp_status4,jdbcType=VARCHAR},
+            	#{sp_tcr_id,jdbcType=INTEGER},
+            	#{sp_upd_usr_id,jdbcType=VARCHAR},
+            	#{sp_upd_timestamp,jdbcType=DATE},
+            	#{sp_logo_file_cn,jdbcType=VARCHAR},
+            	#{sp_logo_file_hk,jdbcType=VARCHAR},
+            	#{sp_logo_file_us,jdbcType=VARCHAR},
+            	#{guide_file1,jdbcType=VARCHAR},
+            	#{guide_file2,jdbcType=VARCHAR},
+            	#{guide_file3,jdbcType=VARCHAR},
+				#{sp_welcome_word,jdbcType=VARCHAR}
+				#{mb_welcome_word,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from SitePoster where
+	        sp_ste_id = #{sp_ste_id}
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="SitePoster">
+	    <![CDATA[
+	         select 
+				sp_ste_id,
+				sp_media_file,
+				sp_url,
+				sp_status,
+				sp_media_file1,
+				sp_url1,
+				sp_status1,
+				sp_media_file2,
+				sp_url2,
+				sp_status2,
+				sp_media_file3,
+				sp_url3,
+				sp_status3,
+				sp_media_file4,
+				sp_url4,
+				sp_status4,
+				sp_tcr_id,
+				sp_upd_usr_id,
+				sp_upd_timestamp,
+				SP_MOBILE_IND,
+				sp_logo_file_cn,
+				sp_logo_file_hk,
+				sp_logo_file_us,
+				guide_file1,
+				guide_file2,
+				guide_file3,
+				sp_welcome_word,
+				mb_welcome_word
+			from SitePoster t 
+	    ]]>
+	</select>
+	<select id="getPoster" resultType="SitePoster" parameterType="Map">
+	    select
+	      sp_media_file, sp_url, sp_status, 
+		  sp_media_file1, sp_url1, sp_status1, 
+		  sp_media_file2, sp_url2, sp_status2, 
+		  sp_media_file3, sp_url3, sp_status3,
+		  sp_media_file4, sp_url4, sp_status4,
+		  sp_logo_file_cn, sp_logo_file_hk, sp_logo_file_us,
+		  guide_file1, guide_file2, guide_file3,
+		  sp_welcome_word,mb_welcome_word
+		  from SitePoster where sp_ste_id = #{rootEntId}
+		  and sp_mobile_ind = #{isMobile}
+	</select>
+	<select id="getLogo" resultType="SitePoster" parameterType="Map">
+	    select
+	    sp_logo_file_cn,
+		sp_logo_file_hk,
+		sp_logo_file_us
+		from SitePoster where sp_ste_id = #{rootEntId}
+		and sp_mobile_ind = #{isMobile}
+	</select>
+	<select id="searchSitePoser" resultType="SitePoster" parameterType="Map">
+	            select 
+				sp_ste_id,
+				sp_media_file,
+				sp_url,
+				sp_status,
+				sp_media_file1,
+				sp_url1,
+				sp_status1,
+				sp_media_file2,
+				sp_url2,
+				sp_status2,
+				sp_media_file3,
+				sp_url3,
+				sp_status3,
+				sp_media_file4,
+				sp_url4,
+				sp_status4,
+				sp_tcr_id,
+				sp_upd_usr_id,
+				sp_upd_timestamp,
+				SP_MOBILE_IND,
+				sp_logo_file_cn,
+				sp_logo_file_hk,
+				sp_logo_file_us,
+				login_bg_file1,
+				login_bg_file2,
+				login_bg_file3,
+				login_bg_file4,
+				login_bg_file5,
+				login_bg_video,
+				login_bg_type,
+				guide_file1,
+				guide_file2,
+				guide_file3,
+				sp_welcome_word,
+				mb_welcome_word
+			from SitePoster 
+			where sp_ste_id = #{ste_id}
+			
+			and SP_MOBILE_IND=#{isMobile}			
+	</select>
+</mapper>

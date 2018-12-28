@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.AeCatalogAccessMapper">
+	
+	
+	<sql id="page_where">
+		<where>
+		</where>
+	</sql>
+	
+	<select id="getCount" resultType="java.lang.Integer" parameterType="Map">
+	    <![CDATA[
+	        select count(*) from AeCatalogAccess t 
+	    ]]>
+	    <include refid="page_where"/>
+	</select>
+
+	
+	<select id="get" resultType="AeCatalogAccess" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				cac_ent_id,
+				cac_cat_id,
+				cac_create_timestamp,
+				cac_create_usr_id,
+				cac_id
+			from AeCatalogAccess 
+			where
+				 cac_id = #{id}
+		]]>
+	</select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.AeCatalogAccess">
+	    <![CDATA[
+	        update AeCatalogAccess
+	        set 
+				cac_ent_id = #{cac_ent_id,jdbcType=INTEGER},
+				cac_cat_id = #{cac_cat_id,jdbcType=INTEGER},
+				cac_create_timestamp = #{cac_create_timestamp,jdbcType=DATE},
+				cac_create_usr_id = #{cac_create_usr_id,jdbcType=VARCHAR},
+				cac_id = #{cac_id,jdbcType=INTEGER}
+	         where cac_id = #{cac_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.AeCatalogAccess">
+    	<![CDATA[
+            insert into AeCatalogAccess(
+            		cac_ent_id,
+            		cac_cat_id,
+            		cac_create_timestamp,
+            		cac_create_usr_id,
+            ) values (
+            	#{cac_ent_id,jdbcType=INTEGER},
+            	#{cac_cat_id,jdbcType=INTEGER},
+            	#{cac_create_timestamp,jdbcType=DATE},
+            	#{cac_create_usr_id,jdbcType=VARCHAR},
+            )
+        ]]>
+    </insert>
+    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from AeCatalogAccess where
+	        cac_id = #{cac_id}
+	    ]]>
+    </delete>
+	
+	<select id="selectAll" resultType="AeCatalogAccess">
+	    <![CDATA[
+	         select 
+				cac_ent_id,
+				cac_cat_id,
+				cac_create_timestamp,
+				cac_create_usr_id,
+				cac_id
+			from AeCatalogAccess 
+	    ]]>
+	</select>	
+	
+	<delete id="delEnt" parameterType="Long">
+		Delete From aeCatalogAccess
+		<choose>
+			<when test="entId = '0'">
+				Where cac_ent_id is NULL
+			</when>
+			<otherwise>
+				Where cac_ent_id = #{entId}
+			</otherwise>
+		</choose>
+	</delete>
+	
+</mapper>

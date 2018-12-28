@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.LoginActionLogMapper">
+
+
+<insert id="saveLog" parameterType="Map" statementType="PREPARED">
+		insert into ${tableName}(
+			ent_id,
+       		usr_display_bil,
+        	usr_full_name_bil,
+        	login_mode,
+        	login_ip,
+        	login_time,
+		    year,
+		    month,
+		    usr_login_status,
+		    login_failure_code
+		) values (
+         	#{entId,jdbcType=INTEGER},
+         	#{usrDisplayBil,jdbcType=VARCHAR},
+         	#{usrFullNameBil,jdbcType=VARCHAR},
+         	#{loginMode,jdbcType=INTEGER},
+         	#{loginIP,jdbcType=VARCHAR},
+         	 <choose>
+         	   <when test="_databaseId == 'ORACLE'">
+         	      to_date(#{loginTime,jdbcType=TIMESTAMP},'yyyy-mm-dd hh24:mi:ss'),
+         	   </when>
+         	   <otherwise>
+         	     #{loginTime,jdbcType=TIMESTAMP},
+         	   </otherwise>
+         	 </choose>
+         	#{year,jdbcType=INTEGER},
+         	#{month,jdbcType=INTEGER},
+           #{usrLoginStatus,jdbcType=VARCHAR},
+           #{loginFailureCode,jdbcType=VARCHAR}
+		) 	 
+</insert>
+
+<delete id="delOneYear" parameterType="Map" statementType="STATEMENT">
+  <if test="_databaseId == 'ORACLE'">
+    BEGIN 
+    EXECUTE IMMEDIATE 'DROP TABLE ${tableName}'; 
+    EXCEPTION WHEN OTHERS THEN NULL;
+    END;
+  </if>
+  <if test="_databaseId == 'SQLSERVER'">
+   <![CDATA[
+    IF EXISTS ( SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '${tableName}') DROP TABLE ${tableName}
+    ]]>
+  </if>
+  <if test="_databaseId == 'MYSQL'">
+   <![CDATA[
+    DROP TABLE IF EXISTS ${tableName}
+    ]]>
+   </if>  
+</delete>
+
+<update id="createLoginLogTableByDate" parameterType="Map" statementType="STATEMENT">
+   <if test="_databaseId == 'ORACLE'">
+	 <![CDATA[	CREATE TABLE ${tableName}(
+		  ent_id int NOT NULL,   
+		  usr_display_bil nvarchar2(255) NOT NULL,     
+		  usr_full_name_bil nvarchar2(255)  NULL,
+		  login_mode int NOT NULL, 
+		  login_ip  nvarchar2(50) NULL,
+		  login_time TIMESTAMP NOT NULL,
+		  year  int  NULL,
+		  month int NULL,
+		  usr_login_status nvarchar2(50) NULL,
+		  login_failure_code nvarchar2(50) NULL
+		) ]]>
+	</if>
+	<if test="_databaseId == 'SQLSERVER'">
+	 <![CDATA[
+	    CREATE TABLE ${tableName}(
+			ent_id int NOT NULL,  
+			usr_display_bil nvarchar(255) NOT NULL,     
+			usr_full_name_bil nvarchar(255)  NULL,
+			login_mode int NOT NULL,
+			login_ip nvarchar(50)  NULL,
+			login_time datetime NOT NULL,
+		    year  int  NULL,
+		    month int NULL,
+		    usr_login_status nvarchar(50) NULL,
+		    login_failure_code nvarchar(50) NULL
+		)
+		]]>
+	</if>
+	<if test="_databaseId == 'MYSQL'">
+	 <![CDATA[CREATE TABLE ${tableName}(
+			ent_id int NOT NULL,   
+			usr_display_bil varchar(255) NOT NULL,     
+			usr_full_name_bil varchar(255) NULL,
+			login_mode int NOT NULL, 
+			login_ip varchar(50)  NULL,
+			login_time datetime  NOT NULL,
+		    year  int  NULL,
+		    month int NULL,
+		    usr_login_status varchar(50) NULL,
+		    login_failure_code varchar(50) NULL
+		) ]]>
+	</if>
+</update>
+
+<select id="existTable" parameterType="java.lang.String" resultType="java.lang.Integer">  
+    <if test="_databaseId == 'ORACLE'">
+      select count(1) from user_tables where lower(table_name) =  lower(#{tableName})
+	</if>
+	<if test="_databaseId == 'SQLSERVER'">
+	   select COUNT(1) from sys.tables where name = #{tableName}
+	</if>
+	<if test="_databaseId == 'MYSQL'">
+	   select count(1) from (
+		select TABLE_NAME from INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA='dbname' and TABLE_NAME = #{tableName} 
+	   ) loginlog
+	</if>  
+</select> 
+
+<select id="selectByUptId"  parameterType="Map" resultType="com.cwn.wizbank.entity.LoginLog" statementType="STATEMENT">
+   select count(1) as totleLoginNumber,login_mode as loginMode,year,month,upr_upt_id as uptId
+   from ${tableName}
+   left join UserPositionRelation
+   on upr_usr_ent_id = ent_id 
+   where  upr_upt_id is not null
+   group by login_mode,year,month,upr_upt_id
+</select>
+
+<select id="selectByGrpIdOrUgrId"   parameterType="Map" resultType="com.cwn.wizbank.entity.LoginLog" statementType="STATEMENT">
+  select count(1) as totleLoginNumber,login_mode as loginMode,year,month,ern_ancestor_ent_id as grpId
+   from ${tableName} 
+   left join EntityRelation
+   on ern_child_ent_id = ent_id and ern_type = '${ernType}' 
+   group by login_mode,year,month,ern_ancestor_ent_id
+</select>
+
+<select id="getUserLoginLog" resultType="Map" parameterType="Map" statementType="STATEMENT">
+   
+    <foreach collection="tableNameList" item="tableName" separator="union">
+
+		select USR_DISPLAY_BIL,USR_FULL_NAME_BIL,LOGIN_MODE,LOGIN_IP,USR_LOGIN_STATUS,
+		<if test="_databaseId == 'ORACLE'">to_char(login_time,'yyyy-mm-dd hh24:mi:ss') as </if>LOGIN_TIME from  ${tableName}
+		where 
+		<choose>
+		   <when test="beforedate != null and beforedate != ''">
+		      <choose>
+		         <when test="_databaseId == 'ORACLE'">
+		            login_time &gt; to_date(${beforedate},'yyyy-MM-dd hh24:mi:ss') or  login_time = to_date(${beforedate},'yyyy-MM-dd hh24:mi:ss')
+		         </when>
+		         <otherwise>
+		            login_time &gt; ${beforedate} or  login_time = ${beforedate}
+		         </otherwise>
+		      </choose>
+		   </when>
+		   <otherwise>
+		      1 = 1 
+		      <if test="starttime != null and starttime != ''">
+		        <choose>
+		         <when test="_databaseId == 'ORACLE'">
+		             and  (login_time &gt; to_date(${starttime},'yyyy-MM-dd hh24:mi:ss') or  login_time = to_date(${starttime},'yyyy-MM-dd hh24:mi:ss') )
+		         </when>
+		         <otherwise>
+		             and  (login_time &gt; ${starttime} or  login_time = ${starttime} )
+		         </otherwise>
+		       </choose>
+		      </if> 
+		      <if test="endtime != null and endtime != ''">
+		        <choose>
+		         <when test="_databaseId == 'ORACLE'">
+		            and  (to_date(${endtime},'yyyy-MM-dd hh24:mi:ss') &gt; login_time or  login_time = to_date(${endtime},'yyyy-MM-dd hh24:mi:ss') )
+		         </when>
+		         <otherwise>
+		            and  (${endtime} &gt; login_time or  login_time = ${endtime} )
+		         </otherwise>
+		        </choose>
+		     </if> 
+		   </otherwise>
+		</choose>
+		
+	 </foreach>
+		
+		order by LOGIN_TIME desc	
+</select>
+
+<select id="getPerfWarningLog" resultType="Map" parameterType="Map" statementType="STATEMENT">
+		select USR_STE_USR_ID,ULT_TYPE,<if test="_databaseId == 'ORACLE'">to_char(ULT_LOGIN_TIMESTAMP,'yyyy-mm-dd hh24:mi:ss') as </if>ULT_LOGIN_TIMESTAMP
+		from UserLoginTracking 
+        inner join reguser on(usr_ent_id=ult_usr_ent_id)
+        
+		where 
+		<choose>
+		   <when test="beforedate != null and beforedate != ''">
+		      <choose>
+		         <when test="_databaseId == 'ORACLE'">
+		            ult_login_timestamp &gt; to_date(${beforedate},'yyyy-MM-dd hh24:mi:ss') or  ult_login_timestamp = to_date(${beforedate},'yyyy-MM-dd hh24:mi:ss')
+		         </when>
+		         <otherwise>
+		            ult_login_timestamp &gt; ${beforedate} or  ult_login_timestamp = ${beforedate}
+		         </otherwise>
+		      </choose>
+		   </when>
+		   <otherwise>
+		      1 = 1 
+		      <if test="starttime != null and starttime != ''">
+		        <choose>
+		         <when test="_databaseId == 'ORACLE'">
+		             and  (ult_login_timestamp &gt; to_date(${starttime},'yyyy-MM-dd hh24:mi:ss') or  ult_login_timestamp = to_date(${starttime},'yyyy-MM-dd hh24:mi:ss') )
+		         </when>
+		         <otherwise>
+		             and  (ult_login_timestamp &gt; ${starttime} or  ult_login_timestamp = ${starttime} )
+		         </otherwise>
+		       </choose>
+		      </if> 
+		      <if test="endtime != null and endtime != ''">
+		        <choose>
+		         <when test="_databaseId == 'ORACLE'">
+		            and  (to_date(${endtime},'yyyy-MM-dd hh24:mi:ss') &gt; ult_login_timestamp or  ult_login_timestamp = to_date(${endtime},'yyyy-MM-dd hh24:mi:ss') )
+		         </when>
+		         <otherwise>
+		            and  (${endtime} &gt; ult_login_timestamp or  ult_login_timestamp = ${endtime} )
+		         </otherwise>
+		        </choose>
+		     </if> 
+		   </otherwise>
+		</choose>
+		
+</select>
+
+</mapper>
+
+
+

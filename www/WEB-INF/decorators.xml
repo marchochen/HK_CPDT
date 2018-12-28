@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE decorators>
+<decorators defaultdir="/WEB-INF/decorators">
+	<decorator name="main" page="main.jsp">
+		<pattern>/app**</pattern>
+	</decorator>
+
+	<decorator name="simple" page="simple.jsp">
+		<pattern>/app/user/*</pattern>
+		<pattern>/app/help/*</pattern>
+	</decorator>
+
+	<decorator name="tree">
+		<pattern>/app/know/knowCatalogTree*</pattern>
+	</decorator>
+
+	<decorator name="default" page="default.jsp">
+		<pattern>/app/flash</pattern>
+		<pattern>/app/kb/catalog/admin/*</pattern>
+		<pattern>/app/article/mgt_comments*</pattern>
+		<pattern>/app/kb/admin/*</pattern>
+		<pattern>/app/kb/tag/admin/*</pattern>
+		<pattern>/app/course/admin/mgt_comments*</pattern>
+		<pattern>/app/course/admin/mgt_cpd_set_hours*</pattern>
+
+		<pattern>/app/demo/test/*</pattern>
+	</decorator>
+	
+	<!-- 		xsl -->
+	<decorator name="xsl" page="xslcontainer.jsp">
+		<pattern>/servlet/*</pattern>
+		<pattern>/servlet*</pattern>
+	</decorator>
+	
+	<decorator name="admin" page="admin.jsp">
+		<pattern>/app/admin/*</pattern>
+
+		<pattern>/app/course/admin/mgt_comments/*</pattern>
+		<pattern>/app/course/admin/mgt_cpd_set_hours/*</pattern>
+		<pattern>/app/course/admin/update_cpd_hours/*</pattern>
+		<pattern>/app/course/admin/mgt_cpd_hours_award/*</pattern>
+	</decorator>
+	
+
+	<excludes>
+		<pattern>/app/admin/live/detail/host*</pattern>
+		<pattern>**.html</pattern>
+		<pattern>**.html?**</pattern>
+		<pattern>**.htm</pattern>
+		<pattern>**.htm?**</pattern>
+		<pattern>/app/admin/home*</pattern>
+		<pattern>/app/session*</pattern>
+		<pattern>*empty.htm</pattern>
+		<pattern>/app/**Json**</pattern>
+		<pattern>error/*</pattern>
+		<pattern>/app/wechat/*</pattern>
+		<pattern>/app/praise*</pattern>
+		<pattern>*get_cos*stylesheet=ca_navigation_ns.xsl*</pattern>
+		<pattern>*get_cos*stylesheet=ist_view_cos_info.xsl*</pattern>
+		<pattern>*get_cos*stylesheet=ins_mod_test_prep.xsl*</pattern>
+		<pattern>*get_cos*stylesheet=upd_mod_test_prep.xsl*</pattern>
+		<pattern>*get_prof*stylesheet=ins_mod_prep.xsl*</pattern>
+		<pattern>*get_prof*stylesheet=upd_mod_prep.xsl*</pattern>
+		<pattern>*get_tpl*stylesheet=tst_ins.xsl*</pattern>
+		<pattern>*ugr_info*stylesheet=ugr_info.xsl*</pattern>
+		<pattern>*ugr_nav*stylesheet=ugr_navigation.xsl*</pattern>
+		<pattern>*get_ugr*stylesheet=ugr.xsl*</pattern>
+		<pattern>*ugr_upd_prep*stylesheet=ugr_upd.xsl*</pattern>
+		<pattern>*ugr_del*stylesheet=ugr_del.xsl*</pattern>
+		<pattern>*cmd=ugr_del_confirm*</pattern>
+		<pattern>*pfs_nav*stylesheet=pfs_navigation.xsl*</pattern>
+		<pattern>*pfs_info*stylesheet=pfs_info.xsl*</pattern>
+		<pattern>*PFS_INS_UPD_PREP*stylesheet=pfs_ins_upd_prep.xsl*</pattern>
+		<pattern>/servlet/Dispatcher?cmd=pfs_ins_upd_exec</pattern>
+		<pattern>/servlet/Dispatcher?cmd=upload_year_plan_confirm</pattern>
+		<pattern>/servlet/Dispatcher?cmd=upload_que</pattern>
+		<pattern>/servlet/Dispatcher?env=wizb</pattern>
+		<pattern>/servlet/qdbAction?cmd=que_mc</pattern> 
+		<pattern>/servlet/qdbAction?cmd=upd_mod</pattern> 
+		<pattern>/servlet/qdbAction?cmd=ins_mod</pattern> 
+	
+		<pattern>/servlet/Dispatcher?dir=image</pattern> <!--  这个是为了让kindeditor插件起作用 过滤掉这个请求 这样kindereditor才可以正确显示  by nick --> 
+		
+	    <pattern>/app/admin/positionMap/catalog</pattern>
+		<pattern>/app/admin/tree/getCourseTree*</pattern>
+		<pattern>/app/admin/tree/getGradeTree</pattern>
+		<pattern>/app/admin/specialTopic/viewResult*</pattern>
+		<pattern>/app/learningmap/grade/*</pattern>
+		<pattern>/app/help/questionType/*</pattern>
+		
+		<pattern>*cmd=pfs_del*</pattern>
+		<pattern>*ugr_ins_prep*stylesheet=ugr_ins.xsl*</pattern>
+		<pattern>*cmd=gen_tree*</pattern>
+		<pattern>error/*</pattern>
+		<pattern>*set_rule_prev*stylesheet=ae_set_item_target_rule.xsl*</pattern>
+		<pattern>*preview_rule*stylesheet=ae_item_target_user_lst.xsl*</pattern>
+		<pattern>*gen_sel_mod_win*stylesheet=wb_goldman_sel_mod.xsl*</pattern>
+		<pattern>*get_meta*stylesheet=usr_simple_search.xsl*</pattern>
+		<pattern>*get_ancestor_usg*stylesheet=usr_ancestor_usg_lst.xsl*</pattern>
+		<pattern>*search_ent_lst*stylesheet=itm_usr_add_list.xsl*</pattern> 
+		<pattern>*ins_comment_view*stylesheet=ins_comment_details.xsl*</pattern>
+		<pattern>*get_fac*stylesheet=fm_facility_room_details.xsl*</pattern>
+		<pattern>*get_fac*stylesheet=fm_facility_equip_details.xsl*</pattern>
+		<pattern>*get_mod_status*stylesheet=start_module.xsl*</pattern>
+		<pattern>*get_mod*stylesheet=cos_evn_info_frame.xsl*</pattern> 
+		<pattern>*get_mod*stylesheet=cos_evn_info_content.xsl*</pattern> 
+		<pattern>*get_mod*stylesheet=cos_evn_info_nav.xsl*</pattern> 
+		<pattern>*get_res_cnt_lst*stylesheet=cos_evn_info_menu.xsl*</pattern> 
+		<pattern>*get_que_frm*stylesheet=que_ins.xsl*mod_type=EVN*</pattern> 
+		<pattern>*get_upload_res_prep*stylesheet=content_que_import_prep.xsl*</pattern> 
+		<pattern>*get_fixed_assessment*stylesheet=tst_info_menu_reorder.xsl*</pattern> 
+		<pattern>*get_q*stylesheet=cm_que_get_upd.xsl*</pattern> 
+		<pattern>*get_q*stylesheet=cm_que_get_ins.xsl*</pattern> 
+		<pattern>*get_q*stylesheet=cm_que_upd.xsl*</pattern> 
+		<pattern>*upload_que*stylesheet=bp_mc_contentimport_confirm.xsl*</pattern> 
+		<pattern>*upload_que*stylesheet=bp_es_contentimport_confirm.xsl*</pattern>  
+		<pattern>*get_res_cnt_lst*stylesheet=tst_info_menu_reorder.xsl*</pattern> 
+		<pattern>*export_evn*stylesheet=export_tst.xsl*</pattern>
+		<pattern>*upload_year_plan_prep*stylesheet=training_plan_import_prep.xsl*</pattern>
+		<pattern>*ae_itm_publish_target*stylesheet=itm_publish_target_ind.xsl*</pattern>
+		<pattern>*get_instr*stylesheet=training_plan_import_instr.xsl*</pattern>
+		<pattern>*inst_list*stylesheet=instructor_list.xsl*is_poup=true*</pattern>
+		<pattern>*get_prof*stylesheet=ca_ins_folder.xsl*</pattern>
+		<pattern>*get_mod*stylesheet=ist_view_module.xsl*</pattern>
+		<pattern>*get_mod*stylesheet=tst_upd.xsl*</pattern>
+		<pattern>*get_public_survey_lst*stylesheet=ins_mod_svy_prep.xsl*</pattern>
+		<pattern>*get_prof*stylesheet=target_lrn_dl_progress.xsl*</pattern>
+		<pattern>*get_prof*stylesheet=cos_wizard_import_scorm_cos.xsl*</pattern>
+		<pattern>*get_instr*stylesheet=bp_import_instr.xsl*</pattern>
+		<pattern>*get_del_instr*stylesheet=bp_delete_instr.xsl*</pattern>
+		<pattern>*get_sel_mod*stylesheet=wb_goldman_sel_mod_list.xsl*</pattern>
+		<pattern>*gen_sel_mod_win*stylesheet=wb_goldman_sel_mod.xsl*</pattern>
+		<pattern>*get_rpt*stylesheet=rpt_evn_svy_que_grp_res.xsl*</pattern>
+		<pattern>*get_tpl*stylesheet=res_pick_obj_frame.xsl*</pattern>
+		<pattern>*get_mod*stylesheet=tst_info_frame.xsl*</pattern>
+		<pattern>*get_mod*stylesheet=tst_info_nav.xsl*</pattern>
+		<pattern>*get_mod*stylesheet=tst_info_content.xsl*</pattern>
+		<pattern>*get_mod*stylesheet=tst_que_pick_obj_frame.xsl*</pattern>
+		<pattern>*get_mod*stylesheet=ass_instruction.xsl*</pattern>
+		<pattern>*get_mod*stylesheet=ist_vod.xsl*</pattern>
+		<pattern>*get_tst*stylesheet=tst_player1.xsl*</pattern>
+		<pattern>*get_tst*stylesheet=svy_player.xsl*</pattern>
+		<pattern>*get_reference_list*stylesheet=ist_reference_preview.xsl*</pattern>
+		<pattern>*get_reference_list*stylesheet=ist_get_reference_lst.xsl*</pattern>
+		<pattern>*get_reference_list*stylesheet=ist_ins_reference.xsl*</pattern>
+		<pattern>*get_reference*stylesheet=ist_upd_reference.xsl*</pattern>
+		<pattern>*get_cmt_lst*stylesheet=eval_import_mark_prep.xsl*</pattern>
+		
+		<pattern>*lrn_soln_hist*stylesheet=lrn_history_view.xsl*</pattern> 
+		
+		<pattern>*get_credit_main*stylesheet=credit_set_cos_point.xsl*</pattern>
+		<pattern>*get_meta*stylesheet=itm_usr_simple_search.xsl*</pattern>
+		<pattern>*search_ent_lst*stylesheet=itm_usr_srh_result.xsl*</pattern>
+		<pattern>*get_usr*stylesheet=usr_detail_popup.xsl*</pattern>
+		<pattern>*ae_get_itm*stylesheet=itm_view_popup.xsl*</pattern>
+		<pattern>*get_meta*stylesheet=usr_supervisor_search.xsl*</pattern>
+		<pattern>*get_meta*stylesheet=usr_simple_search_nominate.xsl*</pattern>
+		<pattern>*search_ent_lst*stylesheet=usr_supervisor_search_result.xsl*</pattern>
+		<pattern>*get_mod_status*stylesheet=start_module.xsl*</pattern>
+		<pattern>*get_mod_status*stylesheet=module_track.xsl*</pattern>
+		<pattern>*get_mod*stylesheet=lrn_vod.xsl*</pattern>
+		<pattern>*search_ent_lst*stylesheet=usr_sim_search_result_single.xsl*</pattern>
+		<pattern>*auto_enroll_ind*stylesheet=auto_enroll_ind.xsl*</pattern>
+		<pattern>*search_ent_lst*stylesheet=usr_sim_search_result.xsl*</pattern>
+		<pattern>*GET_ATTEND_USER_LST*stylesheet=credit_attendance_lst.xsl*</pattern>
+		<pattern>*cmd=check_tst_test*stylesheet=check_test_player.xsl*</pattern>
+		<pattern>*cmd=get_prof*stylesheet=gen_test_progress.xsl*</pattern>
+		<pattern>*cmd=get_tst_test_html*stylesheet=tst_view_many.xsl*</pattern>
+		<pattern>*cmd=get_reference_list*stylesheet=lrn_get_reference_lst.xsl*</pattern>
+		<pattern>*cmd=get_mod*stylesheet=blank_template.xsl*</pattern>
+		<pattern>*cmd=get_mod*stylesheet=tpl_web_browser_pdf.xsl*</pattern>
+		<pattern>*cmd=get_rpt_usr_test_html*stylesheet=lrn_tst_rpt_usr_header.xsl*</pattern>
+		<pattern>*cmd=get_rpt_usr*stylesheet=lrn_tst_rpt_usr_detail.xsl*</pattern>
+		<pattern>*clone_mod*</pattern>
+		<pattern>*stylesheet=rpt_lrn_res.xsl*</pattern>
+		<pattern>*stylesheet=rpt_dl_progress.xsl*</pattern>
+		<pattern>*stylesheet=rpt_lrn_lrn_res.xsl*</pattern>
+		<pattern>*stylesheet=rpt_lrn_by_cos_view_cos_res.xsl*</pattern>
+		<pattern>*stylesheet=rpt_mod_res.xsl*</pattern>
+		<pattern>*stylesheet=export_progress.xsl*</pattern>
+		<pattern>*stylesheet=bp_usr_import_preview.xsl*</pattern>
+		<pattern>*stylesheet=bp_usr_import_preview.xsl*</pattern>
+		<pattern>*application_frame_window.htm?lang*</pattern>
+		<pattern>*stylesheet=tst_info_menu.xsl*</pattern>
+		<pattern>*stylesheet=tst_que_add_frame.xsl*</pattern>
+		<pattern>*stylesheet=tst_que_add_nav.xsl*</pattern>
+		<pattern>*stylesheet=tst_que_add_inst.xsl*</pattern>
+		<pattern>*stylesheet=tst_que_add_menu.xsl*</pattern>
+		<pattern>*stylesheet=msg_notify.xsl*</pattern><!-- 报名通知 -->
+		<pattern>*stylesheet=application_ins_comment.xsl*</pattern><!-- 报名添加备注 -->
+		<pattern>*stylesheet=application_comment.xsl*</pattern><!-- 报名跳过审批 -->
+		<pattern>*stylesheet=ass_submit.xsl*</pattern><!-- 提交作业 -->
+		<pattern>*isExcludes=true*</pattern><!-- url后面带参数‘isExcludes’且值为true的过滤 -->
+		<pattern>*stylesheet=rpt_lrn_by_cos_res.xsl*</pattern><!-- 学员学习进展报告（数据以课程分组）  -->
+		<pattern>*stylesheet=rpt_svy_cos_grp_res.xsl*</pattern><!-- 课程评估问卷报告  -->
+		<pattern>*module=report.ReportModule*cmd=get_rpt*rpt_type=SURVEY_COS_GRP*stylesheet=rpt_dl_survey_xls.xsl*</pattern>
+		<pattern>*stylesheet=rpt_svy_que_grp_res.xsl*</pattern><!-- 课程评估问卷报告（数据以题目分组） -->
+		<pattern>*stylesheet=rpt_assessment_que_grp_res.xsl*</pattern><!-- 题目统计报告  -->
+		<pattern>*stylesheet=rpt_exe_exam_paper_stat.xsl*</pattern><!-- 测验答卷统计报告  -->
+		<pattern>*stylesheet=rpt_exe_train_fee_stat.xsl*</pattern><!-- 培训费用统计报告  -->
+		<pattern>*stylesheet=rpt_exe_train_cost_stat.xsl*</pattern><!-- 培训成本统计报告 -->
+		<pattern>*stylesheet=rpt_credit_res.xsl*</pattern><!-- 积分报告 -->
+		<pattern>*stylesheet=message_template_view.xsl*</pattern><!-- 查看邮件模板 -->
+		<pattern>*cmd=get_mod*stylesheet=tst_que_add_obj_frame.xsl*</pattern>
+		<pattern>*cmd=get_prof*stylesheet=res_add_frame.xsl*</pattern>
+		<pattern>*cmd=get_prof*stylesheet=res_add_nav.xsl*</pattern>
+		<pattern>*cmd=get_que_lst*stylesheet=tst_res_add_menu.xsl*</pattern>
+		<pattern>*cmd=get_prof*stylesheet=res_add_inst.xsl*</pattern>
+		<pattern>*cmd=get_lrn_mod_rpt*stylesheet=ist_lrn_rpt_mod.xsl*</pattern>
+		<pattern>*cmd=get_rpt_usr*stylesheet=tst_rpt_usr_header.xsl*</pattern>
+		<pattern>*cmd=get_rpt_usr*stylesheet=tst_rpt_usr_detail.xsl*</pattern>
+		<pattern>*cmd=get_mod*stylesheet=tst_que_upd_obj_frame.xsl*</pattern>
+		<pattern>*cmd=get_msp*stylesheet=tst_que_upd_parm.xsl*</pattern>
+		<pattern>*cmd=get_que_lst*stylesheet=tst_que_parm.xsl*</pattern>
+		<pattern>*cmd=get_prof*stylesheet=ca_view_folder.xsl*</pattern>
+		<pattern>*cmd=get_prof*stylesheet=ca_edit_folder.xsl*</pattern>
+		<pattern>*cmd=get_assessment_obj*stylesheet=tst_info_frame.xsl*</pattern>
+		<pattern>*cmd=get_assessment_obj*stylesheet=tst_info_nav.xsl*</pattern>
+		<pattern>*cmd=get_fixed_assessment*stylesheet=tst_info_menu.xsl*</pattern>
+		<pattern>*cmd=get_assessment_obj*stylesheet=tst_info_content.xsl*</pattern>
+		<pattern>*cmd=get_assessment_obj*stylesheet=tst_que_pick_obj_frame.xsl*</pattern>
+		<pattern>*cmd=get_assessment_obj*stylesheet=tst_que_add_obj_frame.xsl*</pattern>
+		<pattern>*cmd=get_fsc_content*stylesheet=res_sc_info_content.xsl*</pattern>
+		<pattern>*cmd=get_fsc_content*stylesheet=res_sc_info_menu.xsl*</pattern>
+		<pattern>*cmd=get_fsc_content*stylesheet=res_sc_info_nav.xsl*</pattern>
+		<pattern>*cmd=get_fsc_content*stylesheet=tst_info_frame.xsl*</pattern>
+		<pattern>*cmd=get_mod*stylesheet=tst_upd2.xsl*</pattern>
+		<pattern>*cmd=ae_get_att*stylesheet=attendance_usr_rmk.xsl*</pattern>
+		<pattern>*cmd=get_res*stylesheet=cm_res_get_ins.xsl*</pattern>
+		<pattern>*get_q*stylesheet=cm_que_get_read.xsl*</pattern>
+		<pattern>*module=report.ReportModule*cmd=get_rpt*stylesheet=rpt_lrn_res_new.xsl*</pattern><!-- 我的下属报表 -->
+		<pattern>*cmd=get_assessment_obj*stylesheet=cm_asm_get_ins.xsl*</pattern>
+		<pattern>*cmd=get_assessment_with_tpl*stylesheet=tst_ins.xsl*</pattern>
+		<pattern>*cmd=get_prof*stylesheet=delModule.xsl*</pattern>
+		<pattern>*cmd=prep_upd_multi_att_rate*module=course.EvalManagementModule*stylesheet=attendance_rate_remark.xsl*</pattern><!-- 出勤率 -->
+		<pattern>*cmd=upload_attdrate_prep*module=course.EvalManagementModule*stylesheet=bp_attdrate_import_prep.xsl*</pattern>
+		<pattern>*cmd=show_sysmsg*sysmsg_id=SCO001*</pattern>
+		<pattern>*cmd=validate_dxt*</pattern>
+		<pattern>*cmd=get_dynamic_assessment*stylesheet=tst_info_frame.xsl*</pattern>
+		<pattern>*cmd=get_dynamic_assessment*stylesheet=tst_info_nav.xsl*</pattern>
+		<pattern>*cmd=get_dynamic_assessment*stylesheet=tst_info_content.xsl*</pattern>
+		<pattern>*cmd=get_prof*stylesheet=submit_result_progress.xsl*</pattern><!-- 提交考试的进度条 -->
+		<pattern>*cmd=get_prof*stylesheet=res_sc_criteria.xsl*</pattern>
+		<pattern>*cmd=get_dsc_content*stylesheet=res_sc_info_content.xsl*</pattern>
+		<pattern>*cmd=GET_DSC_CRIT_SPEC*stylesheet=res_sc_criteria.xsl*</pattern>
+		<pattern>*cmd=GET_DSC_CRIT_SPEC*stylesheet=res_sc_criteria.xsl*</pattern>
+		<pattern>/app/personal/personalMustChangePsd/*</pattern>
+		<pattern>/app/module/report?*</pattern>
+		<pattern>/app/admin/cpdRegistrationMgt/upload_model*</pattern>
+	</excludes>
+</decorators>

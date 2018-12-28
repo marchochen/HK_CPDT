@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.EnterpriseInfoPortalMapper">
+	<select id="getEipByDomain" resultType="EnterpriseInfoPortal"
+		parameterType="java.lang.String">
+		<![CDATA[
+			select 
+			eip.eip_id,
+			eip.eip_tcr_id 
+			from EnterpriseInfoPortal eip 
+            where eip.eip_domain=#{domain}
+            and eip.eip_status='ON'
+		]]>
+	</select>
+	
+	
+	<select id="get" resultType="EnterpriseInfoPortal" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				eip_id,
+				eip_code,
+				eip_name,
+				eip_tcr_id,
+				eip_account_num,
+				eip_status,
+				eip_domain,
+				eip_create_timestamp,
+				eip_create_usr_id,
+				eip_update_timestamp,
+				eip_update_usr_id
+			from EnterpriseInfoPortal t
+			where
+				 t.eip_id = #{id}
+		]]>
+	</select>
+	
+	<select id="getByCode" resultType="EnterpriseInfoPortal" parameterType="String">
+		<![CDATA[
+			select 
+				eip_id,
+				eip_code,
+				eip_name,
+				eip_tcr_id,
+				eip_account_num,
+				eip_status,
+				eip_domain,
+				eip_create_timestamp,
+				eip_create_usr_id,
+				eip_update_timestamp,
+				eip_update_usr_id
+			from EnterpriseInfoPortal 
+			where
+				 eip_code = #{code}
+		]]>
+	</select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.EnterpriseInfoPortal">
+	    <![CDATA[
+	        update EnterpriseInfoPortal
+	        set 
+				eip_code = #{eip_code,jdbcType=VARCHAR},
+				eip_name = #{eip_name,jdbcType=VARCHAR},
+				eip_tcr_id = #{eip_tcr_id,jdbcType=INTEGER},
+				eip_account_num = #{eip_account_num,jdbcType=INTEGER},
+				eip_status = #{eip_status,jdbcType=VARCHAR},
+				eip_domain = #{eip_domain,jdbcType=VARCHAR},
+				eip_create_timestamp = #{eip_create_timestamp,jdbcType=DATE},
+				eip_create_usr_id = #{eip_create_usr_id,jdbcType=VARCHAR},
+				eip_update_timestamp = #{eip_update_timestamp,jdbcType=DATE},
+				eip_update_usr_id = #{eip_update_usr_id,jdbcType=VARCHAR}
+	         where eip_id = #{eip_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.EnterpriseInfoPortal">
+    	<![CDATA[
+            insert into EnterpriseInfoPortal(
+            		eip_code,
+            		eip_name,
+            		eip_tcr_id,
+            		eip_account_num,
+            		eip_status,
+            		eip_domain,
+            		eip_create_timestamp,
+            		eip_create_usr_id,
+            		eip_update_timestamp,
+            		eip_update_usr_id
+            ) values (
+            	#{eip_code,jdbcType=VARCHAR},
+            	#{eip_name,jdbcType=VARCHAR},
+            	#{eip_tcr_id,jdbcType=INTEGER},
+            	#{eip_account_num,jdbcType=INTEGER},
+            	#{eip_status,jdbcType=VARCHAR},
+            	#{eip_domain,jdbcType=VARCHAR},
+            	#{eip_create_timestamp,jdbcType=DATE},
+            	#{eip_create_usr_id,jdbcType=VARCHAR},
+            	#{eip_update_timestamp,jdbcType=DATE},
+            	#{eip_update_usr_id,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>
+    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from EnterpriseInfoPortal where
+	        eip_id = #{eip_id}
+	    ]]>
+    </delete>
+    
+    <select id="getEnterpriseInfoPortalList" resultType="EnterpriseInfoPortal">
+    	select
+			eip_id, 
+			eip_code, 
+			eip_name,
+			eip_tcr_id,
+			eip_account_num,
+			eip_status,
+			eip_domain, eip_update_timestamp,
+			eip_max_peak_count
+		from EnterpriseInfoPortal
+    </select>
+	
+	<select id="getLiveMaxCountByTcrId" resultType="EnterpriseInfoPortal" parameterType="java.lang.Long">
+			select 
+				<choose>
+				<when test="_databaseId == 'ORACLE'">
+					NVL(eip_live_max_count,0)
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					ISNULL(eip_live_max_count,0)
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					IFNULL(eip_live_max_count,0)
+				</when>
+			</choose> "eip_live_max_count"
+			from EnterpriseInfoPortal 
+			where
+				 eip_tcr_id = #{tcr_id }
+	</select>
+	
+	<select id="getEnterpriseInfoPortalListByTcrId" resultType="EnterpriseInfoPortal" parameterType="java.lang.Long">
+    	select * from EnterpriseInfoPortal where eip_tcr_id = #{tcr_id}
+    </select>
+	
+</mapper>

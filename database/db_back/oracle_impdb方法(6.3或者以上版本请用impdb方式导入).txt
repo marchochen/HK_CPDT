@@ -1,0 +1,64 @@
+==============导入LMS用户的所有对象====================
+sqlplus system/system@LMS
+SPOOL lms.log;
+
+//若LMS用户已存在，则先删除LMS用户以及LMS,LMS_IND表空间
+drop user LMS cascade;
+drop tablespace LMS including contents;
+drop tablespace LMS_IND including contents;
+
+//创建LMS,LMS_IND表空间以及LMS用户
+CREATE TABLESPACE  LMS
+	DATAFILE 'C:\ORACLE\ORADATA\LMS\LMS.DBF' SIZE 400M
+	DEFAULT STORAGE (
+		INITIAL 200K
+		NEXT 200K
+		MINEXTENTS 1
+		MAXEXTENTS unlimited
+		PCTINCREASE 0)
+	ONLINE;
+
+CREATE TABLESPACE  LMS_IND
+	DATAFILE 'C:\ORACLE\ORADATA\LMS\LMS_IND.DBF' SIZE 50M
+	DEFAULT STORAGE (
+		INITIAL 200K
+		NEXT 200K
+		MINEXTENTS 1
+		MAXEXTENTS unlimited
+		PCTINCREASE 0)
+	ONLINE;
+
+CREATE USER LMS IDENTIFIED BY oracle
+DEFAULT TABLESPACE LMS
+TEMPORARY TABLESPACE temp
+QUOTA UNLIMITED ON LMS;
+
+GRANT connect, resource, alter session TO LMS;
+
+-----框住的以下语句是实施同事要执行的
+ALTER DATABASE
+DATAFILE 'C:\ORACLE\ORADATA\LMS\LMS.DBF' autoextend on next 100M
+maxsize unlimited;
+ALTER DATABASE
+DATAFILE 'C:\ORACLE\ORADATA\LMS\LMS_IND.DBF' autoextend on next 10M
+maxsize unlimited;
+-----
+
+
+SPOOL off;
+//导入数据
+用 sqlplus system/system@LMS 进入oracle
+1.建立数据文件夹 D:\db_backup 为任意文件夹
+  create  directory  databf  as  'D:\db_backup\'; 
+
+2.查看是否有目录
+  select * from dba_directories;
+
+3.赋予用户操作文件夹权限
+  grant  read,write  on  directory  databf  to  lms; 
+
+4.将要还原的文件放入数据文件夹
+
+5.执行导入命令
+  impdp LMS/oracle@数据库名 DIRECTORY=databf DUMPFILE=还原文件.pump FULL=y;
+

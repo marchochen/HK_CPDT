@@ -1,0 +1,42 @@
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<title>Cyberwisdom wizBank</title>
+<script src="../js/wb_utils.js" language="JavaScript"></script>
+<script src="../js/gen_utils.js" language="JavaScript"></script>
+<script src="../js/urlparam.js" language="JavaScript"></script>
+<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
+<!--
+               lang = getUrlParam("lang");
+	function start_file_submit(){
+		if (parent.main && parent.main.submit_que_file) {
+			parent.main.submit_que_file(lang);
+		}
+	}
+	
+			
+			if(lang == ""){
+				lang = 'en'
+			}
+			
+			
+			var wb_msg_loading_msg = "Loading... Please wait."
+			if(lang =='ch'){
+				wb_msg_loading_msg = "下載中，請稍候...";
+			}else if(lang =='gb'){
+				wb_msg_loading_msg = "装载中，请稍候...";
+			}
+
+//-->
+</SCRIPT>
+</head>
+<body onload="start_file_submit()">
+<table cellpadding="10" cellspacing="0" border="0"><tr><td>
+<font size="2">
+<script LANGUAGE="JavaScript" TYPE="text/javascript"><!--
+	document.write(wb_msg_loading_msg);
+//-->
+</script></font>
+</td></tr></table>
+</body>
+</html>

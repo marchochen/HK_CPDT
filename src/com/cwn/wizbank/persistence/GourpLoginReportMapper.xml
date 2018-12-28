@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.GourpLoginReportMapper">
+
+<insert id="insert" parameterType="com.cwn.wizbank.entity.GourpLoginReport">
+	 <![CDATA[
+		insert into gourpLoginReport(
+			gplr_grp_id,
+       		gplr_year,
+        	gplr_month,
+        	gplr_login_mode,
+        	gplr_totle_login_number,
+        	gplr_last_update_date
+		) values (
+         	#{gplrGrpId,jdbcType=INTEGER},
+         	#{gplrYear,jdbcType=INTEGER},
+         	#{gplrMonth,jdbcType=INTEGER},
+         	#{gplrLoginMode,jdbcType=INTEGER},
+         	#{gplrTotleLoginNumber,jdbcType=INTEGER},
+         	#{gplrLastUpdateDate,jdbcType=TIMESTAMP}
+		)
+	 ]]>	 
+</insert>
+
+<select id="checkNumber" parameterType="com.cwn.wizbank.entity.GourpLoginReport" resultType="java.lang.Integer">
+		SELECT 
+			count(*)
+		FROM 
+			gourpLoginReport
+		where  gplr_grp_id = #{gplrGrpId}  and gplr_year = #{gplrYear} and gplr_month = #{gplrMonth} and gplr_login_mode = #{gplrLoginMode}
+</select>
+
+<update id="update" parameterType="com.cwn.wizbank.entity.GourpLoginReport">
+   <![CDATA[
+	        update 
+	        	gourpLoginReport
+	        set 
+				gplr_totle_login_number =  #{gplrTotleLoginNumber,jdbcType=INTEGER},
+				gplr_last_update_date = #{gplrLastUpdateDate,jdbcType=TIMESTAMP}
+	         where 
+	            gplr_grp_id = #{gplrGrpId}  and gplr_year = #{gplrYear} and gplr_month = #{gplrMonth} and gplr_login_mode = #{gplrLoginMode}
+	    ]]>
+</update>
+
+
+</mapper>

@@ -1,0 +1,13 @@
+8.0
+11
+1	SQLNCHAR	0	0	"\t\0"		1	aah_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	aah_app_id	""
+3	SQLNCHAR	0	0	"\t\0"		3	aah_process_id	""
+4	SQLNCHAR	0	0	"\t\0"		4	aah_fr	""
+5	SQLNCHAR	0	0	"\t\0"		5	aah_to	""
+6	SQLNCHAR	0	0	"\t\0"		6	aah_verb	""
+7	SQLNCHAR	0	0	"\t\0"		9	aah_action_id	""
+8	SQLNCHAR	0	0	"\t\0"		10	aah_create_usr_id	""
+9	SQLNCHAR	0	0	"\t\0"		11	aah_create_timestamp	""
+10	SQLNCHAR	0	0	"\t\0"		12	aah_upd_usr_id	""
+11	SQLNCHAR	0	0	"\r\0\n\0"	13	aah_upd_timestamp	""

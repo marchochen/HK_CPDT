@@ -1,0 +1,142 @@
+<!doctype html>
+<html ng-app="exam">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/ExamController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+<!--[if lt IE 9]>
+<script src="../../js/lib/html5.js" type="text/jscript"></script>
+<![endif]-->
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="recommendController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+
+<div class="wrap">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back();" title="返回"></a>
+    <span class="header-title">{{'exam_recommend' | translate}}</span>
+    <a class="header-sort" href="javascript:;" ng-click="toggleDir()" title="分类"></a>
+    <a class="header-sosuo" href="{{{url:'../search/search.html'} | appUrl}}" title="search"></a>
+</header> <!-- header End -->
+
+<div class="header-guide" style="display:none;">
+     <div class="header-guide-box">
+
+          <div class="header-guide-title">
+<!--               推荐类型 -->{{'cos_recommend_type' | translate}}
+          </div>
+          <div class="header-guide-info">
+               <a href="javascript:;" ng-click="selectRecommendStatus(item.id)" ng-class="{'select': item.select}" ng-repeat="item in recommendTypes">{{item.title | translate}}</a>
+          </div> 
+          
+          <div class="header-guide-title">
+<!--               课程类型 -->{{'exam_type' | translate}}
+          </div>
+          <div class="header-guide-info">
+               <a href="javascript:;" ng-click="selectType(item.id)" ng-class="{'select': item.select}" ng-repeat="item in cosTypes">{{item.title | translate}}</a>
+          </div> 
+          
+          <div class="header-guide-title">
+<!--               学习状态 -->{{'cos_app_status' | translate}}
+          </div>
+          <div class="header-guide-info">
+               <a href="javascript:;" ng-click="selectAppStatus(item.id)" ng-class="{'select': item.select}" ng-repeat="item in allAppStatus">{{item.title | translate}}</a>
+          </div>   
+        
+          <div class="header-guide-tool"><a class="header-guide-bluelian" href="javascript:;"  ng-click="sureCheck()" title="">{{'btn_sure' | translate}}</a>
+           <a class="header-guide-bluelian" ng-click="toggleDir()" href="javascript:;" title="">{{'btn_cancel' | translate}}</a></div>
+    </div>
+</div>
+
+<section class="content" id="main">
+<!-- <a class="panel-sou" href="{{{url:'../search/search.html'} | appUrl}}" title="search"><span class="sou-icon" translate="btn_search"></span>搜索</a> -->
+
+<div class="panel-list-box">
+<tabs css="2">
+<!-- 进行中 -->
+<pane title="{{'exam_list_all' | translate}}">
+<ul class="panel-list-1-1 clearfix" ng-show="pane1.items && pane1.items.length>0">
+     <li  ng-repeat="item in pane1.items" >
+          <a class="panel-list-cont-1" href="javascript:;" forward="{tkhId:item.item.app_tkh_id, itmId: item.item.itm_id, examInd:true} | courseUrl" title="">
+             <div class="list-pic-1">
+                  <img ng-src="{{serverHost}}{{item.item.itm_icon}}" alt=""/>
+                  <div class="sub-filter-1"><div class="sub-info-1">{{item.item.itm_title}}</div></div>
+                  <span ng-if="item.itd_compulsory_ind == 1" class="list-tool-1-bixiu"></span>
+             </div>
+          </a>
+          
+          <div class="list-tool-1">
+               <span class="list-tool-1-laud">
+				  {{item.item.snsCount && item.item.snsCount.s_cnt_like_count?item.item.snsCount.s_cnt_like_count:0}}
+               </span>
+               <!-- <span class="list-tool-1-review">
+               	  {{item.item.cnt_comment_count?item.item.cnt_comment_count:0}}
+               </span> -->
+          </div>
+     </li>
+</ul>
+     <div loader="pane1"></div>
+</pane> 
+<!-- 必修 -->
+<pane  title="{{'cos_required' | translate}}">
+<ul class="panel-list-1-1 clearfix" ng-show="pane2.items && pane2.items.length>0">
+     <li  ng-repeat="item in pane2.items">
+          <a class="panel-list-cont-1" href="javascript:;" forward="{tkhId:item.item.app_tkh_id, itmId: item.item.itm_id, examInd:true} | courseUrl" title="">
+             <div class="list-pic-1">
+                  <img ng-src="{{serverHost}}{{item.item.itm_icon}}" alt=""/>
+                  <div class="sub-filter-1"><div class="sub-info-1">{{item.item.itm_title}}</div></div>
+                   <span class="list-tool-1-bixiu"></span>
+             </div>
+          </a>
+          
+          <div class="list-tool-1">
+               <span class="list-tool-1-laud">
+				  {{item.item.snsCount && item.item.snsCount.s_cnt_like_count?item.item.snsCount.s_cnt_like_count:0}}
+               </span>
+               <!-- <span class="list-tool-1-review">
+               	  {{item.item.cnt_comment_count?item.item.cnt_comment_count:0}}
+               </span> -->
+          </div>
+     </li>
+</ul>
+     <div loader="pane2"></div>
+</pane> 
+<!-- 选修 -->
+<pane  title="{{'cos_elective' | translate}}">
+<ul class="panel-list-1-1 clearfix" ng-show="pane3.items && pane3.items.length>0">
+     <li  ng-repeat="item in pane3.items">
+          <a class="panel-list-cont-1" href="javascript:;" forward="{tkhId:item.item.app_tkh_id, itmId: item.item.itm_id, examInd:true} | courseUrl" title="">
+             <div class="list-pic-1">
+                  <img ng-src="{{serverHost}}{{item.item.itm_icon}}" alt=""/>
+                  <div class="sub-filter-1"><div class="sub-info-1">{{item.item.itm_title}}</div></div>
+             </div>
+          </a>
+          
+          <div class="list-tool-1">
+               <span class="list-tool-1-laud">
+				  {{item.item.snsCount && item.item.snsCount.s_cnt_like_count?item.item.snsCount.s_cnt_like_count:0}}
+               </span>
+               <!-- <span class="list-tool-1-review">
+               	  {{item.item.cnt_comment_count?item.item.cnt_comment_count:0}}
+               </span> -->
+          </div>
+     </li>
+</ul>
+     <div loader="pane3"></div>
+</pane>
+ 
+</tabs>
+</div>
+</section> <!-- content End -->
+
+
+</div> <!-- wrap End -->
+
+</body>
+</html>

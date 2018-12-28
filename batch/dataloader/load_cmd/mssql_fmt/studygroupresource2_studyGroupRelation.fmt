@@ -1,0 +1,7 @@
+8.0
+5
+1 SQLNCHAR 0 0 "\t\0" 1 sgr_sgp_id ""
+2 SQLNCHAR 0 0 "\t\0" 2 sgr_ent_id ""
+3 SQLNCHAR 0 0 "\t\0" 3 sgr_type ""
+4 SQLNCHAR 0 0 "\t\0" 4 sgr_create_timestamp ""
+5 SQLNCHAR 0 0 "\r\0\n\0" 5 sgr_create_usr_id "" 

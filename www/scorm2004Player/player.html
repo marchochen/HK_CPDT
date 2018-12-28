@@ -1,0 +1,575 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/zTreeStyle/zTreeStyle.css" type="text/css">
+<script type="text/javascript" charset="utf-8" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/jquery.ztree.core-3.5.js"></script>
+<title>Welcome</title>
+<style type="text/css">
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	font-size:12px;
+}
+a:link {
+	text-decoration: none;
+	color: #666;
+}
+a:visited {
+	text-decoration: none;
+	color: #666;
+}
+a:hover {
+	text-decoration: none;
+	color: #FFF;
+}
+a:active {
+	text-decoration: none;
+	color: #666;
+}
+</style>
+<style type="text/css">
+	.ztree li button.icon01_ico_docu{margin-right:2px; background: url(css/zTreeStyle/img/diy/5.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+	.ztree li button.icon02_ico_docu{margin-right:2px; background: url(css/zTreeStyle/img/diy/3.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+	.ztree li button.icon03_ico_docu{margin-right:2px; background: url(css/zTreeStyle/img/diy/4.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+</style>
+<script language="javascript" type="text/javascript">
+//
+
+var win_name;
+var adapterDOM;
+var myXmlURL="";
+var xmlAbURL="";
+var checkLoad=31767;
+var checkStatus=31767;
+var scoURL=new Array();
+var scoID=new Array();
+var scoPID=new Array();
+var scoTitle=new Array();
+var scoJSONstr="";
+var scoNumber=0;
+var isco=0;
+var getImsXML=false;
+var loadi=0;
+var contentH=600;
+//
+var debug=false;
+var debugId;
+//
+var cmi_mode="normal";
+var cmi_learner_id="dummy";
+var cmi_course_id="x001";
+var cmi_item_id="x00101";
+//
+var dot1="_XvYvX_";
+var dot2="_XyXyX_";
+var dot3="_XyOyX_";
+//
+if(window.opener!=null&&typeof(window.opener)!="undefined"){
+}else{
+	cmi_mode="browse";
+}
+if(debug){
+	debugId=window.open("debug.html");
+}
+//
+function tick()  {  
+	var year,month,day,hours,minutes,seconds;  
+	var intYear,intMonth,intDay,intHours,intMinutes,intSeconds;  
+	var today;  
+	today=new Date();  
+	intYear=today.getYear()+1900;  
+	intMonth=today.getMonth()+1;  
+	intDay=today.getDate();  
+	intHours=today.getHours();  
+	intMinutes=today.getMinutes();  
+	intSeconds=today.getSeconds();  
+	//获取系统时间的小时数  
+	hours=intHours+":";  
+	//获取系统时间的分数  
+	if(intMinutes<10){  
+		minutes="0"+intMinutes+":";  
+	}else{  
+		minutes=intMinutes+":";  
+	}  
+	//获取系统时间的秒数  
+	if(intSeconds<10){  
+		seconds="0"+intSeconds+" ";  
+	}else{  
+		seconds=intSeconds+" ";  
+	}  
+	return intYear+'-'+intMonth+'-'+intDay+' '+hours+minutes+seconds; 
+}
+//
+function setDebugInfo(msg){
+	if(debug&&msg!=""){
+		var _tmpDebug=debugId.document.getElementById("debugMsg");
+		if(_tmpDebug==null||typeof(_tmpDebug)=="undefined"){
+			debugId=window.open("debug.html");
+		}
+		var _debugP = debugId.document.createElement("P");
+		msg="["+tick()+"] "+msg;
+        var _debugText = debugId.document.createTextNode(msg);
+        _debugP.appendChild(_debugText);
+		_tmpDebug.appendChild(_debugP);
+	}
+}
+//
+function directoryURL(args){
+	var fromId=args.lastIndexOf("/imsmanifest.xml");
+	return args.substring(0,fromId);
+}
+function getAbsoluteUrl(url){
+    var img = new Image();
+    img.src = url;
+    url = img.src;
+    img.src = null;
+    return url;
+}
+function getURlPair(varName,urlStr){
+	if(varName!=""&&varName!=null&&typeof(varName)!="undefined"&&urlStr!=""&&urlStr!=null&&typeof(urlStr)!="undefined"){
+		var idx1=varName.length;
+		varName=varName+"=";
+		var idx2=urlStr.indexOf(varName);
+		if(idx2>=0&&(idx2+idx1)<urlStr.length){
+		    var valueStr="";
+			var idx3=urlStr.indexOf("&",idx2+idx1);
+			if(idx3>=0){
+				valueStr=urlStr.substring(idx2+idx1+1,idx3);
+			}else{
+				valueStr=urlStr.substring(idx2+idx1+1);
+			}
+			return unescape(valueStr);
+		}else{
+			return "";
+		}
+	}else{
+		return "";
+	}
+}
+//
+var treeObj;
+var setting = {
+   view: {
+	   selectedMulti: false
+   },
+   data: {
+	   simpleData: {
+		   enable: true
+	   }
+   },
+   callback: {
+	   onClick: onSCOClick
+   }
+};
+var zNodes =[];
+function onSCOClick(event, treeId, treeNode) {
+   treeObj = $.fn.zTree.getZTreeObj("scoTree");
+   if(treeObj!=null&&typeof(treeObj)!="undefined"){
+	   var node = treeObj.getNodeByTId(treeNode.tId);
+	   for(var i=0;i<scoID.length;i++){
+		   if(node.id==scoID[i]){
+			  isco=i;				   
+			  break;
+		   }
+	   }
+	   if(node.uid!="null"){
+	       showCourse();
+	   }
+   }
+}
+function readAndSetSCO(){
+	if(cmi_mode=="normal"){
+		adapterDOM.readCourseInfo("op=l&uid="+cmi_learner_id+"&cid="+cmi_course_id);
+		loadi=0;
+		checkStatus=window.setInterval("loopCheckStatus()",1000);
+	}else{
+		showCourse();
+	}
+}
+function loopCheckStatus(){
+	loadi++;
+	if(loadi<10){
+		var _adapterStr=adapterDOM.adapterStr;
+		if(_adapterStr!=""&&_adapterStr!=null&&typeof(_adapterStr)!="undefined"){
+			clearInterval(checkStatus);
+			loadi=0;
+			setDebugInfo("SCO status: "+_adapterStr);
+			if(_adapterStr.indexOf(dot1)>0){
+			   string2Status(_adapterStr);
+			}
+			showCourse();
+		}
+	}else{
+		clearInterval(checkStatus);
+		setDebugInfo("Can not load SCO status.");
+		showCourse();
+	}
+}
+function string2Status(_string){
+	var statusArr=_string.split(dot1);
+	for(var j=0;j<scoID.length;j++){
+	   if(statusArr[0]==scoID[j]){
+		  isco=j;				   
+		  break;
+	   }
+    }
+	setDebugInfo("Current sco is :"+isco);
+	treeObj = $.fn.zTree.getZTreeObj("scoTree");
+	var nodes = treeObj.transformToArray(treeObj.getNodes());
+    for (var i=0;i<nodes.length;i++) {
+	    treeObj.setting.view.fontCss = {};
+		var _eachSC0="";
+		if (!nodes[i].isParent) {
+			for(var m=1;m<statusArr.length;m++){
+				//
+				if(statusArr[m].indexOf("=")>0){
+					var _tmpStatusArr=statusArr[m].split("=");					
+				    if(_tmpStatusArr[0]==nodes[i].id&&_tmpStatusArr[1].toLowerCase().indexOf("c")==0){
+					   _eachSC0+=_tmpStatusArr[0]+" status is "+_tmpStatusArr[1];	
+					   nodes[i].icon = "css/zTreeStyle/img/diy/4.png";				   
+					   break;
+				    }
+				}else{
+					//
+				}
+				
+			}
+		}
+	    treeObj.updateNode(nodes[i]);
+		setDebugInfo(_eachSC0);
+    }	
+}
+function showCourse(){
+	var contentIframeURL="";
+	var openURL="";
+	//
+	contentH=window.document.body.clientHeight;
+	contentH=contentH-42;
+	//
+	contentIframeURL="sco_player.html?rm="+Math.random();
+	openURL="<iframe id='contentIframe' width='100%' height='"+contentH+"px' name='contentIframe' src='"+contentIframeURL+"' frameborder='0' marginheight='0' marginwidth='0' scrolling='auto'></iframe>";
+	$("#courseScene").html(openURL);
+	setDebugInfo("SCO has been open: "+isco);
+}
+$(function() {
+   $('#opentoc1').click( function() {
+	  if($('#opentoc1').text()=="Open TOC"){
+		  switchTree("O");
+	  }else{
+		  switchTree("C");
+	  }
+	   return false;
+	});
+});
+function switchTree(OrC){
+	if(OrC=="O"){
+		$('#treeArea').width("260px");
+		$('#scoTree').width("260px");
+		$('#contentIframe').width("100%");
+		$('#opentoc1').text("Close TOC");
+	}else{
+		$('#treeArea').width("1px");
+		$('#scoTree').width("1px");
+		$('#contentIframe').width("100%");
+		$('#opentoc1').text("Open TOC");
+	}
+}
+//
+function checkSM(xmlURL){
+	//window.open(xmlURL);
+	$.get(xmlURL,"",function(d){
+		if((typeof(d))!="object"){
+			if($.browser.msie){  
+				  xml = new ActiveXObject("Microsoft.XMLDOM");  
+				  xml.async = false;  
+				  xml.loadXML(d);    
+			 }else{  
+				  xml = new DOMParser().parseFromString(d, "text/xml"); 
+			 }
+		}
+		getImsXML=true;
+		xmlAbURL=directoryURL(getAbsoluteUrl("../"+myXmlURL))+"/";
+		$(d).find('manifest').each(function(){
+			 var $resource = $(this).children('resources');
+			 var $item = $(this).children('organizations').children('organization');			 
+			 $item.find('item').each(function(index, element) {
+				   var _myscoid="",_myscopid="",_myscohref="null",_myscotitle="";
+				    if($(this).attr("identifier")!=null&&typeof($(this).attr("identifier"))!="undefined"){
+						_myscoid=$(this).attr("identifier");
+					}
+					if($(this).parent().attr("identifier")!=null&&typeof($(this).parent().attr("identifier"))!="undefined"){
+						 _myscopid=$(this).parent().attr("identifier"); 
+					}
+					if($(this).children("title")!=null&&typeof($(this).children("title"))!="undefined"){
+						 _myscotitle=$(this).children("title").text(); 
+					}
+					if($(this).attr("identifierref")!=null&&typeof($(this).attr("identifierref"))!="undefined"){
+						 var _tmpurlid=$(this).attr("identifierref");
+						 $resource.find('resource').each(function(index, element) {
+							 var _tmpurl=$(this).attr("href");
+							 if($(this).attr("identifier")==_tmpurlid&&_tmpurl!=""&&typeof(_tmpurl)!="undefined"){
+								 _myscohref=xmlAbURL+_tmpurl;
+								 scoNumber++;
+								 /*
+								 scoURL.push(_myscohref);
+								 scoID.push(_myscoid);
+								 scoPID.push(_myscopid);
+								 scoTitle.push(_myscotitle);
+								 scoJSONstr+=",{id:'"+_myscoid+"', pId:'"+_myscopid+"', name:'"+_myscotitle+"',uid:'"+_myscohref+"'}";
+								 */
+							 }
+						 });
+					}
+					//
+					 scoURL.push(_myscohref);
+					 scoID.push(_myscoid);
+					 scoPID.push(_myscopid);
+					 scoTitle.push(_myscotitle);
+					 scoJSONstr+=",{id:'"+_myscoid+"', pId:'"+_myscopid+"', name:'"+_myscotitle+"',uid:'"+_myscohref+"'}";									   
+			 });
+		})
+	},"xml");
+}
+//
+function loopCheckSM(){
+	loadi++;
+	if(loadi<20){
+		if(scoNumber>=1&&scoID.length>0){
+			clearInterval(checkLoad);
+			loadi=0;
+			setDebugInfo("SCO Number: "+scoNumber);
+			$("#courseScene").height(contentH);
+			$('#scoTree').height(contentH);			
+			scoJSONstr=scoJSONstr.substring(1);
+			scoJSONstr="["+scoJSONstr+"]";
+			zNodes=eval('(' + scoJSONstr + ')');
+			$.fn.zTree.init($("#scoTree"), setting, zNodes);
+			treeObj = $.fn.zTree.getZTreeObj("scoTree");
+			treeObj.expandAll(true);			
+			//
+			if(scoNumber==1){
+				switchTree("C");
+			}else{
+				switchTree("O");
+				for(var i=0;i<scoURL.length;i++){
+				   if(scoURL[i]!="null"){
+					  isco=i;				   
+					  break;
+				   }
+			    }
+				
+			}
+			var nodes = treeObj.getNodes();
+			//alert(nodes.length);
+            treeObj.selectNode(nodes[0]);			
+			readAndSetSCO();			
+		}
+		if(loadi>5&&loadi<=20){
+			if(getImsXML){
+				$("#courseScene").html("<p align='center'>Parsing imsmanifest.xml, "+loadi+" s </p>");
+			}else{
+				$("#courseScene").html("<p align='center'>Loading imsmanifest.xml, "+loadi+" s </p>");
+			}
+		}
+	}else{
+		clearInterval(checkLoad);
+		if(getImsXML){
+		     $("#courseScene").html("<p align='center'>Can not parse imsmanifest.xml, <a href='../"+myXmlURL+"' target='_blank'>download</a></p>");
+		}else{
+			 $("#courseScene").html("<p align='center'>Can not load imsmanifest.xml, <a href='../"+myXmlURL+"' target='_blank'>download</a></p>");
+		}
+	}
+}
+//
+function setNodeTree(myi){	
+   var nodes = treeObj.transformToArray(treeObj.getNodes());
+	if (!nodes[myi].isParent) {
+		 nodes[myi].icon = "css/zTreeStyle/img/diy/4.png";
+		 treeObj.updateNode(nodes[myi]);
+	}
+}
+//
+$(window).resize(function() {
+	var newHeight=window.document.body.clientHeight;
+	newHeight=newHeight-42;
+	$("#sceneFrames").height(newHeight);
+	$("#courseScene").height(newHeight);
+	$("#contentIframe").height(newHeight);
+	//alert($("#contentIframe").height());
+});
+//
+function init() {
+	var myURL=window.location.search;
+	contentH=window.document.body.clientHeight;
+	contentH=contentH-42;
+	
+	//
+	$("#sceneFrames").height(contentH);
+	$("#courseScene").height(contentH);
+	$("#contentIframe").height(contentH);
+	//
+	if(myURL!=""&&myURL!=null&&typeof(myURL)!="undefined"){
+		cmi_learner_id=getURlPair("uid",myURL);
+		cmi_course_id=getURlPair("cid",myURL);
+		myXmlURL=getURlPair("url",myURL);
+		//
+		setDebugInfo("Current UserID: "+cmi_learner_id);
+		setDebugInfo("Current CourseID: "+cmi_course_id);
+		setDebugInfo("imsmanifest.xml Path: "+myXmlURL);
+		//
+		if(myXmlURL!=""){
+			if(cmi_learner_id==""||cmi_course_id==""){
+				 cmi_mode="browse";
+			}else{
+				win_name= 'sco_popup'+ '_'+cmi_learner_id +'_' + cmi_course_id;
+				open_win()
+			}
+			checkSM("../"+myXmlURL);
+			checkLoad=window.setInterval("loopCheckSM()",1000);
+		}else{
+			$("#courseScene").html("<p align='center'>Can not get the course URL.</p>");
+		}			
+	}else{
+		$("#courseScene").html("<p align='center'>Player args error.</p>");
+	}
+}
+
+
+
+function open_win() {
+	var feature = 'toolbar='		+ 'no'
+		+ ',width=' 				+ '10'
+		+ ',height=' 				+ '10'
+		+ ',scrollbars='			+ 'no'
+		+ ',resizable='				+ 'no'
+		+ ',screenX='				+ '-10'
+		+ ',screenY='				+ '-10'
+		+ ',status='				+ 'no';
+    if (win_name === undefined) {
+		win_name = '';
+	}
+	if ((navigator.userAgent.indexOf('MSIE') >= 0) && (navigator.userAgent.indexOf('Opera') < 0)){	
+		adapterDOM = window.open('msg.html', win_name, feature);
+
+		//adapterDOM.blur();
+	
+		if (adapterDOM != null) {
+			adapterDOM.moveTo(0, 0);
+		}
+		
+		window.setInterval("checkPopup()",1000);
+	}else{
+		adapterDOM = window.self;
+	}
+	return adapterDOM;
+}
+
+function checkPopup(){
+  if(adapterDOM == null || adapterDOM.closed){
+  	open_win();
+  }
+}
+
+
+
+//========================================================
+
+//--SCORM2004 父窗口代码开始, 使用以下代码从平台中拿数据，或上传数据到平台-------------   
+	var adapterStr="";
+	var postStr="";
+
+    //读取课件学习记录
+	function readCourseInfo(opStr){
+		var adapterURL = getScormCmiUr2004();
+		
+		if(opStr!=""){
+			adapterStr="";
+			//window.open(adapterURL+"adapterInfo.jsp?"+opStr);
+		   $.ajax({
+				 type: "post",
+				 url: adapterURL,
+				 cache: false,
+				 data: opStr,
+				 success: function(msg){ 
+					 adapterStr=msg;
+				 },
+				 dataType: "text",
+				 error : function() {       
+					 adapterStr="";    
+				 }
+			});
+			//alert("adapterStr="+adapterStr);
+		} 
+	}
+	//写入课件学习记录
+	function writeCourseInfo(){
+		var adapterURL = getScormCmiUr2004();
+		//alert("writeCourseInfo: "+postStr);
+		if(postStr!=""){			
+			//window.open(adapterURL+"adapterInfo.jsp?"+postStr);				
+			$.ajax({
+				 type: "post",
+				 url: adapterURL,
+				 cache: false,
+				 data: postStr,
+				 success: function(msg){
+					 postStr="";
+					 //如果上传成功后，需要刷新页面，请执行reload，否则可以注释
+					 //window.location.reload(); 
+					 afterWriteCourseInfo(msg);
+					 self.close();
+				 },
+				 dataType: "text",
+				 error : function() {   
+				 	alert("error!!")
+					 //   
+				 }
+			});
+		}
+		
+	}
+	
+	function getScormCmiUr2004() {
+		servlet = 'SCO2004CMI';
+		var virtual_path_loc = self.location.pathname.indexOf('/scorm2004Player/');
+		if (virtual_path_loc === -1) {
+			virtual_path_loc = self.location.pathname.indexOf('/servlet/');
+		}
+			
+		if (virtual_path_loc > -1) {
+			var virtual_path = self.location.pathname.substring(0, virtual_path_loc);
+			result = self.location.protocol + "//" + self.location.host + virtual_path + "/servlet/" + servlet ;
+		} else {
+			alert('aicc_url error:' + self.location.pathname);
+		}
+		return result;
+	}
+	
+	 function afterWriteCourseInfo(msg) {
+		if (msg == "write_record_success") {
+			if (openWinId != null && typeof(openWinId) != "undefined"
+					&& openWinId != "") {
+				var contentObj = openWinId.frames["contentIframe"];
+				//contentObj._cmi_session_time = "00:00:00";
+				contentObj.fromOpener();
+			}
+		}
+	}
+</script>
+</head>
+
+<body onLoad="javascript:init()">
+<div style="background-color:#b0bed9; height:20px; font-weight:bold; vertical-align:middle; padding-top:5px">&nbsp;&nbsp;<img style="vertical-align:middle" src="images/opentoc.gif" width="14" height="17" />&nbsp;&nbsp;<a href="#" id="opentoc1">Close TOC</a></div>
+<TABLE border=0 align="left" height="100%" id="sceneFrames">
+	<TR>
+		<TD id="treeArea" width="260px" align="left" valign="top" style="BORDER-RIGHT: #999999 1px dashed">
+			<ul id="scoTree" class="ztree" style="width:260px; overflow:auto;"></ul>
+		</TD>
+		<TD align="left" valign="top" id="courseScene" width="100%"><iframe id='contentIframe' width='100%' name='contentIframe' src='blank.html' frameborder='0' marginheight='0' marginwidth='0' scrolling='auto'></iframe></TD>
+	</TR>
+</TABLE>
+</body>
+</html>

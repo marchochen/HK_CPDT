@@ -1,0 +1,9 @@
+8.0
+7
+1	SQLNCHAR	0	0	"\t\0"		1	cov_cos_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	cov_ent_id	""
+3	SQLNCHAR	0	0	"\t\0"		6	cov_status	""
+4	SQLNCHAR	0	0	"\t\0"		7	cov_status_ovrdn_ind	""
+5	SQLNCHAR	0	0	"\t\0"		11	cov_final_ind	""
+6	SQLNCHAR	0	0	"\t\0"		13	cov_update_timestamp	""
+7	SQLNCHAR	0	0	"\r\0\n\0"	14	cov_tkh_id	""

@@ -1,0 +1,6 @@
+Assignment Submission Successful
+Your assignment ($data_1_) of $data_2_ has been submitted successfully.
+
+Thank You.
+
+

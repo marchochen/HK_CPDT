@@ -1,0 +1,222 @@
+<!doctype html>
+<html ng-app="personal">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/PersonalController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+<body ng-cloak class="ng-cloak" ng-controller="learnStuController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+
+<div class="wrap" id="wizwrap" ng-if="show.list">
+	<header class="header mm-background">
+    	<a class="header-back" href="javascript:back();" title="返回"></a>
+    	<span class="header-title" translate="personal_learning_situation"><!--学习概况--></span>
+	</header> <!-- header End -->
+	
+	<wzm-docker rp="../../"></wzm-docker> 
+
+	<section class="content-2">
+		<div class="list-pic-3">
+			<div class="own-box">
+				<div class="own-box-area">
+     				<div class="own-box-pic">
+          				<a class="own-box-user" href="javascript:void(0)" title="">
+          					<div>
+             					<img id="user_photo_{{user.usr_ent_id}}" ng-src="{{serverHost}}{{user.usr_photo}}" alt=""/>
+             				</div>
+          				</a>
+     				</div>
+     				<div class="own-box-tit-1" ngCloak>{{user.usr_display_bil}}</div>
+     				<div class="own-box-tit-5" ngCloak>
+     					{{user.usg_display_bil}} 
+     					{{user.ugr_display_bil != 'Unspecified' ? user.ugr_display_bil : ''}}
+     				</div>
+				</div>     
+			</div>
+			<img class="list-pic-3-pic" alt="" src="../../images/banner51.jpg">
+			<div class="list-pic-3-bg"></div>
+		</div> <!-- list-pic-3 End -->
+
+	<div class="panel-list-box" style="margin-top:0;">
+    	<tabs css="1">
+           	
+     	<pane title="{{'personal_ls_situation_view' | translate}}">
+         	<div class="panel-tabcont-2 pub-tabcont">
+				<div class="header-overlay"></div>
+				<div class="zhuye-box">
+					<div class="zhuye zhuye-zonglan" translate="personal_ls_learn_count_time"><!--学习总时长-->
+					</div>
+					<div class="zhuye-info" ng-bind-html="learningSituation.ls_learn_duration_html | htmlDecode">				
+					</div>
+					<!-- <div class="zhuye-cont">
+						<span translate="personal_ls_update_to"></span>更新至 
+						{{learningSituation.ls_update_time | toDate}}
+					</div> -->
+				</div>             
+				<div class="jifen-area clearfix">
+		    		<div class="jifen-area-gray jifen-area-line">
+		    		 	<span class="jifen-area-info-1" translate="personal_ls_learn_credits"><!--总学分--></span>
+		    		 	<em class="jifen-area-info-2" ngCloak>{{learningSituation.ls_learn_credit}}</em>
+		    		</div> 
+		     		<div class="jifen-area-gray">
+		     			<span class="jifen-area-info-1" translate="personal_ls_total_integral"><!--总积分--></span>
+		     			<em class="jifen-area-info-2" ngCloak>{{learningSituation.ls_total_integral}}</em>
+		     		</div>
+				</div>		
+	  		</div> <!-- panel End -->
+		</pane>
+
+		<pane title="{{'cos_title' | translate}}">
+        	<div class="panel-tabcont-2 pub-tabcont"> 
+
+				<div class="header-overlay"></div>
+				<div class="zhuye-box">
+					<div class="zhuye zhuye-xuexi" translate="personal_ls_course_count">
+		     			<!--课程总数-->
+					</div>
+					<div class="zhuye-info">
+						<span class="panel-num-4" ngCloak>{{learningSituation.ls_total_courses}}</span>
+						<span translate="personal_ls_until_course"></span>
+					</div>
+					<!-- <div class="zhuye-cont">
+						<span translate="personal_ls_update_to"></span>更新至 
+						{{learningSituation.ls_update_time | toDate}}
+					</div> -->
+				</div>
+				<div class="jifen-area clearfix">
+		     		<div class="jifen-area-gray jifen-area-line">
+		     			<span class="jifen-area-info-1" translate="personal_ls_completed"><!--已完成--></span>
+		     			<em class="jifen-area-info-2" ngCloak>{{learningSituation.ls_course_completed_num}}</em>
+		     		</div> 
+			     	<div class="jifen-area-gray">
+			     		<span class="jifen-area-info-1" translate="personal_ls_no_completed"><!--未完成--></span>
+			     		<em class="jifen-area-info-2" ngCloak>{{learningSituation.ls_course_fail_num}}</em>
+			     	</div>
+			     	<div class="jifen-area-gray jifen-area-line">
+			     		<span class="jifen-area-info-1"  translate="personal_ls_ing"><!--进行中--></span>
+			     		<em class="jifen-area-info-2" ngCloak>{{learningSituation.ls_course_inprogress_num}}</em>
+			     	</div> 
+			     	<div class="jifen-area-gray">
+			     		<span class="jifen-area-info-1"  translate="personal_ls_approving"><!--审批中--></span>
+			     		<em class="jifen-area-info-2">{{learningSituation.ls_course_pending_num}}</em>
+			     	</div>
+				</div>
+			</div> <!-- panel End -->
+		</pane>
+
+		<!-- <pane title="{{'personal_ls_exam' | translate}}">
+        	<div class="panel-tabcont-2 pub-tabcont"> 
+                  	
+				<div class="header-overlay"></div>
+				<div class="zhuye-box">
+					<div class="zhuye zhuye-kaoshi" translate="personal_ls_exam_count">考试总数</div>
+					<div class="zhuye-info">
+						<span class="panel-num-4" ngCloak>{{learningSituation.ls_total_exams}}</span>
+						<span translate="personal_ls_until_course"></span>
+					</div>
+		
+					<div class="zhuye-cont" ngCloak>
+						<span translate="personal_ls_update_to"></span>更新至
+						{{learningSituation.ls_update_time | toDate}}
+					</div>	
+				</div>
+
+				<div class="jifen-area clearfix">
+		     		<div class="jifen-area-gray jifen-area-line">
+		     			<span class="jifen-area-info-1" translate="personal_ls_completed">已完成</span>
+		     			<em class="jifen-area-info-2" ngCloak>{{learningSituation.ls_exam_completed_num}}</em>
+		     		</div> 
+		     		<div class="jifen-area-gray">
+		     			<span class="jifen-area-info-1" translate="personal_ls_no_completed">未完成</span>
+		     			<em class="jifen-area-info-2" ngCloak>{{learningSituation.ls_exam_fail_num}}</em>
+		     		</div>
+		     		<div class="jifen-area-gray jifen-area-line">
+		     			<span class="jifen-area-info-1" translate="personal_ls_ing">进行中</span>
+		     			<em class="jifen-area-info-2" ngCloak>{{learningSituation.ls_exam_inprogress_num}}</em>
+		     		</div> 
+		     		<div class="jifen-area-gray">
+		     			<span class="jifen-area-info-1" translate="personal_ls_approving">审批中</span>
+		     			<em class="jifen-area-info-2" ngCloak>{{learningSituation.ls_exam_pending_num}}</em>
+		     		</div>
+				</div>
+			</div> panel End
+		</pane> -->
+		<!--
+		<pane title="{{'personal_ls_sns' | translate}}">
+            <div class="panel-tabcont-2 pub-tabcont"> 
+				<div class="zhuye-box">
+					<div class="zhuye zhuye-shequ" translate="personal_ls_sns_situation"><!--社区概况--></div>
+					<!-- <div class="zhuye-cont">
+						<span translate="personal_ls_update_to"></span>更新至
+						{{learningSituation.ls_update_time | toDate}}
+					</div> -->
+				</div>
+        
+	        	<!-- <div class="zhuye-tit"><div class="zhuye-tit-info zhuye-tit-wode" translate="personal_ls_sns_my" ng-if="isMeInd">我的</div><div class="zhuye-tit-info zhuye-tit-wode" ng-if="!isMeInd">Ta</div></div>      
+				<div class="jifen-area clearfix">
+		     		<div class="jifen-area-gray jifen-area-line">
+		     			<span class="jifen-area-info-1"  translate="personal_ls_fans">粉 丝</span>
+		     			<em class="jifen-area-info-2" ngCloak>{{learningSituation.ls_fans_num}}</em>
+		     		</div> 
+		     		<div class="jifen-area-gray">
+		     			<span class="jifen-area-info-1" translate="personal_ls_sns_attention">关 注</span>
+		     			<em class="jifen-area-info-2" ngCloak>{{learningSituation.ls_attention_num}}</em>
+		     		</div>
+		     		<div class="jifen-area-gray jifen-area-line">
+		     			<span class="jifen-area-info-1"  translate="personal_ls_sns_praised">被 赞</span>
+		     			<em class="jifen-area-info-2" ngCloak>{{learningSituation.ls_praised_num}}</em>
+		     		</div> 
+		     		<div class="jifen-area-gray">
+		     			<span class="jifen-area-info-1" translate="personal_ls_sns_praise_others">赞他人</span>
+		     			<em class="jifen-area-info-2" ngCloak>{{learningSituation.ls_praise_others_num}}</em>
+		     		</div>
+		     		<div class="jifen-area-gray jifen-area-line">
+		     			<span class="jifen-area-info-1" translate="personal_ls_sns_collect">收 藏</span>
+		     			<em class="jifen-area-info-2" ngCloak>{{learningSituation.ls_collect_num}}</em>
+		     		</div> 
+				</div>
+	        
+	        	<div class="zhuye-tit"><div class="zhuye-tit-info zhuye-tit-qunzu" translate="personal_ls_sns_group">群组</div></div>
+				<div class="jifen-area clearfix">                  
+		     		<div class="jifen-area-gray jifen-area-line">
+		     			<span class="jifen-area-info-1" translate="personal_ls_create_group">创建群组</span>
+		     			<em class="jifen-area-info-2" ngCloak>{{learningSituation.ls_create_group_num}}</em>
+		     		</div> 
+		     		<div class="jifen-area-gray">
+		     			<span class="jifen-area-info-1" translate="personal_ls_join_group">参与群组</span>
+		     			<em class="jifen-area-info-2" ngCloak>{{learningSituation.ls_join_group_num}}</em>
+		     		</div>
+		    		<div class="jifen-area-gray jifen-area-line">
+		    			<span class="jifen-area-info-1" translate="personal_ls_sns_group_speech">群组发言</span>
+		    			<em class="jifen-area-info-2" ngCloak>{{learningSituation.ls_group_speech_num}}</em>
+		    		</div> 
+				</div>
+	        
+		        <div class="zhuye-tit"><div class="zhuye-tit-info zhuye-tit-wenda" translate="personal_ls_knowque">问答</div></div> -->
+				<!-- <div class="jifen-area clearfix">                        
+		     		<div class="jifen-area-gray jifen-area-line">
+		     			<span class="jifen-area-info-1" translate="personal_ls_question">提问数</span>
+		     			<em class="jifen-area-info-2" ngCloak>{{learningSituation.ls_question_num}}</em>
+		     		</div> 
+		     		<div class="jifen-area-gray">
+		     			<span class="jifen-area-info-1" translate="personal_ls_anwser">回答数</span>
+		     			<em class="jifen-area-info-2" ngCloak>{{learningSituation.ls_answer_num}}</em>
+		     		</div>
+				</div> -->
+			</div> <!-- panel End -->
+		</pane>
+	  </tabs>
+	</div>
+	
+  </section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Child List
+suffix								   :ChildLst
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : childlst.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+a.wbChildLstSText, .wbChildLstCountText {
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+a.wbChildLstSText:hover, .wbChildLstLink:hover {
+	color: #009999;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbChildLstBg{
+	background-color: #DEF7FF;
+}
+
+.wbChildLstCountSText,.wbChildLstCountText, .wbChildLstCountText {
+	color: #000000;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbChildLstSText{
+	color: #191970;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbChildLstText, .wbChildLstLink,.wbChildLstLink:visited,.wbChildLstLink:active, .wbChildLstSText {
+	color: #191970;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}

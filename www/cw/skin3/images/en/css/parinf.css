@@ -1,0 +1,63 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Parent Info
+suffix								   :ParInf
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : parinf.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+.wbParInfBarBg{
+	background-color: #FF9900;
+}
+
+.wbParInfBg{
+	background-color: #D36E02;
+}
+
+.wbParInfContentBg{
+	background-color: #F5F0D8;
+}
+
+.wbParInfContentRedText{
+	color: #FF0099;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbParInfLinkSText{
+	color: #000000;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbParInfLinkText{
+	color: #000000;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbParInfMultiTitleText, .wbParInfTitleTextBold, .wbParInfContentTextBold {
+	color: #000000;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbParInfResLeftBg{
+	background: #FAEBA5;
+	height: 16px;
+}
+
+.wbParInfResRightBg{
+	background: url(../frm_bg.gif) #FF9900;
+	height: 16px;
+}
+
+.wbParInfText{
+	color: #FFFFFF;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbParInfTitleBg, .wbParInfLinkBg {
+	background-color: #FAEBA5;
+}
+
+.wbParInfTitleText, .wbParInfContentText, .wbParInfMultiContentText, .wbParInfResLeftText {
+	color: #000000;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}

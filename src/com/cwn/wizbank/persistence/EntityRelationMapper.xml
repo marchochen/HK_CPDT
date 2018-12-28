@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.EntityRelationMapper">
+	<select id="get" resultType="EntityRelation" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				ern_child_ent_id,
+				ern_ancestor_ent_id,
+				ern_order,
+				ern_type,
+				ern_parent_ind,
+				ern_syn_timestamp,
+				ern_remain_on_syn,
+				ern_create_timestamp,
+				ern_create_usr_id
+			from EntityRelation t 
+			where
+				 t.ern_child_ent_id = #{id}
+		]]>
+	</select>	
+	<update id="update" parameterType="com.cwn.wizbank.entity.EntityRelation">
+	    <![CDATA[
+	        update EntityRelation t 
+	        set 
+				ern_child_ent_id = #{ern_child_ent_id,jdbcType=INTEGER},
+				ern_ancestor_ent_id = #{ern_ancestor_ent_id,jdbcType=INTEGER},
+				ern_order = #{ern_order,jdbcType=INTEGER},
+				ern_type = #{ern_type,jdbcType=VARCHAR},
+				ern_parent_ind = #{ern_parent_ind,jdbcType=INTEGER},
+				ern_syn_timestamp = #{ern_syn_timestamp,jdbcType=TIMESTAMP},
+				ern_remain_on_syn = #{ern_remain_on_syn,jdbcType=INTEGER},
+				ern_create_timestamp = #{ern_create_timestamp,jdbcType=TIMESTAMP},
+				ern_create_usr_id = #{ern_create_usr_id,jdbcType=VARCHAR}
+	         where t.ern_child_ent_id = #{ern_child_ent_id,jdbcType=INTEGER}
+	    ]]>
+    </update>    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.EntityRelation">
+    	<![CDATA[
+            insert into EntityRelation(
+            		ern_child_ent_id,
+            		ern_ancestor_ent_id,
+            		ern_order,
+            		ern_type,
+            		ern_parent_ind,
+            		ern_remain_on_syn,
+            		ern_create_timestamp,
+            		ern_create_usr_id
+            ) values (
+            	#{ern_child_ent_id,jdbcType=INTEGER},
+            	#{ern_ancestor_ent_id,jdbcType=INTEGER},
+            	#{ern_order,jdbcType=INTEGER},
+            	#{ern_type,jdbcType=VARCHAR},
+            	#{ern_parent_ind,jdbcType=INTEGER},
+            	#{ern_remain_on_syn,jdbcType=INTEGER},
+            	#{ern_create_timestamp,jdbcType=TIMESTAMP},
+            	#{ern_create_usr_id,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from EntityRelation where
+	        ern_child_ent_id = #{ern_child_ent_id}
+	    ]]>
+    </delete>	
+	<select id="selectAll" resultType="EntityRelation">
+	    <![CDATA[
+	         select 
+				ern_child_ent_id,
+				ern_ancestor_ent_id,
+				ern_order,
+				ern_type,
+				ern_parent_ind,
+				ern_syn_timestamp,
+				ern_remain_on_syn,
+				ern_create_timestamp,
+				ern_create_usr_id
+			from EntityRelation t 
+	    ]]>
+	</select>	
+	
+	<select id="getByChild" resultType="EntityRelation" parameterType="com.cwn.wizbank.entity.EntityRelation">
+    <![CDATA[
+         select 
+			ern_child_ent_id,
+			ern_ancestor_ent_id,
+			ern_order,
+			ern_type,
+			ern_parent_ind,
+			ern_syn_timestamp,
+			ern_remain_on_syn,
+			ern_create_timestamp,
+			ern_create_usr_id
+		from EntityRelation t  where ern_child_ent_id = #{ern_child_ent_id,jdbcType=INTEGER} 
+		   and ern_type = #{ern_type,jdbcType=VARCHAR}
+		   order by ern_order
+	
+    ]]>
+	</select>	
+	
+	<delete id="delByUsrEntId" parameterType="Long">
+		delete from EntityRelation where ern_child_ent_id = #{usrEntId} and ern_type = 'USR_PARENT_USG'
+	</delete>
+
+	<delete id="delAsAncestor" parameterType="String">
+		delete from entityRelation
+		where (ern_type = ? or ern_type = ?)
+		and ern_ancestor_ent_id=?
+	</delete>
+	
+	<delete id="delAsChild" parameterType="Map">
+		Delete From EntityRelation where ern_type=#{ern_type} and ern_child_ent_id=#{ent_id}
+	</delete>
+	
+	<select id="getEntityRelations" parameterType="Map" resultType="EntityRelation">
+    	select * from EntityRelation where ern_type = #{ern_type} 
+    	<if test="ancestor_ent_id > 0">
+    		and ern_ancestor_ent_id = #{ancestor_ent_id}
+    	</if>
+    	<if test="child_ent_id > 0">
+    		and ern_child_ent_id = #{child_ent_id}
+    	</if>
+    	<if test="ancestor_ent_id = 0 and child_ent_id = 0">
+    		and 1=2
+    	</if>
+	</select>
+	
+	<delete id="delAncestor" parameterType="Map">
+    	delete from entityRelation
+				where (ern_type = #{user_relation} or ern_type = #{child_relation}) and ern_ancestor_ent_id=#{ern_ancestor_ent_id}
+	</delete>
+	
+	<select id="getCount" parameterType="Map" resultType="Integer">
+	 	SELECT count(ern_child_ent_id) from EntityRelation WHERE
+             ern_child_ent_id = #{usr_ent_id}
+             And ern_type = #{ern_type} 
+             And ern_parent_ind = #{parent_ind}
+	</select>
+	
+	<select id="getList" parameterType="Long" resultType="EntityRelation">
+	       SELECT EntityRelation.* FROM EntityRelation WHERE ern_child_ent_id = #{usr_ent_id} 
+	</select>
+	
+	<delete id="delByChildEntId" parameterType="Long">
+		Delete From EntityRelation where ern_child_ent_id = #{usr_ent_id}
+	</delete>
+	
+</mapper>

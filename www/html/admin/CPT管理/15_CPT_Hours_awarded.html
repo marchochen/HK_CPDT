@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>wizbank网站管理平台</title>
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../../../static/js/layer/layer.js"></script>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/layer/skin/layer.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/jquery-table/css/jquery-table-default.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/jquery-table/css/jquery-table-admin.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/admin/css/admin.css"/>
+<!--[if lt IE 9]>
+    <script type="text/javascript" src="bootstrap/js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+<div class="wzb-body">
+<div class="wzb-top clearfix">
+     <a class="wzb-logo" href="###" title="wizbank"><img src="../../../static/images/wzb-logo.gif" alt="wizbank"/></a>
+     <div class="wzb-top-toggle"><i class="fa fa-bars"></i></div>
+     
+     <div class="wzb-tool">
+     <div class="wzb-menu">     
+          <ul class="clearfix">
+              <li><a class="wzb-menu-sup" href="###" title="信息"><i class="fa wzb-envelope-icon fa-envelope-o"></i> <span class="wzb-badge wzb-badge-purple">15</span></a></li>
+              <li>
+                  <a class="wzb-menu-sub" href="###" title="信息"><i class="fa wzb-envelope-icon fa-flag-o"></i> <span class="wzb-badge wzb-badge-pink">8</span></a>
+                  <ul>
+                      <li><a class="wzb-menu-son" href="###" title="报名审批"><i class="fa fa-check-circle-o"></i>报名审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="作业批改"><i class="fa fa-clipboard"></i>作业批改</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="试卷批改"><i class="fa fa-file-text-o"></i>试卷批改</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="知识审批"><i class="fa fa-life-ring"></i>知识审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="IDP审批"><i class="fa fa-level-up"></i>IDP审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="培训计划审批"><i class="fa fa-calendar"></i>培训计划审批</a></li>
+                 </ul>
+             </li>
+             <li>
+                 <a class="wzb-menu-sub" href="###" title="信息"><img class="wzb-user" src="images/wzb-user.jpg" alt="wizbank" />培训管理员<i class="fa wzb-caret-icon fa-caret-down"></i></a>
+                 <ul>
+                     <li><a class="wzb-menu-son" href="###" title="角色"><i class="fa fa-user"></i>角色</a>
+                         <dl>
+                             <dd><a href="###" title="学员">学员</a></dd>
+                             <dd><a href="###" title="培训管理员">培训管理员</a></dd>
+                             <dd><a href="###" title="系统管理员">系统管理员</a></dd>
+                             <dd><a href="###" title="考试监考员">考试监考员</a></dd>
+                         </dl>
+                     </li>
+                     <li><a class="wzb-menu-son" href="###" title="语言"><i class="fa fa-stack-exchange"></i>语言</a>
+                         <dl>
+                             <dd><a href="###" title="简体中文">简体中文</a></dd>
+                             <dd><a href="###" title="繁体中文">繁体中文</a></dd>
+                             <dd><a href="###" title="English">English</a></dd>
+                         </dl>
+                    </li>
+                    <li><a class="wzb-menu-son" href="###" title="我的档案"><i class="fa fa-instagram"></i>我的档案</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="修改密码"><i class="fa fa-key"></i>修改密码</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="我的喜好"><i class="fa fa-smile-o"></i>我的喜好</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="退出"><i class="fa fa-sign-out"></i>退出</a></li>
+                </ul>
+            </li>
+        </ul>
+      </div>  
+    </div>
+</div> <!-- wzb-top End-->
+
+<div class="wzb-sidebar">
+<div class="wzb-menu">
+    <ul>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-home"></i>首页</a></li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-globe"></i>资讯管理</a>
+            <ul>
+                <li><a href="###" title="">公告</a></li>
+                <li><a href="###" title="">资讯</a></li>
+                <li><a href="###" title="">常用工具</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-cubes"></i>需求管理</a>
+            <ul>
+                <li><a href="###" title="">投票</a></li>
+                <li><a href="###" title="">公共调查问卷</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-list-alt"></i>计划管理</a>
+            <ul>
+                <li><a href="###" title="">计划实施</a></li>
+                <li><a href="###" title="">年度计划</a></li>
+                <li><a href="###" title="">编外计划</a></li>
+                <li><a href="###" title="">年度计划审批</a></li>
+                <li><a href="###" title="">编外计审批</a></li>
+                <li><a href="###" title="">年度设置</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-maxcdn"></i>学习地图</a>
+            <ul>
+                <li><a href="###" title="">岗位发展路径</a></li>
+                <li><a href="###" title="">岗位</a></li>
+                <li><a href="###" title="">能力标签</a></li>
+                <li><a href="###" title="">能力测评模板</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-calendar"></i>培训管理</a>
+            <ul>
+                <li><a href="###" title="">网上课程</a></li>
+                <li><a href="###" title="">面授课程</a></li>
+                <li><a href="###" title="">项目式培训</a></li>
+                <li><a href="###" title="">证书</a></li>
+                <li><a href="###" title="">课程目录</a></li>
+                <li><a href="###" title="">公开课</a></li>
+                <li><a href="###" title="">教学资源</a></li>
+                <li><a href="###" title="">课程评估问卷</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-columns"></i>考试管理</a>
+            <ul>
+                <li><a href="###" title="">网上考试</a></li>
+                <li><a href="###" title="">离线考试</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-comments"></i>社区管理</a>
+            <ul>
+                <li><a href="###" title="">问答</a></li>
+                <li><a href="###" title="">群组</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-life-ring"></i>知识管理</a>
+            <ul>
+                <li><a href="###" title="">知识库</a></li>
+                <li><a href="###" title="">知识目录</a></li>
+                <li><a href="###" title="">知识标签</a></li>
+                <li><a href="###" title="">知识审批</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-table"></i>培训报表</a>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-child"></i>用户管理</a>
+            <ul>
+                <li><a href="###" title="">用户信息</a></li>
+                <li><a href="###" title="">职级</a></li>
+                <li><a href="###" title="">注册审批</a></li>
+                <li><a href="###" title="">用户激活</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-suitcase"></i>基础数据管理</a>
+            <ul>
+                <li><a href="###" title="">积分</a></li>
+                <li><a href="###" title="">内部讲题</a></li>
+                <li><a href="###" title="">外部讲题</a></li>
+                <li><a href="###" title="">供应商</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-wrench"></i>系统设置</a>
+            <ul>
+                <li><a href="###" title="">PC样式管理</a></li>
+                <li><a href="###" title="">移动管理</a></li>
+                <li><a href="###" title="">培训中心管理</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>    
+</div>  <!-- wzb-sibebar End-->
+
+<div class="wzb-wrapper">
+<div class="wzb-main">
+<div class="wzb-banner wzb-banner-bg01" style="opacity:1; background:rgb(0, 204, 51);"><i class="fa wzb-banner-icon fa-calendar"></i> CPT/D管理</div>
+
+<ol class="breadcrumb wzb-breadcrumb">
+  <li><a href="#"><i class="fa wzb-breadcrumb-home fa-home"></i>首页</a></li>
+  <li><a href="javascript:void(0)">课程管理</a></li>
+  <li><a href="javascript:void(0)">课程名称</a></li>
+  <li class="active">CPT/D可获得时数</li>
+</ol> <!-- wzb-breadcrumb End-->
+
+<div class="panel wzb-panel">
+    <!-- 内容添加开始 -->
+    <div class="panel-body">
+        <div style="width:646px;position:relative;height:98px;margin:0 auto;" id="buzhou">
+            <div class="buzhou" >
+                <div class="wzb-float wzb-buzhou1 wzb-hover over">
+                    01
+                    <span>框架信息</span>
+                    <div class="wzb-buzhou-jiao"></div>
+                </div>
+
+                <div class="wzb-float wzb-fudian">
+                    <img src="../../../static/images/wzb-dian-2.png" alt=""/>
+                </div>
+
+                <div  class="wzb-float wzb-buzhou1 wzb-hover over">
+                    02
+                    <span>网上学习内容</span>
+                    <div class="wzb-buzhou-jiao"></div>
+                </div>
+
+                <div class="wzb-float wzb-fudian">
+                    <img src="../../../static/images/wzb-dian-2.png" alt=""/>
+                </div>
+
+                <div class="wzb-float wzb-buzhou1 wzb-hover over" >
+                    03
+                    <span>分数与结训条件</span>
+                    <div class="wzb-buzhou-jiao"></div>
+                </div>
+
+                <div class="wzb-float wzb-fudian">
+                    <img src="../../../static/images/wzb-dian-2.png" alt=""/>
+                </div>
+
+                <div class="wzb-float wzb-buzhou1 wzb-hover over wzb-buzhou1_unpublish">
+                    <span>已发布</span><!-- 未发布是“发布”：去掉类名：wzb-buzhou1_unpublish，改为数字 04 -->
+                    <div class="wzb-buzhou-jiao"></div>
+                </div>
+
+                <div class="wzb-float wzb-fudian"></div>
+
+                <div class="wzb-float wzb-buzhou1 wzb-quan-wu wzb-buzhou-baominggl wzb-hover">
+                    <span>报名管理</span>
+                    <div class="wzb-buzhou-jiao"></div>
+                </div>
+
+                <div class="wzb-float wzb-fudian"></div>
+
+                <div class="wzb-float wzb-buzhou1 wzb-quan-wu wzb-buzhou-xuexijggl wzb-hover cur">
+                    <span>学习结果管理</span>
+                    <div class="wzb-buzhou-jiao"></div>
+                </div>
+
+                <div class="wzb-float wzb-fudian"></div>
+
+                <div class="wzb-float wzb-buzhou1 wzb-quan-wu wzb-buzhou-more wzb-hover" onclick="window.open('13_CPT_Hours.html')">
+                    <span>更多</span>
+                    <div class="wzb-buzhou-jiao"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="wzb-tab-7-show"></div>
+        <div style="display: inline-block;" class="wzb-tab-7 erjiyi">
+            <a href="javascript:void()"><span class="xxmkshezhi"><em>先修模块设置</em></span></a>
+            <a href="javascript:void()"><span class="xxkecheng"><em>先修课程设置</em></span></a>
+            <a href="javascript:void()"><span class="kcfeiyong"><em>课程费用</em></span></a>
+            <a href="javascript:void()"><span class="kcgonggao"><em>公告</em></span></a>
+            <a href="javascript:void()"><span class="plguanli"><em>评论管理</em></span></a>
+            <a class="active" href="javascript:void()"><span class="cptkhdshishu"><em>CPT/D可获得时数</em></span></a>
+        </div>
+
+        <div class="wzb-item-main margin-top28">
+            <div class="wzb-ui-desc-text">   
+                <span style="color:#64BF0F;">提示：</span>只有获得“已完成”状态的报名记录才会有可能获得CPT/D时数，所以这个列表只会显示学习状态为“已完成”的报名记录。
+            </div>
+
+            <form class="form-search">
+                <input name=" " type="text" class="form-control" placeholder="用户名/全名"><input type="button" class="form-submit margin-right4" value=""><input type="button" class="btn wzb-btn-orange margin-right4" id="cxjs" value="重新计算"><input type="button" class="btn wzb-btn-orange margin-right4" value="导出"><input type="button" class="btn wzb-btn-orange" value="导入">
+            </form>
+            
+            <div style="overflow-x:auto;">
+                <div class="datatable">
+                    <div class="datatable-body">
+                        <table cellpadding="0" cellspacing="0" class="datatable-table" style="table-layout:fixed">
+                            <thead class="datatable-table-thead">
+                                <tr class="datatable-table-row">
+                                    <th class="datatable-table-column-header text-left header-hover" width="100">用户名<i class="fa skin-color"></i></th>
+                                    <th class="datatable-table-column-header text-center" width="120">全名</th>
+                                    <th class="datatable-table-column-header text-center" width="180">用户组</th>
+                                    <th class="datatable-table-column-header text-center" width="200">INS CPD Hours (1.00)</th>
+                                    <th class="datatable-table-column-header text-center" width="200">MPF CPD Core Hours (1.00)</th>
+                                    <th class="datatable-table-column-header text-center" width="200">MPF CPD Non-core Hours (1.00)</th>
+                                    <th class="datatable-table-column-header text-center" width="200">HKMA CPT (RA 1, 4, 8) Hours (1.00)</th>
+                                    <th class="datatable-table-column-header text-center" width="200">HKMA CPT (RA 2, 5) Hours (1.00)</th>
+                                    <th class="datatable-table-column-header text-center" width="200">SFC CPT (RA 1, 4, 8) Hours (1.00)</th>
+                                    <th class="datatable-table-column-header text-center" width="200">SFC CPT (RA 2, 5) Hours (1.00)</th>
+                                    <th class="datatable-table-column-header text-right" width="100"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="datatable-table-tbody">
+                                <tr class="datatable-table-row">
+                                    <td class="datatable-table-column text-left"><span>*</span>100010</td>
+                                    <td class="datatable-table-column text-center">100010_Name</td>
+                                    <td class="datatable-table-column text-center">DEPT110_Desc_Long</td>
+                                    <td class="datatable-table-column text-center">0.00</td>
+                                    <td class="datatable-table-column text-center">0.00</td>
+                                    <td class="datatable-table-column text-center">0.00</td>
+                                    <td class="datatable-table-column text-center">0.00</td>
+                                    <td class="datatable-table-column text-center">0.00</td>
+                                    <td class="datatable-table-column text-center">0.00</td>
+                                    <td class="datatable-table-column text-center">0.00</td>
+                                    <td class="datatable-table-column text-right"><input type="button" class="btn wzb-btn-blue edit" value="修改"></td>
+                                </tr>
+                                <tr class="datatable-table-row">
+                                    <td class="datatable-table-column text-left"><span>*</span>100010</td>
+                                    <td class="datatable-table-column text-center">100010_Name</td>
+                                    <td class="datatable-table-column text-center">DEPT110_Desc_Long</td>
+                                    <td class="datatable-table-column text-center">0.00</td>
+                                    <td class="datatable-table-column text-center">0.00</td>
+                                    <td class="datatable-table-column text-center">0.00</td>
+                                    <td class="datatable-table-column text-center">0.00</td>
+                                    <td class="datatable-table-column text-center">0.00</td>
+                                    <td class="datatable-table-column text-center">0.00</td>
+                                    <td class="datatable-table-column text-center">0.00</td>
+                                    <td class="datatable-table-column text-right"><input type="button" class="btn wzb-btn-blue edit" value="修改"></td>
+                                </tr>
+                                <tr class="datatable-table-row">
+                                    <td class="datatable-table-column text-left">100010</td>
+                                    <td class="datatable-table-column text-center">100010_Name</td>
+                                    <td class="datatable-table-column text-center">DEPT110_Desc_Long</td>
+                                    <td class="datatable-table-column text-center">0.00</td>
+                                    <td class="datatable-table-column text-center">0.00</td>
+                                    <td class="datatable-table-column text-center">0.00</td>
+                                    <td class="datatable-table-column text-center">0.00</td>
+                                    <td class="datatable-table-column text-center">0.00</td>
+                                    <td class="datatable-table-column text-center">0.00</td>
+                                    <td class="datatable-table-column text-center">0.00</td>
+                                    <td class="datatable-table-column text-right"><input type="button" class="btn wzb-btn-blue edit" value="修改"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <form class="form-search">*<span class="wzb-form-star">表示要求时数已手动修改过</span></form>
+
+        </div>
+    </div>
+    <!-- 内容添加结束 -->
+
+    <script type="text/javascript">
+
+        $("#cxjs").click(function(){
+            layer.open({
+            type: 1,
+            closeBtn: 0,
+            title: '重新计算',
+            btn:['确定','取消'],
+            area: ['500px', '280px'], //宽高
+            content: '<div class="pop-up-word">系统将会依照课程中最新设置的CPT/D时数重新计算所有学员的CPT/D时数，原来手动修改的记录也会被清除。<br/>你确定要重新计算吗？</div>'
+            });
+        });
+
+        $(".edit").click(function(){
+            layer.open({
+            type: 1,
+            closeBtn: 0,
+            title: '修改',
+            btn:['确定','取消'],
+            area: ['620px', '600px'], //宽高
+            content: '<div>'+
+                        '<table cellpadding="0" cellspacing="0" class="margin-top20">'+
+                            '<tbody>'+
+                                '<tr>'+
+                                    '<td class="wzb-form-label">用户名：</td>'+
+                                    '<td class="wzb-form-control">100001</td>'+
+                                '</tr>'+
+                                '<tr>'+
+                                    '<td class="wzb-form-label">全名：</td>'+
+                                    '<td class="wzb-form-control">100001name</td>'+
+                                '</tr>'+
+                            '</tbody>'+
+                        '</table>'+
+                        '<table cellpadding="0" cellspacing="0" class="margin-top20">'+
+                            '<tbody>'+
+                                '<tr>'+
+                                    '<td class="wzb-form-label" width="60%"></td>'+
+                                    '<td class="wzb-form-control text-center" width="20%">核心时数</td>'+
+                                    '<td class="wzb-form-control text-center" width="20%">非核心时数</td>'+
+                                '</tr>'+
+                                '<tr>'+
+                                    '<td class="wzb-form-label">INS CPD：</td>'+
+                                    '<td class="wzb-form-control text-center"><input class="wzb-inputText" value="0.00" name=" " type="text" style="width:80px;"> hour(s)</td>'+
+                                    '<td class="wzb-form-control text-center"><input class="wzb-inputText" value="0.00" name=" " type="text" style="width:80px;"> hour(s)</td>'+
+                                '</tr>'+
+                                '<tr>'+
+                                    '<td class="wzb-form-label">MPF CPD：</td>'+
+                                    '<td class="wzb-form-control text-center"><input class="wzb-inputText" value="0.00" name=" " type="text" style="width:80px;"> hour(s)</td>'+
+                                    '<td class="wzb-form-control text-center"><input class="wzb-inputText" value="0.00" name=" " type="text" style="width:80px;"> hour(s)</td>'+
+                                '</tr>'+
+                                '<tr>'+
+                                    '<td class="wzb-form-label">HKMA CPT (RA 1, 4, 8)：</td>'+
+                                    '<td class="wzb-form-control text-center"><input class="wzb-inputText" value="0.00" name=" " type="text" style="width:80px;"> hour(s)</td>'+
+                                    '<td class="wzb-form-control text-center"><input class="wzb-inputText" value="0.00" name=" " type="text" style="width:80px;"> hour(s)</td>'+
+                                '</tr>'+
+                                '<tr>'+
+                                    '<td class="wzb-form-label">HKMA CPT (RA 2, 5)：</td>'+
+                                    '<td class="wzb-form-control text-center"><input class="wzb-inputText" value="0.00" name=" " type="text" style="width:80px;"> hour(s)</td>'+
+                                    '<td class="wzb-form-control text-center"><input class="wzb-inputText" value="0.00" name=" " type="text" style="width:80px;"> hour(s)</td>'+
+                                '</tr>'+
+                                '<tr>'+
+                                    '<td class="wzb-form-label">HKMA CPT (RA 3)：</td>'+
+                                    '<td class="wzb-form-control text-center"><input class="wzb-inputText" value="0.00" name=" " type="text" style="width:80px;"> hour(s)</td>'+
+                                    '<td class="wzb-form-control text-center"><input class="wzb-inputText" value="0.00" name=" " type="text" style="width:80px;"> hour(s)</td>'+
+                                '</tr>'+
+                                '<tr>'+
+                                    '<td class="wzb-form-label">HKMA CPT (RA 6)：</td>'+
+                                    '<td class="wzb-form-control text-center"><input class="wzb-inputText" value="0.00" name=" " type="text" style="width:80px;"> hour(s)</td>'+
+                                    '<td class="wzb-form-control text-center"><input class="wzb-inputText" value="0.00" name=" " type="text" style="width:80px;"> hour(s)</td>'+
+                                '</tr>'+
+                                '<tr>'+
+                                    '<td class="wzb-form-label">HKMA CPT (RA 9)：</td>'+
+                                    '<td class="wzb-form-control text-center"><input class="wzb-inputText" value="0.00" name=" " type="text" style="width:80px;"> hour(s)</td>'+
+                                    '<td class="wzb-form-control text-center"><input class="wzb-inputText" value="0.00" name=" " type="text" style="width:80px;"> hour(s)</td>'+
+                                '</tr>'+
+                            '</tbody>'+
+                        '</table>'+
+                    '</div>'
+            });
+        });
+
+        $(".header-hover").hover(function(){
+            $(this).toggleClass('datatable-table-column-header-hover');
+            $('.datatable-table-column-header i').toggleClass('fa-caret-down');
+        });
+    </script>
+
+
+
+
+
+
+</div>  <!-- wzb-panel End-->
+
+</div>  <!-- wzb-main End-->   
+
+</div> <!-- wzb-wrapper End-->
+
+<div class="wzb-footer"><div class="wzb-footer-box">wizbank6.5 @ 汇思 Cyberwisdom 版权所有</div></div>
+</div> <!-- wzb-body End-->
+
+</body>
+</html> 

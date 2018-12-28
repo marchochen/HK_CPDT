@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.AeAttendanceMapper">
+	<select id="get" resultType="AeAttendance" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				att_app_id,
+				att_ats_id,
+				att_remark,
+				att_create_usr_id,
+				att_create_timestamp,
+				att_update_usr_id,
+				att_update_timestamp,
+				att_rate,
+				att_itm_id,
+				att_timestamp,
+				att_rate_remark
+			from AeAttendance t 
+			where
+				 t.att_app_id = #{id}
+		]]>
+	</select>	
+	<update id="update" parameterType="com.cwn.wizbank.entity.AeAttendance">
+	    <![CDATA[
+	        update AeAttendance t 
+	        set 
+				att_app_id = #{att_app_id,jdbcType=INTEGER},
+				att_ats_id = #{att_ats_id,jdbcType=INTEGER},
+				att_remark = #{att_remark,jdbcType=VARCHAR},
+				att_create_usr_id = #{att_create_usr_id,jdbcType=VARCHAR},
+				att_create_timestamp = #{att_create_timestamp,jdbcType=TIMESTAMP},
+				att_upTIMESTAMP_usr_id = #{att_upTIMESTAMP_usr_id,jdbcType=VARCHAR},
+				att_upTIMESTAMP_timestamp = #{att_upTIMESTAMP_timestamp,jdbcType=TIMESTAMP},
+				att_rate = #{att_rate,jdbcType=DECIMAL},
+				att_itm_id = #{att_itm_id,jdbcType=INTEGER},
+				att_timestamp = #{att_timestamp,jdbcType=TIMESTAMP},
+				att_rate_remark = #{att_rate_remark,jdbcType=VARCHAR}
+	         where t.att_app_id = #{att_app_id,jdbcType=INTEGER}
+	    ]]>
+    </update>    
+    <update id="updateComplete" parameterType="com.cwn.wizbank.entity.AeAttendance">
+        <![CDATA[
+            update AeAttendance set 
+                att_ats_id = #{att_ats_id,jdbcType=INTEGER},
+                att_timestamp = #{att_timestamp,jdbcType=TIMESTAMP}
+             where att_app_id = #{att_app_id,jdbcType=INTEGER}
+        ]]>
+    </update> 
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.AeAttendance">
+    	<![CDATA[
+            insert into AeAttendance(
+                    att_app_id,
+            		att_ats_id,
+            		att_remark,
+            		att_create_usr_id,
+            		att_create_timestamp,
+            		att_update_usr_id,
+            		att_update_timestamp,
+            		att_rate,
+            		att_itm_id,
+            		att_timestamp,
+            		att_rate_remark
+            ) values (
+                #{att_app_id,jdbcType=INTEGER},
+            	#{att_ats_id,jdbcType=INTEGER},
+            	#{att_remark,jdbcType=VARCHAR},
+            	#{att_create_usr_id,jdbcType=VARCHAR},
+            	#{att_create_timestamp,jdbcType=TIMESTAMP},
+            	#{att_update_usr_id,jdbcType=VARCHAR},
+            	#{att_update_timestamp,jdbcType=TIMESTAMP},
+            	#{att_rate,jdbcType=DECIMAL},
+            	#{att_itm_id,jdbcType=INTEGER},
+            	#{att_timestamp,jdbcType=TIMESTAMP},
+            	#{att_rate_remark,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from AeAttendance where
+	        att_app_id = #{att_app_id}
+	    ]]>
+    </delete>	
+	<select id="selectAll" resultType="AeAttendance">
+	    <![CDATA[
+	         select 
+				att_app_id,
+				att_ats_id,
+				att_remark,
+				att_create_usr_id,
+				att_create_timestamp,
+				att_update_usr_id,
+				att_update_timestamp,
+				att_rate,
+				att_itm_id,
+				att_timestamp,
+				att_rate_remark
+			from AeAttendance t 
+	    ]]>
+	</select>
+	
+	<select id="getEnrollmentTime" resultType="AeAttendance">
+	    <![CDATA[
+	         select 
+				att_app_id,
+				att_ats_id,
+				att_remark,
+				att_create_usr_id,
+				att_create_timestamp,
+				att_update_usr_id,
+				att_update_timestamp,
+				att_rate,
+				att_itm_id,
+				att_timestamp,
+				att_rate_remark
+			from AeAttendance t 
+			where
+				t.att_app_id = #{att_app_id}
+	    ]]>
+	</select>	
+</mapper>

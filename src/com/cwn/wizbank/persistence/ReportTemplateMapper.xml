@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.ReportTemplateMapper">
+	<select id="get" resultType="ReportTemplate" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				rte_id,
+				rte_title_xml,
+				rte_type,
+				rte_get_xsl,
+				rte_exe_xsl,
+				rte_dl_xsl,
+				rte_meta_data_url,
+				rte_seq_no,
+				rte_owner_ent_id,
+				rte_create_usr_id,
+				rte_create_timestamp,
+				rte_upd_usr_id,
+				rte_upd_timestamp
+			from ReportTemplate t
+			where
+				 t.rte_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.ReportTemplate">
+	    <![CDATA[
+	        update ReportTemplate
+	        set 
+				rte_id = #{rte_id,jdbcType=INTEGER},
+				rte_title_xml = #{rte_title_xml,jdbcType=VARCHAR},
+				rte_type = #{rte_type,jdbcType=VARCHAR},
+				rte_get_xsl = #{rte_get_xsl,jdbcType=VARCHAR},
+				rte_exe_xsl = #{rte_exe_xsl,jdbcType=VARCHAR},
+				rte_dl_xsl = #{rte_dl_xsl,jdbcType=VARCHAR},
+				rte_meta_data_url = #{rte_meta_data_url,jdbcType=VARCHAR},
+				rte_seq_no = #{rte_seq_no,jdbcType=INTEGER},
+				rte_owner_ent_id = #{rte_owner_ent_id,jdbcType=INTEGER},
+				rte_create_usr_id = #{rte_create_usr_id,jdbcType=VARCHAR},
+				rte_create_timestamp = #{rte_create_timestamp,jdbcType=DATE},
+				rte_upd_usr_id = #{rte_upd_usr_id,jdbcType=VARCHAR},
+				rte_upd_timestamp = #{rte_upd_timestamp,jdbcType=DATE}
+	         where t.rte_id = #{rte_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.ReportTemplate">
+    	<![CDATA[
+            insert into ReportTemplate(
+            		rte_title_xml,
+            		rte_type,
+            		rte_get_xsl,
+            		rte_exe_xsl,
+            		rte_dl_xsl,
+            		rte_meta_data_url,
+            		rte_seq_no,
+            		rte_owner_ent_id,
+            		rte_create_usr_id,
+            		rte_create_timestamp,
+            		rte_upd_usr_id,
+            		rte_upd_timestamp
+            ) values (
+            	#{rte_title_xml,jdbcType=VARCHAR},
+            	#{rte_type,jdbcType=VARCHAR},
+            	#{rte_get_xsl,jdbcType=VARCHAR},
+            	#{rte_exe_xsl,jdbcType=VARCHAR},
+            	#{rte_dl_xsl,jdbcType=VARCHAR},
+            	#{rte_meta_data_url,jdbcType=VARCHAR},
+            	#{rte_seq_no,jdbcType=INTEGER},
+            	#{rte_owner_ent_id,jdbcType=INTEGER},
+            	#{rte_create_usr_id,jdbcType=VARCHAR},
+            	#{rte_create_timestamp,jdbcType=DATE},
+            	#{rte_upd_usr_id,jdbcType=VARCHAR},
+            	#{rte_upd_timestamp,jdbcType=DATE}
+            )
+        ]]>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from ReportTemplate where
+	        rte_id = #{rte_id}
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="ReportTemplate">
+	    <![CDATA[
+	         select 
+				rte_id,
+				rte_title_xml,
+				rte_type,
+				rte_get_xsl,
+				rte_exe_xsl,
+				rte_dl_xsl,
+				rte_meta_data_url,
+				rte_seq_no,
+				rte_owner_ent_id,
+				rte_create_usr_id,
+				rte_create_timestamp,
+				rte_upd_usr_id,
+				rte_upd_timestamp
+			from ReportTemplate t 
+	    ]]>
+	</select>
+</mapper>

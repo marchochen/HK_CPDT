@@ -1,0 +1,90 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" charset="utf-8" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/scorm2004lib.js"></script>
+<title>Welcome</title>
+<style type="text/css">
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	font-size:14px;
+}
+</style>
+<script language="javascript" type="text/javascript">
+var _isco=0, _loadi=0, lookCheckNum=31757;
+var _scourl="",_scoid="",_adapterStr="";
+var startDate;
+var beTerminate=false;
+function scoInit(){
+	_isco=window.parent.isco;
+	_scoid=window.parent.scoID[_isco];
+	_scourl=window.parent.scoURL[_isco];
+	_cmi_mode=window.parent.cmi_mode;
+	_cmi_learner_id=window.parent.cmi_learner_id;
+	_cmi_course_id=window.parent.cmi_course_id;
+	//
+	$("#scoIframe").height(window.document.body.clientHeight);
+	//
+	window.parent.setDebugInfo("SCO mode: "+_cmi_mode);
+	//
+	if(_cmi_mode=="normal"){
+		window.parent.adapterDOM.readCourseInfo("op=r&uid="+_cmi_learner_id+"&cid="+_cmi_course_id+"&iid="+_scoid);
+		lookCheckNum=window.setInterval("lookCheckInfo()",1000);
+	}else{
+		showContent(_scourl);
+	}
+}
+function lookCheckInfo(){
+	_loadi++;
+	if(_loadi<5){
+		_adapterStr=window.parent.adapterDOM.adapterStr;
+		if(_adapterStr!=""&&_adapterStr!=null&&typeof(_adapterStr)!="undefined"){
+			clearInterval(lookCheckNum);
+			_loadi=0;
+			window.parent.setDebugInfo("SCO record: "+_adapterStr);
+			if(_adapterStr!="init"){
+			   string2CMI(_adapterStr);
+			}
+			window.parent.setDebugInfo("SCO URL: "+_scourl);
+			showContent(_scourl);
+		}
+	}else{
+		clearInterval(lookCheckNum);
+		$("#scoScene").html("<p align='center'>Can not load the lastest record, <a href='"+_scourl+"' target='_self'>browse</a></p>");
+	}
+}
+$(window).resize(function() {
+	var newHeight=window.document.body.clientHeight;
+	$("#scoIframe").height(newHeight);
+});
+function resizeWebHeight(){
+	//var resizeHeight=window.frames["scoIframe"].document.body.clientHeight;
+	//document.body.scrollHeight=resizeHeight;
+}
+function showContent(_url){
+	var _contentH=window.document.body.clientHeight;
+	/*
+	if(_contentH<1000){
+		_contentH=1000;
+	}
+	*/
+	$("#scoIframe").height(_contentH);
+	var openContent="<iframe id='scoIframe' width='100%' height='"+_contentH+"px' name='scoIframe' src='"+_url+"' frameborder='0' marginheight='0' marginwidth='0' scrolling='auto'></iframe>";
+	$("#scoScene").html(openContent);
+	startTimer();
+	var webt=setTimeout("resizeWebHeight()",5000);
+}
+function startTimer(){
+   startDate = new Date().getTime();
+}
+</script>
+</head>
+
+<body onLoad="javascript:scoInit()" onUnload="javascript:unLoadSCO()">
+<div id="scoScene" style="width:100%">
+<iframe id='scoIframe' width='100%' name='scoIframe' src='scoblank.html' frameborder='0' marginheight='0' marginwidth='0' scrolling='auto'></iframe></div>
+</body>
+</html>

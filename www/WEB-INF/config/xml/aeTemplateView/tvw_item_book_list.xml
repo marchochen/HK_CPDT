@@ -1,0 +1,25 @@
+<template_view>
+	<section id="1">
+		<field21>
+			<title>
+				<desc lan="ISO-8859-1" name="Author"/>
+				<desc lan="Big5" name="作者"/>
+				<desc lan="GB2312" name="作者"/>
+			</title>
+		</field21>
+		<field24>
+			<title>
+				<desc lan="ISO-8859-1" name="Publisher"/>
+				<desc lan="Big5" name="出版社"/>
+				<desc lan="GB2312" name="出版社"/>
+			</title>
+		</field24>
+		<field25>
+			<title>
+				<desc lan="ISO-8859-1" name="Year"/>
+				<desc lan="Big5" name="出版日期"/>
+				<desc lan="GB2312" name="出版日期"/>
+			</title>
+		</field25>
+	</section>
+</template_view>

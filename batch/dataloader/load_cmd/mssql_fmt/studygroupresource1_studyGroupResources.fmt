@@ -1,0 +1,11 @@
+8.0
+9
+1 SQLNCHAR 0 0 "\t\0" 1 sgs_id ""
+2 SQLNCHAR 0 0 "\t\0" 2 sgs_title ""
+3 SQLNCHAR 0 0 "\t\0" 3 sgs_type ""
+4 SQLNCHAR 0 0 "\t\0" 4 sgs_content ""
+5 SQLNCHAR 0 0 "\t\0" 5 sgs_desc ""
+6 SQLNCHAR 0 0 "\t\0" 6 sgs_create_timestamp ""
+7 SQLNCHAR 0 0 "\t\0" 7 sgs_create_usr_id ""
+8 SQLNCHAR 0 0 "\t\0" 8 sgs_update_timestamp ""
+9 SQLNCHAR 0 0 "\r\0\n\0" 9 sgs_update_usr_id "" 

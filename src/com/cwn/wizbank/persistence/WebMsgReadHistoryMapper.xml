@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.WebMsgReadHistoryMapper">
+	<select id="get" resultType="WebMsgReadHistory" parameterType="java.lang.Long">
+		select 
+			wmrh_wmsg_id,
+			wmrh_status,
+			wmrh_read_datetime
+		from WebMsgReadHistory t
+		where 1=1
+	</select>
+	<update id="update" parameterType="WebMsgReadHistory">
+        update WebMsgReadHistory
+        set 
+			wmrh_wmsg_id = #{wmrh_wmsg_id,jdbcType=INTEGER},
+			wmrh_status = #{wmrh_status,jdbcType=VARCHAR},
+			wmrh_read_datetime = #{wmrh_read_datetime,jdbcType=TIMESTAMP}
+    </update>
+    <insert id="insert" parameterType="WebMsgReadHistory">
+		insert into WebMsgReadHistory(
+			wmrh_wmsg_id,
+        	wmrh_status,
+    		wmrh_read_datetime
+  		) values (
+      		#{wmrh_wmsg_id,jdbcType=INTEGER},
+       		#{wmrh_status,jdbcType=VARCHAR},
+      		#{wmrh_read_datetime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from WebMsgReadHistory where 1=1
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="WebMsgReadHistory">
+	    <![CDATA[
+	         select 
+				wmrh_wmsg_id,
+				wmrh_status,
+				wmrh_read_datetime
+			from WebMsgReadHistory t 
+	    ]]>
+	</select>
+	<select id="selectWebMsgReadHistory" resultType="WebMsgReadHistory" parameterType="java.lang.Long">
+		select 
+			wmrh_wmsg_id,
+			wmrh_status,
+			wmrh_read_datetime
+		from WebMsgReadHistory 
+		where  wmrh_wmsg_id = #{wmsg_id}
+	</select>
+</mapper>

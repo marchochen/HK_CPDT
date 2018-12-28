@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>Cyberwisdom wizBank</title>
+<script src="../js/gen_utils.js" language="JavaScript"></script>
+<script src="../js/wb_utils.js" language="JavaScript"></script>
+<script language="JavaScript">
+function redirect(){
+		varible = window.location.search.substring(1);
+		gotoPage = varible.substring(0,varible.indexOf('&'));
+		varible = varible.substring(varible.indexOf('&'),varible.length);
+		if(gotoPage == '1'){
+			if ( wb_utils_get_cookie('forum_default_view') == 'msg_lst'){
+				url = wb_utils_invoke_servlet('cmd','get_mod','extend','1','unthread','1','stylesheet', 'forum_msg_lst.xsl');
+			}else {
+				url = wb_utils_invoke_servlet('cmd','get_mod','extend','1','stylesheet', 'forum2.xsl');
+			}
+			url += varible;
+		}else{
+			
+			url_success = wb_utils_invoke_servlet('cmd','view_for_msgs','stylesheet','forum_view_msg.xsl');
+			url_success += varible;
+			url = wb_utils_invoke_servlet('cmd','mark_for_msgs','url_success',url_success)
+			url += varible;
+		}
+		//alert(url);
+		window.location.href = url;
+}
+redirect();
+</script>
+</head>
+<body>
+</body>
+</html>

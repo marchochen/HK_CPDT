@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.MessageTemplateMapper">
+	
+	
+	<sql id="page_where">
+		<where>
+		</where>
+	</sql>
+	
+	<select id="getCount" resultType="java.lang.Integer" parameterType="Map">
+	    <![CDATA[
+	        select count(*) from MessageTemplate t 
+	    ]]>
+	    <include refid="page_where"/>
+	</select>
+
+	
+	<select id="get" resultType="MessageTemplate" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				mtp_id,
+				mtp_type,
+				mtp_subject,
+				mtp_content,
+				mtp_content_email_link,
+				mtp_content_pc_link,
+				mtp_content_mobile_link,
+				mtp_remark_label,
+				mtp_web_message_ind,
+				mtp_active_ind,
+				mtp_tcr_id,
+				mtp_update_ent_id,
+				mtp_update_timestamp,
+				mtp_header_img,
+				mtp_footer_img
+			from MessageTemplate 
+			where
+				 mtp_id = #{id}
+		]]>
+	</select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.MessageTemplate">
+	    <![CDATA[
+	        update MessageTemplate
+	        set 
+				mtp_type = #{mtp_type,jdbcType=VARCHAR},
+				mtp_subject = #{mtp_subject,jdbcType=VARCHAR},
+				mtp_content = #{mtp_content,jdbcType=VARCHAR},
+				mtp_content_email_link = #{mtp_content_email_link,jdbcType=VARCHAR},
+				mtp_content_pc_link = #{mtp_content_pc_link,jdbcType=VARCHAR},
+				mtp_content_mobile_link = #{mtp_content_mobile_link,jdbcType=VARCHAR},
+				mtp_remark_label = #{mtp_remark_label,jdbcType=VARCHAR},
+				mtp_web_message_ind = #{mtp_web_message_ind,jdbcType=BOOLEAN},
+				mtp_active_ind = #{mtp_active_ind,jdbcType=BOOLEAN},
+				mtp_tcr_id = #{mtp_tcr_id,jdbcType=INTEGER},
+				mtp_update_ent_id = #{mtp_update_ent_id,jdbcType=INTEGER},
+				mtp_update_timestamp = #{mtp_update_timestamp,jdbcType=DATE},
+				mtp_header_img = #{mtp_header_img,jdbcType=VARCHAR},
+				mtp_footer_img = #{mtp_footer_img,jdbcType=VARCHAR}
+	         where mtp_id = #{mtp_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.MessageTemplate">
+    	<![CDATA[
+            insert into MessageTemplate(
+            		mtp_type,
+            		mtp_subject,
+            		mtp_content,
+            		mtp_content_email_link,
+            		mtp_content_pc_link,
+            		mtp_content_mobile_link,
+            		mtp_remark_label,
+            		mtp_web_message_ind,
+            		mtp_active_ind,
+            		mtp_tcr_id,
+            		mtp_update_ent_id,
+            		mtp_update_timestamp,
+            		mtp_header_img,
+            		mtp_footer_img
+            ) values (
+            	#{mtp_type,jdbcType=VARCHAR},
+            	#{mtp_subject,jdbcType=VARCHAR},
+            	#{mtp_content,jdbcType=VARCHAR},
+            	#{mtp_content_email_link,jdbcType=VARCHAR},
+            	#{mtp_content_pc_link,jdbcType=VARCHAR},
+            	#{mtp_content_mobile_link,jdbcType=VARCHAR},
+            	#{mtp_remark_label,jdbcType=VARCHAR},
+            	#{mtp_web_message_ind,jdbcType=BOOLEAN},
+            	#{mtp_active_ind,jdbcType=BOOLEAN},
+            	#{mtp_tcr_id,jdbcType=INTEGER},
+            	#{mtp_update_ent_id,jdbcType=INTEGER},
+            	#{mtp_update_timestamp,jdbcType=DATE},
+            	#{mtp_header_img,jdbcType=VARCHAR},
+            	#{mtp_footer_img,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>
+    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from MessageTemplate where
+	        mtp_id = #{mtp_id}
+	    ]]>
+    </delete>
+	
+	<select id="selectAll" resultType="MessageTemplate">
+	    <![CDATA[
+	         select 
+				mtp_id,
+				mtp_type,
+				mtp_subject,
+				mtp_content,
+				mtp_content_email_link,
+				mtp_content_pc_link,
+				mtp_content_mobile_link,
+				mtp_remark_label,
+				mtp_web_message_ind,
+				mtp_active_ind,
+				mtp_tcr_id,
+				mtp_update_ent_id,
+				mtp_update_timestamp,
+				mtp_header_img,
+				mtp_footer_img
+			from MessageTemplate 
+	    ]]>
+	</select>
+	
+	<select id="getByType" parameterType="Map" resultType="MessageTemplate">
+		select 
+			mtp_id,
+			mtp_type,
+			mtp_subject,
+			mtp_content,
+			mtp_content_email_link,
+			mtp_content_pc_link,
+			mtp_content_mobile_link,
+			mtp_remark_label,
+			mtp_web_message_ind,
+			mtp_active_ind,
+			mtp_tcr_id,
+			mtp_update_ent_id,
+			mtp_update_timestamp,
+			mtp_header_img,
+			mtp_footer_img
+		from MessageTemplate where mtp_type = #{tpl_type} and mtp_tcr_id = #{tcr_id} 
+	</select>	
+	
+</mapper>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html ng-app="rank">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title>Document</title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/RankController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak"  ng-controller="learningSituationController">
+
+<div class="wrap">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back();" title="back"></a>
+    <span class="header-title" translate="rank_learning_title"><!--学习排行榜--></span>
+</header> <!-- header End -->
+
+<section class="content">
+<div class="list-pic-4">
+<div class="own-box">
+<div class="own-box-area">
+    <div class="own-box-tit-3">
+        <span translate="global_di"></span><!--第-->
+        <span class="own-box-nun-1" ng-bind="myLearningSituation.rownum ? myLearningSituation.rownum : '--'"></span>
+        {{'rank_until' | translate | ranking : myLearningSituation.rownum}}
+    </div>
+     <div class="own-box-tit-4" forward="myLearningSituation && myLearningSituation.user ? myLearningSituation.user.usr_ent_id : loginUserId | personUrl" ng-bind="myLearningSituation.user.usr_display_bil"></div>
+     
+     <div class="own-box-pic-2">
+          <a class="own-box-user" href="javascript:;" forward="myLearningSituation && myLearningSituation.user ? myLearningSituation.user.usr_ent_id : loginUserId | personUrl" title="">
+             <div>
+             	<img id="user_photo_{{user.usr_photo}}" ng-src="{{serverHost}}{{user.usr_photo}}" alt=""/>
+             </div>
+          </a>
+     </div>
+</div>     
+</div>
+
+<div class="list-pic-4-bg"></div>
+</div> <!-- list-pic-4 End -->
+
+<div class="panel-list-cont-9">            
+     <div class="panel-add-01">
+          <em class="panel-num-5">
+              <i class="panel-num-13" ng-bind="myLearningSituation.ls_learn_duration/60/60/24 | toint"></i>
+              <i class="panel-num-14" translate="rank_date_until"><!--天--></i>
+              <i class="panel-num-15">{{myLearningSituation.ls_learn_duration/60/60%24 | toint | timeFormat}}:{{myLearningSituation.ls_learn_duration/60%60 | toint | timeFormat}}:{{myLearningSituation.ls_learn_duration%60 | toint | timeFormat}}</i></em>
+          <span translate="rank_learning_total_time"></span><!--总时长-->
+     </div>
+</div>
+
+<ul class="panel-list-1-11">
+    <li ng-repeat="learingSituation in learningSituationRank.items" forward="learingSituation.user.usr_ent_id | personUrl">
+         <div class="box-frame clearfix">
+              <span class="{{$index == 0 ? 'box-num-1' : $index==1?'box-num-3': $index==2?'box-num-4':'box-num-2'}}" ng-bind="$index+1"></span>
+              <div class="box-num-info clearfix" >
+                   <img id="user_photo_{{learingSituation.user.usr_ent_id}}" class="box-num-pic" ng-src="{{serverHost + learingSituation.user.usr_photo}}" forward="learingSituation.user.usr_ent_id | personUrl" alt=""/>
+                   <a class="box-num-tit" href="javascript:;" title="" ng-bind="learingSituation.user.usr_display_bil" forward="learingSituation.user.usr_ent_id | personUrl"></a>
+                  <span class="box-num-worth">
+                      <i class="panel-num-20" ng-bind="learingSituation.ls_learn_duration/60/60/24 | toint"></i>
+                      <i class="panel-num-19" translate="rank_date_until"><!--天--></i>
+                      <i class="panel-num-20">{{learingSituation.ls_learn_duration/60/60%24 | toint | timeFormat}}:{{learingSituation.ls_learn_duration/60%60 | toint | timeFormat}}:{{learingSituation.ls_learn_duration%60 | toint | timeFormat}}</i>
+                  </span>
+              </div> 
+         </div>
+    </li>
+</ul>
+<div loader="learningSituationRank"></div>
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.ImsLogMapper">
+	
+<select id="searchAll" resultType="com.cwn.wizbank.entity.ImsLog" parameterType="Page">
+		<![CDATA[
+		 SELECT usr_display_bil, ilg_id, ilg_process, ilg_type, ilg_filename, ilg_desc, ilg_create_timestamp, ilg_method 
+         FROM RegUSer, ImsLog 
+         WHERE ilg_create_usr_id = usr_id 
+         ]]>
+            
+        <if test="params.ilg_type !=null and params.ilg_type !=''">
+            <![CDATA[
+             AND ilg_type = #{params.ilg_type}
+            ]]>
+        </if>
+        
+        <if test="params.current_role !='SADM' ">
+            <![CDATA[
+             AND usr_ste_ent_id = #{params.root_ent_id}  AND ilg_tcr_id= #{params.my_top_tc_id}
+            ]]>
+        </if>
+        
+        <if test="params.ilg_process !=null and params.ilg_process !=''">
+            <![CDATA[
+             AND ilg_process = #{params.ilg_process}
+            ]]>
+        </if>
+        
+        <![CDATA[
+		 order by ilg_create_timestamp desc
+		]]>
+	</select>
+
+  
+
+
+</mapper>

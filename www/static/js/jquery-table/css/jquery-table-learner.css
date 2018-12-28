@@ -1,0 +1,15 @@
+a{ color: #999;}
+
+/* datatable */
+.datatable table.datatable-table thead.datatable-table-thead th.datatable-table-column-header{  background: #FFF; color: #999;  padding:10px 0;}
+.datatable table.datatable-table thead.datatable-table-thead th.datatable-table-column-header-hover { border-bottom: 1px solid orange; cursor: pointer;}
+.datatable table.datatable-table tbody.datatable-table-tbody tr.datatable-table-row.datatable-table-row-last td.datatable-table-column{ border-bottom: 0;}
+.datatable .datatable-body .datatable-table-grid-4:nth-of-type(4) .datatable-table-grid-content li,.datatable .datatable-body .datatable-table-grid-4:nth-of-type(9) .datatable-table-grid-content li{ margin:25px 0 0 0;}
+table.datatable{ width:100%; border-collapse:collapse;}
+table.datatable tr.head td.column{ border-bottom:1px solid silver;}
+table.datatable tr.row td.column{ border-bottom:1px solid silver;}
+
+/* losedata */
+.losedata{ width:100%; margin:0 auto; padding:100px 0 100px 0; text-align:center;}
+.losedata i{ font-size:78px; color:#ddd;}
+.losedata p{ font-size:20px; color:#999; font-family:"Microsoft YaHei","Microsoft YaHei";line-height:33px;}

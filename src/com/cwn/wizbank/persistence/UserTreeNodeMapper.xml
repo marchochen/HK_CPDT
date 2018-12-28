@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.UserTreeNodeMapper">
+    <!-- 
+    <select id="getTopLevelGroupTree" resultType="com.cwn.wizbank.entity.vo.TreeNodeVo" parameterType="Map">
+		select usg_ent_id  as "id" ,  tcr_parent_tcr_id as "pId" ,usg_display_bil as "name"
+		From 
+		<if test="isRoleTcInd != null and isRoleTcInd == true">
+			tcTrainingCenterOfficer tco, 
+			EntityRelation,   
+		</if>
+			tcTrainingCenterTargetEntity tce,                                                                            
+			tcTrainingCenter,   
+			UserGroup 
+		where 
+            tcr_status = 'OK' 
+			and tce_tcr_id = tcr_id                                                            
+			and tce_ent_id = usg_ent_id 
+			and tce_ent_id = ern_child_ent_id  
+			<if test="isRoleTcInd != null and isRoleTcInd == true">     
+				and tco_usr_ent_id = #{user_ent_id} 
+				and tco.tco_rol_ext_id = #{user_role} 
+				and tco_tcr_id = tce_tcr_id
+			</if>            
+			and  not exists(                                                                                         
+				select ern_child_ent_id 
+				from EntityRelation tem 
+				where 
+				ern_type = 'USG_PARENT_USG' 
+				and tce.tce_ent_id = tem.ern_child_ent_id 
+				and                                                       
+				exists(                                                                                              
+					select distinct ern_child_ent_id 
+					From 
+					<if test="isRoleTcInd != null and isRoleTcInd == true">
+						tcTrainingCenterOfficer,    
+					</if>                                   
+						tcTrainingCenterTargetEntity,                                                                        
+						tcTrainingCenter, 
+						UserGroup, 
+						EntityRelation ern 
+					where 
+						tcr_status = 'OK' 
+						and tce_tcr_id = tcr_id  
+						and tce_ent_id = ern_child_ent_id  
+					<if test="isRoleTcInd != null and isRoleTcInd == true">
+						and tco_usr_ent_id = #{user_ent_id} 
+						and tco_tcr_id = tcr_id   
+					</if>  
+						and tce_ent_id = usg_ent_id           
+					   	and tem.ern_ancestor_ent_id = ern.ern_child_ent_id                                                 
+					)                                                                                                    
+			) 
+		  <if test="isRoleTcInd != null and isRoleTcInd == true">	
+			<if test="top_tcr_id != null"> 
+				and (
+					tce_tcr_id in(
+							select tcn_child_tcr_id from tcrelation where tcn_ancestor= #{top_tcr_id}
+					) 
+					or tce_tcr_id = #{top_tcr_id}
+				)
+			</if>
+		  </if>	
+			GROUP BY usg_ent_id , tcr_parent_tcr_id , usg_display_bil
+    </select>
+     -->
+    
+    <select id="getNextLevelGroupTree" resultType="com.cwn.wizbank.entity.vo.TreeNodeVo" parameterType="Map">
+    	select  
+    		usg_ent_id  as "id"  , ern_ancestor_ent_id as "pId" ,usg_display_bil as "name"
+		From 
+			<if test="isRoleTcInd != null and isRoleTcInd == true">
+			tcTrainingCenterOfficer tco,
+			</if>           
+			tcTrainingCenterTargetEntity tce,                                                                            
+			UserGroup usg,
+			EntityRelation ern                                                                                               
+		where 
+			ern.ern_type = 'USG_PARENT_USG'
+			and ern.ern_child_ent_id = usg.usg_ent_id
+			and ern.ern_parent_ind = 1  
+			<if test="isRoleTcInd != null and isRoleTcInd == true">
+			and tco.tco_tcr_id = tce.tce_tcr_id
+			and tco.tco_usr_ent_id = #{user_ent_id} 
+			and tco.tco_rol_ext_id = #{user_role} 
+			</if>
+			and ern.ern_ancestor_ent_id = #{usg_id} 
+			<if test="top_tcr_id != null"> 
+			and (
+				tce_tcr_id in(
+						select tcn_child_tcr_id from tcrelation where tcn_ancestor= #{top_tcr_id}
+				) 
+				or tce_tcr_id = #{top_tcr_id}
+			)
+			</if>
+			<if test="showSubordinateInd != null and showSubordinateInd == true">
+			and usg_ent_id in (
+			       select distinct entityRelation.ern_ancestor_ent_id as id1
+			       from superviseTargetEntity , entityRelation 
+			       where 1=1
+			       and ern_child_ent_id = spt_target_ent_id 
+			       and ern_type = 'USG_PARENT_USG'
+			       and spt_type = 'SUPERVISE' 
+			       and spt_source_usr_ent_id = #{user_ent_id} 
+			       
+			       union 
+			       
+			       select distinct entityRelation.ern_child_ent_id as id1
+			       from superviseTargetEntity , entityRelation 
+			       where 1=1
+			        and ( ern_ancestor_ent_id = spt_target_ent_id or ern_child_ent_id = spt_target_ent_id)
+			       and ern_type = 'USG_PARENT_USG'
+			       and spt_type = 'SUPERVISE' 
+			       and spt_source_usr_ent_id = #{user_ent_id} 
+			       
+			       union
+			       
+			       select distinct entityRelation.ern_ancestor_ent_id as id1
+                    from superviseTargetEntity , entityRelation 
+                    where 1=1
+                    and ern_child_ent_id  = spt_target_ent_id
+                    and ern_type = 'USR_PARENT_USG'
+                    and spt_type = 'DIRECT_SUPERVISE' 
+                     and spt_source_usr_ent_id = #{user_ent_id} 
+			)
+			</if>  
+		GROUP BY usg_ent_id , ern_ancestor_ent_id , usg_display_bil
+		ORDER BY usg_display_bil
+    </select>
+    
+    
+    <select id="getTopLevelGroupTree" resultType="com.cwn.wizbank.entity.vo.TreeNodeVo" parameterType="Map">
+		select distinct usg_ent_id  as "id" , usg_display_bil as "name" , usg_role as "role"
+		From 
+			tcTrainingCenterTargetEntity tce,      
+		<if test="isRoleTcInd != null and isRoleTcInd == true">
+			tcTrainingCenterOfficer ,       
+			tcRelation,
+			EntityRelation,
+		</if>                                                               
+			tcTrainingCenter,   
+			UserGroup ,
+			ENTITY
+		where 
+            tcr_status = 'OK' 
+			and tce_tcr_id = tcr_id                                                            
+			and tce_ent_id = usg_ent_id 
+			
+			<!-- 排除已删除的用户组 -->
+			and usg_ent_id = ent_id 
+			and ENT_DELETE_TIMESTAMP IS NULL
+			and ENT_DELETE_USR_ID IS NULL
+			
+		<choose>
+			<when test="isRoleTcInd != null and isRoleTcInd == true">
+				and tco_usr_ent_id = #{user_ent_id} 
+				and tco_rol_ext_id = #{user_role} 
+				and tco_tcr_id = tce_tcr_id
+					
+				<if test="isTcIndependent != null and isTcIndependent == true"> 
+					<if test="top_tcr_id != null"> 
+						and (
+							tce_tcr_id in(
+									select tcn_child_tcr_id from tcrelation where tcn_ancestor= #{top_tcr_id}
+							) 
+							or tce_tcr_id = #{top_tcr_id}
+						)
+					</if>
+				</if>
+				
+				and (
+					usg_ent_id = ern_child_ent_id
+					and ern_type = #{ern_type}
+					and ern_child_ent_id not in (
+						select ern_child_ent_id from EntityRelation where ern_type = #{ern_type}
+						and ern_ancestor_ent_id in (
+							select distinct usg_ent_id
+							From 
+								tcTrainingCenterTargetEntity tce,      
+							<if test="isRoleTcInd != null and isRoleTcInd == true">
+								tcTrainingCenterOfficer ,       
+								tcRelation,
+								EntityRelation,
+							</if>                                                               
+								tcTrainingCenter,   
+								UserGroup ,
+								ENTITY
+							where 
+					            tcr_status = 'OK' 
+								and tce_tcr_id = tcr_id                                                            
+								and tce_ent_id = usg_ent_id 
+								
+								<!-- 排除已删除的用户组 -->
+								and usg_ent_id = ent_id 
+								and ENT_DELETE_TIMESTAMP IS NULL
+								and ENT_DELETE_USR_ID IS NULL
+								
+							<choose>
+								<when test="isRoleTcInd != null and isRoleTcInd == true">
+									and tco_usr_ent_id = #{user_ent_id} 
+									and tco_rol_ext_id = #{user_role} 
+									and tco_tcr_id = tce_tcr_id
+									and usg_ent_id = ern_child_ent_id
+									and ern_type = #{ern_type}
+									
+									<if test="isTcIndependent != null and isTcIndependent == true"> 
+										<if test="top_tcr_id != null"> 
+											and (
+												tce_tcr_id in(
+														select tcn_child_tcr_id from tcrelation where tcn_ancestor= #{top_tcr_id}
+												) 
+												or tce_tcr_id = #{top_tcr_id}
+											)
+										</if>
+									</if>
+								</when>
+								<otherwise>
+									and tcr_id = #{top_tcr_id} 
+								</otherwise>
+							</choose>
+						)
+					)
+					or tco_tcr_id = 1
+				)
+			</when>
+			<otherwise>
+				and tcr_id = #{top_tcr_id} 
+			</otherwise>
+		</choose>
+
+    </select>
+	
+</mapper>

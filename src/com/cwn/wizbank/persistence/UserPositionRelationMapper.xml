@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.UserPositionRelationMapper">
+	<select id="get" parameterType="Long" resultType="UserPositionRelation">
+		select *from UserPositionRelation where 1=1 and upr_usr_ent_id= #{id}
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.UserPositionRelation">
+		update UserPositionRelation set upr_upt_id = #{upr_upt_id}
+		where upr_usr_ent_id = #{upr_usr_ent_id}
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.Long">
+		delete UserPositionRelation where upr_usr_ent_id = #{id}
+	</delete>
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.UserPositionRelation">
+		insert into UserPositionRelation(upr_upt_id,upr_usr_ent_id)
+		values(#{upr_upt_id},#{upr_usr_ent_id})
+	</insert>
+	<select id="getCountById" parameterType="Map" resultType="int">
+		select count(upt_id) from UserPositionRelation
+		where 1=1
+    <if test="upr_usr_ent_id !=0  ">		 
+		and upr_usr_ent_id= #{upr_usr_ent_id}
+		 </if>
+	</select>
+	<delete id="batchDel" parameterType="Map">
+		delete from UserPositionRelation where upr_upt_id in (${ids})
+	</delete>
+</mapper>

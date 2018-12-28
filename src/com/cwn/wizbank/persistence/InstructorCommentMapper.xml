@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.InstructorCommentMapper">
+	<select id="get" resultType="InstructorComment" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				itc_id,
+				itc_itm_id,
+				itc_ent_id,
+				itc_iti_ent_id,
+				itc_style_score,
+				itc_quality_score,
+				itc_structure_score,
+				itc_interaction_score,
+				itc_score,
+				itc_comment,
+				itc_create_datetime,
+				itc_create_user_id,
+				itc_update_datetime,
+				itc_update_user_id
+			from InstructorComment t 
+			where
+				 t.itc_id = #{id}
+		]]>
+	</select>	
+	<update id="update" parameterType="com.cwn.wizbank.entity.InstructorComment">
+	    <![CDATA[
+	        update InstructorComment
+	        set 
+				itc_style_score = #{itc_style_score,jdbcType=DOUBLE},
+				itc_quality_score = #{itc_quality_score,jdbcType=DOUBLE},
+				itc_structure_score = #{itc_structure_score,jdbcType=DOUBLE},
+				itc_interaction_score = #{itc_interaction_score,jdbcType=DOUBLE},
+				itc_score = #{itc_score,jdbcType=DOUBLE},
+				itc_comment = #{itc_comment,jdbcType=VARCHAR},
+				itc_update_datetime = #{itc_update_datetime,jdbcType=TIMESTAMP},
+				itc_update_user_id = #{itc_update_user_id,jdbcType=VARCHAR}
+	         where itc_itm_id = #{itc_itm_id,jdbcType=INTEGER} 
+	         and itc_ent_id = #{itc_ent_id,jdbcType=INTEGER} 
+	    ]]>
+    </update>    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.InstructorComment">
+    	<![CDATA[
+            insert into InstructorComment(
+            		itc_itm_id,
+            		itc_ent_id,
+            		itc_iti_ent_id,
+            		itc_style_score,
+            		itc_quality_score,
+            		itc_structure_score,
+            		itc_interaction_score,
+            		itc_score,
+            		itc_comment,
+            		itc_create_datetime,
+            		itc_create_user_id,
+            		itc_update_datetime,
+            		itc_update_user_id
+            ) values (
+            	#{itc_itm_id,jdbcType=INTEGER},
+            	#{itc_ent_id,jdbcType=INTEGER},
+            	#{itc_iti_ent_id,jdbcType=INTEGER},
+            	#{itc_style_score,jdbcType=DOUBLE},
+            	#{itc_quality_score,jdbcType=DOUBLE},
+            	#{itc_structure_score,jdbcType=DOUBLE},
+            	#{itc_interaction_score,jdbcType=DOUBLE},
+            	#{itc_score,jdbcType=DOUBLE},
+            	#{itc_comment,jdbcType=VARCHAR},
+            	#{itc_create_datetime,jdbcType=TIMESTAMP},
+            	#{itc_create_user_id,jdbcType=VARCHAR},
+            	#{itc_update_datetime,jdbcType=TIMESTAMP},
+            	#{itc_update_user_id,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from InstructorComment where
+	        itc_id = #{itc_id}
+	    ]]>
+    </delete>	
+	<select id="selectAll" resultType="InstructorComment">
+	    <![CDATA[
+	         select 
+				itc_id,
+				itc_itm_id,
+				itc_ent_id,
+				itc_iti_ent_id,
+				itc_style_score,
+				itc_quality_score,
+				itc_structure_score,
+				itc_interaction_score,
+				itc_score,
+				itc_comment,
+				itc_create_datetime,
+				itc_create_user_id,
+				itc_update_datetime,
+				itc_update_user_id
+			from InstructorComment t 
+	    ]]>
+	</select>	
+	<!-- 获取讲师评分 -->
+	<select id="getInstructorCommentScore" resultType="InstructorComment" parameterType="Map">
+	     select itc_itm_id,
+			    itc_ent_id,
+			    itc_style_score,
+			    itc_quality_score,
+			    itc_structure_score,
+			    itc_interaction_score,
+			    itc_score,
+			    itc_comment,
+			    itc_create_user_id 
+			 from InstructorComment 
+			 where itc_itm_id = #{itmId} 
+			 and itc_ent_id = #{usrEntId}
+			 group by itc_itm_id, itc_ent_id, itc_style_score, itc_quality_score,itc_structure_score,
+			    itc_interaction_score, itc_score, itc_comment, itc_create_user_id, itc_update_datetime
+			 order by itc_update_datetime  desc 
+	</select>	
+	<!-- 	讲师评论 -->
+	<select id="getInstructorComments" parameterType="Page" resultType="InstructorComment">
+		     select
+			 itc_comment,itc_update_datetime,itc.usr_display_bil as "user.usr_display_bil",
+			 usr.usr_display_bil as "fromUser.usr_display_bil"
+			 from InstructorComment 
+			 inner join RegUser itc on itc_iti_ent_id = itc.usr_ent_id
+			 left join regUser usr on itc_ent_id = usr.usr_ent_id
+			 where itc_iti_ent_id 
+				in
+			<foreach collection="params.ids" item="item" index="index" 
+				open="(" separator="," close=")">
+				${item}
+			</foreach>
+			 order by itc_update_datetime  desc 
+	</select>
+</mapper>

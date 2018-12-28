@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>wizbank网站管理平台</title>
+<link rel="stylesheet" type="text/css" href="../../../static/js/jquery.qtip/jquery.qtip.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/jquery-table/css/jquery-table-default.css"/>
+<link rel="stylesheet" type="text/css" href="../../../js/kindeditor/themes/default/default.css"/>
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/layer/skin/layer.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/css/thickbox.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/jquery-table/css/jquery-table-default.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/js/jquery-table/css/jquery-table-admin.css"/>
+<link rel="stylesheet" type="text/css" href="../../../static/admin/css/admin.css"/>
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../../../static/js/jquery.qtip/jquery.qtip.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../../../static/js/layer/layer.js"></script>
+<!--[if lt IE 9]>
+    <script type="text/javascript" src="bootstrap/js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+<div class="wzb-body">
+<div class="wzb-top clearfix">
+     <a class="wzb-logo" href="###" title="wizbank"><img src="images/wzb-logo.png" alt="wizbank" /></a>
+     <div class="wzb-top-toggle"><i class="fa fa-bars"></i></div>
+     
+     <div class="wzb-tool">
+     <div class="wzb-menu">     
+          <ul class="clearfix">
+              <li><a class="wzb-menu-sup" href="###" title="信息"><i class="fa wzb-envelope-icon fa-envelope-o"></i> <span class="wzb-badge wzb-badge-purple">15</span></a></li>
+              <li>
+                  <a class="wzb-menu-sub" href="###" title="信息"><i class="fa wzb-envelope-icon fa-flag-o"></i> <span class="wzb-badge wzb-badge-pink">8</span></a>
+                  <ul>
+                      <li><a class="wzb-menu-son" href="###" title="报名审批"><i class="fa fa-check-circle-o"></i>报名审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="作业批改"><i class="fa fa-clipboard"></i>作业批改</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="试卷批改"><i class="fa fa-file-text-o"></i>试卷批改</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="知识审批"><i class="fa fa-life-ring"></i>知识审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="IDP审批"><i class="fa fa-level-up"></i>IDP审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="培训计划审批"><i class="fa fa-calendar"></i>培训计划审批</a></li>
+                 </ul>
+             </li>
+             <li>
+                 <a class="wzb-menu-sub" href="###" title="信息"><img class="wzb-user" src="images/wzb-user.jpg" alt="wizbank" />培训管理员<i class="fa wzb-caret-icon fa-caret-down"></i></a>
+                 <ul>
+                     <li><a class="wzb-menu-son" href="###" title="角色"><i class="fa fa-user"></i>角色</a>
+                         <dl>
+                             <dd><a href="###" title="学员">学员</a></dd>
+                             <dd><a href="###" title="培训管理员">培训管理员</a></dd>
+                             <dd><a href="###" title="系统管理员">系统管理员</a></dd>
+                             <dd><a href="###" title="考试监考员">考试监考员</a></dd>
+                         </dl>
+                     </li>
+                     <li><a class="wzb-menu-son" href="###" title="语言"><i class="fa fa-stack-exchange"></i>语言</a>
+                         <dl>
+                             <dd><a href="###" title="简体中文">简体中文</a></dd>
+                             <dd><a href="###" title="繁体中文">繁体中文</a></dd>
+                             <dd><a href="###" title="English">English</a></dd>
+                         </dl>
+                    </li>
+                    <li><a class="wzb-menu-son" href="###" title="我的档案"><i class="fa fa-instagram"></i>我的档案</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="修改密码"><i class="fa fa-key"></i>修改密码</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="我的喜好"><i class="fa fa-smile-o"></i>我的喜好</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="退出"><i class="fa fa-sign-out"></i>退出</a></li>
+                </ul>
+            </li>
+        </ul>
+      </div>  
+    </div>
+</div> <!-- wzb-top End-->
+
+<div class="wzb-sidebar">
+<div class="wzb-menu">
+    <ul>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-home"></i>首页</a></li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-globe"></i>资讯管理</a>
+            <ul>
+                <li><a href="###" title="">公告</a></li>
+                <li><a href="###" title="">资讯</a></li>
+                <li><a href="###" title="">常用工具</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-cubes"></i>需求管理</a>
+            <ul>
+                <li><a href="###" title="">投票</a></li>
+                <li><a href="###" title="">公共调查问卷</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-list-alt"></i>计划管理</a>
+            <ul>
+                <li><a href="###" title="">计划实施</a></li>
+                <li><a href="###" title="">年度计划</a></li>
+                <li><a href="###" title="">编外计划</a></li>
+                <li><a href="###" title="">年度计划审批</a></li>
+                <li><a href="###" title="">编外计审批</a></li>
+                <li><a href="###" title="">年度设置</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-maxcdn"></i>学习地图</a>
+            <ul>
+                <li><a href="###" title="">岗位发展路径</a></li>
+                <li><a href="###" title="">岗位</a></li>
+                <li><a href="###" title="">能力标签</a></li>
+                <li><a href="###" title="">能力测评模板</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-calendar"></i>培训管理</a>
+            <ul>
+                <li><a href="###" title="">网上课程</a></li>
+                <li><a href="###" title="">面授课程</a></li>
+                <li><a href="###" title="">项目式培训</a></li>
+                <li><a href="###" title="">证书</a></li>
+                <li><a href="###" title="">课程目录</a></li>
+                <li><a href="###" title="">公开课</a></li>
+                <li><a href="###" title="">教学资源</a></li>
+                <li><a href="###" title="">课程评估问卷</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-columns"></i>考试管理</a>
+            <ul>
+                <li><a href="###" title="">网上考试</a></li>
+                <li><a href="###" title="">离线考试</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-comments"></i>社区管理</a>
+            <ul>
+                <li><a href="###" title="">问答</a></li>
+                <li><a href="###" title="">群组</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-life-ring"></i>知识管理</a>
+            <ul>
+                <li><a href="###" title="">知识库</a></li>
+                <li><a href="###" title="">知识目录</a></li>
+                <li><a href="###" title="">知识标签</a></li>
+                <li><a href="###" title="">知识审批</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-table"></i>培训报表</a>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-child"></i>用户管理</a>
+            <ul>
+                <li><a href="###" title="">用户信息</a></li>
+                <li><a href="###" title="">职级</a></li>
+                <li><a href="###" title="">注册审批</a></li>
+                <li><a href="###" title="">用户激活</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-suitcase"></i>基础数据管理</a>
+            <ul>
+                <li><a href="###" title="">积分</a></li>
+                <li><a href="###" title="">内部讲题</a></li>
+                <li><a href="###" title="">外部讲题</a></li>
+                <li><a href="###" title="">供应商</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-wrench"></i>系统设置</a>
+            <ul>
+                <li><a href="###" title="">PC样式管理</a></li>
+                <li><a href="###" title="">移动管理</a></li>
+                <li><a href="###" title="">培训中心管理</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>    
+</div>  <!-- wzb-sibebar End-->
+
+<div class="wzb-wrapper">
+<div class="wzb-main">
+<div class="wzb-banner wzb-banner-bg01" style="opacity: 1; background: rgb(153, 102, 153);"><i class="fa wzb-banner-icon fa-maxcdn"></i> 学习地图</div>
+
+<ol class="breadcrumb wzb-breadcrumb">
+  <li><a href="#"><i class="fa wzb-breadcrumb-home fa-home"></i>首页</a></li>
+  <li class="active">专题培训</li>
+</ol> <!-- wzb-breadcrumb End-->
+
+<div class="panel wzb-panel">
+<div class="panel-heading">专题培训</div>
+    <!-- 内容添加开始 -->
+    <div class="panel-body">
+        <div class="wzb-item-main">
+            <ul role="tablist" class="nav nav-tabs page-tabs">
+                <li class="active" role="presentation">
+                    <a href="#basic" data-toggle="tab" role="tab" aria-controls="basic">基本信息</a>
+                </li>
+                <li role="presentation" class="">
+                    <a href="#senior" data-toggle="tab" role="tab" aria-controls="senior">高级信息</a>
+                </li>
+            </ul>
+            <!--tab-content start-->
+            <div class="tab-content">
+                <div id="basic" class="tab-pane active" role="tabpanel">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td valign="top" class="wzb-form-label"><span class="wzb-form-star">*</span>标题：</td>
+                                <td class="wzb-form-control">
+                                    <input class="wzb-inputText" name="field01_" style="width:400px" type="text" value="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="wzb-form-label" valign="top">图示：</td>
+                                <td class="wzb-form-control">
+                                    <table border="0" cellspacing="0" cellpadding="3">
+                                        <tbody>
+                                            <tr>
+                                                <td rowspan="3" style="padding:0 3px;" width="300px" valign="top">
+                                                    <div>
+                                                        <img height="100" width="251" border="0" name="" src="../images/banner06.jpg">
+                                                    </div>
+                                                </td>
+                                                <td style="padding:0 3px;">
+                                                    <label>
+                                                        <input name="image-radio" checked="" type="radio" role="auto"><span class="wbFormRightText">保留媒体文档</span>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 3px;">
+                                                    <label>
+                                                        <input value="" name="image-radio" type="radio" role="default">
+                                                        <input value="从默认图库中选一张" class="btn wzb-btn-blue" type="button" name="" id="field99__select1" disabled="">
+                                                    </label>
+
+                                                    <div style="display: none;" id="myOnPageContent">
+                                                        <div id="TB_overlay" class="TB_overlayBG"></div>
+                                                        <div id="TB_window" style="margin-left: -305px; width: 610px; margin-top: -220px; display: block;">
+                                                            <div id="TB_ajaxContent" style="width:610px;height:440px">
+                                                                <div class="thickbox-big">
+                                                                    <div style="text-align:center;" class="thickbox-tit thickbox-tit-1">默认图库</div>
+                                                                </div>
+                                                            </div>
+                                                            <div id="defaultImages" class="thickbox-cont clearfix thickbox-user thickbox-content-2">
+                                                                <a href="#" value="" class="cur">
+                                                                  <img src="../images/banner04.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner05.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner06.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner07.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner08.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner09.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner04.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner05.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner06.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner07.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner08.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner09.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner04.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner05.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner06.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner07.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner08.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner09.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner04.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner05.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner06.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner07.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner08.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                                <a href="#" value="">
+                                                                  <img src="../images/banner09.jpg"><div class="thickbox-bg"></div>
+                                                                </a>
+                                                            </div>
+                                                            <div class="norm-border thickbox-footer">
+                                                                <input value="确定" name=" " class="btn wzb-btn-blue wzb-btn-big margin-right10" type="button">
+                                                                <input value="取消" name=" " class="TB_closeWindowButton wzb-btn-big  btn wzb-btn-blue " type="button">
+                                                            </div>
+                                                      </div>
+                                                    </div>
+                                                    <script type="text/javascript">
+                                                        $(function(){
+                                                          $("#field99__select1").click(function(){
+                                                            $("#myOnPageContent").show();
+                                                          })
+                                                          $(".thickbox-footer input").click(function(){
+                                                            $("#myOnPageContent").hide();
+                                                          })
+                                                        })
+                                                    </script>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 3px;">
+                                                  <label for="field99__select2">
+                                                      <input name="image-radio" type="radio" role="custom"><span class="wbFormRightText">更改媒体文档为</span>&nbsp;
+                                                      <div style="margin:2px 0 0 0; height:0;" class="file">
+                                                          <input type="file" name=" " class="file_file" disabled="disabled" title="" value=""><input value="没有选择文件" class="file_txt">
+                                                        <div class="file_button-blue">浏览</div>
+                                                      </div>
+                                                      <br>
+                                                      <span class="text">&nbsp;&nbsp;图片规格建议：宽600px，高239px<br></span>
+                                                  </label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="wzb-form-label"><span class="wzb-form-star">*</span>简介：</td>
+                                <td class="wzb-form-control">
+                                    <textarea class="wzb-inputTextArea" onblur="javascript:onBlurEvent(this)" name="field06_" rows="4" style="width:400px"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="wzb-form-label" valign="top">
+                                    <span class="wzb-form-star">*</span>专题课程：
+                                </td>
+                                <td class="wzb-form-control">
+                                    <div class="wzb-choose-box" style="margin-top:0;">
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="wzb-form-label"></td>
+                                <td class="wzb-form-control">
+                                    <a data-toggle="modal" data-target="#chooseUser" href="#" class="wzb-box-4-add btn wzb-btn-blue" id="xuanke">选择</a> &nbsp;|&nbsp;<a class="skin-color" href="#">清空所有</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="senior" class="tab-pane" role="tabpanel">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td valign="top" class="wzb-form-label"><span class="wzb-form-star">*</span>推送到首页专区：</td>
+                                <td class="wzb-form-control">
+                                    <span class="wbFormRightText">
+                                        <label for="field161id"><input checked="" id="field161id" name="field16_" type="radio" value="true">是</label>
+                                        <label for="field162id"><input id="field162id" name="field16_" type="radio" value="false">否</label>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="wzb-form-label"><span class="wzb-form-star">*</span>立刻发布：</td>
+                                <td class="wzb-form-control">
+                                    <span class="wbFormRightText">
+                                        <label for="field211id"><input checked="" id="field211id" name="field21_" type="radio" value="true">是</label>
+                                        <label for="field212id"><input id="field212id" name="field21_" type="radio" value="false">否</label>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="wzb-form-label">详细介绍：</td>
+                                <td class="wzb-form-control">
+                                    <div class="ke-container ke-container-default" style="width: 650px;"><!-- 是一个模板 -->
+                                      <div style="display:block;" class="ke-toolbar" unselectable="on">
+                                        <span class="ke-outline" data-name="undo" title="后退(Ctrl+Z)" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-undo" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="redo" title="前进(Ctrl+Y)" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-redo" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-inline-block ke-separator"></span>
+                                        <span class="ke-outline" data-name="cut" title="剪切(Ctrl+X)" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-cut" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="copy" title="复制(Ctrl+C)" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-copy" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="paste" title="粘贴(Ctrl+V)" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-paste" unselectable="on"></span>
+                                        </span><span class="ke-inline-block ke-separator"></span>
+                                        <span class="ke-outline" data-name="fontname" title="字体" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-fontname" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="fontsize" title="文字大小" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-fontsize" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-inline-block ke-separator"></span>
+                                        <span class="ke-outline" data-name="forecolor" title="文字颜色" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-forecolor" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="hilitecolor" title="文字背景" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-hilitecolor" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="bold" title="粗体(Ctrl+B)" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-bold" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="italic" title="斜体(Ctrl+I)" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-italic" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="underline" title="下划线(Ctrl+U)" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-underline" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="strikethrough" title="删除线" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-strikethrough" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="removeformat" title="删除格式" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-removeformat" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-inline-block ke-separator"></span>
+                                        <div class="ke-hr"></div>
+                                        <span class="ke-outline" data-name="justifyleft" title="左对齐" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-justifyleft" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="justifycenter" title="居中" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-justifycenter" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="justifyright" title="右对齐" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-justifyright" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="justifyfull" title="两端对齐" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-justifyfull" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="insertorderedlist" title="编号" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-insertorderedlist" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="insertunorderedlist" title="项目符号" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-insertunorderedlist" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="image" title="图片" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-image" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="insertfile" title="插入文件" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-insertfile" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="table" title="表格" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-table" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="hr" title="插入横线" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-hr" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="emoticons" title="插入表情" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-emoticons" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="link" title="超级链接" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-link" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="unlink" title="取消超级链接" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-unlink" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-inline-block ke-separator"></span>
+                                        <span class="ke-outline" data-name="fullscreen" title="全屏显示" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-fullscreen" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="preview" title="预览" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-preview" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-outline" data-name="selectall" title="全选(Ctrl+A)" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-selectall" unselectable="on"></span>
+                                        </span>
+                                        <span class="ke-inline-block ke-separator"></span>
+                                        <span class="ke-inline-block ke-separator"></span>
+                                        <span class="ke-outline" data-name="about" title="关于" unselectable="on">
+                                          <span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-about" unselectable="on"></span>
+                                        </span>
+                                      </div>
+                                      <div style="display: block; height: 276px;" class="ke-edit">
+                                        <iframe class="ke-edit-iframe" hidefocus="true" frameborder="0" tabindex="" style="width: 100%; height: 276px;"></iframe>
+                                        <textarea class="ke-edit-textarea" hidefocus="true" tabindex="" style="width: 100%; height: 276px; display: none;"></textarea>
+                                      </div>
+                                      <div class="ke-statusbar">
+                                        <span class="ke-inline-block ke-statusbar-center-icon"></span>
+                                        <span class="ke-inline-block ke-statusbar-right-icon"></span>
+                                      </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="wzb-form-label" valign="top">
+                                    栏目专家：
+                                </td>
+                                <td class="wzb-form-control">
+                                    <div class="wzb-choose-box" style="margin-top:0;">
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="wzb-form-label"></td>
+                                <td class="wzb-form-control">
+                                    <a data-toggle="modal" data-target="#chooseUser" href="#" class="wzb-box-4-add btn wzb-btn-blue" id="lanmu">选择</a> &nbsp;|&nbsp;<a class="skin-color" href="#">清空所有</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="modal-backdrop fade in" style="display:none;"></div>
+                    <div id="popupAddContent" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="addLabel" aria-hidden="false" style="display:none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close closeer" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true" style="font-size:30px">×</span>
+                                    </button>
+                                    <h4 class="modal-title" id="addLabel">添加专家</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="wzb-model-3">
+                                        <form class="form-search form-tool">
+                                            <input type="text" class="form-control" placeholder="用户名/岗位/级别">
+                                            <input type="button" class="form-submit" value="">
+                                        </form>
+
+                                        <div class="form-tool wzb-title-3">
+                                            筛选结果
+                                            <div class="form-tool-right">
+                                                <button type="button" class="btn wzb-btn-yellow" id="addAll">添加所有 </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="wzb-percent clearfix datatable" style="width: 100%;">
+                                                <div class="datatable-body">
+                                                    <table cellpadding="0" cellspacing="0" class="datatable-table">
+                                                        <tbody class="datatable-table-tbody">
+                                                            <tr>
+                                                                <td>
+                                                                    <!-- 添加成员开始 -->
+                                                                    <div class="datatable-table-grid-contrainer"><!-- 添加成员有模板 -->
+                                                                        <div class="datatable-table-grid-4">
+                                                                            <div class="datatable-table-grid-content">
+                                                                                <div class="wzb-percent-4 wzb-display-01">
+                                                                                    <dl class="wzb-list-7 clearfix">
+                                                                                        <dd style="width:80px;">
+                                                                                            <div class="wzb-user wzb-user68">
+                                                                                                <a class="mypic"> <img class="wzb-pic" src="/user/user.png"></a>
+                                                                                            </div>
+                                                                                        </dd>
+                                                                                        <dt>
+                                                                                            <a class="wzb-link04" href="/app/personal/318">
+                                                                                                 gina108
+                                                                                            </a>
+                                                                                            <p>wu002</p>
+                                                                                            <p></p>
+                                                                                        </dt>
+                                                                                    </dl>
+                                                                                    <input type="hidden" value="318" name="groupuser">
+                                                                                    <a class="btn wzb-btn-blue wzb-add-group-member" data="318" href="javascript:;"> 
+                                                                                        <i class="fa fa-plus"></i> 添加
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="datatable-table-grid-4">
+                                                                            <div class="datatable-table-grid-content">
+                                                                                <div class="wzb-percent-4 wzb-display-01">
+                                                                                    <dl class="wzb-list-7 clearfix">
+                                                                                        <dd style="width:80px;">
+                                                                                            <div class="wzb-user wzb-user68">
+                                                                                                <a class="mypic"> <img class="wzb-pic" src="/user/user.png"></a>
+                                                                                                
+                                                                                            </div>
+                                                                                        </dd>
+                                                                                        <dt>
+                                                                                            <a class="wzb-link04" href="/app/personal/320">
+                                                                                                 gina110
+                                                                                            </a>
+                                                                                            <p>wu002</p>
+                                                                                            <p></p>
+                                                                                        </dt>
+                                                                                    </dl>
+                                                                                    <input type="hidden" value="320" name="groupuser">
+                                                                                    <a class="btn wzb-btn-blue wzb-add-group-member" data="320" href="javascript:;"> 
+                                                                                        <i class="fa fa-plus"></i> 添加
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="datatable-table-grid-4">
+                                                                            <div class="datatable-table-grid-content">
+                                                                                <div class="wzb-percent-4 wzb-display-01">
+                                                                                    <dl class="wzb-list-7 clearfix">
+                                                                                        <dd style="width:80px;">
+                                                                                            <div class="wzb-user wzb-user68">
+                                                                                                <a class="mypic"> <img class="wzb-pic" src="/user/user.png"></a>
+                                                                                                
+                                                                                            </div>
+                                                                                        </dd>
+                                                                                        <dt>
+                                                                                             <a class="wzb-link04" href="/app/personal/393">
+                                                                                                 regist01
+                                                                                             </a>
+                                                                                             <p>TEMP_USG</p>
+                                                                                             <p></p>
+                                                                                        </dt>
+                                                                                    </dl>
+                                                                                    <input type="hidden" value="393" name="groupuser">
+                                                                                    <a class="btn wzb-btn-blue wzb-add-group-member" data="393" href="javascript:;"> 
+                                                                                        <i class="fa fa-plus"></i> 添加
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="datatable-table-grid-4">
+                                                                            <div class="datatable-table-grid-content">
+                                                                                <div class="wzb-percent-4 wzb-display-01">
+                                                                                    <dl class="wzb-list-7 clearfix">
+                                                                                        <dd style="width:80px;">
+                                                                                            <div class="wzb-user wzb-user68">
+                                                                                                <a class="mypic"> <img class="wzb-pic" src="/user/user.png"></a>
+                                                                                                
+                                                                                            </div>
+                                                                                        </dd>
+                                                                                        <dt>
+                                                                                             <a class="wzb-link04" href="/app/personal/393">
+                                                                                                 regist01
+                                                                                             </a>
+                                                                                             <p>TEMP_USG</p>
+                                                                                             <p></p>
+                                                                                        </dt>
+                                                                                    </dl>
+                                                                                    <input type="hidden" value="393" name="groupuser">
+                                                                                    <a class="btn wzb-btn-blue wzb-add-group-member" data="393" href="javascript:;"> 
+                                                                                        <i class="fa fa-plus"></i> 添加
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="clear"></div>
+                                                                        <div class="datatable-table-grid-4">
+                                                                            <div class="datatable-table-grid-content">
+                                                                                <div class="wzb-percent-4 wzb-display-01">
+                                                                                    <dl class="wzb-list-7 clearfix">
+                                                                                        <dd style="width:80px;">
+                                                                                            <div class="wzb-user wzb-user68">
+                                                                                                <a class="mypic"> <img class="wzb-pic" src="/user/user.png"></a>
+                                                                                                
+                                                                                            </div>
+                                                                                        </dd>
+                                                                                        <dt>
+                                                                                             <a class="wzb-link04" href="/app/personal/393">
+                                                                                                 regist01
+                                                                                             </a>
+                                                                                             <p>TEMP_USG</p>
+                                                                                             <p></p>
+                                                                                        </dt>
+                                                                                    </dl>
+                                                                                    <input type="hidden" value="393" name="groupuser">
+                                                                                    <a class="btn wzb-btn-blue wzb-add-group-member" data="393" href="javascript:;"> 
+                                                                                        <i class="fa fa-plus"></i> 添加
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="datatable-table-grid-4">
+                                                                            <div class="datatable-table-grid-content">
+                                                                                <div class="wzb-percent-4 wzb-display-01">
+                                                                                    <dl class="wzb-list-7 clearfix">
+                                                                                        <dd style="width:80px;">
+                                                                                            <div class="wzb-user wzb-user68">
+                                                                                                <a class="mypic"> <img class="wzb-pic" src="/user/user.png"></a>
+                                                                                                
+                                                                                            </div>
+                                                                                        </dd>
+                                                                                        <dt>
+                                                                                             <a class="wzb-link04" href="/app/personal/393">
+                                                                                                 regist01
+                                                                                             </a>
+                                                                                             <p>TEMP_USG</p>
+                                                                                             <p></p>
+                                                                                        </dt>
+                                                                                    </dl>
+                                                                                    <input type="hidden" value="393" name="groupuser">
+                                                                                    <a class="btn wzb-btn-blue wzb-add-group-member" data="393" href="javascript:;"> 
+                                                                                        <i class="fa fa-plus"></i> 添加
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div><!-- 添加成员结束 -->
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="datatable-stat" style="display: none;"><!-- 暂无数据有模板 -->
+                                                    <div class="losedata">
+                                                        <i class="fa fa-folder-open-o"></i>
+                                                        <p>暂无相关数据显示</p>
+                                                    </div>
+                                                </div>
+                                                <div class="datatable-pager"> <!-- 翻页有模板 -->
+                                                    <a num="1" class="datatable-pager-btn datatable-pager-btn-num active">1</a> 
+                                                    <a num="2" class="datatable-pager-btn datatable-pager-btn-num ">2</a>   
+                                                    <a num="3" class="datatable-pager-btn datatable-pager-btn-num ">3</a>   
+                                                    <a num="4" class="datatable-pager-btn datatable-pager-btn-num ">4</a>   
+                                                    <a num="5" class="datatable-pager-btn datatable-pager-btn-num ">5</a>   
+                                                    <a class="datatable-pager-btn datatable-pager-btn-next"></a>    
+                                                    <a class="datatable-pager-btn datatable-pager-btn-last"></a>
+                                                </div>
+                                                <div style="clear:both;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer closeer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--tab-content end-->
+
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="wzb-form-label"></td><td class="wzb-ui-module-text"><span class="wzb-form-star">*</span>为必填</td>
+                    </tr>
+                    <tr>
+                        <td height="10" align="right" width="20%"></td><td height="10" width="80%"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="wzb-bar">
+                <input style="" name="frmSubmitBtn" value="确定" type="button" class="btn wzb-btn-blue margin-right10 wzb-btn-big">
+                <input style="" name="frmSubmitBtn" value="取消" type="button" class="btn wzb-btn-blue margin-right10 wzb-btn-big">
+            </div>
+        </div>
+
+    </div>
+    <!-- 内容添加结束 -->
+
+    <script type="text/javascript">
+             
+          $("#xuanke").click(function(){
+
+            layer.open({
+                type: 1,
+                area: ['900px', '542px'], //宽高
+                title : '专题课程',
+                content: '<div style="padding:20px;">'+
+                            '<div style="width:300px; float:left;">'+
+                                '<img src="../../../static/images/mulufenlei.png" alt=""/>'+
+                            '</div>'+
+                            '<form class="form-search"> '+    
+                                '<input type="text" class="form-control" value="搜索"><input type="button" class="form-submit" value="">'+
+                            '</form>'+
+                            '<div style="margin-left:10px; float:left; width:530px;">'+
+                                '<table class="table wzb-ui-table">'+
+                                    '<tbody>'+
+                                        '<tr class="wzb-ui-table-head">'+
+                                            '<td width="65%">'+
+                                                '<input type="checkbox" name="">课程名称'+
+                                            '</td>'+
+                                            '<td align="center" width="15%">编号'+
+                                            '</td>'+
+                                            '<td align="center" width="20%">课程类型'+
+                                            '</td>'+
+                                        '</tr>'+
+                                        '<tr class="wzb-ui-table-head">'+
+                                            '<td>'+
+                                                '<input type="checkbox" name="">JavaScript入门篇'+
+                                            '</td>'+
+                                            '<td align="center">001'+
+                                            '</td>'+
+                                            '<td align="center">网上课程'+
+                                            '</td>'+
+                                        '</tr>'+
+                                        '<tr class="wzb-ui-table-head">'+
+                                            '<td>'+
+                                                '<input type="checkbox" name="">JavaScript入门篇'+
+                                            '</td>'+
+                                            '<td align="center">001'+
+                                            '</td>'+
+                                            '<td align="center">网上课程'+
+                                            '</td>'+
+                                        '</tr>'+
+                                    '</tbody>'+
+                                '</table>'+
+                            '</div>'+
+                        '</div>'+
+                        '<div class="norm-border  thickbox-footer" style="position:fixed; width:900px; bottom:-50px;border-top:1px solid #eee;">'+
+                            '<input value="确定" name="" class="btn wzb-btn-blue wzb-btn-big  margin-right10" type="button">'+
+                            '<input value="取消" name="" class="TB_closeWindowButton wzb-btn-big  btn wzb-btn-blue " type="button">'+
+                        '</div>' 
+
+            });
+
+          });
+          
+          
+          $("input[name='image-radio']").click(function(){
+              
+              var role = $(this).attr("role");
+              
+              if("default" === role){
+                  $("#field99__select1").attr("disabled",false);
+              }else{
+                  $("#field99__select1").attr("disabled",true);
+              }
+              
+          });
+
+        $("#lanmu").click(function(){
+            $(".fade").show();
+        })
+        $(".closeer").click(function(){
+            $(".fade").hide();
+        })
+          
+</script>
+
+
+</div>  <!-- wzb-panel End-->
+
+</div>  <!-- wzb-main End-->   
+
+</div> <!-- wzb-wrapper End-->
+
+<div class="wzb-footer"><div class="wzb-footer-box">wizbank6.0 @ 汇思 Cyberwisdom 版权所有</div></div>
+</div> <!-- wzb-body End-->
+
+
+</body>
+</html> 

@@ -1,0 +1,13 @@
+8.0
+11
+1 SQLNCHAR 0 0 "\t\0" 1 kca_id ""
+2 SQLNCHAR 0 0 "\t\0" 2 kca_tcr_id ""
+3 SQLNCHAR 0 0 "\t\0" 3 kca_code ""
+4 SQLNCHAR 0 0 "\t\0" 4 kca_title ""
+5 SQLNCHAR 0 0 "\t\0" 5 kca_type ""
+6 SQLNCHAR 0 0 "\t\0" 6 kca_public_ind ""
+7 SQLNCHAR 0 0 "\t\0" 7 kca_que_count ""
+8 SQLNCHAR 0 0 "\t\0" 8 kca_create_usr_id ""
+9 SQLNCHAR 0 0 "\t\0" 9 kca_create_timestamp ""
+10 SQLNCHAR 0 0 "\t\0" 10 kca_update_usr_id ""
+11 SQLNCHAR 0 0 "\r\0\n\0" 11 kca_update_timestamp ""

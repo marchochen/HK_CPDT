@@ -1,0 +1,131 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :List View
+suffix								   :lstview
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : lstview.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+a.wbRowHeadBarLink:hover{
+	color: #0066FF;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+a.wbRowHeadBarSLink, .wbRowHeadBarSText, .wbRowHeadBarSLink {
+	color: #08426F;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+a.wbRowHeadBarSLink:hover, a.wbRowHeadBarSorSLink:hover {
+	color: #3366FF;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+a.wbRowHeadBarSorLink{
+	color: #009999;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+a.wbRowHeadBarSorLink:hover{
+	color: #3366FF;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+a.wbRowHeadBarSorSLink{
+	color: #009999;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+a.wbRowText:hover{
+	color: #3366FF;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbRowCountFrm{
+	background-color: #A7E8FF;
+	border: 0px none;
+	color: #08426F;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbRowDescText {
+	color: #000000;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbRowHeadBarBg{
+	background-color: #C6EEFF;
+	height: 20px;
+	vertical-align: top;
+}
+
+.wbRowHeadBarText, a.wbRowHeadBarLink {
+	color: #08426F;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbRowHeadSelBarBg{
+	background-color: #EEEEEE;
+	height: 24px;
+}
+
+.wbRowHeadSelBarText{
+	color: #000000;
+	font: bold 9pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbRowRefBg{
+	background: #F0FFFF;
+}
+
+.wbRowRefText{
+	color: #00799F;
+	font: italic 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbRowsEven{
+	background: #E5F6FF;
+}
+
+.wbRowsHL{
+	background: #90CBDC;
+	border-bottom: 1px;
+	border-bottom-color: #006699;
+	border-bottom-style: solid;
+	border-top-color: #DCFAFF;
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+
+.wbRowsOdd{
+	background: #F0FBFF;
+}
+
+.wbRowsGrey{
+	background: #CCCCCC;
+}
+
+.wbRowSText, .wbRowRefText {
+	color: #00799F;
+	font: 7pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbRowText, a.wbRowText {
+	color: #00799F;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+.wbRowRedText, a.wbRowRedText {
+	color: #FF0099;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbRowTextBold{
+	color: #00799F;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbRowTextIt{
+	color: #00799F;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-style: italic;
+}

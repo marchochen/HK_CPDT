@@ -1,0 +1,97 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :List View
+suffix								   :lstview
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : lstview.css	
+version								: wizBank 3.1
+=======================================================================*/
+
+a.wbRowHeadBarLink:hover, a.wbRowHeadBarSorLink:hover {
+	color: #D36E02;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+	vertical-align: top;
+}
+
+a.wbRowHeadBarSLink:hover, a.wbRowHeadBarSorSLink:hover {
+	color: #D36E02;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+	vertical-align: top;
+}
+
+a.wbRowHeadBarSorLink, .wbRowHeadBarText, a.wbRowHeadBarLink {
+	color: #000000;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+	vertical-align: top;
+}
+
+a.wbRowText:hover{
+	color: #D36E02;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbRowCountFrm{
+	background-color: #FFC601;
+	border: 0px none;
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbRowHeadBarBg{
+	background-color: #E49810;
+	height: 20px;
+}
+
+.wbRowHeadBarSText, .wbRowHeadBarSLink, a.wbRowHeadBarSLink, a.wbRowHeadBarSorSLink {
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+	vertical-align: top;
+}
+
+.wbRowHeadSelBarBg{
+	background-color: #EEEEEE;
+	height: 24px;
+}
+
+.wbRowHeadSelBarText{
+	color: #000000;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbRowRefText{
+	color: #000000;
+	font: italic 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbRowsEven, .wbRowRefBg {
+	background: #FAEBA5;
+}
+
+.wbRowsHL{
+	background: #FFC601;
+	border-bottom: 1px;
+	border-bottom-color: #D36E02;
+	border-bottom-style: solid;
+	border-top-color: #FAEBA5;
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+
+.wbRowsOdd{
+	background: #F5F0D8;
+}
+
+.wbRowSText, .wbRowRefText, a.wbRowText, .wbRowText, .wbRowDescText {
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbRowTextBold{
+	color: #000000;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbRowTextIt{
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+	font-style: italic;
+}

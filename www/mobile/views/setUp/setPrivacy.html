@@ -1,0 +1,99 @@
+<!doctype html>
+<html  ng-app="setUp">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/SetUpController.js"></script></head>
+<script type="text/javascript" src="../../lib/common.js"></script>
+<body ng-cloak class="ng-cloak" ng-controller="privacyController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+ 
+<div class="wrap" id="wizwrap">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back();" title="back"></a>
+    <span class="header-title">{{ 'set_privacy' | translate }}</span>
+    <a class="header-info" href="javascript:;" ng-click="changePrivacy()" title="save" translate="btn_save"></a>
+</header> <!-- header End -->
+
+<section class="content">
+<div class="cont-info-title-6" style="padding:4px 0 4px 13px;"><span translate="set_privacy_tip"></span></div>
+
+<div class="panel-list-box" style="margin-top:0;">
+	<div class="panel-title-6" style="margin-top:0;" ng-click="showSelect('s_set_group', 'set_privacy_my_group')">
+		<a class="panel-add-01 yinsi-tip" href="javascript:void(0);">
+			<span class="panel-num-22">{{ snsSetting.s_set_group | privacyText }}</span>
+			{{ 'set_privacy_my_group' | translate }}<!--我的群组-->
+		</a>
+	</div>
+	<div class="panel-title-6 panel-title-6-no" ng-click="showSelect('s_set_my_follow', 'set_privacy_my_attention')">
+		<a class="panel-add-01 yinsi-tip" href="javascript:void(0);">
+			<span class="panel-num-22">{{ snsSetting.s_set_my_follow | privacyText }}</span>
+			{{ 'set_privacy_my_attention' | translate }}<!--我的关注-->
+		</a>
+	</div>
+	<div class="panel-title-6 panel-title-6-no" ng-click="showSelect('s_set_my_fans', 'set_privacy_my_fans')">
+		<a class="panel-add-01 yinsi-tip" href="javascript:void(0);">
+			<span class="panel-num-22">{{ snsSetting.s_set_my_fans | privacyText }}</span>
+			{{ 'set_privacy_my_fans' | translate }}<!--我的粉丝-->
+		</a>
+	</div>
+	<div class="panel-title-6 panel-title-6-no" ng-click="showSelect('s_set_like', 'set_privacy_my_praise')">
+		<a class="panel-add-01 yinsi-tip" href="javascript:void(0);">
+			<span class="panel-num-22">{{ snsSetting.s_set_like | privacyText }}</span>
+			{{ 'set_privacy_my_praise' | translate }}<!--我的赞-->
+		</a>
+	</div>
+	<div class="panel-title-6 panel-title-6-no" ng-click="showSelect('s_set_my_files', 'set_privacy_my_files')">
+		<a class="panel-add-01 yinsi-tip" href="javascript:void(0);">
+			<span class="panel-num-22">{{ snsSetting.s_set_my_files | privacyText }}</span>
+			{{ 'set_privacy_my_files' | translate }}<!--我的档案-->
+		</a>
+	</div>
+	<div class="panel-title-6 panel-title-6-no" ng-click="showSelect('s_set_my_collection', 'set_privacy_my_collection')">
+		<a class="panel-add-01" href="javascript:void(0);">
+			<span class="panel-num-22">{{ snsSetting.s_set_my_collection | privacyText }}</span>
+			{{ 'set_privacy_my_collection' | translate }}<!--我的收藏-->
+		</a>
+	</div>
+	
+</div>
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+<div class="yinsi-desc" ng-click="showSelect()" style="display:none;">
+	<div class="yinsi-info" style="display:none;">
+           <div class="cont-info-title-7"><span>{{'set_privacy_select_tip' | translate}}{{ curTitle | translate | lowercase }}?</span><!--隐私设置--></div>
+	
+		<ul class="panel-list-1-7">
+   			<li ng-click="select(0)">
+   				<a ng-class="{'selectBox' : curVal == 0}" href="javascript:;"  title="">
+   					{{ 'set_privacy_all_see' | translate }}<!--所有人可见-->
+   				</a>
+   			</li>
+   			<li ng-click="select(2)">
+   				<a ng-class="{'selectBox' : curVal == 2}" href="javascript:;" title="">
+   					{{ 'set_privacy_all_not_see' | translate }}<!--所有人不可见-->
+   				</a>
+   			</li>
+   			<li  ng-click="select(1)">
+   				<a ng-class="{'selectBox' : curVal == 1}" href="javascript:;" title="">
+   					{{ 'set_privacy_my_attention_see' | translate }}<!--我关注的人可见-->
+   				</a>
+   			</li>
+   			<li>
+   				<a href="javascript:;"  title="">
+   					{{ 'btn_cancel' | translate }}<!--取消-->
+    				</a>
+    			</li>
+			</ul> 
+	</div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.KnowCatalogMapper">
+	<select id="get" resultType="KnowCatalog" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				kca_id,
+				kca_tcr_id,
+				kca_code,
+				kca_title,
+				kca_type,
+				kca_public_ind,
+				kca_que_count,
+				kca_create_usr_id,
+				kca_create_timestamp,
+				kca_update_usr_id,
+				kca_update_timestamp
+			from KnowCatalog t 
+			where
+				 t.kca_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.KnowCatalog">
+		<![CDATA[
+	        update KnowCatalog
+	        set 
+				kca_tcr_id = #{kca_tcr_id,jdbcType=INTEGER},
+				kca_code 
+= #{kca_code,jdbcType=VARCHAR},
+				kca_title = #{kca_title,jdbcType=VARCHAR},
+				kca_type = #{kca_type,jdbcType=VARCHAR},
+				
+kca_public_ind = #{kca_public_ind,jdbcType=INTEGER},
+				kca_que_count = #{kca_que_count,jdbcType=INTEGER},
+				
+kca_create_usr_id = #{kca_create_usr_id,jdbcType=VARCHAR},
+				kca_create_timestamp = #{kca_create_timestamp,jdbcType=TIMESTAMP},
+				
+kca_update_usr_id = #{kca_update_usr_id,jdbcType=VARCHAR},
+				kca_update_timestamp = #{kca_update_timestamp,jdbcType=TIMESTAMP}
+	         
+where kca_id = #{kca_id,jdbcType=INTEGER}
+		]]>
+	</update>
+	<update id="updateCountByKcaId" parameterType="com.cwn.wizbank.entity.KnowCatalog">update KnowCatalog
+        set 
+			kca_que_count = kca_que_count + #{upd_count},
+			kca_update_usr_id = #{kca_update_usr_id,jdbcType=VARCHAR},
+			kca_update_timestamp = #{kca_update_timestamp,jdbcType=TIMESTAMP}
+         where kca_id = #{kca_id,jdbcType=INTEGER}</update>
+	<update id="updateCountByQueId" parameterType="com.cwn.wizbank.entity.KnowCatalog">update KnowCatalog
+        set 
+			kca_que_count = kca_que_count + #{upd_count},
+			kca_update_usr_id = #{kca_update_usr_id,jdbcType=VARCHAR},
+			kca_update_timestamp = #{kca_update_timestamp,jdbcType=TIMESTAMP}
+         where kca_id in (
+         	select kcr_ancestor_kca_id from knowCatalogRelation 
+         	where kcr_child_kca_id = #{knowCatalogRelation.kcr_child_kca_id} and kcr_type = #{knowCatalogRelation.kcr_type}
+         )</update>
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.KnowCatalog" keyProperty="kca_id">
+		insert into KnowCatalog(
+            		kca_tcr_id,
+            		kca_code,
+            		kca_title,
+            		
+kca_type,
+            		kca_public_ind,
+            		kca_que_count,
+            		kca_create_usr_id,
+            		
+kca_create_timestamp,
+            		kca_update_usr_id,
+            		kca_update_timestamp
+            
+) values (
+            	#{kca_tcr_id,jdbcType=INTEGER},
+            	#{kca_code,jdbcType=VARCHAR},
+            	
+#{kca_title,jdbcType=VARCHAR},
+            	#{kca_type,jdbcType=VARCHAR},
+            	#{kca_public_ind,jdbcType=INTEGER},
+            	
+#{kca_que_count,jdbcType=INTEGER},
+            	#{kca_create_usr_id,jdbcType=VARCHAR},
+            	#{kca_create_timestamp,jdbcType=TIMESTAMP},
+            	
+#{kca_update_usr_id,jdbcType=VARCHAR},
+            	#{kca_update_timestamp,jdbcType=TIMESTAMP}
+            )
+		<selectKey keyProperty="kca_id" resultType="Long" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">select KnowCatalog_seq.Currval from dual</when>
+				<when test="_databaseId == 'SQLSERVER'">select ident_current('KnowCatalog')</when>
+				<when test="_databaseId == 'MYSQL'">select last_insert_id()</when>
+			</choose>
+		</selectKey>
+	</insert>
+	<delete id="delete" parameterType="java.lang.Long">
+		<![CDATA[
+	   	delete from KnowCatalog where
+	        kca_id = #{kca_id}
+		]]>
+	</delete>
+	<select id="selectAll" resultType="KnowCatalog">
+		<![CDATA[
+	         select 
+				kca_id,
+				kca_tcr_id,
+				kca_code,
+				kca_title,
+				kca_type,
+				kca_public_ind,
+				kca_que_count,
+				kca_create_usr_id,
+				kca_create_timestamp,
+				kca_update_usr_id,
+				kca_update_timestamp
+			from KnowCatalog t 
+		]]>
+	</select>
+	<select id="selectKnowCatalog" resultType="KnowCatalog" parameterType="KnowCatalog">
+		select
+			kca_id,
+			kca_tcr_id,
+			kca_title
+		from KnowCatalog
+		<if test="kca_id > 0 or kca_id == -1">inner join knowCatalogRelation on kcr_ancestor_kca_id = #{kca_id} and kcr_type = 'KCA_PARENT_KCA' and kcr_child_kca_id = kca_id</if>
+		<choose>
+			<when test="knowCatalogRelation != null and knowCatalogRelation.kcr_child_kca_id > 0">left join knowCatalogRelation on kcr_type = 'QUE_PARENT_KCA' and kcr_ancestor_kca_id = kca_id
+				where kcr_child_kca_id = #{knowCatalogRelation.kcr_child_kca_id}</when>
+			<otherwise>where kca_type = #{kca_type}</otherwise>
+		</choose>
+		<if test="kca_tcr_id > 0">and kca_tcr_id = #{kca_tcr_id}</if> 
+		
+		<if test="kca_public_ind == 1 ">
+			 and kca_public_ind = 1 
+		</if>
+		
+		
+		<if test="knowCatalogRelation != null and knowCatalogRelation.kcr_child_kca_id > 0">
+			union 
+			select kca_id,
+				kca_tcr_id,
+				kca_title
+			from KnowCatalog left join knowCatalogRelation  
+				on kcr_ancestor_kca_id = kca_id and kcr_type = 'KCA_PARENT_KCA' 
+			where kcr_child_kca_id in (
+					select kca_id from KnowCatalog r
+						left join knowCatalogRelation k on kcr_type = 'QUE_PARENT_KCA' and kcr_ancestor_kca_id = kca_id
+						where kcr_child_kca_id = #{knowCatalogRelation.kcr_child_kca_id} 			
+						<if test="kca_tcr_id > 0">and kca_tcr_id = #{kca_tcr_id}</if> 
+						<if test="kca_public_ind == 1 ">
+							 and kca_public_ind = 1 
+						</if>
+						
+						)
+		</if>
+		
+		order by kca_id
+	</select>
+	<select id="selectknowCatalogTree" resultType="com.cwn.wizbank.entity.vo.AeTreeNodeVo" parameterType="Map">
+		select 
+			kca_id AS "id", 
+			kca_title AS "name",
+			1 AS "isParent",
+			(case when kca_type = 'NORMAL' then 1 else 0 end) AS "open",
+			(case when kcr_ancestor_kca_id is not null then kcr_ancestor_kca_id else 0 end) AS "pId",
+			1 AS "hasChild",
+			kca_type AS "type"
+		from knowCatalog
+		left join knowCatalogRelation on kcr_child_kca_id = kca_id and kcr_type= 'KCA_PARENT_KCA'
+		<if test="tcr_id > 1">where kca_tcr_id = #{tcr_id}</if>
+		order by kca_id
+	</select>
+	<select id="page" resultType="KnowCatalog" parameterType="Page">
+		select 
+			kca_id,
+			kca_tcr_id,
+			kca_code,
+			kca_title,
+			kca_type,
+			kca_public_ind,
+			count(kcr_child_kca_id) as kca_que_count,
+			kca_create_usr_id,
+			kca_create_timestamp,
+			kca_update_usr_id,
+			kca_update_timestamp
+ 		from knowCatalog 
+ 		left join knowCatalogRelation on kcr_ancestor_kca_id = kca_id and kcr_type  = 'QUE_PARENT_KCA'
+ 		where kca_type = #{params.kcaType} and kca_id != -1 
+ 		<if test="params.kcaId!=null and params.kcaId > 0">
+        and kca_id in (select kcr_child_kca_id from knowCatalogRelation where   kcr_ancestor_kca_id = #{params.kcaId} and  kcr_type = 'KCA_PARENT_KCA'  )
+		</if>
+		
+		<if test="params.tcrId != null and params.tcrId > 0">and kca_tcr_id = #{params.tcrId}</if>
+		 group by  kca_id, kca_tcr_id, kca_code, kca_title, kca_type, kca_public_ind,kca_create_usr_id, kca_create_timestamp, kca_update_usr_id, kca_update_timestamp
+	</select>
+	<delete id="delSubCatalog" parameterType="Long">
+		<!--
+ 	delete from knowCatalog where kca_id in (
+	select kca_id from knowCatalog kc inner join knowCatalogRelation on kc.kca_id = kcr_child_kca_id where kcr_ancestor_kca_id = 5
+	) 
+		-->
+		delete from kc from knowCatalog kc inner join knowCatalogRelation on kc.kca_id = kcr_child_kca_id where kcr_ancestor_kca_id = #{id}
+	</delete>
+	<select id="isHaveQue" parameterType="Long" resultType="Boolean">select count(que_id) from knowQuestion 
+		left join knowCatalogRelation on kcr_child_kca_id = que_id
+		where kcr_ancestor_kca_id = #{id}</select>
+	<select id="isHaveSubCatalog" parameterType="Long" resultType="Boolean">select count(kca_id) from knowCatalog 
+		left join knowCatalogRelation on kca_id = kcr_child_kca_id 
+		where kcr_ancestor_kca_id = #{id}</select>
+	<update id="updateStatus" parameterType="Map">update knowCatalog set kca_public_ind = #{type} where kca_id= #{id}</update>
+	
+	<update id="updatechildStatus" parameterType="Map">update knowCatalog set kca_public_ind = #{type} where kca_id in(select kcr_child_kca_id from knowCatalogRelation where kcr_ancestor_kca_id = #{id})</update>
+	
+	<select id="checkCatalogName"  resultType="java.lang.Integer" parameterType="KnowCatalog">
+	select count(*) from knowCatalog where kca_title =#{kca_title}
+	<if test="kca_id != null and kca_id > 0">
+	    and kca_id != #{kca_id}
+		</if>
+	</select>
+</mapper>

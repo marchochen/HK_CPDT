@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.ModuleEvaluationMapper">
+	<select id="get" resultType="ModuleEvaluation" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				mov_cos_id,
+				mov_ent_id,
+				mov_mod_id,
+				mov_last_acc_datetime,
+				mov_ele_loc,
+				mov_total_time,
+				mov_total_attempt,
+				mov_status,
+				mov_score,
+				mov_max_score,
+				mov_min_score,
+				mov_core_lesson,
+				mov_status_flag,
+				mov_aicc_score,
+				mov_credit,
+				mov_data_xml,
+				mov_create_usr_id,
+				mov_create_timestamp,
+				mov_update_usr_id,
+				mov_update_timestamp,
+				mov_tkh_id,
+				mov_not_mark_ind
+			from ModuleEvaluation t 
+			where
+				 t.mov_ent_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.ModuleEvaluation">
+	    <![CDATA[
+	        update ModuleEvaluation t 
+	        set 
+				mov_cos_id = #{mov_cos_id,jdbcType=INTEGER},
+				mov_ent_id = #{mov_ent_id,jdbcType=INTEGER},
+				mov_mod_id = #{mov_mod_id,jdbcType=INTEGER},
+				mov_last_acc_datetime = #{mov_last_acc_datetime,jdbcType=TIMESTAMP},
+				mov_ele_loc = #{mov_ele_loc,jdbcType=VARCHAR},
+				mov_total_time = #{mov_total_time,jdbcType=DOUBLE},
+				mov_total_attempt = #{mov_total_attempt,jdbcType=INTEGER},
+				mov_status = #{mov_status,jdbcType=VARCHAR},
+				mov_score = #{mov_score,jdbcType=DECIMAL},
+				mov_max_score = #{mov_max_score,jdbcType=DECIMAL},
+				mov_min_score = #{mov_min_score,jdbcType=DECIMAL},
+				mov_core_lesson = #{mov_core_lesson,jdbcType=VARCHAR},
+				mov_status_flag = #{mov_status_flag,jdbcType=VARCHAR},
+				mov_aicc_score = #{mov_aicc_score,jdbcType=VARCHAR},
+				mov_credit = #{mov_credit,jdbcType=VARCHAR},
+				mov_data_xml = #{mov_data_xml,jdbcType=VARCHAR},
+				mov_create_usr_id = #{mov_create_usr_id,jdbcType=VARCHAR},
+				mov_create_timestamp = #{mov_create_timestamp,jdbcType=TIMESTAMP},
+				mov_update_usr_id = #{mov_update_usr_id,jdbcType=VARCHAR},
+				mov_update_timestamp = #{mov_update_timestamp,jdbcType=TIMESTAMP},
+				mov_tkh_id = #{mov_tkh_id,jdbcType=INTEGER},
+				mov_not_mark_ind = #{mov_not_mark_ind,jdbcType=INTEGER}
+	         where t.mov_ent_id = #{mov_ent_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.ModuleEvaluation">
+    	<![CDATA[
+            insert into ModuleEvaluation(
+            		mov_cos_id,
+            		mov_last_acc_datetime,
+            		mov_ele_loc,
+            		mov_total_time,
+            		mov_total_attempt,
+            		mov_status,
+            		mov_score,
+            		mov_max_score,
+            		mov_min_score,
+            		mov_core_lesson,
+            		mov_status_flag,
+            		mov_aicc_score,
+            		mov_credit,
+            		mov_data_xml,
+            		mov_create_usr_id,
+            		mov_create_timestamp,
+            		mov_update_usr_id,
+            		mov_update_timestamp,
+            		mov_not_mark_ind
+            ) values (
+            	#{mov_cos_id,jdbcType=INTEGER},
+            	#{mov_last_acc_datetime,jdbcType=TIMESTAMP},
+            	#{mov_ele_loc,jdbcType=VARCHAR},
+            	#{mov_total_time,jdbcType=DOUBLE},
+            	#{mov_total_attempt,jdbcType=INTEGER},
+            	#{mov_status,jdbcType=VARCHAR},
+            	#{mov_score,jdbcType=DECIMAL},
+            	#{mov_max_score,jdbcType=DECIMAL},
+            	#{mov_min_score,jdbcType=DECIMAL},
+            	#{mov_core_lesson,jdbcType=VARCHAR},
+            	#{mov_status_flag,jdbcType=VARCHAR},
+            	#{mov_aicc_score,jdbcType=VARCHAR},
+            	#{mov_credit,jdbcType=VARCHAR},
+            	#{mov_data_xml,jdbcType=VARCHAR},
+            	#{mov_create_usr_id,jdbcType=VARCHAR},
+            	#{mov_create_timestamp,jdbcType=TIMESTAMP},
+            	#{mov_update_usr_id,jdbcType=VARCHAR},
+            	#{mov_update_timestamp,jdbcType=TIMESTAMP},
+            	#{mov_not_mark_ind,jdbcType=INTEGER}
+            )
+        ]]>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from ModuleEvaluation where
+	        mov_ent_id = #{mov_ent_id}
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="ModuleEvaluation">
+	    <![CDATA[
+	         select 
+				mov_cos_id,
+				mov_ent_id,
+				mov_mod_id,
+				mov_last_acc_datetime,
+				mov_ele_loc,
+				mov_total_time,
+				mov_total_attempt,
+				mov_status,
+				mov_score,
+				mov_max_score,
+				mov_min_score,
+				mov_core_lesson,
+				mov_status_flag,
+				mov_aicc_score,
+				mov_credit,
+				mov_data_xml,
+				mov_create_usr_id,
+				mov_create_timestamp,
+				mov_update_usr_id,
+				mov_update_timestamp,
+				mov_tkh_id,
+				mov_not_mark_ind
+			from ModuleEvaluation t 
+	    ]]>
+	</select>
+	<select id="getById" resultType="ModuleEvaluation" parameterType="Map">
+		<![CDATA[
+			select 
+				mov_cos_id,
+				mov_ent_id,
+				mov_mod_id,
+				mov_last_acc_datetime,
+				mov_ele_loc,
+				mov_total_time,
+				mov_total_attempt,
+				mov_status,
+				mov_score,
+				mov_max_score,
+				mov_min_score,
+				mov_core_lesson,
+				mov_status_flag,
+				mov_aicc_score,
+				mov_credit,
+				mov_data_xml,
+				mov_create_usr_id,
+				mov_create_timestamp,
+				mov_update_usr_id,
+				mov_update_timestamp,
+				mov_tkh_id,
+				mov_not_mark_ind
+			from ModuleEvaluation t 
+			where
+				 t.mov_mod_id = #{modId}
+				 and t.mov_tkh_id = #{tkhId}
+				 and t.mov_ent_id = #{userId}
+		]]>
+	</select>
+</mapper>

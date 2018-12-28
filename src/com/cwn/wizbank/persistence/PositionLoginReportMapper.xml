@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.PositionLoginReportMapper">
+
+<insert id="insert" parameterType="com.cwn.wizbank.entity.PositionLoginReport">
+	 <![CDATA[
+		insert into positionLoginReport(
+			pslr_upt_id,
+       		pslr_year,
+        	pslr_month,
+        	pslr_login_mode,
+        	pslr_totle_login_number,
+        	pslr_last_update_date
+		) values (
+         	#{pslrUptId,jdbcType=INTEGER},
+         	#{pslrYear,jdbcType=INTEGER},
+         	#{pslrMonth,jdbcType=INTEGER},
+         	#{pslrLoginMode,jdbcType=INTEGER},
+         	#{pslrTotleLoginNumber,jdbcType=INTEGER},
+         	#{pslrLastUpdateDate,jdbcType=TIMESTAMP}
+		)
+	 ]]>	 	 
+</insert>
+
+<select id="checkNumber" parameterType="com.cwn.wizbank.entity.PositionLoginReport" resultType="java.lang.Integer">
+		SELECT 
+			count(*)
+		FROM 
+			positionLoginReport
+		where  pslr_upt_id = #{pslrUptId}  and pslr_year = #{pslrYear} and pslr_month = #{pslrMonth} and pslr_login_mode = #{pslrLoginMode}
+</select>
+
+<update id="update" parameterType="com.cwn.wizbank.entity.PositionLoginReport">
+   <![CDATA[
+	        update 
+	        	positionLoginReport
+	        set 
+				pslr_totle_login_number =  #{pslrTotleLoginNumber,jdbcType=INTEGER},
+				pslr_last_update_date = #{pslrLastUpdateDate,jdbcType=TIMESTAMP}
+	         where 
+	            pslr_upt_id = #{pslrUptId}  and pslr_year = #{pslrYear} and pslr_month = #{pslrMonth} and pslr_login_mode = #{pslrLoginMode}
+	    ]]>
+</update>
+
+
+</mapper>

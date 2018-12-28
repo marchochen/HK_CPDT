@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.ProfessionLrnItemMapper">
+	
+	<select id="get" parameterType="Long" resultType="ProfessionLrnItem">
+		select * from professionLrnItem where psi_id = #{psi_id}
+	</select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.ProfessionLrnItem">
+		update professionLrnItem set psi_pfs_id = #{psi_pfs_id}
+		,psi_ugr_id = #{psi_ugr_id}
+		,psi_itm_id = #{psi_itm_id}
+		where psi_id = #{psi_id}
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.Long">
+		delete professionLrnItem where psi_id = #{id}
+	</delete>
+	<insert id="add" parameterType="com.cwn.wizbank.entity.ProfessionLrnItem">
+		insert into professionLrnItem(psi_pfs_id,psi_ugr_id,psi_itm_id)
+		values(#{psi_pfs_id},#{psi_ugr_id},#{psi_itm_id})
+		<selectKey resultType="java.lang.Long" keyProperty="psi_id" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select professionLrnItem_seq.CURRVAL AS psi_id FROM DUAL
+				</when>
+				<otherwise>
+					select @@IDENTITY as psi_id
+				</otherwise>
+			</choose>
+		</selectKey>
+	</insert>
+	<delete id="deleteByPfsId" parameterType="java.lang.Long">
+		delete from professionLrnItem where psi_pfs_id = #{id}
+	</delete>
+	<select id="getItemByPfsId" parameterType="ProfessionLrnItem">
+		select * from professionLrnItem where psi_pfs_id = #{id}
+	</select>
+	<select id="getPsiByPfsid" parameterType="Long" resultType="ProfessionLrnItem">
+		select psi_id, psi_pfs_id, psi_ugr_id, psi_itm_id from professionLrnItem where psi_pfs_id = #{pfs_id}
+	</select>
+	<select id="getGradeIdsByPfsId" parameterType="Long" resultType="Long">
+		select psi_ugr_id from ProfessionlrnItem where psi_pfs_id=#{psi_pfs_id} group by psi_ugr_id   order by min(psi_id)
+	</select>
+	<select id="getItemByGradeId" parameterType="Map" resultType="ProfessionLrnItem">
+		select psi_id,psi_pfs_id,psi_itm_id,itm_title as title from ProfessionlrnItem inner join aeItem on psi_itm_id=itm_id where  psi_pfs_id=#{psi_pfs_id}  and psi_ugr_id=#{psi_ugr_id} <!-- and itm_access_type != 'TARGET_LEARNER' -->	</select>
+	<select id="getItemFrontByPfsId" parameterType="Long" resultType="com.cwn.wizbank.entity.vo.GradeNodesVo">
+
+		select  ugr_ent_id, pfs_id,pfs_title,ugr_display_bil from Profession inner join ProfessionlrnItem on psi_pfs_id=pfs_id inner join userGrade on psi_ugr_id=ugr_ent_id
+		where pfs_id=#{pfs_id} and pfs_status=1  order by psi_id
+	</select>
+</mapper>

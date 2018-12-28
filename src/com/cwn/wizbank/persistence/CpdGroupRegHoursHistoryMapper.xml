@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.CpdGroupRegHoursHistoryMapper">
+    <resultMap id="cpdGroupRegHoursHistory" type="com.cwn.wizbank.entity.CpdGroupRegHoursHistory">
+        <id column="cghi_id" property="cghi_id" />
+        <result column="cghi_usr_ent_id" property="cghi_usr_ent_id"></result>
+        <result column="cghi_ct_id" property="cghi_ct_id"></result>
+        <result column="cghi_cg_id" property="cghi_cg_id"></result>
+        <result column="cghi_license_type" property="cghi_license_type"></result>
+        <result column="cghi_license_alias" property="cghi_license_alias"></result>
+        <result column="cghi_cal_before_ind" property="cghi_cal_before_ind"></result>
+        <result column="cghi_recover_hours_period" property="cghi_recover_hours_period"></result>
+        <result column="cghi_code" property="cghi_code"></result>
+        <result column="cghi_alias" property="cghi_alias"></result>
+        <result column="cghi_initial_date" property="cghi_initial_date" javaType="java.util.Date" jdbcType="DATE"></result>
+        <result column="cghi_expiry_date" property="cghi_expiry_date" javaType="java.util.Date" jdbcType="DATE"></result>
+        <result column="cghi_cr_reg_date" property="cghi_cr_reg_date" javaType="java.util.Date" jdbcType="DATE"></result>
+        <result column="cghi_cr_de_reg_date" property="cghi_cr_de_reg_date" javaType="java.util.Date" jdbcType="DATE"></result>
+        <result column="cghi_cr_reg_number" property="cghi_cr_reg_number"></result>
+        <result column="cghi_period" property="cghi_period"></result>
+        <result column="cghi_first_ind" property="cghi_first_ind"></result>
+        <result column="cghi_actual_date" property="cghi_actual_date" javaType="java.util.Date" jdbcType="DATE"></result>
+        <result column="cghi_ct_starting_month" property="cghi_ct_starting_month"></result>
+        <result column="cghi_cgp_id" property="cghi_cgp_id"></result>
+        <result column="cghi_cgp_effective_time" property="cghi_cgp_effective_time" javaType="java.util.Date" jdbcType="DATE"></result>
+        <result column="cghi_cal_start_date" property="cghi_cal_start_date" javaType="java.util.Date" jdbcType="DATE"></result>
+        <result column="cghi_cal_end_date" property="cghi_cal_end_date" javaType="java.util.Date" jdbcType="DATE"></result>
+        <result column="cghi_manul_core_hours" property="cghi_manul_core_hours"></result>
+        <result column="cghi_manul_non_core_hours" property="cghi_manul_non_core_hours"></result>
+        <result column="cghi_manul_ind" property="cghi_manul_ind"></result>
+        <result column="cghi_req_core_hours" property="cghi_req_core_hours"></result>
+        <result column="cghi_req_non_core_hours" property="cghi_req_non_core_hours"></result>
+        <result column="cghi_execute_core_hours" property="cghi_execute_core_hours"></result>
+        <result column="cghi_execute_non_core_hours" property="cghi_execute_non_core_hours"></result>
+        <result column="cghi_award_core_hours" property="cghi_award_core_hours"></result>
+        <result column="cghi_award_non_core_hours" property="cghi_award_non_core_hours"></result>
+        <result column="cghi_create_datetime" property="cghi_create_datetime"></result>
+        <result column="cghi_update_datetime" property="cghi_update_datetime"></result>
+        <result column="cghi_cal_month" property="cghi_cal_month"></result>
+        <result column="cghi_cg_contain_non_core_ind" property="cghi_cg_contain_non_core_ind"></result>
+        
+        <result column="usr_ste_usr_id" property="usr_ste_usr_id"></result>
+        <result column="usr_display_bil" property="usr_display_bil"></result>
+        
+    </resultMap>
+	<select id="getCpdGroupRegHoursHistory" resultMap="cpdGroupRegHoursHistory" parameterType="Map">
+		<![CDATA[
+			select 
+				*
+			from 
+				cpdGroupRegHoursHistory 
+			where
+				1=1
+		]]>
+		<if test="usr_ent_id !=null">
+			<![CDATA[
+				and  cghi_usr_ent_id = #{usr_ent_id}
+			]]>
+		</if>
+		<if test="cg_id !=null">
+			<![CDATA[
+				and  cghi_cg_id = #{cg_id}
+			]]>
+		</if>
+		<if test="period !=null and period !=0">
+			<![CDATA[
+				and  cghi_period = #{period}
+			]]>
+		</if>
+		<if test="cgr_id !=null and cgr_id !=0">
+			<![CDATA[
+				and  cghi_cgr_id = #{cgr_id}
+			]]>
+		</if>
+		order by cghi_period desc
+	</select>		
+
+	
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.CpdGroupRegHoursHistory">
+    	<![CDATA[
+        insert into cpdGroupRegHoursHistory(
+				  cghi_usr_ent_id ,
+				  cghi_ct_id ,
+				  cghi_cg_id ,
+				  cghi_license_type ,
+				  cghi_license_alias ,
+				  cghi_cal_before_ind ,
+				  cghi_recover_hours_period ,
+				  cghi_code ,
+				  cghi_alias,
+				  cghi_initial_date ,
+				  cghi_expiry_date,
+				  cghi_cr_reg_date ,
+				  cghi_cr_de_reg_date ,
+				  cghi_cr_reg_number,
+				  cghi_period ,
+				  cghi_first_ind ,
+				  cghi_actual_date ,
+				  cghi_ct_starting_month ,
+				  cghi_cgp_id,
+				  cghi_cgp_effective_time ,
+				  cghi_cal_start_date,
+				  cghi_cal_end_date ,
+				  cghi_manul_core_hours,
+				  cghi_manul_non_core_hours ,
+				  cghi_manul_ind ,
+				  cghi_req_core_hours,
+				  cghi_req_non_core_hours,
+				  cghi_execute_core_hours ,
+				  cghi_execute_non_core_hours,
+				  cghi_award_core_hours,
+				  cghi_award_non_core_hours ,
+				  cghi_create_datetime ,
+				  cghi_update_datetime ,
+				  cghi_cal_month,
+				  cghi_cg_contain_non_core_ind,
+				  cghi_cgr_id
+            ) values (
+            	#{cghi_usr_ent_id,jdbcType=INTEGER},
+            	#{cghi_ct_id,jdbcType=INTEGER},
+            	#{cghi_cg_id,jdbcType=INTEGER},
+            	#{cghi_license_type,jdbcType=VARCHAR},
+            	#{cghi_license_alias,jdbcType=VARCHAR},
+            	#{cghi_cal_before_ind,jdbcType=INTEGER},
+            	#{cghi_recover_hours_period,jdbcType=INTEGER},
+            	#{cghi_code,jdbcType=VARCHAR},
+            	#{cghi_alias,jdbcType=VARCHAR},
+            	#{cghi_initial_date,jdbcType=TIMESTAMP},
+            	#{cghi_expiry_date,jdbcType=TIMESTAMP},
+            	#{cghi_cr_reg_date,jdbcType=TIMESTAMP},
+            	#{cghi_cr_de_reg_date,jdbcType=TIMESTAMP},
+            	#{cghi_cr_reg_number,jdbcType=VARCHAR},
+            	#{cghi_period,jdbcType=INTEGER},
+            	#{cghi_first_ind,jdbcType=INTEGER},
+            	#{cghi_actual_date,jdbcType=TIMESTAMP},
+            	#{cghi_ct_starting_month,jdbcType=INTEGER},
+            	#{cghi_cgp_id,jdbcType=INTEGER},
+            	#{cghi_cgp_effective_time,jdbcType=TIMESTAMP},
+            	#{cghi_cal_start_date,jdbcType=TIMESTAMP},
+            	#{cghi_cal_end_date,jdbcType=TIMESTAMP},
+            	#{cghi_manul_core_hours,jdbcType=FLOAT},
+            	#{cghi_manul_non_core_hours,jdbcType=FLOAT},
+            	#{cghi_manul_ind,jdbcType=INTEGER},
+            	#{cghi_req_core_hours,jdbcType=FLOAT},
+            	#{cghi_req_non_core_hours,jdbcType=FLOAT},
+            	#{cghi_execute_core_hours,jdbcType=FLOAT},
+            	#{cghi_execute_non_core_hours,jdbcType=FLOAT},
+            	#{cghi_award_core_hours,jdbcType=FLOAT},
+            	#{cghi_award_non_core_hours,jdbcType=FLOAT},
+            	#{cghi_create_datetime,jdbcType=TIMESTAMP},
+            	#{cghi_update_datetime,jdbcType=TIMESTAMP},
+            	#{cghi_cal_month,jdbcType=INTEGER},
+            	#{cghi_cg_contain_non_core_ind,jdbcType=INTEGER},
+            	#{cghi_cgr_id,jdbcType=INTEGER}
+            )
+        ]]>
+    </insert>    
+    
+    
+    <select id="getCpdGroupRegHoursHistoryPeriod" resultMap="cpdGroupRegHoursHistory" parameterType="Map">
+        <![CDATA[
+            select cghi_period
+			  from (select distinct cghi_period
+			          from cpdGroupRegHoursHistory
+			        union
+			        select distinct cgrh_cgr_period as cghi_period from cpdGroupRegHours) t
+			 order by cghi_period desc
+        ]]>
+        
+    </select>   
+
+       <select id="getUserDetail" resultType="RegUser" parameterType="Map">
+        <![CDATA[
+            select usr_ent_id,usr_display_bil,usr_ste_usr_id,usr_job_title,usg_display_bil
+             from RegUser left join EntityRelation on ern_child_ent_id = usr_ent_id 
+             left join UserGroup on ern_ancestor_ent_id = usg_ent_id
+             where ern_type = 'USR_PARENT_USG' and ern_parent_ind = 1
+          ]]>
+          <choose>
+                <!-- 审批中不查询这些数据 -->
+                <when test="usr_ent_id != null and usr_ent_id.length>0">
+                         <![CDATA[
+                         and 
+                         ]]>
+                         <foreach collection="usr_ent_id" item="item" open="(" separator="or" close=")">
+                           usr_ent_id in   #{item}
+                         </foreach>
+                </when>
+                <otherwise>
+                         <![CDATA[
+                         and usr_ent_id = null 
+                         ]]>
+                </otherwise>
+          </choose>
+                
+        
+        
+    </select>   
+    
+           <select id="getUserDetailForExcel" resultType="RegUser" parameterType="Map">
+        <![CDATA[
+            select distinct usr_ent_id,usr_display_bil,usr_ste_usr_id,usr_job_title,usg_display_bil,upt_title 
+             from RegUser left join EntityRelation on ern_child_ent_id = usr_ent_id 
+             left join UserGroup on ern_ancestor_ent_id = usg_ent_id
+             
+          left join UserPositionRelation on  upr_usr_ent_id = usr_ent_id
+          left join UserPosition on upt_id = upr_upt_id 
+          
+             inner join cpdGroupRegistration on cgr_usr_ent_id = usr_ent_id
+             left join cpdGroupRegHours on cgr_id = cgrh_cgr_id
+             where ern_type = 'USR_PARENT_USG' and ern_parent_ind = 1  
+             and cgr_status = 'OK' 
+             and cgrh_cgr_period = #{period}
+             and  ( cgr_expiry_date > cgrh_cal_end_date   or cgr_expiry_date is null )
+          ]]>
+          <choose>
+                <when test="usr_ent_id != null and usr_ent_id.length>0">
+                         <![CDATA[
+                         and 
+                         ]]>
+                         <foreach collection="usr_ent_id" item="item" open="(" separator="or" close=")">
+                           usr_ent_id  =   #{item}
+                         </foreach>
+                </when>
+                <otherwise>
+                         <![CDATA[
+                         and usr_ent_id = null 
+                         ]]>
+                </otherwise>
+          </choose>
+		order by usr_display_bil asc
+   </select>   
+    
+   <select id="getCpdGroupRegHoursHistoryYear" resultType="java.lang.Integer">
+        <![CDATA[
+            select cghi_period
+			  from (select distinct cghi_period
+			          from cpdGroupRegHoursHistory
+			        union
+			        select distinct cgrh_cgr_period as cghi_period from cpdGroupRegHours) t
+			 order by cghi_period desc
+        ]]>
+    </select>   
+
+   <resultMap id="getreport" type="com.cwn.wizbank.entity.CpdGroupRegHoursHistory">
+       <id column="cghi_id" property="cghi_id" />
+       <result column="cghi_usr_ent_id" property="cghi_usr_ent_id"></result>
+       <result column="usr_display_bil" property="usr_display_bil"></result>
+       <result column="usg_name" property="usg_name"></result>
+       <result column="upt_title" property="upt_title"></result>
+       <result column="usr_ste_usr_id" property="usr_ste_usr_id"></result>
+       <result column="cghi_period" property="cghi_period"></result>
+       <collection property="cpdGroupRegHoursHistoryList"  column="{usr_ent_id = cghi_usr_ent_id , period = cghi_period}" ofType="cpdGroupRegHoursHistory" select="getCpdGroupRegHours" />
+   </resultMap>
+   
+   <select id="getGroupRegHoursReport" resultMap="getreport" parameterType="Map">
+      select distinct cghi_usr_ent_id,usr_display_bil,usr_ste_usr_id,
+      <choose>
+			<when test="_databaseId == 'SQLSERVER'">
+			  <![CDATA[
+				 ISNULL (usg_display_bil , '--') as usg_name
+			]]>
+			</when>	 
+			<when test="_databaseId == 'ORACLE'">
+			  	<![CDATA[
+				 NVL (usg_display_bil , '--') as usg_name
+				]]>
+			</when>
+			<otherwise>
+			  	<![CDATA[
+				IFNULL(usg_display_bil , '--') as usg_name
+				]]>
+			</otherwise>
+		</choose>,upt_title,cghi_period
+		from cpdGroupRegHoursHistory
+		  left join RegUser on cghi_usr_ent_id = usr_ent_id
+		  left join EntityRelation on ern_child_ent_id = cghi_usr_ent_id and  ern_type = 'USR_PARENT_USG'  and ern_parent_ind = 1
+		  left join UserGroup on ern_ancestor_ent_id = usg_ent_id 
+		  
+		  left join UserPositionRelation on  upr_usr_ent_id = cghi_usr_ent_id
+		  left join UserPosition on upt_id =  upr_upt_id 
+		  
+          where cghi_period = ${period}   and (cghi_expiry_date is null or cghi_expiry_date> cghi_cal_end_date)
+          <!--大牌id  -->
+          <if test="exportCpdTypeIds != null and exportCpdTypeIds.size > 0">
+ 			and cghi_ct_id in 
+ 			<foreach collection="exportCpdTypeIds" item="item" index="index" 
+				open="(" separator="," close=")">
+				${item}
+			</foreach>
+		</if>
+		
+		<choose>
+         	<when test="exportUserIds != null and exportUserIds.size > 0">
+         		<!--用户id  -->
+	 			and cghi_usr_ent_id in 
+	 			<foreach collection="exportUserIds" item="item" index="index" 
+					open="(" separator="," close=")">
+					${item}
+				</foreach>
+         	</when>
+         	<when test="exportGroupIds != null and exportGroupIds.size > 0">
+         		<!--用户组id  -->
+         		and cghi_usr_ent_id in(
+	         		 select ern_child_ent_id from EntityRelation where ern_ancestor_ent_id in
+					    <foreach collection="exportGroupIds" item="item" index="index" 
+							open="(" separator="," close=")">
+							${item}
+						</foreach>
+				       and ern_type='USR_PARENT_USG')
+         	</when>
+         	<otherwise>
+         		and cghi_usr_ent_id in (
+                <choose>
+                   <when test="is_role_tc_ind !=null and is_role_tc_ind != true">
+                    <!-- 角色与培训中心无关 --> 
+                    select ern_child_ent_id from EntityRelation where ern_ancestor_ent_id in(
+						select tce_ent_id from tcTrainingCenterTargetEntity where tce_tcr_id = #{my_top_tc_id} ) and ern_type='USR_PARENT_USG'    
+                   </when>
+                   <otherwise>
+                    select ern_child_ent_id from EntityRelation where ern_ancestor_ent_id in(
+						select tce_ent_id from tcTrainingCenterTargetEntity,tcTrainingCenterOfficer where tce_tcr_id = tco_tcr_id 
+						and  tco_usr_ent_id = #{usr_ent_id}
+						and tco_rol_ext_id = #{current_role}
+						<!-- 二级培训中心是否独立 -->
+						<if test="tc_independent == true">
+							and ( tce_tcr_id in( select tcn_child_tcr_id from tcrelation where tcn_ancestor = #{my_top_tc_id} ) 
+						      or tce_tcr_id = #{my_top_tc_id})
+						</if>
+						)  and ern_type='USR_PARENT_USG'
+                   </otherwise>
+                </choose>
+				)
+         	</otherwise>
+         </choose>
+		order by ${sortOrderName}  ${sortOrderBy} 
+   </select>
+
+   <select id="getCpdGroupRegHours" resultType="cpdGroupRegHoursHistory" parameterType="Map">
+	       select cpdGroupRegHoursHistory.*
+		    from cpdGroupRegHoursHistory
+			where  cghi_usr_ent_id = #{usr_ent_id}	  and (cghi_expiry_date is null or cghi_expiry_date> cghi_cal_end_date) and cghi_period = #{period}   
+    </select>
+    
+     <resultMap type="com.cwn.wizbank.cpd.vo.IndividualReportVo" id="recordForIndividualReport">
+	    <id column="itm_id" property="itm_id" />
+	    <result column="itm_title" property="itm_title"></result>
+	    <result column="crch_ct_id" property="ct_id"></result>
+	    <result column="cghi_usr_ent_id" property="usr_ent_id"></result>
+	    <result column="crch_aci_accreditation_code" property="accreditation_code"></result>
+        <result column="crch_award_datetime" property="award_datetime"></result>
+        <result column="crch_app_id" property="app_id"></result>
+        <result column="period" property="period"></result>
+        <result column="cghi_id" property="cghi_id"></result>
+        <collection property="cpd_group_list"  
+        	column="{ ct_id = crch_ct_id , itm_id = itm_id  , app_id = crch_app_id ,period = period}" 
+        	ofType="com.cwn.wizbank.cpd.vo.CpdGroupSumVo" select="getCpdGroupSumList" />
+	 </resultMap>
+    
+    <select id="getRecordForIndividualReport" resultMap="recordForIndividualReport" parameterType="Map">
+	    
+			select        
+				distinct crch_itm_id as itm_id,
+                CASE
+                  WHEN itm_type ='CLASSROOM' THEN 
+	                  <choose>
+						<when test="_databaseId == 'ORACLE'">
+						    <![CDATA[   p_itm_title || ' > ' ||crch_itm_title ]]>	
+						</when>
+						<when test="_databaseId == 'SQLSERVER'">
+							 <![CDATA[	 p_itm_title + ' > ' + crch_itm_title  ]]>	
+						</when>
+						<when test="_databaseId == 'MYSQL'">
+							 <![CDATA[	concat(p_itm_title,' > ',crch_itm_title)  ]]>	
+						</when>
+					 </choose>
+				  ELSE crch_itm_title 
+				END as itm_title,
+                crch_ct_id ,
+                crch_aci_accreditation_code ,
+                crch_award_datetime,
+                crch_app_id ,
+                crch_period as period
+  		   from cpdGroupRegHoursHistory
+ 				inner join cpdGroupRegCourseHistory on crch_cghi_id = cghi_id
+ 				left join aeItem on itm_id = crch_itm_id
+ 				left join 
+					(select 
+						ire_child_itm_id, 
+					    itm_title as p_itm_title
+					from aeItem ,aeItemRelation 
+					where ire_parent_itm_id= itm_id 
+					) tmp
+				 on (crch_itm_id = tmp.ire_child_itm_id)
+ 			where 
+	         	cghi_usr_ent_id = #{usr_ent_id}
+	         	and crch_ct_id = #{ct_id}
+	         	and crch_period = #{period}
+	         	and (cghi_expiry_date is null or cghi_expiry_date> cghi_cal_end_date)
+		
+ 		<if test="orderAwardTime != null and orderAwardTime == 1">
+ 			<![CDATA[
+ 			order by crch_award_datetime asc
+ 			]]>
+ 		</if>
+ 		 <if test="orderTitle != null and orderTitle == 1">
+ 			<![CDATA[
+ 			order by itm_title asc
+ 			]]>
+ 		</if>
+	</select>
+	
+	<select id="getCpdGroupSumList" resultType="com.cwn.wizbank.cpd.vo.CpdGroupSumVo" parameterType="Map">
+	    <![CDATA[
+		      select crch_cg_id as cg_id,
+		             sum(crch_award_core_hours) as sum_award_core_hours,
+		             sum(crch_award_non_core_hours) as sum_award_non_core_hours
+		        from cpdGroupRegCourseHistory
+		             left join cpdGroupRegHoursHistory on crch_cghi_id = cghi_id
+		       where
+			          crch_period = #{period}
+			         and crch_ct_id = #{ct_id}
+			         and crch_itm_id =  #{itm_id}
+			         and crch_app_id = #{app_id}
+			         and (cghi_expiry_date is null or cghi_expiry_date> cghi_cal_end_date)
+			         and (cghi_cal_start_date <= crch_award_datetime and
+			             crch_award_datetime <= cghi_cal_end_date)
+			       group by crch_cg_id
+		]]>
+ 		<if test="orderAwardTime != null and orderAwardTime == 1">
+ 			<![CDATA[
+ 			order by crch_award_datetime desc
+ 			]]>
+ 		</if>
+		
+	</select>
+	
+	<select id="getHistoryView" resultMap="cpdGroupRegHoursHistory" parameterType="Page">
+		<![CDATA[
+			select 
+			    u.usr_ste_usr_id, 
+			    u.usr_display_bil,
+			    cghi_license_type,
+			    cghi_license_alias,
+			    cghi_code,
+			    cghi_alias,
+			    cghi_cr_reg_date,
+			    cghi_cr_de_reg_date,
+			    cghi_cr_reg_number,
+			    cghi_initial_date,
+			    cghi_expiry_date,
+			    cghi_period,
+			    cghi_execute_core_hours,
+			    cghi_execute_non_core_hours,
+			    cghi_award_core_hours,
+			    cghi_award_non_core_hours
+			  from cpdGroupRegHoursHistory
+			       left join reguser u on cghi_usr_ent_id = usr_ent_id
+			  where 1=1
+		]]>
+		<if test="params.usr_ent_id !=null">
+			<![CDATA[
+				and  cghi_usr_ent_id = #{params.usr_ent_id}
+			]]>
+		</if>
+		<if test="params.period !=null and params.period !=0">
+			<![CDATA[
+				and  cghi_period = #{params.period}
+			]]>
+		</if>
+		<if test="params.ct_id !=null and params.ct_id !=0">
+			<![CDATA[
+				and  cghi_ct_id = #{params.ct_id}
+			]]>
+		</if>
+		<if test="params.searchText != null and params.searchText !=''">
+		    <bind name="searchText" value="'%' + params.searchText + '%'" />
+			and ( lower(u.usr_ste_usr_id) like N'${searchText}' or lower(u.usr_display_bil) like N'${searchText}' )
+		  </if>
+		order by cghi_period desc ,usr_ste_usr_id desc
+	</select>	
+
+	
+	<select id="getCghiID" parameterType="com.cwn.wizbank.entity.CpdGroupRegHoursHistory"  resultType="Long">
+		<![CDATA[
+			select 
+			    cghi_id
+			  from cpdGroupRegHoursHistory
+			  where cghi_usr_ent_id = #{cghi_usr_ent_id} and  cghi_ct_id = #{cghi_ct_id}  
+			        and cghi_cg_id = #{cghi_cg_id}  and cghi_period = #{cghi_period}  and  cghi_cgr_id = #{cghi_cgr_id}
+		]]>
+	</select>
+
+</mapper>

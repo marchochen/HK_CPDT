@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.QuestionMapper">
+
+	
+	<select id="get" resultType="Question" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				que_res_id,
+				que_xml,
+				que_score,
+				que_type,
+				que_int_count,
+				que_prog_lang,
+				que_media_ind,
+				que_submit_file_ind
+			from Question t
+			where
+				 t.que_res_id = #{id}
+		]]>
+	</select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.Question">
+	    <![CDATA[
+	        update Question
+	        set 
+				que_res_id = #{que_res_id,jdbcType=INTEGER},
+				que_xml = #{que_xml,jdbcType=VARCHAR},
+				que_score = #{que_score,jdbcType=INTEGER},
+				que_type = #{que_type,jdbcType=VARCHAR},
+				que_int_count = #{que_int_count,jdbcType=INTEGER},
+				que_prog_lang = #{que_prog_lang,jdbcType=VARCHAR},
+				que_media_ind = #{que_media_ind,jdbcType=BOOLEAN},
+				que_submit_file_ind = #{que_submit_file_ind,jdbcType=INTEGER}
+	         where t.que_res_id = #{que_res_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.Question">
+    	<![CDATA[
+            insert into Question(
+            		que_xml,
+            		que_score,
+            		que_type,
+            		que_int_count,
+            		que_prog_lang,
+            		que_media_ind,
+            		que_submit_file_ind
+            ) values (
+            	#{que_xml,jdbcType=VARCHAR},
+            	#{que_score,jdbcType=INTEGER},
+            	#{que_type,jdbcType=VARCHAR},
+            	#{que_int_count,jdbcType=INTEGER},
+            	#{que_prog_lang,jdbcType=VARCHAR},
+            	#{que_media_ind,jdbcType=BOOLEAN},
+            	#{que_submit_file_ind,jdbcType=INTEGER}
+            )
+        ]]>
+    </insert>
+    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from Question where
+	        que_res_id = #{que_res_id}
+	    ]]>
+    </delete>
+	
+</mapper>

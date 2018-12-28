@@ -1,0 +1,15 @@
+8.0
+13
+1	SQLNCHAR	0	0	"\t\0"		1	tnd_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	tnd_title	""
+3	SQLNCHAR	0	0	"\t\0"		3	tnd_status	""
+4	SQLNCHAR	0	0	"\t\0"		4	tnd_type	""
+5	SQLNCHAR	0	0	"\t\0"		5	tnd_itm_cnt	""
+6	SQLNCHAR	0	0	"\t\0"		6	tnd_on_itm_cnt	""
+7	SQLNCHAR	0	0	"\t\0"		7	tnd_cat_id	""
+8	SQLNCHAR	0	0	"\t\0"		8	tnd_parent_tnd_id	""
+9	SQLNCHAR	0	0	"\t\0"		11	tnd_create_timestamp	""
+10	SQLNCHAR	0	0	"\t\0"		12	tnd_create_usr_id	""
+11	SQLNCHAR	0	0	"\t\0"		13	tnd_update_timestamp	""
+12	SQLNCHAR	0	0	"\t\0"		14	tnd_update_usr_id	""
+13	SQLNCHAR	0	0	"\r\0\n\0"	22	tnd_owner_ent_id	""

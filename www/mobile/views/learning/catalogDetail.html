@@ -1,0 +1,78 @@
+<!doctype html>
+<html ng-app="learning">
+    <head>
+	    <meta charset="utf-8">
+	    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+	    <title translate="cwn_title"></title>
+	    <link rel="stylesheet" href="../../css/basic.css" />
+		<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.load.js"></script>
+		<script type="text/javascript" src="../../lib/common.js"></script>
+		<script type="text/javascript" src="../../js/controllers/learning/courseCatalogDetailController.js"></script>
+		<!--[if lt IE 9]>
+		<script src="../js/lib/html5.js" type="text/jscript"></script>
+		<![endif]-->
+    </head>
+	
+	<body ng-controller="courseCatalogDetailController" ng-cloak class="ng-cloak">
+		<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>
+		
+	    <div class="wrap">
+			<header class="header mm-background">
+	            <a class="header-back" href="javascript:back();"></a>
+	            <span class="header-title">{{(cosType=='exam' ? 'exam_catalog' : 'cos_catalog') | translate}}</span>
+	            <a class="header-sosuo" href="{{{url:'../search/search.html'} | appUrl}}" title="search"></a>
+	            <!-- <a class="header-menu" href="#header-guide"></a> -->
+        	</header>
+			
+			<wzm-docker rp="../../" target="{{cosType == 'exam' ? 'exam':'learning'}}"></wzm-docker>
+			<catalog-menu rp="../../" type="{{cosType}}"></catalog-menu>
+	        <!-- content-2 start -->
+	        <section class="content-2">
+	        	
+				<div class="header-guide-title">{{(cosType=='exam' ? 'exam_type' : 'cos_type') | translate}}<i translate="cos_type_all" style="float:right;" ng-click="selectItemType('all')"></i></div>
+                <div class="header-guide-info">
+                    <a class="{{item.cla}}"  ng-if="item.id!='all'" ng-class="{'select': item.select}" href="javascript:;" ng-click="selectItemType(item.id)" ng-repeat="item in itemTypes">{{item.title | translate}}</a>
+                </div>
+				   
+	            <!-- panel-list-box start -->
+	            <div class="panel-list-box">
+	                <div class="panel-tab-1 pub-tab">
+	                    <h2 class="panel-title-1 panel-bg-product padding-model-2" ng-if="firstLevel">
+	                        <a href="javascript:void(0)" title="">{{target.tnd_title}}</a>
+	                    </h2>
+	
+	                    <ul class="panel-title-22" ng-if="firstLevel && subCatalogs.length>0">
+	                        <li ng-repeat="c in subCatalogs">•   <a href="javascript:clicked('../../views/learning/catalogDetail.html?firstLevel={{c.tnd_id}}&cosType={{cosType}}',true)" ng-class="{'cur':(c.tnd_id==selectedItem)}">{{c.tnd_title}}</a></li>
+	                    </ul>
+						
+						<div class="tuwen-list-1" ng-style="{'border-top':($first ? 'none' : '')}" ng-if="catalogCourseLoader.items.length>0" ng-repeat="item in catalogCourseLoader.items">
+		                    <a class="tuwen-list-1-box clearfix" href="javascript:clicked('../course/detail.html?itmId={{item.encItmId}}&tkhId={{item.app_tkh_id}}',true,'item{{item.itm_id}}')" title="">
+		                        <div class="tuwen-list-1-pic">
+		                            <img ng-src="{{serverHost}}{{item.itm_icon}}">
+		                            <span class="{{cur_lan_en=='en-us'?'list-tool-1-bixiu-e':'list-tool-1-bixiu'}}" ng-if="item.itd.itd_compulsory_ind == 1"></span>
+		                            <span class="{{item.cla}}"></span>
+		                        </div>
+		                        
+		                        <div class="marginl">
+			                        <div class="tuwen-list-1-tit-1"><i class="wzb-pc-icon"></i><i class="wzb-phone-icon" ng-show="item.itm_mobile_ind && item.itm_mobile_ind == 'yes'"></i>{{item.itm_title}}</div>
+			                        <!-- <div class="tuwen-list-tool">
+			                            <span class="list-tool-1-laud">{{item.snsCount && item.snsCount.s_cnt_like_count ? item.snsCount.s_cnt_like_count:0}}</span>
+			                            <span class="list-tool-1-review">{{item.cnt_comment_count?item.cnt_comment_count:0}}</span>
+			                        </div> -->
+			                        <div style="color:#999; margin:7px 0 0; line-height:20px;">
+	                            			{{'mod_publish_date' | translate}}: {{item.itm_publish_timestamp}}
+			                        </div>
+		                        </div>
+		                        
+		                    </a>
+		                </div>
+						
+						<div loader="catalogCourseLoader"></div>
+	
+	                </div>
+	            </div> <!-- panel-list-box End -->
+	        </section> <!-- content-2 End -->
+	    </div> <!-- wrap End -->
+	</body>
+</html>

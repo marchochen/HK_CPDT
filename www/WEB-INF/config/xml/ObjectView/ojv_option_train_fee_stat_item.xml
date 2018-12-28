@@ -1,0 +1,18 @@
+<template_view>
+	<section id="1">
+		<field01 paramname="itm_title" checked="yes" sortable="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Training title"/>
+				<desc lan="Big5" name="培訓名稱"/>
+				<desc lan="GB2312" name="培训名称"/>
+			</title>
+		</field01>
+		<field02 paramname="itm_type" checked="no" sortable="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Training type"/>
+				<desc lan="Big5" name="培訓類型"/>
+				<desc lan="GB2312" name="培训类型"/>
+			</title>
+		</field02>
+	</section>
+</template_view>

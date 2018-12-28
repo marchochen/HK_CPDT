@@ -1,0 +1,52 @@
+<!doctype html>
+<html ng-app="module">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link rel="stylesheet" href="../../css/module.css"/>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/ModuleController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="refContentController">
+<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+
+<div class="wrap">
+	<header class="header mm-background" style="background:#f88600;" ng-click="leave()">
+	    <a class="header-back header-back-2" href="javascript:;"></a>
+	    <span class="header-title" style="text-align:left;">{{'mod_exit_save' | translate }}</span>
+	</header> <!-- header End -->
+	
+	<section class="content">
+		<div>
+			<div class="ui_head">
+				<span class="report_outline">{{'mod_ref' | translate}}</span>
+			</div>
+			<div class="content_info"  ng-if="ref_list.reference && ref_list.reference.length">
+				<div class="report_title">
+					<div class="grayC999 ass_left">{{'mod_title' | translate}}</div>
+					<div class="grayC999">{{'mod_content_desc' | translate}}</div>
+				</div>
+				<div class="report_content_tr" ng-repeat="ref in ref_list.reference">
+				 	<div class="ass_left">
+				 		<a href="javascript:;" ng-click="open(ref.ref_url)">{{ref.ref_title}}</a>
+				 	</div>
+					<div class="ass_right">{{ref.description[0].text}}</div>
+				</div>
+			</div>
+			<!-- 没有数据显示时 -->
+			<div class="panel-list-boxdate"  ng-show="!(ref_list.reference && ref_list.reference.length)" >
+				<div class="panel-list-nodate" translate="loader_no_data"></div>
+				<div class="panel-list-foot" ></div>
+			</div>
+		</div>
+	</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

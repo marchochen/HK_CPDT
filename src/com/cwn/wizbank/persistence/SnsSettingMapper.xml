@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.SnsSettingMapper">
+	<select id="get" resultType="SnsSetting" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				s_set_id,
+				s_set_uid,
+				s_set_comment,
+				s_set_group,
+				s_set_my_follow,
+				s_set_my_fans,
+				s_set_share,
+				s_set_valuation,
+				s_set_like,
+				s_set_doing,
+				s_set_create_uid,
+				s_set_create_datetime,
+				s_set_update_uid,
+				s_set_update_datetime,
+				s_set_prof_fullname,
+				s_set_prof_bday,
+				s_set_prof_cert_location,
+				s_set_prof_pol_land,
+				s_set_prof_email,
+				s_set_prof_tel,
+				s_set_prof_fax,
+				s_set_prof_company,
+				s_set_prof_nickname,
+				s_set_prof_join_date,
+				s_set_prof_grade,
+				s_set_prof_msn
+			from sns_setting t where t.s_set_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.SnsSetting">
+	    <![CDATA[
+	        update sns_setting 
+	        set 
+				s_set_comment = #{s_set_comment,jdbcType=INTEGER},
+				s_set_group = #{s_set_group,jdbcType=INTEGER},
+				s_set_my_follow = #{s_set_my_follow,jdbcType=INTEGER},
+				s_set_my_fans = #{s_set_my_fans,jdbcType=INTEGER},
+				s_set_share = #{s_set_share,jdbcType=INTEGER},
+				s_set_valuation = #{s_set_valuation,jdbcType=INTEGER},
+				s_set_like = #{s_set_like,jdbcType=INTEGER},
+				s_set_doing = #{s_set_doing,jdbcType=INTEGER},
+				s_set_update_uid = #{s_set_update_uid,jdbcType=INTEGER},
+				s_set_update_datetime = #{s_set_update_datetime,jdbcType=TIMESTAMP},
+				s_set_prof_fullname = #{s_set_prof_fullname,jdbcType=INTEGER},
+				s_set_prof_bday = #{s_set_prof_bday,jdbcType=INTEGER},
+				s_set_prof_cert_location = #{s_set_prof_cert_location,jdbcType=INTEGER},
+				s_set_prof_pol_land = #{s_set_prof_pol_land,jdbcType=INTEGER},
+				s_set_prof_email = #{s_set_prof_email,jdbcType=INTEGER},
+				s_set_prof_tel = #{s_set_prof_tel,jdbcType=INTEGER},
+				s_set_prof_fax = #{s_set_prof_fax,jdbcType=INTEGER},
+				s_set_prof_company = #{s_set_prof_company,jdbcType=INTEGER},
+				s_set_prof_nickname = #{s_set_prof_nickname,jdbcType=INTEGER},
+				s_set_prof_join_date = #{s_set_prof_join_date,jdbcType=INTEGER},
+				s_set_prof_grade = #{s_set_prof_grade,jdbcType=INTEGER},
+				s_set_prof_msn = #{s_set_prof_msn,jdbcType=INTEGER},
+				s_set_my_files = #{s_set_my_files,jdbcType=INTEGER},
+				s_set_my_collection = #{s_set_my_collection,jdbcType=INTEGER},
+				s_set_my_credit = #{s_set_my_credit,jdbcType=INTEGER},
+				s_set_my_learning_record = #{s_set_my_learning_record,jdbcType=INTEGER},
+				s_set_my_learning_situation = #{s_set_my_learning_situation,jdbcType=INTEGER}
+	         where s_set_uid = #{s_set_uid,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.SnsSetting">
+    	<![CDATA[
+            insert into sns_setting(
+            		s_set_uid,
+            		s_set_comment,
+            		s_set_group,
+            		s_set_my_follow,
+            		s_set_my_fans,
+            		s_set_share,
+            		s_set_valuation,
+            		s_set_like,
+            		s_set_doing,
+            		s_set_create_uid,
+            		s_set_create_datetime,
+            		s_set_update_uid,
+            		s_set_update_datetime,
+            		s_set_prof_fullname,
+            		s_set_prof_bday,
+            		s_set_prof_cert_location,
+            		s_set_prof_pol_land,
+            		s_set_prof_email,
+            		s_set_prof_tel,
+            		s_set_prof_fax,
+            		s_set_prof_company,
+            		s_set_prof_nickname,
+            		s_set_prof_join_date,
+            		s_set_prof_grade,
+            		s_set_prof_msn,
+            		s_set_my_files,
+            		s_set_my_collection,
+            		s_set_my_credit,
+					s_set_my_learning_record,
+					s_set_my_learning_situation
+            ) values (
+            	#{s_set_uid,jdbcType=INTEGER},
+            	#{s_set_comment,jdbcType=INTEGER},
+            	#{s_set_group,jdbcType=INTEGER},
+            	#{s_set_my_follow,jdbcType=INTEGER},
+            	#{s_set_my_fans,jdbcType=INTEGER},
+            	#{s_set_share,jdbcType=INTEGER},
+            	#{s_set_valuation,jdbcType=INTEGER},
+            	#{s_set_like,jdbcType=INTEGER},
+            	#{s_set_doing,jdbcType=INTEGER},
+            	#{s_set_create_uid,jdbcType=INTEGER},
+            	#{s_set_create_datetime,jdbcType=TIMESTAMP},
+            	#{s_set_update_uid,jdbcType=INTEGER},
+            	#{s_set_update_datetime,jdbcType=TIMESTAMP},
+            	#{s_set_prof_fullname,jdbcType=INTEGER},
+            	#{s_set_prof_bday,jdbcType=INTEGER},
+            	#{s_set_prof_cert_location,jdbcType=INTEGER},
+            	#{s_set_prof_pol_land,jdbcType=INTEGER},
+            	#{s_set_prof_email,jdbcType=INTEGER},
+            	#{s_set_prof_tel,jdbcType=INTEGER},
+            	#{s_set_prof_fax,jdbcType=INTEGER},
+            	#{s_set_prof_company,jdbcType=INTEGER},
+            	#{s_set_prof_nickname,jdbcType=INTEGER},
+            	#{s_set_prof_join_date,jdbcType=INTEGER},
+            	#{s_set_prof_grade,jdbcType=INTEGER},
+            	#{s_set_prof_msn,jdbcType=INTEGER},
+            	#{s_set_my_files,jdbcType=INTEGER},
+            	#{s_set_my_collection,jdbcType=INTEGER},
+            	#{s_set_my_credit,jdbcType=INTEGER},
+            	#{s_set_my_learning_record,jdbcType=INTEGER},
+            	#{s_set_my_learning_situation,jdbcType=INTEGER}
+            )
+        ]]>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from sns_setting  where s_set_id = #{s_set_id}
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="SnsSetting">
+	    <![CDATA[
+	         select 
+				s_set_id,
+				s_set_uid,
+				s_set_comment,
+				s_set_group,
+				s_set_my_follow,
+				s_set_my_fans,
+				s_set_share,
+				s_set_valuation,
+				s_set_like,
+				s_set_doing,
+				s_set_create_uid,
+				s_set_create_datetime,
+				s_set_update_uid,
+				s_set_update_datetime,
+				s_set_prof_fullname,
+				s_set_prof_bday,
+				s_set_prof_cert_location,
+				s_set_prof_pol_land,
+				s_set_prof_email,
+				s_set_prof_tel,
+				s_set_prof_fax,
+				s_set_prof_company,
+				s_set_prof_nickname,
+				s_set_prof_join_date,
+				s_set_prof_grade,
+				s_set_prof_msn
+			from sns_setting t 
+	    ]]>
+	</select>
+	<select id="selectSnsSet" resultType="SnsSetting" parameterType="Map">
+         select distinct
+			s_set_id,
+			s_set_uid,
+			s_set_comment,
+			s_set_group,
+			s_set_my_follow,
+			s_set_my_fans,
+			s_set_share,
+			s_set_valuation,
+			s_set_like,
+			s_set_doing,
+			s_set_create_uid,
+			s_set_create_datetime,
+			s_set_update_uid,
+			s_set_update_datetime,
+			s_set_prof_fullname,
+			s_set_prof_bday,
+			s_set_prof_cert_location,
+			s_set_prof_pol_land,
+			s_set_prof_email,
+			s_set_prof_tel,
+			s_set_prof_fax,
+			s_set_prof_company,
+			s_set_prof_nickname,
+			s_set_prof_join_date,
+			s_set_prof_grade,
+			s_set_prof_msn,
+			s_set_my_files,
+			s_set_my_collection,
+			s_set_my_credit,
+			s_set_my_learning_record,
+			s_set_my_learning_situation,
+			s_att_id as "snsAttention.s_att_id",
+			spt_source_usr_ent_id
+		from sns_setting 
+		left join sns_attention on s_att_source_uid = s_set_uid and s_att_target_uid = #{my_usr_ent_id}
+		left join SuperviseTargetEntity on spt_source_usr_ent_id = #{my_usr_ent_id} and (
+			spt_target_ent_id = s_set_uid or spt_target_ent_id in (
+				select ern_ancestor_ent_id from EntityRelation 
+				where ern_child_ent_id = ${he_usr_ent_id} and ern_type = 'USR_PARENT_USG'
+			)
+		)
+		where s_set_uid = #{he_usr_ent_id}
+	</select>
+</mapper>

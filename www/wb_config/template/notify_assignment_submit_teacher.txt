@@ -1,0 +1,6 @@
+Assignment Submission Notification
+"$data_1_" has submitted the assignment ($data_2_) of $data_3_.
+
+Thank You.
+
+

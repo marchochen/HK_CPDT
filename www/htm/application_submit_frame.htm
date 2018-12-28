@@ -1,0 +1,104 @@
+﻿<!doctype html public "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+   <head>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+      <title>Cyberwisdom wizBank</title>
+		<script src="../js/wb_utils.js" type="text/javascript"></script>
+		<script src="../js/gen_utils.js" type="text/javascript"></script>
+		<script src="../js/urlparam.js" type="text/javascript"></script>
+		<script type="text/javascript">
+
+			function submitFrm(){
+				if(getUrlParam("back_confirm") == 'true'){
+					parent.frames[0].current = parent.frames[0].current-1;
+					//parent.frames[0].frmAction.back_confirm.value = "true";
+					parent.frames[0].document.forms['frmAction'].back_confirm.value = "true";
+				} else if (getUrlParam("back_confirm") == 'false'){
+					//parent.frames[0].frmAction.back_confirm.value = "false";
+					 parent.frames[0].document.forms['frmAction'].back_confirm.value = "false";
+				}
+				if(parent.frames[0].doSubmitFrm)
+					parent.frames[0].doSubmitFrm();
+			}
+			
+			
+			wb_msg_process_deletion = "Deleting User";
+			wb_msg_wait_process_enrol = "Please wait while the system is processing your request.";
+			wb_msg_process_del_status = "Deleting user"
+			wb_msg_process_ins_assessment = "Processing insert assessment";
+			wb_msg_process_svy_submission = "Submitting User Survey"
+			wb_msg_process_eas_submission = "Processing External Assessment Submission"
+			wb_msg_process_enrol = "Processing Enrollment";
+			wb_msg_process_enrol_status = "Processing enrollment"
+			wb_msg_process_update = "Processing update"
+			
+			lang = getUrlParam("lang");
+			
+			var wb_msg_loading_msg = "Loading... Please wait."
+			if(lang =='ch'){
+				wb_msg_process_deletion = "刪除用戶";
+				wb_msg_wait_process_enrol = "請稍候，系統正處理你的請求";
+				wb_msg_process_del_status = "刪除用戶"
+				wb_msg_process_ins_assessment = "新增評估";
+				wb_msg_process_svy_submission = "提交用戶問卷"
+				wb_msg_process_eas_submission = "進行外部評估提交"
+				wb_msg_process_enrol = "報名處理";
+				wb_msg_process_enrol_status = "報名處理"
+				wb_msg_process_update = "更新處理"
+			}else if(lang =='gb'){
+				wb_msg_process_deletion = "用户删除";
+				wb_msg_wait_process_enrol = "请稍等，系统正在处理您的请求";
+				wb_msg_process_del_status = "用户删除"
+				wb_msg_process_ins_assessment = "正在插入评估";
+				wb_msg_process_svy_submission = "正在提交用户调查问卷"
+				wb_msg_process_eas_submission = "外部评估提交处理中";
+				wb_msg_process_enrol = "报名处理";
+				wb_msg_process_enrol_status = "报名处理"
+				wb_msg_process_update = "更新处理"
+			}
+			
+			
+		</script>
+   </head>
+   <body marginwidth="3" marginheight="3" topmargin="3" leftmargin="3" onload="submitFrm()">
+		<table cellpadding="10" cellspacing="0" border="0"><tr><td>
+			<font size="2" face="Arial">
+				<script language="javascript">
+				if(wb_utils_get_cookie("type")=="usergroup"){
+					document.write('<b>'+wb_msg_process_deletion+'</b><br/><br/>');
+					document.write('    '+wb_msg_wait_process_enrol+'<br/><br/>');
+					if(wb_utils_get_cookie("current")!="")
+						document.write('    '+ wb_msg_process_del_status+' '+wb_utils_get_cookie("current")+' / '+wb_utils_get_cookie("total")+'...<br/>');
+					document.write('    '+wb_utils_get_cookie("appn_usr_name"));
+				}else if (wb_utils_get_cookie("type")=="ins_assessment"){
+					document.write('<b>'+wb_msg_process_ins_assessment+'</b><br/><br/>');
+					document.write('    '+wb_msg_wait_process_enrol+'<br/><br/>');
+					if(wb_utils_get_cookie("current")!="")
+						document.write('    '+wb_msg_process_ins_assessment+' '+wb_utils_get_cookie("current")+' / '+wb_utils_get_cookie("total")+'...<br/>');
+				}else if (wb_utils_get_cookie("type")=="change_mov_status"){
+					document.write('<b>'+wb_msg_process_svy_submission+'</b><br/><br/>');
+					document.write('    '+wb_msg_wait_process_enrol+'<br/><br/>');
+					if(wb_utils_get_cookie("current")!="")
+						document.write('    '+wb_msg_process_svy_submission+' '+wb_utils_get_cookie("current")+' / '+wb_utils_get_cookie("total")+'...<br/>');
+				}else if (wb_utils_get_cookie("type")=="eas_mass_grade"){
+					document.write('<b>'+wb_msg_process_eas_submission+'</b><br/><br/>');
+					document.write('    '+wb_msg_wait_process_enrol+'<br/><br/>');
+					if(wb_utils_get_cookie("current")!="")
+						document.write('    '+wb_msg_process_eas_submission+' '+wb_utils_get_cookie("current")+' / '+wb_utils_get_cookie("total")+'...<br/>');
+				}else if(wb_utils_get_cookie("type")=="update"){
+					document.write('<b>'+wb_msg_process_update+'</b><br/><br/>');
+					document.write('    '+wb_msg_wait_process_enrol+'<br/><br/>');
+					if(wb_utils_get_cookie("current")!="")
+						document.write('    '+wb_msg_process_eas_submission+' '+wb_utils_get_cookie("current")+' / '+wb_utils_get_cookie("total")+'...<br/>');
+				}else{
+					document.write('<b>'+wb_msg_process_enrol+'</b><br/><br/>');
+					document.write('    '+wb_msg_wait_process_enrol+'<br/><br/>');
+					if(wb_utils_get_cookie("current")!="")
+						document.write('    '+wb_msg_process_enrol_status+' '+wb_utils_get_cookie("current")+' / '+wb_utils_get_cookie("total")+'...<br/>');
+					document.write('    '+wb_utils_get_cookie("appn_usr_name"));
+				}
+				</script>
+			</font>
+		</td></tr></table>
+   </body>
+</html>

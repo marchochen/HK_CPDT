@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+personalization
+Description:
+	The personalization options for the organization. 
+-->
+<personalization xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\personalization.xsd">
+	<!-- 
+	skin_list
+	Description:
+		The available skins for the organization. The list must be a subset of skin list defined in system/personalization.xml   
+	Value:
+		default_id: Specifies the default skin identifier for the organization.
+		skin_selectable: Indicates if skins are open up for end users to select.
+		default_lang: Specifies the default language code (IETF RFC 1766) for the organization.
+		lang_selectable: Indicates if languages are open up for end users to select.
+	Remarks:
+		The default language code (default_lang) must be supported by the default skin (default_id); otherwise, the behavior is undefined.
+	-->
+	<skin_list default_id="skin4" skin_selectable="false" default_lang="en-us" lang_selectable="true">
+		<!-- 
+		skin
+		Description:
+			A skin option
+		Value:
+			id: Specifies the skin identifier. It must match with one of the skin identifiers defined in system/personalization.xml 
+		-->
+		<skin id="skin3">
+			<lang_list>
+			<lang>en-us</lang>
+			<lang>zh-cn</lang>
+			<lang>zh-hk</lang>
+			</lang_list>
+		</skin>
+		<skin id="skin2">
+			<!-- 
+			TODO
+			lang_list
+			Description:
+				Specifies the language codes used in this skin. It must match with one of the language supported by this skin.
+			-->
+			<lang_list>
+			<lang>en-us</lang>
+			<lang>zh-cn</lang>
+			<lang>zh-hk</lang>
+			</lang_list>
+			<!-- 
+			(Optional) role_list
+			Description:
+				Specifies the role that uses this skin by default.
+			Value:
+				The role ID. It must match with one of the role IDs pre-defined in the system database. 
+			-->
+		</skin>
+		<skin id="skin5">
+			<lang_list>
+			<lang>en-us</lang>
+			<lang>zh-cn</lang>
+			<lang>zh-hk</lang>
+			</lang_list>
+		</skin>
+		<skin id="skin4">
+			<lang_list>
+			<lang>en-us</lang>
+			<lang>zh-cn</lang>
+			<lang>zh-hk</lang>
+			</lang_list>
+		</skin>
+		<skin id="skin1">
+			<lang_list>
+			<lang>en-us</lang>
+			<lang>zh-cn</lang>
+			<lang>zh-hk</lang>
+			</lang_list>
+			<role_list>
+				<role>NLRN_1</role>
+				<role>VISTR_1</role>
+			</role_list>
+		</skin>
+	</skin_list>
+</personalization>

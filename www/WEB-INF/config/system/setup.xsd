@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:simpleType name="portNumberType">
+		<xsd:restriction base="xsd:int">
+			<xsd:minInclusive value="1" />
+			<xsd:maxInclusive value="65535" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="posIntType">
+		<xsd:restriction base="xsd:int">
+			<xsd:minInclusive value="1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="nonNullStringType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="allowUserMaxSizeType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[1-9]*"></xsd:pattern>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="dirType">
+		<xsd:attribute name="name" type="nonNullStringType" />
+		<xsd:attribute name="relative" type="xsd:boolean" />
+	</xsd:complexType>
+	<xsd:complexType name="xslStylesheetType">
+		<xsd:sequence>
+			<xsd:element name="cache_enabled" type="xsd:boolean" />
+			<xsd:element name="cache_file" type="nonNullStringType" />
+			<xsd:element name="cache_dir" type="nonNullStringType" />
+			<xsd:element name="home" type="nonNullStringType" />
+			<xsd:element name="msgbox_file" type="nonNullStringType" />
+			<xsd:element name="mediabox_file" type="nonNullStringType" />
+			<xsd:element name="value_template_file" type="nonNullStringType" />
+			<xsd:element name="log_enabled" type="xsd:boolean" />
+			<xsd:element name="log_file" type="nonNullStringType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="tspaceType">
+		<xsd:sequence>
+			<xsd:element name="enabled" type="xsd:boolean" />
+			<xsd:element name="host" type="nonNullStringType" />
+			<xsd:element name="port" type="portNumberType" />
+			<xsd:element name="www_port" type="portNumberType" />
+			<xsd:element name="room_port" type="portNumberType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="setup">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element name="xsl_stylesheet" type="xslStylesheetType" />
+				<xsd:element name="tspace" type="tspaceType" />
+				<xsd:element name="allow_user_max_size" type="allowUserMaxSizeType" />
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

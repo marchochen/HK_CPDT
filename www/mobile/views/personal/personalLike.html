@@ -1,0 +1,47 @@
+<!doctype html>
+<html ng-app="personal">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/PersonalController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="likeController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+
+<div class="wrap" id="wizwrap">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back();" title="back"></a>
+    <span class="header-title">{{'personal_like' | translate}}</span>
+</header> <!-- header End -->
+
+<section class="content">
+<div class="cont-info" style="margin-top:0;">
+<div class="cont-info-tuwen">
+<div class="tuwen-list-2 clearfix" ng-repeat="like in likeList.items">
+     <a class="tuwen-list-2-pic" href="javascript:;" forward="like.operator.usr_ent_id | personUrl" title="">
+          <img class="pic-user-w" ng-src="{{serverHost}}{{like.operator.usr_photo}}" alt=""/>
+     </a>
+
+     <div class="tuwen-list-2-box"> 
+          <div class="tuwen-list-2-tit-1">
+               <span class="tuwen-list-2-time">{{like.crtTime | dateFormat}}</span>
+               <a href="javascript:;" class="tuwen-list-2-user" forward="like.operator.usr_ent_id | personUrl" title="">{{like.operator.usr_display_bil}}</a>
+          </div>
+          <p class="tuwen-list-2-tit-2" ng-bind-html="like.title | htmlDecode"></p>
+     </div>
+</div>
+</div>
+</div>
+<div loader="likeList"></div>
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

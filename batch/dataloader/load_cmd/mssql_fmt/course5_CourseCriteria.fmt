@@ -1,0 +1,13 @@
+8.0
+11
+1	SQLNCHAR	0	0	"\t\0"		2	ccr_pass_score	""
+2	SQLNCHAR	0	0	"\t\0"		3	ccr_duration	""
+3	SQLNCHAR	0	0	"\t\0"		4	ccr_pass_ind	""
+4	SQLNCHAR	0	0	"\t\0"		5	ccr_all_cond_ind	""
+5	SQLNCHAR	0	0	"\t\0"		6	ccr_create_timestamp	""
+6	SQLNCHAR	0	0	"\t\0"		7	ccr_create_usr_id	""
+7	SQLNCHAR	0	0	"\t\0"		8	ccr_upd_timestamp	""
+8	SQLNCHAR	0	0	"\t\0"		9	ccr_upd_usr_id	""
+9	SQLNCHAR	0	0	"\t\0"		10	ccr_type	""
+10	SQLNCHAR	0	0	"\t\0"		11	ccr_upd_method	""
+11	SQLNCHAR	0	0	"\r\0\n\0"	12	ccr_itm_id	""

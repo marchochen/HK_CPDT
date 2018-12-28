@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<db xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="db.xsd">
+	<!-- 数据源	enabled: [ true(使用) | false(不使用) ]	jndiname: JNDI名字；前缀“java:comp/env/”不能更改，“jdbc/wizbankds”部分需要跟web.xml中的resource-ref/res-ref-name对应	-->
+	<datasource>
+		<enabled>true</enabled>
+		<jndiname>java:comp/env/jdbc/wizbankds</jndiname>
+	</datasource>
+	<!-- 数据库连接参数（不使用数据源时适用）	dbvendor: 数据库类型	host: 机器名（ip地址或者域名）	port: 端口（MSSQL:1433、ORACLE:1521、DB2:50000）如果不指定端口，可以去掉此元素	name: 数据库名	user: 用户名	pass: 密码	-->
+	<db_connect>
+		<dbvendor>ORACLE</dbvendor>
+		<host>weTeam-halo</host>
+		<port>1521</port>
+		<name>wizbank</name>
+		<user>lms</user>
+		<pass>123</pass>
+	</db_connect>
+	<!-- JDBC驱动配置参数（不使用数据源时适用）	vendor: 数据库类型	classname: 驱动的全类名	protocol: 连接URL中的协议	separator: 连接URL中，端口号与数据库名的分隔符号（MSSQL:“/”、ORACLE:“:”、DB2:“/”）	-->
+	<jdbc_driver>
+		<driver vendor="MSSQL">
+			<classname>net.sourceforge.jtds.jdbc.Driver</classname>
+			<protocol>jdbc:jtds:sqlserver://</protocol>
+			<separator>/</separator>
+		</driver>
+		<driver vendor="ORACLE">
+			<classname>oracle.jdbc.driver.OracleDriver</classname>
+			<protocol>jdbc:oracle:thin:@</protocol>
+			<separator>:</separator>
+		</driver>
+		<driver vendor="DB2">
+			<classname>com.ibm.db2.jcc.DB2Driver</classname>
+			<protocol>jdbc:db2://</protocol>
+			<separator>/</separator>
+		</driver>
+	</jdbc_driver>
+</db>

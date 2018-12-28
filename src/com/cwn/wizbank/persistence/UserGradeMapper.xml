@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.UserGradeMapper">
+	
+	<select id="get" parameterType="Long" resultType="UserGrade">
+		select * from UserGrade where ugr_ent_id = #{ugr_ent_id}
+	</select>
+
+	<select id="getByTitle" parameterType="String" resultType="UserGrade">
+		select * from UserGrade where ugr_display_bil = #{title}
+	</select>
+	
+</mapper>

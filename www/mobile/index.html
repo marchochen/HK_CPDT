@@ -1,0 +1,90 @@
+<!doctype html>
+<html ng-app="indexModule">
+	<head>
+		<script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery.load.js"></script>
+		<script type="text/javascript" src="lib/common.js"></script>
+	</head>
+	<body ng-controller="indexController">
+	</body>
+	<script type="text/javascript">
+	
+		var clicked=function(url,id){
+			var webViewStyle = {'popGesture':'none','scrollIndicator':'none','scalable':false};
+			var openw=plus.webview.create(url,id,webViewStyle);
+			
+			openw.addEventListener('titleUpdate',function(){
+				setTimeout(function(){
+					plus.webview.show( openw );
+					plus.navigator.closeSplashscreen();
+				},2000);
+			},false);
+		};
+	
+		$.include([], '');
+		$(function(){
+			var module = angular.module("indexModule",['globalCwn']);
+			module.controller("indexController",['Store','Ajax',function(Store,Ajax){
+				if(appInd){
+					if(window.plus){
+						plusReady();
+					}else{
+						document.addEventListener('plusready',plusReady,false);
+					}
+					function plusReady(){
+						if(!plus.storage.getItem("readHelp")){//�״δ�app
+							window.location.href = "views/login.html";
+							return;
+						}
+						if(!plus.storage.getItem("serverHost")){//δ��½��ֱ�Ӷ��򵽵�½ҳ��
+							window.location.href = "views/login.html";
+							return;
+						}
+						var serverHost = protocal + plus.storage.getItem("serverHost");
+						window.serverHost = serverHost;
+						
+						//������Ҫ���Ƶ�¼����������Ҫ��PC��һ��ʹ��session������ֱ���˳�app���޷�����session�˳�
+						//����һ����app����Ҫ����ϴε�session���
+						Ajax.post(serverHost+"/app/home/mobile/sessionClear",{},function(responseText){
+							if("success" === responseText){
+								//���session�ɹ�����Ҫ�������ʼ�������ͼ�飬�����¼�����
+								Ajax.post(serverHost+"/app/home/mobile/replyTest",{},function(responseText){
+									if("success" === responseText){
+										var token = plus.storage.getItem("token");
+										var loginUserId = plus.storage.getItem("loginUserId");
+										var globalLang = plus.storage.getItem("globalLang");
+										if(token){
+											var store = window.localStorage;
+											for(key in store){
+												if(store.hasOwnProperty(key) && key.indexOf("open")!=0){
+													store.removeItem(key);	
+												}
+											}
+											Store.set("token", token);
+											Store.set("serverHost", serverHost);
+											Store.set("loginUser",loginUserId);
+											Store.set("globalLang",globalLang);		
+											Store.set("isFristLogin", false);
+											Store.set("showLearningHistory",false);
+											clicked('views/index.html','home');
+										}else{
+											window.location.href = "views/login.html";
+										}
+									}else {
+										window.location.href = "views/login.html";
+									}
+								});
+								
+							}else {
+								window.location.href = "views/login.html";
+							}
+						});
+					}
+				} else {
+					window.location.href = "views/login.html";
+				}
+				
+			}]);
+		});
+	</script>
+</html>

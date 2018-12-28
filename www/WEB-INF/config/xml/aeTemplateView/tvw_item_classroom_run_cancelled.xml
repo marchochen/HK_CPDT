@@ -1,0 +1,327 @@
+<template_view>
+	<section id="1">
+		<title>
+			<desc lan="ISO-8859-1" name="General information"/>
+			<desc lan="Big5" name="基本資訊"/>
+			<desc lan="GB2312" name="基本信息"/>
+		</title>
+		<itm_type type="itm_type" paramname="itm_type">
+			<title>
+				<desc lan="ISO-8859-1" name="Type"/>
+				<desc lan="Big5" name="類型"/>
+				<desc lan="GB2312" name="类型"/>
+			</title>
+		</itm_type>
+		<field51>
+			<title>
+				<desc lan="ISO-8859-1" name="Code"/>
+				<desc lan="Big5" name="編號"/>
+				<desc lan="GB2312" name="编号"/>
+			</title>
+		</field51>
+		<field52>
+			<title>
+				<desc lan="ISO-8859-1" name="Title"/>
+				<desc lan="Big5" name="名稱"/>
+				<desc lan="GB2312" name="名称"/>
+			</title>
+		</field52>
+		<item_life_status type="constant_label" required="yes" marked="no" value="IN_PROGRESS" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Class status"/>
+				<desc lan="Big5" name="狀態"/>
+				<desc lan="GB2312" name="状态"/>
+			</title>
+			<label id="IN_PROGRESS">
+				<desc lan="ISO-8859-1" name="In progress"/>
+				<desc lan="Big5" name="進行中"/>
+				<desc lan="GB2312" name="进行中"/>
+			</label>
+			<label id="CANCELLED">
+				<desc lan="ISO-8859-1" name="Cancelled"/>
+				<desc lan="Big5" name="已取消"/>
+				<desc lan="GB2312" name="已取消"/>
+			</label>
+			<label id="COMPLETED">
+				<desc lan="ISO-8859-1" name="Completed"/>
+				<desc lan="Big5" name="已完成"/>
+				<desc lan="GB2312" name="已完成"/>
+			</label>
+		</item_life_status>
+		<item_cancel_type type="constant" required="no" marked="no" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Cancellation reason"/>
+				<desc lan="Big5" name="取消原因"/>
+				<desc lan="GB2312" name="取消原因"/>
+			</title>
+		</item_cancel_type>
+		<training_center type="tcr_pickup" paramname="itm_tcr_id" required="yes" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Training center"/>
+				<desc lan="Big5" name="培訓中心"/>
+				<desc lan="GB2312" name="培训中心"/>
+			</title>
+		</training_center>
+		<field53>
+			<title>
+				<desc lan="ISO-8859-1" name="Class period"/>
+				<desc lan="Big5" name="面授期間"/>
+				<desc lan="GB2312" name="面授期间"/>
+			</title>
+			<subfield_list>
+				<subfield id="1">
+					<title>
+						<desc lan="ISO-8859-1" name="From"/>
+						<desc lan="Big5" name="由"/>
+						<desc lan="GB2312" name="由"/>
+					</title>
+				</subfield>
+				<subfield id="2">
+					<title>
+						<desc lan="ISO-8859-1" name="To"/>
+						<desc lan="Big5" name="至"/>
+						<desc lan="GB2312" name="至"/>
+					</title>
+				</subfield>
+			</subfield_list>
+		</field53>
+		<field54>
+			<title>
+				<desc lan="ISO-8859-1" name="Schedule"/>
+				<desc lan="Big5" name="時間表說明"/>
+				<desc lan="GB2312" name="日程"/>
+			</title>
+		</field54>
+		<field55>
+			<title>
+				<desc lan="ISO-8859-1" name="Enrollment period"/>
+				<desc lan="Big5" name="報名期限"/>
+				<desc lan="GB2312" name="报名期限"/>
+			</title>
+			<subfield_list>
+				<subfield id="1">
+					<title>
+						<desc lan="ISO-8859-1" name="From"/>
+						<desc lan="Big5" name="由"/>
+						<desc lan="GB2312" name="由"/>
+					</title>
+				</subfield>
+				<subfield id="2">
+					<title>
+						<desc lan="ISO-8859-1" name="To"/>
+						<desc lan="Big5" name="至"/>
+						<desc lan="GB2312" name="至"/>
+					</title>
+				</subfield>
+			</subfield_list>
+		</field55>
+		<field59>
+			<title>
+				<desc lan="ISO-8859-1" name="Fee"/>
+				<desc lan="Big5" name="報名費"/>
+				<desc lan="GB2312" name="报名费"/>
+			</title>
+		</field59>
+		<rsv_main_room type="constant" marked="no" required="no" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Main room"/>
+				<desc lan="Big5" name="主房間"/>
+				<desc lan="GB2312" name="主房间"/>
+			</title>
+		</rsv_main_room>
+		<rsv_venue type="constant" marked="no" required="no" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Venue"/>
+				<desc lan="Big5" name="地點"/>
+				<desc lan="GB2312" name="地点"/>
+			</title>
+		</rsv_venue>
+		<field56>
+			<title>
+				<desc lan="ISO-8859-1" name="Remarks"/>
+				<desc lan="Big5" name="備註"/>
+				<desc lan="GB2312" name="备注"/>
+			</title>
+		</field56>
+	</section>
+	<section id="2">
+		<title>
+			<desc lan="ISO-8859-1" name="Administrative information"/>
+			<desc lan="Big5" name="管理資訊"/>
+			<desc lan="GB2312" name="管理信息"/>
+		</title>
+		<item_access type="item_access_pickup" paramname="iac_id_lst" id="TADM" dependant="training_center" arrayparam="true">
+			<title>
+				<desc lan="ISO-8859-1" name="Training administrator"/>
+				<desc lan="Big5" name="培訓管理員"/>
+				<desc lan="GB2312" name="培训管理员"/>
+			</title>
+		</item_access>
+		<item_access type="item_access_pickup" paramname="iac_id_lst" id="INSTR" arrayparam="true">
+			<suffix>
+				<desc lan="ISO-8859-1" name="(Users assigned here have the same privillege as those assigned in class timetable)"/>
+				<desc lan="Big5" name="(在這裡指定的用戶和在日程表指定的用戶是擁有同樣權限的)"/>
+				<desc lan="GB2312" name="(在这里指定的用户跟在日程指定的用户是拥有同样权限的)"/>
+			</suffix>
+		</item_access>
+		<item_status type="radio" value="OFF" paramname="itm_status" required="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Publish to catalog"/>
+				<desc lan="Big5" name="在目錄中發佈"/>
+				<desc lan="GB2312" name="在目录中发布"/>
+			</title>
+			<item_status id="1" value="ON">
+				<title>
+					<desc lan="ISO-8859-1" name="Yes"/>
+					<desc lan="Big5" name="是"/>
+					<desc lan="GB2312" name="是"/>
+				</title>
+			</item_status>
+			<item_status id="2" value="OFF">
+				<title>
+					<desc lan="ISO-8859-1" name="No"/>
+					<desc lan="Big5" name="否"/>
+					<desc lan="GB2312" name="否"/>
+				</title>
+			</item_status>
+		</item_status>
+		<field57>
+			<title>
+				<desc lan="ISO-8859-1" name="Quota"/>
+				<desc lan="Big5" name="名額限制"/>
+				<desc lan="GB2312" name="名额限制"/>
+			</title>
+		</field57>
+		<field58>
+			<title>
+				<desc lan="ISO-8859-1" name="Enrollment confirmation remarks"/>
+				<desc lan="Big5" name="確認報名備註"/>
+				<desc lan="GB2312" name="确认报名备注"/>
+			</title>
+		</field58>
+		<targeted_lrn type="targeted_lrn_pickup" paramname="target_ent_group_lst" required="yes" label="lab_all_learners">
+			<title>
+				<desc lan="ISO-8859-1" name="Target enrollments"/>
+				<desc lan="Big5" name="可報名學員"/>
+				<desc lan="GB2312" name="可报名学员"/>
+			</title>
+		</targeted_lrn>
+		<field60>
+			<title>
+				<desc lan="ISO-8859-1" name="Course related materials"/>
+				<desc lan="Big5" name="相關資料"/>
+				<desc lan="GB2312" name="相关资料"/>
+			</title>
+			<subfield_list>
+				<subfield id="1">
+					<title>
+						<desc lan="ISO-8859-1" name="File 1"/>
+						<desc lan="Big5" name="文件1"/>
+						<desc lan="GB2312" name="文件1"/>
+					</title>
+				</subfield>
+				<subfield id="2">
+					<title>
+						<desc lan="ISO-8859-1" name="File 2"/>
+						<desc lan="Big5" name="文件2"/>
+						<desc lan="GB2312" name="文件2"/>
+					</title>
+				</subfield>
+				<subfield id="3">
+					<title>
+						<desc lan="ISO-8859-1" name="File 3"/>
+						<desc lan="Big5" name="文件3"/>
+						<desc lan="GB2312" name="文件3"/>
+					</title>
+				</subfield>
+				<subfield id="4">
+					<title>
+						<desc lan="ISO-8859-1" name="File 4"/>
+						<desc lan="Big5" name="文件4"/>
+						<desc lan="GB2312" name="文件4"/>
+					</title>
+				</subfield>
+				<subfield id="5">
+					<title>
+						<desc lan="ISO-8859-1" name="File 5"/>
+						<desc lan="Big5" name="文件5"/>
+						<desc lan="GB2312" name="文件5"/>
+					</title>
+				</subfield>
+				<subfield id="6">
+					<title>
+						<desc lan="ISO-8859-1" name="File 6"/>
+						<desc lan="Big5" name="文件6"/>
+						<desc lan="GB2312" name="文件6"/>
+					</title>
+				</subfield>
+				<subfield id="7">
+					<title>
+						<desc lan="ISO-8859-1" name="File 7"/>
+						<desc lan="Big5" name="文件7"/>
+						<desc lan="GB2312" name="文件7"/>
+					</title>
+				</subfield>
+				<subfield id="8">
+					<title>
+						<desc lan="ISO-8859-1" name="File 8"/>
+						<desc lan="Big5" name="文件8"/>
+						<desc lan="GB2312" name="文件8"/>
+					</title>
+				</subfield>
+				<subfield id="9">
+					<title>
+						<desc lan="ISO-8859-1" name="File 9"/>
+						<desc lan="Big5" name="文件9"/>
+						<desc lan="GB2312" name="文件9"/>
+					</title>
+				</subfield>
+				<subfield id="10">
+					<title>
+						<desc lan="ISO-8859-1" name="File 10"/>
+						<desc lan="Big5" name="文件10"/>
+						<desc lan="GB2312" name="文件10"/>
+					</title>
+				</subfield>
+			</subfield_list>
+		</field60>
+		<create_date type="read_datetime" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Created"/>
+				<desc lan="Big5" name="創建日期"/>
+				<desc lan="GB2312" name="创建日期"/>
+			</title>
+		</create_date>
+		<created_by type="read" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Created by"/>
+				<desc lan="Big5" name="創建者"/>
+				<desc lan="GB2312" name="创建者"/>
+			</title>
+		</created_by>
+		<update_date type="read_datetime" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Modifed"/>
+				<desc lan="Big5" name="修改日期"/>
+				<desc lan="GB2312" name="修改日期"/>
+			</title>
+		</update_date>
+		<updated_by type="read" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Modified by"/>
+				<desc lan="Big5" name="修改者"/>
+				<desc lan="GB2312" name="修改者"/>
+			</title>
+		</updated_by>
+	</section>
+	<hidden>
+		<field150/>
+		<!--
+		<field151/>
+		<field152/>
+		<field153/>
+		<field154/>
+		-->
+		<field155/>
+	</hidden>
+</template_view>

@@ -1,0 +1,57 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Form,Insert/Update
+suffix								   :Form
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : form.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+.wbFormBarBg{
+	background: #D36E02;
+}
+
+.wbFormHeadLeftBg{
+	background: #D97B05;
+	height: 12px;
+}
+
+.wbFormHeadLeftText{
+	color: #FFFFFF;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	padding-top: 2px;
+}
+
+.wbFormHeadRightBg{
+	background: url(../frm_bg.gif) #D97B05;
+	height: 12px;
+}
+
+.wbFormLeftBg{
+	background: #FAEBA5;
+}
+
+.wbFormLeftText{
+	color: #000000;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	margin-right: 5px;
+}
+
+.wbFormLeftTextBold{
+	color: #000000;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	margin-right: 5px;
+}
+
+.wbFormRightBg{
+	background: #F5F0D8;
+}
+
+.wbFormRightText, .wbFormRightSText {
+	color: #000000;
+	font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbFormRightTextBold{
+	color: #000000;
+	font: bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}

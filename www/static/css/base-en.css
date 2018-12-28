@@ -1,0 +1,213 @@
+﻿@charset "utf-8";
+/* reset */
+*{ font:12px/26px "Microsoft YaHei",Arial,Helvetica,"Segoe UI",Tahoma,sans-serif,Geneva,"Microsoft YaHei UI",DengXian,SimSun;padding:0;margin:0;}
+/* public */
+td{ font:12px/26px "Microsoft YaHei",Arial,Helvetica,"Segoe UI",Tahoma,sans-serif,Geneva,"Microsoft YaHei UI",DengXian,SimSun;}
+.fa-size-blue{font-size:22px;}             .margin-t28b10{margin-bottom:-12px;}               
+.font-size16{ font-size:14px;}             .font-size18{ font-size:16px;}             .font-size24{ font-size:22px;}
+.font-size28{ font-size:26px;}             .font-size30{ font-size:28px;}             .font-size34{ font-size:32px;}
+.font-size38{ font-size:36px;}             .wzb-ot-title-1{font-size:14px;}
+
+/* 按钮样式 */
+.btn{font-size:12px;}
+.wzb-btn-big{font-size:14px;}
+.wzb-btn-send:link,.wzb-btn-send:visited{font-size:14px;}
+.wzb-btn-gray{font-size:14px;}
+
+/* wzb-percent */
+.wzb-percent-5{font-size:14px;}
+.wzb-delete-01{font-size:16px;}
+
+/* wzb-icon */
+.wzb-envelope-icon{font-size:20px;}
+.wzb-banner-icon{font-size:46px;}
+.wzb-send-icon{font-size:18px;}
+.wzb-caret-icon{font-size:14px;}
+.wzb-clock-icon{font-size:16px;}
+
+/* 标题形式一 */
+.wzb-title-1{font-size:14px;}
+.wzb-title-1 i{ font-size:22px;}
+
+/* 标题形式二 */
+.wzb-title-2{font-size:14px;}
+
+/* 标题形式三 */
+.wzb-title-3{font-size:14px;}
+
+/* 标题形式四 */
+.wzb-title-4{font-size:14px;}
+.wzb-title-4 i.fa-sanzuo{ font-size:22px;}
+.wzb-title-4 i.fa-sanyou{ font-size:22px;}
+
+/* 标题形式五 */
+.wzb-title-5{font-size:14px;}
+.wzb-title-5 .wzb-title-more{font-size:12px;}
+
+/* 标题形式六 */
+.wzb-title-6{font-size:16px;}
+
+/* 标题形式七 */
+.wzb-title-7{font-size:16px;}
+
+/* 标题形式八 */
+.wzb-title-8{font-size:14px;}
+
+/* 标题形式九 */
+.wzb-list-9{padding:15px 0 15px 110px;}
+.wzb-list-9 dt{ width:120px; margin:0 0 0 -120px;}
+.wzb-close-icon{ font-size:16px;}
+
+/* 标题形式十 */
+.wzb-title-10{font-size:14px;}
+
+/* 标题形式十三*/
+.wzb-title-13-box .wzb-link01,.wzb-title-13-box .wzb-link01:link,.wzb-title-13-box .wzb-link01:visited{font-size:18px;}
+
+/* 列表形式四 */
+.wzb-list-4 dt{font-size:12px;}
+.wzb-list-4 dd{font-size:12px;}
+
+/* 列表形式五 */
+.wzb-list-5 dt{font-size:12px;}
+
+/* 列表形式十五 */
+.wzb-list-15 li{font-size:14px;}
+.wzb-list-15 li a:link,.wzb-list-15 li a:visited{font-size:14px;}
+.wzb-list-15 li a:link i,.wzb-list-15 li a:visited i{font-size:16px;}
+.wzb-list-15 li a:hover i{ font-size:20px;}
+
+/* 列表形式十七 */
+.wzb-list-17 li a:link,.wzb-list-17 li a:visited{font-size:14px;}
+
+/* 列表形式十九 */
+.wzb-list-19 dt{font-size:12px;}
+.wzb-list-19 dt h3{font-size:14px;}
+.wzb-toolbox a i{font-size:26px;}
+
+/* 列表形式二十一 */
+.wzb-souso-title{font-size:14px;}
+.wzb-souso-left a{font-size:14px;}
+
+/* 列表形式二十四 */
+.hold-fwim-gray:link,.hold-fwim-gray:visited{font-size:12px;}
+
+/* 选项卡一 */
+.wzb-tab-1 .nav-tabs a:link,.wzb-tab-1 .nav-tabs a:visited{ font-size:14px;}
+
+/* 选项卡二 */
+.wzb-tab-2 .nav-tabs span{ font-size:14px;}
+.wzb-tab-2 .nav-tabs strong{font-size:20px;}
+.wzb-tab-2 .nav-tabs{ font-size:12px;}
+.wzb-tab-2 .nav-tabs li i,.wzb-tab-2 .nav-tabs em i{ font-size:14px;}
+
+/* 选项卡三 */
+.wzb-tab-3 .wzb-title-more{font-size:12px;}
+.wzb-tab-3 .nav-tabs li.active a:link,.wzb-tab-3 .nav-tabs li.active a:visited,.wzb-tab-3 .nav-tabs li.active a:hover,.wzb-tab-3 .nav-tabs li.active a:focus{font-size:14px;}
+.wzb-tab-3 .nav li a:link,.wzb-tab-3 .nav li a:visited,.wzb-tab-3 .nav li a:hover,.wzb-tab-3 .nav li a:focus{font-size:14px;}
+
+/* 选项卡四 */
+.wzb-tab-4 .nav-tabs li.active a:link,.wzb-tab-4 .nav-tabs li.active a:visited,.wzb-tab-4 .nav-tabs li.active a:hover,.wzb-tab-4 .nav-tabs li.active a:focus{font-size:14px;}
+.wzb-tab-4 .nav li a:link,.wzb-tab-4 .nav li a:visited,.wzb-tab-4 .nav li a:hover,.wzb-tab-4 .nav li a:focus{font-size:14px;}
+
+/* 选项卡五 */
+.wzb-tab-5 .nav-tabs li.active a:link,.wzb-tab-5 .nav-tabs li.active a:visited,.wzb-tab-5 .nav-tabs li.active a:hover,.wzb-tab-5 .nav-tabs li.active a:focus{font-size:14px;}
+.wzb-tab-5 .nav li a:link,.wzb-tab-5 .nav li a:visited,.wzb-tab-5 .nav li a:hover,.wzb-tab-5 .nav li a:focus{font-size:14px;}
+
+/* 链接形式一 */
+.wzb-link01,.wzb-link01:link,.wzb-link01:visited{ font-size:14px;}
+
+/* 链接形式二 */
+.wzb-link02,.wzb-link02:link,.wzb-link02:visited{ font-size:12px;}
+
+/* 链接形式三 */
+.wzb-link03,.wzb-link03:link,.wzb-link03:visited{ font-size:12px;}
+
+/* 链接形式四 */
+.wzb-link04,.wzb-link04:link,.wzb-link04:visited{ font-size:12px;}
+
+/* 链接形式五 */
+.wzb-link05,.wzb-link05:link,.wzb-link05:visited{ font-size:12px;}
+
+/* 链接形式六 */
+.wzb-link06,.wzb-link06:link,.wzb-link06:visited{ font-size:12px;}
+
+/* 表格形式一 */
+.wzb-table-one tbody tr.wzb-table-one-head th,.wzb-table-one tbody tr.wzb-table-one-head td{font-size:14px;}
+
+/* 表格形式二 */
+.wzb-table-two td.wzb-table-tdbg{font-size:14px;}
+
+/* 表格形式四 */
+.wzb-table-four td{font-size:12px;}
+
+/* 表格形式五 */
+.wzb-table-five th{font-size:14px;}
+.wzb-table-five tr.trfont{ font-size:14px;}
+
+/* wzb-form */
+.wzb-form-add i{ font-size:14px;}
+.wzb-form-plus{font-size:54px;}
+
+/* 表单 */
+.wzb-btn-add i{ font-size:14px;}
+.wzb-form-arrow{font-size:20px;}
+
+/*评论星星*/
+.wzb-start-full{ font-size:18px;}
+.wzb-start-full-s{ font-size:12px;}
+
+/* wzb-wenda */
+.wzb-wenda-size{font-size:26px;}
+.wzb-wenda-info h3 a{ font-size:14px;}
+.fa-question{ font-size:28px;}
+
+/* wzb-wenda-area */
+.wzb-wenda-title{font-size:14px;}
+.wzb-wenda-break span{font-size:14px;}
+.wzb-wenda-bar i{ font-size:28px;}
+.wzb-wenda-set{font-size:14px;}
+.wzb-tip-bg i{font-size:24px;}
+.wzb-tip-button{font-size:14px;}
+.wzb-help-01 dt{font-size:14px;}
+.wzb-help-02 dt{font-size:14px;}
+
+/* wzb-entity-box */
+.wzb-entity-title{font-size:14px;}
+
+.main_img .show .imgArea em{font-size:14px;}
+
+/* fwim */
+.subdesc{font-size:14px;}
+.subdesc a i,.subdesc span i{font-size:16px;}
+.subdesc a:hover i,.subdesc a:hover span{ font-size:18px;}
+
+/*号外资讯*/
+.wzb-hold-box .wzb-hold-title{font-size:14px;}
+
+/*弹框*/
+.pop-up-title{font-size:14px;}
+.wzb-qtip .qtip-titlebar{font-size:14px;}
+.wzb-qtip .qtip-titlebar .qtip-title{font-size:14px;}
+
+/* wzb-choose */
+.wzb-choose-title{font-size:14px;}
+
+/* qtip图片 页面样式三*/
+.wzb-qtip-wiki{font-size:18px;}
+
+/*最佳答案*/
+.f18{ font-size:16px;}
+/*翻转*/
+.wzb-tab-6>ul>li>span{font-size:18px;}
+
+/* 标题形式十一 */
+.wzb-title-11{font-size:18px;}
+/* 标题形式十二 */
+.wzb-title-12{font-size:14px;}
+
+/* 结构树修改 */
+.ztree li span{font-size:12px;}
+
+/* 培训报表 */
+.chart-legend-2-li span{ font-size:14px;}

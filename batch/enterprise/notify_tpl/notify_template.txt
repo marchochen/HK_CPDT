@@ -1,0 +1,43 @@
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="----=_NextPart_000_00E3_01C1320A.F57C7280"
+Subject: batch report
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_00E3_01C1320A.F57C7280
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_001_00E4_01C1320A.F57C7280"
+
+
+------=_NextPart_001_00E4_01C1320A.F57C7280
+Content-Type: text/plain;
+	charset="big5"
+Content-Transfer-Encoding: quoted-printable
+
+batch program status: 
+$data_1_
+
+
+------=_NextPart_001_00E4_01C1320A.F57C7280
+Content-Type: text/html;
+	charset="big5"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD>
+<META content=3D"text/html; charset=3Dbig5" http-equiv=3DContent-Type>
+<META content=3D"MSHTML 5.00.3315.2870" name=3DGENERATOR>
+<STYLE></STYLE>
+</HEAD>
+<BODY bgColor=3D#ffffff>
+<DIV><FONT face=3DArial size=3D2>
+batch program status: <br><br>
+$data_1_<br><br>
+
+</FONT></DIV></BODY></HTML>
+
+------=_NextPart_001_00E4_01C1320A.F57C7280--
+
+$data_2_
+
+------=_NextPart_000_00E3_01C1320A.F57C7280--

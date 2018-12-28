@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.SnsDoingMapper">
+	<select id="page" resultType="SnsDoing" parameterType="com.cwn.wizbank.utils.Page">
+		<![CDATA[
+			select 
+				s_doi_id,
+				s_doi_act,
+				s_doi_title,
+				s_doi_uid,
+				s_doi_create_datetime,
+				s_doi_url,
+				s_doi_module,
+				s_doi_target_id,
+				s_doi_reply_id,
+				s_doi_target_type
+			from sns_doing t 
+			order by s_doi_id desc
+		]]>
+	</select>
+	<select id="get" resultType="SnsDoing" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				s_doi_id,
+				s_doi_act,
+				s_doi_act_id,
+				s_doi_title,
+				s_doi_uid,
+				s_doi_create_datetime,
+				s_doi_url,
+				s_doi_module,
+				s_doi_target_id,
+				s_doi_reply_id,
+				s_doi_target_type
+			from sns_doing  where s_doi_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.SnsDoing">
+	    <![CDATA[
+	        update sns_doing t 
+	        set 
+				s_doi_id = #{s_doi_id,jdbcType=INTEGER},
+				s_doi_act = #{s_doi_act,jdbcType=VARCHAR},
+				s_doi_title = #{s_doi_title,jdbcType=VARCHAR},
+				s_doi_uid = #{s_doi_uid,jdbcType=INTEGER},
+				s_doi_create_datetime = #{s_doi_create_datetime,jdbcType=TIMESTAMP},
+				s_doi_url = #{s_doi_url,jdbcType=VARCHAR},
+				s_doi_module = #{s_doi_module,jdbcType=VARCHAR},
+				s_doi_target_type = #{s_doi_target_type,jdbcType=VARCHAR},
+				s_doi_target_id = #{s_doi_target_id,jdbcType=INTEGER},
+				s_doi_reply_id = #{s_doi_reply_id,jdbcType=INTEGER},
+				s_doi_operator_uid = #{s_doi_operator_uid,jdbcType=INTEGER}
+	         where t.s_doi_id = #{s_doi_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.SnsDoing" keyProperty="s_doi_id">
+            insert into sns_doing(
+            	s_doi_act,
+            	s_doi_act_id,
+            	s_doi_title,
+            	s_doi_uid,
+            	s_doi_create_datetime,
+            	s_doi_url,
+            	s_doi_module,
+            	s_doi_target_id,
+            	s_doi_reply_id,
+            	s_doi_target_type,
+            	s_doi_operator_uid
+            ) values (
+            	#{s_doi_act,jdbcType=VARCHAR},
+            	#{s_doi_act_id,jdbcType=INTEGER},
+            	#{s_doi_title,jdbcType=VARCHAR},
+            	#{s_doi_uid,jdbcType=INTEGER},
+            	#{s_doi_create_datetime,jdbcType=TIMESTAMP},
+            	#{s_doi_url,jdbcType=VARCHAR},
+            	#{s_doi_module,jdbcType=VARCHAR},
+            	#{s_doi_target_id,jdbcType=INTEGER},
+            	#{s_doi_reply_id,jdbcType=INTEGER},
+            	#{s_doi_target_type,jdbcType=VARCHAR},
+            	#{s_doi_operator_uid,jdbcType=INTEGER}
+            	
+            )
+        <selectKey keyProperty="s_doi_id" resultType="Long" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select sns_doing_seq.Currval from dual
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					select ident_current('sns_doing')
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					select last_insert_id()
+				</when>
+			</choose>
+		</selectKey>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+        <!-- 	    	sqlServer 删除不能定义别名 -->
+	    <![CDATA[
+	        delete from sns_doing  where s_doi_id = #{id}
+	    ]]>
+    </delete>
+	<select id="list" resultType="SnsDoing">
+	    <![CDATA[
+	         select 
+				s_doi_id,
+				s_doi_act,
+				s_doi_title,
+				s_doi_uid,
+				s_doi_create_datetime,
+				s_doi_url,
+				s_doi_module,
+				s_doi_target_id,
+				s_doi_reply_id,
+				s_doi_target_type,
+				s_doi_operator_uid
+			from sns_doing t 
+	    ]]>
+	</select>
+<!-- 	查找所有动态 用于首页-->
+	<select id="selectIndexList" resultType="SnsDoing" parameterType="Page">
+		select 
+ 			s_doi_id,
+			s_doi_act, 
+			s_doi_act_id,
+			s_doi_title, 
+			s_doi_uid,
+			s_doi_create_datetime, 
+			s_doi_url, 
+			s_doi_module,
+		    s_doi_target_id,
+		    s_doi_reply_id,
+		    s_doi_target_type,
+		    s_doi_operator_uid,
+			usr_ent_id AS "user.usr_ent_id",
+			usr_display_bil AS "user.usr_display_bil",
+			urx_extra_43 AS "user.usr_photo"
+		from (
+			select s_doi_id, s_doi_act,s_doi_act_id, s_doi_title, s_doi_uid, s_doi_create_datetime, s_doi_url, s_doi_module, s_doi_target_id,
+			s_doi_reply_id,s_doi_target_type,s_doi_operator_uid
+			from sns_doing
+			left join sns_setting on s_set_uid = s_doi_uid 
+			where s_doi_target_type != '1'
+			
+			and	(
+<!-- 			没有设置权限的 -->
+				(s_set_doing is null or s_set_doing = 0)
+			
+				or s_doi_uid = #{params.userEntId} 
+<!-- 			互相关注 -->
+			  	or 
+  				s_doi_uid in (
+  				select sa1.s_att_target_uid from sns_attention sa1 
+  				inner join sns_attention sa2 on sa1.s_att_source_uid = sa2.s_att_target_uid and sa1.s_att_target_uid = sa2.s_att_source_uid 
+ 				inner join sns_setting on s_set_uid = sa1.s_att_target_uid  where sa1.s_att_source_uid = #{params.userEntId} 
+ 				and s_set_doing = 1
+ 				and sa1.s_att_target_uid !=  #{params.userEntId}
+  				)
+  				or
+  				s_doi_operator_uid in(
+  				select sa1.s_att_target_uid from sns_attention sa1 
+  				inner join sns_attention sa2 on sa1.s_att_source_uid = sa2.s_att_target_uid and sa1.s_att_target_uid = sa2.s_att_source_uid 
+ 				inner join sns_setting on s_set_uid = sa1.s_att_target_uid  where sa1.s_att_source_uid = #{params.userEntId} 
+ 				and s_set_doing = 1
+ 				and sa1.s_att_target_uid !=  #{params.userEntId}
+  				)
+			)
+		) tmp
+		
+<!-- 		关联用户表 -->
+		left join regUser u on u.usr_ent_id = tmp.s_doi_uid
+		left join regUserExtension urx on u.usr_ent_id = urx.urx_usr_ent_id 
+		where
+	 	s_doi_act != 'group'
+	 	<if test="params.tcrId > 0">
+		and	s_doi_uid in (
+		    select usr_ent_id
+		    from regUser
+			left join entityRelation on ern_child_ent_id = usr_ent_id
+			and ern_type = 'USR_PARENT_USG' and ern_parent_ind = 1
+			inner join userGroup on usg_ent_id = ern_ancestor_ent_id
+
+			and usg_ent_Id in (
+			select ern_child_ent_id from tcTrainingCenterTargetEntity
+			left join
+			entityRelation on ern_ancestor_ent_id = tce_ent_id and ern_type = 'USG_PARENT_USG'
+			where tce_tcr_id = ${params.tcrId}
+			UNION select tce_ent_id from tcTrainingCenterTargetEntity where
+			tce_tcr_id = ${params.tcrId}
+			)
+		)
+		</if>
+	 	and s_doi_target_type != '1'
+		order by tmp.s_doi_create_datetime desc
+	</select>
+<!-- 	获取动态数据 -->
+	<select id="selectList" resultMap="SnsDoingFile" parameterType="Page">
+		select 
+ 			s_doi_id,
+			s_doi_act,
+			s_doi_act_id, 
+			s_doi_title, 
+			s_doi_uid,
+			s_doi_create_datetime, 
+			s_doi_url, 
+			s_doi_module,
+		    s_doi_target_id,
+		    s_doi_reply_id,
+		    s_doi_target_type,
+		    s_doi_operator_uid,
+			usr_ent_id,
+			usr_display_bil,
+			urx_extra_43,
+			(case when s_vtl_log_id is null then 0 else 1 end) is_user_like
+		from (
+			select s_doi_id, s_doi_act,s_doi_act_id, 
+			s_doi_title, s_doi_uid, s_doi_create_datetime, s_doi_url, s_doi_module, s_doi_target_id,
+			s_doi_reply_id,s_doi_target_type,s_doi_operator_uid
+			from sns_doing  
+			left join sns_setting on s_set_uid = s_doi_uid 
+			where s_doi_target_type != '1' 
+			and	(
+<!-- 			没有设置权限的 -->
+				(s_set_doing is null or s_set_doing = 0)
+				 
+				or s_doi_uid = #{params.userEntId} 
+			
+<!-- 			互相关注 -->
+			  	or 
+  				s_doi_uid in (
+  				select sa1.s_att_target_uid from sns_attention sa1 
+  				inner join sns_attention sa2 on sa1.s_att_source_uid = sa2.s_att_target_uid and sa1.s_att_target_uid = sa2.s_att_source_uid 
+ 				inner join sns_setting on s_set_uid = sa1.s_att_target_uid  where sa1.s_att_source_uid = #{params.userEntId} 
+ 				and s_set_doing = 1
+ 				and sa1.s_att_target_uid !=  #{params.userEntId}
+  				)
+  				or
+  				s_doi_operator_uid in(
+  				select sa1.s_att_target_uid from sns_attention sa1 
+  				inner join sns_attention sa2 on sa1.s_att_source_uid = sa2.s_att_target_uid and sa1.s_att_target_uid = sa2.s_att_source_uid 
+ 				inner join sns_setting on s_set_uid = sa1.s_att_target_uid  where sa1.s_att_source_uid = #{params.userEntId} 
+ 				and s_set_doing = 1
+ 				and sa1.s_att_target_uid !=  #{params.userEntId}
+  				)
+			)
+			<if test="params.type != null">
+			    <choose>
+			        <when test="params.type == 'mine'">
+			            and s_doi_uid = #{params.userEntId} 
+			        </when>
+			        <when test="params.type == 'group'">
+			    		and s_doi_module =  'Group'
+			        </when>
+			        <when test="params.type == 'course'">
+			    		and (s_doi_module =  'Course' or s_doi_module ='Article')
+			        </when>
+			        <when test="params.type == 'answer'">
+			    		and (s_doi_module =  'Answer'
+			    			or s_doi_module = 'Question'
+			    		)
+			        </when>
+			    </choose>	      
+			</if>
+		
+		) tmp
+		
+<!-- 		关联用户表 -->
+		left join regUser u on u.usr_ent_id = tmp.s_doi_uid
+		left join regUserExtension urx on u.usr_ent_id = urx.urx_usr_ent_id 
+		left join sns_valuation_log on s_vtl_target_id = s_doi_id  and s_vtl_module = 'Doing' and s_vtl_uid = #{params.userEntId}
+		where 
+	 	s_doi_act != 'group' 
+	 	<if test="params.tcrId > 0">
+		and	s_doi_uid in (
+		    select usr_ent_id
+		    from regUser
+			left join entityRelation on ern_child_ent_id = usr_ent_id
+			and ern_type = 'USR_PARENT_USG' and ern_parent_ind = 1
+			inner join userGroup on usg_ent_id = ern_ancestor_ent_id
+
+			and usg_ent_Id in (
+			select ern_child_ent_id from tcTrainingCenterTargetEntity
+			left join
+			entityRelation on ern_ancestor_ent_id = tce_ent_id and ern_type = 'USG_PARENT_USG'
+			where tce_tcr_id = ${params.tcrId}
+			UNION select tce_ent_id from tcTrainingCenterTargetEntity where
+			tce_tcr_id = ${params.tcrId}
+			)
+		)
+		</if>
+	 	and s_doi_target_type != '1'
+		order by tmp.s_doi_create_datetime desc
+	</select>
+	<select id="selectPersonalDoingList" resultType="SnsDoing" parameterType="Page">
+		select 
+			s_doi_id,
+			s_doi_title,
+			s_doi_create_datetime,
+			usr_ent_id as "user.usr_ent_id",
+			usr_display_bil as "user.usr_display_bil",
+			urx_extra_43 as "userExt.urx_extra_43"
+		from sns_doing
+		left join regUser on usr_ent_id = s_doi_uid
+		left join regUserExtension on urx_usr_ent_id = s_doi_uid
+		where s_doi_uid = ${params.snsDoing.s_doi_uid} and s_doi_act = '${params.snsDoing.s_doi_act}'
+	</select>
+	<resultMap type="SnsDoing" id="SnsDoingFile" >  
+        <id column="s_doi_id" property="s_doi_id"/>  
+        <result column="s_doi_title" property="s_doi_title"></result>
+        <result column="s_doi_uid" property="s_doi_uid"></result>
+        <result column="s_doi_create_datetime" property="s_doi_create_datetime"></result>
+        <result column="s_doi_act" property="s_doi_act"></result>
+        <result column="s_doi_act_id" property="s_doi_act_id"></result>
+        <result column="s_doi_target_id" property="s_doi_target_id"></result>
+        <result column="s_doi_reply_id" property="s_doi_reply_id"></result>
+        <result column="s_doi_module" property="s_doi_module"></result>
+        <result column="s_doi_url" property="s_doi_url"></result>
+        <result column="s_doi_target_type" property="s_doi_target_type"></result>
+        <result column="s_doi_operator_uid" property="s_doi_operator_uid"></result>
+        <result column="is_user_like" property="is_user_like"></result>
+        <association property="user" column="s_doi_uid" javaType="RegUser">
+            <result column="usr_ent_id" property="usr_ent_id"/>
+            <result column="urx_extra_43" property="usr_photo"/>  
+            <result column="usr_display_bil" property="usr_display_bil"/>
+        </association>  
+        <association property="snsShare" column="s_sha_target_id" javaType="SnsShare">
+            <result column="s_sha_title" property="s_sha_title"/>
+        </association>
+        <association property="operator" column="s_doi_operator_uid" javaType="RegUser">
+            <result column="usr_ent_id_" property="usr_ent_id"/>
+            <result column="urx_extra_43_" property="usr_photo"/>  
+            <result column="usr_display_bil_" property="usr_display_bil"/>
+        </association>     
+        <collection property="fileList" column="s_doi_id" ofType="ModuleTempFile" select="getFileList"/>
+    </resultMap>
+	<select id="getFileList" resultType="ModuleTempFile" parameterType="Long">
+	    	select 
+				mtf_id,
+				mtf_target_id,
+				mtf_module,
+				mtf_usr_id,
+				mtf_file_type,
+				mtf_type,
+				mtf_file_name,
+				mtf_file_rename,
+				mtf_file_size,
+				mtf_create_time,
+				mtf_url
+			from moduleTempFile 
+			where 
+			mtf_target_id  = #{s_doi_id}
+			and mtf_module = 'Group'
+	</select>
+	<select id="listUserAll" resultMap="SnsDoingFile" parameterType="Page" >
+ 	 select 
+		distinct(s_doi_id),
+		s_doi_act, 
+		s_doi_act_id,
+<!-- 			s_doi_title,  -->
+		<choose>
+			<when test="_databaseId == 'ORACLE'">
+				s_doi_title			
+			</when>
+			<when test="_databaseId == 'SQLSERVER'">
+				convert(nvarchar(2000),s_doi_title)
+			</when>
+			<when test="_databaseId == 'MYSQL'">
+				s_doi_title			
+			</when>
+		</choose> 
+		s_doi_title,
+		s_doi_uid,
+		s_doi_create_datetime, 
+		s_doi_url, 
+		s_doi_module,
+	    s_doi_target_id,
+	    s_doi_reply_id,
+	    s_doi_target_type,
+	    s_doi_operator_uid,
+		re.usr_ent_id usr_ent_id,
+		re.usr_display_bil usr_display_bil,
+		urx1.urx_extra_43 urx_extra_43,
+		rg2.usr_ent_id usr_ent_id_,
+		rg2.usr_display_bil usr_display_bil_,
+		urx2.urx_extra_43 urx_extra_43_,
+		s_sha_title,
+		(case when s_vtl_log_id is null then 0 else 1 end) is_user_like
+		from (
+			
+			select 		
+				s_doi_id,
+				s_doi_act, 
+				s_doi_act_id,
+				s_doi_title, 
+				s_doi_uid,
+				s_doi_create_datetime, 
+				s_doi_url, 
+				s_doi_module,
+			    s_doi_target_id,
+			   	s_doi_reply_id,
+			    s_doi_target_type,
+			    s_doi_operator_uid
+				from sns_doing
+				where
+				(	s_doi_uid = #{params.userEntId}  
+				
+					or (s_doi_operator_uid = #{params.userEntId}
+					 and (s_doi_target_type is null or s_doi_target_type = '0')
+					)
+					
+					or (s_doi_operator_uid = #{params.userEntId}
+					 and s_doi_uid =  #{params.userEntId}
+					)
+				)
+   		 
+		<!--     他人主页，看不到通知信息 -->
+			    <if test="params.userEntId != params.targetUid">
+			        and (s_doi_target_type is null or s_doi_target_type = '0')
+			    </if>
+			    
+				<if test="params.tcrId > 0">
+				and	s_doi_uid in (
+				    select usr_ent_id
+				    from regUser
+					left join entityRelation on ern_child_ent_id = usr_ent_id
+					and ern_type = 'USR_PARENT_USG' and ern_parent_ind = 1
+					inner join userGroup on usg_ent_id = ern_ancestor_ent_id
+		
+					and usg_ent_Id in (
+					select ern_child_ent_id from tcTrainingCenterTargetEntity
+					left join
+					entityRelation on ern_ancestor_ent_id = tce_ent_id and ern_type = 'USG_PARENT_USG'
+					where tce_tcr_id = ${params.tcrId}
+					UNION select tce_ent_id from tcTrainingCenterTargetEntity where
+					tce_tcr_id = ${params.tcrId}
+					)
+				)
+				</if>
+	    
+	    union all 
+	    	select 		
+				s_doi_id,
+				s_doi_act, 
+				s_doi_act_id,
+				s_doi_title, 
+				s_doi_uid,
+				s_doi_create_datetime, 
+				s_doi_url, 
+				s_doi_module,
+			    s_doi_target_id,
+			   	s_doi_reply_id,
+			    s_doi_target_type,
+			    s_doi_operator_uid
+				from sns_doing
+				where
+<!-- 				我关注的人，权限可以看到的 -->
+(
+	       		s_doi_uid in (select s_att_target_uid from sns_attention left join sns_setting on s_set_uid = s_att_target_uid 
+	       		where s_att_source_uid = #{params.userEntId} and (s_set_doing is null or s_set_doing = 0) and s_att_target_uid !=  #{params.userEntId}) 
+  				or 
+  				s_doi_operator_uid in(select s_att_target_uid from sns_attention left join sns_setting on s_set_uid = s_att_target_uid 
+  				where s_att_source_uid = #{params.userEntId} and (s_set_doing is null or s_set_doing = 0) and s_att_target_uid !=  #{params.userEntId})
+  				
+<!--   				互相关注的 -->
+  				or 
+  				s_doi_uid in (
+  				select sa1.s_att_target_uid from sns_attention sa1 
+  				inner join sns_attention sa2 on sa1.s_att_source_uid = sa2.s_att_target_uid and sa1.s_att_target_uid = sa2.s_att_source_uid 
+ 				inner join sns_setting on s_set_uid = sa1.s_att_target_uid  where sa1.s_att_source_uid = #{params.userEntId} 
+ 				and s_set_doing = 1
+ 				and sa1.s_att_target_uid !=  #{params.userEntId}
+  				)
+  				or
+  				s_doi_operator_uid in(
+  				select sa1.s_att_target_uid from sns_attention sa1 
+  				inner join sns_attention sa2 on sa1.s_att_source_uid = sa2.s_att_target_uid and sa1.s_att_target_uid = sa2.s_att_source_uid 
+ 				inner join sns_setting on s_set_uid = sa1.s_att_target_uid  where sa1.s_att_source_uid = #{params.userEntId} 
+ 				and s_set_doing = 1
+ 				and sa1.s_att_target_uid !=  #{params.userEntId}
+  				)
+ ) 				 
+  				and (s_doi_target_type is null or s_doi_target_type = '0')
+  				
+		  		<if test="params.tcrId > 0">
+				and	s_doi_uid in (
+				    select usr_ent_id
+				    from regUser
+					left join entityRelation on ern_child_ent_id = usr_ent_id
+					and ern_type = 'USR_PARENT_USG' and ern_parent_ind = 1
+					inner join userGroup on usg_ent_id = ern_ancestor_ent_id
+		
+					and usg_ent_Id in (
+					select ern_child_ent_id from tcTrainingCenterTargetEntity
+					left join
+					entityRelation on ern_ancestor_ent_id = tce_ent_id and ern_type = 'USG_PARENT_USG'
+					where tce_tcr_id = ${params.tcrId}
+					UNION select tce_ent_id from tcTrainingCenterTargetEntity where
+					tce_tcr_id = ${params.tcrId}
+					)
+				)
+				</if>
+		) tmp
+		left join regUser re  on re.usr_ent_id = s_doi_uid
+		left join regUser  rg2 on rg2.usr_ent_id = s_doi_operator_uid
+		left join regUserExtension urx1 on urx1.urx_usr_ent_id = re.usr_ent_id 
+		left join regUserExtension urx2 on urx2.urx_usr_ent_id = rg2.usr_ent_id 
+		left join sns_valuation_log on s_vtl_target_id = s_doi_id  and s_vtl_module = 'Doing'  and s_vtl_uid = 
+		<choose>
+		    <when test="params.userEntId != params.targetUid">
+		        #{params.targetUid}
+		    </when>
+		    <otherwise>
+		        #{params.userEntId}
+		    </otherwise>
+		</choose>
+		left join sns_share on s_sha_target_id = s_doi_target_id 
+		where 
+		<!--     他人主页,只能看到这个人的动态 -->
+		<if test="params.userEntId != params.targetUid">
+			s_doi_uid = #{params.userEntId} and
+		</if>
+		s_doi_act != 'group'
+	 	order by s_doi_create_datetime desc 
+	</select>
+	<select id="listGroupDoing" resultMap="SnsDoingFile" parameterType="Page">
+    	select 		
+			s_doi_id,
+			s_doi_act, 
+			s_doi_act_id,
+			s_doi_title, 
+			s_doi_uid,
+			s_doi_create_datetime, 
+			s_doi_url, 
+			s_doi_module,
+		    s_doi_target_id,
+		    s_doi_reply_id,
+		    s_doi_target_type,
+		    s_doi_operator_uid,
+			usr_ent_id,
+			usr_display_bil,
+			urx_extra_43,
+			(case when s_vtl_log_id is null then 0 else 1 end) is_user_like
+			from sns_doing 
+		left join regUser on usr_ent_id = s_doi_uid
+		left join regUserExtension on urx_usr_ent_id = usr_ent_id 
+		left join sns_valuation_log on s_vtl_target_id = s_doi_id and s_vtl_uid = #{params.userEntId}
+	    where s_doi_target_id = #{params.targetId}
+	    and s_doi_module = #{params.module}
+	    and s_doi_act = 'group'
+	 	order by s_doi_create_datetime desc 
+	</select>
+	<delete id="deleteDoingByModule" parameterType="Map">
+		delete from sns_doing where (s_doi_target_id = #{targetId} and upper(s_doi_module) = #{module}) or (upper(s_doi_act) = #{module} and s_doi_act_id = #{targetId})
+	</delete>
+
+	<select id="getAllGroupDoingList" resultMap="SnsDoingFile" parameterType="Map">
+    	select 		
+			s_doi_id,
+			s_doi_act, 
+			s_doi_act_id,
+			s_doi_title, 
+			s_doi_uid,
+			s_doi_create_datetime, 
+			s_doi_url, 
+			s_doi_module,
+		    s_doi_target_id,
+		    s_doi_reply_id,
+		    s_doi_target_type,
+		    s_doi_operator_uid,
+			usr_ent_id,
+			usr_display_bil,
+			urx_extra_43,
+			(case when s_vtl_log_id is null then 0 else 1 end) is_user_like
+			from sns_doing 
+		left join regUser on usr_ent_id = s_doi_uid
+		left join regUserExtension on urx_usr_ent_id = usr_ent_id 
+		left join sns_valuation_log on s_vtl_target_id = s_doi_id and s_vtl_uid = #{userEntId}
+	    where s_doi_target_id = #{targetId}
+	    and s_doi_module = #{module}
+	    and s_doi_act = 'group'
+	 	order by s_doi_create_datetime desc 
+	</select>
+
+</mapper>

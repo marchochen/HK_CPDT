@@ -1,0 +1,98 @@
+<!doctype html>
+<html ng-app="module">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link rel="stylesheet" href="../../css/module.css"/>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/ModuleController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="aiccReportController">
+<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+
+<div class="wrap">
+	<header class="header mm-background">
+	    <a class="header-back" href="javascript:back();"></a>
+	    <span class="header-title">{{aicc.course[0].module[0].title}}</span>
+	</header> <!-- header End -->
+	
+	<section class="content">
+	<div class="work_input_desc">
+		<img src="/wb_image/user.gif" align="absmiddle" border="0"> {{aicc.learner[0].name}}
+	</div>
+	<div class="report_info clean_margin clearfix">
+		<div class="left_div_width">
+			<span class="grayC999" translate="mod_status"></span>
+		</div>
+		<div class="right_div_width">
+			<span translate="mod_status_{{aicc.course[0].module[1].status}}"></span>
+		</div>
+		
+		<div class="left_div_width">
+			<span class="grayC999" translate="mod_hits"></span>
+		</div>
+		<div class="right_div_width">
+			<span>{{aicc.course[0].module[1].hits}}</span>
+		</div>
+		
+		<div class="left_div_width">
+			<span class="grayC999" translate="mod_total_time"></span>
+		</div>
+		<div class="right_div_width">
+			<span>{{aicc.course[0].module[1].total_time.substring(0, aicc.course[0].module[1].total_time.lastIndexOf('.'))}}</span>
+		</div>
+		
+		<div class="left_div_width">
+			<span class="grayC999" translate="mod_last_access"></span>
+		</div>
+		<div class="right_div_width">
+			<span>{{aicc.course[0].module[1].last_access.substring(0, 16)}}</span>
+		</div>
+		
+		<div class="left_div_width">
+			<span class="grayC999" translate="mod_mod_score"></span>
+		</div>
+		<div class="right_div_width">
+			<span>{{aicc.course[0].module[1].score}}</span>
+		</div>
+	</div>
+	
+	<div class="ui_head">
+		<img border="0" width="1" height="1" src="/wb_image/tp.gif">
+	</div>
+	<div class="content_info">
+		<div class="report_title clearfix">
+			<div class="three_div_width">
+				<span class="grayC999" translate="mod_title"></span>
+			</div>
+			<div class="three_div_width text_center">
+				<span class="grayC999" translate="cos_module_status"></span>
+			</div>
+			<div class="three_div_width text_center">
+				<span class="grayC999" translate="mod_score"></span>
+			</div>
+		</div>
+		<div class="report_content_tr clearfix" ng-repeat="obj in aicc.course[0].objective">
+			<div class="three_div_width">
+				<span class="Text">{{obj.title}}</span>
+			</div>
+			<div class="three_div_width text_center">
+				<span class="Text" translate="mod_status_{{obj.status}}"></span>
+			</div>
+			<div class="three_div_width text_center">
+				<span class="Text">{{obj.score == 'null'? '--' : obj.score}}</span>
+			</div>
+		</div>
+	</div>
+		
+	</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

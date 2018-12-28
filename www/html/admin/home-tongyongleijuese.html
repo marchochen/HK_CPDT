@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>wizbank网站管理平台</title>
+<link rel="stylesheet" type="text/css" href="../../mobile/css/basic.css"/>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../../static/js/layer/skin/layer.css"/>
+<script type="text/javascript" src="../../static/js/layer/layer.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../static/css/thickbox.css"/>
+<link rel="stylesheet" type="text/css" href="../../static/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="../../static/admin/css/admin.css"/>
+<!--[if lt IE 9]>
+    <script type="text/javascript" src="bootstrap/js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+<div class="wzb-body" style="background:#fff;">
+<div class="wzb-top clearfix">
+     <a class="wzb-logo" href="###" title="wizbank"><img src="images/wzb-logo.png" alt="wizbank" /></a>
+     <div class="wzb-top-toggle"><i class="fa fa-bars"></i></div>
+     
+     <div class="wzb-tool">
+     <div class="wzb-menu">     
+          <ul class="clearfix">
+              <li><a class="wzb-menu-sup" href="###" title="信息"><i class="fa wzb-envelope-icon fa-envelope-o"></i> <span class="wzb-badge wzb-badge-purple">15</span></a></li>
+              <li>
+                  <a class="wzb-menu-sub" href="###" title="信息"><i class="fa wzb-envelope-icon fa-flag-o"></i> <span class="wzb-badge wzb-badge-pink">8</span></a>
+                  <ul>
+                      <li><a class="wzb-menu-son" href="###" title="报名审批"><i class="fa fa-check-circle-o"></i>报名审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="作业批改"><i class="fa fa-clipboard"></i>作业批改</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="试卷批改"><i class="fa fa-file-text-o"></i>试卷批改</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="知识审批"><i class="fa fa-life-ring"></i>知识审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="IDP审批"><i class="fa fa-level-up"></i>IDP审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="培训计划审批"><i class="fa fa-calendar"></i>培训计划审批</a></li>
+                 </ul>
+             </li>
+             <li>
+                 <a class="wzb-menu-sub" href="###" title="信息"><img class="wzb-user" src="images/wzb-user.jpg" alt="wizbank" />通用类角色<i class="fa wzb-caret-icon fa-caret-down"></i></a>
+                 <ul>
+                     <li><a class="wzb-menu-son" href="###" title="角色"><i class="fa fa-user"></i>角色</a>
+                         <dl>
+                             <dd><a href="###" title="学员">学员</a></dd>
+                             <dd><a href="###" title="培训管理员">培训管理员</a></dd>
+                             <dd><a href="###" title="系统管理员">系统管理员</a></dd>
+                             <dd><a href="###" title="考试监考员">考试监考员</a></dd>
+                         </dl>
+                     </li>
+                     <li><a class="wzb-menu-son" href="###" title="语言"><i class="fa fa-stack-exchange"></i>语言</a>
+                         <dl>
+                             <dd><a href="###" title="简体中文">简体中文</a></dd>
+                             <dd><a href="###" title="繁体中文">繁体中文</a></dd>
+                             <dd><a href="###" title="English">English</a></dd>
+                         </dl>
+                    </li>
+                    <li><a class="wzb-menu-son" href="###" title="我的档案"><i class="fa fa-instagram"></i>我的档案</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="修改密码"><i class="fa fa-key"></i>修改密码</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="我的喜好"><i class="fa fa-smile-o"></i>我的喜好</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="退出"><i class="fa fa-sign-out"></i>退出</a></li>
+                </ul>
+            </li>
+        </ul>
+      </div>  
+    </div>
+</div> <!-- wzb-top End-->
+
+<div class="wzb-sidebar">
+<div class="wzb-menu">
+    <ul>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-home"></i>首页</a></li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-globe"></i>资讯管理</a>
+            <ul>
+                <li><a href="###" title="">公告</a></li>
+                <li><a href="###" title="">资讯</a></li>
+                <li><a href="###" title="">常用工具</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-cubes"></i>需求管理</a>
+            <ul>
+                <li><a href="###" title="">投票</a></li>
+                <li><a href="###" title="">公共调查问卷</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-list-alt"></i>计划管理</a>
+            <ul>
+                <li><a href="###" title="">计划实施</a></li>
+                <li><a href="###" title="">年度计划</a></li>
+                <li><a href="###" title="">编外计划</a></li>
+                <li><a href="###" title="">年度计划审批</a></li>
+                <li><a href="###" title="">编外计审批</a></li>
+                <li><a href="###" title="">年度设置</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-maxcdn"></i>学习地图</a>
+            <ul>
+                <li><a href="###" title="">岗位发展路径</a></li>
+                <li><a href="###" title="">岗位</a></li>
+                <li><a href="###" title="">能力标签</a></li>
+                <li><a href="###" title="">能力测评模板</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-calendar"></i>培训管理</a>
+            <ul>
+                <li><a href="###" title="">网上课程</a></li>
+                <li><a href="###" title="">面授课程</a></li>
+                <li><a href="###" title="">项目式培训</a></li>
+                <li><a href="###" title="">证书</a></li>
+                <li><a href="###" title="">课程目录</a></li>
+                <li><a href="###" title="">公开课</a></li>
+                <li><a href="###" title="">教学资源</a></li>
+                <li><a href="###" title="">课程评估问卷</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-columns"></i>考试管理</a>
+            <ul>
+                <li><a href="###" title="">网上考试</a></li>
+                <li><a href="###" title="">离线考试</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-comments"></i>社区管理</a>
+            <ul>
+                <li><a href="###" title="">问答</a></li>
+                <li><a href="###" title="">群组</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-life-ring"></i>知识管理</a>
+            <ul>
+                <li><a href="###" title="">知识库</a></li>
+                <li><a href="###" title="">知识目录</a></li>
+                <li><a href="###" title="">知识标签</a></li>
+                <li><a href="###" title="">知识审批</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-table"></i>培训报表</a>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-child"></i>用户管理</a>
+            <ul>
+                <li><a href="###" title="">用户信息</a></li>
+                <li><a href="###" title="">职级</a></li>
+                <li><a href="###" title="">注册审批</a></li>
+                <li><a href="###" title="">用户激活</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-suitcase"></i>基础数据管理</a>
+            <ul>
+                <li><a href="###" title="">积分</a></li>
+                <li><a href="###" title="">内部讲题</a></li>
+                <li><a href="###" title="">外部讲题</a></li>
+                <li><a href="###" title="">供应商</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-wrench"></i>系统设置</a>
+            <ul>
+                <li><a href="###" title="">PC样式管理</a></li>
+                <li><a href="###" title="">移动管理</a></li>
+                <li><a href="###" title="">培训中心管理</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>    
+</div>  <!-- wzb-sibebar End--> 
+
+<div class="wzb-wrapper">
+    <div class="wzb-home">
+        <!-- section01 开始 -->
+        <div class="section01" style="padding:0 0 30px 0;">
+          <div style="position:relative;width:100%;height:260px;overflow:hidden;">
+            <div class="wzb-box-1-bgxx" style="position:absolute;top:0;left:0;"></div><!--  wzb-box-1-bgx 是系统管理员的类名，wzb-box-1-bgt 是其他角色的类名 -->
+            <div class="wzb-box-1-bgx" style="position:absolute;top:0;left:0;"></div>
+                <div class="wzb-box-1-bgz" style="position:absolute;width:100%;"></div>
+                    <div class="wzb-box clearfix" style="padding:38px 0 0 0;">
+                        <div class="col-md-6" style="padding:0 0 0 100px;">
+                          <span class="wzb-box-1-14"><!-- <em class="wzb-badge-2 wzb-badge-pink"></em> --></span>
+                          <h3 style="color:#fff;">待办事宜</h3>
+                          <div class="wzb-box-1-1">                                                                          
+                              <div class="wzb-box-1-2">
+                                  <div class="wzb-box-1-3"><span>报名审批 <em>11</em></span></div>
+                                  <div class="wzb-box-1-3"><span>知识审批<em>33</em></span></div>
+                              </div> 
+                              <div class="wzb-box-1-2">
+                                  <div class="wzb-box-1-3"><span>作业批改<em>20</em></span></div>
+                                  <div class="wzb-box-1-3"><span>试卷批改<em>0</em></span></div>
+                              </div> 
+                          </div>
+                        </div>
+                        <div class="col-md-6 wzb-box-1-12-t"></div>
+                    </div>
+               <!--  </div> -->
+            </div>
+                
+            <div class="wzb-box clearfix" style="padding:50px 0;">
+                <div class="col-md-12">
+                    <a class="wzb-box-1-8" href="javascript:void(0)" title="">
+                        <div class="wzb-box-1-11">
+                            <div class="wzb-box-1-8-num" style="color:#99d562;">286</div>
+                            <div class="wzb-box-1-6">当前在线人数</div>
+                        </div>
+                        <div class="wzb-box-1-11"><i class="Dqzxrshu"></i></div>
+                    </a>
+                    <a class="wzb-box-1-8" href="javascript:void(0)" title="">
+                        <div class="wzb-box-1-11">
+                            <div class="wzb-box-1-8-num" style="color:#eb098f;">1815</div> <!-- 最多显示13位数 -->
+                            <div class="wzb-box-1-6">总用户数</div>
+                        </div>
+                        <div class="wzb-box-1-11"><i class="Zyhshu"></i></div>
+                    </a>
+                    <a class="wzb-box-1-8" href="javascript:void(0)" title="">
+                        <div class="wzb-box-1-11">
+                            <div class="wzb-box-1-8-num" style="color:#58b5e1;">34965</div>
+                            <div class="wzb-box-1-6">用户组</div>
+                        </div>
+                        <div class="wzb-box-1-11"><i class="Yhzu"></i></div>
+                    </a>
+                </div>
+            </div>
+                
+            <div class="wzb-box clearfix" style="background:#f2f2f2;">
+                <div class="row">
+                   <div class="col-md-12 padding-left0">
+                        <div class="row clearfix">             
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-4">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="ggao"></i></div>
+                                       <div class="wzb-box-2-title">公告</div> 
+                                    </a> 
+                                </div> 
+                           </div>     
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-3">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="gggli"></i></div>
+                                       <div class="wzb-box-2-title">公告管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>  
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-2">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="zxgli"></i></div>
+                                       <div class="wzb-box-2-title">资讯管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-6">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="tpiao"></i></div>
+                                       <div class="wzb-box-2-title">投票</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-8">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="ggtcwjuan"></i></div>
+                                       <div class="wzb-box-2-title">公共调查问卷</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-12">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="jhsshi"></i></div>
+                                       <div class="wzb-box-2-title">计划实施</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-11">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="ndjhua"></i></div>
+                                       <div class="wzb-box-2-title">年度计划</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-10">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="bwjhua"></i></div>
+                                       <div class="wzb-box-2-title">编外计划</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-4">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="ndjhspi"></i></div>
+                                       <div class="wzb-box-2-title">年度计划审批</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-3">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="bwjhspi"></i></div>
+                                       <div class="wzb-box-2-title">编外计划审批</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-2">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="ndszhi"></i></div>
+                                       <div class="wzb-box-2-title">年度设置</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-6">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="zjxxdtgli"></i></div>
+                                       <div class="wzb-box-2-title">职级学习地图管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-8">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="gjgwxxdtgli"></i></div>
+                                       <div class="wzb-box-2-title">关键岗位学习地图管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-12">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="ztpxun"></i></div>
+                                       <div class="wzb-box-2-title">专题培训</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-11">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="kcgli"></i></div>
+                                       <div class="wzb-box-2-title">课程管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-10">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="zsgli"></i></div>
+                                       <div class="wzb-box-2-title">证书管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-4">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="kcmlgli"></i></div>
+                                       <div class="wzb-box-2-title">课程目录管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-3">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="gkkgli"></i></div>
+                                       <div class="wzb-box-2-title">公开课管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-2">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="zygli"></i></div>
+                                       <div class="wzb-box-2-title">资源管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-6">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="kcpgwjgli"></i></div>
+                                       <div class="wzb-box-2-title">课程评估问卷管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-8">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="ksgli"></i></div>
+                                       <div class="wzb-box-2-title">考试管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-12">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="wda"></i></div>
+                                       <div class="wzb-box-2-title">问答</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-11">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="wdgli"></i></div>
+                                       <div class="wzb-box-2-title">问答管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-10">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="qzu"></i></div>
+                                       <div class="wzb-box-2-title">群组</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-4">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="qzgli"></i></div>
+                                       <div class="wzb-box-2-title">群组管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-3">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="zsku"></i></div>
+                                       <div class="wzb-box-2-title">知识库</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-2">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="zsmlu"></i></div>
+                                       <div class="wzb-box-2-title">知识目录</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-6">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="zsbqian"></i></div>
+                                       <div class="wzb-box-2-title">知识标签</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-8">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="zsspi"></i></div>
+                                       <div class="wzb-box-2-title">知识审批</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-12">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="pxbbiao"></i></div>
+                                       <div class="wzb-box-2-title">培训报表</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-11">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="gwgli"></i></div>
+                                       <div class="wzb-box-2-title">岗位管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-10">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="yhxxi"></i></div>
+                                       <div class="wzb-box-2-title">用户信息</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-4">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="zcspi"></i></div>
+                                       <div class="wzb-box-2-title">注册审批</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-3">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="yhjhuo"></i></div>
+                                       <div class="wzb-box-2-title">用户激活</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-2">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="zjgli"></i></div>
+                                       <div class="wzb-box-2-title">职级管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-6">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="nbjsgli"></i></div>
+                                       <div class="wzb-box-2-title">内部讲师管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-8">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="wbjsgli"></i></div>
+                                       <div class="wzb-box-2-title">外部讲师管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-12">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="gysgli"></i></div>
+                                       <div class="wzb-box-2-title">供应商管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-11">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="yjmbgli"></i></div>
+                                       <div class="wzb-box-2-title">邮件模板管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-10">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="jfgli"></i></div>
+                                       <div class="wzb-box-2-title">积分管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-4">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="xzyding"></i></div>
+                                       <div class="wzb-box-2-title">新增预订</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-3">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="ydrli"></i></div>
+                                       <div class="wzb-box-2-title">预定日历</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-2">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="ydjlu"></i></div>
+                                       <div class="wzb-box-2-title">预定记录</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-6">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="ssxxi"></i></div>
+                                       <div class="wzb-box-2-title">设施信息</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-8">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="pcysgli"></i></div>
+                                       <div class="wzb-box-2-title">PC样式管理</div>
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-12">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="ydgli"></i></div>
+                                       <div class="wzb-box-2-title">移动管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-11">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="pxzxgli"></i></div>
+                                       <div class="wzb-box-2-title">培训中心管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-10">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="xtszhi"></i></div>
+                                       <div class="wzb-box-2-title">系统设置</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-4">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="wdjxkcheng"></i></div>
+                                       <div class="wzb-box-2-title">我的教学课程</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-3">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="kslbiao"></i></div>
+                                       <div class="wzb-box-2-title">考试列表</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+                           <div class="col-sm-3 col-xs-4 margin-bottom15 padding-right0"> 
+                                <div class="wzb-box-1-background wzb-background-2">   
+                                    <a class="wzb-box-inner" href="###" title="">
+                                       <div class="wzb-box-2"><i class="jsgli"></i></div>
+                                       <div class="wzb-box-2-title">角色管理</div> 
+                                    </a> 
+                                </div> 
+                           </div>
+
+
+                        </div>
+                   </div>
+                   
+                   <div class="clearfix visible-sm-block"></div>
+              </div>
+            </div>
+        </div> 
+        <!-- section01 结束 -->
+
+        <div class="wzb-footer-2" style="margin:0;"><div class="wzb-footer-box">wizbank6.2 @ 汇思 Cyberwisdom 版权所有</div></div>
+
+    </div>
+</div> <!-- wzb-wrapper End-->
+</div> <!-- wzb-body End-->
+
+</body>
+</html> 

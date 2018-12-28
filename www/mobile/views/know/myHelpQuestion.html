@@ -1,0 +1,44 @@
+<!doctype html>
+<html ng-app="know">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/KnowController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="myHelpQuestionController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">
+{{alert.msg | translate}}
+</alert> 
+<div class="wrap" id="wizwrap">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:;" ng-click="back()" title="back"></a>
+    <span class="header-title"  translate="know_help" ><!--求助于我--></span>
+</header> <!-- header End -->
+<wzm-docker rp="../../"></wzm-docker>
+<section class="content-2">
+<div class="panel-list-box" style="margin:0;">
+<div class="tuwen-list-4">
+    <div id="que_{{know.que_id}}" ng-repeat="know in knowList.items" class="tuwen-list-4-box">
+        <a href="javascript:;" forward=" know | knowUrl ">
+           <div class="tuwen-list-4-tit-1" ng-bind="know.que_title"></div>           
+           <div class="box-num-cont-2">
+	            <span class="{{know.typeInfo.cla}}">{{know.typeInfo.label | translate}}</span>
+	            <span class="wenda-list-info-4" ng-bind="know.que_create_timestamp | toDate"></span>
+	       </div>
+        </a>
+    </div>
+</div>
+</div> <!-- panel-list-box End -->
+<div loader="knowList"></div>
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

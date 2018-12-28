@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:simpleType name="nonNullStringType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="extraType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="yes"/>
+			<xsd:enumeration value="no"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="dbCol">
+		<xsd:attribute name="name" type="nonNullStringType" use="required"/>
+		<xsd:attribute name="type" type="nonNullStringType" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="colType">
+		<xsd:sequence>
+			<xsd:element name="db_col" type="dbCol" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="id" type="nonNullStringType" use="required"/>
+		<xsd:attribute name="label" type="nonNullStringType"/>
+		<xsd:attribute name="label_type" type="nonNullStringType" use="optional"/>
+		<xsd:attribute name="extra" type="extraType" use="optional"/>
+		<xsd:attribute name="active" type="xsd:boolean" use="optional" default="false"/>
+	</xsd:complexType>
+	<xsd:complexType name="columnType">
+		<xsd:sequence>
+			<xsd:element name="col" type="colType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="exportListType">
+		<xsd:sequence>
+			<xsd:element name="columns" type="columnType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="export_cols">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="enrollment_list" type="exportListType"/>
+				<xsd:element name="itm_search_list" type="exportListType"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

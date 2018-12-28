@@ -1,0 +1,66 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Object
+suffix								   :Object
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : object.css	
+version								: wizBank 3.5
+Before Add , Edit ,Delete Selector , please
+check css_spec.xls for more information
+=======================================================================*/
+.wbObjectBg{
+	background : #FFFFFF;
+}
+
+.wbObjectHeadBg{
+	background : #FFFFFF;
+}
+
+.wbObjectHeadTextBold{
+	color :#191970;
+	font : bold 9pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbObjectHeadText{
+	color :#191970;
+	font : 9pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbObjectText{
+	color :#000000;
+	font : 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+.wbObjectTextBold{
+	color :#000000;
+	font : bold 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbObjectSText{
+	color :#000000;
+	font : 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbObjectSTextHighLight{
+	color :#FF0000;
+	font : 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.wbObjectSTextBold{
+	color :#000000;
+	font : 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+a.wbObjectLink,a.wbObjectLink:hover,a.wbObjectLink:visited,a.wbObjectLink:active{
+	color :#191970;
+	font : 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+a.wbObjectLinkBold,a.wbObjectLinkBold:hover,a.wbObjectLinkBold:visited,a.wbObjectLinkBold:active{
+	color :#191970;
+	font : 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+a.wbObjectSLink,a.wbObjectSLink:hover,a.wbObjectSLink:visited,a.wbObjectSLink:active{
+	color :#191970;
+	font : 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+

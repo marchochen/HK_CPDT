@@ -1,0 +1,93 @@
+<!doctype html>
+<html  ng-app="group">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/GroupController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="createController">
+<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()">
+{{alert.msg | translate}}
+</alert> 
+<div class="wrap" id="wizwrap" ng-show="show.create">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back();" title="back"></a>
+    <span class="header-title" translate="group_create"><!--新建群组--></span>
+</header> <!-- header End -->
+
+<section class="content">
+<div class="cont-info" style="margin:0;">
+     <div class="panel-list-cont-10">            
+          <div class="panel-title-6 panel-title-6-no" ng-click="edit('group_name', 's_grp_title');" >
+               <span class="panel-add-06 clearfix">
+                     <span class="panel-num-22">&nbsp; {{group.s_grp_title}}</span>
+                     <span translate="group_name"></span><!--群名-->
+               </span>
+          </div>
+     </div>
+             
+    <div class="panel-list-cont-10">            
+          <div class="panel-title-6 panel-title-6-no">
+               <span class="panel-add-06 clearfix">
+                     <span class="panel-num-3" ng-bind="date | date:'yyyy-MM-dd'"></span>
+                     <span translate="group_create_time"></span><!--创建时间-->
+               </span>
+          </div>
+     </div>
+     
+     <div class="panel-list-cont-10">            
+          <div class="panel-title-6 panel-title-6-no" ng-click="edit('group_desc', 's_grp_desc');">
+               <span class="panel-add-06 clearfix">
+                     <span class="panel-num-22">&nbsp;{{group.s_grp_desc}}</span>
+                     <span translate="group_desc"></span><!--描述-->
+               </span>
+          </div>
+     </div>
+</div>     
+      
+<div class="panel-title-6" style="padding:0 0 0 10px;">
+     <span ng-click="showSelect();" class="panel-add-06 yinsi-tip clearfix">
+           <span class="panel-num-22" ng-bind="group.s_grp_private | private"></span>
+           <span translate="group_private"></span><!--群隐私-->
+     </span>
+</div> 
+     
+<div class="yinsi-desc" ng-click="showSelect()" style="display:none;">
+<div class="yinsi-info" style="display:none;">
+    <div class="cont-info-title-7"><span translate="group_private"></span>：<!--群隐私--></div>
+    <ul class="panel-list-1-7">
+        <li><a href="javascript:;" ng-class="{'selectBox' : group.s_grp_private == 1}" ng-click="select(1)" translate="group_type_private"><!--不公开--></a></li>
+        <li><a href="javascript:;" ng-class="{'selectBox' : group.s_grp_private == 0}" ng-click="select(0)" translate="group_type_public"><!--公开--></a></li>
+        <li><a href="javascript:;" ng-class="{'selectBox' : group.s_grp_private == 2}" ng-click="select(2)"  translate="group_type_open"><!--开放--></a></li>
+        <li><a href="javascript:;"  translate="group_cancel"><!--取消--></a></li>
+    </ul> 
+</div>
+</div>    
+
+<div class="panel-list-cont-12">
+<a class="panel-box-btn-02" href="javascript:;" ng-click="create();" title="" translate="btn_submit"><!--提交--></a>
+</div>
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+<div class="wrap" ng-show="show.edit">
+    <header class="header mm-background">
+        <a class="header-back" ng-click="toggleShow()" title="back"></a>
+        <span class="header-title" ng-bind="edit.title"></span>
+        <a class="header-info" href="javascript:;" ng-click="saveText();" title="save" translate="btn_save"><!--保存--></a>
+    </header> <!-- header End -->
+    <section class="content">
+    <div style="padding: 20px 10px 0;">
+        <textarea class="pure-form-txt-4" name="" ng-model="edit.text" placeholder = "{{edit.tip | translate}}"></textarea> 
+    </div>
+    </section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

@@ -1,0 +1,138 @@
+<template_view>
+	<section id="1">
+		<title>
+			<desc lan="ISO-8859-1" name="Item properties"/>
+			<desc lan="Big5" name="知識屬性"/>
+			<desc lan="GB2312" name="知识属性"/>
+		</title>
+		<field01 marked="yes" ext_value_label_tag="object_type_list">
+			<title>
+				<desc lan="ISO-8859-1" name="Type"/>
+				<desc lan="Big5" name="類型"/>
+				<desc lan="GB2312" name="类型"/>
+			</title>
+		</field01>
+		<field31 marked="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Code"/>
+				<desc lan="Big5" name="編號"/>
+				<desc lan="GB2312" name="编号"/>
+			</title>
+		</field31>
+		<field02 marked="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Title"/>
+				<desc lan="Big5" name="名稱"/>
+				<desc lan="GB2312" name="名称"/>
+			</title>
+		</field02>
+		<field06 marked="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="File"/>
+				<desc lan="Big5" name="文件"/>
+				<desc lan="GB2312" name="文件"/>
+			</title>
+		</field06>
+		<field03 marked="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Description"/>
+				<desc lan="Big5" name="描述"/>
+				<desc lan="GB2312" name="描述"/>
+			</title>
+		</field03>
+		<field04 marked="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Author"/>
+				<desc lan="Big5" name="作者"/>
+				<desc lan="GB2312" name="作者"/>
+			</title>
+		</field04>
+		<field05 marked="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Keywords"/>
+				<desc lan="Big5" name="關鍵字"/>
+				<desc lan="GB2312" name="关键词"/>
+			</title>
+		</field05>
+		<km_version marked="yes" type="constant" required="yes" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Version"/>
+				<desc lan="Big5" name="版本"/>
+				<desc lan="GB2312" name="版本"/>
+			</title>
+		</km_version>
+		<km_published_version marked="yes" type="constant" required="yes" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Published version"/>
+				<desc lan="Big5" name="發佈版本"/>
+				<desc lan="GB2312" name="发布版本"/>
+			</title>
+		</km_published_version>
+		<km_object_status marked="yes" type="constant_label" value="CHECKED_IN" paramname="obj_status" required="yes" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Status"/>
+				<desc lan="Big5" name="状态"/>
+				<desc lan="GB2312" name="状态"/>
+			</title>
+			<label id="CHECKED_IN">
+				<desc lan="ISO-8859-1" name="Checked-in"/>
+				<desc lan="Big5" name="入庫"/>
+				<desc lan="GB2312" name="入库"/>
+			</label>
+			<label id="CHECKED_OUT">
+				<desc lan="ISO-8859-1" name="Checked-out ([|]last_update_user_display_bil[|])"/>
+				<desc lan="Big5" name="出庫 ([|]last_update_user_display_bil[|])"/>
+				<desc lan="GB2312" name="出库 ([|]last_update_user_display_bil[|])"/>
+			</label>
+		</km_object_status>
+		<km_update_user marked="yes" type="constant" required="yes" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Last modified by"/>
+				<desc lan="Big5" name="上次更新作者"/>
+				<desc lan="GB2312" name="上次更新作者"/>
+			</title>
+		</km_update_user>
+		<km_domain_node_list marked="yes" type="km_domain_attachment" required="no" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Knowledge domains"/>
+				<desc lan="Big5" name="知識庫"/>
+				<desc lan="GB2312" name="知识库"/>
+			</title>
+		</km_domain_node_list>
+		<km_last_update_datetime marked="yes" type="constant_datetime" required="yes" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Last Modified date"/>
+				<desc lan="Big5" name="上次更新日期"/>
+				<desc lan="GB2312" name="上次更新日期"/>
+			</title>
+		</km_last_update_datetime>
+		<km_create_datetime marked="yes" type="constant_datetime" required="yes" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Creation date"/>
+				<desc lan="Big5" name="創建日期"/>
+				<desc lan="GB2312" name="创建日期"/>
+			</title>
+		</km_create_datetime>
+		<filesize marked="yes" type="filesize" required="no" external_field="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="File size"/>
+				<desc lan="Big5" name="文件大小"/>
+				<desc lan="GB2312" name="文件大小"/>
+			</title>
+		</filesize>
+	</section>
+	<section id="2">
+		<title>
+			<desc lan="ISO-8859-1" name="Version comments"/>
+			<desc lan="Big5" name="版本備註"/>
+			<desc lan="GB2312" name="版本备注"/>
+		</title>
+		<field07 marked="yes">
+			<title>
+				<desc lan="ISO-8859-1" name="Comments"/>
+				<desc lan="Big5" name="備註"/>
+				<desc lan="GB2312" name="备注"/>
+			</title>
+		</field07>
+	</section>
+</template_view>

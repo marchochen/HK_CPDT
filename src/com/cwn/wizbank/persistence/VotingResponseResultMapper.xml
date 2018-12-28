@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.VotingResponseResultMapper">
+
+	
+	<select id="listByVotId" parameterType="java.lang.Long" resultType="com.cwn.wizbank.entity.VotingResponseResult">
+	
+		select (select COUNT(*) from voteresponse where vrp_vot_id = #{votId}) total,vr.vrp_vto_id,vo.vto_desc label,vr.responseCount count from (select vrp.vrp_vto_id,COUNT(*) responseCount from voteresponse vrp where  vrp.vrp_vot_id = #{votId} group by vrp.vrp_vto_id) vr
+		join voteoption vo on vr.vrp_vto_id = vo.vto_id order by vr.responseCount
+		
+	</select>
+	
+	
+</mapper>

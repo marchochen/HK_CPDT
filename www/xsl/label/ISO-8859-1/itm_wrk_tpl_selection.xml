@@ -1,0 +1,20 @@
+<label_reference_data_list>
+	<label name="lab_g_select_enrol_wf">Please select</label>
+	<label name="lab_g_enrol_wf">Enrollment Workflow</label>
+	<label name="lab_g_form_btn_next_step">Next</label>
+	<label name="lab_g_form_btn_cancel">Cancel</label>
+	<label name="lab_g_template_workflow">
+		<element id="7">
+			<title>No Approval required</title>
+			<description></description>
+		</element>
+		<element id="15">
+			<title>Approval required</title>
+			<description></description>
+		</element>
+		<element id="18">
+			<title>Auto enrollment payment workflow</title>
+			<description></description>
+		</element>
+	</label>
+</label_reference_data_list>

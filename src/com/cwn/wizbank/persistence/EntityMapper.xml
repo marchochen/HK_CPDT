@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.EntityMapper">
+	<insert id="insert" parameterType="Entity" keyProperty="ent_id" >
+		insert into Entity(
+			ent_type,
+			ent_upd_date,
+			<if test="ent_ste_uid != null and ent_ste_uid != ''">
+				ent_ste_uid,
+			</if>
+			ent_syn_ind
+		) values (
+			#{ent_type,jdbcType=INTEGER},
+			#{ent_upd_date,jdbcType=TIMESTAMP},
+			<if test="ent_ste_uid != null and ent_ste_uid != ''">
+				#{ent_ste_uid,jdbcType=VARCHAR},
+			</if>
+			#{ent_syn_ind,jdbcType=INTEGER}
+		)
+		<selectKey keyProperty="ent_id" resultType="Long" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select s_13338_1_entity.currval as ent_id from dual
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					select ident_current('Entity') as ent_id
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					select last_insert_id() as ent_id
+				</when>
+			</choose>
+ 		</selectKey> 
+	</insert>
+		
+	<select id="get" resultType="Entity" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				ent_id,
+				ent_type,
+				ent_upd_date,
+				ent_syn_date,
+				ent_ste_uid,
+				ent_syn_ind,
+				ent_delete_usr_id,
+				ent_delete_timestamp
+			from Entity t
+			where
+				 t.ent_id = #{id}
+		]]>
+	</select>
+	
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.Entity">
+	        update Entity
+	        set 
+				ent_type = #{ent_type,jdbcType=VARCHAR},
+				ent_upd_date = #{ent_upd_date,jdbcType=DATE},
+				ent_syn_date = #{ent_syn_date,jdbcType=DATE},
+				ent_ste_uid = #{ent_ste_uid,jdbcType=VARCHAR},
+				ent_syn_ind = #{ent_syn_ind,jdbcType=BOOLEAN},
+				ent_delete_usr_id = #{ent_delete_usr_id,jdbcType=VARCHAR},
+				ent_delete_timestamp = #{ent_delete_timestamp,jdbcType=DATE}
+	         where ent_id = #{ent_id,jdbcType=INTEGER}
+    </update>
+	
+	
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from Entity where
+	        ent_id = #{ent_id}
+	    ]]>
+    </delete>
+	
+</mapper>

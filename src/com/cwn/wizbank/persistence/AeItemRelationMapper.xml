@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.AeItemRelationMapper">
+	<select id="get" resultType="AeItemRelation" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				ire_parent_itm_id,
+				ire_child_itm_id,
+				ire_create_timestamp,
+				ire_create_usr_id
+			from AeItemRelation t where t.ire_parent_itm_id = #{id}
+		]]>
+	</select>	
+	<update id="update" parameterType="com.cwn.wizbank.entity.AeItemRelation">
+	    <![CDATA[
+	        update AeItemRelation t 
+	        set 
+				ire_parent_itm_id = #{ire_parent_itm_id,jdbcType=INTEGER},
+				ire_child_itm_id = #{ire_child_itm_id,jdbcType=INTEGER},
+				ire_create_timestamp = #{ire_create_timestamp,jdbcType=TIMESTAMP},
+				ire_create_usr_id = #{ire_create_usr_id,jdbcType=VARCHAR}
+	         where t.ire_parent_itm_id = #{ire_parent_itm_id,jdbcType=INTEGER}
+	    ]]>
+    </update>    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.AeItemRelation">
+    	<![CDATA[
+            insert into AeItemRelation(
+            		ire_create_timestamp,
+            		ire_create_usr_id
+            ) values (
+            	#{ire_create_timestamp,jdbcType=TIMESTAMP},
+            	#{ire_create_usr_id,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from AeItemRelation  where ire_parent_itm_id = #{ire_parent_itm_id}
+	    ]]>
+    </delete>	
+	<select id="selectList" resultType="AeItemRelation">
+	    <![CDATA[
+	         select 
+				ire_parent_itm_id,
+				ire_child_itm_id,
+				ire_create_timestamp,
+				ire_create_usr_id
+			from AeItemRelation t 
+	    ]]>
+	</select>	
+</mapper>

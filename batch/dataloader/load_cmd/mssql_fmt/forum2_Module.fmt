@@ -1,0 +1,13 @@
+8.0
+11
+1	SQLNCHAR	0	0	"\t\0"		1	mod_res_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	mod_type	""
+3	SQLNCHAR	0	0	"\t\0"		8	mod_score_ind	""
+4	SQLNCHAR	0	0	"\t\0"		11	mod_eff_start_datetime	""
+5	SQLNCHAR	0	0	"\t\0"		12	mod_eff_end_datetime	""
+6	SQLNCHAR	0	0	"\t\0"		22	mod_has_rate_q	""
+7	SQLNCHAR	0	0	"\t\0"		23	mod_is_public	""
+8	SQLNCHAR	0	0	"\t\0"		26	mod_show_answer_ind	""
+9	SQLNCHAR	0	0	"\t\0"		27	mod_sub_after_passed_ind	""
+10	SQLNCHAR	0	0	"\t\0"		29	mod_auto_save_ind	""
+11	SQLNCHAR	0	0	"\r\0\n\0"	30	mod_sgp_ind	""

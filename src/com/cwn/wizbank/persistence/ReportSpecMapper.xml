@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.ReportSpecMapper">
+	<select id="get" resultType="ReportSpec" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				rsp_id,
+				rsp_rte_id,
+				rsp_ent_id,
+				rsp_title,
+				rsp_xml,
+				rsp_create_usr_id,
+				rsp_create_timestamp,
+				rsp_upd_usr_id,
+				rsp_upd_timestamp,
+				rsp_content
+			from ReportSpec t
+			where
+				 t.rsp_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.ReportSpec">
+	    <![CDATA[
+	        update ReportSpec
+	        set 
+				rsp_id = #{rsp_id,jdbcType=INTEGER},
+				rsp_rte_id = #{rsp_rte_id,jdbcType=INTEGER},
+				rsp_ent_id = #{rsp_ent_id,jdbcType=INTEGER},
+				rsp_title = #{rsp_title,jdbcType=VARCHAR},
+				rsp_xml = #{rsp_xml,jdbcType=VARCHAR},
+				rsp_create_usr_id = #{rsp_create_usr_id,jdbcType=VARCHAR},
+				rsp_create_timestamp = #{rsp_create_timestamp,jdbcType=DATE},
+				rsp_upd_usr_id = #{rsp_upd_usr_id,jdbcType=VARCHAR},
+				rsp_upd_timestamp = #{rsp_upd_timestamp,jdbcType=DATE},
+				rsp_content = #{rsp_content,jdbcType=VARCHAR}
+	         where t.rsp_id = #{rsp_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.ReportSpec">
+    	<![CDATA[
+            insert into ReportSpec(
+            		rsp_ent_id,
+            		rsp_title,
+            		rsp_xml,
+            		rsp_create_usr_id,
+            		rsp_create_timestamp,
+            		rsp_upd_usr_id,
+            		rsp_upd_timestamp,
+            		rsp_content
+            ) values (
+            	#{rsp_ent_id,jdbcType=INTEGER},
+            	#{rsp_title,jdbcType=VARCHAR},
+            	#{rsp_xml,jdbcType=VARCHAR},
+            	#{rsp_create_usr_id,jdbcType=VARCHAR},
+            	#{rsp_create_timestamp,jdbcType=DATE},
+            	#{rsp_upd_usr_id,jdbcType=VARCHAR},
+            	#{rsp_upd_timestamp,jdbcType=DATE},
+            	#{rsp_content,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+	   	delete from ReportSpec where rsp_id = #{rsp_id}
+    </delete>
+	<select id="selectAll" resultType="ReportSpec">
+	    <![CDATA[
+	         select 
+				rsp_id,
+				rsp_rte_id,
+				rsp_ent_id,
+				rsp_title,
+				rsp_xml,
+				rsp_create_usr_id,
+				rsp_create_timestamp,
+				rsp_upd_usr_id,
+				rsp_upd_timestamp,
+				rsp_content
+			from ReportSpec t 
+	    ]]>
+	</select>
+	<select id="selectReportSpecList" resultType="ReportSpec" parameterType="Page">
+		select
+			rsp_id,
+			rsp_title,
+			rsp_upd_timestamp,
+			rsp_content
+		from ReportSpec
+		where rsp_ent_id = ${params.rsp_ent_id} and rsp_rte_id = (select rte_id from ReportTemplate where rte_type = '${params.rte_type}')
+		<if test="params.rsp_id">
+			and rsp_id = ${params.rsp_id}
+		</if>
+		order by rsp_upd_timestamp desc
+	</select>
+	<select id="selectId" resultType="ReportSpec"  parameterType="java.lang.Long">
+		select
+			* 
+		from ReportSpec
+		where rsp_id = #{rsp_id}
+	</select>
+</mapper>

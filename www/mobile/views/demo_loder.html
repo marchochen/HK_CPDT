@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="cwn">
+<head>
+<title>wizMobile</title>
+<meta name="Keywords" content="wizMobile" />
+<meta name="Description" content="wizMobile" />
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="MobileOptimized" content="320" />
+<meta http-equiv="cleartype" content="on" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="white">
+<meta name="apple-touch-fullscreen" content="YES" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link href="../css/base.css" rel="stylesheet" type="text/css">
+<link href="../lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+<!--     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet"> -->
+
+<script type="text/javascript" src="../lib/angular/angular.js"></script>
+<script type="text/javascript" src="../lib/angular/angular-translate.js"></script>
+<script type="text/javascript" src="../lib/angular/angular-cookies.js"></script>
+
+<script type="text/javascript" src="../js/app.js"></script>
+<script type="text/javascript" src="../js/directives/directives.js"></script>
+<script type="text/javascript" src="../js/services/services.js"></script>
+
+
+<script type="text/javascript">
+ var indexModule = angular.module('cwn', ['globalCwn'])
+indexModule.config(function($translateProvider, $globalLang, $httpProvider) {
+	$translateProvider.translations('en-us', {
+		'HELLO_TEXT' : 'Hello world ! '
+	}).translations('zh-cn', {
+		'HELLO_TEXT': '开始 ! '
+	});
+
+});
+
+ indexModule.controller('IndexController', ['$scope', '$http' ,'Loader', function($scope, $http, Loader) {
+    //排序
+	$scope.dataHead = {
+		art_id: 'id'
+      , art_title : 'title'
+    };
+    
+    var url = "http://localhost:8080/app/article/pageJson/0";
+    $scope.loader2 = new Loader(url);
+}]);
+</script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="IndexController">
+	<h3>{{'HELLO_TEXT' | translate}}</h3>
+	<table class="table table-striped table-bordered table-hover">
+         <tr>
+			  <th ng-repeat="(art_id, tableHead) in dataHead" scope="col">
+			    <a ng-click="flipOrderBy( art_id )">{{tableHead}}</a>
+			  </th>
+         </tr>
+         <tr ng-repeat="item in loader2.items" >
+         	<td>{{item.art_id}}</td>
+         	<td>{{item.art_title}}</td>
+         </tr>
+     </table>
+     
+	<div loader="loader2"></div>
+	
+</body>
+</html>

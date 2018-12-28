@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app="cwn">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title>Document</title>
+<link rel="stylesheet" href="../lib/bootstrap/bootstrap.css" />
+<!--     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet"> -->
+
+<script type="text/javascript" src="../lib/angular/angular.js"></script>
+<script type="text/javascript" src="../js/i18n/zh-cn.js"></script>
+<script type="text/javascript" src="../js/i18n/en-us.js"></script>
+<script type="text/javascript" src="../js/i18n/zh-hk.js"></script>
+<script type="text/javascript" src="../js/app.js"></script>
+
+<script type="text/javascript" src="../js/services/services.js"></script>
+<script type="text/javascript" src="../lib/angular/angular-translate.js"></script>
+<script type="text/javascript" src="../lib/angular/angular-cookies.js"></script>
+<script type="text/javascript" src="../lib/angular/angular-touch.js"></script>
+<script type="text/javascript" src="../js/directives/directives.js"></script>
+<script type="text/javascript" src="../js/services/services.js"></script>
+<script type="text/javascript" src="../js/filters/filters.js"></script>
+
+<script type="text/javascript" src="../lib/jquery/jquery.min.js"></script>
+
+<script type="text/javascript" src="../lib/bootstrap/ui-bootstrap-tpls.js"></script>
+
+
+<!--[if lt IE 9]>
+<script src="../js/lib/html5.js" type="text/jscript"></script>
+<![endif]-->
+<script type="text/javascript">
+ var testModule = angular.module('cwn', ['globalCwn', 'ui.bootstrap']);
+	testModule.controller('IndexController', ['$scope','$http','modalService', function($scope, $http, modalService) {
+		$scope.open = function(size){
+			modalService.modal(function($scope, $modalInstance) {
+				//$scope.btnSure = "确定";
+				//$scope.btnCancel = "取消";
+				//$scope.modalTitle = "modal_title_notice";
+				$scope.modalText = '你确定高大上了吗111111？';
+				$scope.modalOk = function() {
+					$modalInstance.close();
+				};
+				$scope.modalCancel = function() {
+					$modalInstance.dismiss('cancel');
+				};
+			}, size);
+		} 
+		
+	}]);
+
+
+</script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="IndexController">
+	<script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">warning!</h3>
+        </div>
+        <div class="modal-body">
+			{{modal_text}}
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="modalOk()">OK</button>
+            <button class="btn btn-warning" ng-click="modalCancel()">Cancel</button>
+        </div>
+    </script>
+    
+ 	<div>	
+ 		<input type="button" value="弹出" ng-click="open()" />
+ 	</div>
+	
+</body>
+</html>

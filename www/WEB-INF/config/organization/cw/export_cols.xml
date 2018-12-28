@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export_cols xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\export_cols.xsd">
+	<enrollment_list>
+		<!--1.User ID and Status must be kept and User ID is the default sorting column.
+			2.Columns available for configuration:
+				•	All fields in user profile, except highest approval group and supervised group
+				•	Other existing fields: Status, Pending Approver, Modified date
+			3. Id should be unquie.
+			4. Lable value should be able to match  in user_managerment.xml and xsl/label/{lang}/application.xml.
+		-->
+		<columns>
+			<col id="usr_id" label="user_id" extra="no" active="true">
+				<db_col name="usr_ste_usr_id" type="String"/>
+			</col>
+			<col id="usr_display_bil" label="name" extra="no" active="true">
+				<db_col name="usr_display_bil" type="String"/>
+			</col>	
+			<col id="group" label="group" extra="yes" active="true">
+			</col>
+			<col id="grade" label="grade" extra="yes" active="true">
+			</col>
+			<!-- <col id="integrated_lrn" label="LN085" extra="yes" active="true" label_type="jslabel">
+			</col> -->
+			<col id="direct_supervisors" label="direct_supervisors" extra="yes" active="true">
+			</col>
+			<col id="status" label="lab_status" extra="no" active="true">
+				<db_col name="app_process_status" type="String"/>
+			</col>
+			<col id="pending_approval_role" label="lab_pending_approver" extra="no" active="true">
+				<db_col name="aal_approval_role" type="String"/>
+			</col>
+			<col id="modified_date" label="lab_modify" extra="no" active="true">
+				<db_col name="app_upd_timestamp" type="timestamp"/>
+			</col>
+		</columns>
+	</enrollment_list>
+	<itm_search_list>
+		<!--1.Columns available for configuration:
+				Code, Title, Type, Status*, Class Code, Class Title,
+				Enrollment Start(開始報名),Enrollment End(截止報名), Quota*(名額), Enrolled*(已報名),
+				Course Start (課程開始), Course End(課程結束), Training Center, Created By, Modified
+			2.By default:  
+				Code, Title, Type, Status*, Class Code, Class Title,
+				Enrollment Start(開始報名), Enrollment End(截止報名), Enrolled*(已報名), 
+				Course Start (課程開始), Course End(課程結束), Modified
+		-->
+		<columns>
+			<col id="code" label="lab_itm_cos_code" extra="no" active="true">
+				<db_col name="r_itm_code" type="String"/>
+			</col>
+			<col id="title" label="lab_itm_cos_title" extra="no" active="true">
+				<db_col name="r_itm_title" type="String"/>
+			</col>
+			<col id="dummy_type" label="lab_type" extra="no" active="true">
+				<db_col name="r_itm_type~itm_exam_ind~itm_blend_ind~itm_ref_ind" type="String"/>
+			</col>
+			<col id="status" label="lab_status" extra="no" active="true">
+				<db_col name="r_itm_status" type="String"/>
+			</col>
+			<col id="c_code" label="lab_c_code" extra="no" active="true">
+				<db_col name="c_itm_code" type="String"/>
+			</col>
+			<col id="c_title" label="lab_c_title" extra="no" active="true">
+				<db_col name="c_itm_title" type="String"/>
+			</col>
+			<col id="appn_start_datetime" label="lab_enroll_start" extra="no" active="true">
+				<db_col name="r_itm_appn_start_datetime" type="timestamp"/>
+			</col>
+			<col id="appn_end_datetime" label="lab_enroll_end" extra="no" active="true">
+				<db_col name="r_itm_appn_end_datetime" type="timestamp"/>
+			</col>
+			<col id="capacity" label="lab_quota" extra="no" active="false">
+				<db_col name="r_itm_capacity" type="long"/>
+			</col>
+			<col id="enrolled" label="370" extra="no" active="true">
+				<db_col name="r_enrolled" type="long"/>
+			</col>
+			<col id="eff_start_datetime" label="lab_cos_start" extra="no" active="true">
+				<db_col name="r_itm_eff_start_datetime" type="timestamp"/>
+			</col>
+			<col id="eff_end_datetime" label="lab_cos_end" extra="no" active="true">
+				<db_col name="r_itm_eff_end_datetime" type="timestamp"/>
+			</col>
+			<col id="tcr_title" label="lab_tc" extra="no" active="false">
+				<db_col name="p_itm_tcr_title" type="String"/>
+			</col>
+			<col id="create_usr_id" label="lab_created_by" extra="no" active="false">
+				<db_col name="r_itm_create_usr_id" type="String"/>
+			</col>
+			<col id="upd_timestamp" label="lab_modified" extra="no" active="true">
+				<db_col name="r_itm_upd_timestamp" type="timestamp"/>
+			</col>
+		</columns>
+	</itm_search_list>
+</export_cols>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
+	<xsd:complexType name="itemCostType">
+		<xsd:sequence>
+			<xsd:element name="cost" type="labels" maxOccurs="unbounded">
+				<!--<xsd:unique name="myType">
+					<xsd:selector xpath="./cost"/>
+					<xsd:field xpath="@type"/>
+				</xsd:unique>-->
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="itm_type" type="xsd:string" use="required"/>
+		<xsd:attribute name="itm_run_ind" type="xsd:boolean" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="labels">
+		<xsd:sequence>
+			<xsd:element name="label" type="labelType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="type" type="posIntType" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="labelType">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute ref="xml:lang" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="posIntType">
+		<xsd:restriction base="xsd:int">
+			<xsd:minInclusive value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- <xsd:unique name="myType">
+                   <xsd:selector xpath="."/>
+                   <xsd:field xpath="@type"/>
+             </xsd:unique>-->
+	<xsd:element name="item_cost_management">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="item_cost" type="itemCostType" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

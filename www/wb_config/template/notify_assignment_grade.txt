@@ -1,0 +1,4 @@
+Assignment Graded
+Your assignment ($data_1_) of $data_2_ has been graded.
+
+Thank You.

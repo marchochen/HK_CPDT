@@ -1,0 +1,146 @@
+<!doctype html>
+<html ng-app="message">
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport" />
+		<title translate="cwn_title"></title>
+		<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+		<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.load.js"></script>
+		<script type="text/javascript" src="../../js/controllers/MessageController.js"></script>
+		<script type="text/javascript" src="../../lib/common.js"></script>
+	</head>
+	<body ng-cloak class="ng-cloak" ng-controller="indexController" style="background:#fff;">
+		<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>
+
+		<!-- 信息列表 start -->
+		<div ng-show="showList">
+			<!-- wrap start -->
+			<div class="wrap" id="wizwrap">
+				<header class="header mm-background">
+					<a ng-click="back()"class="header-back" href="javascript:void(0);" title="back"></a>  <span
+						class="header-title">{{'message_label' | translate}}</span> <!--<a
+						ng-click="publish()" class="header-info header-fabu" href="javascript:void(0)">{{'btn_publish'
+						| translate}}</a> -->
+				</header>
+
+				<!-- 底部导航栏  -->
+				<wzm-docker rp="../../"></wzm-docker>
+
+				<section class="content-2">
+					<div class="panel-list-box">
+						<ul class="panel-list-1-2 list-icon-mail">
+							<li ng-repeat="msg in msgList.items" ng-show="!msg.noShow" class="{{(((msg.readHistory) && (msg.readHistory.wmrh_status == 'Y')) || (msg.clicked)) ? 'list-icon-mail-yidu' : 'list-icon-mail-weidu'}}">
+								<div class="panel-list-title-1">
+									<a ng-click="showDetail(msg.wmsg_id,'rec_message',this)" id="msg_{{msg.wmsg_id}}" class="panel-list-title-1" href="javascript:void(0)" title=""
+										> <span class="{{(((msg.readHistory) && (msg.readHistory.wmrh_status == 'Y')) || (msg.clicked)) ? '' : 'mcolor-font-size'}}"
+										>{{msg.wmsg_subject}}</span>
+										<div class="panel-list-time">
+											{{msg.wmsg_create_timestamp | toDate}}
+										</div>
+									</a>
+									<span class="panel-num-2" style="margin:-20px 0 0 0;"><a class="list-tool-1-close"
+										href="javascript:;"
+										ng-click="delById(msg.wmsg_id,'rec_message',this,(((msg.readHistory) && (msg.readHistory.wmrh_status == 'Y')) || (msg.clicked)))"><!-- 删除  {{'btn_delete' | translate}}--></a></span>
+								</div>
+							</li>
+						</ul>
+						<div loader="msgList"></div>
+						<!-- <tabs>
+							收件箱 start
+							<pane style="panel-tabcont-2 pub-tabcont" title="{{'message_receive_box' | translate}}">
+								<ul class="panel-list-1-2 list-icon-mail">
+									<li ng-repeat="msg in msgList.items" ng-show="!msg.noShow" class="{{(((msg.readHistory) && (msg.readHistory.wmrh_status == 'Y')) || (msg.clicked)) ? 'list-icon-mail-yidu' : 'list-icon-mail-weidu'}}">
+										<div class="panel-list-title-1">
+											<a ng-click="showDetail(msg.wmsg_id,'rec_message',this)" id="msg_{{msg.wmsg_id}}" class="panel-list-title-1" href="javascript:void(0)" title=""
+												> <span class="{{(((msg.readHistory) && (msg.readHistory.wmrh_status == 'Y')) || (msg.clicked)) ? '' : 'mcolor-font-size'}}"
+												>{{msg.wmsg_subject}}</span>
+												<div class="panel-list-time">
+													{{msg.wmsg_create_timestamp | toDate}}
+												</div>
+											</a>
+											<span class="panel-num-2" style="margin:-20px 0 0 0;"><a class="list-tool-1-close"
+												href="javascript:;"
+												ng-click="delById(msg.wmsg_id,'rec_message',this,(((msg.readHistory) && (msg.readHistory.wmrh_status == 'Y')) || (msg.clicked)))">删除  {{'btn_delete' | translate}}</a></span>
+										</div>
+									</li>
+								</ul>
+								<div loader="msgList"></div>
+							</pane>
+							收件箱 end
+							
+							发件箱 start
+							<pane style="panel-tabcont-2 pub-tabcont" title="{{'message_send_box' | translate}}">
+								<ul class="panel-list-1-2 list-icon-mail">
+									<li ng-repeat="msg in send_msgList.items" ng-show="!msg.noShow" class="list-icon-mail-yifa">
+										<div class="panel-list-title-1">
+											<a ng-click="showDetail(msg.wmsg_id,'send_message',this)" class="panel-list-title-1" href="javascript:void(0)" title=""
+												 title=""> <span>{{msg.wmsg_subject}}</span>
+												<div class="panel-list-time">
+													{{msg.wmsg_create_timestamp | toDate}}
+												</div>
+											</a>
+											<span class="panel-num-2" style="margin:-20px 0 0 0;"><a class="list-tool-1-close"
+												href="javascript:void(0)"
+												ng-click="delById(msg.wmsg_id,'send_message',this,true)">删除 {{'btn_delete' | translate}}</a></span>
+										</div>
+									</li>
+								</ul>
+								<div loader="send_msgList"></div>
+							</pane>
+							发件箱 end
+							
+						</tabs> -->
+					</div>
+				</section>
+			</div>
+			<!-- wrap End -->
+		</div>
+		<!-- 信息列表 end -->
+
+		<!-- 详情 start-->
+		<div ng-show="!showList">
+			<div class="wrap" id="wizwrap">
+				<header class="header mm-background">
+					<a ng-click="back()" class="header-back" href="javascript:void(0);" title="back"></a>
+					<span class="header-title">{{'message_label' | translate}}</span>
+					<a class="header-info" href="javascript:void(0)"
+					    title="{{'comment_reply_tip'|translate}}"
+						ng-show="(type == 'rec_message') && (msgDetail.wmsg_type=='PERSON')"
+						ng-click="reply()"><!-- 回复 -->
+						{{'comment_reply_tip'|translate}}
+					</a>
+				</header>
+
+				<section class="content">
+					<div class="cont-box">
+						<h1 class="cont-info-title-1">{{msgDetail.wmsg_subject}}</h1>
+						<div class="cont-info-period">
+							{{msgDetail.wmsg_create_timestamp | toDate : 'yyyy-MM-dd HH:mm:ss'}}
+							<span class="cont-info-right">
+								{{'msg_from' | translate}}{{msgDetail.wmsg_type=='SYS' ? sysMsg : msgDetail.sendUser.usr_display_bil}}
+							</span>
+						</div>
+
+						<div class="cont-info-desc"
+							ng-bind-html="msgDetail.wmsg_content_mobile | htmlDecode">
+						</div>
+					</div>
+
+					<div class="cont-info-send" ng-show="isReply">
+						<div class="pure-form-box-3">
+							<div class="pure-form-bi"></div>
+							<div class="pure-form-kang">
+								<input type="text" placeholder="{{'message_reply' | translate}}：" name="souso" class="send-text" ng-model="messageBody">
+							</div>
+							<a href="javascript:void(0)" class="pure-form-delete"></a>
+						</div>
+						<input type="button" value="{{'btn_send' | translate}}" class="send-button" ng-click="sendMessage()" />
+					</div>
+				</section>
+			</div>
+		</div>
+		<!-- 详情end-->
+
+	</body>
+</html>

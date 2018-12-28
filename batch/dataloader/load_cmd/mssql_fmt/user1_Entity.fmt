@@ -1,0 +1,6 @@
+8.0
+4
+1	SQLNCHAR	0	0	"\t\0"		1	ent_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	ent_type	""
+3	SQLNCHAR	0	0	"\t\0"		3	ent_upd_date	""
+4	SQLNCHAR	0	0	"\r\0\n\0"	6	ent_syn_ind	""

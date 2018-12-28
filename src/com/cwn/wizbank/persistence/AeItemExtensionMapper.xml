@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.AeItemExtensionMapper">
+	<select id="get" resultType="AeItemExtension" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				ies_itm_id,
+				ies_lang,
+				ies_objective,
+				ies_contents,
+				ies_duration,
+				ies_audience,
+				ies_prerequisites,
+				ies_exemptions,
+				ies_remarks,
+				ies_enroll_confirm_remarks,
+				ies_schedule,
+				ies_itm_ref_materials_1,
+				ies_itm_ref_materials_2,
+				ies_itm_ref_materials_3,
+				ies_itm_ref_materials_4,
+				ies_itm_ref_materials_5,
+				ies_itm_ref_url_1,
+				ies_itm_ref_url_2,
+				ies_itm_ref_url_3,
+				ies_itm_ref_url_4,
+				ies_itm_ref_url_5,
+				ies_itm_rel_materials_1,
+				ies_itm_rel_materials_2,
+				ies_itm_rel_materials_3,
+				ies_itm_rel_materials_4,
+				ies_itm_rel_materials_5,
+				ies_itm_rel_materials_6,
+				ies_itm_rel_materials_7,
+				ies_itm_rel_materials_8,
+				ies_itm_rel_materials_9,
+				ies_itm_rel_materials_10,
+				ies_top_ind,
+				ies_top_icon
+			from AeItemExtension t 
+			where
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.AeItemExtension">
+	    <![CDATA[
+	        update AeItemExtension 
+	        set 
+				ies_itm_id = #{ies_itm_id,jdbcType=INTEGER},
+				ies_lang = #{ies_lang,jdbcType=VARCHAR},
+				ies_objective = #{ies_objective,jdbcType=VARCHAR},
+				ies_contents = #{ies_contents,jdbcType=VARCHAR},
+				ies_duration = #{ies_duration,jdbcType=VARCHAR},
+				ies_audience = #{ies_audience,jdbcType=VARCHAR},
+				ies_prerequisites = #{ies_prerequisites,jdbcType=VARCHAR},
+				ies_exemptions = #{ies_exemptions,jdbcType=VARCHAR},
+				ies_remarks = #{ies_remarks,jdbcType=VARCHAR},
+				ies_enroll_confirm_remarks = #{ies_enroll_confirm_remarks,jdbcType=VARCHAR},
+				ies_schedule = #{ies_schedule,jdbcType=VARCHAR},
+				ies_itm_ref_materials_1 = #{ies_itm_ref_materials_1,jdbcType=VARCHAR},
+				ies_itm_ref_materials_2 = #{ies_itm_ref_materials_2,jdbcType=VARCHAR},
+				ies_itm_ref_materials_3 = #{ies_itm_ref_materials_3,jdbcType=VARCHAR},
+				ies_itm_ref_materials_4 = #{ies_itm_ref_materials_4,jdbcType=VARCHAR},
+				ies_itm_ref_materials_5 = #{ies_itm_ref_materials_5,jdbcType=VARCHAR},
+				ies_itm_ref_url_1 = #{ies_itm_ref_url_1,jdbcType=VARCHAR},
+				ies_itm_ref_url_2 = #{ies_itm_ref_url_2,jdbcType=VARCHAR},
+				ies_itm_ref_url_3 = #{ies_itm_ref_url_3,jdbcType=VARCHAR},
+				ies_itm_ref_url_4 = #{ies_itm_ref_url_4,jdbcType=VARCHAR},
+				ies_itm_ref_url_5 = #{ies_itm_ref_url_5,jdbcType=VARCHAR},
+				ies_itm_rel_materials_1 = #{ies_itm_rel_materials_1,jdbcType=VARCHAR},
+				ies_itm_rel_materials_2 = #{ies_itm_rel_materials_2,jdbcType=VARCHAR},
+				ies_itm_rel_materials_3 = #{ies_itm_rel_materials_3,jdbcType=VARCHAR},
+				ies_itm_rel_materials_4 = #{ies_itm_rel_materials_4,jdbcType=VARCHAR},
+				ies_itm_rel_materials_5 = #{ies_itm_rel_materials_5,jdbcType=VARCHAR},
+				ies_itm_rel_materials_6 = #{ies_itm_rel_materials_6,jdbcType=VARCHAR},
+				ies_itm_rel_materials_7 = #{ies_itm_rel_materials_7,jdbcType=VARCHAR},
+				ies_itm_rel_materials_8 = #{ies_itm_rel_materials_8,jdbcType=VARCHAR},
+				ies_itm_rel_materials_9 = #{ies_itm_rel_materials_9,jdbcType=VARCHAR},
+				ies_itm_rel_materials_10 = #{ies_itm_rel_materials_10,jdbcType=VARCHAR},
+				ies_top_ind = #{ies_top_ind,jdbcType=INTEGER},
+				ies_top_icon = #{ies_top_icon,jdbcType=VARCHAR}
+	    ]]>
+    </update>    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.AeItemExtension">
+    	<![CDATA[
+            insert into AeItemExtension(
+            		ies_itm_id,
+            		ies_lang,
+            		ies_objective,
+            		ies_contents,
+            		ies_duration,
+            		ies_audience,
+            		ies_prerequisites,
+            		ies_exemptions,
+            		ies_remarks,
+            		ies_enroll_confirm_remarks,
+            		ies_schedule,
+            		ies_itm_ref_materials_1,
+            		ies_itm_ref_materials_2,
+            		ies_itm_ref_materials_3,
+            		ies_itm_ref_materials_4,
+            		ies_itm_ref_materials_5,
+            		ies_itm_ref_url_1,
+            		ies_itm_ref_url_2,
+            		ies_itm_ref_url_3,
+            		ies_itm_ref_url_4,
+            		ies_itm_ref_url_5,
+            		ies_itm_rel_materials_1,
+            		ies_itm_rel_materials_2,
+            		ies_itm_rel_materials_3,
+            		ies_itm_rel_materials_4,
+            		ies_itm_rel_materials_5,
+            		ies_itm_rel_materials_6,
+            		ies_itm_rel_materials_7,
+            		ies_itm_rel_materials_8,
+            		ies_itm_rel_materials_9,
+            		ies_itm_rel_materials_10,
+            		ies_top_ind,
+            		ies_top_icon
+            ) values (
+            	#{ies_itm_id,jdbcType=INTEGER},
+            	#{ies_lang,jdbcType=VARCHAR},
+            	#{ies_objective,jdbcType=VARCHAR},
+            	#{ies_contents,jdbcType=VARCHAR},
+            	#{ies_duration,jdbcType=VARCHAR},
+            	#{ies_audience,jdbcType=VARCHAR},
+            	#{ies_prerequisites,jdbcType=VARCHAR},
+            	#{ies_exemptions,jdbcType=VARCHAR},
+            	#{ies_remarks,jdbcType=VARCHAR},
+            	#{ies_enroll_confirm_remarks,jdbcType=VARCHAR},
+            	#{ies_schedule,jdbcType=VARCHAR},
+            	#{ies_itm_ref_materials_1,jdbcType=VARCHAR},
+            	#{ies_itm_ref_materials_2,jdbcType=VARCHAR},
+            	#{ies_itm_ref_materials_3,jdbcType=VARCHAR},
+            	#{ies_itm_ref_materials_4,jdbcType=VARCHAR},
+            	#{ies_itm_ref_materials_5,jdbcType=VARCHAR},
+            	#{ies_itm_ref_url_1,jdbcType=VARCHAR},
+            	#{ies_itm_ref_url_2,jdbcType=VARCHAR},
+            	#{ies_itm_ref_url_3,jdbcType=VARCHAR},
+            	#{ies_itm_ref_url_4,jdbcType=VARCHAR},
+            	#{ies_itm_ref_url_5,jdbcType=VARCHAR},
+            	#{ies_itm_rel_materials_1,jdbcType=VARCHAR},
+            	#{ies_itm_rel_materials_2,jdbcType=VARCHAR},
+            	#{ies_itm_rel_materials_3,jdbcType=VARCHAR},
+            	#{ies_itm_rel_materials_4,jdbcType=VARCHAR},
+            	#{ies_itm_rel_materials_5,jdbcType=VARCHAR},
+            	#{ies_itm_rel_materials_6,jdbcType=VARCHAR},
+            	#{ies_itm_rel_materials_7,jdbcType=VARCHAR},
+            	#{ies_itm_rel_materials_8,jdbcType=VARCHAR},
+            	#{ies_itm_rel_materials_9,jdbcType=VARCHAR},
+            	#{ies_itm_rel_materials_10,jdbcType=VARCHAR},
+            	#{ies_top_ind,jdbcType=INTEGER},
+            	#{ies_top_icon,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from AeItemExtension where
+	    ]]>
+    </delete>	
+	<select id="selectAll" resultType="AeItemExtension">
+	    <![CDATA[
+	         select 
+				ies_itm_id,
+				ies_lang,
+				ies_objective,
+				ies_contents,
+				ies_duration,
+				ies_audience,
+				ies_prerequisites,
+				ies_exemptions,
+				ies_remarks,
+				ies_enroll_confirm_remarks,
+				ies_schedule,
+				ies_itm_ref_materials_1,
+				ies_itm_ref_materials_2,
+				ies_itm_ref_materials_3,
+				ies_itm_ref_materials_4,
+				ies_itm_ref_materials_5,
+				ies_itm_ref_url_1,
+				ies_itm_ref_url_2,
+				ies_itm_ref_url_3,
+				ies_itm_ref_url_4,
+				ies_itm_ref_url_5,
+				ies_itm_rel_materials_1,
+				ies_itm_rel_materials_2,
+				ies_itm_rel_materials_3,
+				ies_itm_rel_materials_4,
+				ies_itm_rel_materials_5,
+				ies_itm_rel_materials_6,
+				ies_itm_rel_materials_7,
+				ies_itm_rel_materials_8,
+				ies_itm_rel_materials_9,
+				ies_itm_rel_materials_10,
+				ies_top_ind,
+				ies_top_icon
+			from AeItemExtension t 
+	    ]]>
+	</select>	
+	<update id="updateAccessCount" parameterType="java.lang.Long">
+		update AeItemExtension
+			set ies_access_count = 
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					NVL(ies_access_count,0)
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					ISNULL(ies_access_count,0)
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					IFNULL(ies_access_count,0)
+				</when>
+			</choose>
+			+1
+			where ies_itm_id = #{itm_id}
+	</update>	
+</mapper>

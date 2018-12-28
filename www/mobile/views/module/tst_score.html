@@ -1,0 +1,191 @@
+<!doctype html>
+<html ng-app="module">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/ModuleController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+
+<body ng-cloak class="ng-cloak" ng-controller="tstScoreController">
+<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+
+<div class="wrap" id="wizwrap">
+	<header class="header mm-background">
+	    <a class="header-back" ng-click="back()"></a>
+	    <span class="header-title" translate="label_pgr_attempt_report"></span>
+	</header> <!-- header End -->
+	<div class="header-overlay"></div>
+	
+	<section class="content">
+
+		<div style="padding:15px 10px 10px;margin:0;background:#fff;border:1px solid #eee;">
+			<div class="kaoshi-box-tit" id="attempt_nbr"><span translate="label_pgr_attempt_total_desc"></span>{{total_attempt_nbr}} <span translate="mod_this_score"></span>
+            </div>
+		   	<div id="attemptList">
+				<div style="padding:15px 0 0 0;">
+					<a id="att_{{$index+1}}" class="list-style-fang" ng-class="attempt_nbr == $index+1?'active':''" href="javascript:;" ng-click="tstDeatil($index+1,false)" ng-repeat="attempt in attempt_list">
+						{{$index+1}}
+					</a>
+				</div>
+			</div>
+			
+			<div class="kaoshi-box-info" ng-if="not_score_cnt > 0">
+				<p style="text-align: center; font-size: 18px;" ng-if="not_score_cnt > 0">{{'not_score_label' | translate}}</p><!-- 当存在尚未评分的题目时显示 -->
+			</div>
+	    </div>
+		
+		<div class="panel-list-box">
+			<div class="teacher-start panel-title-7 icon-kaoshi-defen icon-kaoshi-defen-2">
+				{{'label_pgr_attempt_my_score' | translate}}：&nbsp;{{total_score}}<em class="panel-num-5" style="line-height: 38px;">
+				<i class="panel-num-16" ng-if="max_score_pgr_attempt == attempt_nbr" ng-bind="'label_pgr_attempt_max_score' | translate"></i></em>
+			</div>
+			<div class="panel-list-cont-10-top"></div>
+			<div class="teacher-start panel-title-7 icon-kaoshi-wodezhuangtai">
+				{{'label_pgr_attempt_my_status' | translate}}：
+				<span ng-if="total_score >= pass_score && not_score_cnt <= 0" ng-bind="'mod_status_P' | translate"></span>
+				<span ng-if="total_score < pass_score && not_score_cnt <= 0" ng-bind="'mod_status_F' | translate"></span>
+				<span ng-if="not_score_cnt > 0" ng-bind="'mod_not_score' | translate"></span>
+			</div>
+			<div class="panel-list-cont-10-top"></div>
+			<div class="teacher-start panel-title-7 icon-kaoshi-exam">{{'label_pgr_attempt_my_test_total' | translate}}：&nbsp;{{full_score}}</div>
+			<div class="panel-list-cont-10-top"></div>
+			<div class="teacher-start panel-title-7 icon-kaoshi-jige">{{'label_pgr_attempt_my_pass_score' | translate}}：&nbsp;{{pass_score}}（{{full_score}} * {{pass_percent}}）</div>
+		</div>
+		
+		<div class="panel" >
+			<div class="wdfx">{{'label_attempt_nbr_my_anwser_rpt' | translate}}</div>
+	        <div class="panel-title-7 panel-add-01">
+	            <div class="wiz-tool-2"> <!-- 答题统计 -->
+	                <div class="memu-box-9 kaoshi-daduiti"><span translate="mod_ans_true"></span>&nbsp;{{correct_cnt==null?0:correct_cnt}}</div>
+	                <div class="memu-box-9 kaoshi-dacuoti"><span translate="mod_ans_false"></span>&nbsp;{{incorrect_cnt}}</div>
+	                <div class="memu-box-9 kaoshi-bufenzhengque"><span translate="label_pgr_partially_correctt"></span>&nbsp;{{partially_correctt_cnt}}</div>
+	                <div class="memu-box-9 kaoshi-shangweidefen"><span translate="label_pgr_attempt_not_score"></span>&nbsp;{{not_score_cnt}}</div>
+	            </div>
+	        </div>
+	        <div class="panel-title-6-no" style="border-bottom:1px solid #eee;">
+		        <div style="display:inline-block;padding:10px 0 0 10px;">
+		            <a ng-repeat="row in rows" ng-class="row.pgr_score>=1?'menu-box-green':row.pgr_score==0?'menu-box-red':row.pgr_score==-1?'menu-box-blue':'menu-box-orange'" id="nav_{{$index}}" ng-if="$index<=14" href="javascript:goToQuestion({{row.pgr_res_id}})">{{$index+1}}</a>
+		            <a class="menu-box-blue kaoshi-dati-more" id="tika-more" ng-click="show()" ng-show="rows.length>15" href="javascript:void(0)" ng-bind="'more_text' | translate"></a>
+		            <span style="display:none;" id="tika-and">
+		                <a ng-repeat="srows in subrows" ng-if="rows.length>14" id="nav_{{$index + 15}}" ng-class="srows.pgr_score>=1?'menu-box-green':srows.pgr_score==0?'menu-box-red':srows.pgr_score==-1?'menu-box-blue':'menu-box-blue'" href="javascript:goToQuestion({{srows.pgr_res_id}})">{{15+$index+1}}</a>
+		            </span>
+		            <a class="menu-box-blue kaoshi-dati-more" ng-click="hide()" id="tika-shou" href="javascript:void(0)" style="display:none;">{{'label_pgr_attempt_hide' | translate}}</a>
+		        </div>
+		    </div>
+		</div>
+	
+	    <div class="panel" ng-show="mod_showInd && mod_passedInd">
+	   		<dl id="{{que.id}}" type="{{que.header[0].type}}" length="{{que.body[0].interaction.length}}" class="diaocha-list kaoshi-list" ng-repeat="que in question">
+			    <dt>
+			    	<div style="float: left;">
+				    	{{$index+1}}. 
+				    	<span class="diaocha-type">
+				    		[{{que.header[0].type != 'MC'? que.header[0].type : (que.outcome[0].logic == 'SINGLE'? 'eva_que_type_mc_sin' : 'eva_que_type_mc') | translate}}]
+				    	</span>
+			    	</div>
+			    	<span ng-if="que.header[0].type != 'FB'" ng-bind-html="que.body[0].html[0]? que.body[0].html[0].text : que.body[0].text | htmlDecode"></span>
+			    	<span ng-if="que.header[0].type=='FB'">
+				    	<span ng-repeat="h in que.body[0].html">
+				    		<span ng-bind-html="h.text | htmlDecode"></span>
+				    		<span ng-if="!$last" style="font-size: 14px;color: #999;border-bottom: 1px solid #666;padding: 0 4px;" ng-click="analogClick('ans_{{que.id}}_{{$index}}')" data="ans_{{que.id}}_{{$index}}"> {{'FB_label' | translate}}{{$index+1}} </span>
+				    	</span>
+			    	</span>
+			    </dt>
+			    <!--单选或者判断题  -->
+			    <dd ng-repeat="ans in que.body[0].interaction[0].option" ng-if="(que.header[0].type=='MC' && que.outcome[0].logic=='SINGLE') || que.header[0].type=='TF'">
+					<label for="ans_{{que.id}}_{{$index}}">
+				        <p class="diaocha-term" ng-class="{'diaocha-cur': result[que.order-1].interaction[0].response[0].text==ans.id && (que.outcome[0].logic=='SINGLE' || que.header[0].type=='TF')}">
+				        	<span class="diaocha-term-select">{{$index | enNo}}</span>
+				        	<input type="radio" id="ans_{{que.id}}_{{$index}}" name="ans_{{que.id}}_{{que.order}}" value="{{ans.id}}" style="display:none;" ng-if="que.outcome[0].logic=='SINGLE'"/>
+				        	<input type="radio" id="ans_{{que.id}}_{{$index}}" name="ans_{{que.id}}_{{que.order}}" value="{{ans.id}}" style="display:none;" ng-if="que.header[0].type=='TF'"/>
+				        	<div></div>
+							<font style="clear:both;" >
+								<label style="margin-left:10px;" ng-if="que.header[0].type=='MC'" ng-bind-html="ans.html[0]? ans.html[0].text : ans.text | htmlDecode">
+								</label>
+								<label style="margin-left:10px;" ng-if="que.header[0].type=='TF'" ng-bind="ans.html[0]? ans.html[0].text == 'True'?'lab_true':'lab_false' : ans.text == 'True'?'lab_true':'lab_false' | translate"></label>
+							</font>
+							<span class="ifzq" ng-if="que.outcome[0].feedback[$index].score>=1 && que.outcome[0].feedback[$index].condition != result[que.order-1].interaction[0].response[0].text">({{'label_attempt_nbr_true_anwser' | translate}})</span>
+				        	<span class="ifcw" ng-if="(que.outcome[0].logic=='SINGLE' || que.header[0].type=='TF') && result[que.order-1].interaction[0].response[0].text==ans.id && que.outcome[0].feedback[$index].score==undefined ">({{'label_attempt_nbr_false_anwser' | translate}})</span>
+				        	<span class="ifzq" ng-if="(que.outcome[0].logic=='SINGLE' || que.header[0].type=='TF') && result[que.order-1].interaction[0].response[0].text==ans.id && que.outcome[0].feedback[$index].score>=1 && que.outcome[0].feedback[$index].condition == result[que.order-1].interaction[0].response[0].text">({{'label_attempt_nbr_ok_anwser' | translate}})</span>
+				        </p>
+				    </label>
+			     </dd>
+			     <!-- 多选题 -->
+			      <dd ng-repeat="ans in que.body[0].interaction[0].option" ng-if="que.header[0].type=='MC' && (que.outcome[0].logic=='AND' || que.outcome[0].logic=='OR')"  style="margin-top: 10px;">
+					<label for="ans_{{que.id}}_{{$index}}">
+				       <p class="diaocha-term"  ng-class="{'diaocha-cur': isAnwser(que.order-1,ans.id)}">
+				        	<input type="checkbox" id="ans_{{que.id}}_{{$index}}" name="ans_{{que.id}}_{{que.order}}" value="{{ans.id}}" style="display:none;" ng-if="que.outcome[0].logic=='AND' || que.outcome[0].logic=='OR'"/>
+				        	<span class="diaocha-term-select">{{$index | enNo}}</span>
+				        	<div></div>
+							<font style="clear:both;" >
+								<label style="margin-left:10px;" ng-bind-html="ans.html[0]? ans.html[0].text : ans.text | htmlDecode">
+								</label>
+							</font>
+				        	<span class="ifzq" ng-if="que.outcome[0].feedback[$index].score>=1 && !isOk(que.outcome[0].feedback[$index].condition , que.order-1)">({{'label_attempt_nbr_true_anwser' | translate}})</span>
+				        	<span class="ifzq" ng-if="que.outcome[0].feedback[$index].score>=1 && isOk(que.outcome[0].feedback[$index].condition , que.order-1)">({{'label_attempt_nbr_ok_anwser' | translate}})</span>
+				        	<span class="ifcw" ng-if="que.outcome[0].feedback[$index].score == undefined && isAnwser(que.order-1,ans.id)">({{'label_attempt_nbr_false_anwser' | translate}})</span>
+				        </p>
+				    </label>
+			     </dd>
+			     
+			     <!--填空题  -->
+			     <dd ng-repeat="ans in que.body[0].interaction" ng-if="que.header[0].type == 'FB'" style="margin-top: 10px;"> <!-- 填空题 -->	
+			     	{{'FB_label' | translate}}{{$index+1}}{{'answer' | translate}}：		
+					<label for="ans_{{que.id}}_{{$index}}">
+				        <input id="ans_{{que.id}}_{{$index}}" value="{{result[que.order-1].interaction[$index].response[0].text}}" type="text" name="ans_{{que.id}}_{{que.order}}" class="pure-form-txt-5 pure-form-txt-12 ng-pristine ng-untouched ng-valid" placeholder="{{'label_attempt_nbr_answer_prompt' | translate}}" style="height:24px;padding:4px 4px 4px 24px;" readOnly="true"/>
+				    </label>
+			     </dd>
+			     <dd ng-repeat="ans in que.body[0].interaction" ng-if="que.header[0].type == 'FB'" style="margin-top: 10px;"> <!-- 填空题答案 -->	
+			     	{{'FB_label' | translate}}{{$index+1}}{{'label_attempt_nbr_fb_anwser' | translate}}：		
+					<label for="ans_{{que.id}}_{{$index}}">
+				        <input id="ans_{{que.id}}_{{$index}}" value="{{que.explanation[$index].rationale[0].condition}}" type="text" name="ans_{{que.id}}_{{que.order}}" class="pure-form-txt-5" placeholder="{{'answer_prompt' | translate}}" style="height:24px;padding:4px 4px 4px 24px;background:#f2f2f2" readOnly="true"/>
+				    </label>
+			     </dd>
+				<!--问答题  -->
+			     <dd ng-repeat="ans in que.body[0].interaction" ng-if="que.header[0].type == 'ES'" style="margin-top: 10px;"> <!-- 问答题 -->	
+					<label for="ans_{{que.id}}_{{$index}}">
+					     <textarea id="ans_{{que.id}}_{{$index}}" name="ans_{{que.id}}_{{que.order}}" class="pure-form-txt-5 pure-form-txt-12" placeholder="{{'answer_prompt' | translate}}" style="padding:8px 8px 8px 24px;overflow-y: auto;" disabled="disabled">{{result[que.order-1].interaction[0].response[0].text}}</textarea>
+				    </label>
+			     </dd>
+			     <dd ng-repeat="ans in que.body[0].interaction" ng-if="que.header[0].type == 'ES'" style="margin-top: 10px;"> <!-- 问答题答案 -->	
+					{{'label_attempt_nbr_es_anwser' | translate}}：	
+					<label for="ans_{{que.id}}_{{$index}}">
+					     <textarea id="ans_{{que.id}}_{{$index}}" onclick="toggleCur(this)" onfocus="toggleCur(this)"  name="ans_{{que.id}}_{{que.order}}" class="pure-form-txt-5" style="padding:8px 8px 8px 24px;overflow-y: auto;" disabled="disabled">{{que.explanation[0].rationale[0].text?que.explanation[0].rationale[0].text:''}}</textarea>
+				    </label>
+			     </dd>
+			     <!--配对题 -->
+			     <dd ng-repeat="out in que.outcome" ng-if="que.header[0].type == 'MT' && que.body[0].source != null" style="margin-top: 10px;"> <!-- 配对题 -->
+			     	<div class="cont-review-show" style="padding:0px;display:inline-block;">
+	                        <span class="diaocha-term-select ng-binding" style="float:left;">（{{$index + 1}}）</span>
+					        <p class="diaocha-term"  ng-class="{'diaocha-cur':result[que.order-1].interaction[$index].response[0].text != undefined}" style="float:left;margin:0;" ng-if="out.feedback[0].condition == result[que.order-1].interaction[$index].response[0].text">
+					        	<span class="diaocha-term-select">{{out.feedback[0].condition-1 | enNo}}</span>
+					        	 <span class="ifzq">({{'label_attempt_nbr_ok_anwser' | translate}})</span>
+					        </p>
+					        <p class="diaocha-term" ng-class="{'diaocha-cur':result[que.order-1].interaction[$index].response[0].text != undefined}"  style="float:left;margin:0;" ng-if="out.feedback[0].condition != result[que.order-1].interaction[$index].response[0].text && result[que.order-1].interaction[$index].response != undefined">
+					        	<span class="diaocha-term-select">{{(result[que.order-1].interaction[$index].response[0].text)-1 | enNo}}</span>
+					        	<span class="ifcw">({{'label_attempt_nbr_true_anwser' | translate}} {{'label_attempt_nbr_is' | translate}} {{out.feedback[0].condition-1 | enNo}})</span>
+					        </p>
+					        <p class="diaocha-term" ng-class="{'diaocha-cur':result[que.order-1].interaction[$index].response[0].text != undefined}"   style="float:left;margin:0;" ng-if="result[que.order-1].interaction[$index].response == undefined">
+					        	<span class="diaocha-term-select">{{out.feedback[0].condition-1 | enNo}}</span>
+					        	<span class="ifzq">({{'label_attempt_nbr_true_anwser' | translate}})</span>
+					        </p>
+	        		</div>
+			     </dd>
+			</dl>
+		</div>
+		
+		<div class="panel-list-boxdate" ng-show="mod_passedInd != undefined && mod_passedInd == false" >
+			<div class="panel-list-nodate ng-binding" >{{'label_report_flunk_desc' | translate}}</div>
+		</div>
+	</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

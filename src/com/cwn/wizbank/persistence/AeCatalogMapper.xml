@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.AeCatalogMapper">
+	<select id="get" resultType="AeCatalog" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				cat_id,
+				cat_title,
+				cat_public_ind,
+				cat_status,
+				cat_owner_ent_id,
+				cat_create_timestamp,
+				cat_create_usr_id,
+				cat_upd_timestamp,
+				cat_upd_usr_id,
+				cat_code,
+				cat_tcr_id,
+				cat_mobile_ind
+			from AeCatalog t 
+			where
+				 t.cat_id = #{id}
+		]]>
+	</select>	
+	<update id="update" parameterType="com.cwn.wizbank.entity.AeCatalog">
+	    <![CDATA[
+	        update AeCatalog t 
+	        set 
+				cat_id = #{cat_id,jdbcType=INTEGER},
+				cat_title = #{cat_title,jdbcType=VARCHAR},
+				cat_public_ind = #{cat_public_ind,jdbcType=BOOLEAN},
+				cat_status = #{cat_status,jdbcType=VARCHAR},
+				cat_owner_ent_id = #{cat_owner_ent_id,jdbcType=INTEGER},
+				cat_create_timestamp = #{cat_create_timestamp,jdbcType=TIMESTAMP},
+				cat_create_usr_id = #{cat_create_usr_id,jdbcType=VARCHAR},
+				cat_upd_timestamp = #{cat_upd_timestamp,jdbcType=TIMESTAMP},
+				cat_upd_usr_id = #{cat_upd_usr_id,jdbcType=VARCHAR},
+				cat_code = #{cat_code,jdbcType=VARCHAR},
+				cat_tcr_id = #{cat_tcr_id,jdbcType=INTEGER},
+				cat_mobile_ind = #{cat_mobile_ind,jdbcType=INTEGER}
+	         where t.cat_id = #{cat_id,jdbcType=INTEGER}
+	    ]]>
+    </update>    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.AeCatalog">
+    	<![CDATA[
+            insert into AeCatalog(
+            		cat_title,
+            		cat_public_ind,
+            		cat_status,
+            		cat_owner_ent_id,
+            		cat_create_timestamp,
+            		cat_create_usr_id,
+            		cat_upd_timestamp,
+            		cat_upd_usr_id,
+            		cat_code,
+            		cat_tcr_id,
+            		cat_mobile_ind
+            ) values (
+            	#{cat_title,jdbcType=VARCHAR},
+            	#{cat_public_ind,jdbcType=BOOLEAN},
+            	#{cat_status,jdbcType=VARCHAR},
+            	#{cat_owner_ent_id,jdbcType=INTEGER},
+            	#{cat_create_timestamp,jdbcType=TIMESTAMP},
+            	#{cat_create_usr_id,jdbcType=VARCHAR},
+            	#{cat_upd_timestamp,jdbcType=TIMESTAMP},
+            	#{cat_upd_usr_id,jdbcType=VARCHAR},
+            	#{cat_code,jdbcType=VARCHAR},
+            	#{cat_tcr_id,jdbcType=INTEGER},
+            	#{cat_mobile_ind,jdbcType=INTEGER}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from AeCatalog where
+	        cat_id = #{cat_id}
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="AeCatalog">
+	    <![CDATA[
+	         select 
+				cat_id,
+				cat_title,
+				cat_public_ind,
+				cat_status,
+				cat_owner_ent_id,
+				cat_create_timestamp,
+				cat_create_usr_id,
+				cat_upd_timestamp,
+				cat_upd_usr_id,
+				cat_code,
+				cat_tcr_id,
+				cat_mobile_ind
+			from AeCatalog t 
+	    ]]>
+	</select>	
+	<select id="getItemCatalogList" resultType="AeCatalog" parameterType="java.lang.Long">
+		select 
+			cat_title
+	 	from aeCatalog
+		inner join aeTreeNode  on tnd_cat_id = cat_id
+		where tnd_itm_id = #{itmId}
+	</select>	
+</mapper>

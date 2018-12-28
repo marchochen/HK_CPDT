@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.RegUserExtensionMapper">
+	<select id="get" resultType="RegUserExtension" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				urx_usr_ent_id,
+				urx_extra_datetime_11,
+				urx_extra_datetime_12,
+				urx_extra_datetime_13,
+				urx_extra_datetime_14,
+				urx_extra_datetime_15,
+				urx_extra_datetime_16,
+				urx_extra_datetime_17,
+				urx_extra_datetime_18,
+				urx_extra_datetime_19,
+				urx_extra_datetime_20,
+				urx_extra_singleoption_21,
+				urx_extra_singleoption_22,
+				urx_extra_singleoption_23,
+				urx_extra_singleoption_24,
+				urx_extra_singleoption_25,
+				urx_extra_singleoption_26,
+				urx_extra_singleoption_27,
+				urx_extra_singleoption_28,
+				urx_extra_singleoption_29,
+				urx_extra_singleoption_30,
+				urx_extra_multipleoption_31,
+				urx_extra_multipleoption_32,
+				urx_extra_multipleoption_33,
+				urx_extra_multipleoption_34,
+				urx_extra_multipleoption_35,
+				urx_extra_multipleoption_36,
+				urx_extra_multipleoption_37,
+				urx_extra_multipleoption_38,
+				urx_extra_multipleoption_39,
+				urx_extra_multipleoption_40,
+				urx_extra_41,
+				urx_extra_42,
+				urx_extra_43,
+				urx_extra_44,
+				urx_extra_45
+			from RegUserExtension t 
+			where
+				 t.urx_usr_ent_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.RegUserExtension">
+        update RegUserExtension 
+        set 
+        	<if test="1==2">
+				urx_usr_ent_id = #{urx_usr_ent_id,jdbcType=INTEGER},
+				urx_extra_datetime_11 = #{urx_extra_datetime_11,jdbcType=DATE},
+				urx_extra_datetime_12 = #{urx_extra_datetime_12,jdbcType=DATE},
+				urx_extra_datetime_13 = #{urx_extra_datetime_13,jdbcType=DATE},
+				urx_extra_datetime_14 = #{urx_extra_datetime_14,jdbcType=DATE},
+				urx_extra_datetime_15 = #{urx_extra_datetime_15,jdbcType=DATE},
+				urx_extra_datetime_16 = #{urx_extra_datetime_16,jdbcType=DATE},
+				urx_extra_datetime_17 = #{urx_extra_datetime_17,jdbcType=DATE},
+				urx_extra_datetime_18 = #{urx_extra_datetime_18,jdbcType=DATE},
+				urx_extra_datetime_19 = #{urx_extra_datetime_19,jdbcType=DATE},
+				urx_extra_datetime_20 = #{urx_extra_datetime_20,jdbcType=DATE},
+				urx_extra_singleoption_21 = #{urx_extra_singleoption_21,jdbcType=VARCHAR},
+				urx_extra_singleoption_22 = #{urx_extra_singleoption_22,jdbcType=VARCHAR},
+				urx_extra_singleoption_23 = #{urx_extra_singleoption_23,jdbcType=VARCHAR},
+				urx_extra_singleoption_24 = #{urx_extra_singleoption_24,jdbcType=VARCHAR},
+				urx_extra_singleoption_25 = #{urx_extra_singleoption_25,jdbcType=VARCHAR},
+				urx_extra_singleoption_26 = #{urx_extra_singleoption_26,jdbcType=VARCHAR},
+				urx_extra_singleoption_27 = #{urx_extra_singleoption_27,jdbcType=VARCHAR},
+				urx_extra_singleoption_28 = #{urx_extra_singleoption_28,jdbcType=VARCHAR},
+				urx_extra_singleoption_29 = #{urx_extra_singleoption_29,jdbcType=VARCHAR},
+				urx_extra_singleoption_30 = #{urx_extra_singleoption_30,jdbcType=VARCHAR},
+				urx_extra_multipleoption_31 = #{urx_extra_multipleoption_31,jdbcType=VARCHAR},
+				urx_extra_multipleoption_32 = #{urx_extra_multipleoption_32,jdbcType=VARCHAR},
+				urx_extra_multipleoption_33 = #{urx_extra_multipleoption_33,jdbcType=VARCHAR},
+				urx_extra_multipleoption_34 = #{urx_extra_multipleoption_34,jdbcType=VARCHAR},
+				urx_extra_multipleoption_35 = #{urx_extra_multipleoption_35,jdbcType=VARCHAR},
+				urx_extra_multipleoption_36 = #{urx_extra_multipleoption_36,jdbcType=VARCHAR},
+				urx_extra_multipleoption_37 = #{urx_extra_multipleoption_37,jdbcType=VARCHAR},
+				urx_extra_multipleoption_38 = #{urx_extra_multipleoption_38,jdbcType=VARCHAR},
+				urx_extra_multipleoption_39 = #{urx_extra_multipleoption_39,jdbcType=VARCHAR},
+				urx_extra_multipleoption_40 = #{urx_extra_multipleoption_40,jdbcType=VARCHAR},
+			</if>
+			urx_extra_41 = #{urx_extra_41,jdbcType=VARCHAR},
+			urx_extra_42 = #{urx_extra_42,jdbcType=VARCHAR},
+			urx_extra_43 = #{urx_extra_43,jdbcType=VARCHAR},
+			urx_extra_44 = #{urx_extra_44,jdbcType=VARCHAR},
+			urx_extra_45 = #{urx_extra_45,jdbcType=VARCHAR}
+         where urx_usr_ent_id = #{urx_usr_ent_id,jdbcType=INTEGER}
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.RegUserExtension">
+    	<![CDATA[
+            insert into RegUserExtension(
+            		urx_usr_ent_id,
+            		urx_extra_datetime_11,
+            		urx_extra_datetime_12,
+            		urx_extra_datetime_13,
+            		urx_extra_datetime_14,
+            		urx_extra_datetime_15,
+            		urx_extra_datetime_16,
+            		urx_extra_datetime_17,
+            		urx_extra_datetime_18,
+            		urx_extra_datetime_19,
+            		urx_extra_datetime_20,
+            		urx_extra_singleoption_21,
+            		urx_extra_singleoption_22,
+            		urx_extra_singleoption_23,
+            		urx_extra_singleoption_24,
+            		urx_extra_singleoption_25,
+            		urx_extra_singleoption_26,
+            		urx_extra_singleoption_27,
+            		urx_extra_singleoption_28,
+            		urx_extra_singleoption_29,
+            		urx_extra_singleoption_30,
+            		urx_extra_multipleoption_31,
+            		urx_extra_multipleoption_32,
+            		urx_extra_multipleoption_33,
+            		urx_extra_multipleoption_34,
+            		urx_extra_multipleoption_35,
+            		urx_extra_multipleoption_36,
+            		urx_extra_multipleoption_37,
+            		urx_extra_multipleoption_38,
+            		urx_extra_multipleoption_39,
+            		urx_extra_multipleoption_40,
+            		urx_extra_41,
+            		urx_extra_42,
+            		urx_extra_43,
+            		urx_extra_44,
+            		urx_extra_45
+            ) values (
+           	 	#{urx_usr_ent_id,jdbcType=INTEGER},
+            	#{urx_extra_datetime_11,jdbcType=DATE},
+            	#{urx_extra_datetime_12,jdbcType=DATE},
+            	#{urx_extra_datetime_13,jdbcType=DATE},
+            	#{urx_extra_datetime_14,jdbcType=DATE},
+            	#{urx_extra_datetime_15,jdbcType=DATE},
+            	#{urx_extra_datetime_16,jdbcType=DATE},
+            	#{urx_extra_datetime_17,jdbcType=DATE},
+            	#{urx_extra_datetime_18,jdbcType=DATE},
+            	#{urx_extra_datetime_19,jdbcType=DATE},
+            	#{urx_extra_datetime_20,jdbcType=DATE},
+            	#{urx_extra_singleoption_21,jdbcType=VARCHAR},
+            	#{urx_extra_singleoption_22,jdbcType=VARCHAR},
+            	#{urx_extra_singleoption_23,jdbcType=VARCHAR},
+            	#{urx_extra_singleoption_24,jdbcType=VARCHAR},
+            	#{urx_extra_singleoption_25,jdbcType=VARCHAR},
+            	#{urx_extra_singleoption_26,jdbcType=VARCHAR},
+            	#{urx_extra_singleoption_27,jdbcType=VARCHAR},
+            	#{urx_extra_singleoption_28,jdbcType=VARCHAR},
+            	#{urx_extra_singleoption_29,jdbcType=VARCHAR},
+            	#{urx_extra_singleoption_30,jdbcType=VARCHAR},
+            	#{urx_extra_multipleoption_31,jdbcType=VARCHAR},
+            	#{urx_extra_multipleoption_32,jdbcType=VARCHAR},
+            	#{urx_extra_multipleoption_33,jdbcType=VARCHAR},
+            	#{urx_extra_multipleoption_34,jdbcType=VARCHAR},
+            	#{urx_extra_multipleoption_35,jdbcType=VARCHAR},
+            	#{urx_extra_multipleoption_36,jdbcType=VARCHAR},
+            	#{urx_extra_multipleoption_37,jdbcType=VARCHAR},
+            	#{urx_extra_multipleoption_38,jdbcType=VARCHAR},
+            	#{urx_extra_multipleoption_39,jdbcType=VARCHAR},
+            	#{urx_extra_multipleoption_40,jdbcType=VARCHAR},
+            	#{urx_extra_41,jdbcType=VARCHAR},
+            	#{urx_extra_42,jdbcType=VARCHAR},
+            	#{urx_extra_43,jdbcType=VARCHAR},
+            	#{urx_extra_44,jdbcType=VARCHAR},
+            	#{urx_extra_45,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from RegUserExtension where
+	        urx_usr_ent_id = #{urx_usr_ent_id}
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="RegUserExtension">
+	    <![CDATA[
+	         select 
+				urx_usr_ent_id,
+				urx_extra_datetime_11,
+				urx_extra_datetime_12,
+				urx_extra_datetime_13,
+				urx_extra_datetime_14,
+				urx_extra_datetime_15,
+				urx_extra_datetime_16,
+				urx_extra_datetime_17,
+				urx_extra_datetime_18,
+				urx_extra_datetime_19,
+				urx_extra_datetime_20,
+				urx_extra_singleoption_21,
+				urx_extra_singleoption_22,
+				urx_extra_singleoption_23,
+				urx_extra_singleoption_24,
+				urx_extra_singleoption_25,
+				urx_extra_singleoption_26,
+				urx_extra_singleoption_27,
+				urx_extra_singleoption_28,
+				urx_extra_singleoption_29,
+				urx_extra_singleoption_30,
+				urx_extra_multipleoption_31,
+				urx_extra_multipleoption_32,
+				urx_extra_multipleoption_33,
+				urx_extra_multipleoption_34,
+				urx_extra_multipleoption_35,
+				urx_extra_multipleoption_36,
+				urx_extra_multipleoption_37,
+				urx_extra_multipleoption_38,
+				urx_extra_multipleoption_39,
+				urx_extra_multipleoption_40,
+				urx_extra_41,
+				urx_extra_42,
+				urx_extra_43,
+				urx_extra_44,
+				urx_extra_45
+			from RegUserExtension t 
+	    ]]>
+	</select>
+</mapper>

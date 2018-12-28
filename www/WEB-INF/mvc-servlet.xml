@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	">
+	<context:component-scan base-package="com.cwn.wizbank" use-default-filters="false">
+		<context:include-filter expression="org.springframework.stereotype.Controller" type="annotation" />
+	</context:component-scan>
+
+	<mvc:annotation-driven>
+		<mvc:argument-resolvers>
+			<bean class="com.cwn.wizbank.web.WzbArgumentResolver" />
+		</mvc:argument-resolvers>
+		<mvc:message-converters>
+	        <bean class="com.cwn.wizbank.web.WzbMappingJackson2HttpMessageConverter">
+<!-- 			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"> -->
+	        		<property name="supportedMediaTypes">
+						<list>
+							<value>application/javascript</value>
+							<value>text/javascript</value>
+						</list>
+					</property>
+	        </bean>
+			<!--不用MappingJackson2HttpMessageConverter的原因是，success方法中得到的值是一串字符串 -->
+	        <bean class="com.cwn.wizbank.web.WzbStringHttpMessageConverter" >
+				<property  name="supportedMediaTypes">
+						<list>
+							<value>application/json</value>
+							<value>text/plain</value>
+						</list>					
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	
+	<mvc:interceptors>
+		<bean class="com.cwn.wizbank.security.interceptor.SecurityInterceptor" />
+		<bean class="com.cwn.wizbank.interceptor.WzbInterceptor" />
+		<bean class="com.cwn.wizbank.interceptor.UploadInterceptor" />
+	</mvc:interceptors>
+
+	<!-- 视图解析器和json解析器 -->
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="mediaTypes">
+            <map>
+                <entry key="json" value="text/html"/>
+                <entry key="json" value="application/javascript"/>
+                <entry key="json" value="application/json"/>
+            </map>
+        </property>
+        <!-- 用于开启 /userinfo/123?calltype=json 的支持 -->
+<!--         <property name= "favorParameter" value= "true" /> -->
+<!--         <property name= "parameterName" value= "calltype"/> -->
+        <property name="viewResolvers">
+            <list>
+                <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+                    <property name="prefix" value="/WEB-INF/views/" /> <!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑 -->
+                    <property name="suffix" value=".jsp"/>
+                </bean>
+            </list>
+        </property>
+        <property name="defaultViews">
+            <list>
+				 <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+				 </bean>
+            </list>
+        </property> 
+    </bean>
+    <!-- 最大上传      524288000  (500M) -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="524288000" />
+	</bean>
+
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<property name="cookieName" value="ClientLanguage" />
+		<property name="cookieMaxAge" value="100000" />
+		<property name="cookiePath" value="/" />
+	</bean>
+
+	<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+		<property name="paramName" value="lang" />
+	</bean>
+
+
+	<!-- 异常处理，可以返回json数据 -->
+	<bean id="handlerExceptionResolver" class="com.cwn.wizbank.interceptor.AnnotationHandlerMethodExceptionResolver">
+		<property name="defaultErrorView" value="error/error" /><!-- 错误页面 -->
+		<property name="exceptionMappings">
+			<props>
+				<prop key="SessionTimeOutException">error/sessionTimeOut</prop>
+				<prop key="qdbErrMessage">error/qdbMessage</prop>
+				<prop key="MessageException">error/message</prop>
+				<prop key="cwSysMessage">error/cwMessage</prop>
+				<prop key="DataNotFoundException">error/message</prop>
+				<prop key="AuthorityException">error/noAuthority</prop>
+				<prop key="NotPublishException">error/notPublish</prop>
+				<prop key="ErrorException">error/errorException</prop>
+				<prop key="UploadException">error/uploadError</prop>
+				<prop key="EncryptException">error/message</prop>
+				<prop key="MultipleLoginException">error/error_landed_somewhere_else</prop>
+			</props>
+		</property>
+		<property  name="messageConverters" >
+		    <list>
+				 <bean
+					class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>application/javascript</value>
+							<value>application/json</value>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+</beans>

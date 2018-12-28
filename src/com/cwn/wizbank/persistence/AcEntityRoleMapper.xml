@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.AcEntityRoleMapper">
+
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.AcEntityRole">
+		insert into AcEntityRole(
+			erl_ent_id,
+       		erl_rol_id,
+        	erl_creation_timestamp,
+        	erl_syn_timestamp,
+        	erl_eff_start_datetime,
+        	erl_eff_end_datetime
+		) select
+         	#{erl_ent_id,jdbcType=INTEGER},
+         	rol_id,
+         	#{erl_creation_timestamp,jdbcType=TIMESTAMP},
+         	#{erl_syn_timestamp,jdbcType=TIMESTAMP},
+         	#{erl_eff_start_datetime,jdbcType=TIMESTAMP},
+         	#{erl_eff_end_datetime,jdbcType=TIMESTAMP}
+		from acRole
+		where rol_ext_id = #{rol_ext_id,jdbcType=VARCHAR}
+	</insert>
+	
+	
+	<delete id="delByUsrEntId" parameterType="Long">
+		delete from AcEntityRole where erl_ent_id = #{usrEntId}
+		
+	</delete>
+	
+	<select id="hasRole" resultType="java.lang.Boolean" parameterType="Map">
+	    select count(erl_ent_id) from acEntityRole,acRole 
+	    where erl_rol_id = rol_id 
+	    and rol_ext_id = #{rol_ext_id}
+	    and erl_ent_id = #{usr_ent_id}
+	</select>
+
+</mapper>

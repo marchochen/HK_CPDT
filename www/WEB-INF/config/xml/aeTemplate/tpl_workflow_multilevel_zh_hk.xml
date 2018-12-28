@@ -1,0 +1,491 @@
+	<action_rule>
+		<action process_id="1" status_id="1" id="1"/>
+		<action process_id="1" status_id="1" id="2"/>
+		<action process_id="1" status_id="1" id="3"/>
+		<action process_id="1" status_id="1" id="-1"/>
+		<action process_id="1" status_id="1" id="-2"/>
+		<action process_id="1" status_id="1" id="5"/>
+		<action process_id="1" status_id="1" id="6"/>
+		<action process_id="1" status_id="1" id="7"/>
+		<action process_id="1" status_id="2" id="1"/>
+		<action process_id="1" status_id="2" id="2"/>
+		<action process_id="1" status_id="2" id="3"/>
+		<action process_id="1" status_id="2" id="-1"/>
+		<action process_id="1" status_id="2" id="-2"/>
+		<action process_id="1" status_id="2" id="5"/>
+		<action process_id="1" status_id="3" id="1"/>
+		<action process_id="1" status_id="3" id="-1"/>
+		<action process_id="1" status_id="3" id="-2"/>
+		<action process_id="1" status_id="4" id="-1"/>
+		<action process_id="1" status_id="4" id="2"/>
+		<action process_id="1" status_id="5" id="-1"/>
+		<action process_id="1" status_id="6" id="-1"/>
+	</action_rule>
+	<workflow>
+		<process id="1" name="Application" type="queue">
+			<status id="0" name="_Exit"/>
+			<status id="1" name="等待審批">
+				<action id="1" name="審批" verb="審批" next_status="1">
+					<access>
+						<role src="sys" id="TADM">
+							<label name="lab_approve_warning"/>
+						</role>
+						<approver type="current_approvers"/>
+					</access>
+				</action>
+				<action id="2" name="拒絕" verb="拒絕" next_status="4" require_reason="true">
+					<access>
+						<role src="sys" id="TADM">
+							<label name="lab_decline_warning"/>
+						</role>
+						<approver type="current_approvers"/>
+					</access>
+				</action>
+				<action id="3" name="取消" verb="取消" next_status="5" require_reason="true">
+					<access>
+						<role src="sys" id="TADM">
+							<label name="lab_cancel_warning"/>
+						</role>
+						<role src="self" id="NLRN"/>
+					</access>
+				</action>
+				<action id="7" name="錄取" verb="錄取" next_status="3">
+					<access>
+						<role src="sys" id="TADM">
+							<label name="lab_enroll_warning"/>
+						</role>
+					</access>
+				</action>
+				<action id="-1" name="刪除" verb="刪除" next_status="0">
+					<access>
+						<role src="sys" id="TADM"/>
+					</access>
+				</action>
+				<action id="-2" name="取消班別" verb="取消班別" next_status="6"/>
+				<action id="5" name="通過名額限制檢查" verb="檢查剩餘名額（通過）" next_status="1"/>
+				<action id="6" name="未通過名額限制檢查" verb="檢查剩餘名額（未通過）" next_status="2"/>
+			</status>
+			<status id="2" name="等待佇列">
+				<action id="1" name="繼續" verb="繼續" next_status="1">
+					<access>
+						<role src="sys" id="TADM">
+							<label name="lab_activate_warning"/>
+						</role>
+					</access>
+				</action>
+				<action id="2" name="拒絕" verb="拒絕" next_status="4">
+					<access>
+						<role src="sys" id="TADM">
+							<label name="lab_decline_warning"/>
+						</role>
+					</access>
+				</action>
+				<action id="3" name="取消" verb="拒絕" next_status="5">
+					<access>
+						<role src="sys" id="TADM">
+							<label name="lab_cancel_warning"/>
+						</role>
+						<role src="self" id="NLRN"/>
+					</access>
+				</action>
+				<action id="5" name="錄取" verb="錄取" next_status="3">
+					<access>
+						<role src="sys" id="TADM">
+							<label name="lab_enroll_warning"/>
+						</role>
+					</access>
+				</action>
+				<action id="-1" name="刪除" verb="刪除" next_status="0">
+					<access>
+						<role src="sys" id="TADM"/>
+					</access>
+				</action>
+				<action id="-2" name="取消班別" verb="取消班別" next_status="6"/>
+			</status>
+			<status id="3" name="已錄取">
+				<action id="1" name="拒絕" verb="拒絕" next_status="5" require_reason="true">
+					<access>
+						<role src="sys" id="TADM">
+							<label name="lab_decline_warning"/>
+						</role>
+						<role src="self" id="NLRN"/>
+					</access>
+				</action>
+				<action id="-1" name="刪除" verb="刪除" next_status="0">
+					<access>
+						<role src="sys" id="TADM"/>
+					</access>
+				</action>
+			</status>
+			<status id="4" name="審批未通過">
+				<action id="2" name="錄取" verb="錄取" next_status="3">
+					<access>
+						<role src="sys" id="TADM">
+							<label name="lab_enroll_warning"/>
+						</role>
+					</access>
+				</action>
+				<action id="-1" name="刪除" verb="刪除" next_status="0">
+					<access>
+						<role src="sys" id="TADM"/>
+					</access>
+				</action>
+				<action id="-2" name="取消班別" verb="取消班別" next_status="6"/>
+			</status>
+			<status id="5" name="拒絕">
+				<action id="-1" name="刪除" verb="刪除" next_status="0">
+					<access>
+						<role src="sys" id="TADM"/>
+					</access>
+				</action>
+			</status>
+			<status id="6" name="取消班別">
+				<action id="-1" name="刪除" verb="刪除" next_status="0">
+					<access>
+						<role src="sys" id="TADM"/>
+					</access>
+				</action>
+			</status>
+		</process>
+	</workflow>
+	<queue_rule>
+		<next_queue name="Pending">
+			<conditions type="or">
+				<condition process_id="1" status_id="1"/>
+			</conditions>
+		</next_queue>
+		<next_queue name="Waiting">
+			<conditions type="or">
+				<condition process_id="1" status_id="2"/>
+			</conditions>
+		</next_queue>
+		<next_queue name="Admitted">
+			<conditions type="or">
+				<condition process_id="1" status_id="3"/>
+			</conditions>
+		</next_queue>
+		<next_queue name="Rejected">
+			<conditions type="or">
+				<condition process_id="1" status_id="4"/>
+			</conditions>
+		</next_queue>
+		<next_queue name="Withdrawn">
+			<conditions type="or">
+				<condition process_id="1" status_id="5"/>
+				<condition process_id="1" status_id="6"/>
+			</conditions>
+		</next_queue>
+	</queue_rule>
+	<event_trigger>
+		<event process_id="1" status_from="" status_to="等待審批">
+			<event_func name="auto_enroll">
+				<func_return value="true">
+					<action process_id="1" status_id="1" id="7"/>
+				</func_return>
+				<func_return value="false">
+					<event_func name="check_capacity">
+						<func_param name="delimiter" value="~"/>
+						<func_param name="process_status" value="等待審批~等待佇列~已錄取"/>
+						<func_return value="true">
+							<event_func name="require_approval">
+								<func_return value="true">
+									<event_func name="send_notify">
+										<func_param name="template_type" value="ENROLLMENT_NEW"/>
+										<func_param name="template_subtype" value="HTML"/>
+										<func_param name="from" value="sysadmin"/>
+										<func_param name="to" value="applicant"/>
+										<func_param name="cc" value="item_access"/>
+										<func_param name="cc_role" value="TADM"/>
+										<func_param name="subject" value="Course Enrollment Request Received"/>
+										<func_param name="reply" value="item_access"/>
+										<func_param name="reply_role" value="TADM"/>
+									</event_func>
+									<action process_id="1" status_id="1" id="5"/>
+								</func_return>
+								<func_return value="false">
+									<action process_id="1" status_id="1" id="7"/>
+								</func_return>
+							</event_func>
+						</func_return>
+						<func_return value="false">
+							<action process_id="1" status_id="1" id="6"/>
+						</func_return>
+					</event_func>
+				</func_return>
+			</event_func>
+		</event>
+		<event process_id="1" status_from="等待審批" status_to="等待審批">
+			<event_func name="to_next_approvers">
+				<func_return value="ok">
+					<event_func name="send_notify">
+						<func_param name="template_type" value="ENROLLMENT_NEXT_APPROVERS"/>
+						<func_param name="template_subtype" value="HTML"/>
+						<func_param name="from" value="sysadmin"/>
+						<func_param name="to" value="current_approvers"/>
+						<func_param name="reply" value="item_access"/>
+						<func_param name="reply_role" value="TADM"/>
+						<func_param name="subject" value="Course Enrollment Approval"/>
+					</event_func>
+				</func_return>
+				<func_return value="no_supervisor">
+					<event_func name="send_notify">
+						<func_param name="template_type" value="ENROLLMENT_NO_SUPERVISOR"/>
+						<func_param name="template_subtype" value="HTML"/>
+						<func_param name="from" value="sysadmin"/>
+						<func_param name="to" value="item_access"/>
+						<func_param name="to_role" value="TADM"/>
+						<func_param name="reply" value="item_access"/>
+						<func_param name="reply_role" value="TADM"/>
+						<func_param name="subject" value="Course Enrollment Approval"/>
+					</event_func>
+				</func_return>
+				<func_return value="end_of_approval">
+					<action process_id="1" status_id="1" id="7"/>
+				</func_return>
+			</event_func>
+			<event_func name="send_notify">
+				<func_param name="template_type" value="ENROLLMENT_APPROVED_REMINDER"/>
+				<func_param name="template_subtype" value="HTML"/>
+				<func_param name="from" value="sysadmin"/>
+				<func_param name="to" value="previous_approvers"/>
+				<func_param name="reply" value="item_access"/>
+				<func_param name="reply_role" value="TADM"/>
+				<func_param name="subject" value="Course Enrollment Notification"/>
+			</event_func>
+		</event>
+		<event process_id="1" status_from="等待審批" status_to="已錄取">
+			<event_func name="enrol"/>
+			<event_func name="ins_ji_recipient"/>
+			<event_func name="end_approval">
+				<func_param name="action" value="ENROLLED"/>
+			</event_func>
+			<event_func name="send_notify">
+				<func_param name="template_type" value="ENROLLMENT_CONFIRMED"/>
+				<func_param name="template_subtype" value="HTML"/>
+				<func_param name="from" value="sysadmin"/>
+				<func_param name="to" value="applicant"/>
+				<func_param name="cc" value="participated_approvers"/>
+				<func_param name="reply" value="item_access"/>
+				<func_param name="reply_role" value="TADM"/>
+				<func_param name="subject" value="Course Enrollment Confirmed"/>
+			</event_func>
+			<event_func name="from_trigger_action">
+				<func_return value="false">
+					<event_func name="send_notify">
+						<func_param name="template_type" value="ENROLLMENT_CONFIRMED_REMINDER"/>
+						<func_param name="template_subtype" value="HTML"/>
+						<func_param name="from" value="sysadmin"/>
+						<func_param name="to" value="previous_approvers"/>
+						<func_param name="reply" value="item_access"/>
+						<func_param name="reply_role" value="TADM"/>
+						<func_param name="subject" value="Course Enrollment Notification"/>
+					</event_func>
+				</func_return>
+			</event_func>
+		</event>
+		<event process_id="1" status_from="等待佇列" status_to="等待審批">
+			<event_func name="to_next_approvers">
+				<func_return value="ok">
+					<event_func name="send_notify">
+						<func_param name="template_type" value="ENROLLMENT_NEXT_APPROVERS"/>
+						<func_param name="template_subtype" value="HTML"/>
+						<func_param name="from" value="sysadmin"/>
+						<func_param name="to" value="current_approvers"/>
+						<func_param name="reply" value="item_access"/>
+						<func_param name="reply_role" value="TADM"/>
+						<func_param name="subject" value="Course Enrollment Approval"/>
+					</event_func>
+				</func_return>
+				<func_return value="no_supervisor">
+					<event_func name="send_notify">
+						<func_param name="template_type" value="ENROLLMENT_NO_SUPERVISOR"/>
+						<func_param name="template_subtype" value="HTML"/>
+						<func_param name="from" value="sysadmin"/>
+						<func_param name="to" value="item_access"/>
+						<func_param name="to_role" value="TADM"/>
+						<func_param name="reply" value="item_access"/>
+						<func_param name="reply_role" value="TADM"/>
+						<func_param name="subject" value="Course Enrollment Approval"/>
+					</event_func>
+				</func_return>
+				<func_return value="end_of_approval">
+					<action process_id="1" status_id="1" id="7"/>
+				</func_return>
+			</event_func>
+		</event>
+		<event process_id="1" status_from="等待佇列" status_to="已錄取">
+			<event_func name="enrol"/>
+			<event_func name="ins_ji_recipient"/>
+			<event_func name="send_notify">
+				<func_param name="template_type" value="ENROLLMENT_CONFIRMED"/>
+				<func_param name="template_subtype" value="HTML"/>
+				<func_param name="from" value="sysadmin"/>
+				<func_param name="to" value="applicant"/>
+				<func_param name="cc" value="participated_approvers"/>
+				<func_param name="reply" value="item_access"/>
+				<func_param name="reply_role" value="TADM"/>
+				<func_param name="subject" value="Course Enrollment Confirmed"/>
+			</event_func>			
+		</event>
+		<event process_id="1" status_from="審批未通過" status_to="已錄取">
+			<event_func name="enrol"/>
+			<event_func name="ins_ji_recipient"/>
+			<event_func name="send_notify">
+				<func_param name="template_type" value="ENROLLMENT_CONFIRMED"/>
+				<func_param name="template_subtype" value="HTML"/>
+				<func_param name="from" value="sysadmin"/>
+				<func_param name="to" value="applicant"/>
+				<func_param name="cc" value="participated_approvers"/>
+				<func_param name="reply" value="item_access"/>
+				<func_param name="reply_role" value="TADM"/>
+				<func_param name="subject" value="Course Enrollment Confirmed"/>
+			</event_func>			
+		</event>
+		<event process_id="1" status_from="等待審批" status_to="_Exit">
+			<event_func name="send_notify">
+				<func_param name="template_type" value="ENROLLMENT_REMOVED_REMINDER"/>
+				<func_param name="template_subtype" value="HTML"/>
+				<func_param name="from" value="sysadmin"/>
+				<func_param name="to" value="current_approvers"/>
+				<func_param name="reply" value="item_access"/>
+				<func_param name="reply_role" value="TADM"/>
+				<func_param name="subject" value="Course Enrollment Notification"/>
+			</event_func>
+			<event_func name="send_notify">
+				<func_param name="template_type" value="ENROLLMENT_REMOVED"/>
+				<func_param name="template_subtype" value="HTML"/>
+				<func_param name="from" value="sysadmin"/>
+				<func_param name="to" value="applicant"/>
+				<func_param name="cc" value="participated_approvers"/>
+				<func_param name="reply" value="item_access"/>
+				<func_param name="reply_role" value="TADM"/>
+				<func_param name="subject" value="Course Enrollment Request Cancelled"/>
+			</event_func>
+			<event_func name="rm_appn"/>
+		</event>
+		<event process_id="1" status_from="等待佇列" status_to="_Exit">
+			<event_func name="send_notify">
+				<func_param name="template_type" value="ENROLLMENT_REMOVED"/>
+				<func_param name="template_subtype" value="HTML"/>
+				<func_param name="from" value="sysadmin"/>
+				<func_param name="to" value="applicant"/>
+				<func_param name="cc" value="participated_approvers"/>
+				<func_param name="reply" value="item_access"/>
+				<func_param name="reply_role" value="TADM"/>
+				<func_param name="subject" value="Course Enrollment Request Cancelled"/>
+			</event_func>
+			<event_func name="rm_appn"/>
+		</event>
+		<event process_id="1" status_from="已錄取" status_to="_Exit">
+			<event_func name="rm_ji_recipient"/>
+			<event_func name="send_notify">
+				<func_param name="template_type" value="ENROLLMENT_REMOVED"/>
+				<func_param name="template_subtype" value="HTML"/>
+				<func_param name="from" value="sysadmin"/>
+				<func_param name="to" value="applicant"/>
+				<func_param name="cc" value="participated_approvers"/>
+				<func_param name="reply" value="item_access"/>
+				<func_param name="reply_role" value="TADM"/>
+				<func_param name="subject" value="Course Enrollment Request Cancelled"/>
+			</event_func>
+			<event_func name="rm_appn"/>
+		</event>
+		<event process_id="1" status_from="審批未通過" status_to="_Exit">
+			<event_func name="rm_appn"/>
+		</event>
+		<event process_id="1" status_from="拒絕" status_to="_Exit">
+			<event_func name="rm_appn"/>
+		</event>
+		<event process_id="1" status_from="等待審批" status_to="等待佇列">
+			<event_func name="send_notify">
+				<func_param name="template_type" value="ENROLLMENT_WAITLISTED"/>
+				<func_param name="template_subtype" value="HTML"/>
+				<func_param name="from" value="sysadmin"/>
+				<func_param name="to" value="applicant"/>
+				<func_param name="cc" value="item_access"/>
+				<func_param name="cc_role" value="TADM"/>
+				<func_param name="reply" value="item_access"/>
+				<func_param name="reply_role" value="TADM"/>
+				<func_param name="subject" value="Course Enrollment: Waiting List"/>
+			</event_func>
+		</event>
+		<event process_id="1" status_from="等待審批" status_to="審批未通過">
+			<event_func name="end_approval">
+				<func_param name="action" value="DISAPPROVED"/>
+			</event_func>
+			<event_func name="send_notify">
+				<func_param name="template_type" value="ENROLLMENT_NOT_CONFIRMED"/>
+				<func_param name="template_subtype" value="HTML"/>
+				<func_param name="from" value="sysadmin"/>
+				<func_param name="to" value="applicant"/>
+				<func_param name="cc" value="participated_approvers"/>
+				<func_param name="reply" value="item_access"/>
+				<func_param name="reply_role" value="TADM"/>
+				<func_param name="subject" value="Course Enrollment Request Declined"/>
+			</event_func>
+		</event>
+		<event process_id="1" status_from="等待佇列" status_to="審批未通過">
+			<event_func name="send_notify">
+				<func_param name="template_type" value="ENROLLMENT_NOT_CONFIRMED"/>
+				<func_param name="template_subtype" value="HTML"/>
+				<func_param name="from" value="sysadmin"/>
+				<func_param name="to" value="applicant"/>
+				<func_param name="cc" value="participated_approvers"/>
+				<func_param name="reply" value="item_access"/>
+				<func_param name="reply_role" value="TADM"/>
+				<func_param name="subject" value="Course Enrollment Request Declined"/>
+			</event_func>
+		</event>
+		<event process_id="1" status_from="等待審批" status_to="拒絕">
+			<event_func name="end_approval">
+				<func_param name="action" value="CANCELLED"/>
+			</event_func>
+			<event_func name="send_notify">
+				<func_param name="template_type" value="ENROLLMENT_WITHDRAWAL_REMINDER"/>
+				<func_param name="template_subtype" value="HTML"/>
+				<func_param name="from" value="sysadmin"/>
+				<func_param name="to" value="previous_approvers"/>
+				<func_param name="reply" value="item_access"/>
+				<func_param name="reply_role" value="TADM"/>
+				<func_param name="subject" value="Course Enrollment Request Declined"/>
+				<func_param name="subject" value="Course Enrollment Notification"/>
+			</event_func>
+			<event_func name="send_notify">
+				<func_param name="template_type" value="ENROLLMENT_WITHDRAWAL_APPROVED"/>
+				<func_param name="template_subtype" value="HTML"/>
+				<func_param name="from" value="sysadmin"/>
+				<func_param name="to" value="applicant"/>
+				<func_param name="cc" value="participated_approvers"/>
+				<func_param name="reply" value="item_access"/>
+				<func_param name="reply_role" value="TADM"/>
+				<func_param name="subject" value="Course Enrollment Request Declined"/>
+				<func_param name="subject" value="Course Enrollment Request Cancelled"/>
+			</event_func>
+			<event_func name="rm_appn"/>
+		</event>
+		<event process_id="1" status_from="等待佇列" status_to="拒絕">
+			<event_func name="send_notify">
+				<func_param name="template_type" value="ENROLLMENT_WITHDRAWAL_APPROVED"/>
+				<func_param name="template_subtype" value="HTML"/>
+				<func_param name="from" value="sysadmin"/>
+				<func_param name="to" value="applicant"/>
+				<func_param name="cc" value="participated_approvers"/>
+				<func_param name="reply" value="item_access"/>
+				<func_param name="reply_role" value="TADM"/>
+				<func_param name="subject" value="Course Enrollment Request Declined"/>
+				<func_param name="subject" value="Course Enrollment Request Cancelled"/>
+			</event_func>
+			<event_func name="rm_appn"/>
+		</event>
+		<event process_id="1" status_from="已報名" status_to="拒絕">
+			<event_func name="rm_ji_recipient"/>
+			<event_func name="mark_attendance_withdrawn"/>
+			<event_func name="rm_appn"/>
+		</event>
+		<event process_id="1" status_from="已錄取" status_to="拒絕">
+			<event_func name="rm_ji_recipient"/>
+			<event_func name="mark_attendance_withdrawn"/>
+			<event_func name="rm_appn"/>
+		</event>
+	</event_trigger>
+

@@ -1,0 +1,152 @@
+<!doctype html>
+<html ng-app="group">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/GroupController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+<script type="text/javascript">
+	var fileIndex = 1;
+	var imageTpl = '<div class="rewiew-tool"><img class="rewiew-tool-photo" id="file{index}" src="../../images/wendang.jpg" alt=""/><span class="rewiew-tool-delete" onclick="deleteFile(this, \'{id}\')">x</span></div>';
+	var token = null;
+	if(window.localStorage){
+	     token = window.localStorage.getItem("token") || window.sessionStorage.getItem("token");
+	}
+	$(function(){
+		$.ajax({
+	 		url : serverHost + '/app/upload/Group/noMaster',
+	     	type : "GET",
+	       	dataType : 'jsonp',
+	     	async : true,
+	       	jsonp : 'callback',
+	       	data : {
+	          	token : token,
+	          	developer : 'mobile'
+	      	},
+	        beforeSend : function(request) {
+	    		request.setRequestHeader("Accept", "application/javascript");
+	      	},
+	       	success : function(data){
+	          	var result = $.parseJSON(data);
+	          	var mtfs = result.mtfList;
+	          	if(mtfs && mtfs.length > 0){
+	               	$.each(mtfs, function(i,val){
+	                  	loadFile(val, result.path);
+	              	});
+	           	}
+	     	}
+	 	});
+	});
+</script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="detailController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">
+{{alert.msg | translate}}
+</alert>
+<div class="wrap" id="wizwrap" ng-show="showDetail" ng-if="s_grp_private==2 || isGroupMember || !isNormal">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back();" title="back"></a>
+    <span class="header-title" style="padding: 0 92px 0 46px;"><span ng-bind="snsGroup.s_grp_title | textFilter : '14'"></span>（<span id="gmt" ng-bind="snsGroup.member_total"></span>）</span>
+    <a class="header-mouqun" href="javascript:;" ng-click="showInfomation();" title="information"></a>
+    <a class="header-write" href="javascript:;" ng-click="toggleWrite()" title="write"></a>
+</header> <!-- header End -->
+
+<section class="content">
+<div class="cont-info" style="margin:0;">
+   <div class="cont-info-tuwen">
+     <div doing="doingList" module="Group"></div>
+   </div>
+</div>
+<div loader="doingList"></div>
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+<div class="wrap" ng-show="showWrite">
+     <header class="header mm-background">
+          <a class="header-back" href="javascript:;" ng-click="toggleWrite()" title="back"></a>
+          <span class="header-title" translate="group_talk_msg"></span>
+          <a class="header-info" href="javascript:;" ng-click = "publishDoing();" title="" translate="btn_publish"></a>
+     </header> <!-- header End -->
+     <section class="content">
+          <div class="cont-review-show">
+               <textarea class="pure-form-txt-5" ng-model="doingText" placeholder="{{'text_tip' | translate}}" name=""></textarea>
+          </div>
+          <div class="cont-review-tool">
+               <a ng-click="checkType('Img');" ng-class="{'review-tool-pic-hover' : uploadType == 'Img' , 'review-tool-pic' : uploadType != 'Img'}" data="{{uploadType}}" href="javascript:;" title="image"></a>
+               <a ng-click="checkType('Doc');" ng-class="{'review-tool-file-hover' : uploadType == 'Doc', 'review-tool-file' : uploadType != 'Doc'}"  data="{{uploadType}}" href="javascript:;" title="file"></a>
+               <!--<a class="review-tool-shipin" href="###" title="视频"></a>-->
+          </div>
+
+          <div  class="cont-review-info clearfix" ng-hide="uploadType == 'ALL'">
+               <a class="rewiew-tool-add" onClick="document.getElementById('file').click();" href="javascript:;" title="Add image"></a>
+               <input type="file" onChange="upload();"  style="visibility:hidden" id="file"/>
+          </div>
+     </section> <!-- content End -->
+</div> <!-- wrap End -->
+
+<div class="wrap" ng-if="!(s_grp_private==2 || isGroupMember || !isNormal)">
+     <header class="header mm-background">
+     <a class="header-back" href="javascript:back();" title="back"></a>
+     <span class="header-title" translate="group_information"><!--群资料--></span>
+     </header> <!-- header End -->
+     <section class="content">
+          <div class="cont-info" style="margin:0;">
+            <div class="panel-list-cont-10">
+                 <div class="panel-title-6 panel-title-6-no">
+                      <span class="panel-add-06 clearfix">
+                            <span class="panel-num-3"  ng-bind="snsGroup.s_grp_title"></span>
+                            <span translate="group_name"></span><!--群名-->
+                      </span>
+                 </div>
+             </div>
+
+             <div class="panel-list-cont-10">
+                 <div class="panel-title-6 panel-title-6-no">
+                      <span class="panel-add-06 clearfix">
+                            <span class="panel-num-3" ng-bind="snsGroup.s_grp_create_datetime | toDate"></span>
+                         <span translate="group_created_time"></span><!--创建时间-->
+                      </span>
+                 </div>
+             </div>
+
+             <div class="panel-list-cont-10">
+                 <div class="panel-title-6 panel-title-6-no">
+                      <span class="panel-add-06 clearfix">
+                            <span class="panel-num-3" ng-bind="snsGroup.s_grp_desc"></span>
+                         <span translate="group_desc"></span><!--描述-->
+                      </span>
+                 </div>
+             </div>
+
+             <div class="panel-list-cont-10">
+                 <div class="panel-title-6 panel-title-6-no">
+                      <span class="panel-add-06 clearfix">
+                            <span class="panel-num-3"forward="snsGroup.s_grp_uid | personUrl" ng-bind="snsGroup.user.usr_display_bil"></span>
+                         <span translate="group_manager"></span><!--群成员-->
+                      </span>
+                 </div>
+             </div>
+          </div>
+          <div class="panel-list-cont-12">
+	          <a ng-show="snsGroup.s_gpm.s_gpm_status == 3 || snsGroup.s_gpm.s_gpm_status == null"
+	          ng-click="applyJoin();" class="panel-box-btn-02" href="javascript:;" translate="group_apply_join">
+	               <!--申请加入-->
+	          </a>
+          </div>
+          <div class="panel-list-cont-12">
+	          <a ng-show="snsGroup.s_gpm.s_gpm_status == 0" class="panel-box-btn-03" href="javascript:;" translate="group_apply_join">
+	               <!--申请加入-->
+	          </a>
+          </div>
+          <div ng-show="snsGroup.s_gpm.s_gpm_status == 0"  class="cont-info-title-4" translate="group_tip_wait_apply">
+               <!--已提交申请，请等待审批。-->
+          </div>
+     </section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

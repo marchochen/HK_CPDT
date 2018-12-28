@@ -1,0 +1,32 @@
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{ padding:6px;}
+
+/* datatable */
+.datatable{ width:100%; margin:10px auto 15px auto;}
+.datatable .datatable-toolbar{ position:relative; border-bottom:1px solid #ddd; overflow:hidden; padding:3px; text-align:right;}
+.datatable .datatable-toolbar button{ float:left;}
+.datatable .datatable-toolbar-separator{ float:left; height:20px; border-left:1px solid #ddd; border-right:1px solid #fff; margin:0 3px;}
+.datatable .datatable-body{ overflow:visible;}
+.datatable{ overflow:visible;}
+
+.datatable table.datatable-table{ width:100%; border:0; margin:0 auto; border-collapse:collapse; }
+.datatable table.datatable-table thead.datatable-table-thead th.datatable-table-column-header{ color:#999; border-bottom:1px solid #ddd; border-top:none; padding:5px 8px;}
+.wzb-table-input table.datatable-table thead.datatable-table-thead th.datatable-table-column-header input{ margin:0 0 0 0;}
+.wzb-table-input table.datatable-table tbody.datatable-table-tbody tr.datatable-table-row td.datatable-table-column:nth-of-type(1) input{ margin:7px 0 0 0;}
+
+.datatable table.datatable-table thead.datatable-table-thead th.datatable-table-column-header td a{ color:#000000;}
+.datatable table.datatable-table thead.datatable-table-thead th.datatable-table-column-header-hover{ border-bottom:1px solid orange; cursor:pointer;}
+/* .datatable table.datatable-table thead.datatable-table-thead th.datatable-table-column-header.sortasc{ background:url("../images/up.png") no-repeat scroll center top transparent;}要取消注释找Mabel
+.datatable table.datatable-table thead.datatable-table-thead th.datatable-table-column-header.sortdesc{background:url("../images/dn.png") no-repeat scroll center top transparent;} */
+.datatable table.datatable-table tbody.datatable-table-tbody tr.datatable-table-row td.datatable-table-column{ border-bottom:1px solid #EEE; background:#FFF; padding:10px 8px;}
+.datatable table.datatable-table tbody.datatable-table-tbody tr.datatable-table-row.datatable-table-row-last td.datatable-table-column{ border-bottom:0;}
+
+/* datatable */
+table.datatable{ width:100%; border-collapse:collapse;}
+table.datatable tr.head td.column{ border-bottom:1px solid silver; padding:8px 5px;}
+table.datatable tr.row td.column{ border-bottom:1px solid silver; padding:5px;}
+.datatable tr.datatable-table-row th i{margin-left:3px;}
+.losedata i{ font-size:78px; color:#ddd;}
+.losedata p{ font-size:16px; color:#999;}
+/*  */
+.tr-table-top{color: #999;border-top: none;padding: 5px 8px;}

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.cpdt.persistence.CpdtGroupRegistrationMapper">
+
+	<!-- 增 -->
+	<insert id="insert" parameterType="com.cwn.wizbank.cpdt.entity.CpdtGroupRegistration">
+
+	</insert>
+	<!-- 删 -->
+	<update id="delete" parameterType="com.cwn.wizbank.cpdt.entity.CpdtGroupRegistration">
+
+	</update>
+	<!-- 改 -->
+	<update id="update" parameterType="com.cwn.wizbank.cpdt.entity.CpdtGroupRegistration">
+
+	</update>
+	<!-- 通过ID查询 -->
+	<select id="get" resultType="com.cwn.wizbank.cpdt.entity.CpdtGroupRegistration" parameterType="com.cwn.wizbank.cpdt.entity.CpdtGroupRegistration">
+		
+	</select>
+	
+	<!-- 获取用户最新的挂牌信息 -->
+	<select id="getNewestRegInfo" resultType="com.cwn.wizbank.cpdt.entity.CpdtGroupRegistration" parameterType="java.util.Map">
+		SELECT
+			cgr_id,
+			cgr_usr_ent_id,
+			cgr_cr_id,
+			cgr_initial_date,
+			cgr_expiry_date,
+			cgr_first_ind,
+			cgr_actual_date,
+			cgr_create_usr_ent_id,
+			cgr_create_datetime,
+			cgr_update_usr_ent_id,
+			cgr_update_datetime,
+			cgr_status,
+			cgr_cg_id
+		FROM
+			CpdGroupRegistration cgr1
+		WHERE
+			cgr_initial_date = (
+				SELECT
+					MAX (cgr_initial_date)
+				FROM
+					CpdGroupRegistration cgr2
+				WHERE
+					cgr1.cgr_usr_ent_id = cgr2.cgr_usr_ent_id
+				AND cgr1.cgr_cg_id = cgr2.cgr_cg_id
+			)
+		AND cgr_status = 'OK'
+		AND cgr_usr_ent_id = #{cgrUsrEntId}
+		AND cgr_cg_id = #{cgrCgId}
+	</select>
+	
+</mapper>

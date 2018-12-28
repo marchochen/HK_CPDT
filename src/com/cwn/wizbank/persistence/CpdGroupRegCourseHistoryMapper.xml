@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.CpdGroupRegCourseHistoryMapper">
+	
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.CpdGroupRegCourseHistory">
+    	<![CDATA[
+        insert into cpdGroupRegCourseHistory(
+				crch_cghi_id,
+				crch_aci_id,
+				crch_aci_hours_end_date,
+				crch_aci_accreditation_code,
+				crch_itm_id,
+				crch_itm_title,
+				crch_itm_code,
+				crch_period,
+				crch_first_ind,
+				crch_app_id,
+				crch_cgr_id,
+				crch_cr_id,
+				crch_ct_id,
+				crch_cg_id,
+				crch_ct_license_type,
+				crch_ct_license_alias,
+				crch_cg_code,
+				crch_cg_alias ,
+				crch_award_core_hours,
+				crch_award_non_core_hours,
+				crch_award_datetime,
+				crch_create_datetime,
+				crch_update_datetime
+            ) values (
+            	#{crch_cghi_id,jdbcType=INTEGER},
+            	#{crch_aci_id,jdbcType=INTEGER},
+            	#{crch_aci_hours_end_date,jdbcType=TIMESTAMP},
+            	#{crch_aci_accreditation_code,jdbcType=VARCHAR},
+            	#{crch_itm_id,jdbcType=INTEGER},
+            	#{crch_itm_title,jdbcType=VARCHAR},
+            	#{crch_itm_code,jdbcType=VARCHAR},
+            	#{crch_period,jdbcType=INTEGER},
+            	#{crch_first_ind,jdbcType=INTEGER},
+            	#{crch_app_id,jdbcType=INTEGER},
+            	#{crch_cgr_id,jdbcType=INTEGER},
+            	#{crch_cr_id,jdbcType=INTEGER},
+            	#{crch_ct_id,jdbcType=INTEGER},
+            	#{crch_cg_id,jdbcType=INTEGER},
+            	#{crch_ct_license_type,jdbcType=VARCHAR},
+            	#{crch_ct_license_alias,jdbcType=VARCHAR},
+            	#{crch_cg_code,jdbcType=VARCHAR},
+            	#{crch_cg_alias,jdbcType=VARCHAR},
+            	#{crch_award_core_hours,jdbcType=FLOAT},
+            	#{crch_award_non_core_hours,jdbcType=FLOAT},
+            	#{crch_award_datetime,jdbcType=TIMESTAMP},
+            	#{crch_create_datetime,jdbcType=TIMESTAMP},
+            	#{crch_update_datetime,jdbcType=TIMESTAMP}
+            )
+        ]]>
+    </insert>    
+
+
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.ObjectActionLogMapper">
+ 
+    <insert id="saveLog" parameterType="com.cwn.wizbank.entity.ObjectActionLog">
+    	<![CDATA[
+            insert into objectActionLog(
+            		object_id,
+            		object_code,
+            		object_title,
+            		object_type,
+            		object_action,
+            		object_action_type,
+            		object_action_time,
+            		object_opt_user_id,
+            		object_opt_user_login_time,
+            		object_opt_user_login_ip
+            ) values (
+            	#{objectId,jdbcType=INTEGER},
+            	#{objectCode,jdbcType=VARCHAR},
+            	#{objectTitle,jdbcType=VARCHAR},
+            	#{objectType,jdbcType=VARCHAR},
+            	#{objectAction,jdbcType=VARCHAR},
+            	#{objectActionType,jdbcType=VARCHAR},
+            	#{objectActionTime,jdbcType=TIMESTAMP},
+            	#{objectOptUserId,jdbcType=INTEGER},
+            	#{objectOptUserLoginTime,jdbcType=TIMESTAMP},
+            	#{objectOptUserLoginIp,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>
+	
+	
+	<select id="getObjectActionLog" resultType="Map" parameterType="Map">
+	   select OBJECT_CODE,OBJECT_TITLE,OBJECT_TYPE,OBJECT_ID,OBJECT_ACTION,OBJECT_ACTION_TYPE, 
+	   <if test="_databaseId == 'ORACLE'">to_char(object_action_time,'yyyy-mm-dd hh24:mi:ss') as </if> OBJECT_ACTION_TIME,
+	   <if test="_databaseId == 'ORACLE'">to_char(object_opt_user_login_time,'yyyy-mm-dd hh24:mi:ss') as </if> OBJECT_OPT_USER_LOGIN_TIME,
+	   OBJECT_OPT_USER_LOGIN_IP,USR_STE_USR_ID,USR_DISPLAY_BIL
+	   from objectActionLog
+	   inner join RegUser  on usr_ent_id = object_opt_user_id
+	   where 
+		<choose>
+		   <when test="beforedate != null and beforedate != ''">
+		     <choose>
+		         <when test="_databaseId == 'ORACLE'">
+		        	<![CDATA[
+                    object_action_time >= to_date(${beforedate},'yyyy-MM-dd hh24:mi:ss') 
+                    and object_action_time <= sysdate
+                    ]]>
+		         </when>
+		         <when test="_databaseId == 'SQLSERVER'">
+		         	<![CDATA[
+		         	object_action_time >= ${beforedate}
+		         	and object_action_time <= GETDATE()
+		         	]]>
+		         </when>
+		         <when test="_databaseId == 'MYSQL'">
+		         	<![CDATA[
+		            object_action_time >= ${beforedate} 
+		            and object_action_time <= now()
+		            ]]>
+		         </when>
+		      </choose>
+		   </when>
+		   <otherwise>
+		      1 = 1 
+		      <if test="starttime != null and starttime != ''">
+		        <choose>
+		         <when test="_databaseId == 'ORACLE'">
+		           and  (object_action_time &gt; to_date(${starttime},'yyyy-MM-dd hh24:mi:ss') or  object_action_time = to_date(${starttime},'yyyy-MM-dd hh24:mi:ss') )
+		         </when>
+		         <otherwise>
+		           and  (object_action_time &gt; ${starttime} or  object_action_time = ${starttime} )
+		         </otherwise>
+		      </choose>
+		      </if> 
+		      <if test="endtime != null and endtime != ''">
+		        <choose>
+		         <when test="_databaseId == 'ORACLE'">
+		             and  (to_date(${endtime},'yyyy-MM-dd hh24:mi:ss') &gt; object_action_time or  object_action_time = to_date(${endtime},'yyyy-MM-dd hh24:mi:ss') )
+		         </when>
+		         <otherwise>
+		             and  (${endtime} &gt; object_action_time or  object_action_time = ${endtime} )
+		         </otherwise>
+		      </choose>
+		     </if> 
+		   </otherwise>
+		</choose>
+		order by OBJECT_ACTION_TIME desc
+	</select>
+	
+	
+</mapper>

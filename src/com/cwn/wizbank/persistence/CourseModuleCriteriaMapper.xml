@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.CourseModuleCriteriaMapper">
+	<select id="get" resultType="CourseModuleCriteria" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				cmr_id,
+				cmr_ccr_id,
+				cmr_res_id,
+				cmr_status,
+				cmr_contri_rate,
+				cmr_is_contri_by_score,
+				cmr_is_contri_on_status,
+				cmr_create_timestamp,
+				cmr_create_usr_id,
+				cmr_upd_timestamp,
+				cmr_upd_usr_id,
+				cmr_del_timestamp,
+				cmr_status_desc_option,
+				cmr_cmr_id_parent
+			from CourseModuleCriteria t 
+			where
+				 t.cmr_id = #{id}
+		]]>
+	</select>	
+	<update id="update" parameterType="com.cwn.wizbank.entity.CourseModuleCriteria">
+	    <![CDATA[
+	        update CourseModuleCriteria t 
+	        set 
+				cmr_id = #{cmr_id,jdbcType=INTEGER},
+				cmr_ccr_id = #{cmr_ccr_id,jdbcType=INTEGER},
+				cmr_res_id = #{cmr_res_id,jdbcType=INTEGER},
+				cmr_status = #{cmr_status,jdbcType=VARCHAR},
+				cmr_contri_rate = #{cmr_contri_rate,jdbcType=DOUBLE},
+				cmr_is_contri_by_score = #{cmr_is_contri_by_score,jdbcType=BOOLEAN},
+				cmr_is_contri_on_status = #{cmr_is_contri_on_status,jdbcType=BOOLEAN},
+				cmr_create_timestamp = #{cmr_create_timestamp,jdbcType=TIMESTAMP},
+				cmr_create_usr_id = #{cmr_create_usr_id,jdbcType=VARCHAR},
+				cmr_upd_timestamp = #{cmr_upd_timestamp,jdbcType=TIMESTAMP},
+				cmr_upd_usr_id = #{cmr_upd_usr_id,jdbcType=VARCHAR},
+				cmr_del_timestamp = #{cmr_del_timestamp,jdbcType=TIMESTAMP},
+				cmr_status_desc_option = #{cmr_status_desc_option,jdbcType=VARCHAR},
+				cmr_cmr_id_parent = #{cmr_cmr_id_parent,jdbcType=INTEGER}
+	         where t.cmr_id = #{cmr_id,jdbcType=INTEGER}
+	    ]]>
+    </update>    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.CourseModuleCriteria">
+    	<![CDATA[
+            insert into CourseModuleCriteria(
+            		cmr_ccr_id,
+            		cmr_res_id,
+            		cmr_status,
+            		cmr_contri_rate,
+            		cmr_is_contri_by_score,
+            		cmr_is_contri_on_status,
+            		cmr_create_timestamp,
+            		cmr_create_usr_id,
+            		cmr_upd_timestamp,
+            		cmr_upd_usr_id,
+            		cmr_del_timestamp,
+            		cmr_status_desc_option,
+            		cmr_cmr_id_parent
+            ) values (
+            	#{cmr_ccr_id,jdbcType=INTEGER},
+            	#{cmr_res_id,jdbcType=INTEGER},
+            	#{cmr_status,jdbcType=VARCHAR},
+            	#{cmr_contri_rate,jdbcType=DOUBLE},
+            	#{cmr_is_contri_by_score,jdbcType=BOOLEAN},
+            	#{cmr_is_contri_on_status,jdbcType=BOOLEAN},
+            	#{cmr_create_timestamp,jdbcType=TIMESTAMP},
+            	#{cmr_create_usr_id,jdbcType=VARCHAR},
+            	#{cmr_upd_timestamp,jdbcType=TIMESTAMP},
+            	#{cmr_upd_usr_id,jdbcType=VARCHAR},
+            	#{cmr_del_timestamp,jdbcType=TIMESTAMP},
+            	#{cmr_status_desc_option,jdbcType=VARCHAR},
+            	#{cmr_cmr_id_parent,jdbcType=INTEGER}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from CourseModuleCriteria where
+	        cmr_id = #{cmr_id}
+	    ]]>
+    </delete>	
+	<select id="selectAll" resultType="CourseModuleCriteria">
+	    <![CDATA[
+	         select 
+				cmr_id,
+				cmr_ccr_id,
+				cmr_res_id,
+				cmr_status,
+				cmr_contri_rate,
+				cmr_is_contri_by_score,
+				cmr_is_contri_on_status,
+				cmr_create_timestamp,
+				cmr_create_usr_id,
+				cmr_upd_timestamp,
+				cmr_upd_usr_id,
+				cmr_del_timestamp,
+				cmr_status_desc_option,
+				cmr_cmr_id_parent
+			from CourseModuleCriteria t 
+	    ]]>
+	</select>	
+	<select id="getCourseModuleCriteriaByResId" resultType="CourseModuleCriteria" parameterType="java.lang.String">
+	    <![CDATA[
+	         select 
+				cmr_id,
+				cmr_ccr_id,
+				cmr_res_id,
+				cmr_status,
+				cmr_contri_rate,
+				cmr_is_contri_by_score,
+				cmr_is_contri_on_status,
+				cmr_create_timestamp,
+				cmr_create_usr_id,
+				cmr_upd_timestamp,
+				cmr_upd_usr_id,
+				cmr_del_timestamp,
+				cmr_status_desc_option,
+				cmr_cmr_id_parent
+			from CourseModuleCriteria
+			where cmr_res_id = #{cmr_res_id}  
+	    ]]>
+	</select>	
+</mapper>

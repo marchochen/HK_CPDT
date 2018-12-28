@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>wizbank网站管理平台</title>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../static/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="../../static/js/jquery-table/css/jquery-table-default.css"/>
+<link rel="stylesheet" type="text/css" href="../../static/js/jquery-table/css/jquery-table-admin.css"/>
+<link rel="stylesheet" type="text/css" href="../../static/admin/css/admin.css"/>
+<!--[if lt IE 9]>
+    <script type="text/javascript" src="bootstrap/js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+<div class="wzb-body">
+<div class="wzb-top clearfix">
+     <a class="wzb-logo" href="###" title="wizbank"><img src="images/wzb-logo.png" alt="wizbank" /></a>
+     <div class="wzb-top-toggle"><i class="fa fa-bars"></i></div>
+     
+     <div class="wzb-tool">
+     <div class="wzb-menu">     
+          <ul class="clearfix">
+              <li><a class="wzb-menu-sup" href="###" title="信息"><i class="fa wzb-envelope-icon fa-envelope-o"></i> <span class="wzb-badge wzb-badge-purple">15</span></a></li>
+              <li>
+                  <a class="wzb-menu-sub" href="###" title="信息"><i class="fa wzb-envelope-icon fa-flag-o"></i> <span class="wzb-badge wzb-badge-pink">8</span></a>
+                  <ul>
+                      <li><a class="wzb-menu-son" href="###" title="报名审批"><i class="fa fa-check-circle-o"></i>报名审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="作业批改"><i class="fa fa-clipboard"></i>作业批改</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="试卷批改"><i class="fa fa-file-text-o"></i>试卷批改</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="知识审批"><i class="fa fa-life-ring"></i>知识审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="IDP审批"><i class="fa fa-level-up"></i>IDP审批</a></li>
+                      <li><a class="wzb-menu-son" href="###" title="培训计划审批"><i class="fa fa-calendar"></i>培训计划审批</a></li>
+                 </ul>
+             </li>
+             <li>
+                 <a class="wzb-menu-sub" href="###" title="信息"><img class="wzb-user" src="images/wzb-user.jpg" alt="wizbank" />培训管理员<i class="fa wzb-caret-icon fa-caret-down"></i></a>
+                 <ul>
+                     <li><a class="wzb-menu-son" href="###" title="角色"><i class="fa fa-user"></i>角色</a>
+                         <dl>
+                             <dd><a href="###" title="学员">学员</a></dd>
+                             <dd><a href="###" title="培训管理员">培训管理员</a></dd>
+                             <dd><a href="###" title="系统管理员">系统管理员</a></dd>
+                             <dd><a href="###" title="考试监考员">考试监考员</a></dd>
+                         </dl>
+                     </li>
+                     <li><a class="wzb-menu-son" href="###" title="语言"><i class="fa fa-stack-exchange"></i>语言</a>
+                         <dl>
+                             <dd><a href="###" title="简体中文">简体中文</a></dd>
+                             <dd><a href="###" title="繁体中文">繁体中文</a></dd>
+                             <dd><a href="###" title="English">English</a></dd>
+                         </dl>
+                    </li>
+                    <li><a class="wzb-menu-son" href="###" title="我的档案"><i class="fa fa-instagram"></i>我的档案</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="修改密码"><i class="fa fa-key"></i>修改密码</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="我的喜好"><i class="fa fa-smile-o"></i>我的喜好</a></li>
+                    <li><a class="wzb-menu-son" href="###" title="退出"><i class="fa fa-sign-out"></i>退出</a></li>
+                </ul>
+            </li>
+        </ul>
+      </div>  
+    </div>
+</div> <!-- wzb-top End-->
+
+<div class="wzb-sidebar">
+<div class="wzb-menu">
+    <ul>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-home"></i>首页</a></li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-globe"></i>资讯管理</a>
+            <ul>
+                <li><a href="###" title="">公告</a></li>
+                <li><a href="###" title="">资讯</a></li>
+                <li><a href="###" title="">常用工具</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-cubes"></i>需求管理</a>
+            <ul>
+                <li><a href="###" title="">投票</a></li>
+                <li><a href="###" title="">公共调查问卷</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-list-alt"></i>计划管理</a>
+            <ul>
+                <li><a href="###" title="">计划实施</a></li>
+                <li><a href="###" title="">年度计划</a></li>
+                <li><a href="###" title="">编外计划</a></li>
+                <li><a href="###" title="">年度计划审批</a></li>
+                <li><a href="###" title="">编外计审批</a></li>
+                <li><a href="###" title="">年度设置</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-maxcdn"></i>学习地图</a>
+            <ul>
+                <li><a href="###" title="">岗位发展路径</a></li>
+                <li><a href="###" title="">岗位</a></li>
+                <li><a href="###" title="">能力标签</a></li>
+                <li><a href="###" title="">能力测评模板</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-calendar"></i>培训管理</a>
+            <ul>
+                <li><a href="###" title="">网上课程</a></li>
+                <li><a href="###" title="">面授课程</a></li>
+                <li><a href="###" title="">项目式培训</a></li>
+                <li><a href="###" title="">证书</a></li>
+                <li><a href="###" title="">课程目录</a></li>
+                <li><a href="###" title="">公开课</a></li>
+                <li><a href="###" title="">教学资源</a></li>
+                <li><a href="###" title="">课程评估问卷</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-columns"></i>考试管理</a>
+            <ul>
+                <li><a href="###" title="">网上考试</a></li>
+                <li><a href="###" title="">离线考试</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-comments"></i>社区管理</a>
+            <ul>
+                <li><a href="###" title="">问答</a></li>
+                <li><a href="###" title="">群组</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-life-ring"></i>知识管理</a>
+            <ul>
+                <li><a href="###" title="">知识库</a></li>
+                <li><a href="###" title="">知识目录</a></li>
+                <li><a href="###" title="">知识标签</a></li>
+                <li><a href="###" title="">知识审批</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-table"></i>培训报表</a>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-child"></i>用户管理</a>
+            <ul>
+                <li><a href="###" title="">用户信息</a></li>
+                <li><a href="###" title="">职级</a></li>
+                <li><a href="###" title="">注册审批</a></li>
+                <li><a href="###" title="">用户激活</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-suitcase"></i>基础数据管理</a>
+            <ul>
+                <li><a href="###" title="">积分</a></li>
+                <li><a href="###" title="">内部讲题</a></li>
+                <li><a href="###" title="">外部讲题</a></li>
+                <li><a href="###" title="">供应商</a></li>
+            </ul>
+        </li>
+        <li><a class="wzb-menu-son" href="###" title=""><i class="fa fa-wrench"></i>系统设置</a>
+            <ul>
+                <li><a href="###" title="">PC样式管理</a></li>
+                <li><a href="###" title="">移动管理</a></li>
+                <li><a href="###" title="">培训中心管理</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>    
+</div>  <!-- wzb-sibebar End-->
+
+<div class="wzb-wrapper">
+<div class="wzb-main">
+<div class="wzb-banner wzb-banner-bg01" style="opacity: 1; background: rgb(153, 102, 153);"><i class="fa wzb-banner-icon fa-maxcdn"></i> 学习地图</div>
+
+<ol class="breadcrumb wzb-breadcrumb">
+  <li><a href="#"><i class="fa wzb-breadcrumb-home fa-home"></i>首页</a></li>
+  <li class="active">关键岗位学习地图</li>
+</ol> <!-- wzb-breadcrumb End-->
+
+<div class="panel wzb-panel">
+<div class="panel-heading">关键岗位</div>
+    <!-- 内容添加开始 -->
+    <div class="panel-body">
+        <div class="wzb-ui-desc-text">   
+            在岗位学习地图功能设置一个岗位为关键岗位，必须先到“用户管理——岗位管理”功能中添加对应的岗位后才能在这里添加为关键岗位。</br>
+            点击岗位的标题，可以看到该关键岗位的详细信息。</br>
+            这里设置的关键岗位必须发布后，才会在学员岗位学习地图页面中展示出来；并且系统会自动将岗位推荐课程推荐给该岗位的学员。</br>
+            推荐课程更新频率：每天只更新一次（即在发布路径的第二天，系统才会自动把课程推荐给学员。）</br>
+            岗位关键指数，决定该岗位在系表中的排序，指数越高，在列表中的排序越靠前；在学员展示页面中，学员不会看到该指数的值。
+        </div>
+        
+        <table>
+            <tbody>
+                <tr>
+                    <td align="right"><input type="button" class="btn wzb-btn-yellow" value="添加"></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="datatable">
+            <div class="datatable-body">
+                <table cellpadding="0" cellspacing="0" class="datatable-table">
+                    <thead class="datatable-table-thead">
+                        <tr class="datatable-table-row">
+                            <th width="29%" class="datatable-table-column-header" style="text-align:left;">岗位名称</th>
+                            <th width="10%" class="datatable-table-column-header" style="text-align:center;">编号</th>
+                            <th width="6%" class="datatable-table-column-header" style="text-align:center;">关键指数</th>
+                            <th width="20%" class="datatable-table-column-header" style="text-align:center;">分类</th>
+                            <th width="15%" class="datatable-table-column-header" style="text-align:right;"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="datatable-table-tbody">
+                        <tr class="datatable-table-row">
+                            <td class="datatable-table-column" style="text-align:left;">Java程序员</td>
+                            <td class="datatable-table-column" style="text-align:center;">编号001</td>
+                            <td class="datatable-table-column" style="text-align:center;">001</td>
+                            <td class="datatable-table-column" style="text-align:center;">码农</td>
+                            <td class="datatable-table-column" style="text-align:right;">
+                                <span style="white-spacing:nowrap;">
+                                    <input type="button" value="修改" class="btn wzb-btn-blue" >
+                                    <input type="button" value="发布" class="btn wzb-btn-blue" >
+                                    <input type="button" value="删除" class="btn wzb-btn-blue" >
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="datatable-table-row">
+                            <td class="datatable-table-column" style="text-align:left;">Java程序员</td>
+                            <td class="datatable-table-column" style="text-align:center;">编号001</td>
+                            <td class="datatable-table-column" style="text-align:center;">002</td>
+                            <td class="datatable-table-column" style="text-align:center;">码农</td>
+                            <td class="datatable-table-column" style="text-align:right;">
+                                <span style="white-spacing:nowrap;">
+                                    <input type="button" value="修改" class="btn wzb-btn-blue" >
+                                    <input type="button" value="取消发布" class="btn wzb-btn-blue" >
+                                    <input type="button" value="删除" class="btn wzb-btn-blue" >
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="datatable-table-row">
+                            <td class="datatable-table-column" style="text-align:left;">Java程序员</td>
+                            <td class="datatable-table-column" style="text-align:center;">编号001</td>
+                            <td class="datatable-table-column" style="text-align:center;">003</td>
+                            <td class="datatable-table-column" style="text-align:center;">码农</td>
+                            <td class="datatable-table-column" style="text-align:right;">
+                                <span style="white-spacing:nowrap;">
+                                    <input type="button" value="修改" class="btn wzb-btn-blue" >
+                                    <input type="button" value="发布" class="btn wzb-btn-blue" >
+                                    <input type="button" value="删除" class="btn wzb-btn-blue" >
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="datatable-table-row">
+                            <td class="datatable-table-column" style="text-align:left;">Java程序员</td>
+                            <td class="datatable-table-column" style="text-align:center;">编号001</td>
+                            <td class="datatable-table-column" style="text-align:center;">004</td>
+                            <td class="datatable-table-column" style="text-align:center;">码农</td>
+                            <td class="datatable-table-column" style="text-align:right;">
+                                <span style="white-spacing:nowrap;">
+                                    <input type="button" value="修改" class="btn wzb-btn-blue" >
+                                    <input type="button" value="取消发布" class="btn wzb-btn-blue" >
+                                    <input type="button" value="删除" class="btn wzb-btn-blue" >
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="datatable-table-row">
+                            <td class="datatable-table-column" style="text-align:left;">Java程序员</td>
+                            <td class="datatable-table-column" style="text-align:center;">编号001</td>
+                            <td class="datatable-table-column" style="text-align:center;">005</td>
+                            <td class="datatable-table-column" style="text-align:center;">码农</td>
+                            <td class="datatable-table-column" style="text-align:right;">
+                                <span style="white-spacing:nowrap;">
+                                    <input type="button" value="修改" class="btn wzb-btn-blue" >
+                                    <input type="button" value="发布" class="btn wzb-btn-blue" >
+                                    <input type="button" value="删除" class="btn wzb-btn-blue" >
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="datatable-table-row">
+                            <td class="datatable-table-column" style="text-align:left;">Java程序员</td>
+                            <td class="datatable-table-column" style="text-align:center;">编号001</td>
+                            <td class="datatable-table-column" style="text-align:center;">006</td>
+                            <td class="datatable-table-column" style="text-align:center;">码农</td>
+                            <td class="datatable-table-column" style="text-align:right;">
+                                <span style="white-spacing:nowrap;">
+                                    <input type="button" value="修改" class="btn wzb-btn-blue" >
+                                    <input type="button" value="取消发布" class="btn wzb-btn-blue" >
+                                    <input type="button" value="删除" class="btn wzb-btn-blue" >
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="datatable-table-row">
+                            <td class="datatable-table-column" style="text-align:left;">Java程序员</td>
+                            <td class="datatable-table-column" style="text-align:center;">编号001</td>
+                            <td class="datatable-table-column" style="text-align:center;">007</td>
+                            <td class="datatable-table-column" style="text-align:center;">码农</td>
+                            <td class="datatable-table-column" style="text-align:right;">
+                                <span style="white-spacing:nowrap;">
+                                    <input type="button" value="修改" class="btn wzb-btn-blue" >
+                                    <input type="button" value="发布" class="btn wzb-btn-blue" >
+                                    <input type="button" value="删除" class="btn wzb-btn-blue" >
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="datatable-table-row">
+                            <td class="datatable-table-column" style="text-align:left;">Java程序员</td>
+                            <td class="datatable-table-column" style="text-align:center;">编号001</td>
+                            <td class="datatable-table-column" style="text-align:center;">008</td>
+                            <td class="datatable-table-column" style="text-align:center;">码农</td>
+                            <td class="datatable-table-column" style="text-align:right;">
+                                <span style="white-spacing:nowrap;">
+                                    <input type="button" value="修改" class="btn wzb-btn-blue" >
+                                    <input type="button" value="取消发布" class="btn wzb-btn-blue" >
+                                    <input type="button" value="删除" class="btn wzb-btn-blue" >
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="datatable-table-row">
+                            <td class="datatable-table-column" style="text-align:left;">Java程序员</td>
+                            <td class="datatable-table-column" style="text-align:center;">编号001</td>
+                            <td class="datatable-table-column" style="text-align:center;">009</td>
+                            <td class="datatable-table-column" style="text-align:center;">码农</td>
+                            <td class="datatable-table-column" style="text-align:right;">
+                                <span style="white-spacing:nowrap;">
+                                    <input type="button" value="修改" class="btn wzb-btn-blue" >
+                                    <input type="button" value="发布" class="btn wzb-btn-blue" >
+                                    <input type="button" value="删除" class="btn wzb-btn-blue" >
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="datatable-table-row datatable-table-row-last">
+                            <td class="datatable-table-column" style="text-align:left;">Java程序员</td>
+                            <td class="datatable-table-column" style="text-align:center;">编号001</td>
+                            <td class="datatable-table-column" style="text-align:center;">010</td>
+                            <td class="datatable-table-column" style="text-align:center;">码农</td>
+                            <td class="datatable-table-column" style="text-align:right;">
+                                <span style="white-spacing:nowrap;">
+                                    <input type="button" value="修改" class="btn wzb-btn-blue" >
+                                    <input type="button" value="取消发布" class="btn wzb-btn-blue" >
+                                    <input type="button" value="删除" class="btn wzb-btn-blue" >
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="datatable-stat" style="display: none;">
+                <div class="losedata"><i class="fa fa-folder-open-o"></i><p>暂无相关数据显示</p></div>
+            </div>
+            <!-- 暂无数据和页码都是公共的 -->
+            <div class="datatable-pager"> 
+                <a class="datatable-pager-btn datatable-pager-btn-first"></a> 
+                <a class="datatable-pager-btn datatable-pager-btn-prev"></a>
+                <a num="1" class="datatable-pager-btn datatable-pager-btn-num active">1</a> 
+                <a num="2" class="datatable-pager-btn datatable-pager-btn-num ">2</a>  
+                <a class="datatable-pager-btn datatable-pager-btn-next"></a>  
+                <a class="datatable-pager-btn datatable-pager-btn-last"></a>
+            </div>
+        </div>
+
+    </div>
+    <!-- 内容添加结束 -->
+
+</div>  <!-- wzb-panel End-->
+
+</div>  <!-- wzb-main End-->   
+
+</div> <!-- wzb-wrapper End-->
+
+<div class="wzb-footer"><div class="wzb-footer-box">wizbank6.0 @ 汇思 Cyberwisdom 版权所有</div></div>
+</div> <!-- wzb-body End-->
+
+</body>
+</html> 

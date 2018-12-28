@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.TrackingHistoryMapper">
+	
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.TrackingHistory">
+    	<![CDATA[
+            insert into TrackingHistory(
+            tkh_type,
+            tkh_usr_ent_id,
+            tkh_cos_res_id,
+            tkh_create_timestamp
+            ) values (
+            	#{tkh_type,jdbcType=VARCHAR},
+                #{tkh_usr_ent_id,jdbcType=INTEGER},
+                #{tkh_cos_res_id,jdbcType=INTEGER},
+                #{tkh_create_timestamp,jdbcType=TIMESTAMP}
+            )
+        ]]>
+        <selectKey keyProperty="tkh_id" resultType="INTEGER" order="AFTER">
+                 select ident_current('TrackingHistory') as tkh_id
+        </selectKey> 
+        
+    </insert>    
+   
+</mapper>

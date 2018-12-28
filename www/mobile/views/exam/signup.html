@@ -1,0 +1,127 @@
+<!doctype html>
+<html ng-app="exam">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/ExamController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+<!--[if lt IE 9]>
+<script src="../../js/lib/html5.js" type="text/jscript"></script>
+<![endif]-->
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="signupController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+
+<div class="wrap">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back();" title="返回"></a>
+    <span class="header-title">{{'exam_signup' | translate}}</span>
+    <a class="header-sort" href="javascript:;" ng-click="toggleDir()" title="分类"></a>
+    <a class="header-sosuo" href="{{{url:'../search/search.html'} | appUrl}}" title="search"></a>
+</header> <!-- header End -->
+
+<div class="header-guide" style="display:none;">
+     <div class="header-guide-box">
+          <div class="header-guide-title">{{'exam_type' | translate}}</div>
+          <div class="header-guide-info">
+               <a href="javascript:;" ng-click="selectType(item.id)" ng-class="{'select': item.select}" ng-repeat="item in cosTypes" >{{item.title | translate}}</a>
+          </div>     
+        
+          <div class="header-guide-tool"><a class="header-guide-bluelian" href="javascript:;"  ng-click="sureCheck()" title="">{{'btn_sure' | translate}}</a>
+           <a class="header-guide-bluelian" ng-click="toggleDir()" href="javascript:;" title="">{{'btn_cancel' | translate}}</a></div>
+    </div>
+</div>
+
+
+<section class="content" id="main">
+<!-- <a class="panel-sou" href="{{{url:'../search/search.html'} | appUrl}}" title="search"><span class="sou-icon" translate="btn_search"></span>搜索</a> -->
+
+<div class="panel-list-box">
+<tabs css="2">
+<!-- 进行中 -->
+<pane title="{{'cos_app_inprogress' | translate}}">
+<ul class="panel-list-1-1 clearfix" ng-show="inprogress.items && inprogress.items.length>0">
+     <li  ng-repeat="item in inprogress.items">
+          <a class="panel-list-cont-1" href="javascript:;" forward="{tkhId:item.app_tkh_id, itmId: item.item.itm_id, examInd:true} | courseUrl" title="">
+             <div class="list-pic-1">
+                  <img ng-src="{{serverHost}}{{item.item.itm_icon}}" alt=""/>
+                  <div class="sub-filter-1"><div class="sub-info-1">{{item.item.itm_title}}</div></div>
+                   <span ng-if="item.itd && item.itd.itd_compulsory_ind && item.itd.itd_compulsory_ind == 1" class="list-tool-1-bixiu"></span>
+             </div>
+          </a>
+          
+          <div class="list-tool-1">
+               <span id="fcl_{{item.item.itm_id}}" class="list-tool-1-laud">
+				  {{item.item.snsCount && item.item.snsCount.s_cnt_like_count?item.item.snsCount.s_cnt_like_count:0}}
+               </span>
+               <!-- <span id="fcc_{{item.item.itm_id}}" class="list-tool-1-review">
+               	 {{item.item.cnt_comment_count?item.item.cnt_comment_count:0}}
+               </span> -->
+          </div>
+     </li>
+</ul>
+     <div loader="inprogress"></div>
+</pane> 
+<!-- 审批中 -->
+<pane  title="{{'cos_app_pending' | translate}}">
+<ul class="panel-list-1-1 clearfix" ng-show="pending.items && pending.items.length>0">
+     <li  ng-repeat="item in pending.items">
+          <a class="panel-list-cont-1" href="javascript:;" forward="{tkhId:item.app_tkh_id, itmId: item.item.itm_id, examInd:true} | courseUrl" title="">
+             <div class="list-pic-1">
+                  <img ng-src="{{serverHost}}{{item.item.itm_icon}}" alt=""/>
+                  <div class="sub-filter-1"><div class="sub-info-1">{{item.item.itm_title}}</div></div>
+                  <span ng-if="item.itd && item.itd.itd_compulsory_ind && item.itd.itd_compulsory_ind == 1" class="list-tool-1-bixiu"></span>
+             </div>
+          </a>
+          
+          <div class="list-tool-1">
+               <span id="scl_{{item.item.itm_id}}" class="list-tool-1-laud">
+				  {{item.item.snsCount && item.item.snsCount.s_cnt_like_count ?item.item.snsCount.s_cnt_like_count:0}}
+               </span>
+               <!-- <span id="scc_{{item.item.itm_id}}" class="list-tool-1-review">
+               	  {{item.item.cnt_comment_count?item.item.cnt_comment_count:0}}
+               </span> -->
+          </div>
+     </li>
+</ul>
+     <div loader="pending"></div>
+</pane> 
+<!-- 已完成 -->
+<pane  title="{{'cos_app_completed' | translate}}">
+<ul class="panel-list-1-1 clearfix" ng-show="completed.items && completed.items.length>0">
+     <li  ng-repeat="item in completed.items">
+          <a class="panel-list-cont-1" href="javascript:;" forward="{tkhId:item.app_tkh_id, itmId: item.item.itm_id, examInd:true} | courseUrl" title="">
+             <div class="list-pic-1">
+                  <img ng-src="{{serverHost}}{{item.item.itm_icon}}" alt=""/>
+                  <div class="sub-filter-1"><div class="sub-info-1">{{item.item.itm_title}}</div></div>
+                  <span ng-if="item.itd && item.itd.itd_compulsory_ind && item.itd.itd_compulsory_ind == 1" class="list-tool-1-bixiu"></span>
+             </div>
+          </a>
+          
+          <div class="list-tool-1">
+               <span id="tcl_{{item.item.itm_id}}" class="list-tool-1-laud">
+				  {{item.item.snsCount && item.item.snsCount.s_cnt_like_count?item.item.snsCount.s_cnt_like_count:0}}
+               </span>
+               <!-- <span id="tcc_{{item.item.itm_id}}" class="list-tool-1-review">
+               	 {{item.item.cnt_comment_count?item.item.cnt_comment_count:0}}
+               </span> -->
+          </div>
+     </li>
+</ul>
+     <div loader="completed"></div>
+</pane>
+ 
+</tabs>
+</div>
+</section> <!-- content End -->
+
+
+</div> <!-- wrap End -->
+
+</body>
+</html>

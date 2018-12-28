@@ -1,0 +1,39 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Cyberwisdom wizBank</title>
+<script src="../js/urlparam.js" language="JavaScript"></script>
+<script src="../js/wb_utils.js" language="JavaScript"></script>
+<script language="JavaScript">
+    function close_reload() {
+
+        //for sso login and cross domain.if so,do not operat opener.
+        no_reload = getUrlParam("no_reload");
+        if (no_reload != '' && no_reload != 'true') {
+            if ((parent.window.opener) && (parent.window.opener!=null) && (typeof(parent.window.opener) != 'undefined') && (!parent.window.opener.closed)) {
+                parent.window.opener.location.reload();
+            }
+            
+            if (typeof(parent.window.opener) == 'undefined') {
+                parent.window.opener = null;
+            }
+
+        }
+    	if (parent.parent.opener) {
+    		parent.parent.opener.location.reload();
+    	}
+        
+        if (typeof(window.opener) == 'undefined') {
+            window.opener = null;
+        }
+        var ua = navigator.userAgent.toLowerCase();
+		if(((ua.indexOf("android") > -1) || ((ua.match(/iphone/i)) || (ua.match(/ipod/i)) || (ua.match(/ipad/i))) || ua.match(/Windows Phone/i) || ua.match(/BlackBerry/i) || ua.match(/webOS/i))){
+			self.location.href = wb_utils_app_base + 'app/course/return/' + getUrlParam("tkh_id");
+		}
+        self.close();
+    }
+</script>
+</head>
+<body onload="close_reload();">
+</body>
+</html>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
+	<xsd:simpleType name="nonNullStringType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="posIntType">
+		<xsd:restriction base="xsd:int">
+			<xsd:minInclusive value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="userIdLengthType">
+		<xsd:restriction base="posIntType">
+			<xsd:maxInclusive value="20"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="userPasswordLengthType">
+		<xsd:restriction base="posIntType">
+			<xsd:maxInclusive value="20"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="labelType">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute ref="xml:lang" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="optionType">
+		<xsd:sequence>
+			<xsd:element name="label" type="labelType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="id" type="nonNullStringType" use="required"/>
+		<xsd:attribute name="default" type="xsd:boolean" use="optional" default="false"/>
+	</xsd:complexType>
+	<xsd:complexType name="optionListType">
+		<xsd:sequence>
+			<xsd:element name="option" type="optionType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="userExtAttributeType">
+		<xsd:sequence>
+			<xsd:element name="label" type="labelType" maxOccurs="unbounded"/>
+			<xsd:element name="option_list" type="optionListType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="readonly" type="readonlyType" use="optional" default="false"/>
+		<xsd:attribute name="searchable" type="searchableType" use="optional" default="none"/>
+		<xsd:attribute name="showempty" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="active" type="xsd:boolean" use="required"/>
+		<xsd:attribute name="instr_attr" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="type" type="type" use="optional"/>
+		<xsd:attribute name="value" type="xsd:string" use="optional" default="none"/>
+		<xsd:attribute name="public_ind" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="group" type="xsd:string"/>
+		<xsd:attribute name="publicity" type="xsd:int"/>
+		<xsd:attribute name="fieldname" type="xsd:string"/>
+		<xsd:attribute name="registration" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="allowEmpty" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="dbMaxLength" type="xsd:int" use="optional"/>
+		<xsd:attribute name="dbMinLength" type="xsd:int" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="userAttributeType">
+		<xsd:sequence>
+			<xsd:element name="label" type="labelType" maxOccurs="unbounded"/>
+			<xsd:element name="option_list" type="optionListType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="readonly" type="readonlyType" use="optional" default="false"/>
+		<xsd:attribute name="searchable" type="searchableType" use="optional" default="none"/>
+		<xsd:attribute name="showempty" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="hidden" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="instr_attr" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="type" type="type" use="optional"/>
+		<xsd:attribute name="value" type="xsd:string" use="optional" default="none"/>
+		<xsd:attribute name="public_ind" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="group" type="xsd:string"/>
+		<xsd:attribute name="publicity" type="xsd:int"/>
+		<xsd:attribute name="fieldname" type="xsd:string"/>
+		<xsd:attribute name="registration" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="allowEmpty" type="xsd:boolean" use="optional" default="true"/>
+		<xsd:attribute name="dbMaxLength" type="xsd:int" use="optional"/>
+		<xsd:attribute name="dbMinLength" type="xsd:int" use="optional"/>
+		<xsd:attribute name="groupLevel" type="xsd:int" use="optional" default="0"/>
+		<xsd:attribute name="gradeLevel" type="xsd:int" use="optional" default="0"/>
+	</xsd:complexType>
+	<xsd:simpleType name="readonlyType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="all"/>
+			<xsd:enumeration value="true"/>
+			<xsd:enumeration value="false"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="type">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="text"/>
+			<xsd:enumeration value="date"/>
+			<xsd:enumeration value="comboBox"/>
+			<xsd:enumeration value="checkBox"/>
+			<xsd:enumeration value="textarea"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="searchableType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="adv"/>
+			<xsd:enumeration value="all"/>
+			<xsd:enumeration value="none"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="userIdType">
+		<xsd:sequence>
+			<xsd:element name="label" type="labelType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="readonly" type="readonlyType" use="optional" default="false"/>
+		<xsd:attribute name="searchable" type="searchableType" use="optional" default="none"/>
+		<xsd:attribute name="showempty" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="hidden" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="min_length" type="userIdLengthType" use="required"/>
+		<xsd:attribute name="max_length" type="userIdLengthType" use="required"/>
+		<xsd:attribute name="instr_attr" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="type" type="type" use="optional"/>
+		<xsd:attribute name="value" type="xsd:string" use="optional" default="none"/>
+		<xsd:attribute name="public_ind" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="group" type="xsd:string"/>
+		<xsd:attribute name="publicity" type="xsd:int"/>
+		<xsd:attribute name="fieldname" type="xsd:string"/>
+		<xsd:attribute name="registration" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="allowEmpty" type="xsd:boolean" use="optional" default="true"/>
+	</xsd:complexType>
+	<xsd:complexType name="userPasswordType">
+		<xsd:sequence>
+			<xsd:element name="label" type="labelType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="readonly" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="searchable" type="searchableType" use="optional" default="none"/>
+		<xsd:attribute name="showempty" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="hidden" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="min_length" type="userPasswordLengthType" use="required"/>
+		<xsd:attribute name="max_length" type="userPasswordLengthType" use="required"/>
+		<xsd:attribute name="type" type="type" use="optional"/>
+		<xsd:attribute name="group" type="xsd:string"/>
+		<xsd:attribute name="publicity" type="xsd:int"/>
+		<xsd:attribute name="registration" type="xsd:boolean" use="optional" default="false"/>
+		<xsd:attribute name="fieldname" type="xsd:string"/>
+		<xsd:attribute name="allowEmpty" type="xsd:boolean" use="optional" default="true"/>
+	</xsd:complexType>
+	<xsd:complexType name="profileAttributesType">
+		<xsd:sequence>
+			<xsd:element name="user_id" type="userIdType"/>
+			<xsd:element name="password" type="userPasswordType"/>
+			<xsd:element name="name" type="userAttributeType"/>
+			<xsd:element name="nickname" type="userAttributeType"/>
+			<xsd:element name="gender" type="userAttributeType"/>
+			<xsd:element name="date_of_birth" type="userAttributeType"/>
+			<xsd:element name="email" type="userAttributeType"/>
+			<xsd:element name="phone" type="userAttributeType"/>
+			<xsd:element name="fax" type="userAttributeType"/>
+			<xsd:element name="extension_41" type="userExtAttributeType"/>
+			<xsd:element name="extension_42" type="userExtAttributeType"/>
+			<xsd:element name="job_title" type="userAttributeType"/>
+			<xsd:element name="join_date" type="userAttributeType"/>
+			<xsd:element name="source" type="userAttributeType"/>
+			<xsd:element name="extension_1" type="userExtAttributeType"/>
+			<xsd:element name="extension_2" type="userExtAttributeType"/>
+			<xsd:element name="extension_3" type="userExtAttributeType"/>
+			<xsd:element name="extension_4" type="userExtAttributeType"/>
+			<xsd:element name="extension_5" type="userExtAttributeType"/>
+			<xsd:element name="extension_6" type="userExtAttributeType"/>
+			<xsd:element name="extension_7" type="userExtAttributeType"/>
+			<xsd:element name="extension_8" type="userExtAttributeType"/>
+			<xsd:element name="extension_9" type="userExtAttributeType"/>
+			<xsd:element name="extension_10" type="userExtAttributeType"/>
+			<xsd:element name="extension_11" type="userExtAttributeType"/>
+			<xsd:element name="extension_12" type="userExtAttributeType"/>
+			<xsd:element name="extension_13" type="userExtAttributeType"/>
+			<xsd:element name="extension_14" type="userExtAttributeType"/>
+			<xsd:element name="extension_15" type="userExtAttributeType"/>
+			<xsd:element name="extension_16" type="userExtAttributeType"/>
+			<xsd:element name="extension_17" type="userExtAttributeType"/>
+			<xsd:element name="extension_18" type="userExtAttributeType"/>
+			<xsd:element name="extension_19" type="userExtAttributeType"/>
+			<xsd:element name="extension_20" type="userExtAttributeType"/>
+			<xsd:element name="extension_21" type="userExtAttributeType"/>
+			<xsd:element name="extension_22" type="userExtAttributeType"/>
+			<xsd:element name="extension_23" type="userExtAttributeType"/>
+			<xsd:element name="extension_24" type="userExtAttributeType"/>
+			<xsd:element name="extension_25" type="userExtAttributeType"/>
+			<xsd:element name="extension_26" type="userExtAttributeType"/>
+			<xsd:element name="extension_27" type="userExtAttributeType"/>
+			<xsd:element name="extension_28" type="userExtAttributeType"/>
+			<xsd:element name="extension_29" type="userExtAttributeType"/>
+			<xsd:element name="extension_30" type="userExtAttributeType"/>
+			<xsd:element name="extension_31" type="userExtAttributeType"/>
+			<xsd:element name="extension_32" type="userExtAttributeType"/>
+			<xsd:element name="extension_33" type="userExtAttributeType"/>
+			<xsd:element name="extension_34" type="userExtAttributeType"/>
+			<xsd:element name="extension_35" type="userExtAttributeType"/>
+			<xsd:element name="extension_36" type="userExtAttributeType"/>
+			<xsd:element name="extension_37" type="userExtAttributeType"/>
+			<xsd:element name="extension_38" type="userExtAttributeType"/>
+			<xsd:element name="extension_39" type="userExtAttributeType"/>
+			<xsd:element name="extension_40" type="userExtAttributeType"/>
+			<xsd:element name="extension_43" type="userExtAttributeType"/>
+			<xsd:element name="extension_44" type="userExtAttributeType"/>
+			<xsd:element name="extension_45" type="userExtAttributeType"/>
+			<xsd:element name="group" type="userAttributeType"/>
+			<xsd:element name="grade" type="userAttributeType"/>
+			<xsd:element name="competency" type="userAttributeType"/>
+			<xsd:element name="role" type="userAttributeType"/>
+			<xsd:element name="direct_supervisors" type="userAttributeType"/>
+			<xsd:element name="app_approval_usg_ent_id" type="userAttributeType"/>
+			<xsd:element name="supervised_groups" type="userAttributeType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="userProfileType">
+		<xsd:sequence>
+			<xsd:element name="profile_attributes" type="profileAttributesType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="accountSuspensionType">
+		<xsd:attribute name="active" type="xsd:boolean" use="required"/>
+		<xsd:attribute name="max_trial" type="posIntType" use="optional"/>
+	</xsd:complexType>
+	<xsd:complexType name="forgetPasswordType">
+		<xsd:attribute name="active" type="xsd:boolean" use="required"/>
+		<xsd:attribute name="link_last_days" type="xsd:int" use="required"/>
+		<xsd:attribute name="max_attempt" type="xsd:int" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="accountRegistrationType">
+		<xsd:attribute name="active" type="xsd:boolean" use="required"/>
+	</xsd:complexType>
+	<xsd:element name="user_management">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="account_registration" type="accountRegistrationType"/>
+				<xsd:element name="forget_password" type="forgetPasswordType"/>
+				<xsd:element name="account_suspension" type="accountSuspensionType"/>
+				<xsd:element name="user_profile" type="userProfileType"/>				
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

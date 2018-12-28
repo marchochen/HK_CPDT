@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="scheduled_task">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="task" type="taskType" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="enabled" type="xsd:boolean"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="taskType">
+		<xsd:sequence>
+			<xsd:element name="class_name" type="nonNullStringType"/>
+			<xsd:element name="schedule" type="scheduleType" minOccurs="0"/>
+			<xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="enabled" type="xsd:boolean"/>
+	</xsd:complexType>
+	<xsd:complexType name="scheduleType">
+		<xsd:choice>
+			<xsd:element name="start_time" type="startTimeType"/>
+			<xsd:element name="repeat" type="repeatType"/>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="paramType">
+		<xsd:sequence>
+			<xsd:element name="name" type="nonNullStringType"/>
+			<xsd:element name="value" type="nonNullStringType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="startTimeType">
+		<xsd:attribute name="hour" type="hourType"/>
+		<xsd:attribute name="minute" type="minuteType"/>
+	</xsd:complexType>
+	<xsd:complexType name="repeatType">
+		<xsd:attribute name="every" type="posIntType"/>
+		<xsd:attribute name="unit" type="unitType"/>
+	</xsd:complexType>
+	<xsd:simpleType name="hourType">
+		<xsd:restriction base="xsd:int">
+			<xsd:minInclusive value="0"/>
+			<xsd:maxInclusive value="23"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="minuteType">
+		<xsd:restriction base="xsd:int">
+			<xsd:minInclusive value="0"/>
+			<xsd:maxInclusive value="59"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="unitType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="minute"/>
+			<xsd:enumeration value="hour"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="nonNullStringType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="posIntType">
+		<xsd:restriction base="xsd:int">
+			<xsd:minInclusive value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

@@ -1,0 +1,106 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Pragma" contect="no-cache">
+<title>Cyberwisdom wizBank</title>
+<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
+var hasSendInt=9572;
+var IamHere=true;
+var counti=0;
+
+function GetInnerText(o){
+	var rtn='';
+	if(!o)   {rtn='null';return rtn;}
+	if (window.navigator.userAgent.toLowerCase().indexOf("msie")>=1)
+	{
+		try{
+			rtn=o.innerText;
+		}catch(e){
+			rtn='error';
+		}
+	}
+	else
+		{//FF, Safira
+			var childS = o.childNodes;
+			for(var i=0; i<childS.length; i++)
+			{
+				if(childS[i].nodeType==1)
+				rtn += childS[i].tagName=="BR" ? '\r\n' : childS[i].textContent;
+				else if(childS[i].nodeType==3)
+					rtn += childS[i].nodeValue;
+			}
+			rtn = clearBr(rtn,"\r\n");
+		}
+	return rtn;
+}
+		
+function clearBr(key,replaceChar) 
+{ 
+    key = key.replace(/<\/?.+?>/g,replaceChar); 
+    key = key.replace(/[\r\n]/g, replaceChar); 
+    return key; 
+} 
+function getURlPair(varName,urlStr){
+	if(varName!=""&&varName!=null&&typeof(varName)!="undefined"&&urlStr!=""&&urlStr!=null&&typeof(urlStr)!="undefined"){
+		var idx1=varName.length;
+		varName=varName+"=";
+		var idx2=urlStr.indexOf(varName);
+		if(idx2>=0&&(idx2+idx1)<urlStr.length){
+		    var valueStr="";
+			var idx3=urlStr.indexOf("&",idx2+idx1);
+			if(idx3>=0){
+				valueStr=urlStr.substring(idx2+idx1+1,idx3);
+			}else{
+				valueStr=urlStr.substring(idx2+idx1+1);
+			}
+			return unescape(valueStr);
+		}else{
+			return "";
+		}
+	}else{
+		return "";
+	}
+}
+function hasPush(){
+	var sendStr=GetInnerText(window.frames["sendAdapter"].document.body);
+	if(sendStr.substring(0,7)=="error=0"){
+		window.close();
+	}
+	counti++;
+	if(counti>4){
+		window.close();
+	}
+}
+function putSubmitDate(){
+	window.frames["sendAdapter"].document.getElementById("scorm_Adapter_form").submit();
+    hasSendInt=window.setInterval("hasPush()",1000);
+}
+function submitRecord(){
+	//debug info:alert("submit recode："+window.frames["sendAdapter"].document.getElementById("AICC_Data").value)
+	if(window.frames["sendAdapter"].document.getElementById("AICC_Data").value!=""){
+		setTimeout("putSubmitDate()",2000); 
+		window.frames["msg"].document.writeln("正在提交学习记录，请稍等.");
+	}else{
+		window.close();
+	}
+}
+function hideMySelf(){
+	window.moveTo(-8000,-8000)
+	window.opener.focus();
+}
+function doSCORMInit(){
+	window.frames["sendAdapter"].document.getElementById("command").value="PutParam";
+	window.frames["sendAdapter"].document.getElementById("version").value="2.2";
+	window.frames["sendAdapter"].document.getElementById("session_id").value=getURlPair("sid",window.location.search);
+	window.frames["sendAdapter"].document.getElementById("AU_password").value="";
+	window.frames["sendAdapter"].document.getElementById("scorm_Adapter_form").action=getURlPair("surl",window.location.search);
+	hideMySelf();
+	window.opener.putToSendAdapter();
+}
+</SCRIPT>
+</head>
+<frameset rows="0,*" cols="*" frameborder="NO" border="0" framespacing="0">
+<frame src="scorm_send_adapter.htm" scrolling="NO" noresize name="sendAdapter">
+<frame src="msg.htm" scrolling="NO" noresize name="msg">
+</frameset><noframes></noframes>
+</html>

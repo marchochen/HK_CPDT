@@ -1,0 +1,165 @@
+<!doctype html>
+<html ng-app="cwn">
+<head>
+<title translate="cwn_title"></title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="icon" href="../images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="../css/basic.css" />
+<script type="text/javascript" src="../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery.load.js"></script>
+<script type="text/javascript" src="../js/login_label.js"></script>
+
+<script type="text/javascript" src="../js/controllers/LoginController.js"></script>
+<script type="text/javascript" src="../lib/common.js" ></script>
+<style type="text/css">
+input::input-placeholder {
+	color : #999;
+	opacity:1;
+}
+:-moz-placeholder {
+   color: #999;
+   opacity:1; 
+}
+
+::-moz-placeholder {
+    color: #999;
+    opacity:1;
+}
+
+input:-ms-input-placeholder{
+    color: #999;
+    opacity:1;
+}
+
+input::-webkit-input-placeholder{
+    color: #999;
+    opacity:1;
+}
+</style>
+<script type="text/javascript">
+$(function(){
+	$("#tab").css("height", $(window).height());
+	loadBgImage ();
+	$('#username').keydown(function(e){
+		if(e.keyCode == 13){
+			$('#password').focus();
+		}
+	});
+	$('#password').keydown(function(e){
+		if(e.keyCode == 13){
+			$('#login').click();
+		}
+	});
+});
+//加载背景图片
+function loadBgImage () {
+	var bgImage = '../images/adv63.png';
+	var logoImage = '../images/logo3.png';		
+	if(!appInd){
+		var token = null;
+		if(window.localStorage){
+	     	token = window.localStorage.getItem("token") || window.sessionStorage.getItem("token");
+		}
+		$.ajax({
+			url : serverHost+'/app/user/sitePoster',
+			type: "GET",
+	        dataType: 'jsonp',
+	        async : true,
+	        jsonp: 'callback',
+	        data : {
+	            token : token,
+	            developer : 'mobile'
+	        },
+	        beforeSend: function(request) {
+	            request.setRequestHeader("Accept", "application/javascript");
+	        },
+	        success : function(data){
+	        	var result = $.parseJSON(data);
+	        	var sitePoster = result.sitePoster;
+	        	var site = result.site;
+	        	if(sitePoster && sitePoster.login_bg_file1 && sitePoster.login_bg_file1 != '' ){
+	        		bgImage = serverHost + '/poster/loginPage/' + site + '/' + sitePoster.login_bg_file1;
+	        		logoImage = serverHost + '/poster/' + site + '/' + sitePoster.sp_logo_file_cn;
+	        	}
+	        	$('.list-pic-5').css('background', 'url(' +bgImage+ ') no-repeat center');
+	        	$('.list-pic-5').css('background-size', '100% 100%');
+	        	$('.wiz-logo img').attr('src', logoImage);
+	        }        
+		});
+	} else {
+		$('.list-pic-5').css('background', 'url(' +bgImage+ ') no-repeat center');
+		$('.list-pic-5').css('background-size', '100% 100%');
+	    $('.wiz-logo img').attr('src', logoImage);
+	}
+	
+}
+</script>
+<!--[if lt IE 9]>
+<script src="../js/lib/html5.js" type="text/jscript"></script>
+<![endif]-->
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="LoginController">
+
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>
+<div class="wrap-2" id="wizwrap" style="height:100%;">
+<div class="list-pic-5-1"></div> <!-- list-pic-5 End -->
+     <div class="own-box-login">
+     <div class="own-box-area">
+     	<table id="tab" style="width:100%;">
+     		<tr>
+     			<td>
+   					<div class="wiz-box">
+		               <div class="wiz-logo">
+		               		<img src="../images/logo3.png" alt="" ng-show="!flag"/>
+		               		<img src="{{logoImage}}" alt="" ng-show="flag"/>
+		               </div>
+		               <div class="wiz-white"><!-- <img src="../images/adv64.png" alt=""> --></div>
+		               <form class="wiz-form" name="frmLogin">
+		                    <div class="wiz-user" ng-show="appInd">
+		                         <input type="text" id="serverHost" name="serverHost" ng-model="serverHost" required placeholder="{{login_pls_host}}" class="wiz-txt-1">
+		                    </div>
+		                    <div class="wiz-email">
+		                         <input type="text" id="username" name="username" ng-model="username" required placeholder="{{login_pls_name}}" class="wiz-txt-1">
+		                    </div>
+		                    <div class="wiz-pws">
+		                         <input type="Password" id="password" name="password" ng-model="password" required placeholder="{{login_pls_password}}" class="wiz-txt-1">
+		                    </div>
+		                    <div class="wiz-info">
+		                    	<a style="display:inline-block;color:#fff;text-align:center;" href="javascript:void(0)" id="login" ng-click="login()" name="wiztxt" class="wiz-btn-3">{{btn_login}}</a>
+								<img ng-show="isLanding" style="width:25px; line-height:50px; position:absolute; top:12px; left:95px;" src="../images/loading.gif">
+		                    </div>
+		                    <div class="wiz-bar" style="position:relative;">
+		                         <a ng-show="!appInd" class="" id="remember" ng-click="checkRemember()" ng-class="{'wiz-remember-lose' : !checked, 'wiz-remember-good' : checked}" href="javascript:;" title="Remember me">{{login_remember_me}}</a>
+		                         <a class="wiz-try" href="javascript:;" id="forgetPwd" ng-click="forgetPwd()" target="_blank">{{login_forgot_password}}</a>
+		                    </div>
+		                    <div class="wiz-bar-3">
+		                   	 	<div ng-class="{'wiz-lan-div-mb' : appInd, 'wiz-lan-div-pc' : !appInd}">
+			                    	<span class="wiz-lan-circle">
+			                    		<a style="color:#999;" id="jian" href="javascript:;" ng-click="select('zh-cn')" title="简">简</a>
+			                    	</span>
+			                    	<span class="wiz-lan-circle margin-left30">
+			                    		<a style="color:#999;" id="fan" href="javascript:;" ng-click="select('zh-hk')" title="繁">繁</a>
+			                    	</span>
+			                    	<span class="wiz-lan-circle margin-left30">
+			                    		<a style="color:#999;" id="ying" href="javascript:;" ng-click="select('en-us')" title="Eng">Eng</a>
+			                    	</span>
+		                    	</div>
+		                    </div>
+		               </form>
+		               <div class="wiz-login-footer" ng-class="{'margin100' : appInd, 'margin50' : !appInd}">
+		               		<hr class="wiz-login-footer-hr margin-right10 fleft" />
+		               		<img src="../images/footer01.png" alt="" style="width:150px;">
+		               		<hr class="wiz-login-footer-hr fright" />
+		               	</div>
+		          	</div>
+     			</td>
+     		</tr>
+     	</table>
+     </div>     
+     </div>
+
+</div> <!-- wrap End -->
+
+</body>
+</html>

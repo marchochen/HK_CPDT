@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.VotingMapper">
+	<resultMap type="com.cwn.wizbank.entity.Voting" id="votingMap">
+		<id column="vot_id" property="vot_id" />
+		<result column="vot_title" property="vot_title"></result>
+		<result column="vot_content" property="vot_content"></result>
+		<result column="vot_status" property="vot_status"></result>
+		<result column="vot_tcr_id" property="vot_tcr_id"></result>
+		<result column="vot_eff_date_from" property="vot_eff_date_from"></result>
+		<result column="vot_eff_date_to" property="vot_eff_date_to"></result>
+		<result column="vot_create_timestamp" property="vot_create_timestamp"></result>
+		<result column="vot_create_usr_id" property="vot_create_usr_id"></result>
+		<result column="vot_update_timestamp" property="vot_update_timestamp"></result>
+		<result column="vot_update_usr_id" property="vot_update_usr_id"></result>
+		<result column="responseCount" property="responseCount"></result>
+		<result column="tcr_title" property="tcr_title"></result>
+		<association property="voteQuestion" javaType="com.cwn.wizbank.entity.VoteQuestion">
+			<id property="vtq_id" column="vtq_id" />
+			<result property="vtq_vot_id" column="vtq_vot_id" />
+			<result property="vtq_title" column="vtq_title" />
+			<result property="vtq_contnet" column="vtq_contnet" />
+			<result property="vtq_type" column="vtq_type" />
+			<result property="vtq_status" column="vtq_status" />
+			<result property="vtq_order" column="vtq_order" />
+			<result property="vtq_create_timestamp" column="vtq_create_timestamp" />
+			<result property="vtq_create_usr_id" column="vtq_create_usr_id" />
+			<result property="vtq_update_timestamp" column="vtq_update_timestamp" />
+			<result property="vtq_update_usr_id" column="vtq_update_usr_id" />
+			<collection property="voteOptions" ofType="com.cwn.wizbank.entity.VoteOption">
+				<id property="vto_id" column="vto_id"/>
+				<result property="vto_vtq_id" column="vto_vtq_id"/>
+				<result property="vto_desc" column="vto_desc"/>
+				<result property="vto_order" column="vto_order"/>
+			</collection>
+		</association>
+
+		<association property="tcTrainingCenter" javaType="com.cwn.wizbank.entity.TcTrainingCenter">
+			<result property="tcr_title" column="tcr_title" />
+		</association>
+
+		<association property="voteResponse" javaType="com.cwn.wizbank.entity.VoteResponse">
+		    <result property="vrp_respone_time" column="vrp_respone_time" />
+		</association>
+	</resultMap>
+
+	<select  id="pageAdmin" parameterType="Page" resultType="com.cwn.wizbank.entity.Voting">
+		 	select vi.*,r.responseCount , t.tcr_title as tcr_title from voting vi left join
+				(select vrp_vot_id,COUNT(distinct vrp_usr_ent_id) responseCount from voteresponse group by vrp_vot_id) r on vi.vot_id = r.vrp_vot_id
+				left join tcTrainingCenter t on t.tcr_id = vi.vot_tcr_id
+			where 
+			vi.vot_status != 'DEL'
+			
+			<choose>
+				<when test="params.tcrId != null and params.tcrId > 0">
+					and vi.vot_tcr_id = #{params.tcrId}
+				</when>
+				<otherwise>
+					<if test="params.isRoleTcInd != null and params.isRoleTcInd == true">
+						and (vi.vot_tcr_id in(
+							select child.tcn_child_tcr_id
+							from tcTrainingCenterOfficer, tcTrainingCenter parent, tcRelation child
+							where tco_tcr_id = parent.tcr_id
+							and parent.tcr_status = 'OK'
+							and parent.tcr_id = child.tcn_ancestor
+							and tco_usr_ent_id = #{params.userEntId}
+						) or vi.vot_tcr_id in(
+							select tco_tcr_id from tcTrainingCenterOfficer , tcTrainingCenter
+							where  tco_tcr_id = tcr_id and tco_usr_ent_id = #{params.userEntId}
+						)
+						)
+					</if>
+				</otherwise>
+			</choose>
+			 
+			<if test="params.searchText != null and params.searchText !=''">
+		    <bind name="searchText" value="'%' + params.searchText + '%'" />
+			and ( lower(vot_title) like N'${searchText}' or lower(vot_title) like N'${searchText}' )
+		  	</if>
+	</select>
+
+	<select id="get" parameterType="java.lang.Long" resultMap="votingMap">
+		select vi.*, r.responseCount,vq.*,vo.* from voting vi
+		left join (select vrp_vot_id,COUNT(distinct vrp_usr_ent_id) responseCount from voteresponse group by vrp_vot_id) r on vi.vot_id = r.vrp_vot_id
+		left join votequestion vq on vi.vot_id = vq.vtq_vot_id
+		left join voteoption vo on vq.vtq_id = vo.vto_vtq_id
+		where vi.vot_id = #{id}
+	</select>
+
+	<update id="update" parameterType="com.cwn.wizbank.entity.Voting">
+		update voting set vot_title = #{vot_title}
+		,vot_content = #{vot_content}
+		,vot_status = #{vot_status}
+		,vot_tcr_id = #{vot_tcr_id}
+		,vot_eff_date_from = #{vot_eff_date_from}
+		,vot_eff_date_to = #{vot_eff_date_to}
+		,vot_update_timestamp = #{vot_update_timestamp}
+		,vot_update_usr_id = #{vot_update_usr_id}
+		where vot_id = #{vot_id}
+	</update>
+
+	<update id="delete" parameterType="java.lang.Long">
+		update voting set vot_status = 'DEL' where vot_id = #{id}
+	</update>
+
+	<update id="cancelPublished" parameterType="com.cwn.wizbank.entity.Voting">
+		update voting set vot_status =#{vot_status} ,vot_update_timestamp=#{vot_update_timestamp},vot_update_usr_id = #{vot_update_usr_id} where vot_id = #{vot_id}
+	</update>
+
+	<select  id="pageFront" parameterType="Page" resultMap="votingMap">
+		 	select vi.*,
+		 		(case when curUsrVotedList.vrp_vot_id is null then 0 else 1 end) isCurUsrVot,
+		 		vrp_respone_time as vrp_respone_time,
+		 		t.tcr_title tcr_title
+		 	from voting vi
+		 	left join (
+		 			   select distinct(vrp_vot_id),min(vrp_respone_time) vrp_respone_time from voteresponse
+		 			   where vrp_usr_ent_id = #{params.userEntId}
+		 			   group by vrp_vot_id,vrp_usr_ent_id,vrp_vtq_id
+		 			  ) curUsrVotedList on vi.vot_id = curUsrVotedList.vrp_vot_id
+		 	left join TcTrainingCenter t on t.tcr_id = vi.vot_tcr_id
+		 	where  vi.vot_tcr_id in(select athTc.tcr_id from V_usrTcRelation athTc where athTc.u_id = #{params.userEntId}) and
+		 	vi.vot_status = 'ON' and
+		 	<if test="_databaseId == 'ORACLE'">
+				SYSDATE
+			</if>
+			<if test="_databaseId == 'SQLSERVER'">
+				GETDATE()
+			</if>
+			<if test="_databaseId == 'MYSQL'">
+				SYSDATE()
+			</if>
+			<choose>
+				<when test="params.type == 'ed'"><!-- 访问已结束列表 -->
+					> vi.vot_eff_date_to
+				</when>
+				<otherwise><!-- 访问进行中的列表 -->
+					between vi.vot_eff_date_from and vi.vot_eff_date_to
+				</otherwise>
+			</choose>
+			order by isCurUsrVot , vot_eff_date_to
+	</select>
+
+	<select id="getInProgressCount" resultType="Long" parameterType="Map">
+		select count(vi.vot_id) from voting vi left join TcTrainingCenter t on t.tcr_id = vi.vot_tcr_id
+			left join (select distinct(vrp_vot_id) , vrp_respone_time from voteresponse where vrp_usr_ent_id = #{usrEntId}) curUsrVotedList
+     			on vi.vot_id = curUsrVotedList.vrp_vot_id
+		 	where
+		 	vi.vot_status = 'ON' and vrp_vot_id is null  and
+			#{curDate}
+			between vi.vot_eff_date_from and vi.vot_eff_date_to
+			and vi.vot_tcr_id in(select athTc.tcr_id from V_usrTcRelation athTc where athTc.u_id = #{usrEntId})
+	</select>
+
+	<insert id="add" parameterType="com.cwn.wizbank.entity.Voting">
+		insert into voting(vot_title,vot_content,vot_status,vot_tcr_id,vot_eff_date_from,vot_eff_date_to,vot_create_timestamp,vot_create_usr_id,vot_update_timestamp,vot_update_usr_id)
+		values(#{vot_title},#{vot_content},#{vot_status},#{vot_tcr_id},#{vot_eff_date_from},#{vot_eff_date_to},#{vot_create_timestamp},#{vot_create_usr_id},#{vot_update_timestamp},#{vot_update_usr_id})
+		<selectKey resultType="java.lang.Long" keyProperty="vot_id" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select voting_seq.CURRVAL AS vot_id FROM DUAL
+				</when>
+				<otherwise>
+					select @@IDENTITY as vot_id
+				</otherwise>
+			</choose>
+		</selectKey>
+	</insert>
+
+</mapper>

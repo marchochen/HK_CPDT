@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.CpdTypeMapper">
+	<resultMap id="CpdType" type="CpdType">
+		<id column="ct_id" property="ct_id" />
+		<result column="ct_license_type" property="ct_license_type"></result>
+		<result column="ct_license_alias" property="ct_license_alias"></result>
+		<result column="ct_starting_month" property="ct_starting_month"></result>
+		<result column="ct_display_order" property="ct_display_order"></result>
+		<result column="ct_award_hours_type" property="ct_award_hours_type"></result>
+		<result column="ct_cal_before_ind" property="ct_cal_before_ind"></result>
+		<result column="ct_trigger_email_type" property="ct_trigger_email_type"></result>
+		<result column="ct_trigger_email_month_1" property="ct_trigger_email_month_1"></result>
+		<result column="ct_trigger_email_date_1" property="ct_trigger_email_date_1"></result>
+		<result column="ct_trigger_email_month_2" property="ct_trigger_email_month_2"></result>
+		<result column="ct_trigger_email_date_2" property="ct_trigger_email_date_2"></result>
+		<result column="ct_trigger_email_month_3" property="ct_trigger_email_month_3"></result>
+		<result column="ct_trigger_email_date_3" property="ct_trigger_email_date_3"></result>
+		<result column="ct_last_email_send_time" property="ct_last_email_send_time"></result>
+		<result column="ct_recover_hours_period" property="ct_recover_hours_period"></result>
+		<result column="ct_create_usr_ent_id" property="ct_create_usr_ent_id"></result>
+		<result column="ct_create_datetime" property="ct_create_datetime"></result>
+		<result column="ct_update_usr_ent_id" property="ct_update_usr_ent_id"></result>
+		<result column="ct_update_datetime" property="ct_update_datetime"></result>
+		<result column="ct_status" property="ct_status"></result>
+	</resultMap>
+	
+	
+	<select id="isExistForType" resultType="java.lang.Boolean"
+		parameterType="com.cwn.wizbank.entity.CpdType">
+	    <![CDATA[
+			select count(*)
+	         from cpdType 
+	         where ct_license_type = N'${ct_license_type}'
+	         and ct_status = 'OK'
+		]]>
+		<if test="ct_id !=null and ct_id !=''">
+			<![CDATA[
+				and ct_id != #{ct_id}
+			]]>
+		</if>
+	</select>
+
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.CpdType">
+	    <![CDATA[
+            insert into cpdType(
+            		ct_license_type,
+            		ct_license_alias,
+            		ct_starting_month,
+            		ct_display_order,
+            		ct_award_hours_type,
+            		ct_cal_before_ind,
+            		ct_trigger_email_type,
+            		ct_trigger_email_month_1,
+            		ct_trigger_email_date_1,
+            		ct_trigger_email_month_2,
+            		ct_trigger_email_date_2,
+            		ct_trigger_email_month_3,
+            		ct_trigger_email_date_3,
+            		ct_recover_hours_period,
+            		ct_create_usr_ent_id,
+            		ct_create_datetime,
+            		ct_status
+            ) values (
+            	#{ct_license_type,jdbcType=VARCHAR},
+            	#{ct_license_alias,jdbcType=VARCHAR},
+            	#{ct_starting_month,jdbcType=INTEGER},
+            	#{ct_display_order,jdbcType=INTEGER},
+            	#{ct_award_hours_type,jdbcType=INTEGER},
+            	#{ct_cal_before_ind,jdbcType=INTEGER},
+            	#{ct_trigger_email_type,jdbcType=INTEGER},
+            	#{ct_trigger_email_month_1,jdbcType=INTEGER},
+            	#{ct_trigger_email_date_1,jdbcType=INTEGER},
+            	#{ct_trigger_email_month_2,jdbcType=INTEGER},
+            	#{ct_trigger_email_date_2,jdbcType=INTEGER},
+            	#{ct_trigger_email_month_3,jdbcType=INTEGER},
+            	#{ct_trigger_email_date_3,jdbcType=INTEGER},
+            	#{ct_recover_hours_period,jdbcType=INTEGER},
+            	#{ct_create_usr_ent_id,jdbcType=INTEGER},
+            	#{ct_create_datetime,jdbcType=TIMESTAMP},
+            	#{ct_status,jdbcType=VARCHAR}
+            )
+        ]]>
+	</insert>
+
+	<update id="update" parameterType="com.cwn.wizbank.entity.CpdType">
+	    <![CDATA[
+	        update cpdType 
+	        set
+				ct_license_type = #{ct_license_type,jdbcType=VARCHAR},
+				ct_license_alias = #{ct_license_alias,jdbcType=VARCHAR},
+           		ct_trigger_email_type = #{ct_trigger_email_type,jdbcType=INTEGER},
+           		ct_trigger_email_month_1 = #{ct_trigger_email_month_1,jdbcType=INTEGER},
+           		ct_trigger_email_date_1 = #{ct_trigger_email_date_1,jdbcType=INTEGER},
+           		ct_trigger_email_month_2 = #{ct_trigger_email_month_2,jdbcType=INTEGER},
+           		ct_trigger_email_date_2 = #{ct_trigger_email_date_2,jdbcType=INTEGER},
+           		ct_trigger_email_month_3 = #{ct_trigger_email_month_3,jdbcType=INTEGER},
+           		ct_trigger_email_date_3 = #{ct_trigger_email_date_3,jdbcType=INTEGER},
+           		ct_recover_hours_period = #{ct_recover_hours_period,jdbcType=INTEGER},
+           		ct_update_usr_ent_id = #{ct_update_usr_ent_id,jdbcType=INTEGER},
+           		ct_update_datetime = #{ct_update_datetime,jdbcType=TIMESTAMP}
+	         where ct_id = #{ct_id,jdbcType=INTEGER}
+	    ]]>
+	</update>
+	
+	<select id="isTypeExist" resultType="boolean" parameterType="String">
+		select count(ct_license_type) from cpdType where ct_license_type = #{_parameter}
+	</select>
+	
+	<select id="isGroupExist" resultType="boolean" parameterType="Map">
+		select count(cg_code) from cpdGroup where cg_code = #{CPD_group_code}
+	</select>	
+		
+	<select id="isGroupBelongLicense" resultType="boolean" parameterType="Map">
+		select count(cg_code) from cpdGroup where cg_code = #{CPD_group_code} and cg_ct_id = (select ct_id from cpdType where  ct_status = 'OK'  and  ct_license_type = #{License_type})
+	</select>		
+	
+	<select id="getCpdType" resultType="com.cwn.wizbank.entity.CpdType" parameterType="com.cwn.wizbank.entity.CpdType">
+	    <![CDATA[
+			select *
+	         from cpdType 
+	        where 1=1
+		]]>
+		<if test="ct_id !=null and ct_id !=''">
+			<![CDATA[
+				and ct_id = #{ct_id}
+			]]>
+		</if>
+		<if test="ct_status !=null and ct_status !=''">
+			<![CDATA[
+				and ct_status = #{ct_status}
+			]]>
+		</if>
+		<if test="ct_license_type !=null and ct_license_type !=''">
+			<![CDATA[
+				ct_license_type = N'${ct_license_type}'
+			]]>
+		</if>
+         <![CDATA[
+	       order by ct_display_order
+		]]> 		
+	</select>
+	
+	 <select id="getCpdTypeOutStandingEmail" resultType="com.cwn.wizbank.entity.CpdType" parameterType="Map">
+        <![CDATA[
+            select *
+             from cpdType 
+            where 
+            (
+            (ct_trigger_email_month_1 = #{month} and ct_trigger_email_date_1 = #{date} ) or
+            (ct_trigger_email_month_2 = #{month} and ct_trigger_email_date_2 = #{date} ) or
+            (ct_trigger_email_month_3 = #{month} and ct_trigger_email_date_3 = #{date} )
+            )
+            and ct_trigger_email_type = 2
+            and ct_status = 'OK'
+            order by ct_display_order
+        ]]>
+    </select>
+    
+
+    <select id="getMaxOrder" resultType="java.lang.Integer">
+    
+   		<choose>
+			<when test="_databaseId == 'SQLSERVER'">
+				  <![CDATA[
+					SELECT 
+						isnull(max(ct_display_order),0)  as ct_display_order
+					FROM 
+						cpdType
+				]]>	
+			</when>
+			<when test="_databaseId == 'ORACLE'">
+			  	<![CDATA[
+					SELECT 
+						NVL(max(ct_display_order),0)  as ct_display_order
+					FROM 
+						cpdType
+				]]>	
+			</when>
+			<otherwise>
+			  	<![CDATA[
+					SELECT 
+						IFNULL(max(ct_display_order),0)  as ct_display_order
+					FROM 
+						cpdType
+				]]>	
+			</otherwise>
+		</choose>
+
+	</select>
+   
+<select id="searchAll" resultMap="CpdType" parameterType="Page">
+		<![CDATA[
+		  SELECT ct_id
+			      ,ct_license_type
+			      ,ct_license_alias
+			      ,ct_starting_month
+			      ,ct_display_order
+			      ,ct_award_hours_type
+			      ,ct_cal_before_ind
+			      ,ct_trigger_email_type
+			      ,ct_trigger_email_month_1
+			      ,ct_trigger_email_date_1
+			      ,ct_trigger_email_month_2
+			      ,ct_trigger_email_date_2
+			      ,ct_trigger_email_month_3
+			      ,ct_trigger_email_date_3
+			      ,ct_recover_hours_period
+			      ,ct_last_email_send_time
+			      ,ct_create_usr_ent_id
+			      ,ct_create_datetime
+			      ,ct_update_usr_ent_id
+			      ,ct_update_datetime
+			      ,ct_status
+			  FROM cpdType where ct_status = 'OK'
+			  order by ct_display_order asc
+		]]>
+	</select>
+
+  <select id="get" resultMap="CpdType" parameterType="java.lang.Long">
+	    <![CDATA[
+	        select CpdType.*
+	         from CpdType 
+	         where ct_id = #{id}  and ct_status = 'OK'
+	    ]]>
+	</select>
+
+<update id="delete" parameterType="com.cwn.wizbank.entity.CpdType">
+	    <![CDATA[
+	        update cpdType 
+	        set
+				ct_status = #{ct_status,jdbcType=VARCHAR},
+           		ct_update_usr_ent_id = #{ct_update_usr_ent_id,jdbcType=INTEGER},
+           		ct_update_datetime = #{ct_update_datetime,jdbcType=TIMESTAMP}
+	         where ct_id = #{ct_id,jdbcType=INTEGER}
+	    ]]>
+	</update>
+
+<update id="updateOrder" parameterType="com.cwn.wizbank.entity.CpdType">
+	    <![CDATA[
+	        update cpdType 
+	        set
+				ct_display_order = #{ct_display_order,jdbcType=INTEGER},
+           		ct_update_usr_ent_id = #{ct_update_usr_ent_id,jdbcType=INTEGER},
+           		ct_update_datetime = #{ct_update_datetime,jdbcType=TIMESTAMP}
+	         where ct_id = #{ct_id,jdbcType=VARCHAR}
+	    ]]>
+	</update>
+
+<update id="updLastEmailSendTime" parameterType="com.cwn.wizbank.entity.CpdType">
+        <![CDATA[
+            update cpdType 
+            set
+                ct_last_email_send_time = #{ct_last_email_send_time,jdbcType=TIMESTAMP}
+             where ct_id = #{ct_id,jdbcType=INTEGER}
+        ]]>
+    </update>
+
+<resultMap id="cpdTypeInfo" type="CpdType">
+		<id column="ct_id" property="ct_id" />
+		<result column="ct_license_type" property="ct_license_type"></result>
+		<result column="ct_license_alias" property="ct_license_alias"></result>
+		<result column="ct_display_order" property="ct_display_order"></result>
+		<result column="ct_award_hours_type" property="ct_award_hours_type"></result>
+	   <collection property="cpdGrouplist"  column="{cg_ct_id = ct_id}" ofType="CpdGroup" select="getCpdGrouplist" />
+</resultMap>
+
+<select id="getCpdGrouplist" resultType="CpdGroup" parameterType="Map">
+   <![CDATA[
+	        select cg_id ,
+			        cg_code,
+			        cg_alias,
+			        cg_display_order 
+	        from cpdGroup
+	        where cg_ct_id  = #{cg_ct_id} and cg_status = 'OK'
+	        order by cg_display_order
+	    ]]>
+</select>
+
+<select id="getAllCptTypeAndGroup" resultMap="cpdTypeInfo">
+    select  ct_id ,
+	        ct_license_type,
+	        ct_license_alias,
+	        ct_display_order,
+	        ct_award_hours_type
+       from CpdType where ct_status = 'OK'
+        <!--报表 查询设置可在报表中显示  根据大牌id查询  -->
+		   <if test="cpdGroupIds != null and cpdGroupIds.size > 0">
+		     and ct_id in
+	 			<foreach collection="cpdGroupIds" item="item" index="index" 
+					open="(" separator="," close=")">
+					${item}
+				</foreach>
+		   </if>
+       order by ct_display_order
+</select>
+
+    <select id="getTypeByCode" resultType="CpdType"   parameterType="com.cwn.wizbank.entity.CpdType">
+        <![CDATA[
+            select *
+             from cpdType 
+             where ct_license_type = N'${ct_license_type}'
+             and ct_status = 'OK'
+        ]]>
+    </select>
+
+
+
+</mapper>

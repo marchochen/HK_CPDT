@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:simpleType name="methodType">
+		<xsd:restriction base="xsd:NMTOKEN">
+			<xsd:enumeration value="AUTO"/>
+			<xsd:enumeration value="MANUAL"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="prefixType">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="5"/>
+			<xsd:pattern value="[\-A-Za-z0-9_]*"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:group name="mainIdElement">
+		<xsd:sequence>
+			<xsd:element name="creation_method" type="methodType"/>
+			<xsd:element name="id_prefix" type="prefixType"/>
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:element name="record_id">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element name="learning_solution_id">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:group ref="mainIdElement"/>
+							<xsd:element name="class_id_prefix" type="prefixType"/>
+							<xsd:element name="session_id_prefix" type="prefixType"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="user_group_id">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:group ref="mainIdElement"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

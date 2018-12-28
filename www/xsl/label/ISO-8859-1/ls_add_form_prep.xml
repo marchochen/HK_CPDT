@@ -1,0 +1,60 @@
+<label_reference_data_list>
+	<label name="lab_g_create_ls">Create learning solution</label>
+	<label name="lab_g_select_ls">Please select learning solution type</label>
+	<label name="lab_g_ls">Learning solution type</label>
+	<label name="lab_g_select_enrol_wf">Please select enrollment workflow</label>
+	<label name="lab_g_enrol_wf">Enrollment workflow</label>
+	<label name="lab_g_none">None</label>
+	<label name="lab_g_form_btn_next_step">Next</label>
+	<label name="lab_g_form_btn_cancel">Cancel</label>
+	<label name="lab_g_item_type">
+		<element id="CLASSROOMCTAM">
+			<title>CTAM Training</title>
+			<description/>
+		</element>	
+		<element id="CLASSROOM">
+			<title>Classroom Training</title>
+			<description/>
+		</element>
+		<element id="SELFSTUDY">
+			<title>Web-based Training</title>
+			<description/>
+		</element>
+		<element id="SELFSTUDY_PAYMENT">
+			<title>Online Learning</title>
+			<description/>
+		</element>
+		<element id="MOBILE">
+			<title>Mobile Learning</title>
+			<description/>
+		</element>
+		<element id="AUDIOVIDEO">
+			<title>Audio/Video</title>
+			<description/>
+		</element>
+		<element id="BOOK">
+			<title>Book</title>
+			<description/>
+		</element>
+		<element id="WEBSITE">
+			<title>Website</title>
+			<description/>
+		</element>
+	</label>
+	<label name="lab_g_template_workflow">
+		<element id="15">
+			<title id="1">No approval required</title>
+			<description id="1"/>
+			<title id="2">The following approvals are required:</title>
+			<description id="2"/>
+			<title id="3">Supervisor approval</title>
+			<description id="3"/>
+			<title id="4">Direct supervisor only</title>
+			<description id="4">For direct supervisor approval to take effect in a course application, the "Direct supervisors" attribute of the applicant's user profile must have been set.</description>
+			<title id="5">First by direct supervisor, then by group supervisor(s)</title>
+			<description id="5">For group supervisor approval to take effect in a course application, the "Highest approval group" attribute of the applicant's user profile must have been set.</description>
+			<title id="6">Training administrator approval</title>
+			<description id="6"/>
+		</element>
+	</label>
+</label_reference_data_list>

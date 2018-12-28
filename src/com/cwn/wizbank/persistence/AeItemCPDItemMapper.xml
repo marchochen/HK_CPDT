@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.AeItemCPDItemMapper">
+    <resultMap type="AeItemCPDItem" id="AeItemCPDItem">
+       <id column="aci_id" property="aci_id"/>
+       <result column="aci_itm_id" property="aci_itm_id"/>
+       <result column="aci_accreditation_code" property="aci_accreditation_code"/>
+       <result column="aci_hours_end_date" property="aci_hours_end_date"  javaType="java.util.Date" jdbcType="DATE"/>
+       <result column="aci_create_usr_ent_id" property="aci_create_usr_ent_id"/>
+       <result column="aci_create_datetime" property="aci_create_datetime"/>
+       <result column="aci_update_usr_ent_id" property="aci_update_usr_ent_id"/>
+       <result column="aci_update_datetime" property="aci_update_datetime"/>
+       <collection property="aeCPDGourpItemList" column="{ id = aci_id, itm_id = aci_itm_id }" ofType="AeItemCPDGourpItem" select="getCPDGourpItems" />
+    </resultMap>
+    
+	<select id="getAeItemCPDItem" resultMap="AeItemCPDItem" parameterType="Map">
+		<![CDATA[
+			select 
+				 aci_id ,
+				 aci_itm_id ,
+				 aci_accreditation_code ,
+				 aci_hours_end_date ,
+				 aci_create_usr_ent_id ,
+				 aci_create_datetime ,
+				 aci_update_usr_ent_id ,
+				 aci_update_datetime 
+			from 
+				aeItemCPDItem 
+			where  1=1 
+			]]>
+			<if test="itm_id != null and itm_id != 0"> 
+                and  aci_itm_id = #{itm_id}
+            </if>
+            <if test="ire_child_itm_id != null and ire_child_itm_id != 0"> 
+                and  aci_itm_id in (
+				    select ire_parent_itm_id from aeItemRelation  
+				    where ire_child_itm_id = #{ire_child_itm_id} )
+            </if>
+	</select>
+	
+	  <select id="getCountItemByCtID" resultType="java.lang.Integer" parameterType="java.lang.Long">
+		<![CDATA[
+			select count(*)
+			from aeItemCPDItem  
+			]]>
+	  </select>
+	
+	 <select id="getByItmId" resultMap="AeItemCPDItem" parameterType="com.cwn.wizbank.entity.AeItemCPDItem">
+		<![CDATA[
+			select aci_id,
+			       aci_itm_id,
+			       aci_accreditation_code,
+			       aci_hours_end_date
+			from aeItemCPDItem  
+			where  aci_itm_id = #{itm_id} and aci_id = ( select max(aci_id) from aeItemCPDItem where aci_itm_id = #{itm_id} )
+			]]>
+	  </select>
+	
+	<select id="getCPDGourpItems" resultType="AeItemCPDGourpItem" parameterType="Map" >
+	  <![CDATA[ 
+	    select 
+				acgi_id ,
+				acgi_cg_id ,
+				acgi_aci_id ,
+				acgi_itm_id ,
+				acgi_award_core_hours ,
+				acgi_award_non_core_hours ,
+				acgi_create_usr_ent_id ,
+				acgi_create_datetime ,
+				acgi_update_usr_ent_id ,
+				acgi_update_datetime ,
+				aci_id,
+				aci_accreditation_code,
+				aci_hours_end_date
+	         from 
+         		aeItemCPDGourpItem  
+	         	left join aeItemCPDItem  on (acgi_aci_id = aci_id)
+	         where  acgi_aci_id = #{id} and acgi_itm_id = #{itm_id}
+	         ]]>
+	</select>
+	
+	<insert id="insertReturnID" parameterType="com.cwn.wizbank.entity.AeItemCPDItem"  keyProperty="aci_id">
+	    <![CDATA[
+            insert into AeItemCPDItem(
+            		aci_itm_id,
+            		aci_accreditation_code,
+            		aci_hours_end_date,
+            		aci_create_datetime,
+            		aci_create_usr_ent_id
+            ) values (
+            	#{aci_itm_id,jdbcType=INTEGER},
+            	#{aci_accreditation_code,jdbcType=VARCHAR},
+            	#{aci_hours_end_date,jdbcType=TIMESTAMP},
+            	#{aci_create_datetime,jdbcType=TIMESTAMP},
+            	#{aci_create_usr_ent_id,jdbcType=INTEGER}
+            )
+        ]]>
+        <selectKey keyProperty="aci_id" resultType="Long" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select AeItemCPDItem_seq.currval from dual
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					select ident_current('AeItemCPDItem')
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					select last_insert_id()
+				</when>
+			</choose>
+		</selectKey>
+	</insert>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.CpdGroupPeriod">
+	    <![CDATA[
+	        update AeItemCPDItem 
+	        set
+	            aci_accreditation_code = #{aci_accreditation_code,jdbcType=VARCHAR},
+				aci_hours_end_date = #{aci_hours_end_date,jdbcType=TIMESTAMP},
+           		aci_update_usr_ent_id = #{aci_update_usr_ent_id,jdbcType=INTEGER},
+           		aci_update_datetime = #{aci_update_datetime,jdbcType=TIMESTAMP}
+	         where aci_id = #{aci_id,jdbcType=INTEGER}
+	    ]]>
+	</update>
+	
+	<update id="updChildCodeByItmId" parameterType="com.cwn.wizbank.entity.CpdGroupPeriod">
+	    <![CDATA[
+	        update aeItemCPDItem set aci_accreditation_code = #{aci_accreditation_code} 
+				where aci_itm_id in (
+				    select ire_child_itm_id from aeItemRelation  
+				    where ire_parent_itm_id = #{aci_itm_id} )
+	    ]]>
+	</update>
+	
+</mapper>

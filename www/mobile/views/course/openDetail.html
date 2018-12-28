@@ -1,0 +1,112 @@
+<!doctype html>
+<html ng-app="openCourse">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title></title>
+<link rel="stylesheet" href="../../css/basic.css" />
+
+<!-- 播放器样式 -->
+<link href="../../css/video-js.min.css" rel="stylesheet" type="text/css" />
+<!-- 播放器video.js -->
+<script type="text/javascript" src="../../lib/video/video.js"></script>
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/OpenCourseController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+
+<!--[if lt IE 9]>
+<script src="../../js/lib/html5.js" type="text/jscript"></script>
+<![endif]-->
+</head>
+<body ng-cloak class="ng-cloak"  ng-controller="openDetailController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>
+
+<div class="wrap">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back()" title="返回"></a>
+    <span class="header-title" translate="sch_type_open"></span>
+</header> <!-- header End -->
+
+<div class="mm-ismenu wiz-tool">
+    <ul>
+        <!-- <li class="memu-box-8 border-right">
+            <a ng-if="!isClass" sns="like" href="javascript:void(0)" class="gps-zan">{{snsCount.s_cnt_like_count?snsCount.s_cnt_like_count:0}}</a>
+        </li> -->
+        <li class="memu-box-8">
+            <a ng-if="!isClass" sns="collect" href="javascript:void(0)" class="gps-shoucang">{{snsCount.s_cnt_collect_count?snsCount.s_cnt_collect_count:0}}</a>
+        </li>
+        <!-- <li class="memu-box-6">
+            <a href="javascript:clicked('../comment/list.html?module=Course&id={{item.itm_id}}&tkhId=-1&count={{item.itm_comment_total_count}}',true)" class="gps-pinglun">{{item.itm_comment_total_count}}</a>
+        </li> -->
+    </ul>
+</div>
+
+<section class="content-3">
+<div class="cont-info" style="margin:0;">
+     <h1 class="cont-info-title-1">{{item.itm_title}}</h1>
+     <div class="cont-info-period">{{item.itm_publish_timestamp}}<span class="cont-info-right"><a class="list-tool-2-bo" href="javascript:" title="">{{item.ies_access_count?item.ies_access_count:0}}</a></span></div>
+
+     <div class="cont-info-desc" >
+     	<div style="height:{{height}}px;width:{{width}}px" id="video_div">
+			<video id="video" src="{{videoUrl}}" class="video-js vjs-default-skin vjs-big-play-centered" controls="controls" 
+		      	preload="auto" width="{{width}}px" height="{{height}}px" poster="../../images/course_open_video_post.png">
+			</video>
+     	</div>
+
+	 	<div>
+	 	  {{video.res_desc}}
+	 	</div>
+
+     </div>
+
+     <!-- <div class="info-tool-3">
+          <a class="list-tool-2-zan" href="javascript:;" sns="like" title="">{{snsCount.s_cnt_like_count?snsCount.s_cnt_like_count:0}}</a>
+          <a class="list-tool-2-lun" href="javascript:;" title="">{{item.itm_comment_total_count}}</a>
+          <a class="list-tool-2-cang" href="javascript:;" sns="collect" title="">{{snsCount.s_cnt_collect_count?snsCount.s_cnt_collect_count:0}}</a>
+          <a class="list-tool-2-dian" href="javascript:;" title="">{{item.Kbi_comment_count}}</a>
+          <a class="list-tool-2-share" href="javascript:;" sns="share" title="">{{snsCount.s_cnt_share_count?snsCount.s_cnt_share_count:0}}</a>
+     </div> -->
+</div>
+
+<div class="cont-info">
+<tabs css="1">
+<!-- 列表 -->
+<pane title="{{'open_list' | translate}} " >
+<div class="cont-list-tuwen">
+<div class="tuwen-list-1" ng-repeat="item in coscontent">
+     <a class="tuwen-list-1-box clearfix" href="javascript:;" ng-click="changeSrc(item.res_id)" title="">
+        <div class="tuwen-list-1-pic list-border-1 {{item.res_id==video.res_id?'blue':''}}">
+
+        	<img ng-if="item.res_img_link" ng-src="{{serverHost + '/resource/' + item.res_id + '/'+ item.res_img_link}}" alt=""/>
+            <img ng-if="!item.res_img_link" src="{{serverHost + '/static/images/a03.jpg'}}" alt=""/>
+
+        <span class="tuwen-list-1-bg"><i class="tuwen-list-1-png"></i></span></div>
+
+        <div class="tuwen-list-1-tit-1">{{item.res_title}}</div>
+        <p class="tuwen-list-1-tit-3">{{item.res_upd_date}}</p>
+     </a>
+</div>
+<div class="tuwen-list-1"  ng-show="!coscontent || coscontent.length<1">
+
+	<div class="panel-list-nodate">{{'loader_no_data' | translate}}</div></div>
+</div>
+</pane>
+
+<pane title="{{'open_desc' | translate}}">
+	<div class="cont-list-bar">
+	    {{item.itm_desc}}		<!-- 简介 -->
+	</div>
+</pane>
+
+</tabs>
+    <!--  <div class="cont-info-title-2" translate="comment_title">评论</div>
+
+     <comments module="Course" tkh-id="'-1'" id="itmId" show-title="false" count="item.itm_comment_total_count" comment-id='writeComment'></comments>
+</div>
+ -->
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

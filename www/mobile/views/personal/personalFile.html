@@ -1,0 +1,228 @@
+<!doctype html>
+<html ng-app="personal">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/PersonalController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="filesController">
+	<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+
+	<div class="wrap" id="wizwrap" ng-show="showFiles">
+		<header class="header mm-background">
+		    <a class="header-back" href="javascript:back();" title="back"></a>
+		    <span class="header-title">{{ 'personal_files' | translate }}</span>
+		    <a class="header-info" href="javascript:;" ng-show="isMeInd" ng-click="updateFiles();" title="{{ 'personal_files_save' | translate }}">{{ 'personal_files_save' | translate }}</a>
+		</header> <!-- header End -->
+		
+		<wzm-docker rp="../../" target="my"></wzm-docker>
+		<section class="content-2">
+			
+			<div class="own-box-pic">
+			     <a class="own-box-user" ng-click="UploadPhoto()" href="javascript:;" title="">
+			     	 <div>
+			         	<img id="image" ng-src="{{serverHost}}{{user.usr_photo}}" alt=""/>
+			         </div>
+			         <span ng-if="isMeInd" class="own-box-photo"></span>
+			         <input type="file" ng-if="isMeInd" onChange="showPhoto(this.value)"  style="visibility: hidden;" id="file"/>
+			     </a>
+			</div>
+
+			<div class="panel-title-6-center">{{user.usr_ste_usr_id}}</div>
+			
+			<div class="cont-info">
+		          <div class="panel-title-19">
+			          <a class="panel-add-06 clearfix" href="javascript:;" ng-click="changeMsg('personal_files_fullName','usr_display_bil')" title="">
+				          <i class="icon-quanming"></i>
+				          <em class="{{isMeInd?'panel-num-22':'panel-num-25'}}">&nbsp;{{user.usr_display_bil}}</em>
+				          {{ 'personal_files_fullName' | translate }}<!--全名-->
+			          </a>
+		          </div>
+	
+<!-- 				 <div class="panel-title-19 panel-title-19-no">
+                    <a class="panel-add-06 clearfix" href="javascript:;" ng-click="changeMsg('personal_files_nick_name','usr_nickname')">
+                        <i class="icon-nicheng"></i>
+                        <em class="panel-num-22">&nbsp;{{user.usr_nickname}}</em>
+                        {{'personal_files_nick_name' | translate}}昵称
+                    </a>
+                </div> -->
+	
+<!-- 				<div class="panel-title-19 panel-title-19-no" ng-show="isMeInd || user.usr_gender">
+					<a class="panel-add-06 yinsi-tip clearfix" href="javascript:;"
+						ng-click="showSelect();" title=""> <i class="icon-xingbie"></i>
+						<em class="{{isMeInd?'panel-num-22':'panel-num-25'}}">&nbsp;{{user.usr_gender | sexText}}</em>{{
+						'personal_files_sex' | translate }}性别</a>
+				</div> -->
+	
+<!-- 				<div class="panel-title-19 panel-title-19-no" ng-show="isMeInd || user.usr_bday">
+					<a class="panel-add-06 clearfix" href="javascript:;"
+						ng-click="changeDate('personal_files_birthday','usr_bday')"
+						title=""><i class="icon-shengri"></i>
+	                          <em class="panel-num-22">&nbsp;{{user.usr_bday
+							| toDate}}</em>{{ 'personal_files_birthday' | translate }}生日</a>
+				</div> -->
+			</div>
+
+			<div class="cont-info">
+					<div class="panel-title-19" ng-show="isMeInd || user.usr_email">
+						<a class="panel-add-06 clearfix" href="javascript:;"
+							ng-click="changeMsg('personal_files_email','usr_email')" title="">
+							<i class="icon-youjian"></i>
+                            <em class="panel-num-22">&nbsp;{{user.usr_email}}</em>{{
+							'personal_files_email' | translate }}<!--电子邮件--></a>
+					</div>
+
+					<div class="panel-title-19 panel-title-19-no" ng-show="isMeInd || user.usr_tel_1">
+						<a class="panel-add-06 clearfix" href="javascript:;"
+							ng-click="changeMsg('personal_files_phone','usr_tel_1')" title="">
+							<i class="icon-dianhua"></i>
+                            <em class="panel-num-22">&nbsp;{{user.usr_tel_1}}</em>{{
+							'personal_files_phone' | translate }}<!--电话--></a>
+					</div>
+
+<!-- 					<div class="panel-title-19 panel-title-19-no" ng-show="isMeInd || user.userExt.urx_extra_41">
+						<a class="panel-add-06 clearfix" href="javascript:;"
+							ng-click="changeMsg('personal_files_qq','userExt.urx_extra_41')"
+							title="">
+							<i class="icon-qq"></i>
+                            <em class="panel-num-22">&nbsp;{{user.userExt.urx_extra_41
+								? user.userExt.urx_extra_41 : ''}}</em>{{ 'personal_files_qq' |
+							translate }}QQ</a>
+					</div> -->
+					
+<!-- 					<div class="panel-title-19 panel-title-19-no">
+	                    <a class="panel-add-06 clearfix" href="javascript:;" ng-click="changeMsg('personal_files_wechat','userExt.urx_extra_42')">
+	                        <i class="icon-weixin"></i>
+	                        <em class="panel-num-22">{{user.userExt.urx_extra_42 ? user.userExt.urx_extra_42 : ''}}</em>
+	                        {{'personal_files_wechat' | translate}}微信
+	                    </a>
+	                </div> -->
+			</div>
+
+			<div class="cont-info">
+					<div class="panel-title-19" ng-show="isMeInd || user.usr_job_title">
+						<a class="panel-add-06 clearfix" href="javascript:;"
+							ng-click="changeMsg('personal_files_job_title','usr_job_title')"
+							title="">
+							<i class="icon-zhicheng"></i>
+                            <em class="panel-num-22">&nbsp;{{user.usr_job_title}}</em>{{
+							'personal_files_job_title' | translate }}<!--职称--></a>
+					</div>
+
+					<div class="panel-title-19 panel-title-19-no" ng-show="isMeInd || user.usr_join_datetime">
+						<a class="panel-add-06 clearfix" href="javascript:;"
+							ng-click="changeDate('personal_files_join_date','usr_join_datetime')"
+							title="">
+							<i class="icon-shijian"></i>
+                            <em class="panel-num-22">&nbsp;{{user.usr_join_datetime
+								| toDate}}</em>{{ 'personal_files_join_date' | translate }}<!--加入公司时间--></a>
+					</div>
+
+					<div class="panel-title-19 panel-title-19-no" ng-show="isMeInd || user.usg_display_bil">
+						<a class="panel-add-06 clearfix" href="javascript:;" title="">
+						<i class="icon-yonghuzu"></i>
+                            <em class="panel-num-18" style="line-height: 32px;margin-right: 0px">&nbsp;{{user.usg_display_bil}}</em>{{
+							'personal_files_usr_group' | translate }}<!--用户组--></a>
+					</div>
+
+					<div class="panel-title-19 panel-title-19-no"
+					ng-show="isMeInd || (user.ugr_display_bil && user.ugr_display_bil != 'Unspecified')">
+						<a class="panel-add-06 clearfix" href="javascript:;" title="">
+							<i class="icon-zhiwu"></i>
+                            <em class="panel-num-18" style="line-height: 32px;margin-right: 0px">&nbsp;{{user.ugr_display_bil}}</em>{{
+							'personal_files_usr_grade' | translate }}<!--职务--></a>
+					</div>
+			</div>
+			
+			<div class="cont-info">
+		          <div class="panel-title-19" ng-show="isMeInd && mySupervise && mySupervise.length>0" style="padding-right:10px;">
+			         <a class="clearfix" href="javascript:;" ng-repeat="supPerson in mySupervise" forward="supPerson.usr_ent_id | personUrl" title="">
+				          <em class="panel-num-22">
+				        &nbsp;
+				        <span >{{supPerson.usr_display_bil}}&nbsp;
+				        </span>
+				        </em>{{'personal_files_mySupervise' | translate}}<!--直属上司--></a>
+		        </div>
+			</div>
+
+<!-- 			<div class="cont-info">
+			     <div class="panel-list-cont-7" ng-show="isMeInd || user.userExt.urx_extra_44" style="padding:0px;">
+					<div class="panel-title-19">
+						<a class="panel-add-06 clearfix" href="javascript:;"
+							ng-click="changeMsg('personal_files_description','userExt.urx_extra_44')"
+							title="">
+							<em class="panel-num-22">&nbsp;{{user.userExt.urx_extra_44}}</em>{{
+							'personal_files_description' | translate }}个人描述</a>
+					</div>
+
+					<div class="panel-title-19 panel-title-19-no"
+						ng-show="isMeInd || user.userExt.urx_extra_45">
+						<a class="panel-add-06 clearfix" href="javascript:;"
+							ng-click="changeMsg('personal_files_interest','userExt.urx_extra_45')"
+							title="">
+							<em class="panel-num-22">&nbsp;{{user.userExt.urx_extra_45}}</em>{{
+							'personal_files_interest' | translate }}兴趣</a>
+					</div>
+				</div>
+			</div> -->
+
+		</section> <!-- content End -->
+	</div> <!-- wrap End -->
+	<div class="yinsi-desc" ng-click="showSelect()" style="display:none;">
+		<div class="yinsi-info" style="display:none;">
+		<div class="cont-info-title-7"><span>{{ 'personal_files_sex' | translate }}：</span><!--性别--></div>
+		 <ul class="panel-list-1-7">
+		     <li><a href="javascript:;" ng-class="{'selectBox' : user.usr_gender == ''}" ng-click="selectSex('');" title="">{{ 'personal_files_null' | translate }}<!--未指定--></a></li>
+		     <li><a href="javascript:;" ng-class="{'selectBox' : user.usr_gender == 'M'}" ng-click="selectSex('M');" title="">{{ 'personal_files_sex_M' | translate }}<!--男--></a></li>
+		     <li><a href="javascript:;" ng-class="{'selectBox' : user.usr_gender == 'F'}" ng-click="selectSex('F');" title="">{{ 'personal_files_sex_F' | translate }}<!--女--></a></li>
+		     <li><a href="javascript:;">{{'btn_cancel'|translate}}</a></li>
+		 </ul> 
+		</div>
+	</div>
+	<div class="wrap" ng-show="showEditMsg">
+		<header class="header mm-background">
+			<a class="header-back" href="javascript:;"
+				ng-click="showFileWindow();" title="back"></a> <span
+				class="header-title">{{edit.title}}</span> <a class="header-info"
+				href="javascript:;" ng-click="saveText()"
+				title="{{ 'btn_sure' | translate }}">{{
+				'btn_sure' | translate }}</a>
+		</header>
+		<!-- header End -->
+		<section class="content">
+			<div style="padding: 20px 10px 0;">
+			<textarea class="pure-form-txt-4" ng-model="edit.text" name=""></textarea>
+			</div>
+		</section>
+		<!-- content End -->
+	</div>
+
+	<div class="wrap" ng-show="showEditDate">
+		<header class="header mm-background">
+			<a class="header-back" href="javascript:;"
+				ng-click="showFileWindow();" title="back"></a> <span
+				class="header-title">{{edit.title}}</span> <a class="header-info"
+				href="javascript:;" ng-click="saveDate();" title="save"> {{
+				'btn_sure' | translate }} </a>
+		</header>
+		<!-- header End -->
+		<section class="content">
+			<div class="riqi-sel-tit">{{date | toDate}}</div>
+
+			<div class="panel-title-5">{{'personal_files_selectDate' |
+				translate}}</div>
+			<div dateselect="date"></div>
+
+		</section>
+		<!-- content End -->
+	</div>
+	<!-- wrap End -->
+
+</body>
+</html>

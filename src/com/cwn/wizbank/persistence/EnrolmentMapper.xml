@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.EnrolmentMapper">
+	<select id="get" resultType="Enrolment" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				enr_ent_id,
+				enr_res_id,
+				enr_status,
+				enr_create_timestamp,
+				enr_create_usr_id
+			from Enrolment t where t.enr_ent_id = #{id}
+		]]>
+	</select>	
+	<update id="update" parameterType="com.cwn.wizbank.entity.Enrolment">
+	    <![CDATA[
+	        update Enrolment t 
+	        set 
+				enr_ent_id = #{enr_ent_id,jdbcType=INTEGER},
+				enr_res_id = #{enr_res_id,jdbcType=INTEGER},
+				enr_status = #{enr_status,jdbcType=VARCHAR},
+				enr_create_timestamp = #{enr_create_timestamp,jdbcType=TIMESTAMP},
+				enr_create_usr_id = #{enr_create_usr_id,jdbcType=VARCHAR}
+	         where t.enr_ent_id = #{enr_ent_id,jdbcType=INTEGER}
+	    ]]>
+    </update>    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.Enrolment">
+    	<![CDATA[
+            insert into Enrolment(
+            		enr_status,
+            		enr_create_timestamp,
+            		enr_create_usr_id
+            ) values (
+            	#{enr_status,jdbcType=VARCHAR},
+            	#{enr_create_timestamp,jdbcType=TIMESTAMP},
+            	#{enr_create_usr_id,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from Enrolment  where enr_ent_id = #{enr_ent_id}
+	    ]]>
+    </delete>	
+	<select id="selectAll" resultType="Enrolment">
+	    <![CDATA[
+	         select 
+				enr_ent_id,
+				enr_res_id,
+				enr_status,
+				enr_create_timestamp,
+				enr_create_usr_id
+			from Enrolment t 
+	    ]]>
+	</select>	
+</mapper>

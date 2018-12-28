@@ -1,0 +1,839 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<user_management xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="..\user_management.xsd">
+	<!-- 
+	account_registration
+	Description:
+		Enable/disable the account registration related functions
+	Value:
+		active: "true" | "false"
+	Remarks:
+		If it is set to active, the account registration function and the registration approval function will be enabled, and vice versa. 
+	-->
+	<account_registration active="true"/>	
+	<!--  
+	forget_password
+	Description:
+		Enable/disable the forget password functions
+	Value:
+		active: "true" | "false"
+		link_last_days: 
+		max_attempt: 
+	Remarks:	
+	-->
+	<forget_password max_attempt="3" link_last_days="1" active="true"/>	
+	<!-- 
+	account_suspension
+	Description:
+		Enable/disable the account suspension related functions
+	Value:
+		active: "true" | "false"
+		max_trial: A positive integer that determines the max number of consecutive login failure before the account is suspended.
+	Remarks:
+		If it is set to active, the account suspension function and reactivation function will be enabled respectively, and vice versa. 
+	-->
+	<account_suspension active="true" max_trial="6"/>
+	<!-- 
+	user_profile
+	Description: Properties of user profile aTcttributes
+	-->
+	<user_profile>
+		<!-- 
+		profile_attributes
+		Description:
+			- Define which user attributes are hidden from or readonly to the end users.
+			- Define which user extension attributes are active.
+		Value:
+			Attributes of the user profile, represented by the following tags:  
+				<user_id/>
+				<name/>
+				<gender/>
+				<date_of_birth/>
+				<email/>
+				<phone/>
+				<fax/>
+				<job_title/>
+				<grade/>
+				<group/>
+				<direct_supervisors/>
+				<join_date/>
+				<role/>
+				<extension_1/>
+				<extension_2/>
+				<extension_3/>
+				<extension_4/>
+				<extension_5/>
+				<extension_6/>
+				<extension_7/>
+				<extension_8/>
+				<extension_9/>
+				<extension_10/>
+				<extension_11/>
+				<extension_12/>
+				<extension_13/>
+				<extension_14/>
+				<extension_15/>
+				<extension_16/>
+				<extension_17/>
+				<extension_18/>
+				<extension_19/>
+				<extension_20/>
+				<extension_21/>
+				<extension_22/>
+				<extension_23/>
+				<extension_24/>
+				<extension_25/>
+				<extension_26/>
+				<extension_27/>
+				<extension_28/>
+				<extension_29/>
+				<extension_30/>
+				<extension_31/>
+				<extension_32/>
+				<extension_33/>
+				<extension_34/>
+				<extension_35/>
+				<extension_36/>
+				<extension_37/>
+				<extension_38/>
+				<extension_39/>
+				<extension_40/>
+				<supervised_groups/>
+			For each of the above tag, one of the followng XML attributes may be added: 
+				hidden="true": It means the attributes is hidden from the end users. 
+				readonly="true": It means the user attribute is read-only to the end users. If hidden="true" is also used, this read-only property is ignored.
+			For the extension attrbutes, i.e. extension_1 to extension_40, the following XML attribute MUST be defined:
+				active="true" | "false": It defines if the extension attribute is used in the system or not. If active="false", both hidden="true" and readonly="true" properties are ignored. 
+			For each of the above tag except <password/>, the following XML attributes may be added:
+			    instr_attr="true" | "false": It defines if the field will be shown in Instructor Database.
+			                                            For non-extension field, it will be shown as read-only in Instructor Database.
+			                                            For extension field, it will be shown as read-only in Instructor Database its active is "true". Otherwise, it will be editable in Instructor Database.
+			For each of the above tag, sub-tag of the user attribute name must be defined in each of the language used.
+				The format is <label xml:lang="{language_code}">{text}</label> 
+					where {language_code} follows IETF RFC 1766, 
+					in which 
+						en-us refers to English (United States), 
+						zh-cn refers to Chinese (PRC), 
+						zh-hk refers to Chinese (Hong Kong).						
+		Remarks:
+			- If both readonly="true" and hidden="true" are NOT defined for a user attribute, it is open for end user modification. 
+			- User ID must be read-only by design.
+			- Password must be hidden by design.
+		-->
+		<profile_attributes>
+			<user_id readonly="true" searchable="all" min_length="3" max_length="20" instr_attr="true" type="text" fieldname="usr_id" publicity="0" group="personal" registration="true" allowEmpty="false">
+				<label xml:lang="en-us">User ID</label>
+				<label xml:lang="zh-cn">用户名</label>
+				<label xml:lang="zh-hk">用戶名</label>
+			</user_id>
+			<password hidden="true" min_length="3" max_length="20" registration="true" fieldname="usr_pwd"  group="personal" allowEmpty="true">
+				<label xml:lang="en-us">Password</label>
+				<label xml:lang="zh-cn">密码</label>
+				<label xml:lang="zh-hk">密碼</label>
+			</password>
+			<name instr_attr="false" readonly="false" searchable="all" type="text" fieldname="usr_display_bil" publicity="2" group="personal" registration="true" allowEmpty="false" dbMaxLength="80">
+				<label xml:lang="en-us">Full name</label>
+				<label xml:lang="zh-cn">全名</label>
+				<label xml:lang="zh-hk">全名</label>
+			</name>
+			<nickname readonly="false" searchable="none" type="text" fieldname="usr_nickname" publicity="2" group="other" registration="false" dbMaxLength="80">
+				<label xml:lang="en-us">Nickname</label>
+				<label xml:lang="zh-cn">昵称</label>
+				<label xml:lang="zh-hk">暱稱</label>
+			</nickname>
+			<gender readonly="false" searchable="adv" type="comboBox" fieldname="usr_gender" publicity="1" group="personal" registration="true" allowEmpty="true" dbMaxLength="1">
+				<label xml:lang="en-us">Gender</label>
+				<label xml:lang="zh-cn">性别</label>
+				<label xml:lang="zh-hk">性別</label>
+				<option_list>
+					<option id="M">
+						<label xml:lang="en-us">man</label>
+						<label xml:lang="zh-cn">男</label>
+						<label xml:lang="zh-hk">男</label>
+					</option>
+					<option id="F">
+						<label xml:lang="en-us">woman</label>
+						<label xml:lang="zh-cn">女</label>
+						<label xml:lang="zh-hk">女</label>
+					</option>
+				</option_list>
+			</gender>
+			<date_of_birth readonly="false" searchable="adv" type="date" fieldname="usr_bday" publicity="1" group="personal" registration="true" dbMaxLength="20">
+				<label xml:lang="en-us">Date of birth</label>
+				<label xml:lang="zh-cn">出生日期</label>
+				<label xml:lang="zh-hk">出生日期</label>
+			</date_of_birth>
+			<email readonly="false" searchable="adv" type="text" fieldname="usr_email" publicity="1" group="contact" registration="true" dbMaxLength="80">
+				<label xml:lang="en-us">Email</label>
+				<label xml:lang="zh-cn">电子邮件</label>
+				<label xml:lang="zh-hk">電子郵件</label>
+			</email>
+			<phone readonly="false" searchable="adv" type="text" fieldname="usr_tel_1" publicity="1" group="contact" registration="true" dbMaxLength="80">
+				<label xml:lang="en-us">Phone</label>
+				<label xml:lang="zh-cn">电话</label>
+				<label xml:lang="zh-hk">電話</label>
+			</phone>
+			<fax readonly="false" searchable="adv" type="text" fieldname="usr_fax_1" publicity="1" group="contact" registration="true" dbMaxLength="80">
+				<label xml:lang="en-us">Fax</label>
+				<label xml:lang="zh-cn">传真</label>
+				<label xml:lang="zh-hk">傳真</label>
+			</fax>
+			<extension_41 active="true" type="text" fieldname="usr_extra_2" publicity="2" group="other" registration="false" dbMaxLength="80">
+				<label xml:lang="en-us">Staff No.</label>
+				<label xml:lang="zh-cn">员工编号</label>
+				<label xml:lang="zh-hk">員工編號</label>
+			<!-- <extension_41 active="true" type="text" fieldname="urx_extra_41" publicity="2" group="other" registration="false" dbMaxLength="80">
+				<label xml:lang="en-us">QQ</label>
+				<label xml:lang="zh-cn">QQ</label>
+				<label xml:lang="zh-hk">QQ</label>
+			<extension_41 active="true" type="text" fieldname="urx_extra_41" publicity="2" group="other" registration="false" dbMaxLength="80">
+				<label xml:lang="en-us">Staff No.</label>
+				<label xml:lang="zh-cn">员工编号</label>
+				<label xml:lang="zh-hk">員工編號</label> -->
+			</extension_41>
+			<extension_42 active="true" type="text" fieldname="urx_extra_42" publicity="2" group="other" registration="false" dbMaxLength="80">
+				<label xml:lang="en-us">Weixin</label>
+				<label xml:lang="zh-cn">微信</label>
+				<label xml:lang="zh-hk">微信</label>
+			</extension_42>
+			<job_title instr_attr="true" readonly="false" searchable="adv" type="text" fieldname="usr_job_title" publicity="1" group="position" registration="true" dbMaxLength="80">
+				<label xml:lang="en-us">Job title</label>
+				<label xml:lang="zh-cn">职称</label>
+				<label xml:lang="zh-hk">職位</label>
+			</job_title>
+			<join_date readonly="false" searchable="adv" type="date" fieldname="usr_join_date" publicity="1" group="position" registration="true" dbMaxLength="20">
+				<label xml:lang="en-us">Join date</label>
+				<label xml:lang="zh-cn">加入公司日期</label>
+				<label xml:lang="zh-hk">加入公司日期</label>
+			</join_date>
+			<source readonly="all" searchable="none" type="comboBox" fieldname="usr_source" publicity="0" registration="false" allowEmpty="false" dbMaxLength="80">
+				<label xml:lang="en-us">Source</label>
+				<label xml:lang="zh-cn">来源</label>
+				<label xml:lang="zh-hk">來源</label>
+				<option_list>
+					<option id="wizBank" default="true">
+						<label xml:lang="en-us">wizBank</label>
+						<label xml:lang="zh-cn">wizBank</label>
+						<label xml:lang="zh-hk">wizBank</label>
+					</option>
+					<option id="test_for_import">
+						<label xml:lang="en-us">Option 1</label>
+						<label xml:lang="zh-cn">Option 1</label>
+						<label xml:lang="zh-hk">Option 1</label>
+					</option>
+					<option id="003">
+						<label xml:lang="en-us">Option 2</label>
+						<label xml:lang="zh-cn">Option 2</label>
+						<label xml:lang="zh-hk">Option 2</label>
+					</option>
+				</option_list>
+			</source>
+			
+			<extension_1 active="false" type="text" fieldname="urx_extra_1" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 1</label>
+				<label xml:lang="zh-cn">其他资料 1</label>
+				<label xml:lang="zh-hk">其他資料 1</label>
+			</extension_1>
+			<extension_2 active="false" instr_attr="true" type="text" fieldname="urx_extra_2" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Staff No.</label>
+				<label xml:lang="zh-cn">员工号码</label>
+				<label xml:lang="zh-hk">員工號碼</label>
+			</extension_2>
+			<extension_3 active="false" type="text" fieldname="urx_extra_3" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 3</label>
+				<label xml:lang="zh-cn">其他资料 3</label>
+				<label xml:lang="zh-hk">其他資料 3</label>
+			</extension_3>
+			<extension_4 active="false" type="text" fieldname="urx_extra_4" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 4</label>
+				<label xml:lang="zh-cn">其他资料 4</label>
+				<label xml:lang="zh-hk">其他資料 4</label>
+			</extension_4>
+			<extension_5 active="false" type="text" fieldname="urx_extra_5" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 5</label>
+				<label xml:lang="zh-cn">其他资料 5</label>
+				<label xml:lang="zh-hk">其他資料 5</label>
+			</extension_5>
+			<extension_6 active="false" type="text" fieldname="urx_extra_6" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 6</label>
+				<label xml:lang="zh-cn">其他资料 6</label>
+				<label xml:lang="zh-hk">其他資料 6</label>
+			</extension_6>
+			<extension_7 active="false" type="text" fieldname="urx_extra_7" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 7</label>
+				<label xml:lang="zh-cn">其他资料 7</label>
+				<label xml:lang="zh-hk">其他資料 7</label>
+			</extension_7>
+			<extension_8 active="false" type="text" fieldname="urx_extra_8" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 8</label>
+				<label xml:lang="zh-cn">其他资料 8</label>
+				<label xml:lang="zh-hk">其他資料 8</label>
+			</extension_8>
+			<extension_9 active="false" type="text" fieldname="urx_extra_9" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 9</label>
+				<label xml:lang="zh-cn">其他资料 9</label>
+				<label xml:lang="zh-hk">其他資料 9</label>
+			</extension_9>
+			<extension_10 active="false" type="text" fieldname="urx_extra_10" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 10</label>
+				<label xml:lang="zh-cn">其他资料 10</label>
+				<label xml:lang="zh-hk">其他資料 10</label>
+			</extension_10>
+			<extension_11 readonly="all" active="true" type="date" fieldname="urx_extra_11" publicity="0" group="system" registration="false" dbMaxLength="20">
+				<label xml:lang="en-us">Account validity</label>
+				<label xml:lang="zh-cn">账号有效期</label>
+				<label xml:lang="zh-hk">帳號有效期</label>
+			</extension_11>
+			<extension_12 active="false" instr_attr="true" type="date" fieldname="urx_extra_12" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Lecturer extension 2</label>
+				<label xml:lang="zh-cn">讲师其他资料 2</label>
+				<label xml:lang="zh-hk">講師其他资料 2</label>
+			</extension_12>
+			<extension_13 active="false" type="date" fieldname="urx_extra_13" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 13</label>
+				<label xml:lang="zh-cn">其他资料 13</label>
+				<label xml:lang="zh-hk">其他資料 13</label>
+			</extension_13>
+			<extension_14 active="false" type="date" fieldname="urx_extra_14" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 14</label>
+				<label xml:lang="zh-cn">其他资料 14</label>
+				<label xml:lang="zh-hk">其他資料 14</label>
+			</extension_14>
+			<extension_15 active="false" type="date" fieldname="urx_extra_15" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 15</label>
+				<label xml:lang="zh-cn">其他资料 15</label>
+				<label xml:lang="zh-hk">其他資料 15</label>
+			</extension_15>
+			<extension_16 active="false" type="date" fieldname="urx_extra_16" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 16</label>
+				<label xml:lang="zh-cn">其他资料 16</label>
+				<label xml:lang="zh-hk">其他資料 16</label>
+			</extension_16>
+			<extension_17 active="false" type="date" fieldname="urx_extra_17" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 17</label>
+				<label xml:lang="zh-cn">其他资料 17</label>
+				<label xml:lang="zh-hk">其他資料 17</label>
+			</extension_17>
+			<extension_18 active="false" type="date" fieldname="urx_extra_18" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 18</label>
+				<label xml:lang="zh-cn">其他资料 18</label>
+				<label xml:lang="zh-hk">其他資料 18</label>
+			</extension_18>
+			<extension_19 active="false" type="date" fieldname="urx_extra_19" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 19</label>
+				<label xml:lang="zh-cn">其他资料 19</label>
+				<label xml:lang="zh-hk">其他資料 19</label>
+			</extension_19>
+			<extension_20 active="false" type="date" fieldname="urx_extra_20" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 20</label>
+				<label xml:lang="zh-cn">其他资料 20</label>
+				<label xml:lang="zh-hk">其他資料 20</label>
+			</extension_20>
+			<extension_21 active="false" type="comboBox" fieldname="urx_extra_21" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 3</label>
+				<label xml:lang="zh-cn">其他资料 3</label>
+				<label xml:lang="zh-hk">其他資料 3</label>
+				<option_list>
+					<option id="001">
+						<label xml:lang="en-us">Option 1</label>
+						<label xml:lang="zh-cn">选项 1</label>
+						<label xml:lang="zh-hk">選項 1</label>
+					</option>
+					<option id="002">
+						<label xml:lang="en-us">Option 2</label>
+						<label xml:lang="zh-cn">选项 2</label>
+						<label xml:lang="zh-hk">選項 2</label>
+					</option>
+					<option id="003">
+						<label xml:lang="en-us">Option 3</label>
+						<label xml:lang="zh-cn">选项 3</label>
+						<label xml:lang="zh-hk">選項 3</label>
+					</option>
+				</option_list>
+			</extension_21>
+			<extension_22 active="false" instr_attr="true" type="comboBox" fieldname="urx_extra_22" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Lecturer extension 3</label>
+				<label xml:lang="zh-cn">讲师其他资料 3</label>
+				<label xml:lang="zh-hk">講師其他资料 3</label>
+				<option_list>
+					<option id="001">
+						<label xml:lang="en-us">Option 1</label>
+						<label xml:lang="zh-cn">选项 1</label>
+						<label xml:lang="zh-hk">選項 1</label>
+					</option>
+					<option id="002">
+						<label xml:lang="en-us">Option 2</label>
+						<label xml:lang="zh-cn">选项 2</label>
+						<label xml:lang="zh-hk">選項 2</label>
+					</option>
+					<option id="003">
+						<label xml:lang="en-us">Option 3</label>
+						<label xml:lang="zh-cn">选项 3</label>
+						<label xml:lang="zh-hk">選項 3</label>
+					</option>
+				</option_list>
+			</extension_22>
+			<extension_23 active="false" type="comboBox" fieldname="urx_extra_23" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 23</label>
+				<label xml:lang="zh-cn">其他资料 23</label>
+				<label xml:lang="zh-hk">其他資料 23</label>
+				<option_list>
+					<option id="001">
+						<label xml:lang="en-us">Option 1</label>
+						<label xml:lang="zh-cn">选项 1</label>
+						<label xml:lang="zh-hk">選項 1</label>
+					</option>
+					<option id="002">
+						<label xml:lang="en-us">Option 2</label>
+						<label xml:lang="zh-cn">选项 2</label>
+						<label xml:lang="zh-hk">選項 2</label>
+					</option>
+					<option id="003">
+						<label xml:lang="en-us">Option 3</label>
+						<label xml:lang="zh-cn">选项 3</label>
+						<label xml:lang="zh-hk">選項 3</label>
+					</option>
+				</option_list>
+			</extension_23>
+			<extension_24 active="false" type="comboBox" fieldname="urx_extra_24" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 24</label>
+				<label xml:lang="zh-cn">其他资料 24</label>
+				<label xml:lang="zh-hk">其他資料 24</label>
+				<option_list>
+					<option id="001">
+						<label xml:lang="en-us">Option 1</label>
+						<label xml:lang="zh-cn">选项 1</label>
+						<label xml:lang="zh-hk">選項 1</label>
+					</option>
+					<option id="002">
+						<label xml:lang="en-us">Option 2</label>
+						<label xml:lang="zh-cn">选项 2</label>
+						<label xml:lang="zh-hk">選項 2</label>
+					</option>
+					<option id="003">
+						<label xml:lang="en-us">Option 3</label>
+						<label xml:lang="zh-cn">选项 3</label>
+						<label xml:lang="zh-hk">選項 3</label>
+					</option>
+				</option_list>
+			</extension_24>
+			<extension_25 active="false" type="comboBox" fieldname="urx_extra_25" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 25</label>
+				<label xml:lang="zh-cn">其他资料 25</label>
+				<label xml:lang="zh-hk">其他資料 25</label>
+				<option_list>
+					<option id="001">
+						<label xml:lang="en-us">Option 1</label>
+						<label xml:lang="zh-cn">选项 1</label>
+						<label xml:lang="zh-hk">選項 1</label>
+					</option>
+					<option id="002">
+						<label xml:lang="en-us">Option 2</label>
+						<label xml:lang="zh-cn">选项 2</label>
+						<label xml:lang="zh-hk">選項 2</label>
+					</option>
+					<option id="003">
+						<label xml:lang="en-us">Option 3</label>
+						<label xml:lang="zh-cn">选项 3</label>
+						<label xml:lang="zh-hk">選項 3</label>
+					</option>
+				</option_list>
+			</extension_25>
+			<extension_26 active="false" type="comboBox" fieldname="urx_extra_26" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 26</label>
+				<label xml:lang="zh-cn">其他资料 26</label>
+				<label xml:lang="zh-hk">其他資料 26</label>
+				<option_list>
+					<option id="001">
+						<label xml:lang="en-us">Option 1</label>
+						<label xml:lang="zh-cn">选项 1</label>
+						<label xml:lang="zh-hk">選項 1</label>
+					</option>
+					<option id="002">
+						<label xml:lang="en-us">Option 2</label>
+						<label xml:lang="zh-cn">选项 2</label>
+						<label xml:lang="zh-hk">選項 2</label>
+					</option>
+					<option id="003">
+						<label xml:lang="en-us">Option 3</label>
+						<label xml:lang="zh-cn">选项 3</label>
+						<label xml:lang="zh-hk">選項 3</label>
+					</option>
+				</option_list>
+			</extension_26>
+			<extension_27 active="false" type="comboBox" fieldname="urx_extra_27" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 27</label>
+				<label xml:lang="zh-cn">其他资料 27</label>
+				<label xml:lang="zh-hk">其他資料 27</label>
+				<option_list>
+					<option id="001">
+						<label xml:lang="en-us">Option 1</label>
+						<label xml:lang="zh-cn">选项 1</label>
+						<label xml:lang="zh-hk">選項 1</label>
+					</option>
+					<option id="002">
+						<label xml:lang="en-us">Option 2</label>
+						<label xml:lang="zh-cn">选项 2</label>
+						<label xml:lang="zh-hk">選項 2</label>
+					</option>
+					<option id="003">
+						<label xml:lang="en-us">Option 3</label>
+						<label xml:lang="zh-cn">选项 3</label>
+						<label xml:lang="zh-hk">選項 3</label>
+					</option>
+				</option_list>
+			</extension_27>
+			<extension_28 active="false" type="comboBox" fieldname="urx_extra_28" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 28</label>
+				<label xml:lang="zh-cn">其他资料 28</label>
+				<label xml:lang="zh-hk">其他資料 28</label>
+				<option_list>
+					<option id="001">
+						<label xml:lang="en-us">Option 1</label>
+						<label xml:lang="zh-cn">选项 1</label>
+						<label xml:lang="zh-hk">選項 1</label>
+					</option>
+					<option id="002">
+						<label xml:lang="en-us">Option 2</label>
+						<label xml:lang="zh-cn">选项 2</label>
+						<label xml:lang="zh-hk">選項 2</label>
+					</option>
+					<option id="003">
+						<label xml:lang="en-us">Option 3</label>
+						<label xml:lang="zh-cn">选项 3</label>
+						<label xml:lang="zh-hk">選項 3</label>
+					</option>
+				</option_list>
+			</extension_28>
+			<extension_29 active="false" type="comboBox" fieldname="urx_extra_29" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 29</label>
+				<label xml:lang="zh-cn">其他资料 29</label>
+				<label xml:lang="zh-hk">其他資料 29</label>
+				<option_list>
+					<option id="001">
+						<label xml:lang="en-us">Option 1</label>
+						<label xml:lang="zh-cn">选项 1</label>
+						<label xml:lang="zh-hk">選項 1</label>
+					</option>
+					<option id="002">
+						<label xml:lang="en-us">Option 2</label>
+						<label xml:lang="zh-cn">选项 2</label>
+						<label xml:lang="zh-hk">選項 2</label>
+					</option>
+					<option id="003">
+						<label xml:lang="en-us">Option 3</label>
+						<label xml:lang="zh-cn">选项 3</label>
+						<label xml:lang="zh-hk">選項 3</label>
+					</option>
+				</option_list>
+			</extension_29>
+			<extension_30 active="false" type="comboBox" fieldname="urx_extra_30" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 30</label>
+				<label xml:lang="zh-cn">其他资料 30</label>
+				<label xml:lang="zh-hk">其他資料 30</label>
+				<option_list>
+					<option id="001">
+						<label xml:lang="en-us">Option 1</label>
+						<label xml:lang="zh-cn">选项 1</label>
+						<label xml:lang="zh-hk">選項 1</label>
+					</option>
+					<option id="002">
+						<label xml:lang="en-us">Option 2</label>
+						<label xml:lang="zh-cn">选项 2</label>
+						<label xml:lang="zh-hk">選項 2</label>
+					</option>
+					<option id="003">
+						<label xml:lang="en-us">Option 3</label>
+						<label xml:lang="zh-cn">选项 3</label>
+						<label xml:lang="zh-hk">選項 3</label>
+					</option>
+				</option_list>
+			</extension_30>
+			<extension_31 active="false" type="checkBox" fieldname="urx_extra_31" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 4</label>
+				<label xml:lang="zh-cn">其他资料 4</label>
+				<label xml:lang="zh-hk">其他資料 4</label>
+				<option_list>
+					<option id="001">
+						<label xml:lang="en-us">Option 1</label>
+						<label xml:lang="zh-cn">选项 1</label>
+						<label xml:lang="zh-hk">選項 1</label>
+					</option>
+					<option id="002">
+						<label xml:lang="en-us">Option 2</label>
+						<label xml:lang="zh-cn">选项 2</label>
+						<label xml:lang="zh-hk">選項 2</label>
+					</option>
+					<option id="003">
+						<label xml:lang="en-us">Option 3</label>
+						<label xml:lang="zh-cn">选项 3</label>
+						<label xml:lang="zh-hk">選項 3</label>
+					</option>
+				</option_list>
+			</extension_31>
+			<extension_32 active="false" instr_attr="true" type="checkBox" fieldname="urx_extra_32" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Lecturer extension 4</label>
+				<label xml:lang="zh-cn">讲师其他资料 4</label>
+				<label xml:lang="zh-hk">講師其他资料 4</label>
+				<option_list>
+					<option id="001">
+						<label xml:lang="en-us">Option 1</label>
+						<label xml:lang="zh-cn">选项 1</label>
+						<label xml:lang="zh-hk">選項 1</label>
+					</option>
+					<option id="002">
+						<label xml:lang="en-us">Option 2</label>
+						<label xml:lang="zh-cn">选项 2</label>
+						<label xml:lang="zh-hk">選項 2</label>
+					</option>
+					<option id="003">
+						<label xml:lang="en-us">Option 3</label>
+						<label xml:lang="zh-cn">选项 3</label>
+						<label xml:lang="zh-hk">選項 3</label>
+					</option>
+				</option_list>
+			</extension_32>
+			<extension_33 active="false" type="checkBox" fieldname="urx_extra_33" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 33</label>
+				<label xml:lang="zh-cn">其他资料 33</label>
+				<label xml:lang="zh-hk">其他資料 33</label>
+				<option_list>
+					<option id="001">
+						<label xml:lang="en-us">Option 1</label>
+						<label xml:lang="zh-cn">选项 1</label>
+						<label xml:lang="zh-hk">選項 1</label>
+					</option>
+					<option id="002">
+						<label xml:lang="en-us">Option 2</label>
+						<label xml:lang="zh-cn">选项 2</label>
+						<label xml:lang="zh-hk">選項 2</label>
+					</option>
+					<option id="003">
+						<label xml:lang="en-us">Option 3</label>
+						<label xml:lang="zh-cn">选项 3</label>
+						<label xml:lang="zh-hk">選項 3</label>
+					</option>
+				</option_list>
+			</extension_33>
+			<extension_34 active="false" type="checkBox" fieldname="urx_extra_34" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 34</label>
+				<label xml:lang="zh-cn">其他资料 34</label>
+				<label xml:lang="zh-hk">其他資料 34</label>
+				<option_list>
+					<option id="001">
+						<label xml:lang="en-us">Option 1</label>
+						<label xml:lang="zh-cn">选项 1</label>
+						<label xml:lang="zh-hk">選項 1</label>
+					</option>
+					<option id="002">
+						<label xml:lang="en-us">Option 2</label>
+						<label xml:lang="zh-cn">选项 2</label>
+						<label xml:lang="zh-hk">選項 2</label>
+					</option>
+					<option id="003">
+						<label xml:lang="en-us">Option 3</label>
+						<label xml:lang="zh-cn">选项 3</label>
+						<label xml:lang="zh-hk">選項 3</label>
+					</option>
+				</option_list>
+			</extension_34>
+			<extension_35 active="false" type="checkBox" fieldname="urx_extra_35" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 35</label>
+				<label xml:lang="zh-cn">其他资料 35</label>
+				<label xml:lang="zh-hk">其他資料 35</label>
+				<option_list>
+					<option id="001">
+						<label xml:lang="en-us">Option 1</label>
+						<label xml:lang="zh-cn">选项 1</label>
+						<label xml:lang="zh-hk">選項 1</label>
+					</option>
+					<option id="002">
+						<label xml:lang="en-us">Option 2</label>
+						<label xml:lang="zh-cn">选项 2</label>
+						<label xml:lang="zh-hk">選項 2</label>
+					</option>
+					<option id="003">
+						<label xml:lang="en-us">Option 3</label>
+						<label xml:lang="zh-cn">选项 3</label>
+						<label xml:lang="zh-hk">選項 3</label>
+					</option>
+				</option_list>
+			</extension_35>
+			<extension_36 active="false" type="checkBox" fieldname="urx_extra_36" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 36</label>
+				<label xml:lang="zh-cn">其他资料 36</label>
+				<label xml:lang="zh-hk">其他資料 36</label>
+				<option_list>
+					<option id="001">
+						<label xml:lang="en-us">Option 1</label>
+						<label xml:lang="zh-cn">选项 1</label>
+						<label xml:lang="zh-hk">選項 1</label>
+					</option>
+					<option id="002">
+						<label xml:lang="en-us">Option 2</label>
+						<label xml:lang="zh-cn">选项 2</label>
+						<label xml:lang="zh-hk">選項 2</label>
+					</option>
+					<option id="003">
+						<label xml:lang="en-us">Option 3</label>
+						<label xml:lang="zh-cn">选项 3</label>
+						<label xml:lang="zh-hk">選項 3</label>
+					</option>
+				</option_list>
+			</extension_36>
+			<extension_37 active="false" type="checkBox" fieldname="urx_extra_37" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 37</label>
+				<label xml:lang="zh-cn">其他资料 37</label>
+				<label xml:lang="zh-hk">其他資料 37</label>
+				<option_list>
+					<option id="001">
+						<label xml:lang="en-us">Option 1</label>
+						<label xml:lang="zh-cn">选项 1</label>
+						<label xml:lang="zh-hk">選項 1</label>
+					</option>
+					<option id="002">
+						<label xml:lang="en-us">Option 2</label>
+						<label xml:lang="zh-cn">选项 2</label>
+						<label xml:lang="zh-hk">選項 2</label>
+					</option>
+					<option id="003">
+						<label xml:lang="en-us">Option 3</label>
+						<label xml:lang="zh-cn">选项 3</label>
+						<label xml:lang="zh-hk">選項 3</label>
+					</option>
+				</option_list>
+			</extension_37>
+			<extension_38 active="false" type="checkBox" fieldname="urx_extra_38" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 38</label>
+				<label xml:lang="zh-cn">其他资料 38</label>
+				<label xml:lang="zh-hk">其他資料 38</label>
+				<option_list>
+					<option id="001">
+						<label xml:lang="en-us">Option 1</label>
+						<label xml:lang="zh-cn">选项 1</label>
+						<label xml:lang="zh-hk">選項 1</label>
+					</option>
+					<option id="002">
+						<label xml:lang="en-us">Option 2</label>
+						<label xml:lang="zh-cn">选项 2</label>
+						<label xml:lang="zh-hk">選項 2</label>
+					</option>
+					<option id="003">
+						<label xml:lang="en-us">Option 3</label>
+						<label xml:lang="zh-cn">选项 3</label>
+						<label xml:lang="zh-hk">選項 3</label>
+					</option>
+				</option_list>
+			</extension_38>
+			<extension_39 active="false" type="checkBox" fieldname="urx_extra_39" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 39</label>
+				<label xml:lang="zh-cn">其他资料 39</label>
+				<label xml:lang="zh-hk">其他資料 39</label>
+				<option_list>
+					<option id="001">
+						<label xml:lang="en-us">Option 1</label>
+						<label xml:lang="zh-cn">选项 1</label>
+						<label xml:lang="zh-hk">選項 1</label>
+					</option>
+					<option id="002">
+						<label xml:lang="en-us">Option 2</label>
+						<label xml:lang="zh-cn">选项 2</label>
+						<label xml:lang="zh-hk">選項 2</label>
+					</option>
+					<option id="003">
+						<label xml:lang="en-us">Option 3</label>
+						<label xml:lang="zh-cn">选项 3</label>
+						<label xml:lang="zh-hk">選項 3</label>
+					</option>
+				</option_list>
+			</extension_39>
+			<extension_40 active="false" type="checkBox" fieldname="urx_extra_40" publicity="0" group="system" registration="false">
+				<label xml:lang="en-us">Extension 40</label>
+				<label xml:lang="zh-cn">其他资料 40</label>
+				<label xml:lang="zh-hk">其他資料 40</label>
+				<option_list>
+					<option id="001">
+						<label xml:lang="en-us">Option 1</label>
+						<label xml:lang="zh-cn">选项 1</label>
+						<label xml:lang="zh-hk">選項 1</label>
+					</option>
+					<option id="002">
+						<label xml:lang="en-us">Option 2</label>
+						<label xml:lang="zh-cn">选项 2</label>
+						<label xml:lang="zh-hk">選項 2</label>
+					</option>
+					<option id="003">
+						<label xml:lang="en-us">Option 3</label>
+						<label xml:lang="zh-cn">选项 3</label>
+						<label xml:lang="zh-hk">選項 3</label>
+					</option>
+				</option_list>
+			</extension_40>
+			<extension_43 active="true" type="text" value="user.png" fieldname="urx_extra_43" publicity="2" group="other" registration="false">
+				<label xml:lang="en-us">Profile icon</label>
+				<label xml:lang="zh-cn">个人头像</label>
+				<label xml:lang="zh-hk">個人頭像</label>
+			</extension_43>
+			<extension_44 active="true" type="textarea" fieldname="urx_extra_44" publicity="2" group="other" registration="false" dbMaxLength="400">
+				<label xml:lang="en-us">Person description</label>
+				<label xml:lang="zh-cn">个人描述</label>
+				<label xml:lang="zh-hk">個人描述</label>
+			</extension_44>
+			<extension_45 active="true" type="textarea" fieldname="urx_extra_45" publicity="2" group="other" registration="false" dbMaxLength="400">
+				<label xml:lang="en-us">Interest</label>
+				<label xml:lang="zh-cn">兴趣</label>
+				<label xml:lang="zh-hk">興趣</label>
+			</extension_45>
+			<group readonly="true" searchable="all" fieldname="usr_group" publicity="1" group="position" registration="true" groupLevel="1" dbMaxLength="80">
+				<label xml:lang="en-us">Group</label>
+				<label xml:lang="zh-cn">用户组</label>
+				<label xml:lang="zh-hk">用戶組</label>
+			</group>
+			<grade readonly="true" searchable="all" fieldname="usr_grade" publicity="1" group="position" registration="true" gradeLevel="1" dbMaxLength="20">
+				<label xml:lang="en-us">Grade</label>
+				<label xml:lang="zh-cn">职级</label>
+				<label xml:lang="zh-hk">職級</label>
+			</grade>
+			<competency readonly="true" searchable="none" fieldname="usr_competency" publicity="0" group="position" registration="false" dbMaxLength="80">
+				<label xml:lang="en-us">Position</label>
+				<label xml:lang="zh-cn">岗位</label>
+				<label xml:lang="zh-hk">崗位</label>
+			</competency>
+			<role hidden="true" readonly="true" searchable="adv" type="checkBox" fieldname="usr_role" publicity="0" group="system" registration="false" allowEmpty="true" dbMaxLength="80">
+				<label xml:lang="en-us">Role</label>
+				<label xml:lang="zh-cn">角色</label>
+				<label xml:lang="zh-hk">角色</label>
+			</role>
+			<direct_supervisors readonly="true" searchable="none" fieldname="usr_directsupervsions" publicity="0" group="system" registration="false" dbMaxLength="1000">
+				<label xml:lang="en-us">Direct supervisors</label>
+				<label xml:lang="zh-cn">直属领导</label>
+				<label xml:lang="zh-hk">直屬上司</label>
+			</direct_supervisors>
+			<app_approval_usg_ent_id readonly="true" searchable="none" fieldname="usr_app_approval_usg_ent_id" publicity="0" group="system" registration="false" dbMaxLength="20">
+				<label xml:lang="en-us">Highest approval group</label>
+				<label xml:lang="zh-cn">最高报名审批用户组</label>
+				<label xml:lang="zh-hk">最高報名審批用戶組</label>
+			</app_approval_usg_ent_id>
+			<supervised_groups readonly="true" searchable="none" fieldname="usr_supervised_groups" publicity="0" group="system" registration="false" dbMaxLength="1000">
+				<label xml:lang="en-us">Supervised groups</label>
+				<label xml:lang="zh-cn">下属部门</label>
+				<label xml:lang="zh-hk">管理部門</label>
+			</supervised_groups>
+		</profile_attributes>
+		<!-- 
+		GRADE_LIST
+		Description:
+			This defines the selection list used for the grade attribute. 
+		Value:
+			Max number of selection up to 50 (i.e. id assigned up to 50).		
+		-->
+		<!--		<grade_list>
+			<grade id="1">Director</grade>
+			<grade id="2">Associate Director</grade>
+			<grade id="3">Senior Manager</grade>
+			<grade id="4">Manager</grade>
+			<grade id="5">Senior Associate</grade>
+			<grade id="6">Associate</grade>
+			<grade id="7">Unassigned</grade>
+		</grade_list>-->
+	</user_profile>
+</user_management>

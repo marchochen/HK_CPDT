@@ -1,0 +1,60 @@
+<!doctype html>
+<html ng-app="module">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link rel="stylesheet" href="../../css/module.css"/>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../lib/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/ModuleController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="assSub3Controller">
+<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>    
+
+<div class="wrap">
+	<header class="header mm-background">
+	    <a class="header-back" href="javascript:back();"></a>
+	    <span class="header-title" translate="mod_sub_homework"></span>
+	</header> <!-- header End -->
+	
+	<section class="content-2">
+		<div class="work_step">
+			<span class="yellow_icon">3</span><span translate="mod_sub_file_3"></span>
+		</div>
+		<div class="work_font" translate="mod_sub_file_3_desc"></div>
+		<div class="ui_head"></div>
+		<div class="content_info">
+			<div class="report_title">
+				<div class="grayC999 ass_left" translate="mod_file"></div>
+				<div class="grayC999" translate="desc"></div>
+			</div>
+			<div class="report_content_tr" ng-repeat="desc in desc_list track by $index">
+			 	<div class="Text ass_left"><span translate="mod_file"></span> {{$index+1}}</div>
+				<div class="Text">{{desc}}</div>
+			</div>
+		</div>
+		<form id="assForm" action="/app/module/submitAss" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="tkh_id" value=""/>
+			<input type="hidden" name="mod_id" value=""/>
+			<input type="hidden" name="step" value=""/>
+			<input type="hidden" name="file_detail_str" value=""/>
+			<input type="hidden" name="isMobile" value="true"/>
+		</form>
+		<div class="null_head"></div>
+		
+		<div class="diaocha-page">
+		     <a class="diaocha-page-submit" href="javascript:back(3);" translate="btn_cancel"></a>
+		     <a class="diaocha-page-prev" href="javascript:back();" translate="btn_prev"></a>
+		     <a class="diaocha-page-next" href="javascript:;" ng-click="finish()" translate="btn_next"></a>
+		</div>
+	</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

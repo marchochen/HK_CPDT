@@ -1,0 +1,252 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Dev Page</title>
+<style>
+	BODY {
+		font-family:Verdana, Arial, Helvetica, sans-serif;
+		font-size: 9pt;
+	}
+	TABLE  {
+		border-collapse: collapse; 
+		border-style:solid ;
+		border:1px; 
+	}
+	TD {
+		border:1px; 
+		border-style:solid ;
+		border-color: #968456; 
+	}
+	INPUT {
+		border:1px solid #84a1bd; 
+		padding:2px 2px 2px 2px ; 
+		background-position: -70px -424px;
+	}
+	select {
+		margin:-2px;
+		border:1px solid #cccccc;   
+		float: left;   
+		display: inline;  
+	}
+	.info {
+		border: 1px dashed #cccccc;
+		BACKGROUND: #ffffff; 
+		WIDTH: 100%;
+		height:200px;
+	}
+</style>
+<script language="javascript" type="text/javascript" src="../js/gen_utils.js"></script>
+<script language="javascript" type="text/javascript" src="../js/wb_utils.js"></script>
+<script language="javascript" type="text/javascript">
+	
+	//excute qdbAction command
+	function excuteQdbCmd(cmd_name){
+		var url = "../servlet/qdbAction?cmd="+cmd_name;
+		showRetMsg(url, cmd_name, 540, 400);
+	}
+	//excute module command
+	function excuteModuleCmd(cmd_name){
+		var url = "../servlet/Dispatcher?module=util.HtmTemplateModule&cmd="+cmd_name;
+		showRetMsg(url, cmd_name, 540, 400);
+	}
+	//xalan_env_check.xsl
+	function xalanEnvCheck(){
+		var url = "../servlet/qdbAction?cmd=start&stylesheet=xalan_env_check.xsl";
+		showRetMsg(url, 'xalanEnvCheck', 540, 400);
+	}
+	//excute Ajax
+	var req;
+	function getXslLst(){
+		
+		var used_xsl_size = document.getElementById('used_xsl_size').value;
+		if(used_xsl_size == null || used_xsl_size.length <= 0){
+			used_xsl_size = '5';
+		}
+		var get_used_xsl_lst = "../servlet/qdbAction?cmd=get_used_xsl_lst&used_xsl_size=" + used_xsl_size;
+		req = getXMLHttpRequest();
+		req.onreadystatechange = onWriteXsl;
+		req.open("GET", get_used_xsl_lst, true);
+		req.send(null);
+	}
+	function onWriteXsl() {
+		// only if req shows "loaded"
+		if (req.readyState == 4 && req.status == 200) {
+			resultXml = req.responseXML;
+			var used_xsl_lst = document.getElementById('used_xsl_lst');
+			var used_xsl_size = document.getElementById('used_xsl_size');
+			//先清空
+			while(used_xsl_lst.length > 0){
+				used_xsl_lst.remove(0);
+			}
+			//get & set used_xsl_size
+			var attribute_xsl = resultXml.getElementsByTagName('used_xsl_lst')[0];
+			if(attribute_xsl != null){
+				var xsl_size = attribute_xsl.attributes[0].value;
+				used_xsl_size.value = xsl_size;
+			}
+			
+			var xxx = true;
+			for(i = 0; i < resultXml.getElementsByTagName('xsl').length; i++){
+				if (resultXml.getElementsByTagName('xsl')[i] != null) {
+					var cur_pos = resultXml.getElementsByTagName('xsl')[i].firstChild.nodeValue;
+					if (cur_pos != null && cur_pos.length > 0) {
+						
+						var oOption = document.createElement("OPTION");
+						oOption.text=cur_pos;
+						oOption.value=cur_pos;
+		
+						try {
+							used_xsl_lst.add(oOption, null); // standards compliant
+						} catch (ex) {
+							used_xsl_lst.add(oOption); // IE only
+						}
+						
+						xxx = false;
+					}
+				}
+			}
+			if(xxx){
+				var oOption = document.createElement("OPTION");
+				oOption.text='-- 先访问平台 --';
+				oOption.value='';
+
+				try {
+					used_xsl_lst.add(oOption, null); // standards compliant
+				} catch (ex) {
+					used_xsl_lst.add(oOption); // IE only
+				}
+			}
+		}
+	}
+	function reloadXsl(frm, stylesheet){
+		if(stylesheet == null || stylesheet.length <= 0){
+			var used_xsl_lst = document.getElementById('used_xsl_lst');
+			if(used_xsl_lst.selectedIndex >= 0){
+				stylesheet = used_xsl_lst.options[used_xsl_lst.selectedIndex].value;
+				document.getElementById("xsl_to_reload").value = stylesheet;
+			}
+		}
+		if(stylesheet != null && stylesheet.length > 0){
+			if(stylesheet.indexOf(".xsl") < 0){
+				stylesheet = stylesheet + ".xsl"
+			}
+			var force_reload_xsl = 'false';
+			if(frm.force_reload_xsl.checked){
+				force_reload_xsl = 'true';
+			}
+			
+			var url = "../servlet/qdbAction?cmd=reload_xsl&stylesheet=" + stylesheet + "&force_reload_xsl=" + force_reload_xsl;
+			showRetMsg(url, 'reload_xsl', 540, 400);
+		}
+	}
+	function showRetMsg(url,cmd) {
+		var el = document.getElementById("infoPanel");
+		el.innerHTML = url+"<br/>";
+		req = getXMLHttpRequest();
+		req.onreadystatechange = showMsg;
+		req.open("GET", url, true);
+		req.send(null);
+	}
+	
+	function showMsg() {
+		if (req.readyState == 4 && req.status == 200) {
+			var el = document.getElementById("infoPanel");
+			el.innerHTML += req.responseText;
+		}
+	}
+</script>
+</head>
+<body onLoad="getXslLst()">
+	<b>Dev Page</b>
+	<table border="1" width="100%" height="100%">
+		<tr valign="top">
+			<form name="frmDev1" onsubmit="getXslLst();return false;">
+				<td>
+					最近用过的<input type="text" id="used_xsl_size" name="used_xsl_size" size="3" maxLength="3">个XSL：
+					<br/>
+					<font size="-1">
+					注：
+					<li>点击文件名自动重载</li>
+					<li>指同一session中</li>
+					</font>
+				</td>
+				<td>
+					<select id="used_xsl_lst" size="5" onchange="reloadXsl(document.frmDev1)"></select>
+					<input type="checkbox" name="force_reload_xsl" checked="checked">
+					<font size="-1">忽略XSL更新时间</font>
+					（刷新列表：<a href="javascript:getXslLst()">get_used_xsl_lst</a>）
+					<br/>
+					<br/>
+				</td>
+			</form>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<form name="frmDev2" onsubmit="reloadXsl(this, document.frmDev2.xsl_to_reload.value);return false;">
+					重载XSL：
+					<input type="text" id="xsl_to_reload" name="xsl_to_reload" size="30" maxLength="100">
+					<input type="checkbox" name="force_reload_xsl" checked="checked">
+					<font size="-1">忽略XSL更新时间</font>
+					<a href="javascript:reloadXsl(document.frmDev2, document.frmDev2.xsl_to_reload.value)">reload_xsl</a>
+					<br/>
+					<br/>
+				</form>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				重载label文件：
+				<a href="javascript:excuteQdbCmd('reload_label')">reload_label</a>
+				<br/>
+				<br/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				重载config xml文件：
+				<a href="javascript:excuteQdbCmd('reload_config')">reload_config</a>
+				<br/>
+				<br/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				查看调用servlet api的结果：
+				<a href="javascript:excuteQdbCmd('get_servlet_info')">get_servlet_info</a>
+				<br/>
+				<br/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				检查xsl jar包是否正确：
+				<a href="javascript:xalanEnvCheck()">xalan_env_check</a>
+<pre>
+正确的版本号：
+&lt;item key="version.xerces2">Xerces-J 2.6.2&lt;/item>
+&lt;item key="version.xalan2_2">Xalan Java 2.6.0&lt;/item> 
+</pre>
+				<br/>
+				<br/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				查看ScheduledTask的状态：
+				<a href="javascript:excuteQdbCmd('get_task_status')">get_task_status</a>
+				<br/>
+				<br/>
+				Reload ScheduledTask：(将清空之前已经保存的状态信息)
+				<a href="javascript:excuteQdbCmd('reload_task')">reload_task</a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<br/>
+				<div width="600" height="30" id="infoPanel" class="info">&nbsp;</div>
+				<br/>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

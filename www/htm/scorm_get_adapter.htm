@@ -1,0 +1,43 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Pragma" contect="no-cache">
+<title>Cyberwisdom wizBank</title>
+<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
+var cmdType="";
+function doSubmit(){
+	if (cmdType != ""&&typeof(cmdType)!="undefined")	{
+		 window.document.getElementById("command").value=cmdType;
+		 window.document.getElementById("version").value="2.2";
+		 window.document.getElementById("session_id").value=window.parent.my_aicc_sid;
+		 window.document.getElementById("AICC_Data").value="";
+		 window.document.getElementById("AU_password").value="";
+		 window.document.getElementById("scorm_Adapter_form").action=window.parent.my_aicc_url;
+	   window.document.getElementById("scorm_Adapter_form").submit();
+	}else{
+		window.parent.frames["content"].document.writeln("<p>Can not locate the LMS API.</p>");
+	}
+}
+function initFormData(){
+	var allSearch=window.location.search;
+	var idx1=allSearch.indexOf("cmd=");
+	idx1=idx1+4;
+	cmdType=allSearch.substring(idx1);
+}
+initFormData();
+</SCRIPT>
+</head>
+<body onLoad="javascript:doSubmit()">
+<form name="scorm_Adapter_form" id="scorm_Adapter_form" method="post" action="">
+  <p>
+    <label>
+      <input type="text" name="command" id="command"/>
+      <input type="text" name="version" id="version"/>
+      <input type="text" name="session_id" id="session_id"/>
+      <input type="text" name="AICC_Data" id="AICC_Data"/>
+      <input type="text" name="AU_password" id="AU_password"/>
+    </label>
+  </p>
+</form>
+</body>
+</html>

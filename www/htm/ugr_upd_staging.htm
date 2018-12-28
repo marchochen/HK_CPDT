@@ -1,0 +1,16 @@
+<html>
+	<head>
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+	<title>Cyberwisdom wizBank </title>
+		<script src="../js/wb_utils.js" language="JavaScript"></script>
+		<script src="../js/gen_utils.js" language="JavaScript"></script>
+		<script src="../js/urlparam.js" language="JavaScript"></script>
+
+		<script language="javascript">
+			ugr_ent_id = getUrlParam("ugr_ent_id");
+			ugr_display_bil = getUrlParam("ugr_display_bil");
+			parent.frames[1].edit_node(ugr_display_bil);
+			parent.frames[1].ugr_read_mode(ugr_ent_id);
+		</script>
+   </head>
+</html>

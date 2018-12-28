@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.LiveItemMapper">
+
+	
+	<select id="get" resultType="LiveItem" parameterType="java.lang.Long">
+		<![CDATA[
+		select
+			lv_id,  
+			lv_title,  
+			lv_create_datetime,  
+			lv_start_datetime,
+			lv_end_datetime,
+			lv_create_usr_id,
+			lv_upd_datetime,
+			lv_upd_usr_id,
+			lv_url,
+			lv_desc,
+			lv_pwd,
+			lv_webinar_id,
+			lv_record_id,
+			lv_image,
+			lv_status,
+			lv_real_start_datetime,
+			lv_need_pwd,
+			lv_tcr_id,
+			lv_people_num,
+			lv_type,
+			lv_had_live,
+			lv_mode_type,
+			lv_upstream_address,
+			lv_hls_downstream_address,
+			lv_rtmp_downstream_address,
+			lv_flv_downstream_address,
+			lv_channel_id,
+			lv_student_token,
+			lv_teacher_token,
+			lv_student_client_token,
+			lv_teacher_join_url,
+			lv_student_join_url,
+			lv_gensee_online_user,
+			lv_real_end_datetime,
+			lv_gensee_record_url
+		from LiveItem
+		where
+		lv_id = #{lv_id}
+		]]>
+	</select>
+
+	<update id="update" parameterType="com.cwn.wizbank.entity.LiveItem">
+	    <![CDATA[
+	        update LiveItem 
+	        set 
+				lv_title = #{lv_title,jdbcType=VARCHAR},
+				lv_create_datetime = #{lv_create_datetime,jdbcType=TIMESTAMP},
+				lv_start_datetime = #{lv_start_datetime,jdbcType=TIMESTAMP},
+				lv_end_datetime = #{lv_end_datetime,jdbcType=TIMESTAMP},
+				lv_create_usr_id = #{lv_create_usr_id,jdbcType=VARCHAR},
+				lv_upd_datetime = #{lv_upd_datetime,jdbcType=TIMESTAMP},
+				lv_upd_usr_id = #{lv_upd_usr_id,jdbcType=VARCHAR},
+				lv_url = #{lv_url,jdbcType=VARCHAR},
+				lv_desc = #{lv_desc,jdbcType=VARCHAR},
+				lv_pwd = #{lv_pwd,jdbcType=VARCHAR},
+				lv_webinar_id = #{lv_webinar_id,jdbcType=INTEGER},
+				lv_record_id = #{lv_record_id,jdbcType=INTEGER},
+				lv_image = #{lv_image,jdbcType=VARCHAR},
+				lv_status = #{lv_status,jdbcType=VARCHAR},
+				lv_type = #{lv_type,jdbcType=INTEGER},
+				lv_real_start_datetime = #{lv_real_start_datetime,jdbcType=TIMESTAMP},
+				lv_need_pwd = #{lv_need_pwd,jdbcType=INTEGER},
+				lv_had_live = #{lv_had_live,jdbcType=INTEGER},
+				lv_tcr_id = #{lv_tcr_id,jdbcType=VARCHAR},
+				lv_people_num = #{lv_people_num,jdbcType=INTEGER},
+				lv_mode_type = #{lv_mode_type,jdbcType=VARCHAR},
+				lv_upstream_address = #{lv_upstream_address,jdbcType=VARCHAR},
+				lv_hls_downstream_address = #{lv_hls_downstream_address,jdbcType=VARCHAR},
+				lv_rtmp_downstream_address = #{lv_rtmp_downstream_address,jdbcType=VARCHAR},
+				lv_flv_downstream_address = #{lv_flv_downstream_address,jdbcType=VARCHAR},
+				lv_channel_id = #{lv_channel_id,jdbcType=VARCHAR},
+				lv_student_token = #{lv_student_token,jdbcType=VARCHAR},
+				lv_teacher_token = #{lv_teacher_token,jdbcType=VARCHAR},
+				lv_student_client_token = #{lv_student_client_token,jdbcType=VARCHAR},
+				lv_teacher_join_url = #{lv_teacher_join_url,jdbcType=VARCHAR},
+				lv_student_join_url = #{lv_student_join_url,jdbcType=VARCHAR},
+				lv_gensee_online_user = #{lv_gensee_online_user,jdbcType=INTEGER},
+				lv_real_end_datetime = #{lv_real_end_datetime,jdbcType=TIMESTAMP},
+				lv_gensee_record_url = #{lv_gensee_record_url,jdbcType=VARCHAR}
+	         where lv_id = #{lv_id,jdbcType=INTEGER}
+	    ]]>
+	</update>
+
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.LiveItem">
+    	<![CDATA[
+            insert into LiveItem(
+				lv_title,  
+				lv_create_datetime,  
+				lv_start_datetime,
+				lv_end_datetime,
+				lv_create_usr_id,
+				lv_upd_datetime,
+				lv_upd_usr_id,
+				lv_url,
+				lv_desc,
+				lv_pwd,
+				lv_webinar_id,
+				lv_record_id,
+				lv_image,
+				lv_status,
+				lv_real_start_datetime,
+				lv_need_pwd,
+				lv_tcr_id,
+				lv_people_num,
+				lv_type,
+				lv_had_live,
+				lv_mode_type,
+				lv_upstream_address,
+				lv_hls_downstream_address,
+				lv_rtmp_downstream_address,
+				lv_flv_downstream_address,
+				lv_channel_id,
+				lv_student_token,
+				lv_teacher_token,
+				lv_student_client_token,
+				lv_teacher_join_url,
+				lv_student_join_url,
+				lv_gensee_online_user,
+				lv_real_end_datetime,
+				lv_gensee_record_url
+            ) values (
+            	#{lv_title,jdbcType=VARCHAR},
+            	#{lv_create_datetime,jdbcType=TIMESTAMP},
+            	#{lv_start_datetime,jdbcType=TIMESTAMP},
+            	#{lv_end_datetime,jdbcType=TIMESTAMP},
+            	#{lv_create_usr_id,jdbcType=VARCHAR},
+            	#{lv_upd_datetime,jdbcType=TIMESTAMP},
+            	#{lv_upd_usr_id,jdbcType=VARCHAR},
+            	#{lv_url,jdbcType=VARCHAR},
+            	#{lv_desc,jdbcType=VARCHAR},
+            	#{lv_pwd,jdbcType=VARCHAR},
+            	#{lv_webinar_id,jdbcType=INTEGER},
+            	#{lv_record_id,jdbcType=INTEGER},
+				#{lv_image,jdbcType=VARCHAR},
+				#{lv_status,jdbcType=VARCHAR},
+				#{lv_real_start_datetime,jdbcType=TIMESTAMP},
+				#{lv_need_pwd,jdbcType=INTEGER},
+				#{lv_tcr_id,jdbcType=VARCHAR},
+				#{lv_people_num,jdbcType=INTEGER},
+				#{lv_type,jdbcType=INTEGER},
+				#{lv_had_live,jdbcType=INTEGER},
+				#{lv_mode_type,jdbcType=VARCHAR},
+				#{lv_upstream_address,jdbcType=VARCHAR},
+				#{lv_hls_downstream_address,jdbcType=VARCHAR},
+				#{lv_rtmp_downstream_address,jdbcType=VARCHAR},
+				#{lv_flv_downstream_address,jdbcType=VARCHAR},
+				#{lv_channel_id,jdbcType=VARCHAR},
+				#{lv_student_token,jdbcType=VARCHAR},
+				#{lv_teacher_token,jdbcType=VARCHAR},
+				#{lv_student_client_token,jdbcType=VARCHAR},
+				#{lv_teacher_join_url,jdbcType=VARCHAR},
+				#{lv_student_join_url,jdbcType=VARCHAR},
+				#{lv_gensee_online_user,jdbcType=INTEGER},
+				#{lv_real_end_datetime,jdbcType=TIMESTAMP},
+				#{lv_gensee_record_url,jdbcType=VARCHAR}
+            )
+        ]]>
+	</insert>
+
+	<delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from LiveItem  where lv_id = #{lv_id}
+	    ]]>
+	</delete>
+
+	<select id="getLvItemList" resultType="LiveItem" parameterType="Page">
+	    <![CDATA[
+	         select 
+				lv_id,  
+				lv_title,  
+				lv_create_datetime,  
+				lv_start_datetime,
+				lv_end_datetime,
+				lv_create_usr_id,
+				lv_upd_datetime,
+				lv_upd_usr_id,
+				lv_url,
+				lv_desc,
+				lv_pwd,
+				lv_webinar_id,
+				lv_record_id,
+				lv_image,
+				lv_status,
+				lv_real_start_datetime,
+				lv_need_pwd,
+				lv_tcr_id,
+				lv_people_num,
+				lv_type,
+				lv_had_live,
+				lv_mode_type,
+				lv_upstream_address,
+				lv_hls_downstream_address,
+				lv_rtmp_downstream_address,
+				lv_flv_downstream_address,
+				lv_channel_id,
+				lv_student_token,
+				lv_teacher_token,
+				lv_student_client_token,
+				lv_teacher_join_url,
+				lv_student_join_url,
+				lv_gensee_online_user,
+				lv_real_end_datetime,
+				lv_gensee_record_url
+			from LiveItem t 
+			where 1=1 
+			]]>
+			<if test="params.isLearner != null and params.isLearner == true">
+				and lv_status = 'ON' 
+			</if>
+			 <if test="params.top_tc_id != null and params.top_tc_id != ''">
+		 	   and (
+		 	   		lv_tcr_id in (select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{params.top_tc_id} )
+		 	   		or lv_tcr_id = #{params.top_tc_id}
+		 	   )
+		 	</if>
+			<if test="params.searchContent != null and params.searchContent != ''">
+				and (lower(t.lv_title) like lower(N'%${params.searchContent}%')
+					or lower(t.lv_desc) like lower(N'%${params.searchContent}%')
+				)
+			</if>
+			<if test="params.type != null and params.type != ''">
+				and t.lv_type in 
+				<foreach item="type" index="index" collection="_parameter['params']['type']" open="(" separator="," close=")">  
+				 ${type}  
+				</foreach>
+			</if>
+			<if test="params.live_mode_type != null and params.live_mode_type != ''">
+				and lv_mode_type in 
+				<foreach item="live_mode" index="index" collection="_parameter['params']['live_mode_type']" open="(" separator="," close=")">  
+				 	 '${live_mode}'
+				</foreach>
+			</if>
+			order by lv_upd_datetime desc
+	</select>
+	
+	<select id="getLiveListByUsrId" resultType="LiveItem" parameterType="Page">
+         select 
+			lv_id,  
+			lv_title,  
+			lv_create_datetime,  
+			lv_start_datetime,
+			lv_end_datetime,
+			lv_create_usr_id,
+			lv_upd_datetime,
+			lv_upd_usr_id,
+			lv_url,
+			lv_desc,
+			lv_pwd,
+			lv_webinar_id,
+			lv_record_id,
+			lv_image,
+			lv_status,
+			lv_real_start_datetime,
+			lv_need_pwd,
+			lv_tcr_id,
+			lv_people_num,
+			lv_type,
+			lv_had_live,
+			lv_mode_type,
+			lv_upstream_address,
+			lv_hls_downstream_address,
+			lv_rtmp_downstream_address,
+			lv_flv_downstream_address,
+			lv_channel_id,
+			lv_student_token,
+			lv_teacher_token,
+			lv_student_client_token,
+			lv_teacher_join_url,
+			lv_student_join_url,
+			lv_gensee_online_user,
+			lv_real_end_datetime,
+			lv_gensee_record_url
+		from LiveItem t 
+		inner join liveRecords lr on t.lv_id = lr.lr_live_id and lr.lr_usr_id = #{params.usr_id}
+		where 1=1 and lv_status = 'ON'
+		<if test="params.top_tc_id != null and params.top_tc_id != ''">
+	   		and ( lv_tcr_id in (select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{params.top_tc_id} )
+	   			or lv_tcr_id = #{params.top_tc_id})
+	 	</if>
+	</select>
+	
+	<select id="getLiveOnlinePeople" resultType="int" parameterType="java.util.Map">
+        select 
+			count(lv_id) lv_count 
+		from LiveItem t 
+		inner join liveRecords lr on t.lv_id = lr.lr_live_id and t.lv_id = #{lv_id} and lr_status = 1 
+		where 1=1 
+		<if test="top_tc_id != null and top_tc_id != ''">
+ 	   		and ( lv_tcr_id in (select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{top_tc_id} )
+ 	   			or lv_tcr_id = #{top_tc_id})
+	 	</if>
+	</select>
+	
+	<!-- 密码验证 -->
+	<select id="checkLivePwd" resultType="java.lang.Boolean" parameterType="java.util.Map">
+		select count(lv_id) as live_num  from LiveItem l where lv_id = ${lv_id} and lv_pwd = '${password}'
+	</select>
+	
+	<select id="getCount" resultType="int" parameterType="java.util.Map">
+        select count(lv_id) lv_count  from LiveItem t  where lv_type != 0 and lv_status = 'ON' 
+        <if test="top_tc_id != null and top_tc_id != ''">
+	 	   and  lv_tcr_id = #{top_tc_id} 
+	 	</if>
+	</select>
+	
+	<select id="getTcrAllOnlineCount" resultType="long" parameterType="java.util.Map" >
+		select COUNT(lv_id) tcr_all_online_count from liveItem
+			inner join liveRecords on lv_id = lr_live_id and lr_status = 1 and lr_usr_id != #{ent_id}
+			where lv_status = 'ON'  
+			and (
+		 	   		lv_tcr_id in (select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{top_tc_id} )
+		 	   		or lv_tcr_id = #{top_tc_id}
+		 	   )
+	</select>
+	
+	<!-- 查询直播（ 预告&&已发布 ）-->
+	<select id="getLiveItemByTimeout"  resultType="LiveItem" parameterType="Page">
+		Select * From liveItem Where lv_status = 'ON' and lv_type = 2
+	</select>
+	
+	<!-- 展示互动根据教室id查询 -->
+	<select id="getLiveByClassNo"  resultType="LiveItem" parameterType="java.lang.String">
+		Select * From liveItem Where lv_channel_id = #{lv_channel_id} and lv_mode_type = 'GENSEE'
+	</select>
+	
+	<!-- 查询直播展示互动(结束)-->
+	<select id="getLiveItemByModeType"  resultType="LiveItem" parameterType="Page">
+		Select * From liveItem Where lv_type = 3 and lv_mode_type = 'GENSEE' and (lv_gensee_record_url is null or lv_gensee_record_url = '')
+	</select>
+</mapper>

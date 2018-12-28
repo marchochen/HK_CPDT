@@ -1,0 +1,147 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.HelpQuestionMapper">
+
+	<resultMap type="com.cwn.wizbank.entity.HelpQuestion" id="HelpQuestion">
+		<result column="hq_id" property="hq_id"/>
+		<result column="hq_type_id" property="hq_type_id"/>
+		<result column="hq_title" property="hq_title"/>
+		<result column="hq_content" property="hq_content"/>
+		<result column="hq_update_timestamp" property="hq_update_timestamp"/>
+		<result column="hq_create_timestamp" property="hq_create_timestamp"/>
+		<result column="hq_top_index" property="hq_top_index"/>
+		<result column="hq_is_hot" property="hq_is_hot"/>
+		<result column="hq_is_publish" property="hq_is_publish"/>
+		<result column="hq_language" property="hq_language"/>
+	</resultMap>
+
+	<select id="getQuestionList" parameterType="Page" resultMap="HelpQuestion">
+		SELECT 
+			hq_id
+			,hq_type_id
+			,hq_title
+			,hq_content_cn
+			,hq_content_us
+			,hq_update_timestamp
+			,hq_create_timestamp
+			,hq_width
+			,hq_height
+			,hq_Template
+			,hqt_number
+		FROM 
+			helpQuestion
+		where 1 = 1
+		<if test="params.hq_type_id != null and params.hq_type_id != ''">
+			and hq_type_id = #{params.hq_type_id}
+		</if>
+		
+		<if test="params.hq_title!= null and params.hq_title !=''">
+			<![CDATA[
+				and hq_title like N'%${params.hq_title}%'
+			]]>
+		</if>
+		order by hq_id desc
+	</select>
+	
+	<select id="getQuestion" parameterType="com.cwn.wizbank.entity.HelpQuestion" resultMap="HelpQuestion">
+		SELECT 
+			hq_id
+			,hq_type_id
+			,hq_title
+			,hq_content_cn
+			,hq_content_us
+			,hq_update_timestamp
+			,hq_create_timestamp
+			,hq_width
+			,hq_height
+			,hq_template
+			,hqt_number
+		FROM 
+			helpQuestion
+		where 1 =1
+		 <if test="hq_id != null and hq_id != ''">
+			and hq_id = #{hq_id}
+		</if>
+		
+		<if test="hqt_number != null and hqt_number != ''">
+			and hqt_number = #{hqt_number}
+		</if>
+		
+	</select>
+	
+	<select id="checkNumber" parameterType="com.cwn.wizbank.entity.HelpQuestion" resultType="java.lang.Integer">
+	 
+		SELECT 
+			count(*)
+		FROM 
+			helpQuestion
+		where 1 =1
+		 <if test="hq_id != null and hq_id != ''">
+			and hq_id != #{hq_id}
+		</if>
+		
+		<if test="hqt_number != null and hqt_number != ''">
+			and hqt_number = #{hqt_number}
+		</if>
+		
+	</select>
+	
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.HelpQuestion">
+	    <![CDATA[
+	        update 
+	        	helpQuestion
+	        set 
+				hq_type_id = #{hq_type_id,jdbcType=INTEGER},
+				hq_title = #{hq_title,jdbcType=VARCHAR},
+				hq_update_timestamp = #{hq_update_timestamp,jdbcType=TIMESTAMP},
+				hq_content_cn = #{hq_content_cn,jdbcType=VARCHAR},
+				hq_content_us = #{hq_content_us,jdbcType=VARCHAR},
+				hq_width = #{hq_width,jdbcType=INTEGER},
+				hq_height = #{hq_height,jdbcType=INTEGER},
+				hq_template = #{hq_template,jdbcType=VARCHAR},
+				hqt_number = #{hqt_number,jdbcType=VARCHAR}
+	         where 
+	         	hq_id =  #{hq_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.HelpQuestion">
+    	<![CDATA[
+            insert into helpQuestion (
+            		hq_type_id,
+            		hq_title,
+            		hq_content_cn,
+            		hq_content_us,
+            		hq_update_timestamp,
+            		hq_create_timestamp,
+            		hq_width,
+            		hq_height,
+            		hq_template,
+            		hqt_number,
+            		hq_top_index
+            ) values (
+				#{hq_type_id,jdbcType=INTEGER},
+				#{hq_title,jdbcType=VARCHAR},
+				#{hq_content_cn,jdbcType=VARCHAR},
+				#{hq_content_us,jdbcType=VARCHAR},
+				#{hq_update_timestamp,jdbcType=TIMESTAMP},
+				#{hq_create_timestamp,jdbcType=TIMESTAMP},
+				#{hq_width,jdbcType=INTEGER},
+				#{hq_height,jdbcType=INTEGER},
+				#{hq_template,jdbcType=VARCHAR},
+				#{hqt_number,jdbcType=VARCHAR},
+				#{hq_type_id,jdbcType=INTEGER}
+            )
+        ]]>
+
+	</insert>
+	
+    <delete id="delHelpQuestion" parameterType="java.lang.Integer">
+	    <![CDATA[
+	   	delete from helpQuestion where
+	        hq_id = #{id}
+	    ]]>
+    </delete>
+
+	
+</mapper>

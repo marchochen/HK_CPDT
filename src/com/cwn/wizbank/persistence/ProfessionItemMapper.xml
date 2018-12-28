@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.ProfessionItemMapper">
+	
+	<select id="get" parameterType="Long" resultType="ProfessionItem">
+		select * from professionItem where psi_id = #{psi_id}
+	</select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.ProfessionItem">
+		update professionItem set pfs_title = #{pfs_title}
+		,pfs_create_time = #{pfs_create_time}
+		,pfs_update_time = #{pfs_update_time}
+		,pfs_create_user_id = #{pfs_create_user_id}
+		,pfs_update_user_id = #{pfs_update_user_id}
+		where psi_id = #{psi_id}
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.Long">
+		delete professionItem where psi_id = #{id}
+	</delete>
+	<insert id="add" parameterType="com.cwn.wizbank.entity.ProfessionItem">
+		insert into professionItem(psi_pfs_id,psi_ugr_id,psi_itm)
+		values(#{psi_pfs_id},#{psi_ugr_id},#{psi_itm})
+		<selectKey resultType="java.lang.Long" keyProperty="pfs_id" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select ProfessionItem_seq.CURRVAL AS pfs_id FROM DUAL
+				</when>
+				<otherwise>
+					select @@IDENTITY as pfs_id
+				</otherwise>
+			</choose>
+		</selectKey>
+	</insert>
+	<delete id="deleteByPfsId" parameterType="java.lang.Long">
+		delete professionItem where psi_pfs_id = #{id}
+	</delete>
+	<select id="getItemByPfsId" parameterType="ProfessionItem">
+		select * from professionItem where psi_pfs_id = #{id}
+	</select>
+	<select id="pageItem" resultType="ProfessionItem" parameterType="com.cwn.wizbank.utils.Page">
+	    select     
+		    itm_id, 
+		    itm_title, 
+		    itm_type, 
+		    itm_desc, 
+		    itm_icon, 
+		    att_ats_id, 
+		    app_id,
+		    cos_res_id,
+		    itr_group_ind,
+		    itr_grade_ind,
+		    itr_position_ind from (
+		    select itm_id, itm_title, 
+		    	itm_type, 
+		    	itm_desc, 
+		    	itm_icon,  
+		    	max(app_id) app_id, 
+		   	 	cos_res_id, 
+		    	0 as itr_group_ind, 
+		    	0 as itr_grade_ind, 
+		    	0 as itr_position_ind from aeItem 
+		    	left join aeApplication on (app_itm_id = itm_id and app_ent_id = 272) 
+		    	left join Course on (cos_itm_id = itm_id) 
+	    	where 1 = 1 
+	    	<if test="params.itm_id_lst != null and params.itm_id_lst.size > 0">
+	 			and itm_id in 
+	 			<foreach collection="_parameter['params']['itm_id_lst']" item="itm_id" index="index" 
+					open="(" separator="," close=")">
+					${itm_id}
+				</foreach>
+			</if>
+	  		group by itm_id, 
+		    	itm_title, 
+		    	itm_type, 
+		    	itm_desc, 
+		    	itm_icon, 
+		    	cos_res_id
+	    ) t left join aeAttendance on (att_app_id = app_id)
+	</select>
+	<select id="getPsiByPfsid" parameterType="Long" resultType="ProfessionItem">
+		select psi_id, psi_pfs_id, psi_ugr_id, psi_itm from professionItem where psi_pfs_id = #{pfs_id}
+	</select>
+</mapper>

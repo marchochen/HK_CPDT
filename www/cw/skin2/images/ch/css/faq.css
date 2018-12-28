@@ -1,0 +1,99 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :FAQ
+suffix								   :faq
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : faq.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+a.wbFaqHText:hover, .wbFaqTitleText {
+	color: #B9C26C;
+	font: bold  9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+a.wbFaqTLink:visited{
+	color: #006699;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbFaqAnsBg, .wbFaqBg, .wbFaqQueBg {
+	background: #E8EEBE;
+}
+
+.wbFaqAnsHRBg{
+	border: 1px solid #B9C26C;
+	color: #B9C26C;
+}
+
+.wbFaqBarBg{
+	background: #97A222;
+}
+
+.wbFaqComHRBg{
+	border: solid 1px #000000;
+	color: #000000;
+}
+
+.wbFaqComHTextBold, .wbFaqQueHTextBold, .wbFaqAnsHTextBold {
+	color: #000000;
+	font: bold  9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbFaqComText, a.wbFaqTLink,a.wbFaqTLink:active, .wbFaqTText, .wbFaqQueHText, .wbFaqQueText, .wbFaqAnsHText, .wbFaqComHText {
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbFaqContentText, a.wbFaqTLink:hover, .wbFaqAnsText {
+	color: #B9C26C;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbFaqCText{
+	color: #B9C26C;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbFaqDText{
+	color: #97A222;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbFaqFrm{
+	background: #E8EEBE;
+	border: 1px solid;
+	border-color: #B9C26C;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+	scrollbar-3dlight-color: #B9C26C;
+	scrollbar-arrow-color: #000000;
+	scrollbar-base-color: #B9C26C;
+	scrollbar-darkshadow-color: #97A222;
+	scrollbar-face-color: #B9C26C;
+	scrollbar-highlight-color: #FFFFFF;
+	scrollbar-shadow-color: #97A222;
+	scrollbar-track-color: #B9C26C;
+}
+
+.wbFaqHBg, .wbFaqComBg {
+	background: #B9C26C;
+}
+
+.wbFaqHText,a.wbFaqHText:visited,a.wbFaqHText:active,a.wbFaqHText{
+	color: #FFFFFF;
+	font: bold  9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbFaqQueHRBg{
+	border: solid 1px #B9C26C;
+	color: #B9C26C;
+}
+
+.wbFaqSelFrmIE{
+	background: #E8EEBE
+	color : #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbFaqSelFrmNN{
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}

@@ -1,0 +1,11 @@
+8.0
+9
+1	SQLNCHAR	0	0	"\t\0"		1	fmg_id	""
+2	SQLNCHAR	0	0	"\t\0"		2	fmg_fto_id	""
+3	SQLNCHAR	0	0	"\t\0"		3	fmg_fto_res_id	""
+4	SQLNCHAR	0	0	"\t\0"		4	fmg_msg	""
+5	SQLNCHAR	0	0	"\t\0"		5	fmg_image	""
+6	SQLNCHAR	0	0	"\t\0"		6	fmg_usr_id	""
+7	SQLNCHAR	0	0	"\t\0"		10	fmg_create_datetime	""
+8	SQLNCHAR	0	0	"\t\0"		12	fmg_msg	""
+9	SQLNCHAR	0	0	"\r\0\n\0"	13	fmg_msg_searchable_content	""

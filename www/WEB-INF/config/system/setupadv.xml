@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setupadv xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="setupadv.xsd">
+	<!-- debug: enable or disable debug mode, [ true | false ] -->
+	<debug>true</debug>
+	<!-- encoding: client side encoding, [ UTF-8 | Big5 | GB2312 | ISO-8859-1 ] -->
+	<encoding>UTF-8</encoding>
+	<!-- skin_home: name of the home directory of skin specific files -->
+	<skin_home>cw</skin_home>
+	<!--
+ log properties
+	name: name of the directory of all log files
+	relative: indicate whether the name specified is a directory relative to document root or not (which will then be treated as an absolute path), [ true | false ]
+	-->
+	<log_dir name="log" relative="true" url="log"/>
+	<!--
+ file upload properties
+	max_upload_size: maximum allowed file size in (in Mb)
+	res_dir: destination directory for uploading files in Resource Management
+	itm_dir: destination directory for uploading files in Learning Solution
+	msg_dir: destination directory for uploading files in Announcement
+	fac_dir: destination directory for uploading files in Facility Management
+	obj_dir: destination directory for uploading files in Knowledge Management
+	tmp_dir: destination directory for temp
+	-->
+	<file_upload>	 
+         <!-- 最大上传  (500M) -->
+		<max_upload_size>500</max_upload_size>	    
+		<!-- url不能写绝对url，一定要通过 域名+Url里面的值 拼成的完整Url可以访问的目录
+			例如以resource为例：域名：www.wz.com或者 www.wz.com/lms ，那么拼成的URl：www.wz.com/resource或者 www.wz.com/lms/resource
+			是可以正常访问的目录 
+		-->
+		<res_dir name="resource" relative="true" url="resource"/>
+		<sgpRes_dir name="sgp_resource" relative="true" url="sgp_resource"/>
+		<itm_dir name="item" relative="true" url="item"/>
+		<msg_dir name="msg" relative="true" url="msg"/>
+		<fac_dir name="facility" relative="true" url="facility"/>
+		<obj_dir name="object" relative="true" url="object"/>
+		<tmp_dir name="temp" relative="true" url="temp"/>
+		<content_dir name="content" relative="true" url="content"/>
+		<usr_dir name="user" relative="true" url="user"/>
+		<usr_icon name="user" relative="true" url="user"/>
+		<article_dir name="article" relative="true" url="article"/>
+		<ann_dir name="announ" relative="true" url="announ"/>
+		<editor_dir name="editor" relative="true" url="editor"/>
+		<poster_dir name="poster" relative="true" url="poster"/>
+		<supplier_dir name="supplier" relative="true" url="supplier"/>
+		<cert_dir name="certificate" relative="true" url="certificate"/>
+		<group_dir name="group" relative="true" url="group"/>
+		<attachment_dir name="attachment" relative="true" url="attachment"/>
+		<position_dir name="position" relative="true" url="position" />
+		<live_dir name="live" relative="true" url="live" />
+	</file_upload>
+	<!--
+    login properties
+	relogin_url: url to redirect to for any errors
+	login_failure_url: url to redirect to for login failure
+	-->
+	<login>
+		<relogin_url>../app/user/userLogin/$</relogin_url>
+		<login_failure_url>../app/user/userLogin/$</login_failure_url>
+		<session_time_out>../app/session/out</session_time_out>
+	</login>
+	<!--
+ maintenance properties
+	password: password needed for executing any maintenance actions
+	redirect_url: url to redirect non-maintenance client requests to when the system is in maintenance mode
+	-->
+	<maintenance>
+		<password>wbpassword</password>
+		<redirect_url>../htm/maintenance.htm</redirect_url>
+	</maintenance>
+	<!--
+ wizcase properties
+	xml_home_dir: home directory of xml files
+	temp_dir: temp directory
+	-->
+	<wizcase>
+		<xml_home_dir name="xml" relative="true"/>
+		<temp_dir name="temp_wizcase" relative="true"/>
+	</wizcase>
+	<!-- assignment related email template -->
+	<ass_email_template>
+		<success_template_en_us>notify_assignment_submit.txt</success_template_en_us>
+		<success_template_zh_hk>notify_assignment_submit_ch.txt</success_template_zh_hk>
+		<success_template_zh_cn>notify_assignment_submit_gb.txt</success_template_zh_cn>
+		<submit_teacher_template_en_us>notify_assignment_submit_teacher.txt</submit_teacher_template_en_us>
+		<submit_teacher_template_zh_hk>notify_assignment_submit_teacher_ch.txt</submit_teacher_template_zh_hk>
+		<submit_teacher_template_zh_cn>notify_assignment_submit_teacher_gb.txt</submit_teacher_template_zh_cn>
+		<grade_template_en_us>notify_assignment_grade.txt</grade_template_en_us>
+		<grade_template_zh_hk>notify_assignment_grade_ch.txt</grade_template_zh_hk>
+		<grade_template_zh_cn>notify_assignment_grade_gb.txt</grade_template_zh_cn>
+	</ass_email_template>
+	<!-- online payment properties -->
+	<online_payment>
+		<cono>001368</cono>
+		<check_key>false</check_key>
+		<key_file>public.key</key_file>
+	</online_payment>
+	<!--
+ forum properties
+	mark_msg: enable or disable "marking" of messages, [ true | false ]
+	-->
+	<forum>
+		<mark_msg>false</mark_msg>
+	</forum>
+	<!--
+ security file servlet properties
+	enabled: enable or disable the security file servlet, [ true | false ]
+	ignore_mime: extension of files that will skip the security checking ('~' separated)
+	media_server_license: ???
+	login_required_folder: directory that allow access only with a valid login profile ('~' separated)
+	hidden_folder: directory that does not allow any access at all ('~' separated)
+	-->
+	<security_file_servlet>
+		<enabled>false</enabled>
+		<ignore_mime>asf~asx~rm~wma~ra~ram~ppt</ignore_mime>
+		<media_server_license>http://127.0.0.1</media_server_license>
+		<login_required_folder>upload</login_required_folder>
+		<hidden_folder>config</hidden_folder>
+	</security_file_servlet>
+	<!--
+ learning solution pre-requisite thread properties
+	enabled: enable or disable the thread, [ true | false ]
+	interval: sleep time (in minutes) between each execution (positive integer)
+	-->
+	<item_prerequisite_thread>
+		<enabled>false</enabled>
+		<interval>30</interval>
+	</item_prerequisite_thread>
+	<!--
+ learning solution tree note path thread properties
+	enabled: enable or disable the thread, [ true | false ]
+	-->
+	<item_treenote_path_thread>
+		<enabled>false</enabled>
+	</item_treenote_path_thread>
+	<!--
+ IMSAPI properties
+	sysadmin_id: user id of a user as an executing user
+	sysadmin_pass: password of the user
+	default_grade_id: entity id of the default grade to be used for newly created users (positive integer)
+	default_site_id: entity id of the default organization to be used for newly created users (positive integer)
+	import_role_list: role external id of roles which are expected to be imported ('~' separated)
+	-->
+	<enterprise_manager>
+		<sysadmin_id>admin</sysadmin_id>
+		<sysadmin_pass>admin</sysadmin_pass>
+		<default_grade_id>7</default_grade_id>
+		<default_site_id>1</default_site_id>
+		<import_role_list>NLRN_1</import_role_list>
+	</enterprise_manager>
+	<!--
+ user batch upload properties
+	generate_password: automatically generate password for newly created users, [ true | false ]
+	check_distinct_user: check for duplicated user id for newly created users, [ true | false ]
+	default_user_status: default status for newly created users, [ OK | PENDING | NG ]
+	max_upload_count: maximum number of records allowed to be imported each time (positive integer)
+	spawn_threshold: number of records above which a background thread will be spawned to handle the import task.
+	-->
+	<user_batch_upload>
+		<generate_password>true</generate_password>
+		<check_distinct_user>true</check_distinct_user>
+		<default_user_status>OK</default_user_status>
+		<max_upload_count>1000</max_upload_count>
+		<spawn_threshold>100</spawn_threshold>
+	</user_batch_upload>
+	<!--
+ res upload properties
+	max_upload_count: maximum number of records allowed to be imported each time (positive integer)
+	-->
+	<res_batch_upload>
+		<max_upload_count>2000</max_upload_count>
+	</res_batch_upload>
+	<!--
+ knowledge management subscription notify thread properties
+	enabled: enable or disable the thread, [ true | false ]
+	interval: sleep time (in seconds) between each execution (positive integer)
+	daily_mail_send_time: number of minutes after 00:00am to sent daily mail (positive integer)
+	weekly_mail_send_time: day of week to send weekly email (1 for Sunday, 7 for Saturaday)
+	-->
+	<km_subscription_notify_thread>
+		<enabled>false</enabled>
+		<interval>30</interval>
+		<daily_mail_send_time>15</daily_mail_send_time>
+		<weekly_mail_send_time>1</weekly_mail_send_time>
+	</km_subscription_notify_thread>
+	<!--
+ knowledge management index building thread properties
+	enabled: enable or disable the thread, [ true | false ]
+	interval: sleep time (in seconds) between each execution (positive integer)
+	search_db_dir: the directory to save search engine database files
+	-->
+	<km_indexing_thread>
+		<enabled>false</enabled>
+		<interval>10</interval>
+		<search_db_dir name="search" relative="true"/>
+	</km_indexing_thread>
+	<!--
+ knowledge management library policy properties
+	borrow_limit: The maximum number of library items that 
+
+
+a learner can borrow or check out. If reach the limit, the learner cannot RESERVE, BORROW, RENEW, or 
+
+
+CHECKOUT any library item.
+	overdue_limit: The maximum number of library items that a learner can overdue. 
+
+
+This number has to be smaller than or equal to the KM_LIB_BORROW_LIMIT. If reach the limit, the learner 
+
+
+cannot RESERVE, BORROW, RENEW, or CHECKOUT any library item.
+	renew_limit: The maximum number of a 
+library 
+
+item copy that a learner can renew. If reach the limit, the learner cannot renew the same library 
+item 
+
+copy.
+	due_day: The maximum number of days that a learner can keep check-out of a library item copy.
+	-->
+	<km_library>
+		<borrow_limit>3</borrow_limit>
+		<overdue_limit>4</overdue_limit>
+		<renew_limit>3</renew_limit>
+		<due_day>14</due_day>
+		<enabled>true</enabled>
+	</km_library>
+	<!-- group_member_full_path_separator: path separator, [ / | ~ ] -->
+	<group_member_full_path_separator>/</group_member_full_path_separator>
+	<!-- des_key: encryption key for DES -->
+	<des_key>1</des_key>
+	<!--
+ organization properties
+	multiple: indicates if multiple organization mode is enabled, [ true | false ]
+	-->
+	<organization>
+		<multiple>false</multiple>
+	</organization>
+	<!--
+ LCMS properties : offline pagekage upload by TAMD and download by NLRN for learning offline.
+	enabled: indicates if lcms is enabled, [ true | false ]
+	-->
+	<lcms>
+		<enabled>false</enabled>
+	</lcms>
+	<!--
+	option to enable netg progress tracking logging.
+	log_enabled: enable or disable the logging of the usage of xsl stylesheet, [ true | false ]
+	log_file: log file for logging of the usage of xsl stylesheet (located in log_dir)
+	-->
+	<netg_log>
+		<log_enabled>true</log_enabled>
+		<log_file>netg_log.txt</log_file>
+	</netg_log>
+	<!--
+		option about learning solution
+		catalog_show_only_targeted_ls: Indicates if learning catalog should show to the learners only their learning soultions(when set to ture)
+		 or all learning solutions (when set to false) [ true | false ]
+	-->
+	<learning_solution>
+		<catalog_show_only_targeted_ls>false</catalog_show_only_targeted_ls>
+	</learning_solution>
+	<!--
+	to control the number of report records to be processed in memory, prevent it using up too much memory
+	-->
+	<rpt_process_unit>10000</rpt_process_unit>
+	<!--
+batch upload enrollment record
+	max_upload_count: maximum number of records allowed to be imported each time (positive integer)
+	spawn_threshold: number of records above which a background thread will be spawned to handle the import task.
+	-->
+	<enrollment_batch_upload>
+		<max_upload_count>1000</max_upload_count>
+		<spawn_threshold>1000</spawn_threshold>
+		<preview_size>20</preview_size>
+	</enrollment_batch_upload>
+	<tc_enabled>true</tc_enabled>
+	<!-- 社区化-->
+	<sns_enabled>true</sns_enabled>
+	<!-- 是否显示顶级培训中心 -->
+	<lrn_show_header_tc>true</lrn_show_header_tc>
+	<!-- 第二层TC数据独立-->
+	<tc_independent>false</tc_independent>
+	<lrn_show_share_training>true</lrn_show_share_training>
+	<!-- enable_applet_tree: enable or disable applet tree.[ true | false ]. Enable javascript tree when set to false  -->
+	<enable_applet_tree>false</enable_applet_tree>
+	<!-- updxml file: the name of updxml file-->
+	<updxml_file>updxml.ini</updxml_file>
+	<!-- filter words file: the name of filter words file-->
+	<filter_words_file>filter_words.txt</filter_words_file>
+	<!-- zd_vote_duration: the vote duration(days) after question selected right answer -->
+	<zd_vote_duration>30</zd_vote_duration>
+	<!-- training plan begin year -->
+	<tra_plan_year>2008</tra_plan_year>
+	<!-- resize image -->
+	<image_size>
+		<itm_img>
+			<width>162</width>
+			<height>90</height>
+		</itm_img>
+		<usr_img>
+			<width>50</width>
+			<height>50</height>
+		</usr_img>
+	</image_size>
+	<!-- 标记文章/公告/课程发布多少天内，标记为“New”-->
+	<newest_duration>3</newest_duration>
+	<tc_style>
+		<css_dir>www\theme\</css_dir>
+		<css_file>skin1\style.new.css</css_file>
+	</tc_style>
+	<!-- default_ta_id: entity id of the default course TA to be used for newly created or edited courses (positive integer) -->
+	<default_ta_id>3</default_ta_id>
+	<is_realTime_view_rpt>true</is_realTime_view_rpt>
+	<!-- 忘记密码，检查邮箱是否需要匹配 -->
+	<check_email>false</check_email>
+	<!-- 直播设置 -->
+	<live>
+		<!-- 微吼 -->
+		<vhall>
+			<!-- 微吼账号 -->
+			<live_account>v12817973333</live_account>
+			<!-- 微吼账号密码，明文密码请使用batch\encryptutil\bin\Encrypt.bat 该文件加密后才填写进来 -->
+			<live_password>9/UDG3YQZw==eaddd</live_password>
+			<!-- 是否开放直播功能 -->
+			<live_publish>true</live_publish>
+		</vhall>
+		<!-- 腾讯云 -->
+		<qcloud>
+			<!-- 由腾讯云平台上申请的标识身份的 SecretId 和 SecretKey -->
+			<secret_id>AKIDtY1D8mxC1hFpBSpKgogIsNo0xgFZZZP0aaa</secret_id>
+			<secret_key>mV0FUUFl1GVgbHiuCE1reS1OVMyLSKyMaaa</secret_key>
+			<!-- 请求方法: 支持 POST 和 GET 方式, 这里使用 GET 请求, 注意方法为全大写。 -->
+			<request_method>GET</request_method>
+			<!-- 区域参数，用来标识希望操作哪个区域的实例。可选: bj:北京	gz:广州		sh:上海		hk:香港		ca:北美 -->
+			<region>gz</region>
+			<!-- 是否开放直播功能 -->
+			<live_publish>true</live_publish>
+		</qcloud>
+		<!-- 展示互动 -->
+		<gensee>
+			<!-- 展示互动账号 -->
+			<live_account>admin@huisi.comdddd</live_account>
+			<!-- 展示互动账号密码，明文密码请使用batch\encryptutil\bin\Encrypt.bat 该文件加密后才填写进来 -->
+			<live_password>YaAAX4xBQblrdddd</live_password>
+			<!-- 展示互动展示互动接口路径地址 记得带上前缀（http://或者https://） -->
+			<live_gensee_url>http://huisi.gensee.comdddd</live_gensee_url>
+			<!-- 是否开放直播功能 -->
+			<live_publish>true</live_publish>
+		</gensee>
+	</live>
+	
+	<!-- 此配置项为 open redirect failure 白名单配置项 ,
+	     可用多个(无限量)<redirect></redirect> 进行数值配置,
+	     如:<redirect>http://localhost</redirect><redirect>http://127.0.0.1</redirect>
+	     为空时，即为不设置白名单(即 redirect 不作指向限制)，请单一项保留 '<redirect></redirect>' 属性即可;
+	   -->
+	<open_redirect_white_list>
+		<redirect></redirect>
+	</open_redirect_white_list>
+</setupadv>

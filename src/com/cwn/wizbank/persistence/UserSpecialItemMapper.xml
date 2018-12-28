@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.UserSpecialItemMapper">
+	<select id="get" parameterType="Long" resultType="UserSpecialItem">
+		select * from UserSpecialItem where usi_id = #{usi_id}
+	</select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.UserSpecialItem">
+		update UserSpecialItem  set ust_utc_id = #{ust_utc_id}
+		,usi_itm_id = #{usi_itm_id}
+		where usi_id = #{usi_id}
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from UserSpecialItem where usi_id = #{id}
+	</delete>
+	<insert id="add" parameterType="com.cwn.wizbank.entity.UserSpecialItem">
+		insert into UserSpecialItem(ust_utc_id,usi_itm_id)
+		values(#{ust_utc_id},#{usi_itm_id})
+		   <selectKey resultType="java.lang.Long" keyProperty="usi_id" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select userSpecialItem_seq.CURRVAL AS usi_id FROM DUAL
+				</when>
+				<otherwise>
+					select @@IDENTITY as usi_id
+				</otherwise>
+			</choose>
+		</selectKey>
+	</insert>
+	<select id="list" parameterType="Map" resultType="UserSpecialItem">
+		select * from UserSpecialItem  where usi_id = #{usi_id}
+	</select>
+	<delete id="deleteByUstId" parameterType="java.lang.Long">
+		delete from UserSpecialItem where ust_utc_id = #{id}
+	</delete>
+	
+	<select id="getItemByUstId" parameterType="Long" resultType="UserSpecialItem">
+		select usi_id,ust_utc_id,usi_itm_id,itm_title as title from UserSpecialItem inner join aeItem on usi_itm_id=itm_id  where ust_utc_id = #{ust_utc_id} </select>
+</mapper>

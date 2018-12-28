@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.ModuleTempFileMapper">
+	<select id="get" resultType="ModuleTempFile" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				mtf_id,
+				mtf_target_id,
+				mtf_module,
+				mtf_usr_id,
+				mtf_file_type,
+				mtf_type,
+				mtf_file_name,
+				mtf_file_rename,
+				mtf_file_size,
+				mtf_create_time,
+				mtf_url
+			from moduleTempFile t
+			where
+				 t.mtf_id = #{id}
+		]]>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.ModuleTempFile">
+	    <![CDATA[
+	        update moduleTempFile
+	        set 
+				mtf_id = #{mtf_id,jdbcType=INTEGER},
+				mtf_target_id = #{mtf_target_id,jdbcType=INTEGER},
+				mtf_module = #{mtf_module,jdbcType=VARCHAR},
+				mtf_usr_id = #{mtf_usr_id,jdbcType=INTEGER},
+				mtf_file_type = #{mtf_file_type,jdbcType=VARCHAR},
+				mtf_type = #{mtf_type,jdbcType=VARCHAR},
+				mtf_file_name = #{mtf_file_name,jdbcType=VARCHAR},
+				mtf_file_rename = #{mtf_file_rename,jdbcType=VARCHAR},
+				mtf_file_size = #{mtf_file_size,jdbcType=INTEGER},
+				mtf_create_time = #{mtf_create_time,jdbcType=DATE},
+				mtf_url = #{mtf_url,jdbcType=VARCHAR}
+	         where t.mtf_id = #{mtf_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.ModuleTempFile" keyProperty="mtf_id">
+            insert into moduleTempFile(
+            		mtf_target_id,
+            		mtf_module,
+            		mtf_usr_id,
+            		mtf_file_type,
+            		mtf_type,
+            		mtf_file_name,
+            		mtf_file_rename,
+            		mtf_file_size,
+            		mtf_create_time,
+            		mtf_url
+            ) values (
+            	#{mtf_target_id,jdbcType=INTEGER},
+            	#{mtf_module,jdbcType=VARCHAR},
+            	#{mtf_usr_id,jdbcType=INTEGER},
+            	#{mtf_file_type,jdbcType=VARCHAR},
+            	#{mtf_type,jdbcType=VARCHAR},
+            	#{mtf_file_name,jdbcType=VARCHAR},
+            	#{mtf_file_rename,jdbcType=VARCHAR},
+            	#{mtf_file_size,jdbcType=INTEGER},
+            	#{mtf_create_time,jdbcType=DATE},
+            	#{mtf_url,jdbcType=VARCHAR}
+            )
+          <selectKey keyProperty="mtf_id" resultType="Long" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select moduleTempFile_seq.currval from dual
+				</when>
+				<when test="_databaseId == 'SQLSERVER'">
+					select ident_current('moduleTempFile')
+				</when>
+				<when test="_databaseId == 'MYSQL'">
+					select last_insert_id()
+				</when>
+			</choose>
+		</selectKey>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from moduleTempFile where
+	        mtf_id = #{mtf_id}
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="ModuleTempFile">
+	    <![CDATA[
+	         select 
+				mtf_id,
+				mtf_target_id,
+				mtf_module,
+				mtf_usr_id,
+				mtf_file_type,
+				mtf_type,
+				mtf_file_name,
+				mtf_file_rename,
+				mtf_file_size,
+				mtf_create_time,
+				mtf_url
+			from moduleTempFile t 
+	    ]]>
+	</select>
+	<select id="getList" resultType="ModuleTempFile" parameterType="Map">
+	    	select 
+				mtf_id,
+				mtf_target_id,
+				mtf_module,
+				mtf_usr_id,
+				mtf_file_type,
+				mtf_type,
+				mtf_file_name,
+				mtf_file_rename,
+				mtf_file_size,
+				mtf_create_time,
+				mtf_url
+			from moduleTempFile 
+			where mtf_usr_id = #{userEntId}
+			and mtf_module = #{module}
+			and mtf_target_id  = #{targetId}
+	</select>
+	<select id="getAttachmentList" resultType="com.cwn.wizbank.entity.vo.AttachmentVo" parameterType="Map">
+	    	select 
+				mtf_id as "id",
+				mtf_target_id as "target_id",
+				mtf_module as "module",
+				mtf_usr_id as "usr_id",
+				mtf_file_type as "file_type",
+				mtf_type as "type",
+				mtf_file_name as "file_name",
+				mtf_file_rename as "file_rename",
+				mtf_file_size as "file_size",
+				mtf_create_time as "create_time",
+				mtf_url as "url"
+			from moduleTempFile 
+			where mtf_usr_id = #{userEntId}
+			and mtf_module = #{module}
+			and mtf_target_id  = #{targetId}
+	</select>
+	<delete id="deleteList" parameterType="Map">
+	    delete from moduleTempFile 
+		where mtf_usr_id = #{userEntId}
+		and mtf_module = #{module}
+		and mtf_target_id  = #{targetId}
+	</delete>	
+	<update id="updateList">
+	    update moduleTempFile
+	         set
+				mtf_target_id = #{targetId}
+	         where mtf_module = #{module}
+	         and mtf_usr_id = #{userEntId} and (mtf_target_id is null or mtf_target_id &lt; 1)
+	</update>
+</mapper>

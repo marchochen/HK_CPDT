@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.CpdReportRemarkMapper">	
+	
+	<select id="getCpdReportRemark" resultType="com.cwn.wizbank.entity.CpdReportRemark"
+		parameterType="Map">
+	    <![CDATA[
+			select *
+	         from cpdReportRemark 
+	         where 1=1
+		]]>
+		<if test="code !=null and code !=''">
+			<![CDATA[
+				and crpm_report_code = #{code}
+			]]>
+		</if>
+	</select>
+	
+	<select id="findAll" resultType="com.cwn.wizbank.entity.CpdReportRemark" >
+	    <![CDATA[
+			select *
+	         from cpdReportRemark 
+		]]>
+	</select>
+
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.CpdReportRemark">
+	    <![CDATA[
+            insert into cpdReportRemark(
+            		crpm_report_code,
+            		crpm_report_remark,
+            		crpm_create_datetime,
+            		crpm_create_usr_ent_id,
+            		crpm_update_datetime,
+            		crpm_update_usr_ent_id
+            ) values (
+            	#{crpm_report_code,jdbcType=VARCHAR},
+            	#{crpm_report_remark,jdbcType=VARCHAR},
+            	#{crpm_create_datetime,jdbcType=TIMESTAMP},
+            	#{crpm_create_usr_ent_id,jdbcType=INTEGER},
+            	#{crpm_update_datetime,jdbcType=TIMESTAMP},
+            	#{crpm_update_usr_ent_id,jdbcType=INTEGER}
+            )
+        ]]>
+	</insert>
+
+	<update id="update" parameterType="com.cwn.wizbank.entity.CpdReportRemark">
+	    <![CDATA[
+	        update cpdReportRemark 
+	        set
+				crpm_report_remark = #{crpm_report_remark,jdbcType=VARCHAR},
+           		crpm_update_usr_ent_id = #{crpm_update_usr_ent_id,jdbcType=INTEGER},
+           		crpm_update_datetime = #{crpm_update_datetime,jdbcType=TIMESTAMP}
+	         where crpm_id = #{crpm_id,jdbcType=INTEGER}
+	    ]]>
+	</update>
+	
+
+</mapper>

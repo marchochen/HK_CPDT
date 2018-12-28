@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="setup.xsd">
+	<!-- xsl stylesheet properties
+	cache_enabled: enable or disable pre-compiling and caching of xsl stylesheet in memory, [ true | false ]
+	cache_file: file of the list of xsl stylesheets to be pre-compiling (located in {application_root}\config)
+	cache_dir: directory for storing compiled xsl (relative to {application_root})
+	home: name of the home directory of xsl stylesheet files
+	msgbox_file: name of the xsl stylesheet for Message box
+	mediabox_file: name of the xsl stylesheet for Media box
+	value_template_file: name of the xsl stylesheet for processing item template xml
+	log_enabled: enable or disable the logging of the usage of xsl stylesheet, [ true | false ]
+	log_file: log file for logging of the usage of xsl stylesheet (located in log_dir)
+	-->
+	<xsl_stylesheet>
+		<cache_enabled>false</cache_enabled>
+		<cache_file>xslcache.ini</cache_file>
+		<cache_dir>compiled_xsl</cache_dir>
+		<home>xsl</home>
+		<msgbox_file>wb_msg_box.xsl</msgbox_file>
+		<mediabox_file>get_media_success.xsl</mediabox_file>
+		<value_template_file>ae_value_template.xsl</value_template_file>
+		<log_enabled>false</log_enabled>
+		<log_file>xsl_log.txt</log_file>
+	</xsl_stylesheet>
+	<!-- tspace server properties
+	enabled: enable or disable the server [ true | false ]
+	host: hostname or ip address
+	port: listening port number
+	www_port: WWW port to serve the applet
+	room_port: port number of the tspaces lobby
+	-->
+	<tspace>
+		<enabled>false</enabled>
+		<host>yourhost</host>
+		<port>7800</port>
+		<www_port>150</www_port>
+		<room_port>7900</room_port>
+	</tspace>
+	<!-- Limit the number of users
+	allow_user_max_size: The maximum allowable number of users
+	-->
+	<allow_user_max_size></allow_user_max_size>
+</setup>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cwn.wizbank.persistence.VoteQuestionMapper">
+
+<!-- 	<insert id="add" parameterType="com.cwn.wizbank.entity.VoteQuestion" useGeneratedKeys="true"
+		keyProperty="vtq_id">
+		insert into votequestion(vtq_vot_id,vtq_title,vtq_contnet,vtq_type,vtq_status,vtq_order,vtq_create_timestamp,vtq_create_usr_id,vtq_update_timestamp,vtq_update_usr_id)
+		values(#{vtq_vot_id},#{vtq_title},#{vtq_contnet},#{vtq_type},#{vtq_status},#{vtq_order},#{vtq_create_timestamp},#{vtq_create_usr_id},#{vtq_update_timestamp},#{vtq_update_usr_id})
+	</insert> -->
+	
+	<insert id="add" parameterType="com.cwn.wizbank.entity.VoteQuestion" useGeneratedKeys="true"
+		keyProperty="vtq_id">
+		insert into votequestion(vtq_vot_id,vtq_title,vtq_contnet,vtq_type,vtq_status,vtq_order,vtq_create_timestamp,vtq_create_usr_id,vtq_update_timestamp,vtq_update_usr_id)
+		values(#{vtq_vot_id},#{vtq_title},#{vtq_contnet,jdbcType=VARCHAR},#{vtq_type},#{vtq_status},#{vtq_order},#{vtq_create_timestamp},#{vtq_create_usr_id},#{vtq_update_timestamp},#{vtq_update_usr_id})
+		
+		<selectKey resultType="java.lang.Long" keyProperty="vtq_id" order="AFTER">
+			<choose>
+				<when test="_databaseId == 'ORACLE'">
+					select votequestion_seq.CURRVAL AS vtq_id FROM DUAL
+				</when>
+				<otherwise>
+					select @@IDENTITY as vtq_id
+				</otherwise>
+			</choose>
+		</selectKey>
+		
+	</insert>
+
+	<update id="updateByVtqVotId" parameterType="com.cwn.wizbank.entity.VoteQuestion">
+		update votequestion set vtq_title = #{vtq_title}
+		, vtq_type = #{vtq_type}
+		,vtq_status = #{vtq_status}
+		,vtq_order = #{vtq_order}
+		,vtq_update_timestamp = #{vtq_update_timestamp}
+		,vtq_update_usr_id = #{vtq_update_usr_id}
+		where vtq_vot_id = #{vtq_vot_id}
+	</update>
+	
+	<update id="delete" parameterType="java.lang.Long">
+		update votequestion set vtq_status = 'DEL' where vtq_id = #{id}
+	</update>
+
+</mapper>

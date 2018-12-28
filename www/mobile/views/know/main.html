@@ -1,0 +1,103 @@
+<!doctype html>
+<html ng-app="know">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+<title translate="cwn_title"></title>
+<link type="text/css" rel="stylesheet" href="../../css/basic.css" />
+
+
+<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.load.js"></script>
+<script type="text/javascript" src="../../js/controllers/KnowController.js"></script>
+<script type="text/javascript" src="../../lib/common.js"></script>
+</head>
+<body ng-cloak class="ng-cloak" ng-controller="mainController">
+<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">
+{{alert.msg | translate}}
+</alert> 
+<div class="wrap" id="wizwrap">
+<header class="header mm-background">
+    <a class="header-back" href="javascript:back();" title="back"></a>
+    <span class="header-title" translate="know"><!--问答--></span>
+</header> <!-- header End -->
+<wzm-docker rp="../../"></wzm-docker>
+<section class="content-2">
+<div class="list-pic-3">
+<div class="own-box">
+<div class="own-box-area">
+     <div class="own-box-pic">
+          <a class="own-box-user" href="javascript:;" title="">
+          	 <div>
+             	<img id="user_photo_{{user.usr_ent_id}}" ng-src="{{serverHost}}{{user.usr_photo}}" alt=""/>
+             </div>
+          </a>
+     </div>
+
+     <div class="own-box-tit-1">{{user.usr_display_bil}}</div>
+     <div class="own-box-tit-5">{{user.usg_display_bil}}<span ng-if="user.usg_display_bil != '' && user.ugr_display_bil != 'Unspecified'">&nbsp;&nbsp;|&nbsp;&nbsp;</span>{{user.ugr_display_bil != 'Unspecified' ? user.ugr_display_bil : ''}}</div>
+</div>     
+</div>
+
+<img class="list-pic-3-pic" alt="" src="../../images/banner51.jpg">
+<div class="list-pic-3-bg"></div>
+</div> <!-- list-pic-3 End -->
+
+<div class="panel-list-box" style="margin-top:0;">
+<div class="memu clearfix">
+     <a class="memu-box-4" href="{{{url:'askKnow.html'} | appUrl}}" >
+        <span class="icon-memu-model icon-memu-blue icon-memu-model-three">
+              <i class="icon-memu-tiwen"></i>
+              <!--<em class="icon-memu-tip">2</em>-->
+        </span>
+        <div class="memu-box-title" translate="know_ask_question"><!--我要提问--></div>
+     </a>
+     
+     <a class="memu-box-4" href="{{{url:'myQuestion.html'} | appUrl}}">
+        <span class="icon-memu-model icon-memu-pink icon-memu-model-three">
+              <i class="icon-memu-wenti"></i>
+        </span>
+        <div class="memu-box-title" translate="know_my_question"><!--我的问题--></div>
+     </a>
+     
+     <a class="memu-box-4" href="{{{url:'myAnwser.html'} | appUrl}}" >
+        <span class="icon-memu-model icon-memu-yellow icon-memu-model-three">
+              <i class="icon-memu-huida"></i>
+        </span>
+        <div class="memu-box-title" translate="know_my_answer"><!--我的回答--></div>
+     </a>
+     
+     <a class="memu-box-4" href="{{{url:'myHelpQuestion.html'} | appUrl}}" >
+        <span class="icon-memu-model icon-memu-green icon-memu-model-three">
+              <i class="icon-memu-qiuzhuyuwo"></i>
+        </span>
+        <div class="memu-box-title" translate="know_help"><!--求助于我--></div>
+     </a>
+</div> <!-- memu End -->
+</div>
+
+<div class="panel-title-6"><a class="panel-add-01 panel-bg-richeng" href="{{{url:'allKnow.html',show:'ALL'} | appUrl}}" title=""><em class="panel-num-1">&nbsp;</em><span translate="know_all"><!--所有问题--></span></a></div>
+
+<div class="wenda-cont">
+     <div class="panel-list-cont-7">            
+          <a class="panel-title-12" href="{{{url:'allKnow.html',show:'UNSOLVED'} | appUrl}}" title=""><div class="panel-add-01"><em class="panel-num-5"><i class="panel-num-4">{{unsolvedNum}}</i><span translate="know_until"></span><!--题--></em><span translate="know_wait_anwser"></span><!--待解决问题--></div></a>
+          
+          <div class="jifen-info clearfix">                              
+              <a class="jifen-info-white jifen-info-gray" href="{{{url:'allKnow.html',show:'SOLVED'} | appUrl}}" title="">
+                <em class="jifen-desc-gray" translate="know_anwsered"><!--已解决--></em>
+                <span class="jifen-desc-black">{{solvedNum}}</span>
+              </a> 
+              
+               <a class="jifen-info-white" href="{{{url:'allKnow.html',show:'FAQ'} | appUrl}}" title="">
+                <em class="jifen-desc-gray" translate="know_faq"><!--FAQ--></em>
+                <span class="jifen-desc-black">{{faqNum}}</span>
+              </a>
+          </div>
+     </div>
+</div>
+
+</section> <!-- content End -->
+</div> <!-- wrap End -->
+
+</body>
+</html>

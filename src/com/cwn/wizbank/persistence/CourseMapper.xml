@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.CourseMapper">
+	<select id="get" resultType="Course" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				cos_res_id,
+				cos_itm_id,
+				cos_pre_test_req_bil,
+				cos_post_test_req_bil,
+				cos_eff_start_datetime,
+				cos_eff_end_datetime,
+				cos_content_xml,
+				cos_structure_xml,
+				cos_import_xml,
+				cos_import_datetime,
+				cos_aicc_version,
+				cos_vendor,
+				cos_max_normal,
+				cos_lic_key,
+				cos_structure_json
+			from Course t 
+			where
+				 t.cos_res_id = #{id}
+		]]>
+	</select>	
+	<select id="getCourseByItmId" resultType="Course" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				cos_res_id,
+				cos_itm_id,
+				cos_pre_test_req_bil,
+				cos_post_test_req_bil,
+				cos_eff_start_datetime,
+				cos_eff_end_datetime,
+				cos_content_xml,
+				cos_structure_xml,
+				cos_import_xml,
+				cos_import_datetime,
+				cos_aicc_version,
+				cos_vendor,
+				cos_max_normal,
+				cos_lic_key,
+				cos_structure_json
+			from Course 
+			where
+				 cos_itm_id = #{id}
+		]]>
+	</select>	
+	<update id="update" parameterType="com.cwn.wizbank.entity.Course">
+	    <![CDATA[
+	        update Course t 
+	        set 
+				cos_res_id = #{cos_res_id,jdbcType=INTEGER},
+				cos_itm_id = #{cos_itm_id,jdbcType=INTEGER},
+				cos_pre_test_req_bil = #{cos_pre_test_req_bil,jdbcType=VARCHAR},
+				cos_post_test_req_bil = #{cos_post_test_req_bil,jdbcType=VARCHAR},
+				cos_eff_start_datetime = #{cos_eff_start_datetime,jdbcType=TIMESTAMP},
+				cos_eff_end_datetime = #{cos_eff_end_datetime,jdbcType=TIMESTAMP},
+				cos_content_xml = #{cos_content_xml,jdbcType=VARCHAR},
+				cos_structure_xml = #{cos_structure_xml,jdbcType=VARCHAR},
+				cos_import_xml = #{cos_import_xml,jdbcType=VARCHAR},
+				cos_import_datetime = #{cos_import_datetime,jdbcType=TIMESTAMP},
+				cos_aicc_version = #{cos_aicc_version,jdbcType=VARCHAR},
+				cos_vendor = #{cos_vendor,jdbcType=VARCHAR},
+				cos_max_normal = #{cos_max_normal,jdbcType=INTEGER},
+				cos_lic_key = #{cos_lic_key,jdbcType=VARCHAR},
+				cos_structure_json = #{cos_structure_json,jdbcType=VARCHAR}
+	         where t.cos_res_id = #{cos_res_id,jdbcType=INTEGER}
+	    ]]>
+    </update>    
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.Course">
+    	<![CDATA[
+            insert into Course(
+            		cos_itm_id,
+            		cos_pre_test_req_bil,
+            		cos_post_test_req_bil,
+            		cos_eff_start_datetime,
+            		cos_eff_end_datetime,
+            		cos_content_xml,
+            		cos_structure_xml,
+            		cos_import_xml,
+            		cos_import_datetime,
+            		cos_aicc_version,
+            		cos_vendor,
+            		cos_max_normal,
+            		cos_lic_key,
+            		cos_structure_json
+            ) values (
+            	#{cos_itm_id,jdbcType=INTEGER},
+            	#{cos_pre_test_req_bil,jdbcType=VARCHAR},
+            	#{cos_post_test_req_bil,jdbcType=VARCHAR},
+            	#{cos_eff_start_datetime,jdbcType=TIMESTAMP},
+            	#{cos_eff_end_datetime,jdbcType=TIMESTAMP},
+            	#{cos_content_xml,jdbcType=VARCHAR},
+            	#{cos_structure_xml,jdbcType=VARCHAR},
+            	#{cos_import_xml,jdbcType=VARCHAR},
+            	#{cos_import_datetime,jdbcType=TIMESTAMP},
+            	#{cos_aicc_version,jdbcType=VARCHAR},
+            	#{cos_vendor,jdbcType=VARCHAR},
+            	#{cos_max_normal,jdbcType=INTEGER},
+            	#{cos_lic_key,jdbcType=VARCHAR},
+            	#{cos_structure_json,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>    
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from Course where
+	        cos_res_id = #{cos_res_id}
+	    ]]>
+    </delete>	
+	<select id="selectAll" resultType="Course">
+	    <![CDATA[
+	         select 
+				cos_res_id,
+				cos_itm_id,
+				cos_pre_test_req_bil,
+				cos_post_test_req_bil,
+				cos_eff_start_datetime,
+				cos_eff_end_datetime,
+				cos_content_xml,
+				cos_structure_xml,
+				cos_import_xml,
+				cos_import_datetime,
+				cos_aicc_version,
+				cos_vendor,
+				cos_max_normal,
+				cos_lic_key,
+				cos_structure_json
+			from Course t 
+	    ]]>
+	</select>	
+	<select id="getResIdByItmId" resultType="java.lang.Long" parameterType="java.lang.Long">
+	     select 
+		 cos_res_id
+	     from Course 
+         where 
+         cos_itm_id = #{itm_id}
+	</select>
+</mapper>

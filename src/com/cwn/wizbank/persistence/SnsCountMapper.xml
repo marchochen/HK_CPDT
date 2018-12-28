@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.SnsCountMapper">
+	<select id="get" resultType="SnsCount" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				s_cnt_id,
+				s_cnt_target_id,
+				s_cnt_collect_count,
+				s_cnt_share_count,
+				s_cnt_like_count,
+				s_cnt_module,
+				s_cnt_update_time,
+				s_cnt_create_time,
+				s_cnt_create_usr_id,
+				s_cnt_update_usr_id,
+				s_cnt_is_comment
+			from sns_count t
+			where
+				 t.s_cnt_id = #{id}
+		]]>
+	</select>
+	<select id="getByTargetInfo" resultType="SnsCount" parameterType="Map">
+			select 
+				s_cnt_id,
+				s_cnt_target_id,
+				s_cnt_collect_count,
+				s_cnt_share_count,
+				s_cnt_like_count,
+				s_cnt_module,
+				s_cnt_update_time,
+				s_cnt_create_time,
+				s_cnt_create_usr_id,
+				s_cnt_update_usr_id,
+				s_cnt_is_comment
+			from sns_count t
+			where
+				 s_cnt_target_id = #{targetId}
+				 and s_cnt_module = #{module}
+			<choose>
+			    <when test="isComment != null and isComment &gt; 0">
+			        and s_cnt_is_comment = 1
+			    </when>
+			    <otherwise>
+			        and (s_cnt_is_comment = 0 or s_cnt_is_comment is null)
+			    </otherwise>
+			</choose>
+	</select>
+	<update id="update" parameterType="com.cwn.wizbank.entity.SnsCount">
+	        update sns_count
+	        set 
+	        	<if test="s_cnt_collect_count != null and s_cnt_collect_count &gt; -1">
+	        	    s_cnt_collect_count = #{s_cnt_collect_count,jdbcType=INTEGER},
+	        	</if>
+	        	<if test="s_cnt_share_count != null and s_cnt_share_count &gt; -1">
+					s_cnt_share_count = #{s_cnt_share_count,jdbcType=INTEGER},
+				</if>
+				<if test="s_cnt_like_count != null and s_cnt_like_count &gt; -1">
+					s_cnt_like_count = #{s_cnt_like_count,jdbcType=INTEGER},
+				</if>
+				s_cnt_update_time = #{s_cnt_update_time,jdbcType=TIMESTAMP},
+				s_cnt_update_usr_id = #{s_cnt_update_usr_id,jdbcType=INTEGER}
+	         where s_cnt_id = #{s_cnt_id,jdbcType=INTEGER}
+    </update>
+    <insert id="insert" parameterType="com.cwn.wizbank.entity.SnsCount">
+    	<![CDATA[
+            insert into sns_count(
+            		s_cnt_target_id,
+            		s_cnt_collect_count,
+            		s_cnt_share_count,
+            		s_cnt_like_count,
+            		s_cnt_module,
+            		s_cnt_update_time,
+            		s_cnt_create_time,
+            		s_cnt_create_usr_id,
+            		s_cnt_update_usr_id,
+            		s_cnt_is_comment
+            		
+            ) values (
+            	#{s_cnt_target_id,jdbcType=INTEGER},
+            	#{s_cnt_collect_count,jdbcType=INTEGER},
+            	#{s_cnt_share_count,jdbcType=INTEGER},
+            	#{s_cnt_like_count,jdbcType=INTEGER},
+            	#{s_cnt_module,jdbcType=VARCHAR},
+            	#{s_cnt_update_time,jdbcType=TIMESTAMP},
+            	#{s_cnt_create_time,jdbcType=TIMESTAMP},
+            	#{s_cnt_create_usr_id,jdbcType=INTEGER},
+            	#{s_cnt_update_usr_id,jdbcType=INTEGER},
+            	#{s_cnt_is_comment,jdbcType=INTEGER}
+            	
+            )
+        ]]>
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from sns_count where
+	        s_cnt_id = #{s_cnt_id}
+	    ]]>
+    </delete>
+	<select id="selectAll" resultType="SnsCount">
+	    <![CDATA[
+	         select 
+				s_cnt_id,
+				s_cnt_target_id,
+				s_cnt_collect_count,
+				s_cnt_share_count,
+				s_cnt_like_count,
+				s_cnt_module,
+				s_cnt_update_time,
+				s_cnt_create_time,
+				s_cnt_create_usr_id,
+				s_cnt_update_usr_id
+			from sns_count t 
+	    ]]>
+	</select>
+	<delete id="deleteRecord">
+	    delete from sns_count where s_cnt_module = #{module}
+	    and s_cnt_target_id = #{targetId} 
+		<choose>
+		    <when test="isComment != null and isComment &gt; 0">
+		        and s_cnt_is_comment = 1
+		    </when>
+		    <otherwise>
+		        and (s_cnt_is_comment = 0 or s_cnt_is_comment is null)
+		    </otherwise>
+		</choose>
+	</delete>
+	
+	<delete id="delErrorData"  parameterType="Map" >
+    	<!-- 重复的错误数据会导致程序出错，在错误发生成调用该方法删除重复的数据 -->
+    	delete from sns_count where s_cnt_id not in(
+		  select max(s_cnt_id) from sns_count where 
+		 <choose>
+		    <when test="isComment != null and isComment &gt; 0">
+		         s_cnt_is_comment = 1
+		    </when>
+		    <otherwise>
+		        (s_cnt_is_comment = 0 or s_cnt_is_comment is null)
+		    </otherwise>
+		</choose> 
+		  
+		  group  by s_cnt_module ,s_cnt_target_id 
+		)
+		<choose>
+		    <when test="isComment != null and isComment &gt; 0">
+		        and s_cnt_is_comment = 1
+		    </when>
+		    <otherwise>
+		        and (s_cnt_is_comment = 0 or s_cnt_is_comment is null)
+		    </otherwise>
+		</choose>
+	</delete>
+</mapper>

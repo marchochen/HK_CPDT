@@ -1,0 +1,17 @@
+/*= wizbank  CSS =========================================================
+stylesheet type				  :Test List
+suffix								   :tstlst
+skin type						  : cw (cyberwisdom)
+stylesheet name			   : tstlst.css	
+version								: wizBank 3.5
+=======================================================================*/
+
+a.wbTestLstTitleText:hover, .wbTestLstDetTitleText, .wbTestLstTitleText,a.wbTestLstTitleText:visited,a.wbTestLstTitleText:active {
+	color: #000000;
+	font: bold 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}
+
+.wbTestLstDetContentText{
+	color: #000000;
+	font: 9pt  "Verdana", "Geneva", "Arial", "Helvetica", "sans-serif","新細明體","Taipei";
+}

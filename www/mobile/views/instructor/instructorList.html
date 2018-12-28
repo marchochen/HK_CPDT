@@ -1,0 +1,89 @@
+<!doctype html>
+<html ng-app="instructorModule">
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+		<title translate="cwn_title"></title>
+		<link rel="stylesheet" href="../../css/basic.css" />
+		<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.load.js"></script>
+		<script type="text/javascript" src="../../js/controllers/instructor/InstructorController.js"></script>
+		<script type="text/javascript" src="../../lib/common.js"></script>
+	</head>
+
+	<body ng-cloak class="ng-cloak" ng-controller="listController">
+	  <alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>
+	  <!-- wrap start -->
+	  <div class="wrap">
+	  		<!-- header start -->
+		  	<header class="header mm-background">
+			    <a class="header-back" href="javascript:back()"></a>
+			    <span class="header-title" ng-bind="'instructor_style' | translate"></span>
+			    <a class="header-sort" href="javascript:void(0)" ng-click="toggleSelect()"></a>
+			</header>
+			<!-- header end -->
+			
+			<!-- 底部导航栏 -->
+			<wzm-docker rp="../../"></wzm-docker>
+			
+			<!-- section start -->
+			<section class="content-2">
+			
+				<!-- header-guide start -->
+				<div class="header-guide" style="margin: 0px 0px 10px; display: none;">
+				
+					<!-- header-guide-box start -->
+					<div class="header-guide-box">
+				          <div class="header-guide-title" ng-bind="'instructor_level' | translate"></div>
+				          <div class="header-guide-info">                                    
+				               <a ng-class="{'select':(l.value==selectedLevel)}" href="javascript:void(0)" ng-click="selectLevel(l.value)" ng-repeat="l in instructorLevels" ng-bind="l.label"></a>
+				          </div> 
+				          
+				          <div class="header-guide-title" ng-bind="'instructor_type' | translate"></div>
+				          <div class="header-guide-info">            
+				               <a ng-class="{'select':(t.value==selectedType)}" href="javascript:void(0)" ng-click="selectType(t.value)" ng-repeat="t in instructorTypes" ng-bind="t.label"></a>
+				          </div>  
+				          
+				          <div class="header-guide-title" ng-bind="'instructor_source' | translate"></div>
+				          <div class="header-guide-info">
+				               <a ng-class="{'select':(s.value==selectedSource)}" href="javascript:void(0)" ng-click="selectSource(s.value)" ng-repeat="s in instructroSources" ng-bind="s.label"></a>
+				          </div>   
+				    </div>
+				    <!-- header-guide-box end -->
+				    
+				</div>
+				<!-- header-guide end -->
+			
+				<!-- div start -->
+			    <div style="background:#fff;">
+				    <div class="tuwen-list-6 clearfix" ng-repeat="i in instructorListLoader.items" ng-click="toDetail(i.enc_iti_ent_id)">
+				        <a title="" href="javascript:void(0)" class="tuwen-list-pic" ng-class="{'tui':(i.iti_recommend)}">
+				        	<img ng-src="{{serverHost + i.iti_img}}" class="tuwen-list-w">
+				        	<i ng-class="{'tuijian':(i.iti_recommend)}"></i>
+				        </a>
+				        <div class="tuwen-list-6-box" style="line-height:24px;">
+				            <a href="javascript:void(0)" class="user" ng-bind="i.iti_name"></a>
+				            <span class="start teacher-start">
+				            	<i ng-repeat="star in i.iti_score_star_2" class="{{star.star}}"></i>
+				                <!-- <i class="start-g" ng-repeat="s in i.hollowStarArr"></i> -->
+				            </span>
+				        </div>
+				        <div class="tuwen-list-6-box-2" style="line-height:28px;">
+				            <span class="font-size:16px;" ng-bind="i.iti_level"></span>
+				             &nbsp;(<span style="color:#999999" ng-if="i.iti_type_mark == 'IN'" ng-bind="'instructor_source_internal' | translate"></span>
+				                    <span style="color:#999999" ng-if="i.iti_type_mark == 'EXT'" ng-bind="'instructor_source_External' | translate"></span>)
+				               
+				        </div>
+				        <div ng-if="i.iti_expertise_areas != null && i.iti_expertise_areas != ''" class="tuwen-list-1-tit-1" style="color:#666;"><i class='wenzi-4' ng-bind="'instructor_area_expertise'|translate"></i>{{i.iti_expertise_areas}}</div>
+				     </div>
+				     <div loader="instructorListLoader"></div>
+				  </div>
+				 <!-- div end -->
+				 
+			</section>
+			<!-- section end -->
+			
+	  </div>
+	  <!-- wrap end -->
+	</body>
+</html>

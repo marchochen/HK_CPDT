@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.CpdGroupRegHoursMapper">
+    <resultMap id="CpdGroupRegHours" type="CpdGroupRegHours">
+		<id column="cgrh_id" property="cgrh_id" />
+		<result column="cgrh_usr_ent_id" property="cgrh_usr_ent_id"></result>
+		<result column="cgrh_cgr_id" property="cgrh_cgr_id"></result>
+		<result column="cgrh_cr_id" property="cgrh_cr_id"></result>
+		<result column="cgrh_cgr_period" property="cgrh_cgr_period"></result>
+		<result column="cgrh_cal_start_date" property="cgrh_cal_start_date" javaType="java.util.Date" jdbcType="DATE"></result>
+		<result column="cgrh_cal_end_date" property="cgrh_cal_end_date" javaType="java.util.Date" jdbcType="DATE"></result>
+		<result column="cgrh_manul_core_hours" property="cgrh_manul_core_hours"></result>
+		<result column="cgrh_manul_non_core_hours" property="cgrh_manul_non_core_hours"></result>
+		<result column="cgrh_manul_ind" property="cgrh_manul_ind"></result>
+		<result column="cgrh_cgp_id" property="cgrh_cgp_id"></result>
+		<result column="cgrh_req_core_hours" property="cgrh_req_core_hours"></result>
+		<result column="cgrh_req_non_core_hours" property="cgrh_req_non_core_hours"></result>
+		<result column="cgrh_execute_core_hours" property="cgrh_execute_core_hours"></result>
+		<result column="cgrh_execute_non_core_hours" property="cgrh_execute_non_core_hours"></result>
+		<result column="cgrh_create_usr_ent_id" property="cgrh_create_usr_ent_id"></result>
+		<result column="cgrh_create_datetime" property="cgrh_create_datetime"></result>
+		<result column="cgrh_update_usr_ent_id" property="cgrh_update_usr_ent_id"></result>
+		<result column="cgrh_update_datetime" property="cgrh_update_datetime"></result>
+		<result column="cgrh_cal_month" property="cgrh_cal_month"></result>
+	</resultMap>
+
+	<select id="getByCgrId" resultMap="CpdGroupRegHours" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				cgrh_id int ,
+				cgrh_usr_ent_id,
+				cgrh_cgr_id,
+				cgrh_cr_id ,
+				cgrh_cgr_period,
+				cgrh_cgp_id,
+				cgrh_cal_month,
+				cgrh_cal_start_date,
+				cgrh_cal_end_date ,
+				cgrh_manul_core_hours ,
+				cgrh_manul_non_core_hours ,
+				cgrh_manul_ind ,
+				cgrh_req_core_hours,
+				cgrh_req_non_core_hours ,
+				cgrh_execute_core_hours ,
+				cgrh_execute_non_core_hours,
+				cgrh_create_usr_ent_id,
+				cgrh_create_datetime ,
+				cgrh_update_usr_ent_id ,
+				cgrh_update_datetime 
+			from 
+				cpdGroupRegHours 
+			where 
+				cgrh_cgr_id = #{cgr_id}
+		]]>
+	</select>
+	
+	<select id="getCpdGroupRegHours" resultMap="CpdGroupRegHours" parameterType="Map">
+		<![CDATA[
+			select 
+				cgrh_id int ,
+				cgrh_usr_ent_id,
+				cgrh_cgr_id,
+				cgrh_cr_id ,
+				cgrh_cgr_period,
+				cgrh_cgp_id,
+				cgrh_cal_month,
+				cgrh_cal_start_date,
+				cgrh_cal_end_date ,
+				cgrh_manul_core_hours ,
+				cgrh_manul_non_core_hours ,
+				cgrh_manul_ind ,
+				cgrh_req_core_hours,
+				cgrh_req_non_core_hours ,
+				cgrh_execute_core_hours ,
+				cgrh_execute_non_core_hours,
+				cgrh_create_usr_ent_id,
+				cgrh_create_datetime ,
+				cgrh_update_usr_ent_id ,
+				cgrh_update_datetime 
+			from 
+				cpdGroupRegHours 
+				inner join cpdGroupRegistration on cgrh_cgr_id = cgr_id
+			where
+				cgr_status = 'OK'
+				and (cgr_expiry_date is null or cgr_expiry_date > cgrh_cal_end_date)
+		]]>
+		 <if test="cgr_id != null and cgr_id !=0">
+ 			<![CDATA[
+ 				and cgrh_cgr_id = #{cgr_id}
+ 			]]>
+ 		</if>
+ 		<if test="period != null and period !=0">
+ 			<![CDATA[
+ 				and cgrh_cgr_period = #{period}
+ 			]]>
+ 		</if>
+ 		 <if test="usr_ent_id != null and usr_ent_id !=0">
+ 			<![CDATA[
+ 				and cgrh_usr_ent_id = #{usr_ent_id}
+ 			]]>
+ 		</if>
+ 		<if test="cr_id != null and cr_id !=0">
+ 			<![CDATA[
+ 				and cgr_cr_id = #{cr_id}
+ 			]]>
+ 		</if>
+ 		<if test="cg_id != null and cg_id !=0">
+ 			<![CDATA[
+ 				and cgr_cg_id = #{cg_id}
+ 			]]>
+ 		</if>
+	</select>
+	
+	<delete id="deleteByCgrId" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from cpdGroupRegHours where
+	        cgrh_cgr_id = #{cgr_id}
+	    ]]>
+    </delete>
+	
+	<select id="isExist" resultType="java.lang.Boolean"
+		parameterType="com.cwn.wizbank.entity.CpdGroupRegHours">
+	    <![CDATA[
+			select count(*)
+	         from CpdGroupRegHours
+	         where cgrh_usr_ent_id = #{cgrh_usr_ent_id}
+		          and  cgrh_cgr_id = #{cgrh_cgr_id}
+		          and  cgrh_cr_id = #{cgrh_cr_id}
+		          and  cgrh_cgr_period = #{cgrh_cgr_period}
+		]]>
+	</select>
+	
+	<insert id="insert" parameterType="com.cwn.wizbank.entity.CpdGroupRegHours">
+	    <![CDATA[
+            insert into cpdGroupRegHours(
+	                cgrh_usr_ent_id ,
+				    cgrh_cgr_id ,
+				    cgrh_cr_id ,
+				    cgrh_cgr_period ,
+				    cgrh_cal_start_date ,
+				    cgrh_cal_end_date,
+				    cgrh_manul_core_hours ,
+				    cgrh_manul_non_core_hours,
+					cgrh_manul_ind ,
+					cgrh_req_core_hours ,
+					cgrh_req_non_core_hours ,
+					cgrh_execute_core_hours ,
+			        cgrh_execute_non_core_hours ,
+					cgrh_create_usr_ent_id ,
+					cgrh_create_datetime ,
+	                cgrh_cal_month,
+	                cgrh_cgp_id
+            ) values (
+            	#{cgrh_usr_ent_id,jdbcType=INTEGER},
+            	#{cgrh_cgr_id,jdbcType=INTEGER},
+            	#{cgrh_cr_id,jdbcType=INTEGER},
+            	#{cgrh_cgr_period,jdbcType=INTEGER},
+            	#{cgrh_cal_start_date,jdbcType=TIMESTAMP},
+            	#{cgrh_cal_end_date,jdbcType=TIMESTAMP},
+            	#{cgrh_manul_core_hours,jdbcType=FLOAT},
+            	#{cgrh_manul_non_core_hours,jdbcType=FLOAT},
+            	#{cgrh_manul_ind,jdbcType=INTEGER},
+            	#{cgrh_req_core_hours,jdbcType=FLOAT},
+            	#{cgrh_req_non_core_hours,jdbcType=FLOAT},
+            	#{cgrh_execute_core_hours,jdbcType=FLOAT},
+            	#{cgrh_execute_non_core_hours,jdbcType=FLOAT},
+            	#{cgrh_create_usr_ent_id,jdbcType=INTEGER},
+            	#{cgrh_create_datetime,jdbcType=TIMESTAMP},
+            	#{cgrh_cal_month,jdbcType=INTEGER},
+            	#{cgrh_cgp_id,jdbcType=INTEGER}
+            )
+        ]]>
+	</insert>
+	
+	<update id="updateHours" parameterType="com.cwn.wizbank.entity.CpdGroupRegHours">
+	    <![CDATA[
+	        update CpdGroupRegHours 
+	        set
+	            cgrh_manul_core_hours = #{cgrh_manul_core_hours,jdbcType=FLOAT},
+				cgrh_manul_non_core_hours = #{cgrh_manul_non_core_hours,jdbcType=FLOAT},
+				cgrh_manul_ind = #{cgrh_manul_ind,jdbcType=INTEGER},
+           		cgrh_execute_core_hours = #{cgrh_execute_core_hours,jdbcType=FLOAT},
+           		cgrh_execute_non_core_hours = #{cgrh_execute_non_core_hours,jdbcType=FLOAT},
+           		cgrh_update_usr_ent_id = #{cgrh_update_usr_ent_id,jdbcType=INTEGER},
+           		cgrh_update_datetime = #{cgrh_update_datetime,jdbcType=TIMESTAMP}
+	         where cgrh_id = #{cgrh_id,jdbcType=INTEGER}
+	    ]]>
+	</update>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.CpdGroupRegHours">
+		<![CDATA[
+	        update CpdGroupRegHours 
+	        set
+    	        cgrh_req_core_hours = #{cgrh_req_core_hours,jdbcType=FLOAT},
+           		cgrh_req_non_core_hours = #{cgrh_req_non_core_hours,jdbcType=FLOAT},
+	            cgrh_manul_core_hours = #{cgrh_manul_core_hours,jdbcType=FLOAT},
+				cgrh_manul_non_core_hours = #{cgrh_manul_non_core_hours,jdbcType=FLOAT},
+				cgrh_manul_ind = #{cgrh_manul_ind,jdbcType=INTEGER},
+           		cgrh_execute_core_hours = #{cgrh_execute_core_hours,jdbcType=FLOAT},
+           		cgrh_execute_non_core_hours = #{cgrh_execute_non_core_hours,jdbcType=FLOAT},
+           		cgrh_update_usr_ent_id = #{cgrh_update_usr_ent_id,jdbcType=INTEGER},
+           		cgrh_update_datetime = #{cgrh_update_datetime,jdbcType=TIMESTAMP}
+	         where cgrh_id = #{cgrh_id,jdbcType=INTEGER}
+	          
+	    ]]>
+	</update>
+	
+</mapper>

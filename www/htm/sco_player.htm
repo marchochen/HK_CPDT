@@ -1,0 +1,233 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Pragma" contect="no-cache">
+<script LANGUAGE="JavaScript" TYPE="text/javascript" src="../js/urlparam.js"></script>
+<script LANGUAGE="JavaScript" TYPE="text/javascript" src="../js/wb_scormAdapter.js"></script>
+<script type="text/javascript" src="../js/jquery.js"></script>
+<title>Cyberwisdom wizBank</title>
+<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
+var checkLoadInt=9527;
+var checkSendInt=9527;
+//
+var my_aicc_url=getUrlParam('aicc_url');
+var my_aicc_sid=getUrlParam('aicc_sid');
+var my_web_launch=getUrlParam('web_launch');
+var my_cos_url=getUrlParam('cos_url');
+
+
+var hasSendInt=9572;
+var IamHere=true;
+var counti=0;
+
+var lmsInitCalled ;
+var lmsFinishCalled ;
+var time_='';
+var time_can_not_sub=false;
+
+//课件的学习时长，由打开课件时间开始算，不再依赖课件传回来的时间
+var time_spend=0;
+
+
+
+//
+function init() {
+	if (my_aicc_url != "" && typeof (my_aicc_url) != "undefined" && my_aicc_sid != "" && typeof (my_aicc_sid) != "undefined") {
+	    
+	    if(my_aicc_sid != undefined){
+	        var temp = '';
+	   		var arr = my_aicc_sid.split(":_:_:");
+	   		if(arr.length > 4){
+		   		for(i=0;i<arr.length;i++) {
+		   		    value = arr[i];
+		   		
+		   			if(i==4){
+		   				today = new Date
+		   				value = _GetTime(today)
+		   			}
+		   			temp = temp + value;
+		   			if(i < arr.length -1){
+		   				temp = temp + ':_:_:'; 
+		   			}
+		   		}
+		   		//alert('my_aicc_sid:'+my_aicc_sid +' temp='+temp) 
+		   		my_aicc_sid = temp
+		   		
+	   		}
+	   		
+		   
+	    }
+	    	
+	    
+		$.ajax({
+			type : 'POST',
+			dataType : 'text',
+			url : my_aicc_url,
+			data : {
+				command : 'GetParam',
+				version : '2.2',
+				session_id : my_aicc_sid,
+				AICC_Data : '',
+				AU_password : ''
+			}
+		}).done(function(data){
+			parseVar(data);
+		});
+	}
+
+}
+
+
+function _GetTime(datetime){
+
+		if ( datetime.getMonth() > 9 )
+			month = datetime.getMonth() + 1
+		else
+			month = '0' + (datetime.getMonth() + 1 )
+
+		if ( datetime.getDate() > 9 )
+			day = datetime.getDate()
+		else
+			day = '0' + datetime.getDate()
+
+		if ( datetime.getHours() > 9 )
+			hour = datetime.getHours()
+		else
+			hour = '0' + (datetime.getHours() + 1 )
+
+		if ( datetime.getMinutes() > 9 )
+			minutes = datetime.getMinutes()
+		else
+			minutes = '0' + datetime.getMinutes()
+
+		if ( datetime.getSeconds() > 9 )
+			seconds = datetime.getSeconds()
+		else
+			seconds = '0' + datetime.getSeconds()
+
+		time = datetime.getFullYear() + month + day + hour  + minutes  + seconds
+
+		return time;
+
+}
+
+
+function parseVar(varStr) {
+		if (varStr.substring(0, 7) == "error=0") {
+			initSCORM_Var(varStr);
+			openCourse(my_cos_url);
+		}
+	}
+	
+//课件的学习时长，由打开课件时间开始算，不再依赖课件传回来的时间
+var time_spend=0;
+function timeCount() {
+	time_spend = time_spend + 1;
+}
+
+function openCourse(course_url){
+	window.frames["content"].location.href=course_url;
+	window.setInterval("timeCount()", 1000);
+}
+function joinAiccData(){
+	var aiccDataVar="";
+	var NEWL = "\r\n";
+	aiccDataVar+="[core]" + NEWL;
+	aiccDataVar+="lesson_location=" +wiz_cmi_core_lesson_location+ NEWL;
+	aiccDataVar+="lesson_status=" +wiz_cmi_core_lesson_status+ NEWL;
+	if(wiz_cmi_core_score_raw=='NaN'){
+		wiz_cmi_core_score_raw=0;
+	}
+	aiccDataVar+="score=" +wiz_cmi_core_score_raw+","+wiz_cmi_core_score_max+","+wiz_cmi_core_score_min+ NEWL;
+	
+	//课件的学习时长，由打开课件时间开始算，不再依赖课件传回来的时间
+	//time_ = wiz_cmi_core_session_time
+	//aiccDataVar+="time=" +wiz_cmi_core_session_time+ NEWL;
+	alert(time_spend)
+	time_ = time_spend
+	aiccDataVar+="time=" +time_spend+ NEWL;
+	aiccDataVar+="[core_lesson]" + NEWL;
+	aiccDataVar+=encodeURIComponent(wiz_cmi_suspend_data)+ NEWL;
+	alert('aiccDataVar:'+aiccDataVar)
+	return aiccDataVar;
+}
+
+
+function putToSendAdapter(){
+if ((navigator.userAgent.indexOf('MSIE') >= 0) && (navigator.userAgent.indexOf('Opera') < 0)){			 
+      // for ie do nothing , data will post to server when window closed
+      if(time_ ==''){
+        time_ = wiz_cmi_core_session_time
+      	if(time_ != '' && time_can_not_sub){
+      		scoPlayerSubmit();
+      	}
+      }
+      
+	}else{
+		scoPlayerSubmit();
+	}
+}
+
+var req = false;
+    /* IE7, Firefox, Safari, Opera...  */
+    if (!req) try { req = new XMLHttpRequest(); } catch(e) { req = false; }
+    /* IE6 */
+    if (typeof ActiveXObject != "undefined") {
+    	if (!req) try { req = new ActiveXObject("MSXML2.XMLHTTP"); } catch(e) { req = false; }
+    	if (!req) try { req = new ActiveXObject("Microsoft.XMLHTTP"); } catch(e) { req = false; }
+    }
+    
+
+function scoPlayerSubmit(is_close){	
+
+    onbeforunload_had_track = is_close;
+	if(lmsInitCalled){
+		var url = my_aicc_url ;
+		
+		var aiccDataVar="";
+		var NEWL = "\r\n";
+		aiccDataVar+="[core]" + NEWL;
+		aiccDataVar+="lesson_location=" +wiz_cmi_core_lesson_location+ NEWL;
+		aiccDataVar+="lesson_status=" +wiz_cmi_core_lesson_status+ NEWL;
+		if(wiz_cmi_core_score_raw=='NaN'){
+			wiz_cmi_core_score_raw=0;
+		}
+		aiccDataVar+="score=" +wiz_cmi_core_score_raw+","+wiz_cmi_core_score_max+","+wiz_cmi_core_score_min+ NEWL;
+		
+		//课件的学习时长，由打开课件时间开始算，不再依赖课件传回来的时间
+		//time_ = wiz_cmi_core_session_time
+		//aiccDataVar+="time=" +wiz_cmi_core_session_time+ NEWL;
+		time_ = time_spend
+		aiccDataVar+="time=" +time_spend+ NEWL;
+		aiccDataVar+="[core_lesson]" + NEWL;
+		aiccDataVar+=encodeURIComponent(wiz_cmi_suspend_data)+ NEWL;
+
+	
+		data = "command=PutParam&version=2.2&type=scorm&session_id="+my_aicc_sid+"&AU_password=&AICC_Data="+aiccDataVar;
+		if (req) {
+			try {
+			    if(time_ == '' && is_close == 'true'){
+			    	time_can_not_sub = true;
+			    }
+				req.open("POST", url, false);
+				req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				req.send(data);
+				return req.responseText;
+			} catch (error) {
+				return "error=1";
+			}
+		} else {
+			return "Cannot make command calls";
+		}
+	}	   	
+}
+
+
+</SCRIPT>
+</head>
+<frameset rows="0,*" cols="*" frameborder="NO" border="0" framespacing="0" onLoad="javascript:init()" onbeforeunload="javascript:scoPlayerSubmit('true')" onUnload="javascript:scoPlayerSubmit('true')"> 
+<!-- <frameset rows="0,*" cols="*" frameborder="NO" border="0" framespacing="0" onLoad="javascript:init()">-->
+<frame src="blank.htm" scrolling="NO" noresize name="adapter">
+<frame src="blank.htm" scrolling="YES" noresize name="content" id="content">
+</frameset><noframes></noframes>
+</html>

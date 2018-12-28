@@ -1,0 +1,120 @@
+<!doctype html>
+<html ng-app="specialTopicModule">
+    <head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"  id="viewport" />
+		<title translate="cwn_title"></title>
+		<link rel="stylesheet" href="../../css/swiper.min.css">
+    	<link rel="stylesheet" href="../../css/basic.css" />
+		<script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.load.js"></script>
+		<script type="text/javascript" src="../../js/controllers/specialTopic/specialTopicController.js"></script>
+		<script type="text/javascript" src="../../lib/common.js"></script>
+    	<script type="text/javascript" src="../../js/swiper.min.js"></script>
+	</head>
+
+	<body ng-cloak class="ng-cloak" ng-controller="detailController">
+		<alert ng-repeat="alert in alerts" ngCloak type="{{alert.type}}" close="alert.close()">{{alert.msg | translate}}</alert>
+		
+		<!-- wrap start -->
+	    <div class="wrap">
+	        
+	        <!-- header start -->
+		  	 <header class="header mm-background">
+			    <a class="header-back" href="javascript:back()"></a>
+			    <span class="header-title" ng-bind="'map_special_topic' | translate"></span>
+			 </header>
+			 <!-- header end -->
+			 
+			 <wzm-docker rp="../../"></wzm-docker>
+	
+	        <!-- content-2 start -->
+	        <section class="content-2">    
+	            
+	            <!-- 图片 start-->
+	            <div class="list-pic-11">
+	                <img ng-src="{{serverHost + specialDetail.abs_img}}" alt="" class="img">
+	                <div class="sub-area-3"><img src="../../images/ta03.png" alt=""></div>
+	            </div>
+	            <!-- 图片 end-->
+	            
+	            <!-- 介绍 start -->
+	            <div class="panel-list-box" style="padding:10px;" ng-show="specialDetail.ust_title">
+	                <h1 class="tuwen-list-1-tit-1" style="font-size:16px;" ng-bind="specialDetail.ust_title"></h1>
+	                <div class="tuwen-list-1-tit-1" style="color:#999;margin-top:5px;" ng-bind="specialDetail.ust_summary"></div>
+	            </div>
+	            <!-- 介绍 end -->
+	            
+	            <!-- 详细介绍 start-->
+	            <div class="panel tool-square" style="padding:10px;" ng-show="specialDetail.ust_content">
+	                <span class="tool-square-1"></span>
+	                <span class="tool-square-2"></span>
+	                <div ng-bind-html="specialDetail.ust_content"></div>
+	            </div>
+	            <!-- 详细介绍 end-->
+	            
+	            <!-- 讲师风采 start -->
+	            <div class="bg-10" ng-if="specialExperts.length > 0">
+	                <span class="bg-11 {{globalLang=='en-us'?'bg-11-1':''}}" ng-bind="'map_special_topic_expert' | translate"></span>
+	                <wzm-swiper css-style="{{cssStyle}}">
+	                	<wzm-slide ng-repeat="e in specialExperts" slideClass="module-tuwen-bg" length="{{specialExperts.length}}">
+	                		<a href="{{ {url:'../instructor/instructorDetail.html?id='+e.enc_use_ent_id} | appUrl }}",true);">
+	                                <div class="module-tuwen-bg module-tuwen-bg-{{$index%4==0?'green':$index%4==1?'pink':$index%4==2?'blue':'gold'}}">
+	                                    <img ng-src="{{serverHost + e.abs_img}}" style="border-radius:50%;">
+	                                    <p class="module-tuwen-tit-1" ng-bind="e.title"></p>
+	                                    <p class="module-tuwen-tit-2" ng-bind="e.iti_level"></p>
+	                                    <div class="module-color-{{$index%4==0?'green':$index%4==1?'pink':$index%4==2?'blue':'gold'}} teacher-start">
+	                                    	<i ng-repeat="star in e.iti_score_star" class="{{star.star}}"></i>
+	                                    </div>
+	                                </div>
+	                        </a>
+	                	</wzm-slide>
+	                </wzm-swiper>
+	            </div>
+	            <!-- 讲师风采 end -->
+	            
+	            <!-- 专题课程 start -->
+	            <div class="panel"  ng-show="specialCourseLoader.items.length > 0">
+	                <h2 class="panel-title-1 panel-bg-learn" style="border-bottom:none;">
+	                    <a class="" href="javascript:void(0)" ng-bind="'map_special_topic_course' | translate"></a>
+	                </h2> 
+	
+	                <div class="tuwen-list-1" ng-repeat="c in specialCourseLoader.items">
+	                    <a class="tuwen-list-1-box clearfix" ng-if="c.itm_canread != 0" href="javascript:clicked('../course/detail.html?itmId={{c.encItmId}}',true,'item{{c.itm_id}}')">
+	                        <div class="tuwen-list-1-pic">
+	                        	<i class="wuquanxian" ng-if="c.itm_canread == 0"></i>
+	                            <img ng-src="{{serverHost + c.itm_icon}}"/>
+	                        </div>   
+	                       
+	                        <div class="tuwen-list-1-tit-1" ng-bind="c.itm_title"></div>
+	                        <div class="list-tool-1">
+	                            <!-- <span class="list-tool-1-laud" ng-bind="c.cnt_like_count"></span> -->
+	                            <!-- <span class="list-tool-1-review" ng-bind="c.cnt_comment_count"></span> -->
+	                        </div>
+	                    </a>
+	                    <a class="tuwen-list-1-box clearfix" ng-if="c.itm_canread == 0" href="javascript:void(0);">
+	                        <div class="tuwen-list-1-pic">
+	                        	<i class="wuquanxian" ng-if="c.itm_canread == 0"></i>
+	                            <img ng-src="{{serverHost + c.itm_icon}}"/>
+	                        </div>   
+	                       
+	                        <div class="tuwen-list-1-tit-1" ng-bind="c.itm_title"></div>
+	                        <div class="list-tool-1">
+	                            <span class="list-tool-1-laud" ng-bind="c.cnt_like_count"></span>
+	                            <!-- <span class="list-tool-1-review" ng-bind="c.cnt_comment_count"></span> -->
+	                        </div>
+	                    </a>
+	                </div>
+	                <div loader="specialCourseLoader"></div>
+	                
+	            </div>
+	            <!-- 专题课程 end -->
+	            
+	        </section>
+	        <!-- content-2 End -->
+	
+	    </div>
+		<!-- wrap End -->
+		
+	</body>
+</html>

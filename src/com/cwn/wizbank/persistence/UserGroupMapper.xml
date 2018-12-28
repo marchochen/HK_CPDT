@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwn.wizbank.persistence.UserGroupMapper">
+	 <insert id="insert" parameterType="UserGroup">
+		insert into userGroup(
+			usg_ent_id,
+			usg_code,
+       		usg_display_bil,
+       		usg_ent_id_root
+		) values (
+         	#{usg_ent_id,jdbcType=INTEGER},
+         	#{usg_code,jdbcType=VARCHAR},
+         	#{usg_display_bil,jdbcType=VARCHAR},
+         	#{usg_ent_id_root,jdbcType=INTEGER}
+		)
+    </insert>
+	<select id="selectUsgId" resultType="java.lang.String" parameterType="java.lang.String">
+		select usg_ent_id from UserGroup where usg_code = #{usg_code}
+	</select>
+	
+	<select id="get" resultType="UserGroup" parameterType="java.lang.Long">
+		<![CDATA[
+			select 
+				usg_ent_id,
+				usg_code,
+				usg_name,
+				usg_display_bil,
+				usg_level,
+				usg_usr_id_admin,
+				usg_role,
+				usg_ent_id_root,
+				usg_subg_code,
+				usg_comment_1,
+				usg_comment_2,
+				usg_comment_3,
+				usg_comment_4,
+				usg_status,
+				usg_usr_cnt,
+				usg_budget,
+				usg_desc
+			from UserGroup
+			where
+				 usg_ent_id = #{id}
+		]]>
+	</select>
+	
+	<select id="getByUsgCode" resultType="UserGroup" parameterType="String">
+			select 
+				usg_ent_id,
+				usg_code,
+				usg_name,
+				usg_display_bil,
+				usg_level,
+				usg_usr_id_admin,
+				usg_role,
+				usg_ent_id_root,
+				usg_subg_code,
+				usg_comment_1,
+				usg_comment_2,
+				usg_comment_3,
+				usg_comment_4,
+				usg_status,
+				usg_usr_cnt,
+				usg_budget,
+				usg_desc
+			from UserGroup
+			inner join entity on ent_id = usg_ent_id and ent_type = 'USG'
+			where
+				 ent_ste_uid = #{id} and ent_delete_timestamp is null
+	</select>
+	
+	<update id="update" parameterType="com.cwn.wizbank.entity.UserGroup">
+	    <![CDATA[
+	        update UserGroup
+	        set 
+				usg_code = #{usg_code,jdbcType=VARCHAR},
+				usg_name = #{usg_name,jdbcType=VARCHAR},
+				usg_display_bil = #{usg_display_bil,jdbcType=VARCHAR},
+				usg_level = #{usg_level,jdbcType=VARCHAR},
+				usg_usr_id_admin = #{usg_usr_id_admin,jdbcType=VARCHAR},
+				usg_role = #{usg_role,jdbcType=VARCHAR},
+				usg_ent_id_root = #{usg_ent_id_root,jdbcType=INTEGER},
+				usg_subg_code = #{usg_subg_code,jdbcType=VARCHAR},
+				usg_comment_1 = #{usg_comment_1,jdbcType=VARCHAR},
+				usg_comment_2 = #{usg_comment_2,jdbcType=VARCHAR},
+				usg_comment_3 = #{usg_comment_3,jdbcType=VARCHAR},
+				usg_comment_4 = #{usg_comment_4,jdbcType=VARCHAR},
+				usg_status = #{usg_status,jdbcType=VARCHAR},
+				usg_usr_cnt = #{usg_usr_cnt,jdbcType=INTEGER},
+				usg_budget = #{usg_budget,jdbcType=INTEGER},
+				usg_desc = #{usg_desc,jdbcType=VARCHAR}
+	         where usg_ent_id = #{usg_ent_id,jdbcType=INTEGER}
+	    ]]>
+    </update>
+    
+	<select id="selectList" parameterType="Params" resultType="com.cwn.wizbank.entity.vo.UserGroupVo">
+		select
+		<if test="params.eip_code != null and params.eip_code != ''">
+			#{params.eip_code} as eip_code,
+		</if>
+		ent_ste_uid as "usg_code",
+		usg_display_bil as "usg_name",
+		usg_desc,
+		usg_ent_id_root,
+		ern_order as "usg_level",
+		usg_status as "usg_del_ind",
+		ent_upd_date as "usg_last_upd_date",
+		ern_ancestor_ent_id AS "parent_usg_code"
+		from UserGroup usg
+		inner join entity on usg.usg_ent_id = ent_id
+		left join EntityRelation on usg_ent_id  = ern_child_ent_id and ern_type = 'USG_PARENT_USG' and ern_parent_ind = 1
+		where (
+			exists(
+				select * from EntityRelation tcrUsg where usg.usg_ent_id = tcrUsg.ern_child_ent_id
+					<if test="params.eip_code != null and params.eip_code != ''">
+						and ern_ancestor_ent_id in (
+							select tce_ent_id from tcTrainingCenterTargetEntity where tce_tcr_id in (
+								select eip_tcr_id from EnterpriseInfoPortal where eip_code = #{params.eip_code}
+							)
+						)
+					</if>
+				and ern_type = 'USG_PARENT_USG'
+			)
+			<if test="params.eip_code != null and params.eip_code != ''">
+				or usg.usg_ent_id in (
+					select tce_ent_id from tcTrainingCenterTargetEntity where tce_tcr_id in (
+						select eip_tcr_id from EnterpriseInfoPortal where eip_code = #{params.eip_code}
+					)
+				)
+			</if>
+		)
+		<if test="params.last_update != null">
+			AND ent_upd_date &gt; #{params.last_update}
+		</if>
+	</select>
+	
+	<select id="selectListByTcrId" parameterType="Long" resultType="UserGroup">
+	  select distinct usg_ent_id,
+			usg_code,
+       		usg_display_bil,
+       		usg_desc,
+       		usg_ent_id_root,
+       		usg_level,
+       		usg_status
+		from UserGroup, tcTrainingCenterTargetEntity, 
+		EnterpriseInfoPortal
+      where  
+      tce_ent_id = usg_ent_id
+      and tce_tcr_id = eip_tcr_id 
+      and eip_tcr_id = #{tcrId}
+	</select>
+	
+	
+	<delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	   	delete from UserGroup where
+	        usg_ent_id = #{usg_ent_id}
+	    ]]>
+    </delete>
+    
+    <select id="hasChild" resultType="Boolean" parameterType="Long">
+    	Select count(ern_ancestor_ent_id) From EntityRelation 
+                         Where ern_ancestor_ent_id = #{usg_code}
+                         And (ern_type = 'USG_PARENT_USG' or ern_type = 'USR_PARENT_USG')
+    </select>
+    
+    <select id="groupHasChild" resultType="Integer" parameterType="Map">
+    	select  
+    		count(DISTINCT usg_ent_id) 
+		From 
+			<if test="isRoleTcInd != null and isRoleTcInd == true">
+			tcTrainingCenterOfficer tco,
+			</if>         
+			tcTrainingCenterTargetEntity tce,                                                                               
+			UserGroup usg,
+			EntityRelation ern                                                                                               
+		where 
+			ern.ern_type = 'USG_PARENT_USG'
+			and ern.ern_child_ent_id = usg.usg_ent_id
+			and ern.ern_parent_ind = 1  
+			<if test="isRoleTcInd != null and isRoleTcInd == true">
+			and tco.tco_tcr_id = tce.tce_tcr_id
+			and tco.tco_usr_ent_id = #{user_ent_id} 
+			and tco.tco_rol_ext_id = #{user_role} 
+			</if>
+			and ern.ern_ancestor_ent_id = #{usg_id} 
+			<if test="top_tcr_id != null"> 
+			and (
+				tce_tcr_id in(
+						select tcn_child_tcr_id from tcrelation where tcn_ancestor= #{top_tcr_id}
+				) 
+				or tce_tcr_id = #{top_tcr_id}
+			)
+			</if>
+    </select>
+    
+    <select id="getUserGroupCountInTCent" parameterType="Long" resultType="Long">
+    	
+    	select COUNT(*) from UserGroup 
+			where usg_ent_id in (
+				                select tce_ent_id from tcTrainingCenterTargetEntity where tce_tcr_id = #{tcrId}
+				                					or tce_tcr_id in (select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{tcrId})
+				                )
+			      or usg_ent_id in 
+			                     (
+			                      select ern_child_ent_id from EntityRelation join tcTrainingCenterTargetEntity on tce_ent_id = ern_ancestor_ent_id and ern_type = 'USG_PARENT_USG'
+			                      where tce_tcr_id = #{tcrId} or tce_tcr_id in (select tcn_child_tcr_id from tcRelation where tcn_ancestor = #{tcrId})
+				                 )
+    </select>
+    
+    <select id="getGroupByUserId" parameterType="Map" resultType="UserGroup">
+		select ern_child_ent_id as "usg_ent_id" 
+		from 
+			<if test="isRoleTcInd != null and isRoleTcInd == true">
+			tcTrainingCenterOfficer,
+			</if>      
+			tcTrainingCenterTargetEntity,
+			EntityRelation, 
+			tcTrainingCenter, 
+			Entity ,
+			UserGroup
+		where  
+			tce_tcr_id = tcr_id
+			and (tce_ent_id = ern_child_ent_id or(ern_type = 'USG_PARENT_USG' and ern_ancestor_ent_id = tce_ent_id))
+			and tce_ent_id = ent_id
+			and usg_ent_id = ern_child_ent_id
+			and tcr_status = 'OK'
+			<if test="isRoleTcInd != null and isRoleTcInd == true">
+			and tco_tcr_id = tcr_id
+			and tco_usr_ent_id = #{user_ent_id} 
+			and tco_rol_ext_id = #{user_role} 
+			</if>
+			<if test="top_tcr_id != null"> 
+			and (
+				tce_tcr_id in(
+						select tcn_child_tcr_id from tcrelation where tcn_ancestor= #{top_tcr_id}
+				) 
+				or tce_tcr_id = #{top_tcr_id}
+			)
+			</if>  
+		GROUP BY ern_child_ent_id 
+	</select>
+	
+	<select id="selectGroupLevelList" parameterType="Long" resultType="String">
+    
+    	select usg_display_bil from UserGroup 
+    		where
+			usg_role is null
+			and
+			(
+				usg_ent_id in 
+					(select ern_ancestor_ent_id from EntityRelation where ern_child_ent_id = #{child_ent_id} and ern_type = 'USG_PARENT_USG')
+				or
+				usg_ent_id = #{child_ent_id}
+			)
+    
+    </select>
+    
+    
+    <select id="getSubordinateGroup" parameterType="Long" resultType="UserGroup">
+		select 
+			distinct usg_ent_id
+		from 
+			superviseTargetEntity,
+			userGroup
+		where  
+			spt_target_ent_id = usg_ent_id
+			and spt_type = 'SUPERVISE' 
+			and spt_source_usr_ent_id = #{id}
+		order by usg_ent_id
+	</select>
+
+
+</mapper>

@@ -1,0 +1,162 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>瀏覽器配置檢查</title>
+<script language="JavaScript" src="../../../js/deployJava.js"></script>
+<script language="JavaScript" src="../utils.js"></script>
+<script language="JavaScript" src="../../../js/urlparam.js"></script>
+<script type="text/javascript" language="Javascript">
+	
+var cekItem = getUrlParam('cekItem');
+	
+var MsgOK = '<font color="green"><b>成功！</b></font>';
+var MsgNG = '<font color="red"><b>失敗！</b></font>';
+
+var Msg = new Array(
+    new Array(
+        MsgNG + '你正在使用的瀏覽器不被支援。'
+        ,''
+        ,MsgOK + '你正在使用正確的瀏覽器。'
+    )
+    ,
+    new Array(
+        ''
+        ,''
+        ,MsgOK + '你的瀏覽器允許Javascript。'
+    )
+    ,
+    new Array(
+        MsgNG + '你的瀏覽器不允許Cookies。'
+        ,''
+        ,MsgOK + '你的瀏覽器允許Cookies。'
+    )
+    ,
+    new Array(
+        MsgNG + '你的瀏覽器不允許彈出窗口。'
+        ,''
+        ,MsgOK + '你的瀏覽器允許彈出窗口。'
+    )
+    ,
+    new Array(
+        MsgNG + '你需要安裝Flash播放器。'
+        ,MsgNG + '你需要更新你的Flash播放器。'
+        ,MsgOK + '你的瀏覽器正在使用正確的Flash播放器。'
+    )
+    ,
+    new Array(
+        MsgNG + '你需要安裝Java插件。'
+        ,MsgNG + '你需要更新你的Java插件。'
+        ,MsgOK + '你的瀏覽器正在使用正確的Java插件。'
+    )
+)
+</script>
+</head>
+
+<body onload="showEachClientCheckResult(cekItem)">
+	<table width="100%">
+		<tr>
+			<td><h3>瀏覽器配置檢查</h3></td>
+			<td align="right">
+				<a href="../en-us/index.htm">English</a>&nbsp;
+				<a href="../zh-cn/index.htm"><font size="-1">简体中文</font></a>
+				<font size="-1"><b>繁體中文</b></font>
+			</td>
+		</tr>
+	</table>
+	<table border="1" cellpadding="5" width="100%">
+		<tr>
+			<td>
+				<br/>
+				<table>
+					<tr style="display:none" id="browser_"><td width="20"></td><td>瀏覽器：</td><td><span id="browser_check">檢查中...</span></td></tr>
+					<noscript><tr><td width="20"></td><td>Javascript：</td><td><span id="js_check">檢查中...</span><font color="red"><b>失敗！</b></font>你的瀏覽器不允許 Javascript。</td></tr></noscript>
+					<tr style="display:none" id="cookies_"><td width="20"></td><td>Cookies：</td><td><span id="cookie_check">檢查中...</span></td></tr>
+					<tr style="display:none" id="popup_"><td width="20"></td><td>彈出窗口：</td><td><span id="popup_check">檢查中...</span></td></tr>
+					<tr style="display:none" id="flash_"><td width="20"></td><td>Flash播放器：</td><td><span id="flash_check">檢查中...</span></td></tr>
+					<tr style="display:none" id="jre_"><td width="20"></td><td>Java插件：</td><td><span id="jre_check">檢查中...</span></td></tr>
+					<tr style="display:none" id="all_ok"><td>檢查<font color="green"><b>成功！</b></font>你可以直接開始使用此學習系統。</td></tr>
+				</table>
+				<table>
+					<tr style="display:none" id="browser_detail">
+						<td>
+							請通過Internet Explorer 6.0 或以上版本去使用此學習系統。<br>如果你使用的是舊版本的Internet Explorer，請到<a href="http://windowsupdate.microsoft.com/" target="_blank">Windows Update</a>更新。
+							<br/><br/><a href="index.htm">再次檢查</a><br/><br/>
+						</td>
+					</tr>
+					<noscript>
+						<tr id="js_detail">
+							<td width="20"></td>
+							<td>
+								<ol>
+								<li>打開瀏覽器的 工具 &gt; 網際網路選項 &gt; 安全性 &gt; 網際網路 &gt; 自訂層級</li>
+								<li>找到“指令碼處理”部分，如下圖<br><img src="01.gif"></li>
+								<li>確定“Active scripting”是“啓用”狀態</li>
+								</ol>
+								<br/><a href="index.htm">再次檢查</a><br/><br/>
+							</td>
+						</tr>
+					</noscript>
+					<tr style="display:none" id="cookies_detail">
+						<td width="20"></td>
+						<td>
+							<ol>
+							<li>打開瀏覽器的 工具 &gt; 網際網路選項 &gt; 隱私 &gt; 進階</li>
+							<li>確定“覆寫自動 cookie 處理”是沒有選上，如下圖<br><img src="02.gif"></li>
+							</ol>
+							<br/><a href="index.htm">再次檢查</a><br/><br/>
+						</td>
+					</tr>
+					<tr style="display:none" id="popup_detail">
+						<td width="20"></td>
+						<td>
+							如果你的瀏覽器禁止任何彈出窗口，請把它取消。或者你安裝了任何可以攔截彈出窗口的工具，請把該功能也取消。比如，你使用的是Google工具欄，請點擊以下按鈕<br><img src="03.gif"><br>如果是以下情況，代表當前是允許彈出視窗<br><img src="04.gif">
+							<br/><br/><a href="index.htm">再次檢查</a><br/><br/>
+						</td>
+					</tr>
+					<tr style="display:none" id="flash_detail">
+						<td width="20"></td>
+						<td>
+							請使用Flash播放器 7.0 或以上版本去使用此學習系統。<br/>請<a href="../install_flash_player_ax.exe" target="_blank">下載Flash播放器</a>并安裝。
+							<br/><br/><a href="index.htm">再次檢查</a><br/><br/>
+						</td>
+					</tr>
+					<!-- jre -->
+					<tr style="display:none" id="jre_detail">
+						<td width="20"></td>
+						<td>
+							<a name="javaplugin_install">安裝Java插件
+							    <ol type="a">
+							    <li>首先，檢查是否已經安裝Java插件：
+							        <ol type="i">
+							        <li>打開瀏覽器的 工具 &gt; 網際網路選項 &gt; 進階</li>
+							        <li>檢查 "Java (Sun)" 部分是否存在，如下圖<br><img src="05.gif"></li>
+							        <li>如果 "Java (Sun)" 部分不存在，請根據下面步驟 <b><i>b.</i></b> 安裝Java插件</li>
+							        <li>如果 "Java (Sun)" 部分下面的選項沒有如上圖所示被選上，請選上該選項並重新啓動瀏覽器。再次進入學習系統，檢查是否需要更新Java插件</li>
+							        </ol>
+							    </li>
+							    <li>如果沒有Java插件，請根據以下步驟安裝：<br><i>（請注意，你必須擁有作業系統的管理員許可權才能進行安裝）</i>
+							        <ol type="i">
+							        <li><a href="../jre-1_5_0_02-windows-i586-p.exe">下載Java插件(15.2MB)</a></li>
+							        <li>安裝Java插件</li>
+							        <li>重新啓動瀏覽器並進入學習系統</li>
+							        </ol>
+							    </li>
+							    </ol>
+							<br/><a href="index.htm">再次檢查</a><br/><br/>
+							<a name="javaplugin_update">更新Java插件<br>如果使用的是舊版本的Java插件，請根據以下步驟更新：<br><i>（請注意，你必須擁有作業系統的管理員許可權才能進行安裝）</i>
+							    <ol type="a">
+							    <li><a href="../jre-1_5_0_02-windows-i586-p.exe">下載新的Java插件(15.2MB)</a></li>
+							    <li>打開 控制台 &gt; 新增或移除程式，移除程式 "Java 2 Runtime Environment" 或者 "J2SE Runtime Environment"</li>
+							    <li>安裝新的Java插件</li>
+							    <li>重新啓動瀏覽器並進入學習系統</li>
+							    </ol>
+							<br/><a href="index.htm">再次檢查</a><br/><br/>
+						</td>
+					</tr>
+				</table>
+				</br>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
