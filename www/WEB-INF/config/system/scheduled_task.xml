@@ -222,7 +222,7 @@ param>            <name>end_date</name>            <value>2008-01-01</value>    
     <task enabled="true">
     <class_name>com.cwn.wizbank.scheduled.CpdOutstandingHoursEmailScheduler</class_name>
         <schedule>
-            <start_time hour="03" minute="00"/>
+            <start_time hour="10" minute="00"/>
         </schedule>
     </task>
 </scheduled_task>
